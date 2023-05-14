@@ -4,10 +4,9 @@ library(ggplot2)
 
 udmodel <- udpipe_download_model(language = "english")
 
-x1 <- udpipe(x = "Competitive intelligence (CI) is the process and forward-looki
-                ng practices used in producing knowledge
-                about the competitive environment to improve organizational
-                performance.", object = udmodel)
+list_of_files <- list.files(path = "C:/Users/Pavilion/Downloads/Pisa/SCI/AI_patents_2020_2021_claim/",
+                            pattern = "\\.txt$",
+                            full.names = TRUE)
 str(x1)
 
 x <- 12
