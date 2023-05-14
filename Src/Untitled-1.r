@@ -1,17 +1,4 @@
-#asdasdasd
 x <- 12
 y <- 10
-z <- x+y
+z <- x + y
 print(z)
-
-x
-x
-x
-x
-x
-x
-x
-x
-x
-x
-x
