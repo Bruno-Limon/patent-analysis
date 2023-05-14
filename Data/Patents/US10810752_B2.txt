@@ -1,0 +1,59 @@
+<document>
+
+<filing_date>
+2020-04-29
+</filing_date>
+
+<publication_date>
+2020-10-20
+</publication_date>
+
+<priority_date>
+2017-11-15
+</priority_date>
+
+<ipc_classes>
+G06K9/36,G06N3/04,G06N3/08,G06T7/285,G06T7/579
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+ANGELOVA, ANELIA
+MAHJOURIAN, REZA
+WICKE, MARTIN
+</inventors>
+
+<docdb_family_id>
+64572602
+</docdb_family_id>
+
+<title>
+Unsupervised learning of image depth and ego-motion prediction neural networks
+</title>
+
+<abstract>
+A system includes a neural network implemented by one or more computers, in which the neural network includes an image depth prediction neural network and a camera motion estimation neural network. The neural network is configured to receive a sequence of images. The neural network is configured to process each image in the sequence of images using the image depth prediction neural network to generate, for each image, a respective depth output that characterizes a depth of the image, and to process a subset of images in the sequence of images using the camera motion estimation neural network to generate a camera motion output that characterizes the motion of a camera between the images in the subset. The image depth prediction neural network and the camera motion estimation neural network have been jointly trained using an unsupervised learning technique.
+</abstract>
+
+<claims>
+1. A method for training a neural network comprising an image depth prediction neural network and a camera motion estimation neural network, the method comprising: obtaining training data comprising a sequence of images; and for each particular image in the sequence of images: processing the particular image using the image depth prediction neural network to generate a first depth estimate that characterizes a first depth of the particular image, processing a second image following the particular image in the sequence of images using the image depth prediction neural network to generate a second depth estimate that characterizes a second depth of the second image, processing the particular image and the second image using the camera motion estimation neural network to generate a first transformation matrix that transforms a position and orientation of a camera from its point of view while taking the particular image to its point of view while taking the second image, and backpropagating an estimate of a gradient of a loss function to jointly adjust current values of parameters of the image depth prediction neural network and the camera motion estimation neural network based on the first depth estimate, the second depth estimate, and the first transformation matrix.
+2. The method of claim 1, wherein the loss function comprises a 3D-based point cloud alignment loss component that minimizes point-to-point distances between two point clouds generated from the particular image and the second image.
+3. The method of claim 2, wherein backpropagating the estimate of the gradient of the loss function comprises: computing the 3D-based point cloud alignment loss component by repeatedly estimating a best-fit transformation that minimizes the point-to-point distances between points in a first point cloud and their corresponding points in a second point cloud.
+4. The method of claim 1, wherein the loss function comprises an image reconstruction loss component that maintains photometric consistency of (i) the particular image and a first reconstructed image generated from the second image, and (ii) the second image and a second reconstructed image generated from the particular image.
+5. The method of claim 4, wherein backpropagating the estimate of the gradient of the loss function comprises: computing the image reconstruction loss component by (i) analytically computing a validity mask that indicates valid pixel coordinates in the first reconstructed image based on the first depth estimate and the first transformation matrix, and (ii) analytically computing a second validity mask that indicates valid pixel coordinates in the second reconstructed image based on the second depth estimate and an inverse of the first transformation matrix.
+6. The method of claim 4, wherein the loss function comprises a structured similarity loss component that maintains (i) a similarity of patches in the particular image and the first reconstructed image, and (ii) a similarity of patches in the second image and the second reconstructed image.
+7. The method of claim 1, wherein the loss function further comprises a depth smoothness loss component that allows for (i) sharp changes in the first depth estimate at pixel coordinates where there are sharp changes in the particular image, and (ii) sharp changes in the second depth estimate at pixel coordinates where there are sharp changes in the second image.
+8. The method of claim 1, wherein the loss function is a weighted combination of respective components of the loss function.
+9. The method of claim 1, further comprising adjusting the current values of the parameters of the image depth prediction neural network and the camera motion estimation neural network using mini-batch stochastic optimization.
+10. The method of claim 1, further comprising adjusting the current values of the parameters of the image depth prediction neural network and the camera motion estimation neural network using stochastic gradient optimization.
+11. The method of claim 1, wherein the sequence of images are frames of a video captured by the camera.
+12. The method of claim 1, wherein the second image immediately follows the particular image in the sequence of images.
+13. The method of claim 1, wherein the first depth estimate comprises an estimated depth value for each pixel of a plurality of pixels in the particular image that represents a respective distance of a scene depicted at the pixel from a focal plane of the particular image.
+14. The method of claim 1, wherein the second depth estimate comprises an estimated depth value for each pixel of a plurality of pixels in the second image that represents a respective distance of a scene depicted at the pixel from a focal plane of the second image.
+15. One or more non-transitory computer-readable storage media storing instructions that when executed by one or more computers cause the one or more computers to perform operations for training a neural network comprising an image depth prediction neural network and a camera motion estimation neural network, the operations comprising: obtaining training data comprising a sequence of images; and for each particular image in the sequence of images: processing the particular image using the image depth prediction neural network to generate a first depth estimate that characterizes a first depth of the particular image, processing a second image following the particular image in the sequence of images using the image depth prediction neural network to generate a second depth estimate that characterizes a second depth of the second image, processing the particular image and the second image using the camera motion estimation neural network to generate a first transformation matrix that transforms a position and orientation of a camera from its point of view while taking the particular image to its point of view while taking the second image, and backpropagating an estimate of a gradient of a loss function to jointly adjust current values of parameters of the image depth prediction neural network and the camera motion estimation neural network based on the first depth estimate, the second depth estimate, and the first transformation matrix.
+16. A system comprising: one or more computers; and one or more non-transitory computer-readable storage media storing instructions that when executed by the one or more computers cause the one or more computers to perform operations for training a neural network comprising an image depth prediction neural network and a camera motion estimation neural network, the operations comprising: obtaining training data comprising a sequence of images; and for each particular image in the sequence of images: processing the particular image using the image depth prediction neural network to generate a first depth estimate that characterizes a first depth of the particular image, processing a second image following the particular image in the sequence of images using the image depth prediction neural network to generate a second depth estimate that characterizes a second depth of the second image, processing the particular image and the second image using the camera motion estimation neural network to generate a first transformation matrix that transforms a position and orientation of a camera from its point of view while taking the particular image to its point of view while taking the second image, and backpropagating an estimate of a gradient of a loss function to jointly adjust current values of parameters of the image depth prediction neural network and the camera motion estimation neural network based on the first depth estimate, the second depth estimate, and the first transformation matrix.
+</claims>
+</document>

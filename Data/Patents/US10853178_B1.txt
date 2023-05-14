@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2018-05-18
+</filing_date>
+
+<publication_date>
+2020-12-01
+</publication_date>
+
+<priority_date>
+2018-05-18
+</priority_date>
+
+<ipc_classes>
+G06F11/14,G06F9/48,G06F9/50,G06N20/00,G06N5/04
+</ipc_classes>
+
+<assignee>
+AMAZON TECHNOLOGIES
+</assignee>
+
+<inventors>
+KUO, CALVIN YUE-REN
+PAN, CHENG
+TARN, JEFFREY
+</inventors>
+
+<docdb_family_id>
+73554735
+</docdb_family_id>
+
+<title>
+Code function checkpoint and restore
+</title>
+
+<abstract>
+Technology is described for a checkpoint service for code function checkpoints associated with instances of code functions executed by a computing hub in a local area network. Subsequent to the execution of a code function being suspended by the computing hub, the computing hub may generate a code function checkpoint describing the execution of the code function. The computing hub may persist the code function checkpoint to storage using a checkpoint service. The computing hub may create the code function checkpoint in response to monitoring metrics associated with the computing hub, such as processor overutilization. The computing hub may resume the execution of the code function at a later time using the code function checkpoint retrieved from the checkpoint service.
+</abstract>
+
+<claims>
+1. A system, comprising: at least one processor; and at least one memory device including instructions that, when executed by the at least one processor, cause the system to: receive, at a computing hub included in a local network having a set of connected devices which connect to the computing hub to access services provided by the computing hub, an instruction to execute an instance of a code function, wherein the code function is to be instantiated in a container hosted by the computing hub in the local network; monitor a set of metrics associated with the computing hub during execution of the instance of the code function; generate a code function checkpoint describing the execution of the instance of the code function based at least in part on analyzing the set of metrics, wherein the code function checkpoint includes at least a processor context of a processor of the computing hub utilized during the execution of the code function and a memory image of one or more memory pages of a memory of the computing hub utilized during the execution of the code function; store the code function checkpoint, using a checkpoint service to enable retrieval and distribution of the code function checkpoint in the local network; and run the instance of the code function based at least in part on the processor context and the memory image included in the code function checkpoint retrieved by the checkpoint service.
+2. The system as in claim 1 wherein the memory device includes instructions that, when executed by the at least one processor, cause the system to further generate the code function checkpoint using at least one of: data stored in a storage device of the computing hub utilized during the execution of the code function or metadata associated with the execution of the instance of the code function.
+3. The system as in claim 1 wherein the memory device includes instructions that, when executed by the at least one processor, cause the system to further store the code function checkpoint by the checkpoint service using at least one of: a local storage device or a remote storage device.
+4. The system as in claim 1, wherein the memory device includes instructions that, when executed by the at least one processor, cause the system to further: retrieve the code function checkpoint from the checkpoint service based at least in part on analyzing the set of metrics; configure the processor of the computing hub using the processor context of the code function checkpoint; and configure the memory of the computing hub using the memory image of the code function checkpoint; and send an instruction to execute the instance of the code function.
+5. The system as in claim 1 wherein the memory device includes instructions that, when executed by the at least one processor, cause the system to further: determine whether to suspend the execution of the instance of the code function in response to analyzing the set of metrics; and send an instruction to generate the code function checkpoint when the set of metrics satisfy one or more rules defining creation of the code function checkpoint.
+6. A method, comprising: receiving an instruction to execute an instance of a code function on a computing hub included in a local environment having a set of connected devices which connect to the computing hub to access services provided by the computing hub, wherein the code function is to be instantiated in a container hosted by the computing hub in the local environment; generating, by the computing hub, a code function checkpoint describing execution of the instance of the code function on the computing hub in response to monitoring the computing hub during the execution of the instance of the code function, wherein the code function checkpoint includes at least execution instructions and execution state for the instance of the code function; storing the code function checkpoint using a checkpoint service to enable retrieval and distribution of the code function checkpoint; and running the instance of the code function based at least in part on the execution instructions and the execution state included in the code function checkpoint retrieved by the checkpoint service.
+7. The method of claim 6 wherein generating the code function checkpoint further comprises: constructing a processor context for a processor of the computing hub utilized by the execution of the instance of the code function; capturing a memory image of a memory device of the computing hub utilized by the execution of the instance of the code function; retrieving data from a storage device of the computing hub utilized by the execution of the instance of the code function; and generating a plurality of files based at least in part on the processor context, the memory image, and the data.
+8. The method of claim 6 wherein running the instance of the code function further comprises configuring at least one of: a processor using a processor context included in the code function checkpoint, a memory device using one or more memory pages of a memory image included in the code function checkpoint, a storage device using data included in the code function checkpoint, or an operating system or application using metadata included in the code function checkpoint.
+9. The method of claim 6 further comprising storing the code function checkpoint by the checkpoint service using at least one of: a local storage service of the computing hub, a storage service accessible to the computing hub over a local area network (LAN), or a storage service hosted by a service provider environment accessible to the computing hub over the Internet.
+10. The method of claim 6 further comprising: monitoring the execution of the instance of the code function; determining whether the execution of the instance of the code function enters a predetermined state of execution; and triggering the computing hub to generate the code function checkpoint in response to the execution of the code function entering the predetermined state of execution.
+11. The method of claim 6 further comprising: determining whether a time during the execution of the code function satisfies a checkpoint schedule for long-lived code functions; and instructing the computing hub to generate the code function checkpoint in response to the time during the execution of the code function satisfying the checkpoint schedule.
+12. The method of claim 6 wherein further comprising: monitoring usage of one or more resources of the computing hub; determining whether usage of a resource of the computing hub satisfies a condition; and instructing the computing hub to generate the code function checkpoint in response to the usage of the resource satisfying the condition.
+13. A non-transitory machine readable medium including instructions embodied thereon, the instructions when executed cause one or more processors to perform processing, comprising: monitoring a set of metrics associated with a computing hub included in a local environment having a set of connected devices which connect to the computing hub to access the computing hub; determining whether to create a code function checkpoint of an instance of a code function running on the computing hub in response to analyzing the set of metrics, wherein the code function is instantiated in a container hosted by the computing hub in the local environment; sending a first instruction to the computing hub to create a code function checkpoint having at least execution instructions and execution state for the instance of the code function running on the computing hub, wherein the first instruction causes the computing hub to store the code function checkpoint using a checkpoint service providing retrieval and distribution of code functions and associated code function checkpoints; determining whether to resume execution of the instance of the code function on the computing hub in response to analyzing the set of metrics; and sending a second instruction to the computing hub, the second instruction specifying to run the instance of the code function based at least in part on the code function checkpoint, wherein the second instruction causes the computing hub to retrieve the code function checkpoint using the checkpoint service.
+14. The non-transitory machine readable medium of claim 13 further comprising sending the first instruction in response to determining that the execution of the instance of the code function on the computing hub entered a predetermined state of execution.
+15. The non-transitory machine readable medium of claim 13 further comprising sending the first instruction in response to determining that a time during the execution of the instance of the code function on the computing hub satisfies a checkpoint schedule for long-lived code functions.
+16. The non-transitory machine readable medium of claim 13 further comprising sending the first instruction in response to determining that utilization of one or more resources of the computing hub satisfies a usage threshold.
+17. The non-transitory machine readable medium of claim 13 further comprising sending the first instruction to suspend the execution of the instance of the code function on the computing hub.
+18. The non-transitory machine readable medium of claim 13 further comprising: determining that the set of metrics associated with the computing hub satisfies a condition for resuming execution of the code function; and generating the second instruction in response to the condition being met.
+19. The non-transitory machine readable medium of claim 13 further comprising: determining that the set of metrics associated with the computing hub satisfies one or more rules defining when to resume execution of the code function; and generating the second instruction in response to the one or more rules being satisfied.
+20. The non-transitory machine readable medium of claim 13 further comprising: training a machine learning model for adaptive checkpoint and restore using the set of metrics associated with the computing hub; and generating the second instruction in response to a prediction made by the machine learning model.
+</claims>
+</document>

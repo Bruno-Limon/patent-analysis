@@ -1,0 +1,166 @@
+<document>
+
+<filing_date>
+2019-08-28
+</filing_date>
+
+<publication_date>
+2020-03-05
+</publication_date>
+
+<priority_date>
+2018-08-30
+</priority_date>
+
+<ipc_classes>
+H04L12/26,H04L29/06
+</ipc_classes>
+
+<assignee>
+STREAMWORX.AI
+</assignee>
+
+<inventors>
+LEON-GARCIA, ALBERTO
+BANNAZADEH, HADI
+</inventors>
+
+<docdb_family_id>
+69640425
+</docdb_family_id>
+
+<title>
+SYSTEMS, METHODS AND COMPUTER PROGRAM PRODUCTS FOR SCALABLE, LOW-LATENCY PROCESSING OF STREAMING DATA
+</title>
+
+<abstract>
+A system for processing streaming data includes a data collection input coupled to at least one incoming data stream; a plurality of data processing sub-units operable to receive an input data stream, modify data in the input data stream, and output an outgoing data stream that includes the modified data; a plurality of operators connecting the data collection input, the plurality of data processing sub-units, and at least one data output unit in a directed acyclic graph in which data flows from the data collection input through the plurality of data processing sub-units to the at least one data output unit. At least some data processing units are directly connected to a sub-unit input operator that transmits data using the User Datagram Protocol (UDP) and at least some data processing units are directly connected to a sub-unit output operator that receives data using UDP.
+</abstract>
+
+<claims>
+We claim:
+1. A system for processing streaming data comprising:
+a) a data collection input coupled to at least one incoming data stream;
+b) a plurality of data processing sub-units, wherein each data processing sub-unit has a data input and a data output, and each data processing sub-unit is operable to receive an input data stream at the data input, modify data in the input data stream, and output an outgoing data stream that includes the modified data via the data output;
+c) a plurality of operators connecting the data collection input, the plurality of data processing sub-units, and at least one data output unit in a directed acyclic graph in which data flows from the data collection input through the plurality of data processing sub-units to the at least one data output unit;
+d) wherein, for at least some first data processing units, the data input of each data processing sub-unit in the at least some first data processing units is directly connected to a sub-unit input operator that transmits data using the User Datagram Protocol (UDP) and for at least some second data processing units the data output of each data processing sub-unit in the at least some second data processing units is directly connected to a sub-unit output operator that receives data using UDP.
+2. The system of claim 1 , further comprising a system manager coupled to the plurality of data processing sub-units;
+wherein
+a) each data processing sub-unit includes a data buffer coupled to the data input; and
+b) the system manager is configured to;
+i) monitor buffer usage of each data buffer;
+ii) determine that buffer usage for a particular data buffer has reached a usage threshold; and iii) modify the acyclic graph to reduce the buffer usage of the particular data buffer in response to the buffer usage reaching the usage threshold.
+3. The system of any one of claims 1 and 2, wherein the plurality of data processing sub-units comprises at least one plurality of parallel sub-unit instances, each plurality of parallel sub-unit instances including at least two data processing sub-units each of which are operable to modify the data in the input data stream in the same manner and each data processing sub-unit in the at least two data processing sub-units is connected to the same preceding data processing sub-unit in the directed acyclic graph.
+4. The system of claim 3, wherein the data output of the preceding data processing sub-unit is connected to an output duplicating operator that duplicates the outgoing data stream of the preceding data processing sub-unit using UDP multicast.
+5. The system of claim 3, wherein the data output of the preceding data processing sub-unit is connected to a distributive operator that distributes the outgoing data stream of the preceding data processing sub-unit amongst the at least two data processing sub-units.
+6. The system of any one of claims 1 to 5 further comprising a system manager coupled to the at least one data output unit, the plurality of data processing sub-units and the plurality of operators, wherein the system manager is configured to:
+a) receive a processing request from the at least one data output unit; b) determine whether the directed acyclic graph is configured to satisfy the processing request; and
+c) upon determining that the directed acyclic graph is not configured to satisfy the processing request, modify the directed acyclic graph to enable the directed acyclic graph to satisfy the processing request.
+7. The system of claim 6, wherein the system manager is configured to modify the directed acyclic graph while the system is operational.
+8. The system of any one of claims 6 and 7, wherein modifying the directed acyclic graph comprises inserting at least one additional instance of one of the data processing sub-units into the directed acyclic graph.
+9. The system of any one of claims 6 to 8, wherein modifying the directed acyclic graph comprises inserting at least one new data processing sub-unit into the directed acyclic graph.
+10. The system of any one of claims 6 to 9, wherein modifying the directed acyclic graph comprises modifying at least one of the operators positioned between the plurality of data processing sub-units.
+1 1. The system of any one of claims 1 to 10, further comprising a system manager coupled to the at least one data output unit, the plurality of data processing sub-units and the plurality of operators, wherein the system manager is configured to limit the volume of data received at the data collection input from the at least one incoming data stream data that is transmitted to the directed acyclic graph.
+12. The system of claim 1 1 , wherein the system manager is further configured to: a) monitor the throughput of each of the data processing sub-units; and b) adjust the volume of data that is transmitted to the directed acyclic graph based on the monitored throughput.
+13. The system of any one of claims 1 to 12, further comprising a system manager coupled to the at least one data output unit, the plurality of data processing sub-units and the plurality of operators, wherein the system manager is configured to:
+a) monitor the performance of each of the data processing sub-units; b) identify a performance deficiency in the monitored performance of at least one of the data processing sub-units; and
+c) modify the directed acyclic graph in response to the identified performance deficiency.
+14. The system of any one of claims 1 to 13, wherein:
+a) the directed acyclic graph is defined as a plurality of data processing segments; wherein
+each data processing segment comprises a sequence input operator, a data processing sequence that includes one or more data processing sub-units directly connected in sequence, and a sequence output operator; and
+an upstream end of the data processing sequence is connected to the sequence input operator and a downstream end of the data processing sequence is connected to the sequence output operator.
+15. The system of claim 14, further comprising a particular plurality of parallel data processing segments, wherein each parallel data processing segment in the particular plurality of parallel data processing segments includes an instance of the same sequence input operator, an instance of the same data processing sequence, and an instance of the same sequence output operator.
+16. The system of any one of claims 1 to 15, wherein the at least one data output unit comprises at least one of a data analysis application and a real-time storage application.
+17. A method for processing streaming data comprising:
+a) receiving at least one incoming data stream;
+b) modifying the data in the incoming data stream using a plurality of data processing sub-units, wherein each data processing sub-unit is operable to receive an input data stream, modify data in the input data stream, and output an outgoing data stream that includes the modified data;
+c) routing the data from the incoming data stream through a directed acyclic graph to at least one data output unit, wherein the directed acyclic graph includes the plurality of data processing sub-units and a plurality of operators connecting the data collection input, the plurality of data processing sub-units, and the at least one data output unit, and the operators are operable to route the data through the directed acyclic graph;
+wherein routing the data through the incoming data stream comprises, for at least some first data processing units, transmitting data to each data processing sub-unit in the at least some first data processing units using the User Datagram Protocol (UDP) and for at least some second data processing units transmitting data from each data processing sub-unit in the at least some second data processing units using UDP.
+18. The method of claim 17, further comprising:
+a) buffering the input data received at each of the data processing sub-units using a corresponding data buffer;
+b) monitoring the buffer usage of each data buffer;
+c) determining that buffer usage for a particular data buffer has reached a usage threshold; and
+d) modifying the acyclic graph to reduce the buffer usage of the particular data buffer in response to the buffer usage reaching the usage threshold.
+19. The method of any one of claims 17 and 18, wherein routing the data through the directed acyclic graph comprises, for at least one data processing sub-unit, duplicating the outgoing data stream using UDP multicast and transmitting the duplicated outgoing data stream to a plurality of parallel sub-unit instances, wherein each sub-unit instances in the plurality of parallel sub-unit instances modifies the data in the outgoing data stream in the same manner.
+20. The method of any one of claims 17 to 19, wherein routing the data through the directed acyclic graph comprises, for at least one data processing sub-unit, distributing the outgoing data stream amongst a plurality of parallel sub-unit instances, wherein each sub-unit instances in the plurality of parallel sub-unit instances modifies the data in the outgoing data stream in the same manner.
+21 The method of any one of claims 17 to 20, further comprising:
+a) receiving a processing request from the at least one data output unit; b) determining that the directed acyclic graph is not configured to satisfy the processing request; and
+c) upon determining that the directed acyclic graph is not configured to satisfy the processing request, modifying the directed acyclic graph to enable the directed acyclic graph to satisfy the processing request.
+22. The method of claim 21 , wherein the directed acyclic graph is modified while data is being routed through the directed acyclic graph.
+23. The method of any one of claims 21 and 22, wherein modifying the directed acyclic graph comprises inserting at least one additional instance of one of the data processing sub-units into the directed acyclic graph.
+24. The method of any one of claims 21 to 23, wherein modifying the directed acyclic graph comprises inserting at least one new data processing sub-unit into the directed acyclic graph.
+25. The method of any one of claims 21 to 24, wherein modifying the directed acyclic graph comprises modifying the at least one of the operators positioned between the plurality of data processing sub-units.
+26. The method of any one of claims 21 to 25, further comprising limiting a volume of data received at the data collection input from the at least one incoming data stream data that is transmitted to the directed acyclic graph.
+27. The method of claim 26, further comprising:
+a) monitoring the throughput of each of the data processing sub-units; and
+b) adjusting the volume of data that is transmitted to the directed acyclic graph based on the monitored throughput.
+28. The method of any one of claims 17 to 27, further comprising:
+a) monitoring the performance of each of the data processing sub-units; b) identifying a performance deficiency in the monitored performance of at least one of the data processing sub-units; and
+c) modifying the directed acyclic graph in response to the identified performance deficiency.
+29. The method of any one of claims 17 to 28, wherein the at least one data output unit comprises at least one of a data analysis application and a real-time storage application.
+30. A computer program product comprising a non-transitory computer-readable medium having computer-executable instructions stored therein, the computerexecutable instructions being executable by one or more processors to configure the processors to perform a method for processing data, wherein the method comprises: a) receiving at least one incoming data stream;
+b) modifying the data in the incoming data stream using a plurality of data processing sub-units, wherein each data processing sub-unit is operable to receive an input data stream, modify data in the input data stream, and output an outgoing data stream that includes the modified data;
+c) routing the data from the incoming data stream through a directed acyclic graph to at least one data output unit, wherein the directed acyclic graph includes the plurality of data processing sub-units and a plurality of operators connecting the data collection input, the plurality of data processing sub-units, and the at least one data output unit, and the operators are operable to route the data through the directed acyclic graph;
+wherein routing the data through the incoming data stream comprises, for at least some first data processing units, transmitting data to each data processing sub-unit in the at least some first data processing units using the User Datagram Protocol (UDP) and for at least some second data processing units transmitting data from each data processing sub-unit in the at least some second data processing units using UDP.
+31. The computer program product of claim 30, further comprising instructions executable by the one or more processors to configure the processors to perform the method of any one of claims 18 to 29. 32. A system for processing network flow monitoring data comprising:
+a) a data collection input coupled to at least one incoming data stream of network monitoring messages;
+b) a load balancing operator coupled to the data collection input, the load balancing operator operable to distribute the network monitoring messages amongst a plurality of downstream processing units;
+c) a plurality of collector processing sub-units coupled to the load balancing operator downstream from the load balancing operator, each collector processing sub-unit operable to generate network flow records from the received network monitoring messages, wherein the network flow records are generated in a first format;
+d) a plurality of parser sub-units coupled to the plurality of collector processing sub-units, each parser sub-unit operable to receive the network flow records from one of the collector processing sub-units and to generate parsed network flow records by converting the received network flow records from the first format to a second format; and e) a combiner operator coupled to the plurality of parser sub-units, wherein the combiner operator is operable to combine the parsed network flow records from the plurality of parser sub-units into a synchronous output data stream.
+33 The system of claim 32, wherein the load balancer operator is configured to transmit the network monitoring messages to the plurality of collector processing sub-units using the User Datagram Protocol (UDP).
+34. The system of any one of claims 32 and 33, wherein each collector processing sub-unit is configured to generate the network flow records in a JavaScript Object Notation format.
+35. The system of any one of claims 32 to 34, wherein each collector processing sub-unit is configured to transmit the network flow records to the corresponding parser sub-unit using the Transmission Control Protocol (TCP).
+36. The system of any one of claims 32 to 35, wherein each parser sub-unit is configured to generate the parsed network flow records in a CSV file format.
+37. The system of any one of claims 32 to 36, wherein each parser sub-unit is configured to transmit the parsed network flow records using the User Datagram
+Protocol (UDP).
+38. The system of any one of claims 32 to 37, further comprising:
+a) at least one stream enrichment processing sub-unit coupled downstream from the combiner operator, each stream enrichment processing subunit operable to generate enriched network flow records by inserting enrichment data into the parsed network flow records.
+39. The system of claim 38, wherein the at least one stream enrichment processing sub-unit comprises a plurality of stream enrichment processing sub-units in parallel, and the system further comprises:
+a) a switching operator coupling the plurality of stream enrichment processing sub-units to the combiner operator, the switching operator operable to direct the parsed network flow records to a subset of the stream enrichment sub-units in the plurality of stream enrichment subunits.
+40. The system of claim 39, wherein:
+a) the plurality of stream enrichment processing sub-units comprises a first subset of stream enrichment sub-units and a second subset of stream enrichment sub-units, wherein the first subset of stream enrichment sub-units corresponds to a first set of enrichment data and the second subset of stream enrichment sub-units corresponds to a different set of enrichment data; and
+b) the switching operator is operable to selectively direct the parsed network flow records to the stream enrichment processing sub-units in one of the first subset and the second subset while the stream enrichment processing sub-units are operational.
+41 The system of any one of claims 38 to 40, further comprising:
+a) a stream output operator coupled to the at least one stream enrichment processing sub-unit, the stream output operator configured to output the enriched network flow records using the User Datagram Protocol (UDP).
+42. The system of any one of claims 32 to 41 , further comprising:
+a) a duplicator operator coupled downstream from the combiner operator, the duplicator operator configured to duplicate the received network flow records; and b) a plurality of feature extraction processing sub-units coupled to the duplicator operator, each feature extraction processing sub-unit operable to derive one or more network flow characteristics from the duplicated network flow records.
+43. The system of claim 42, further comprising:
+a) a plurality of conditional operators coupled between the duplicator and the plurality of feature extraction processing sub-units, wherein each conditional operator is operable to selectively direct the network flow records between the plurality of feature extraction processing sub-units by determining that the network flow record has a characteristic corresponding to the selected feature extraction processing sub-unit.
+44. The system of any one of claims 42 and 43, further comprising:
+a) a filter operator coupled upstream from the duplicator, wherein the filter operator is operable to transmit network flow records having a defined set of characteristics to the duplicator and to prevent network flow records that do not have the defined set of characteristics from being transmitted to the duplicator.
+45. The system of any one of claims 32 to 44, further comprising at least one data output unit coupled downstream of the combiner operator, wherein the at least one data output unit comprises at least one of a data analysis application and a real-time storage application.
+46. A method of processing network flow monitoring data, the method comprising:
+a) receiving at least one incoming data stream of network monitoring messages;
+b) distributing the network monitoring messages amongst a plurality of downstream processing units;
+c) generating, by a plurality of collector processing sub-units in the plurality of downstream processing units, network flow records from the received network monitoring messages, wherein the network flow records are generated in a first format; d) transmitting the network flow records to a plurality of parser processing sub-units downstream from the collector processing sub-units;
+e) generating, by the plurality of parser processing sub-units, parsed network flow records by converting the received network flow records from the first format to a second format; and
+f) combining the parsed network flow records from the plurality of parser sub-units into a synchronous output data stream.
+47. The method of claim 46, wherein the network monitoring messages are distributed amongst the plurality of collector processing sub-units using the User Datagram Protocol (UDP).
+48. The method of any one of claims 46 and 47, wherein the network flow records are generated in a JavaScript Object Notation format.
+49. The method of any one of claims 46 to 48, wherein the network flow records are transmitted to the plurality of parser processing sub-units using the Transmission Control Protocol (TCP).
+50. The method of any one of claims 46 to 49, wherein the parsed network flow records are generated in a CSV file format.
+51. The method of any one of claims 46 to 50, wherein the parsed network flow records are output from the parser processing sub-units using the User Datagram Protocol (UDP).
+52. The method of any one of claims 46 to 51 , further comprising generating enriched network flow records by inserting enrichment data into the parsed network flow records.
+53. The method of claim 52, wherein a plurality of stream enrichment processing sub-units are coupled in parallel to the synchronous output data stream and the method further comprises:
+a) directing the parsed network flow records to a subset of the stream enrichment sub-units in the plurality of stream enrichment sub-units.
+54. The method of claim 53, wherein the plurality of stream enrichment processing sub-units comprises a first subset of stream enrichment sub-units and a second subset of stream enrichment sub-units, wherein the first subset of stream enrichment sub-units corresponds to a first set of enrichment data and the second subset of stream enrichment sub-units corresponds to a different set of enrichment data, and the method further comprises
+a) selectively directing the parsed network flow records to the stream enrichment processing sub-units in one of the first subset and the second subset while the stream enrichment processing sub-units are operational.
+55. The method of any one of claims 52 to 54, further comprising transmitting the enriched network flow records using the User Datagram Protocol (UDP).
+56. The method of any one of claims 46 to 55, further comprising:
+a) duplicating the network flow records;
+b) transmitting the duplicated network flow records to a plurality of feature extraction processing sub-units; and
+c) deriving, by each feature extraction processing sub-unit, one or more network flow characteristics from the duplicated network flow records.
+57. The method of claim 56, wherein transmitting the duplicated network flow records to the plurality of feature extraction processing sub-units comprises selectively directing each network flow record between the plurality of feature extraction processing sub-units by determining that the network flow record has a characteristic corresponding to the selected feature extraction processing sub-unit.
+58. The method of any one of claims 56 and 57, further comprising:
+a) filtering the network flow records prior to duplication, wherein network flow records having a defined set of characteristics are duplicated and network flow records that do not have the defined set of characteristics are prevented from passing through the filter.
+59. The method of any one of claims 46 to 58, further comprising routing the output data stream to at least one data output unit, wherein the at least one data output unit comprises at least one of a data analysis application and a real-time storage application.
+60. A computer program product comprising a non-transitory computer-readable medium having computer-executable instructions stored therein, the computerexecutable instructions being executable by a processor to configure the processor to perform a method of processing network flow monitoring data, wherein the method comprises:
+a) receiving at least one incoming data stream of network monitoring messages;
+b) distributing the network monitoring messages amongst a plurality of downstream processing units;
+c) generating, by a plurality of collector processing sub-units in the plurality of downstream processing units, network flow records from the received network monitoring messages, wherein the network flow records are generated in a first format;
+d) transmitting the network flow records to a plurality of parser processing sub-units downstream from the collector processing sub-units;
+e) generating, by the plurality of parser processing sub-units, parsed network flow records by converting the received network flow records from the first format to a second format; and
+f) combining the parsed network flow records from the plurality of parser sub-units into a synchronous output data stream.
+61. The computer program product of claim 60, further comprising instructions executable by the one or more processors to configure the processors to perform the method of any one of claims 47 to 59.
+</claims>
+</document>

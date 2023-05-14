@@ -1,0 +1,77 @@
+<document>
+
+<filing_date>
+2019-12-18
+</filing_date>
+
+<publication_date>
+2020-06-25
+</publication_date>
+
+<priority_date>
+2018-12-21
+</priority_date>
+
+<ipc_classes>
+G06K9/00
+</ipc_classes>
+
+<assignee>
+WAYMO
+</assignee>
+
+<inventors>
+LI, CONGCONG
+MAO, JUNHUA
+YU QIAN
+</inventors>
+
+<docdb_family_id>
+69167941
+</docdb_family_id>
+
+<title>
+OBJECT CLASSIFICATION USING EXTRA-REGIONAL CONTEXT
+</title>
+
+<abstract>
+Some aspects of the subject matter disclosed herein include a system implemented on one or more data processing apparatuses. The system can include an interface configured to obtain, from one or more sensor subsystems, sensor data describing an environment of a vehicle, and to generate, using the sensor data, (i) one or more first neural network inputs representing sensor measurements for a particular object in the environment and (ii) a second neural network input representing sensor measurements for at least a portion of the environment that encompasses the particular object and additional portions of the environment that are not represented by the one or more first neural network inputs; and a convolutional neural network configured to process the second neural network input to generate an output, the output including a plurality of feature vectors that each correspond to a different one a plurality of regions of the environment.
+</abstract>
+
+<claims>
+What is claimed is:
+1. A system implemented on one or more data processing apparatuses, comprising: an interface configured to obtain, from one or more sensor subsystems, sensor data describing an environment of a vehicle, and to generate, using the sensor data, (i) one or more first neural network inputs representing sensor measurements for a particular object in the environment and (ii) a second neural network input representing sensor measurements for at least a portion of the environment that encompasses the particular object and additional portions of the environment that are not represented by the one or more first neural network inputs;
+a convolutional neural network configured to process the second neural network input to generate an output, the output including a plurality of feature vectors that each correspond to a different one a plurality of regions of the environment; and
+an object classifier neural network configured to process the one or more first neural network inputs and a first of the plurality of feature vectors to generate a predicted classification for the particular object.
+2. The system of claim 1, wherein the interface is configured to obtain a plurality of channels of sensor data from a plurality of corresponding sensor subsystems, and different ones of the first neural network inputs represent sensor measurements of the particular object from different ones of the plurality of channels of sensor data.
+3. The system of any of claims 1-2, wherein the second neural network input represents a projection of at least the portion of the environment that encompasses the particular object and the additional portions of the environment that are not represented by the one or more first neural network inputs.
+4. The system of claim 3, wherein the projection represented by the second neural network input comprises a projection of a point cloud derived from measurements of a light detection and ranging (LIDAR) sensor subsystem.
+5. The system of any of claims 1-4, wherein the second neural network input represents one or more camera images having a collective field of view of the environment of the vehicle that is wider than a field of view of the environment represented by the one or more first neural network inputs.
+6. The system of any of claims 1-5, wherein the object classifier neural network comprises a plurality of channel encoders and a classification portion, each channel encoder configured to independently process a different one of the first neural network inputs to generate an alternative representation of the sensor measurements represented by the first neural network input, the classification portion configured to process the alternative representations from the plurality of channel encoders and the first of the plurality of feature vectors to generate the object classification.
+7. The system of any of claims 1-6, wherein the vehicle is an autonomous vehicle.
+8. The system of any of claims 1-7, further comprising a planning subsystem configured to process the predicted classification for the particular object and other data to plan a maneuver for the vehicle, wherein the vehicle is configured to perform the maneuver without human control.
+9. The system of any of claims 1-8, wherein the object classifier neural network is configured to determine scores indicating likelihoods of the particular object being at least two of a vehicle, a pedestrian, a cyclist, a motorcyclist, a sign, a background, or an animal.
+10. The system of any of claims 1-9, wherein the first of the plurality of feature vectors that is processed by the object classification neural network along with the one or more first neural network inputs to generate the predicted classification for the particular object is selected from among the plurality of feature vectors based on a correspondence between the first of the plurality of feature vectors and a region of the environment where at least a portion of the particular object is located.
+11. The system of any of claims 1-10, wherein each of the plurality of feature vectors represents information about regions of the environment of the vehicle beyond the particular region that corresponds to the feature vector, and the first feature vector represents information about regions of the environment of the vehicle beyond any region of the environment that encompasses the particular object.
+12. A method implemented by one or more data processing apparatuses, comprising: obtaining, from one or more sensor subsystems, sensor data that describes an environment of a vehicle;
+generating, using the sensor data, (i) one or more first neural network inputs representing sensor measurements for a particular object in the environment and (ii) a second neural network input representing sensor measurements for at least a portion of the environment that encompasses the particular object and additional portions of the environment that are not represented by the one or more first neural network inputs;
+processing, with a convolutional neural network, the second neural network input to generate an output, the output including a plurality of feature vectors that each correspond to a different one a plurality of regions of the environment; and
+processing, with an object classifier neural network, the one or more first neural network inputs and a first of the plurality of feature vectors to generate a predicted classification for the particular object.
+13. The method of claim 12, wherein processing the one or more first neural network inputs and the first of the plurality of feature vectors to generate the predicted classification for the particular object comprises processing, with a plurality of channel encoders of the object classifier neural network, the one or more first neural network inputs to generate one or more alternative representations of the sensor measurements represented by the one or more first neural network inputs.
+14. The method of claim 13, wherein processing the one or more first neural network inputs and the first of the plurality of feature vectors to generate the predicted classification for the particular object further comprises processing, with a classifier portion of the object classification neural network, the one or more alternative representations of the sensor measurements represented by the one or more first neural network inputs and the first of the plurality of feature vectors to generate the predicted classification for the particular object.
+15. The method of any of claims 12-14, further comprising obtaining a plurality of channels of sensor data from a plurality of corresponding sensor subsystems, wherein different ones of the first neural network inputs represent sensor measurements of the particular object from different ones of the plurality of channels of sensor data.
+16. The method of any of claims 12-15, further comprising using the predicted classification for the particular object to plan a maneuver for the vehicle, and performing the maneuver with the vehicle according to the plan.
+17. The method of any of claims 12-16, further comprising selecting the first of the plurality of feature vectors for use in generating the predicted classification for the particular object based on a correspondence between the first of the plurality of feature vectors and a region of the environment where at least a portion of the particular object is located.
+18. The method of any of claims 12-17, wherein each of the plurality of feature vectors represents information about regions of the environment of the vehicle beyond the particular region that corresponds to the feature vector, and the first of the plurality of feature vectors represents information about regions of the environment of the vehicle beyond any region of the environment that encompasses the particular object.
+19. A system, comprising:
+data processing apparatus; and
+one or more computer-readable media encoded with instructions that, when executed by the data processing apparatus, cause performance of operations comprising:
+obtaining, from one or more sensor subsystems, sensor data that describes an environment of a vehicle;
+generating, using the sensor data, (i) one or more first neural network inputs representing sensor measurements for a particular object in the environment and (ii) a second neural network input representing sensor measurements for at least a portion of the environment that encompasses the particular object and additional portions of the environment that are not represented by the one or more first neural network inputs;
+processing, with a convolutional neural network, the second neural network input to generate an output, the output including a plurality of feature vectors that each correspond to a different one a plurality of regions of the environment; and
+processing, with an object classifier neural network, the one or more first neural network inputs and a first of the plurality of feature vectors to generate a predicted classification for the particular object.
+20. The system of claim 19, wherein the output is a context map, and processing the one or more first neural network inputs and the first of the plurality of feature vectors to generate the predicted classification for the particular object comprises:
+processing, with a plurality of channel encoders of the object classifier neural network, the one or more first neural network inputs to generate one or more alternative representations of the sensor measurements represented by the one or more first neural network inputs; and
+processing, with a classifier portion of the object classification neural network, the one or more alternative representations of the sensor measurements represented by the one or more first neural network inputs and the first of the plurality of feature vectors to generate the predicted classification for the particular object.
+</claims>
+</document>

@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2018-10-16
+</filing_date>
+
+<publication_date>
+2020-10-27
+</publication_date>
+
+<priority_date>
+2018-10-16
+</priority_date>
+
+<ipc_classes>
+B60W40/105,B60W50/00,G05D1/00,G05D1/02,G06N20/00,G06N3/08,G06N5/04,H04W4/40
+</ipc_classes>
+
+<assignee>
+UNIVERSITY OF MICHIGAN
+TOYOTA MOTOR ENGINEERING & MANUFACTURING NORTH AMERICA
+</assignee>
+
+<inventors>
+KOLMANOVSKY ILYA V.
+HUANG, MIKE X.
+LIU, KUAN X.
+</inventors>
+
+<docdb_family_id>
+70159818
+</docdb_family_id>
+
+<title>
+Vehicle velocity predictor using neural networks based on V2X data augmentation to enable predictive optimal control of connected and automated vehicles
+</title>
+
+<abstract>
+Some implementations of the disclosure are directed to reducing or removing time lag in vehicle velocity prediction by training a model for vehicle velocity prediction using labeled features that provide indication of a feature associated with a vehicle acceleration or deacceleration event. In one implementation, a method includes: receiving multiple time series datasets, each of the time series datasets including sensor data, GPS data, and vehicle state data collected over time; extracting features from each of the time series datasets that are indicative of a future velocity of a vehicle; labeling the extracted features of each of the time series datasets to indicate vehicle acceleration or deacceleration events; and after labeling the extracted features of each of the time series datasets, using at least a subset of the extracted and labeled time series datasets to train a machine learning model that predicts vehicle velocity some time into the future.
+</abstract>
+
+<claims>
+1. A method, comprising: receiving a plurality of time series datasets, each of the plurality of time series datasets comprising sensor data, global positioning system (GPS) data, and vehicle state data collected over time during a vehicle trip; extracting features from each of the plurality of time series datasets that are indicative of a future velocity of a vehicle, the extracted features comprising the sensor data, the GPS and the vehicle state data; creating a time series vector comprising a plurality of values corresponding to a respective time, or creating a location series vector comprising a plurality of values corresponding to a respective location, wherein each of the plurality of values of the time series or location series indicates one of the following: an acceleration event is present; a deceleration event is present; or no acceleration or deceleration event is present; labeling the extracted features of each of the plurality of time series datasets to indicate the acceleration event or the deceleration event; and after labeling the extracted features of each of the plurality of time series datasets to indicate the acceleration event or the deceleration event, using at least a subset of the extracted and labeled time series datasets to train a machine learning model that predicts vehicle velocity some time into the future.
+2. The method of claim 1, wherein labeling the extracted features of each of the plurality of time series datasets to indicate the acceleration event or the deceleration event, comprises: labeling the extracted features to indicate one or more of the following events: a vehicle beginning its drive, a vehicle ending its drive, a stop sign, a traffic light, a street corner, a highway corner, and a road having a particular radius of curvature.
+3. The method of claim 2, wherein each of the plurality of values of the location series is normalized to 1, 0, or 1.
+4. The method of claim 1, further comprising: after labeling the extracted features of each of the plurality of time series datasets, splitting the extracted and labeled time series datasets into a training dataset and a testing dataset, wherein the extracted and labeled time series datasets of the training dataset are used to train the machine learning model; and after training the machine learning model, testing the trained machine learning model using at least the extracted and labeled time series datasets of the testing dataset, wherein testing the trained machine learning model comprises comparing target vehicle velocities against vehicle velocities predicted by the trained model.
+5. The method of claim 4, wherein testing the machine learning model comprises measuring a time shift between the target vehicle velocities and the vehicle velocities predicted by the trained model.
+6. The method of claim 5, wherein the time shift is measured based on: wherein δ represents a time shift of a predicted vehicle velocity time series, and wherein MAE represents a mean absolute error given by: wherein y1, . . . , yn are vehicle velocities predicted some time into the future n times using the machine learning model, and t1, . . . , tn are measured vehicle velocities corresponding to the times when the vehicle velocities are predicted.
+7. The method of claim 5, wherein the machine learning model trained to predict vehicle velocity some time into the future comprises a nonlinear auto-regressive with external input shallow neural network model.
+8. The method of claim 5, wherein the machine learning model trained to predict vehicle velocity some time into the future comprises a long short-term memory (LSTM) deep neural network model.
+9. The method of claim 8, further comprising: configuring a control unit of a vehicle to use a prediction algorithm corresponding to the trained and tested machine learning model to predict vehicle velocity 1 to 10 seconds into the future while driving.
+10. The method of claim 9, wherein the control unit is configured to receive as inputs to the prediction algorithm: the GPS data collected by a GPS unit of the vehicle; the sensor data of preceding traffic collected by a preceding traffic sensor unit of the vehicle; the vehicle state data collected by one or more vehicle state sensors of the vehicle; and labels providing an indication of an acceleration or deceleration event at a particular time or location.
+11. The method of claim 10, further comprising the control unit of the vehicle extracting from stored map data the labels that are the inputs to the prediction algorithm that provide an indication of the acceleration event or the deceleration event.
+12. The method of claim 10, further comprising the control unit of the vehicle dynamically generating the labels that are the inputs to the prediction algorithm that provide an indication of the acceleration event or the deceleration event.
+13. The method of claim 1, wherein the time series vector cell value equals 1 where a radius of curvature of a road is greater than a predetermined value and 0 otherwise.
+14. A non-transitory computer-readable medium having executable instructions stored thereon that, when executed by a processor, cause the processor to perform operations of: receiving a plurality of time series datasets, each of the plurality of time series datasets comprising sensor data, global positioning system (GPS) data, and vehicle state data collected over time during a vehicle trip; extracting features from each of the plurality of time series datasets that are indicative of a future velocity of a vehicle, the extracted features comprising the sensor data, the GPS and the vehicle state data; creating a time series vector comprising a plurality of values corresponding to a respective time, or creating a location series vector comprising a plurality of values corresponding to a respective location, wherein each of the plurality of values of the time series or location series indicates one of the following: an acceleration event is present; a deceleration event is present; or no acceleration or deceleration event is present; labeling the extracted features of each of the plurality of time series datasets to indicate the acceleration event or the deceleration event; and after labeling the extracted features of each of the plurality of time series datasets to indicate the acceleration event or the deceleration event, using at least a subset of the extracted and labeled time series datasets to train a machine learning model that predicts vehicle velocity some time into the future.
+15. The non-transitory computer-readable medium of claim 14, wherein the instructions, when executed by the processor, further perform operations of: after labeling the extracted features of each of the plurality of time series datasets, splitting the extracted and labeled time series datasets into a training dataset and a testing dataset, wherein the extracted and labeled time series datasets of the training dataset are used to train the machine learning model; and after training the machine learning model, testing the trained machine learning model using at least the extracted and labeled time series datasets of the testing dataset, wherein testing the trained machine learning model comprises comparing target vehicle velocities against vehicle velocities predicted by the trained model, wherein testing the machine learning model comprises measuring a time shift between the target vehicle velocities and the vehicle velocities predicted by the trained model.
+16. The non-transitory computer-readable medium of claim 14, wherein the machine learning model trained to predict vehicle velocity some time into the future comprises a long short-term memory (LSTM) deep neural network model; or a nonlinear auto-regressive with external input shallow neural network model.
+17. A vehicle, comprising: a GPS sensor; a vehicle state sensor; a preceding traffic sensor to collect data of traffic preceding the vehicle; and an electronic control unit to iterate operations of: receiving GPS data generated using the GPS sensor; receiving vehicle state sensor data generated using the vehicle state sensor; receiving preceding traffic data generated using the preceding traffic sensor; obtain labels providing an indication of an acceleration event or deceleration event at a particular time or location; and providing the received GPS data, the received vehicle state sensor data, the received preceding traffic data, and the obtained labels as an input to a vehicle velocity prediction algorithm corresponding to a trained and tested vehicle velocity prediction model, wherein the vehicle velocity prediction algorithm is configured to create a time series vector comprising a plurality of values corresponding to a respective time, or create a location series vector comprising a plurality of values corresponding to a respective location, wherein each of the plurality of values of the time series or location series indicates one of the following: the acceleration event is present; the deceleration event is present; or no acceleration or deceleration event is present; and predicting vehicle velocity some time into the future using the vehicle velocity prediction algorithm.
+18. The vehicle of claim 17, wherein obtaining labels providing an indication of the acceleration event or the deceleration event at the particular time or the location, comprises: the electronic control unit of the vehicle extracting the labels from stored map data; or the electronic control unit of the vehicle dynamically generating the labels.
+</claims>
+</document>

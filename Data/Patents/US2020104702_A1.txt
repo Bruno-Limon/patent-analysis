@@ -1,0 +1,70 @@
+<document>
+
+<filing_date>
+2019-06-17
+</filing_date>
+
+<publication_date>
+2020-04-02
+</publication_date>
+
+<priority_date>
+2018-09-27
+</priority_date>
+
+<ipc_classes>
+G06F16/332,G06N3/08
+</ipc_classes>
+
+<assignee>
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+BELGRAVE, DANIELLE CHARLOTTE MARY
+BUCHAN, IAIN EDWARD
+HERNANDEZ LOBATO, JOSE MIGUEL
+MA, CHAO
+NOWOZIN, REINHARD SEBASTIAN BERNHARD
+PALLA, KONSTANTINA
+PATEL, AMEERA
+THIEME, ANJA
+TSCHIATSCHEK, SEBASTIAN
+ZHANG, CHENG
+</inventors>
+
+<docdb_family_id>
+64109020
+</docdb_family_id>
+
+<title>
+GATHERING DATA IN A COMMUNICATION SYSTEM
+</title>
+
+<abstract>
+A computer-implemented method comprising: outputting questions to a user via one or more user devices, and receiving back responses to some of the questions from the user via one or more user devices; over time, controlling the outputting of the questions so as to output the questions under circumstances of different values for each of one or more items of metadata, wherein the one or more items of metadata comprise one or more physical conditions of the user; monitoring whether or not the user responds when the question is output with the different metadata values; training the machine learning algorithm to learn a value of each of the items of metadata which optimizes a reward function, and based thereon selecting a circumstance when the user is exhibiting a particular physical condition to output subsequent questions.
+</abstract>
+
+<claims>
+1. Computing apparatus comprising one or more processors and storage storing code arranged to run on the one or more processors, wherein the code is configured so as when run to perform operations of: outputting questions to a user via one or more user devices, and receiving back responses to some of the questions from the user via one or more user devices; over time, controlling the outputting of the questions so as to output the questions under circumstances of different values for each of one or more items of metadata, wherein the one or more items of metadata comprise one or more physical conditions of the user; monitoring whether or not the user responds when the question is output with the different metadata values; supplying the metadata values and a corresponding indication of whether the user responded as training inputs to a machine learning algorithm; training the machine learning algorithm to learn a value of each of the one or more items of metadata which optimizes a reward function, and based thereon selecting a circumstance when the user is exhibiting a particular physical condition to output one or more subsequent questions.
+2. The apparatus according to claim 1, wherein said machine learning algorithm comprises a first neural network and a second neural network, wherein said training comprises: inputting a vector comprising input values to the first neural network in order to generate a respective set of first values from each set of input values, each set of first values representing a probability distribution of a respective one of the input values, and each input value corresponding to a different respective combination of question and associated value of the metadata, wherein each input value represents either the user's response to the respective question under circumstances of the respective metadata or the fact that the user did not respond to the respective question under circumstances of the respective metadata; inputting some or all of the one or more sets of first values to the second neural network in order to generate a respective set of second values from each first set input to the second neural network, each set of second values representing a probability distribution of a respective combination of a predicted response to the respective question under circumstances of its associated metadata; supplying the one or more sets of second values to the reward function to perform said optimization, wherein said reward function comprises an expectation of a distance between (a) each respective probability distribution of the predicted responses and associated metadata of the question not responded to by the user, and (b) an overall probability distribution combining the predicted responses to questions and associated metadata of the questions that have been responded to by the user, and wherein said optimization comprises, for a subsequent question to be output to the user, selecting the metadata value that maximizes said distance between a probability distribution of the predicted response to a question with that metadata value.
+3. The apparatus according to claim 2, wherein said selecting comprises selecting both which question is to be the subsequent question and the value of its associated metadata, by selecting a combination of subsequent question and associated metadata value that maximizes said distance.
+4. The apparatus according to claim 2, wherein each input value of the vector input to first neural network is a respective sub-vector of that vector, wherein each sub-vector is generated by inputting the respective input value and a respective identifier of the respective question into a third neural network that performs a symmetric operation on the respective combination of input value and question identifier.
+5. The apparatus according to claim 1, wherein said selecting the circumstance when the user is exhibiting a particular physical condition at which to output the one or more subsequent questions comprises selecting the circumstance when the user is exhibiting a particular physical condition at which to output the question that maximises the reward function.
+6. The apparatus according to claim 1, wherein each question is associated with an estimate of cost to the user, and wherein the next one of the one or more subsequent questions selected to be output to the user is the question that maximises an amount of information content gained per unit cost to the user.
+7. The apparatus according to claim 1, wherein the one or more subsequent questions are output at a rate based on the learned values of each of the one or more items of metadata.
+8. The apparatus according to claim 1, wherein the reward function comprises a measure of responsivity of the user, and wherein optimizing the reward function comprises increasing the measure of responsivity of the user.
+9. The apparatus according to claim 8, wherein the measure of responsivity of the user comprises at least one of: (a) a number of responses from the user per unit time, (b) a number of responses per question asked, and (c) an engagement with the question from the user.
+10. The apparatus according to claim 1, wherein the code is further configured to supply the responses to a scoring algorithm to generate scores predicting a condition of the user based on the responses.
+11. The apparatus according to claim 10, wherein the reward function comprises a measure of prediction quality, and wherein said optimization comprises optimizing a trade-off between the measure of responsivity and the prediction quality based on the generated scores.
+12. The apparatus according to claim 11, wherein the measure of prediction quality comprises on at least one of: a statistical uncertainty or variability in the scores, or a comparison with subsequently obtained empirical information on the condition of the user.
+13. The apparatus according to claim 1, wherein the questions relate to a health condition of the user.
+14. The apparatus according to claim 10, wherein the questions relate to a health condition of the user, and the predicted condition comprises the health condition.
+15. The apparatus according to claim 1, wherein the one or more physical conditions of the user comprise one or more of: a pattern of motion of the user when the questions are asked, an activity being conducted by the user when the questions are asked, a cause which prompted the question to be asked, a sleep pattern of the user around the times the questions are asked, a facial expression of the user when the questions are asked, a change in heart rate when the questions are asked, a change in cadence of speech when responding through a voice interface, a change in intonation when responding through a voice interface, a change in cadence of typing when responding in a chat-bot user interface, and/or a change in sentiment when responding in a chat-bot user interface.
+16. The apparatus according to claim 1, wherein the one or more items of metadata comprise one or more controllable parameters of the questions or a manner in which the questions are output, wherein the one or more controllable parameters comprise one of more of: a frequency at which the questions are asked, a time and/or location at which the questions are asked, how many questions are asked per sitting, which user device is used to ask the questions, whether the questions are output audibly or visually, and/or a type of user interface used to output the questions.
+17. The apparatus according to claim 1, wherein the one or more items of metadata are a plurality of items of metadata, and said training comprises training the machine learning algorithm to learn a combination of the metadata values that optimizes said reward function.
+18. The apparatus according to claim 1, wherein the questions output under circumstances of the different values of a given one of the items of metadata comprise: some repeated instances of the same question, and some different questions.
+19. A computer program embodied on computer-readable storage and configured so as when run one or more processors to perform operations of: outputting questions to a user via one or more user devices, and receiving back responses to some of the questions from the user via one or more user devices; over time, controlling the outputting of the questions so as to output the questions under circumstances of different values for each of one or more items of metadata, wherein the one or more items of metadata comprise one or more physical conditions of the user; monitoring whether or not the user responds when the question is output with the different metadata values; supplying the metadata values and a corresponding indication of whether the user responded as training inputs to a machine learning algorithm; training the machine learning algorithm to learn a value of each of the one or more items of metadata which optimizes a reward function, and based thereon selecting a circumstance when the user is exhibiting a particular physical condition to output one or more subsequent questions.
+20. A computer-implemented method comprising: outputting questions to a user via one or more user devices, and receiving back responses to some of the questions from the user via one or more user devices; over time, controlling the outputting of the questions so as to output the questions under circumstances of different values for each of one or more items of metadata, wherein the one or more items of metadata comprise one or more physical conditions of the user; monitoring whether or not the user responds when the question is output with the different metadata values; training the machine learning algorithm to learn a value of each of the one or more items of metadata which optimizes a reward function, and based thereon selecting a circumstance when the user is exhibiting a particular physical condition to output one or more subsequent questions.
+</claims>
+</document>

@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2020-05-09
+</filing_date>
+
+<publication_date>
+2020-11-12
+</publication_date>
+
+<priority_date>
+2019-05-10
+</priority_date>
+
+<ipc_classes>
+G06F16/901,G06F17/16,G06F17/18,G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+ROYAL BANK OF CANADA
+</assignee>
+
+<inventors>
+HEGDE, NIDHI
+SAPIENZA, Facundo
+SHARMA, Gaurav
+</inventors>
+
+<docdb_family_id>
+73046399
+</docdb_family_id>
+
+<title>
+SYSTEM AND METHOD FOR MACHINE LEARNING ARCHITECTURE WITH PRIVACY-PRESERVING NODE EMBEDDINGS
+</title>
+
+<abstract>
+A computer system and method for machine inductive learning on a graph is provided. In the inductive learning computational approach, an iterative approach is used for sampling a set of seed nodes and then considering their k-degree (hop) neighbors for aggregation and propagation. The approach is adapted to enhance privacy of edge weights by adding noise during a forward pass and a backward pass step of an inductive learning computational approach. Accordingly, it becomes more technically difficult for a malicious user to attempt to reverse engineer the edge weight information. Applicants were able to experimentally validate that acceptable privacy costs could be achieved in various embodiments described herein.
+</abstract>
+
+<claims>
+1. A system for introducing edge weight privacy when conducting inductive learning on a graph convolutional network maintaining a feature matrix data object, the system comprising: a processor coupled with computer memory and a data storage, the processor configured to: receive an input graph data structure, the input graph data structure representing a set of node data objects having embedding data values and weighted edge data objects, the weighted edge data objects representing one or more characteristics of relationships between two or more node data objects of the set of node data objects; iteratively update the feature matrix data object across one or more training epochs, wherein for each training epoch, there is: a forward pass for aggregating embeddings from leaf nodes established from one or more neighbor hop degrees of neighboring nodes, the forward pass including: sampling a subset of nodes represented in the set of node data objects to establish a seed node subgraph; generating one or more noise matrices; constructing one or more extended node sets, each corresponding to a neighbor hop degree of the one or more degrees of neighbor hop degrees; and at each neighbor degree of the one or more neighbor hop degrees: determining an aggregated embedding by: utilizing (1) an adjacency matrix corresponding to the neighbor hop degree multiplied with a matrix representing the embedding data values of the extended node set corresponding to the neighbor hop degree and (2) adding a noise matrix of the one or more noise matrices; and generating lower dimensionality node embedding data values by conducting dimensionality reduction using the feature matrix data object; and a backward pass including: at each neighbor degree of the one or more neighbor hop degrees: computing one or more private gradients of the loss function by utilizing (1) the adjacency matrix corresponding to the neighbor hop degree multiplied with gradients corresponding to the embedding data values of the extended node set corresponding to the neighbor hop degree and adding (2) a noise matrix of the one or more noise matrices; and updating the feature matrix data object using the computed one or more private gradients.
+2. The system of claim 1, wherein the input graph data structure is evolving with new or updated nodes.
+3. The system of claim 2, wherein the processor is configured, for at least one new or updated node, utilize the trained graph convolutional network to generate a prediction data object relating to the at least one new or updated node.
+4. The system of claim 3, wherein the prediction data object is adapted to generate one or more connection recommendations identifying a target node that the at least one new or updated node is computationally estimated to be related with.
+5. The system of claim 4, wherein the input graph data structure is a social networking graph, and wherein the one or more connection recommendations include at least one of friend, business contact, and colleague recommendations.
+6. The system of claim 1, wherein the prediction data object is adapted to generate a predicted classification label associated with the at least one new or updated node.
+7. The system of claim 6, wherein the input graph data structure is a social networking graph where each node represents an individual, and the predicted classification label is at least one of a personal characteristic of the individual.
+8. The system of claim 1, wherein the sampling follows a probability distribution of: where dup refers to the number of edges of node 'u' in the graph raised to a power p.
+9. The system of claim 8, wherein p is a modifiable parameter that varies an intensity to which high degree nodes are sampled for the subset of nodes.
+10. The system of claim 1, wherein the one or more degrees of neighbor hop degrees includes two degrees of neighbor hop degrees.
+11. A method for introducing edge weight privacy when conducting inductive learning on a graph convolutional network maintaining a feature matrix data object, the method comprising: receiving an input graph data structure, the input graph data structure representing a set of node data objects having embedding data values and weighted edge data objects, the weighted edge data objects representing one or more characteristics of relationships between two or more node data objects of the set of node data objects; iteratively update the feature matrix data object across one or more training epochs, wherein for each training epoch, there is: a forward pass for aggregating embeddings from leaf nodes established from one or more neighbor hop degrees of neighboring nodes based at least on the weighted edge data objects or one or more adjacency matrices based at least on the weighted edge data objects, and a backward pass for computing one or more private gradients that are used for updating the feature matrix data object using the computed one or more private gradients based at least on the weighted edge data objects or the one or more adjacency matrices; wherein every computing operation in the forward pass and the backward pass that utilize the weighted edge data objects or one or more adjacency matrices include a step of adding noise after utilizing the the weighted edge data objects or the one or more adjacency matrices.
+12. The method of claim 11, wherein the input graph data structure is evolving with new or updated nodes.
+13. The method of claim 12, wherein the processor is configured to identify the new or updated nodes in the input graph data structure, and for at least one new or updated node, utilize the trained graph convolutional network to generate a prediction data object relating to the at least one new or updated node.
+14. The method of claim 13, wherein the prediction data object is adapted to generate one or more connection recommendations identifying a target node that the at least one new or updated node is computationally estimated to be related with.
+15. The method of claim 14, wherein the input graph data structure is a social networking graph, and wherein the one or more connection recommendations include at least one of friend, business contact, and colleague recommendations.
+16. The method of claim 11, wherein the prediction data object is adapted to generate a predicted classification label associated with the at least one new or updated node.
+17. The method of claim 16, wherein the input graph data structure is a social networking graph where each node represents an individual, and the predicted classification label is at least one of a personal characteristic of the individual.
+18. The method of claim 11, wherein an amount of noise added during the forward pass and an amount of noise added during the backward pass are different.
+19. The method of claim 11, wherein embedding parameters are clipped.
+20. A non-transitory computer readable medium storing machine interpretable instructions, the machine interpretable instructions, which when executed by a processor, cause the processor to perform a method for introducing edge weight privacy when conducting inductive learning on a graph convolutional network maintaining a feature matrix data object, the method comprising: receiving an input graph data structure, the input graph data structure representing a set of node data objects having embedding data values and weighted edge data objects, the weighted edge data objects representing one or more characteristics of relationships between two or more node data objects of the set of node data objects; iteratively update the feature matrix data object across one or more training epochs, wherein for each training epoch, there is: a forward pass for aggregating embeddings from leaf nodes established from one or more neighbor hop degrees of neighboring nodes based at least on the weighted edge data objects or one or more adjacency matrices based at least on the weighted edge data objects, and a backward pass for computing one or more private gradients that are used for updating the feature matrix data object using the computed one or more private gradients based at least on the weighted edge data objects or the one or more adjacency matrices; wherein every computing operation in the forward pass and the backward pass that utilize the weighted edge data objects or one or more adjacency matrices include a step of adding noise after utilizing the the weighted edge data objects or the one or more adjacency matrices.
+</claims>
+</document>

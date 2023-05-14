@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2018-09-13
+</filing_date>
+
+<publication_date>
+2020-03-19
+</publication_date>
+
+<priority_date>
+2018-09-13
+</priority_date>
+
+<ipc_classes>
+G06F17/16,G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+JAKKAM REDDI, SASHANK
+KALE, SATYEN CHANDRAKANT
+KUMAR, SANJIV
+</inventors>
+
+<docdb_family_id>
+69772199
+</docdb_family_id>
+
+<title>
+Adaptive Optimization with Improved Convergence
+</title>
+
+<abstract>
+Generally, the present disclosure is directed to systems and methods that perform adaptive optimization with improved convergence properties. The adaptive optimization techniques described herein are useful in various optimization scenarios, including, for example, training a machine-learned model such as, for example, a neural network. In particular, according to one aspect of the present disclosure, a system implementing the adaptive optimization technique can, over a plurality of iterations, employ an adaptive learning rate while also ensuring that the learning rate is non-increasing.
+</abstract>
+
+<claims>
+1. A computer-implemented method for optimizing machine-learned models that provides improved convergence properties, the method comprising: determining, by one or more computing devices, a gradient of a loss function that evaluates a performance of a machine-learned model that comprises a plurality of parameters; determining, by the one or more computing devices, a candidate learning rate control value based at least in part on the gradient of the loss function; comparing, by the one or more computing devices, the candidate learning rate control value to a maximum previously observed learning rate control value; when the candidate learning rate control value is greater than the maximum previously observed learning rate control value: setting a current learning rate control value equal to the candidate learning rate control value; and setting the maximum previously observed learning rate control value equal to the candidate learning rate control value; when the candidate learning rate control value is less than the maximum previously observed learning rate control value: setting the current learning rate control value equal to the maximum previously observed learning rate control value; determining, by the one or more computing devices, a current learning rate based at least in part on the current learning rate control value; and determining, by the one or more computing devices, an updated set of values for the plurality of parameters of the machine-learned model based at least in part on the gradient of the loss function and according to the current learning rate.
+2. The computer-implemented method of claim 1, wherein determining, by the one or more computing devices, the candidate learning rate control value based at least in part on the gradient of the loss function comprises determining, by the one or more computing devices, an exponential moving average of squared past gradients and a square of the gradient of the loss function.
+3. The computer-implemented method of claim 1, wherein determining, by the one or more computing devices, the updated set of values for the plurality of parameters of the machine-learned model based at least in part on the gradient of the loss function and according to the current learning rate comprises: updating, by the one or more computing devices, a current momentum value based at least in part on the gradient of the loss function and one or more previous momentum values respectively from one or more previous iterations; and determining, by the one or more computing devices, the updated set of values for the plurality of parameters of the machine-learned model based at least in part on the current momentum value and according to the current learning rate.
+4. The computer-implemented method of claim 3, wherein updating, by the one or more computing devices, the current momentum value based at least in part on the gradient of the loss function and one or more previous momentum values comprises determining a moving average of the one or more previous momentum values and the gradient of the loss function.
+5. The computer-implemented method of claim 3, wherein determining, by the one or more computing devices, the updated set of values for the plurality of parameters of the machine-learned model based at least in part on the current momentum value and according to the current learning rate comprises performing, by the one or more computing devices, a projection operation on a current set of values for the plurality of parameters minus the current momentum value times the current learning rate.
+6. The computer-implemented method of claim 1, wherein determining, by the one or more computing devices, the current learning rate based at least in part on the current learning rate control value comprises dividing, by the one or more computing devices, a step size by a square root of a matrix version of the current learning rate control value.
+7. The computer-implemented method of claim 1, further comprising: performing, by the one or more computing devices, the method of claim 1 for each of a plurality of iterations.
+8. The computer-implemented method of claim 7, wherein, over the plurality of iterations, a second order moment decay factor used to determine the candidate learning rate control value based at least in part on the gradient of the loss function is held constant.
+9. The computer-implemented method of claim 7, wherein, over the plurality of iterations, a second order moment decay factor used to determine the candidate learning rate control value based at least in part on the gradient of the loss function is increased so as to provide increasing influence to past learning rate control values.
+10. The computer-implemented method of claim 7, wherein, over the plurality of iterations, a momentum decay factor used to update a current momentum value based at least in part on the gradient of the loss function is held constant.
+11. The computer-implemented method of claim 7, wherein, over the plurality of iterations, a momentum decay factor used to update a current momentum value based at least in part on the gradient of the loss function is decreased according to a decay schedule.
+12. A computing system, comprising: one or more processors; and one or more non-transitory computer-readable media that store instructions that, when executed by the one or more processors, cause the one or more processors to perform operations, the operations comprising: determining a gradient of a loss function that evaluates a performance of a machine-learned model that comprises a plurality of parameters; determining a candidate learning rate based at least in part on the gradient of the loss function; selecting a minimum of the candidate learning rate and a minimum previously observed learning rate to serve as a current learning rate; and updating at least one of the plurality of parameters of the machine-learned model based at least in part on the gradient of the loss function and according to the current learning rate.
+13. The computing system of claim 12, wherein: determining the candidate learning rate based at least in part on the gradient of the loss function comprises determining a candidate learning rate control value based at least in part on the gradient of the loss function, wherein the candidate learning rate is a function of and has an inverse relationship to the candidate learning rate control value; and selecting the minimum of the candidate learning rate and the minimum previously observed learning rate as the current learning rate comprises: identifying a maximum of the candidate learning rate control value and a maximum previously observed learning rate control value; and determining the current learning rate based on the maximum of the candidate learning rate control value and the maximum previously observed learning rate control value.
+14. The computing system of claim 13, wherein determining the candidate learning rate control value based at least in part on the gradient of the loss function comprises determining a moving average of one or more previous candidate learning rate control values from one or more previous iterations and a square of the gradient of the loss function.
+15. The computing system of claim 13, wherein determining the current learning rate based on the maximum of the candidate learning rate control value and the maximum previously observed learning rate control value comprises dividing a step size by a square root of a matrix version of the maximum of the candidate learning rate control value and the maximum previously observed learning rate control value.
+16. The computing system of claim 12, wherein updating at least one of the plurality of parameters of the machine-learned model based at least in part on the gradient of the loss function and according to the current learning rate comprises: updating a current momentum value based at least in part on the gradient of the loss function and one or more previous momentum values respectively from one or more previous iterations; and updating at least one of the plurality of parameters of the machine-learned model based at least in part on the current momentum value and according to the current learning rate.
+17. The computing system of claim 16, wherein updating the current momentum value based at least in part on the gradient of the loss function and one or more previous momentum values comprises determining a moving average of the one or more previous momentum values and the gradient of the loss function.
+18. The computing system of claim 16, wherein updating at least one of the plurality of parameters of the machine-learned model comprises performing a projection operation on a current set of values for the plurality of parameters minus the current momentum value times the current learning rate.
+19. One or more non-transitory computer-readable media that store instructions that, when executed by one or more processors, cause the one or more processors to perform operations, the operations comprising: for each of a plurality of iterations: determining a gradient of a loss function that evaluates a performance of a machine-learned model that comprises a plurality of parameters; determining a candidate learning rate control value based at least in part on the gradient of the loss function; selecting a maximum of the candidate learning rate control value and a maximum previously observed learning rate control value as a current learning rate control value; and updating at least one of the plurality of parameters of the machine-learned model based at least in part on the gradient of the loss function and according to a current learning rate that is a function of the current learning rate control value.
+20. The one or more non-transitory computer-readable media of claim 19, wherein the current learning rate is inversely correlated to the candidate learning rate control value.
+</claims>
+</document>

@@ -1,0 +1,82 @@
+<document>
+
+<filing_date>
+2020-06-18
+</filing_date>
+
+<publication_date>
+2020-12-24
+</publication_date>
+
+<priority_date>
+2019-06-18
+</priority_date>
+
+<ipc_classes>
+H04L1/00,H04L1/18,H04N21/2187,H04N21/61,H04N21/63,H04N21/6375
+</ipc_classes>
+
+<assignee>
+UNIVERSIDADE DO PORTO
+</assignee>
+
+<inventors>
+DA SILVA MARTINS, ROLANDO
+CARVALHO DUARTE CORREIA, Manuel Eduardo
+AUGUSTO DA SILVA, Fernando Manuel
+COELHO ANTUNES, Luís Filipe
+</inventors>
+
+<docdb_family_id>
+71784323
+</docdb_family_id>
+
+<title>
+METHOD AND DEVICE FOR LIVE-STREAMING WITH OPPORTUNISTIC MOBILE EDGE CLOUD OFFLOADING
+</title>
+
+<abstract>
+The ever-increasing demand for higher quality live streams is driving the need for better networking infrastructures, specially when disseminating content over highly congested areas, such as stadiums, concerts and museums. Traditional approaches to handle this type of scenario relies on a combination of cellular data, through 4G distributed antenna arrays (DAS), with a high count of WiFi (802.11) access points. This obvious requires a substantial upfront cost for equipment, planning and deployment. Recently, new efforts have been introduced to securely leverage the capabilities of wireless multipath, including WiFi multicast and 4G, and device-to-device communications. In order to solve these issues, we propose an approach that lessens the requirements imposed on the wireless infrastructures while potentially expanding wireless coverage through the crowd-sourcing of mobile devices. In order to achieve this, we propose a novel pervasive approach that combines secure distributed systems, WiFi multicast, erasure coding, source coding and opportunistic offloading that makes use of hyperlocal mobile edge clouds. We empirically show that our solution is able to offer a 11 fold reduction on the infrastructural WiFi bandwidth usage without having to modify any existing software or firmware stacks while ensuring stream integrity, authorization and authentication.
+</abstract>
+
+<claims>
+C L A I M S
+1. A computer-implemented system for live-streaming video over a multichannel wireless network or networks, comprising at least one streaming server connected to a plurality of mobile user devices as streaming clients, wherein the streaming server comprises:
+a stream handler for obtaining data packets from a received video live-stream, and a network scheduler for scheduling the transmission, and retransmission when deemed necessary by the streaming server, of transmission data packets and retransmission data packets, respectively;
+wherein the streaming server is arranged to FEC, Forward Erasure Correction, encode the obtained data packets to transmission data packets for transmission to the streaming clients;
+wherein the multichannel wireless network or networks comprise a plurality of wireless channels wherein said channels comprise two or more distinct wireless technology types;
+wherein the network scheduler comprises a sub-scheduler for each wireless channel and is arranged such that:
+transmission data packets are scheduled for transmission by a first sub-scheduler; transmission packets that are determined as missing at the first sub-scheduler are scheduled for retransmission at the first sub-scheduler;
+retransmission packets that are determined as missing more than a predetermined number of times at a particular sub-scheduler are passed to a subsequent sub scheduler.
+2. System according to the previous claim wherein the streaming server is arranged to encode a transmission matrix by:
+placing transmission packets in a predetermined number of rows and a predetermined number of columns using row-major order until waiting until the transmission matrix is full;
+calculating an erasure encoding parity for each column and adding the calculated column parity at the end of the respective column at one or more matrix blocks to form one or more column parity rows; calculating an erasure encoding parity for each row, including the calculated column parity rows, and adding the calculated row parity at the end of the respective row at one or more matrix blocks to form one or more row parity columns, such that blocks belonging for both row parity data and column parity data are row parity over column parity data;
+transmitting the matrix in column-major order.
+3. System according to the previous claim wherein the FEC encoding is runtime adjustable by dynamically adjusting the number of parity rows and the number of column parity rows.
+4. System according to claim 2 or 3 wherein the parity is calculated using a ReedSolomon coding method.
+5. System according to any of the claims 2-4 wherein the streaming server is arranged to not retransmit parity packets.
+6. System according to the previous claim wherein each streaming client is arranged to report packet reception by transmitting a reception report to the streamingserver to which it is connected, the number of the last transmission matrix that was fully received followed by a bitmap representation of each of the outstanding transmission matrixes, wherein a 0 encodes a missing packet and a 1 otherwise, or vice-versa.
+7. System according to the previous claim wherein the bitmap representation is compressed using a lossless image compression method, in particular a gzip compression method.
+8. System according to claim 6 or 7 wherein each streaming client is further arranged to report packet reception by transmitting the reception report through each of the wireless channels, wherein the reception report for each wireless channel also comprises the respective RSSI, received signal strength indication, and used wireless technology type.
+9. System according to any of the previous claims wherein the network scheduler is arranged such that retransmission packets that are determined as missing more than a predetermined number of times at a last sub-scheduler are discarded or looped-back to the first sub-scheduler.
+10. System according to any of the previous claims wherein each sub-scheduler comprises a filter for filtering out packets to be excluded from retransmission.
+11. System according to the previous claim wherein the filter comprises a machine learning classifier for predicting packet loss ratio for unicast transmission and for predicting the bitmap layout of the transmission matrix for multicast transmission, for excluding packets from retransmission.
+12. System according to the previous claim wherein the same machine-learning method is used for both unicast and multicast, in particular the machine-learning method being a Random Forest machine-learning method, Reinforcement Learning machine-learning method, or a combination thereof.
+IS. System according to any of the previous claims wherein the FEC encoding is AL-FEC, application-level FEC, wherein the FEC encoding is operated within the application layer.
+14. System according to any of the previous claims wherein the streaming clients are arranged to receive the live-streaming video and request and receive retransmitted data packets at the application layer.
+15. System according to any of the previous claims wherein the wireless technology types include local area wireless network such as wifi, and broadband cellular mobile phone network such as SG, 4G or 5G.
+16. System according to any of the previous claims wherein the multichannel wireless network comprises a multicast wifi channel of a local area wireless network, a unicast wifi channel of a local area wireless network, and a unicast mobile network channel of a broadband cellular mobile phone network.
+17. System according to any of the previous claims wherein the wireless channels further comprise a multicast mobile network channel of a broadband cellular mobile phone network.
+18. System according to any of the previous claims comprising opportunistic network edge offloading, wherein the streaming clients are arranged to:
+periodically request missing packets from all available neighbouring streaming client using a mesh connection.
+19. System according to the previous claim wherein neighbouring streaming clients are connected by WiFi Direct or Bluetooth BR/EDR (Classic Bluetooth) or both.
+20. System according to claim 18 or 19 wherein all transmitted and retransmitted packets are digitally signed, whether as grouped or individually, in particular using elliptic curve cryptography signature.
+21. System according to the previous claim wherein the packets are signed individually by the packet sender and signed as group within a chunk of vide by the video stream creator.
+22. System according to claim 20 or 21 wherein the signature is obtained by independent symmetric keys.
+23. System according to any of the previous claims comprising a plurality of said streaming servers, each streaming server arranged to transmit to a specific geographical section which is distinct of the geographical sections of the other streaming servers, in particular the specific geographical section not overlapping the geographical sections of the other streaming servers.
+24. System according to any of the previous claims wherein the streaming server is arranged to encode a source coding for retransmission data packets for transmission to the streaming clients, using a linear combination of packets to overcome missing packets at the streaming clients.
+25. System according to the previous claim wherein packets that are not required because of the FEC encoding are not to be retransmitted and are not included at source coding.
+26. System according to claim 24 or 25 wherein the source coding is interleaved for dual-interleaved communication.
+27. System according to any of the previous claims wherein the streaming client is arranged to provide an Extend Real-Time Messaging Protocol (RTMP) replacement.
+</claims>
+</document>

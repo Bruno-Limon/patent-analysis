@@ -1,0 +1,73 @@
+<document>
+
+<filing_date>
+2019-12-04
+</filing_date>
+
+<publication_date>
+2020-04-09
+</publication_date>
+
+<priority_date>
+2016-10-24
+</priority_date>
+
+<ipc_classes>
+H04B10/079,H04B10/61,H04L1/00,H04L25/03,H04L27/26,H04L7/00
+</ipc_classes>
+
+<assignee>
+INPHI CORPORATION
+</assignee>
+
+<inventors>
+AGAZZI, OSCAR, ERNESTO
+HUEDA, MARIO, RAFAEL
+MORERO, DAMIÁN ALFONSO
+</inventors>
+
+<docdb_family_id>
+63833431
+</docdb_family_id>
+
+<title>
+FORWARD AND BACKWARD PROPAGATION METHODS AND STRUCTURES FOR COHERENT OPTICAL RECEIVER
+</title>
+
+<abstract>
+A method and structure for signal propagation in a coherent optical receiver device. Asynchronous equalization helps to reduce complexity and power dissipation, and also improves the robustness of timing recovery. However, conventional devices using inverse interpolation filters ignore adaptation algorithms. The present invention provides for forward propagation and backward propagation. In the forward case, the filter input signal is forward propagated through a filter to the adaptation engine, while, in the backward case, the error signal is backward propagated through a filter to the asynchronous domain. Using such forward and backward propagation schemes reduces implementation complexity while providing optical device performance.
+</abstract>
+
+<claims>
+1. A coherent optical receiver device, the device comprising: an equalizer filter module configured to equalize a gain response of an input signal over a wavelength range; a first filter module coupled to the equalizer filter module, the first filter module being configured to filter the input signal according to a first filter function; a second filter module configured to filter the input signal according to a second filter function; a combining module coupled to the first filter module; wherein the combining module is configured to obtain an error signal by combining the input signal and the first filter module output; an adaptation engine module coupled to the second filter module, the equalizer filter module, and the combining module; wherein the adaptation engine module is configured to compute a forward formulation stochastic gradient from the second filter module output and the error signal.
+2. The device of claim 1 wherein the first filter module and the second filter module are static filter modules; and wherein the adaptation engine module is configured to compute the forward formulation stochastic gradient according to the following equation: where ek is the error signal, where gj refers the filter coefficients, and where yk is a channel output.
+3. The device of claim 1 wherein the first filter module is a time varying filter and the second filter module is a time varying single-input multiple-output (SIMO) filter; and wherein the adaptation engine module is configured to compute the forward formulation stochastic gradient according to the following equation: where ek is the error signal, where gk,j refers the filter coefficients of the second filter module, and where yk is a channel output.
+4. The device of claim 1 wherein the first filter module is an asynchronous time varying filter and the second filter module is an asynchronous time varying single-input multiple-output (SIMO) filter; and wherein the adaptation engine module is configured to compute the forward formulation stochastic gradient according to the following equation: where k is the discrete time index of the input signal, where n is the discrete time index of a channel output, where where a and b are integers such that a≤b, where ek is the error signal, where gk,j refers to the filter coefficients of the second filter module, and where gk,j is a channel output.
+5. The device of claim 1 wherein the adaptation engine module is configured to compute the forward formulation stochastic gradient with a tap-leakage factor.
+6. The device of claim 1 wherein at least one of the equalizer filter module, the first filter module, and the second filter module includes a non-linear filter.
+7. The device of claim 1 wherein at least one of the equalizer filter module, the first filter module, and the second filter module includes a plurality of filters in at least one of a serial configuration and a parallel configuration.
+8. A method for operating a coherent optical receiver device, the method comprising: filtering, by an equalizer filter module, an input signal to equalize a gain response of the input signal over a wavelength range; filtering, by a first filter module coupled to the equalizer filter module, the input signal according to a first filter function; filtering, by a second filter module, the input signal according to a second filter function; obtaining, by the combining module, an error signal by combining the input signal and the first filter module output; computing; by an adaptation engine module coupled to the second filter module, the equalizer filter module, and the combining module; a forward formulation stochastic gradient from the second filter module output and the error signal.
+9. The method of claim 8 wherein the first filter module and the second filter module are static filter modules; and wherein computing the forward formulation stochastic gradient is according to the following equation: where ek is the error signal, where gj refers the filter coefficients, and where yk is a channel output.
+10. The method of claim 8 wherein the first filter module is a time varying filter and the second filter module is a time varying single-input multiple-output (SIMO) filter; and wherein computing the forward formulation stochastic gradient is according to the following equation: where ek is the error signal, where gk,j refers the filter coefficients of the second filter module, and where yk is a channel output.
+11. The method of claim 8 wherein the first filter module is an asynchronous time varying filter and the second filter module is an asynchronous time varying single-input multiple-output (SIMO) filter; and wherein computing the forward formulation stochastic gradient is according to the following equation: where k is the discrete time index of the input signal, where n is the discrete time index of a channel output, where where a and b are integers such that a≤b, where ek is the error signal, where gk,j refers to the filter coefficients of the second filter module, and where yk is a channel output.
+12. The method of claim 8 wherein computing the forward formulation stochastic gradient includes computing with a tap-leakage factor.
+13. The device of claim 8 wherein at least one of the equalizer filter module, the first filter module, and the second filter includes a non-linear filter module.
+14. The device of claim 8 wherein at least one of the equalizer filter module, the first filter module, and the second filter module includes a plurality of filters in at least one of a serial configuration and a parallel configuration.
+15. A coherent optical receiver device, the device comprising: an equalizer filter module configured to equalize a gain response of an input signal over a wavelength range; a first filter module coupled to the equalizer filter, the first filter being configured to filter the input signal according to a first filter function; a combining module coupled to the first filter module; wherein the combining module is configured to obtain an error signal by combining the input signal and the output of the first filter module; a second filter module coupled to the combining module, the second filter module being configured to filter the error signal according to a second filter function; and an adaptation engine module receiving the input signal and coupled to the second filter module and the equalizer filter module; wherein the adaptation engine module is configured to compute a backward formulation stochastic gradient from the second filter module output and a channel output.
+16. The device of claim 15 wherein the first filter module and the second filter module are static filter modules; and wherein the adaptation engine module is configured to compute the backward formulation stochastic gradient according to the following equation: where n=k−j, where ek is the error signal, where gj is the filter coefficients, and where {tilde over (e)}n is en filtered by coefficients gj in reverse order.
+17. The device of claim 15 wherein the first filter module is a time varying filter and the second filter module is a time varying single-input single-output (SISO) filter; and wherein the adaptation engine module is configured to compute the backward formulation stochastic gradient according to the following equation:
+description="In-line Formulae" end="lead"?{tilde over (e)}n=Σj=0p−1gn+j,jen+j description="In-line Formulae" end="tail"? where n=k−j, where en is the error signal, where gn+j,j is the filter coefficients, and where {tilde over (e)}n is ek back-propagated to the equalizer filter module output.
+18. The device of claim 15 wherein the first filter module is an asynchronous time varying filter and the second filter module is an asynchronous time varying single-input single-output (SISO) filter; and wherein the adaptation engine module is configured to compute the backward formulation stochastic gradient according to the following equation: where k is the discrete time index of the input signal, where n is the discrete time index of the channel output, where where a and b are integers such that a≤b, where ek is the error signal, where gk,j refers to the filter coefficients of the second filter module, and where yk is the channel output.
+19. The device of claim 15 wherein the adaptation engine module is configured to compute the backward formulation stochastic gradient with a tap-leakage factor.
+20. The device of claim 15 wherein at least one of the equalizer filter module, the first filter module, and the second filter includes a non-linear filter module.
+21. The device of claim 15 wherein at least one of the equalizer filter module, the first filter module, and the second filter module includes a plurality of filters in at least one of a serial configuration and a parallel configuration.
+22. A method of operating a coherent optical receiver device, the method comprising: filtering, by an equalizer filter module, an input signal to equalize a gain response of the input signal over a wavelength range; filtering, by a first filter module coupled to the equalizer filter, the input signal according to a first filter function; obtaining, by the combining module, an error signal by combining the input signal and the output of the first filter module; filtering, by a second filter module coupled to the combining module, the error signal according to a second filter function; and computing, by an adaptation engine module coupled to the second filter module and the equalizer filter module, a backward formulation stochastic gradient from the second filter module output and a channel output.
+23. The method of claim 22 wherein the first filter module and the second filter module are static filter modules; and wherein computing the backward formulation stochastic gradient is according to the following equation: where n=k−j, where ek is the error signal, where gj is the filter coefficients, and where {tilde over (e)}n is en filtered by coefficients g in reverse order.
+24. The method of claim 22 wherein the first filter module is a time varying filter and the second filter module is a time varying single-input single-output (SISO) filter; and wherein computing the backward formulation stochastic gradient is according to the following equation:
+description="In-line Formulae" end="lead"?{tilde over (e)}n=Σj=0p−1gn+j,jen+j description="In-line Formulae" end="tail"? where n=k−j, where en is the error signal, where gn+j,j is the filter coefficients, and where {tilde over (e)}n is ek back-propagated to the equalizer filter module output.
+25. The method of claim 22 wherein the first filter module is an asynchronous time varying filter and the second filter module is an asynchronous time varying single-input single-output (SISO) filter; and wherein computing the backward formulation stochastic gradient is according to the following equation: where k is the discrete time index of the input signal, where n is the discrete time index of the channel output, where where a and b are integers such that a≤b, where ek is the error signal, where gk,j refers to the filter coefficients of the second filter module, and where yk is the channel output.
+26. The method of claim 22 wherein computing the backward formulation stochastic gradient includes computing with a tap-leakage factor.
+27. The device of claim 22 wherein at least one of the equalizer filter module, the first filter module, and the second filter includes a non-linear filter module.
+28. The device of claim 22 wherein at least one of the equalizer filter module, the first filter module, and the second filter module includes a plurality of filters in at least one of a serial configuration and a parallel configuration.
+</claims>
+</document>

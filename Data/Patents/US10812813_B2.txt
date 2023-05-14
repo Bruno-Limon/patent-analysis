@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-07-19
+</filing_date>
+
+<publication_date>
+2020-10-20
+</publication_date>
+
+<priority_date>
+2017-02-06
+</priority_date>
+
+<ipc_classes>
+H04N19/119,H04N19/136,H04N19/176,H04N19/192,H04N19/503,H04N19/66,H04N19/96
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+WANG, YUNQING
+HAN, XINTONG
+XIAN, YANG
+</inventors>
+
+<docdb_family_id>
+60628155
+</docdb_family_id>
+
+<title>
+Multi-level machine learning-based early termination in partition search for video coding
+</title>
+
+<abstract>
+Described herein are classifiers that are used to determine whether or not to partition a block in frame during prediction using recursive partitioning. Blocks of training video frames are encoded using recursive partitioning to generate encoded blocks. Training instances are generated for the encoded blocks that include values of features extracted from each encoded block and a label indicating whether or not the encoded block is partitioned into smaller blocks in the recursive partitioning. The classifiers are trained for different block sizes using the training instances associated with the block size as input to a machine-learning process. When encoding frames of a video sequence, the output of the classifiers determines whether input blocks are partitioned during encoding.
+</abstract>
+
+<claims>
+1. A method, comprising: receiving, at a decoder, a video bitstream comprising a plurality of encoded blocks, at least some of the encoded blocks recursively partitioned into sub-blocks according to a first classifier of an encoder, the first classifier trained using a machine-learning process by: generating, using recursive partitioning, encoded training blocks by encoding a training video frame multiple times using different sets of encoding options; for each encoded training block of multiple encoded blocks having a first size: extracting, from the encoded training block, training values for block features of a feature set; and defining a training instance for the encoded training block, the training instance formed of the training values and a label that indicates whether the encoded training block having the first size is partitioned into smaller blocks; and using the training instances for the multiple encoded blocks having the first size to train the first classifier to determine whether an input block to the encoder having the first size is to be further partitioned during encoding using features extracted from the input block; and decoding the input block from the video bitstream.
+2. The method of claim 1, wherein at least some of the encoded blocks recursively partitioned into sub-blocks according to the first classifier of the encoder are further partitioned by a second classifier, the second classifier trained using the machine-learning process by: for each encoded training block of multiple encoded blocks having a second size smaller than the first size: extracting, from the encoded training block having the second size, training values for block features of the feature set; and defining a training instance for the encoded training block having the second size, the training instance formed of the training values and a label that indicates whether the encoded training block having the second size is partitioned into smaller blocks; and using the training instances for the multiple encoded blocks having the second size to train the second classifier to determine whether a second input block having the second size is to be further partitioned during encoding, the second input block being a sub-block resulting from partitioning the input block.
+3. The method of claim 2, wherein the second input block is a sub-block of the input block resulting from a split partition mode.
+4. The method of claim 1, wherein the first classifier is trained by: normalizing, using a normalization scheme, the training values for respective ones of the block features before training the first classifier.
+5. The method of claim 1, wherein the different sets of encoding options result from encoding the training video frame using different target bitrates.
+6. The method of claim 1, wherein the first classifier is a binary classifier having a first output that stops a partition search and a second output that continues the partition search.
+7. The method of claim 6, wherein decoding the input block comprises, when the first classifier has the first output: decoding a residual block for the input block from the video bitstream, the residual block having the first size; determining a prediction block using a prediction mode for the input block, the prediction block having the first size; and reconstructing the input block by adding the residual block and the prediction block.
+8. An apparatus, comprising: a decoder configured to execute instructions to: receive a video bitstream comprising a plurality of encoded blocks of a first size, at least some of the encoded blocks recursively partitioned into blocks of smaller sizes according to multiple classifiers of an encoder that are trained using a machine learning process by: encoding training blocks of training video frames using recursive partitioning to generate encoded training blocks; generating training instances for the encoded training blocks, each training instance comprising values of block features extracted from an encoded training block and a label indicating whether or not the encoded training block is partitioned into smaller training blocks; and train at least a first classifier of the multiple classifiers for the first size and a second classifier of the multiple classifiers for a second size resulting from partitioning a training block of the first size for quad-tree coding, each classifier of the multiple classifiers for a respective block size trained using the training instances associated with the block size as input to determine whether a block of the block size input into the classifier is to be further partitioned; and decode an input block from the video bitstream of the first size based on whether the first classifier determined to further partition the input block.
+9. The apparatus of claim 8, wherein the first size is a largest prediction block size N×N, and the second size is N/4×N/4.
+10. The apparatus of claim 8, wherein the decoder is configured to decode the input block by, when the first classifier determined to not further partition the input block: decoding a residual block for the input block from the video bitstream, the residual block having the first size; determining a prediction block using a prediction mode for the input block, the prediction block having the first size; and reconstructing the input block by adding the residual block and the prediction block.
+11. The apparatus of claim 8, wherein the decoder is configured to decode the input block by, when the first classifier determined to further partition the input block: decoding, from the video bitstream, a first residual block and a second residual block respectively corresponding to two vertical blocks of a vertical partition mode for the input block; determining a first prediction block and a second prediction block using respective prediction modes for the two vertical blocks; and reconstructing the input block by adding the first residual block to the first prediction block, and adding the second residual block to the second prediction block.
+12. The apparatus of claim 8, wherein the decoder is configured to decode the input block by, when the first classifier determined to further partition the input block: decoding, from the video bitstream, a first residual block and a second residual block respectively corresponding to two horizontal blocks of a horizontal partition mode for the input block; determining a first prediction block and a second prediction block using respective prediction modes for the two horizontal blocks; and reconstructing the input block by adding the first residual block to the first prediction block, and adding the second residual block to the second prediction block.
+13. The apparatus of claim 8, wherein the decoder is configured to decode the input block from the video bitstream of the first size where the first classifier determined to further partition the input block and whether the second classifier determined to further partition sub-blocks of the second size resulting from a split partition mode of the input block.
+14. The apparatus of claim 8, wherein the decoder is configured to decode the input block by, when the first classifier determined to further partition the input block and the second classifier determined to not further partition a sub-block of the input block: decoding a residual block for the sub-block from the video bitstream, the residual block having the second size; determining a prediction block using a prediction mode for the sub-block, the prediction block having the second size; and reconstructing the sub-block by adding the residual block and the prediction block.
+15. The apparatus of claim 8, wherein generating the training instances comprises: extracting, from the encoded training blocks, the values of the block features from a feature set; and normalizing the values for the training instances before training the multiple classifiers.
+16. The apparatus of claim 8, wherein generating the training instances comprises assigning a first value to the label when the training instance is associated with an encoded training block that is not further partitioned in the recursive partitioning, and assigning a second value to the label when the training instance is associated with an encoded training block that is further partitioned in the recursive partitioning.
+17. The apparatus of claim 8, wherein the decoder comprises: a non-transitory memory storing the instructions; and a processor configured to execute the instructions.
+18. An apparatus, comprising: a decoder configured to execute instructions to: receive a video bitstream comprising a plurality of encoded blocks, at least some of the encoded blocks recursively partitioned into sub-blocks according to a first classifier of an encoder, the first classifier trained using a machine-learning process; select a block from the video bitstream having a largest prediction block size, the block encoded by: encoding the block without partitioning the block; extracting values from the block based on a feature set; applying the first classifier to the block using the values as input, the first classifier being a binary classifier for blocks having the largest prediction block size, the binary classifier having a first output indicating to stop a partition search and a second output indicating to continue the partition search; upon a condition that the first classifier produces the first output for the block, including the block encoded without partitioning in the video bitstream; and upon a condition that the first classifier produces the second output for the block: encoding the block with partitioning; and including the block encoded with partitioning in the video bitstream; and decode the block based on whether the block was encoded without partitioning in the video bitstream or whether the block was encoded with partitioning in the video bitstream.
+19. The apparatus of claim 18, wherein the first classifier of the encoder is different when a video frame including the block has a first resolution than when the video frame has a second resolution.
+20. The apparatus of claim 18, wherein the encoder is configured to, upon a condition that the first classifier produces the second output for the block: encoding the block with partitioning by encoding the block according to a split partition mode for which a further partition search is possible and encoding the block according to at least one of a vertical or horizontal partition mode for which further partitioning is not possible.
+</claims>
+</document>

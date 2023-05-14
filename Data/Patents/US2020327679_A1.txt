@@ -1,0 +1,56 @@
+<document>
+
+<filing_date>
+2019-07-05
+</filing_date>
+
+<publication_date>
+2020-10-15
+</publication_date>
+
+<priority_date>
+2019-04-12
+</priority_date>
+
+<ipc_classes>
+G06T11/20,G06T7/00,G06T7/246,G06T7/73
+</ipc_classes>
+
+<assignee>
+Beijing Moviebook Science and Technology Co., Ltd.
+</assignee>
+
+<inventors>
+JI, Xiaochen
+</inventors>
+
+<docdb_family_id>
+67318962
+</docdb_family_id>
+
+<title>
+VISUAL TARGET TRACKING METHOD AND APPARATUS BASED ON DEEPLY AND DENSELY CONNECTED NEURAL NETWORK
+</title>
+
+<abstract>
+A visual target tracking method and apparatus based on a deeply and densely connected neural network. The method includes: a data input step: inputting a target image of a first video frame and a second video frame in video data into a deeply and densely connected neural network; a target tracking step: performing, based on the target image, target detection on the second video frame by using the trained deeply and densely connected neural network; and a tracking result output step: outputting bounding box coordinates and a similarity graph of a target in the second video frame, determining the length and width of the target based on the bounding box coordinates, and determining a center position of the target based on the position of a maximum value in the similarity graph.
+</abstract>
+
+<claims>
+1. A visual target tracking method based on a deeply and densely connected neural network, the method comprising: a data input step: inputting a target image of a first video frame and a second video frame in video data into the deeply and densely connected neural network; a target tracking step: performing, based on the target image, a target detection on the second video frame by using a trained deeply and densely connected neural network; and a tracking result output step: outputting bounding box coordinates and a similarity graph of a target in the second video frame, determining a length and a width of the target based on the bounding box coordinates, and determining a center position of the target based on a position of a maximum value in the similarity graph.
+2. The method according to claim 1, wherein the deeply and densely connected neural network comprises: a first sub-network, a second sub-network, and a fully-connected layer, wherein an input of the first sub-network is the target image of the first video frame, an input of the second sub-network is the second video frame, the first sub-network and the second sub-network are both connected to the fully-connected layer, and the fully-connected layer has two output branches including a bounding box coordinate output branch and a similarity graph output branch.
+3. The method according to claim 2, wherein the first sub-network and the second sub-network have a same structure and share parameters.
+4. The method according to claim 2, wherein the first sub-network and/or the second sub-network comprises: a first convolutional layer, a first pooling layer, a first densely connected block, a first conversion layer, a second pooling layer, a second densely connected block, a second conversion layer, a third pooling layer, a third densely connected block, a third conversion layer, a fourth pooling layer, and a splicing layer connected in sequence.
+5. The method according to claim 4, wherein the first densely connected block, the second densely connected block and the third densely connected block have a same structure, each comprising: three convolutional layers, wherein each convolutional layer has a convolution kernel size of 3×3 and a step size of 1, the number of output feature graphs is 12, and each of the convolutional layers is connected to outputs of all preceding convolutional layers.
+6. The method according to claim 1, wherein a loss function of the deeply and densely connected neural network comprises: a regression loss and a similarity loss, wherein the regression loss is in a form of an L1 loss, the similarity loss is a cross entropy loss, and a total loss function is a sum of the L1 loss and the cross entropy loss.
+7. The method according to claim 1, wherein the deeply and densely connected neural network is trained in the following steps: a video frame selection step: randomly selecting, from a training video data set, a third video frame and a fourth video frame containing a same target; an image generation step: generating a target template image based on the third video frame, and generating a search region image based on the fourth video frame; and a training data generation step: generating a true value of a corresponding bounding box coordinates and a true value of the similarity graph according to a position of the target in the target template image in the search region image, thereby obtaining training data to train the deeply and densely connected neural network.
+8. The method according to claim 7, wherein in the image generation step: a portion of an image is intercepted from the third video frame by taking bounding box coordinates of a target in the third video frame as a center, a length and a width of a portion of the image are M times a length and a width of a bounding box respectively, M is greater than 1, and the portion of the image is normalized to obtain the target template image.
+9. The method according to claim 7, wherein in the image generation step: in the fourth video frame, center positions of a plurality of search regions are determined according to a uniform distribution principle, and an area of the search region is determined to be K times an area of the bounding box, wherein K is greater than 2; and the target is searched for in the fourth video frame, and a search result is normalized to obtain the search region image.
+10. A visual target tracking apparatus based on a deeply and densely connected neural network, the apparatus comprising: a data input module configured to input a target image of a first video frame and a second video frame in video data into the deeply and densely connected neural network; a target tracking module configured to perform, based on the target image, a target detection on the second video frame by using a trained deeply and densely connected neural network; and a tracking result output module configured to output bounding box coordinates and a similarity graph of a target in the second video frame, determine the length and width of the target based on the bounding box coordinates, and determine a center position of the target based on a position of a maximum value in the similarity graph.
+11. The method according to claim 2, wherein the deeply and densely connected neural network is trained in the following steps: a video frame selection step: randomly selecting, from a training video data set, a third video frame and a fourth video frame containing a same target; an image generation step: generating a target template image based on the third video frame, and generating a search region image based on the fourth video frame; and a training data generation step: generating a true value of a corresponding bounding box coordinates and a true value of the similarity graph according to a position of the target in the target template image in the search region image, thereby obtaining training data to train the deeply and densely connected neural network.
+12. The method according to claim 3, wherein the deeply and densely connected neural network is trained in the following steps: a video frame selection step: randomly selecting, from a training video data set, a third video frame and a fourth video frame containing a same target; an image generation step: generating a target template image based on the third video frame, and generating a search region image based on the fourth video frame; and a training data generation step: generating a true value of a corresponding bounding box coordinates and a true value of the similarity graph according to a position of the target in the target template image in the search region image, thereby obtaining training data to train the deeply and densely connected neural network.
+13. The method according to claim 4, wherein the deeply and densely connected neural network is trained in the following steps: a video frame selection step: randomly selecting, from a training video data set, a third video frame and a fourth video frame containing a same target; an image generation step: generating a target template image based on the third video frame, and generating a search region image based on the fourth video frame; and a training data generation step: generating a true value of a corresponding bounding box coordinates and a true value of the similarity graph according to a position of the target in the target template image in the search region image, thereby obtaining training data to train the deeply and densely connected neural network.
+14. The method according to claim 5, wherein the deeply and densely connected neural network is trained in the following steps: a video frame selection step: randomly selecting, from a training video data set, a third video frame and a fourth video frame containing a same target; an image generation step: generating a target template image based on the third video frame, and generating a search region image based on the fourth video frame; and a training data generation step: generating a true value of a corresponding bounding box coordinates and a true value of the similarity graph according to a position of the target in the target template image in the search region image, thereby obtaining training data to train the deeply and densely connected neural network.
+16. The method according to claim 6, wherein the deeply and densely connected neural network is trained in the following steps: a video frame selection step: randomly selecting, from a training video data set, a third video frame and a fourth video frame containing a same target; an image generation step: generating a target template image based on the third video frame, and generating a search region image based on the fourth video frame; and a training data generation step: generating a true value of a corresponding bounding box coordinates and a true value of the similarity graph according to a position of the target in the target template image in the search region image, thereby obtaining training data to train the deeply and densely connected neural network.
+</claims>
+</document>

@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2019-02-20
+</filing_date>
+
+<publication_date>
+2021-01-13
+</publication_date>
+
+<priority_date>
+2018-03-05
+</priority_date>
+
+<ipc_classes>
+G06K9/00
+</ipc_classes>
+
+<assignee>
+TENCENT TECHNOLOGY (SHENZHEN) COMPANY
+</assignee>
+
+<inventors>
+WANG, Bairui
+MA, Lin
+LIU, Wei
+</inventors>
+
+<docdb_family_id>
+63130125
+</docdb_family_id>
+
+<title>
+VIDEO PROCESSING METHOD AND APPARATUS, VIDEO RETRIEVAL METHOD AND APPARATUS, STORAGE MEDIUM AND SERVER
+</title>
+
+<abstract>
+Disclosed are a video processing method and apparatus, a video retrieval method and apparatus, a medium and a server. The video processing method comprises: carrying out encoding and decoding processing on an original video by means of an encoder and a decoder to acquire a video characteristic of the original video and a hidden state in a decoding stage; reconstructing, according to the hidden state in the decoding stage, a video characteristic of a target video by means of a reconstructor; acquiring a difference between the video characteristic of the target video and the video characteristic of the original video; and adjusting a processing parameter of at least one of the decoder and the reconstructor according to the difference in order to reduce the difference.
+</abstract>
+
+<claims>
+1. A video processing method, applied to a video processing system, wherein the video processing system comprises an encoder, a decoder, and a reconstructor, and the method comprises: performing encoding and decoding on an original video by using the encoder and the decoder, to obtain a video feature of the original video and a hidden state of a decoding stage; reconstructing a video feature of a target video by using the reconstructor according to the hidden state of the decoding stage; obtaining a difference between the video feature of the target video and the video feature of the original video; and adjusting a processing parameter of at least one of the decoder and the reconstructor according to the difference, to reduce the difference.
+2. The method according to claim 1, wherein the performing encoding and decoding on an original video by using the encoder and the decoder, to obtain a video feature of the original video and a hidden state of a decoding stage comprises: invoking the encoder to extract frame features of the original video; merging the extracted frame features according to a time sequence of video frames of the original video, to generate the video feature of the original video; obtaining hidden states of the decoder at a plurality of decoding time instants; and merging the obtained hidden states at the plurality of decoding time instants according to a time sequence of the decoding time instants, to obtain the hidden state of the decoding stage.
+3. The method according to claim 2, wherein the obtaining hidden states of the decoder at a plurality of decoding time instants comprises: integrating the frame features in the video feature of the original video based on an average feature mechanism or a temporal attention mechanism at each decoding time instant, to obtain an integrated feature; and invoking the decoder to perform decoding on the integrated feature, to obtain the hidden states of the decoder at the plurality of decoding time instants.
+4. The method according to claim 1, wherein the video feature of the target video comprises a global feature of the target video, and the reconstructing a video feature of a target video by using the reconstructor according to the hidden state of the decoding stage comprises: applying an average feature mechanism to the hidden state of the decoding stage, to obtain corresponding global expression information; and invoking the reconstructor to reconstruct a global feature of the target video according to the global expression information and the hidden state of the decoding stage.
+5. The method according to claim 4, wherein the obtaining a difference between the video feature of the target video and the video feature of the original video comprises: calculating a first Euclidean distance between the global feature of the target video and the video feature of the original video; constructing a global loss function of the reconstructor according to the first Euclidean distance; obtaining a loss function of the decoder; constructing a global difference function according to the loss function of the decoder and the global loss function of the reconstructor; and determining the difference between the video feature of the target video and the video feature of the original video according to the global difference function.
+6. The method according to claim 1, wherein the video feature of the target video comprises local features of the target video, and the reconstructing a video feature of a target video by using the reconstructor according to the hidden state of the decoding stage comprises: applying a temporal attention mechanism to a hidden state of the decoder at each decoding time instant, to obtain corresponding local expression information; and invoking the reconstructor to reconstruct the local features of the target video according to the local expression information and the hidden state of the decoder at each decoding time instant.
+7. The method according to claim 6, wherein the obtaining a difference between the video feature of the target video and the video feature of the original video comprises: calculating a second Euclidean distance between each of the local features of the target video and the video feature of the original video; constructing a local loss function of the reconstructor according to the second Euclidean distance; obtaining a loss function of the decoder; constructing a local difference function according to the loss function of the decoder and the local loss function of the reconstructor; and determining the difference between the video feature of the target video and the video feature of the original video according to the local difference function.
+8. The method according to any one of claims 1 to 7, further comprising: determining words corresponding to the original video by using the decoder according to the hidden state of the decoding stage; and merging the words according to the time sequence of the decoding time instants by using the decoder to form a natural sentence for describing the original video.
+9. A video retrieval method, comprising: receiving a video retrieval request, wherein the video retrieval request carries retrieval key information; searching a video database for a natural sentence matching the retrieval key information, wherein the video database comprises a video and a natural sentence corresponding to the video, and the natural sentence corresponding to the video is obtained by using the video processing method according to claim 8; and obtaining a matching video corresponding to the natural sentence matching the retrieval key information, and outputting the matching video.
+10. The video retrieval method according to claim 9, wherein the retrieval key information comprises a retrieval text or a retrieval audio; and
+in a case that the retrieval key information is a retrieval audio and before the searching a video database for a natural sentence matching the retrieval key information, the method further comprises: converting the retrieval audio into a retrieval text.
+11. A video processing apparatus, comprising: a processing unit, configured to perform encoding and decoding on an original video by using an encoder and a decoder, to obtain a video feature of the original video and a hidden state of a decoding stage; a reconstruction unit, configured to reconstruct a video feature of a target video by using a reconstructor according to the hidden state of the decoding stage; a difference obtaining unit, configured to obtain a difference between the video feature of the target video and the video feature of the original video; and an optimization unit, configured to adjust a processing parameter of at least one of the decoder and the reconstructor according to the difference, to reduce the difference.
+12. The apparatus according to claim 11, wherein the processing unit is further configured to: invoke the encoder to extract frame features of the original video; merge the extracted frame features according to a time sequence of video frames of the original video, to generate the video feature of the original video; obtain hidden states of the decoder at a plurality of decoding time instants; and merge the obtained hidden states at the plurality of decoding time instants according to a time sequence of the decoding time instants, to obtain the hidden state of the decoding stage.
+13. The apparatus according to claim 12, wherein the processing unit is further configured to: integrate the frame features in the video feature of the original video based on an average feature mechanism or a temporal attention mechanism at each decoding time instant, to obtain an integrated feature; and invoke the decoder to perform decoding on the integrated feature, to obtain the hidden states of the decoder at the plurality of decoding time instants.
+14. The apparatus according to claim 11, wherein the video feature of the target video comprises a global feature of the target video, and the reconstruction unit is further configured to: apply an average feature mechanism to the hidden state of the decoding stage, to obtain corresponding global expression information; and invoke the reconstructor to reconstruct a global feature of the target video according to the global expression information and the hidden state of the decoding stage.
+15. The apparatus according to claim 14, wherein the difference obtaining unit is further configured to: calculate a first Euclidean distance between the global feature of the target video and the video feature of the original video; construct a global loss function of the reconstructor according to the first Euclidean distance; obtain a loss function of the decoder; construct a global difference function according to the loss function of the decoder and the global loss function of the reconstructor; and determine the difference between the video feature of the target video and the video feature of the original video according to the global difference function.
+16. The apparatus according to claim 11, wherein the video feature of the target video comprises local features of the target video, and the reconstruction unit is further configured to: apply a temporal attention mechanism to a hidden state of the decoder at each decoding time instant, to obtain corresponding local expression information; and invoke the reconstructor to reconstruct the local features of the target video according to the local expression information and the hidden state of the decoder at each decoding time instant.
+17. The apparatus according to any one of claims 11 to 16, wherein the processing unit is further configured to: determine words corresponding to the original video by using the decoder according to the hidden state of the decoding stage; and merge the words according to the time sequence of the decoding time instants by using the decoder to form a natural sentence for describing the original video.
+18. A video retrieval apparatus, comprising: a receiving unit, configured to receive a video retrieval request, wherein the video retrieval request carries retrieval key information; a retrieval unit, configured to search a video database for a natural sentence matching the retrieval key information, wherein the video database comprises a video and a natural sentence corresponding to the video, and the natural sentence corresponding to the video is obtained by using the video processing apparatus according to claim 17; an obtaining unit, configured to obtain a matching video corresponding to the natural sentence matching the retrieval key information; and an output unit, configured to output the matching video.
+19. A non-volatile computer-readable storage medium, storing computer-readable instructions, wherein the computer-readable instructions, when being executed by one or more processors, cause the one or more processors to perform operations in the method according to any one of claims 1 to 10.
+20. A server, comprising a memory and a processor, wherein the memory stores computer-readable instructions, and the computer-readable instructions, when being executed by the processor, cause the processor to perform operations in the method according to any one of claims 1 to 10.
+</claims>
+</document>

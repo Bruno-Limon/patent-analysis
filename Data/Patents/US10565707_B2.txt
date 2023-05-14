@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2018-06-04
+</filing_date>
+
+<publication_date>
+2020-02-18
+</publication_date>
+
+<priority_date>
+2017-11-02
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/46,G06K9/62,G06N3/04,G06T11/60,G06T7/00,G16H30/20
+</ipc_classes>
+
+<assignee>
+SIEMENS HEALTHCARE
+</assignee>
+
+<inventors>
+COMANICIU, DORIN
+MERTELMEIER, THOMAS
+ZHOU, SHAOHUA KEVIN
+PAULY, OLIVIER
+XU, DAGUANG
+WICKLEIN, JULIA
+GRBIC, SASA
+LIU, SIQI
+JEREBKO, ANNA
+</inventors>
+
+<docdb_family_id>
+64048700
+</docdb_family_id>
+
+<title>
+3D anisotropic hybrid network: transferring convolutional features from 2D images to 3D anisotropic volumes
+</title>
+
+<abstract>
+A computer-implemented method for identifying features in 3D image volumes includes dividing a 3D volume into a plurality of 2D slices and applying a pre-trained 2D multi-channel global convolutional network (MC-GCN) to the plurality of 2D slices until convergence. Following convergence of the 2D MC-GCN, a plurality of parameters are extracted from a first feature encoder network in the 2D MC-GCN. The plurality of parameters are transferred to a second feature encoder network in a 3D Anisotropic Hybrid Network (AH-Net). The 3D AH-Net is applied to the 3D volume to yield a probability map;. Then, using the probability map, one or more of (a) coordinates of the objects with non-maximum suppression or (b) a label map of objects of interest in the 3D volume are generated.
+</abstract>
+
+<claims>
+We claim:
+1. A computer-implemented method for identifying features in 3D image volumes, the method comprising: dividing a 3D volume into a plurality of 2D slices; applying a pre-trained 2D multi-channel global convolutional network (MC-GCN) to the plurality of 2D slices until convergence; following convergence of the 2D MC-GCN, extracting a plurality of parameters from a first feature encoder network in the 2D MC-GCN; transferring the plurality of parameters to a second feature encoder network in a 3D Anisotropic Hybrid Network (AH-Net); applying the 3D AH-Net to the 3D volume to yield a probability map; and using the probability map, generate one or more of (a) coordinates of the objects with non-maximum suppression or (b) a label map of objects of interest in the 3D volume.
+2. The method of claim 1, wherein the 2D MC-GCN comprises a multi-layer residual network.
+3. The method of claim 2, wherein the 2D network further comprises a plurality of global convolutional network blocks and a plurality of boundary refinement blocks.
+4. The method of claim 2, wherein following application of the second feature encoder network, the 3D AH-Net executes a decoder network comprising a plurality of anisotropic convolutional blocks.
+5. The method of claim 4, wherein each anisotropic convolutional block applies a plurality of 3D kernels to an output of the second feature encoder network.
+6. The method of claim 4, wherein applying the 3D AH-Net to the 3D volume to yield the probability map comprises: calculating a summation of the output of plurality of anisotropic convolutional blocks; applying a pyramid volumetric pooling operation to the summation of the output of plurality of anisotropic convolutional blocks to yield a probability map pyramid; concatenating the summation of the output of plurality of anisotropic convolutional blocks with the probability map pyramid to yield the probability map.
+7. The method of claim 1, wherein the label map is presented as a heat map overlaid on the 3D volume.
+8. A computer-implemented method for identifying features in 3D image volumes, the method comprising: dividing a 3D digital breast tomosynthesis (DBT) volume into a plurality of 2D slices; applying a 2D multi-channel global convolutional network (MC-GCN) to the plurality of 2D slices until convergence, wherein the 2D MC-GCN is pre-trained with a plurality of DBT image slices depicting healthy breast tissue; following convergence of the 2D MC-GCN, extracting a plurality of parameters from a first feature encoder network in the 2D MC-GCN; transferring to the plurality of parameters to a second feature encoder network in a 3D Anisotropic Hybrid Network (AH-Net); applying the 3D AH-Net to the 3D volume to yield a voxel-wise confidence map of lesion presence comprising a confidence score for each voxel in the 3D volume indicating presence or absence of a lesion; and presenting the voxel-wise confidence map overlaid on the 3D DBT volume.
+9. The method of claim 8, wherein the 2D MC-GCN comprises a multi-layer residual network.
+10. The method of claim 9, wherein the 2D MC-GCN further comprises a plurality of global convolutional network blocks and a plurality of boundary refinement blocks.
+11. The method of claim 9, wherein following application of the second feature encoder network, the 3D AH-Net executes a decoder network comprising a plurality of anisotropic convolutional blocks.
+12. The method of claim 11, wherein each anisotropic convolutional block applies a plurality of 3D kernels to an output of the second feature encoder network.
+13. The method of claim 11, wherein applying the 3D AH-Net to the 3D volume to yield the probability map comprises: calculating a summation of the output of plurality of anisotropic convolutional blocks; applying a pyramid volumetric pooling operation to the summation of the output of plurality of anisotropic convolutional blocks to yield a probability map pyramid; concatenating the summation of the output of plurality of anisotropic convolutional blocks with the probability map pyramid to yield the probability map.
+14. A system for identifying features in 3D image volumes, the system comprising: a multi-channel 2D global convolutional neural network (MC-GCN) comprising a 2D feature encoder network; a 3D Anisotropic Hybrid Network (AH-Net) comprising: a 3D feature encoder network, a plurality of decoder modules configured to process outputs of the 3D feature encoder, a pyramid volumetric pooling module configured to process outputs of the plurality of decoder modules to generate a probability map pyramid, and a concatenation module configured to concatenate the probability map pyramid and outputs of the plurality of decoder modules to generate a probability map; a parallel processing architecture configured to: divide a 3D volume into a plurality of 2D slices; apply the 2D MC-GCN to the plurality of 2D slices until convergence; following convergence of the 2D MC-GCN, extract a plurality of parameters from a 2D feature encoder network in the 2D MC-GCN; transferring to the plurality of parameters to the 3D feature encoder network in the 3D AH-Net; and applying the 3D AH-Net to the 3D volume to generate a probability map.
+15. The system of claim 14, further comprising: a display configured to present a label map of objects of interest in the 3D volume derived from the probability map overlaid on the 3D volume.
+16. The system of claim 14, wherein the 3D feature encoder network is a multi-layer residual network.
+17. The system of claim 14, wherein the outputs of each decoder module are combined via summation prior to processing by the pyramid volumetric pooling module.
+</claims>
+</document>

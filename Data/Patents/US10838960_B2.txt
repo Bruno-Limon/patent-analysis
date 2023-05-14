@@ -1,0 +1,60 @@
+<document>
+
+<filing_date>
+2017-11-22
+</filing_date>
+
+<publication_date>
+2020-11-17
+</publication_date>
+
+<priority_date>
+2013-02-25
+</priority_date>
+
+<ipc_classes>
+G06F16/10,G06F16/11,G06F16/14,G06F16/18,G06F16/182,G06F16/21,G06F16/24,G06F16/245,G06F16/2452,G06F16/2453,G06F16/2455,G06F16/2458,G06F16/27,G06F16/43,G06F16/907,G06F17/30,H04L29/06,H04L29/08
+</ipc_classes>
+
+<assignee>
+EMC IP HOLDING COMPANY
+</assignee>
+
+<inventors>
+WELTON, CALEB E.
+YANG SHENGWEN
+</inventors>
+
+<docdb_family_id>
+51389310
+</docdb_family_id>
+
+<title>
+Data analytics platform over parallel databases and distributed file systems
+</title>
+
+<abstract>
+Performing data analytics processing in the context of a large scale distributed system that includes a massively parallel processing (MPP) database and a distributed storage layer is disclosed. In various embodiments, a data analytics request is received. A plan is created to generate a response to the request. A corresponding portion of the plan is assigned to each of a plurality of distributed processing segments, including by invoking as indicated in the assignment one or more data analytical functions embedded in the processing segment.
+</abstract>
+
+<claims>
+1. A method, comprising: receiving, by a master node, a query from a client node, the query being input according to one or more sets of Structured Query Language (SQL) statements; creating, by the master node, a plan to process the query; selecting, with respect to the plan, one or more selected processing segments from among a plurality of distributed processing segments and metadata associated with the plan to be used in connection with performing the plan, the one or more selected processing segments being selected to process a corresponding portion of the plan; obtaining, by the master node, the metadata associated with the plan, the metadata being obtained from a central metadata store; sending, by the master node, to each of the one or more selected processing segments, the corresponding portion of the plan to be processed by that corresponding processing segment and metadata associated with the plan, the metadata associated with the plan being sent in connection with the corresponding portion of the plan to be processed, wherein the metadata is used in connection with locating or accessing a subset of data on which the corresponding selected processing segment is to perform an indicated processing; receiving, from at least one of the one or more selected processing segments, a result of the portion of the plan processed by the corresponding processing segment; and generating, a master response to the query based at least in part on the result of the portion of the plan received from the at least one of the one or more selected processing segments, wherein: the creating the plan and selecting the one or more selected processing segments collectively comprise translating the query from the one or more SQL statements to the plan according to an optimization based on (i) data locality of data associated with the plan, and (ii) load balances among the plurality of distributed processing segments; the metadata or corresponding portion of the plan sent to each of the plurality of distributed processing segments for which a portion of the plan is assigned includes an indication of one or more data analytics function to be used to process the portion of the plan; and the one or more selected processing segments correspondingly invoke the one or more data analytical functions respectively embedded in the one or more selected processing segments.
+2. The method of claim 1, wherein the metadata identifies a location data corresponding to one or more portions of the plan and at least a part of one or more data analytic processing to be performed in connection with processing the corresponding portion of the plan.
+3. The method of claim 1, wherein a request to process the query comprises one or more SQL statements.
+4. The method of claim 1, wherein a request to process the query comprises one or more SQL statements to compute one or more of the following: Logistic Regression, Multinomial Logistic Regression, K-means clustering, Association Rules based market basket analysis, and Latent Dirichlet based topic modeling.
+5. The method of claim 1, wherein a request to process the query is received at the master node, wherein the master node corresponds to a master node of a large scale distributed system.
+6. The method of claim 1, wherein the creating of the plan to process the query includes creating a query plan, slicing the query plan into a plurality of slices, and identifying for each slice a group of processing segments to perform tasks comprising that slice of the query plan.
+7. The method of claim 1, wherein each of the selected one or more processing segments is configured to use the metadata to access the data to be processed by that segment.
+8. The method of claim 1, wherein a request to process the query is received at the master node, wherein the master node corresponds to a master node of a large scale distributed system, and the large scale distributed system comprises a distributed data storage layer comprising data stored in an instance of a Hadoop Distributed File System (HDFS) and the metadata indicates a location within the HDFS of data to be processed by the corresponding processing segment of the one or more selected processing segments.
+9. The method of claim 1, further comprising: embedding in each of the plurality of distributed processing segments a library or other shared object comprising one or more data analytical functions, wherein the library or other shared object is included in the one or more selected processing segments as deployed.
+10. The method of claim 9, wherein the library or other shared object embodies the one or more data analytical functions in a form of one or more of: compiled C++ code, compiled Java, compiled Fortran, or other compiled code.
+11. The method of claim 1, wherein the plurality of distributed processing segments comprise a subset of parallel processing segments comprising a massively parallel processing (MPP) database system.
+12. The method of claim 1, wherein the one or more data analytics function includes a User-Defined function, a step function, or a final function of a User-Defined Aggregator.
+13. The method of claim 1, wherein the metadata sent to each of the one or more selected processing segments is sent in conjunction with the corresponding portion of the plan to be performed by that selected processing segment.
+14. The method of claim 13, wherein the metadata sent to each of the one or more selected processing segments is sent as part of the corresponding portion of the plan to be performed by that selected processing segment.
+15. The method of claim 1, wherein at least a portion of the metadata sent to each of the one or more selected processing segments is obtained from a central metadata store.
+16. The method of claim 1, wherein the one or more selected processing segments are selected based at least in part on a data distribution and available processing resources, and a number of the one or more selected processing segments is dynamic in relation to received queries.
+17. A system, comprising: a communication interface; and one or more processors coupled to the communication interface and configured to: receive a query from a client node, the query being input according to one or more sets of Structured Query Language (SQL) statements; create a plan to process the query; select, with respect to the plan, one or more of selected processing segments from among a plurality of distributed processing segments and metadata associated with the plan to be used in connection with performing the plan, the one or more selected processing segments being selected to process a corresponding portion of the plan; obtain the metadata associated with the plan, the metadata being obtained from a central metadata store; send, to each of the one or more selected processing segments, the corresponding portion of the plan to be processed by that corresponding processing segment and metadata associated with the plan, the metadata associated with the plan being sent in connection with the corresponding portion of the plan to be processed, wherein the metadata is used in connection with locating or accessing a subset of data on which the corresponding selected processing segment is to perform an indicated processing; receive, from at least one of the one or more selected processing segments, a result of the corresponding portion of the plan processed by the corresponding processing segment; and generate, a master response to the query based at least in part on the result of the corresponding portion of the plan received from the at least one of the one or more selected processing segments, wherein: to create the plan and to select the one or more selected processing segments collectively comprise translating the query from the one or more SQL statements to the plan according to an optimization based on (i) data locality of data associated with the plan, and (ii) load balances among the plurality of distributed processing segments; the metadata or corresponding portion of the plan sent to each of the plurality of distributed processing segments for which a portion of the plan is assigned includes an indication of one or more data analytics function to be used to process the portion of the plan; and the one or more selected processing segments correspondingly invoke the one or more data analytical functions respectively embedded in the one or more selected processing segments.
+18. A computer program product embodied in a tangible, non-transitory computer readable storage medium, comprising computer instructions for: receiving, by a master node, a query from a client node, the query being input according to one or more sets of Structured Query Language (SQL) statements; creating a plan to processing the query; selecting, with respect to the plan, one or more selected processing segments from among a plurality of distributed processing segments and metadata associated with the plan to be used in connection with performing the plan, the one or more selected processing segments being selected to process a corresponding portion of the plan; obtaining the metadata associated with the plan, the metadata being obtained from a central metadata store; sending, to each of the one or more selected processing segments, the corresponding portion of the plan to be processed by that corresponding processing segment and metadata, the metadata associated with the plan being sent in connection with the corresponding portion of the plan to be processed, wherein the metadata is used in connection with locating or accessing a subset of data on which the corresponding selected processing segment is to perform an indicated processing; receiving, from at least one of the one or more selected processing segments, a result of processing the corresponding portion of the plan; and generating, a master response to the query based at least in part on the result of the corresponding portion of the plan received from the at least one of the one or more selected processing segments, wherein: the creating the plan and selecting the one or more selected processing segments collectively comprise translating the query from the one or more SQL statements to the plan according to an optimization based on (i) data locality of data associated with the plan, and (ii) load balances among the plurality of distributed processing segments; the metadata or corresponding portion of the plan sent to each of the plurality of distributed processing segments for which a portion of the plan is assigned includes an indication of one or more data analytics function to be used to process the portion of the plan; and the one or more selected processing segments correspondingly invoke the one or more data analytical functions respectively embedded in the one or more selected processing segments.
+</claims>
+</document>

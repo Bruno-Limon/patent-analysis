@@ -1,0 +1,70 @@
+<document>
+
+<filing_date>
+2019-12-31
+</filing_date>
+
+<publication_date>
+2020-07-29
+</publication_date>
+
+<priority_date>
+2019-01-22
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/62,G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+STRADVISION
+</assignee>
+
+<inventors>
+JANG, TAEWOONG
+CHO, HOJIN
+RYU, WOOJU
+BOO, SUKHOON
+NAM, WOONHYUN
+KIM, HAK-KYOUNG
+SUNG, MYUNGCHUL
+YEO, DONGHUN
+JEONG, KYUNGJOONG
+KIM, INSU
+KIM, YONGJOONG
+KIM, KYE-HYEON
+JE, HONGMO
+</inventors>
+
+<docdb_family_id>
+67069340
+</docdb_family_id>
+
+<title>
+METHOD AND DEVICE OF NEURAL NETWORK OPERATIONS USING A GRID GENERATOR FOR CONVERTING MODES ACCORDING TO CLASSES OF AREAS TO SATISFY LEVEL 4 OF AUTONOMOUS VEHICLES
+</title>
+
+<abstract>
+A method of neural network operations by using a grid generator is provided for converting modes according to classes of areas to satisfy level 4 of autonomous vehicles. The method includes steps of: a computing device (a) instructing a detector to acquire object location information for testing and class information; (b) instructing the grid generator to generate section information by referring to the object location information for testing; (c) instructing a neural network to determine parameters for testing, to be used for applying the neural network operations to either (i) the subsections including each of the objects for testing and each of non-objects for testing, or (ii) each of sub-regions, in each of the subsections, where said each of the non-objects for testing is located; and (d) instructing the neural network to apply the neural network operations to the test image for testing to thereby generate neural network outputs.
+</abstract>
+
+<claims>
+1. A method for neural network operations by using a grid generator, comprising steps of: (a) a computing device, if a test image is acquired, instructing a detector to acquire object location information for testing, including information on where objects for testing are located on the test image, and class information of non-objects for testing, including information on classes of the non-objects for testing on the test image by detecting the objects for testing and the non-objects for testing on the test image; (b) the computing device instructing the grid generator to generate section information, which includes information on a plurality of subsections in the test image, by referring to the object location information for testing; (c) the computing device instructing a neural network to determine parameters for testing, to be used for applying the neural network operations to either (i) at least part of the subsections including each of the objects for testing and each of the non-objects for testing corresponding to said each of the objects for testing, or (ii) each of sub-regions, in each of said at least part of the subsections, where said each of the non-objects for testing is located, by referring to parameters for training which have been learned by using information on non-objects for training whose corresponding class information is same as or similar to that of the non-objects for testing; and (d) the computing device instructing the neural network to apply the neural network operations to the test image by using each of the parameters for testing, corresponding to each of said at least part of the subsections, to thereby generate one or more neural network outputs.
+2. The method of Claim 1, wherein, at the step of (b), the grid generator divides the test image by using a dynamic template, and wherein the dynamic template is provided by adjusting one or more boundaries included therein, such that at least one of the objects for testing is included in each of said at least part of the subsections of the dynamic template.
+3. The method of Claim 2, wherein the grid generator manages information on the dynamic template, and wherein the dynamic template includes at least part of (i) at least one first boundary in a first direction and (ii) at least one second boundary in a second direction, some of which are adjustable.
+4. The method of Claim 2, wherein the dynamic template includes row groups and one or more column groups, wherein the row groups have an upper row group, a middle row group including at least part of the column groups, and a lower row group, and wherein at least one of the objects for testing is included in each of said at least part of the subsections formed by the row groups and the column groups.
+5. The method of Claim 1, before the step (a), comprising a step of:
+(a0) the computing device instructing the neural network to learn the parameters for training by using information on each of the non-objects for training included in one or more training images.
+6. The method of Claim 5, wherein, at the step of (a0), the neural network learns the parameters for training by using information on each of the non-objects for training included in each of at least part of partial areas, from a first partial area to a k-th partial area, included in the training images, and store class information of the non-objects for training coupled with their corresponding parameters for training.
+7. The method of Claim 6, wherein, on condition that there are first location information to k-th location information corresponding to the first partial area to the k-th partial area in each of the training images, the training images, in which respective relative variations of at least part of the first location information to the k-th location information are equal to or smaller than a predetermined threshold value, are selected.
+8. The method of Claim 1, wherein, at the step of (c), (i) on condition that a ratio of an area of a specific object for testing to a specific subsection including the specific object for testing is smaller than a predetermined threshold value, the computing device instructs the neural network to determine at least one specific parameter for testing among the parameters for testing, to be used for applying the neural network operations to the specific subsection, by referring to at least one specific parameter for training among the parameters for training and (ii) on condition that the ratio of that is the same as or larger than the predetermined threshold value, the computing device instructs the neural network (ii-1) to determine a first part of the specific parameter for testing, to be used for applying the neural network operations to a sub-region, in the specific subsection, where a specific non-object for testing is located, by referring to the specific parameter for training among the parameters for training and (ii-2) to determine a second part of the specific parameter for testing, to be used for applying the neural network operations to a sub-region, in the specific subsection, where the specific object for testing is located, by referring to at least one additional parameter for training having been separately learned by using additional objects for training whose corresponding class information is the same as or similar to that of the specific object for testing.
+9. The method of Claim 1, wherein, at the step of (d), the computing device instructs the neural network to generate the neural network outputs by applying one or more convolutional operations and one or more deconvolutional operations to the test image with the parameters for testing.
+10. The method of Claim 9, wherein the test image represents road driving circumstances, the objects for testing represent objects existing on a road, and the neural network outputs are used for autonomous driving.
+11. A method for neural network operations by using a grid generator, comprising steps of: (a) a computing device, if a test image is acquired, instructing a detector to acquire object location information for testing, including information on where objects for testing are located on the test image, and class information of objects, including information on classes of the objects for testing on the test image by detecting the objects for testing on the test image; (b) the computing device instructing the grid generator to generate section information, which includes information on a plurality of subsections in the test image, by referring to the object location information for testing; (c) the computing device instructing a neural network to determine parameters for testing, to be used for applying neural network operations to either (i) at least part of the subsections including each of the objects for testing and each of non-objects for testing corresponding to said each of the objects for testing, or (ii) each of sub-regions, in each of said at least part of the subsections, where said each of the objects for testing is located, by referring to parameters for training which have been learned by using information on objects for training whose corresponding class information is same as or similar to that of the objects for testing; and (d) the computing device instructing the neural network to apply the neural network operations to the test image by using each of the parameters for testing, corresponding to each of said at least part of the subsections, to thereby generate one or more neural network outputs.
+12. The method of Claim 11, before the step (a), comprising a step of:
+(a0) the computing device instructing the neural network to learn the parameters for training by using information on each of the objects for training included in one or more training images.
+13. The method of Claim 12, wherein, at the step of (a0), the neural network learns the parameters for training by using information on each of the objects for training included in each of at least part of partial areas, from a first partial area to a k-th partial area, included in the training images, and store class information of the objects for training coupled with their corresponding parameters for training.
+14. The method of Claim 13, wherein, on condition that there are first location information to k-th location information corresponding to the first partial area to the k-th partial area in each of the training images, the training images, in which respective relative variations of at least part of the first location information to the k-th location information are equal to or smaller than a predetermined threshold value, are selected.
+15. The method of Claim 14, wherein, at the step of (c), (i) on condition that a ratio of an area of a specific object for testing to a specific subsection including the specific object for testing is same as or larger than a predetermined threshold value, the computing device instructs the neural network to determine at least one specific parameter for testing among the parameters for testing, to be used for applying the neural network operations to the specific subsection, by referring to at least one specific parameter for training among the parameters for training and (ii) on condition that the ratio of that is the smaller than the predetermined threshold value, the computing device instructs the neural network (ii-1) to determine a first part of the specific parameter for testing, to be used for applying the neural network operations to a sub-region, in the specific subsection, where a specific object for testing is located, by referring to the specific parameter for training among the parameters for training and (ii-2) to determine a second part of the specific parameter for testing, to be used for applying the neural network operations to a sub-region, in the specific subsection, where the specific non-object for testing is located, by referring to at least one additional parameter for training having been separately learned by using additional non-objects for training whose corresponding class information is the same as or similar to that of the specific non-object for testing.
+</claims>
+</document>

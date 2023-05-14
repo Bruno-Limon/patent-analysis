@@ -1,0 +1,88 @@
+<document>
+
+<filing_date>
+2016-12-14
+</filing_date>
+
+<publication_date>
+2020-05-27
+</publication_date>
+
+<priority_date>
+2016-01-08
+</priority_date>
+
+<ipc_classes>
+G06F21/57,H04L12/28,H04L12/40,H04L29/06,H04W12/00
+</ipc_classes>
+
+<assignee>
+PANASONIC INTELLECTUAL PROPERTY
+</assignee>
+
+<inventors>
+KISHIKAWA TAKESHI
+KUWAHARA TAKUYA
+MATSUSHIMA HIDEKI
+KASHIMA HISASHI
+TSURUMI JUNICHI
+MAEDA MANABU
+UJIIE YOSHIHIRO
+HAGA TOMOYUKI
+TORIUMI YUKINO
+</inventors>
+
+<docdb_family_id>
+59364469
+</docdb_family_id>
+
+<title>
+ABNORMALITY DETECTION METHOD, ABNORMALITY DETECTION DEVICE, AND ABNORMALITY DETECTION SYSTEM
+</title>
+
+<abstract>
+An abnormality detection method is provided for detecting an abnormality that may be transmitted to a bus in an on-board network system including a plurality of electronic control units that transmit and receive messages via the bus in a vehicle according to a CAN protocol. In the abnormality detection method, for example, a gateway transmits vehicle identification information to a server and receives a response thereto thereby determining a detection window size, and performs an operation process using feature information based on the number of messages received from the bus within the determined unit time and using a particular model indicating a criterion in terms of a message occurrence frequency and making a judgment as to an abnormality according to a result of the operation process.
+</abstract>
+
+<claims>
+1. An abnormality detection method for detecting an abnormality in an on-board network system, the on-board network system including a plurality of electronic control units (100a - 100d) that transmit and receive messages via a bus (200a, 200b) in a vehicle according to a CAN, Controller Area Network, protocol, wherein each of the plurality of electronic control units transmits messages periodically at fixed intervals, the abnormality detection method comprising: determining (S1305) a unit time; counting (S1602) the number of messages received from the bus (200a, 200b) in a detection window with the determined unit time; generating (S1603), at the end of the detection window, feature information based on the number of messages received from the bus (200a, 200b); and judging (S1604) whether there is an abnormality according to a result of an operation process performed using the feature information and a particular model indicating a criterion in terms of a message occurrence frequency.
+2. The abnormality detection method according to claim 1, wherein
+each message includes a message ID indicating a message type,
+and wherein the abnormality detection method comprises the steps of
+performing the determination (S1305) of the unit time;
+counting (S1602) the number of messages received from the bus (200a, 200b) in the detection window individually for each message ID;
+identifying (S1603), as the feature information, a feature vector including components assigned to the respective message IDs and respectively indicating the numbers of messages of the assigned message IDs received from the bus within the detection window with the unit time determined in the determining step, and
+performing the judging (S1604) according to a result of the operation process performed using the particular model and the feature information identified in the identifying step.
+3. The abnormality detection method according to claim 2, wherein in the determining step (S1305), the unit time is determined based on the vehicle identification information for identifying the vehicle.
+4. The abnormality detection method according to claim 3, wherein the vehicle identification information indicates a manufacturer of the vehicle.
+5. The abnormality detection method according to claim 3, wherein the vehicle identification information indicates a type of the vehicle.
+6. The abnormality detection method according to claim 3, wherein the vehicle identification information is information that distinguishes the vehicle from the other vehicles.
+7. The abnormality detection method according to one of claims 3 to 6, wherein in the determining step (S1305), the unit time is determined to be equal to a transmission period of one type of message, whose transmission period is the shortest among a plurality of different types of messages to be transmitted in a normal state via an in-vehicle bus in an on-board network system of a vehicle included in a set of vehicles identified by the vehicle identification information.
+8. The abnormality detection method according to one of claims 3 to 7, wherein in the judging step (S1604), the operation process is performed using the particular model corresponding to the vehicle identification information.
+9. The abnormality detection method according to one of claims 2 to 8, wherein
+in the identifying step (S1603), the feature information is identified based on the number of messages received from the bus (200a, 200b) within the detection window with the unit time determined in the determining step, the counting step (S1602) and the identifying step (S1603) being performed sequentially every period with a length equal to the determined unit time, and
+in the judging step (S1604), the operation process is performed using the particular model and each piece of feature information sequentially identified in the identifying step,
+and wherein the abnormality detection method further comprises the step of sequentially updating (S1503) the particular model based on the plurality of pieces of feature information sequentially identified in the identifying step (S1603).
+10. The abnormality detection method according to one of claims 2 to 9, wherein
+in the determining step (S1305), the unit time is determined in the vehicle based on information defined when the vehicle was produced, and
+in the identifying step (S1603), the feature information is identified in the vehicle.
+11. The abnormality detection method according to one of claims 2 to 9, wherein
+in the determining step (S1305), the unit time is determined in the vehicle when an engine or an accessory of the vehicle is turned on, and
+in the identifying step (S1603), the feature information is identified in the vehicle.
+12. The abnormality detection method according to one of claims 2 to 9, wherein
+in the determining step (S1305), the unit time is determined every predefined time period,
+in the identifying step (S1603), the feature information is identified based on the number of messages received from the bus(200a, 200b) within the detection window with a unit time determined most recently in the determining step, the counting (S1602) and the identifying (S1603) being performed sequentially every period with a length equal to the unit time determined most recently, and
+in the judging step (S1604), the operation process is performed on each piece of feature information sequentially identified in the identifying step using the particular model and each piece of feature information.
+13. The abnormality detection method according to claim 1, wherein
+the message includes a message ID indicating a message type, and the feature information indicates the total number of all messages received from the bus within the detection window with the determined unit time.
+14. An abnormality detection apparatus (300, 1300) that is configured to detect an abnormality, the abnormality detection apparatus being connected to a bus (200a, 200b) in an on-board network system, the on-board network system including a plurality of electronic control units (100a - 100d) that transmit and receive messages via the bus (200a, 200b) in a vehicle according to a CAN, Controller Area Network, protocol, wherein each of the plurality of electronic control units transmits messages periodically at fixed intervals, the abnormality detection apparatus (300 1300) comprising: a receiver (310) that is configured to receive a message from the bus (200a, 200b); a determiner (360, 1440) that is configured to determine a unit time; an identifier (350, 1350) that is configured to count the number of messages received from the bus (200a, 200b) in a detection window with the determined unit time, and to generate, at the end of the detection window, feature information based on the number of messages received from the bus (200a, 200b) by the receiver (310) ; and a judger (370, 1370) that is configured to judge whether there is an abnormality depending on a result of an operation process performed using the feature information identified by the identifier (350,1350) and a particular model indicating a criterion in terms of a message occurrence frequency.
+15. An abnormality detection system (10) including a vehicle and a server (400),
+the vehicle including an on-board network system and an abnormality detection apparatus (300) according to claim 14, the on-board network system including a plurality of electronic control units (100a - 100d) that transmit and receive messages via a bus (200a, 200b) in the vehicle according to a CAN, Controller Area Network, protocol, wherein each of the plurality of electronic control units transmits messages periodically at fixed intervals, the abnormality detection apparatus (300) being connected to the bus (200a, 200b), and
+the server (400) includes a communicator (410) that is configured to receive vehicle identification information from the vehicle and to transmit, to the vehicle, information indicating a unit time identified based on the vehicle identification information.
+16. The abnormality detection system (10) according to claim 15, wherein
+the server (400) further includes a learner (430) that is configured to acquire particular information based on the number of messages received from a bus (200a, 200b) in an on-board network system of one or more vehicles in a set of vehicles identified by the vehicle identification information, and updates, based on the particular information, a criterion model indicating a criterion in terms of message occurrence frequency,
+the communicator (410) is configured to transmit, to the vehicle, information indicating the criterion model updated by the learner,
+the abnormality detection apparatus (300) is configured to update the particular model based on the information indicating the criterion model received from the server (400), and
+the judger (370) is configured to perform an operation process using the feature information and the updated particular model and to perform the judgment as to whether the state is abnormal or not.
+</claims>
+</document>

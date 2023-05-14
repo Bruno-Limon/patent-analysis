@@ -1,0 +1,69 @@
+<document>
+
+<filing_date>
+2019-06-29
+</filing_date>
+
+<publication_date>
+2020-12-31
+</publication_date>
+
+<priority_date>
+2019-06-29
+</priority_date>
+
+<ipc_classes>
+G06N20/00,G06Q20/40,G06Q20/42
+</ipc_classes>
+
+<assignee>
+PAYPAL
+</assignee>
+
+<inventors>
+JAMKHEDKAR, PRASHANT
+Aghareza, Ali
+Puri, Archana N.
+Eng, Alan F.
+Venugopal, Vijay
+Whipple, Thomas M.
+Kee, Kin K.
+Shah, Prashant
+Ashwani, Kumar
+</inventors>
+
+<docdb_family_id>
+74044763
+</docdb_family_id>
+
+<title>
+Conditional Transaction Pre-Approval
+</title>
+
+<abstract>
+A method and apparatus for conditional transaction pre-approval is disclosed. In one embodiment, a computer system receives a transaction request, the computer being configured to perform a verification process to authorize transactions. The computer system may initiate, prior to completion of the verification process for a transaction, a prediction process using a model, to predict whether the transaction will pass the verification process. In response to determining that the transaction is predicted to pass, the transaction is pre-approved by the computer system, prior to completing the verification process. Subsequent to pre-approving, the verification process may be completed to determine if the prediction was correct. Based on the result of the verification process, the model is updated for future transaction requests.
+</abstract>
+
+<claims>
+1. A method, comprising: receiving, at a computer system, a particular transaction request, wherein the computer system is configured to perform a verification process to authorize transaction requests; initiating, by the computer system prior to completion of the verification process for the particular transaction request, a prediction process to predict whether the particular transaction request will pass the verification process, wherein the prediction process utilizes a model specific to a user participating in the particular transaction request; in response to the prediction process determining that the particular transaction request is predicted to pass the verification process, pre-approving, by the computer system, the particular transaction request such that the particular transaction request is authorized without the verification process; after the pre-approving, completing, by the computer system, the verification process to determine whether the prediction process was correct for the particular transaction request; and updating, by the computer system based on a result of the verification process, the model for future transaction requests of the user.
+2. The method of claim 1, wherein the prediction process includes a first set of routines executable to determine eligibility for pre-approval of the particular transaction request, wherein the first set of routines is executed prior to beginning the verification process for the particular transaction request; and wherein the prediction process includes a second set of routines executable to determine, based on an outcome of the first set of routines, whether the particular transaction request is pre-approved.
+3. The method of claim 2, wherein the verification process for the particular transaction request is begun after the first set of routines is complete and before the second set of routines is initiated; and wherein the second set of routines is executed in response to the first set of routines indicating eligibility for pre-approval and a duration of the verification process approaching a specified timeout threshold, wherein the timeout threshold corresponds to a quality of service parameter for the user.
+4. The method of claim 2, wherein the first set of routines utilizes the model to determine eligibility for pre-approval.
+5. The method of claim 1, wherein the prediction process further utilizes a set of static rules and a transaction loss budget.
+6. The method of claim 5, wherein the transaction loss budget takes into account a merchant and a payment tenant participating in the particular transaction request.
+7. The method of claim 1, wherein the prediction process utilizes metadata associated with an account of a transaction service that corresponds to a user participating in the particular transaction request.
+8. A non-transitory computer-readable storage medium storing program instructions executable by a computer transaction processing system to perform operations comprising: receiving a request to perform a payment transaction that involves a particular merchant; prior to receiving approval of the payment transaction from a verification process, performing, using a machine-learning model and a transaction loss budget, an eligibility determination indicating whether the payment transaction is eligible for a subsequent pre-approval determination, wherein the machine-learning model is specific to the particular merchant; and using the eligibility determination to perform, prior to the verification process being completed, the pre-approval determination for the payment transaction; wherein pre-approval of the payment transaction results in indicating to the particular merchant that the payment transaction is approved, regardless of a result of the verification process.
+9. The computer-readable storage medium of claim 8, wherein receiving the request to perform the payment transaction and performing the eligibility determination is performed on a first computer system of the computer transaction processing system, wherein the first computer system is configured to receive payment transactions from the particular merchant; and wherein using the eligibility determination to perform the pre-approval determination is completed on a second computer system of the computer transaction processing system, wherein the second computer system is coupled to the first computer system and to external payment processors configured to complete the verification process.
+10. The computer-readable storage medium of claim 9, wherein performing the pre-approval determination includes performing one or more checks that use different criteria than the eligibility determination.
+11. The computer-readable storage medium of claim 8, wherein receiving the request to perform the payment transaction is performed on a first computer system of the computer transaction processing system, wherein the first computer system is configured to receive payment transactions from the particular merchant; and wherein performing the eligibility determination and using the eligibility determination to perform the pre-approval determination is performed on a second computer system of the computer transaction processing system, wherein the second computer system is coupled to the first computer system and to external payment processors configured to complete the verification process.
+12. The computer-readable storage medium of claim 8, wherein using the eligibility determination to perform the pre-approval determination includes pre-approving the payment transaction in response to: the payment transaction being determined eligible for pre-approval; and approaching a timeout threshold for verification of the payment transaction, wherein the timeout threshold corresponds to a quality of service parameter for the particular merchant.
+13. The computer-readable storage medium of claim 8, wherein using the eligibility determination to perform the pre-approval determination includes: not pre-approving the payment transaction if the verification process completes prior to approaching a timeout threshold or if the transaction loss budget is exceeded or if the pre-approval determination does not indicate pre-approval; wherein the timeout threshold corresponds to a quality of service parameter for the particular merchant.
+14. The computer-readable storage medium of claim 8, wherein the transaction loss budget is associated with both the particular merchant and a particular payment tenant for the payment transaction.
+15. A transaction processing system, the system comprising: a first computer system configured to process user transactions using without utilizing user metadata associated with accounts of a transaction service; and a second computer system coupled to the first computer system via an application programming interface and configured to process user transactions utilizing user metadata associated with accounts of the transaction service, wherein the first computer system is configured to receive a particular transaction request of a user; and wherein the first and second computer systems are configured to, prior to completing a verification process for the particular transaction request, initiate a prediction process to determine whether to pre-approve the particular transaction request, wherein the prediction process uses a machine-learning model.
+16. The transaction processing system of claim 15, wherein the first computer system, in response to determining that the particular transaction request is not associated with an account of the transaction service, is configured to: perform a first portion of the prediction process utilizing the machine-learning model, wherein the machine-learning model is specific to a user in the particular transaction request; send, to the second computer system via the application programming interface, a timeout threshold specific to the participant and a result of the first portion of the prediction process; and wherein the second computer system, in response to the verification process approaching the timeout threshold, is configured to execute a second portion of the prediction process that utilizes the result of the first portion to determine whether to pre-approve the particular transaction request.
+17. The transaction processing system of claim 15, wherein the first computer system, in response to determining that the particular transaction request is not associated with an account of the transaction service, is configured to send a timeout threshold associated with the particular transaction request to the second computer system via the application programming interface; and wherein the second computer system, in response to the verification process exceeding the timeout threshold, is configured to perform the prediction process using the machine-learning model to determine whether to pre-approve the particular transaction request, wherein the machine-learning model is specific to a user in the particular transaction request.
+18. The transaction processing system of claim 15, wherein the second computer system, in response to an indication that the particular transaction request is associated with a particular account of the transaction service corresponding to a user, is configured to execute the second portion of the prediction process in a manner that does not utilize the result of the first portion to determine whether pre-approve the particular transaction request.
+19. The transaction processing system of claim 15, wherein the first computer system, in response to determining that the particular transaction request is associated with a particular account of the transaction service corresponding to a user, is configured to: request, from the second computer system via the application programming interface, user metadata associated with the particular account; perform a first portion of the prediction process utilizing the machine-learning model and the user metadata, wherein the machine-learning model is specific to the user; send, to the second computer system via the application programming interface, a result of the first portion of the prediction process; and wherein the second computer system is configured to execute a second portion of the prediction process to determine whether to pre-approve the particular transaction request.
+20. The transaction processing system of claim 15, wherein the first computer system is configured to send the particular transaction to the second computer system via the application programming interface, and wherein the second computer system is configured to perform the prediction process using both account metadata and the machine-learning model to determine whether to pre-approve the particular transaction request, wherein the account metadata is associated with an account of a user for a payment service, and wherein the machine-learning model is specific to the user.
+</claims>
+</document>

@@ -1,0 +1,57 @@
+<document>
+
+<filing_date>
+2018-08-27
+</filing_date>
+
+<publication_date>
+2020-10-06
+</publication_date>
+
+<priority_date>
+2011-12-16
+</priority_date>
+
+<ipc_classes>
+A61B5/00,A61B5/0205,A61B5/024,A61B5/0402,A61B5/145,G06F19/00,G06Q50/22,G16H50/20,G16H50/30,G16H50/50
+</ipc_classes>
+
+<assignee>
+ETIOMETRY
+Etiometry, Inc.
+</assignee>
+
+<inventors>
+BARONOV, DIMITAR V.
+BUTLER, EVAN, J.
+LOCK, JESSE, M.
+MCMANUS, MICHAEL, F.
+</inventors>
+
+<docdb_family_id>
+49043353
+</docdb_family_id>
+
+<title>
+Systems and methods for transitioning patient care from signal-based monitoring to risk-based monitoring
+</title>
+
+<abstract>
+A risk-based patient monitoring system for critical care patients combines data from multiple sources to assess the current and the future risks to the patient, thereby enabling providers to review a current patient risk profile and to continuously track a clinical trajectory. A physiology observer module in the system utilizes multiple measurements to estimate Probability Density Functions (PDF) of a number of Internal State Variables (ISVs) that describe a components of the physiology relevant to the patient treatment and condition. A clinical trajectory interpreter module in the system utilizes the estimated PDFs of ISVs to identify under which probable patient states the patient can be currently categorized and assign a probability value that the patient will be in each of the identified states. The combination of patient states and their probabilities is defined as the clinical risk to the patient.
+</abstract>
+
+<claims>
+1. A method of risk-based monitoring of a critical care patient, the method comprising: providing a plurality of sensors including at least a heart rate sensor and an SpO2 sensor, the plurality of sensors being configured to be physically attachable with the critical care patient; attaching the plurality of sensors to the patient; substantially continuously acquiring, by a computer, physiological data from the plurality of sensors connected with the patient; substantially continuously estimating a clinical trajectory for the patient, the patient's clinical trajectory being described by probabilities of possible patient states using data acquired at a subsequent time step tk+1 from at least the heart rate sensor and the SpO2 sensor attached to the patient, and posterior predicted probability density functions from a previous time step tk, by: generating, by the computer, predicted probability density functions of internal state variables for the time step tk+1, each of the internal state variables describing a parameter physiologically relevant to at least one of a treatment and a condition of said patient at time step tk+1, wherein the predicted probability density functions are calculated using posterior estimated probability density functions for each of the internal state variables from a preceding time step tk; generating, with the computer and using Bayes theorem, posterior predicted probability density functions for the plurality of the internal state variables for the time step tk+1 at least by computing conditional probability density functions of the data acquired at a time step tk+1 given the internal state variables and the predicted probability density functions of internal state variables; and determining, based on the generated posterior predicted probability density functions for the plurality of the internal state variables for the time step tk+1, a set of possible states of a hidden internal state variable; generating, based on the set of possible states of the hidden internal state variable, probabilities of possible patient states, wherein the possible patient steps cannot be directly measured; and and substantially continuously displaying a clinical trajectory of the patient on a graphical user interface, the user interface being configured to display the probabilities of possible patient states as function of a plurality of time steps.
+2. The method of risk-based monitoring of a critical care patient of claim 1, wherein the probabilities associated with the possible patient states are between 0% and 100%.
+3. The method of risk-based monitoring of a critical care patient of claim 1, further comprising: assigning a hazard level associated with each of the possible patient states, and presenting the probabilities and hazard levels associated with the respective possible patient states.
+4. The method of risk-based monitoring of a critical care patient of claim 1, wherein generating, with the computer, predicted probability density functions for the plurality of the internal state variables comprises: comparing a newly received measurement associated with the internal state variable with a predetermined predicted likelihood of probable measurements given previously received measurements; and not incorporating the newly received measurement into the predicted probability density function for the associated internal state variable, if the newly received measurement is not within the predetermined predicted likelihood of probable measurements for the associated internal state variable.
+5. The method of risk-based monitoring of a critical care patient of claim 1, wherein generating probabilities of possible patient states comprises: receiving, from a source, external computational data in the form of a probability value associated with a new attribute describing a patient state not within the possible patient states; and identifying, by the computer, from the generated probability density functions of the internal state variables and the probability value associated with the new attribute, into which of a second plurality of possible patient states, the patient is currently categorizable; and generating a probability value associated with each identified possible patient state.
+6. The method of risk-based monitoring of a critical care patient of claim 1, wherein generating, by the computer, predicted probability density functions for the plurality of the internal state variables for the time step tk+1 comprises: generating predicted probability density functions for a first plurality of the internal state variables at a time step tk; receiving, from a source, external computational data associated with a particular one of the plurality of the internal state variables; and generating probability density functions for the plurality of the internal state variables at another time step tk+1 from: the probability density functions generated at a time step tk and from: received measurements associated with respective ones of the internal state variables and; the external computational data associated with the particular one of the plurality of the internal state variables.
+7. The method of risk-based monitoring of a critical care patient of claim 1, wherein the predicted probability density functions are calculated using posterior predicted probability density functions for each of the internal state variables from the preceding time step tk, using the formula:
+description="In-line Formulae" end="lead"?P(ISVs(tk+1)|M(tk))=∫ISVs∈ISVP(ISVs(tk+1)|ISVs(tk))P(ISVs(tk)|M(tk))dISVs.description="In-line Formulae" end="tail"?
+8. A computer-implemented method for risk-based monitoring of a patient, comprising: providing a computer having a display device and a computer accessible memory; providing a plurality of physiological sensors including at least a heart rate sensor and an SpO2 sensor, the plurality of sensors physically attached to the critical care patient; acquiring, with the computer from at least the physiological sensors coupled to the patient, data associated with a plurality of internal state variables each describing a parameter physiologically relevant to one of a treatment and a condition of the patient, wherein some of the data associated with the plurality of the internal state variables is intermittent or aperiodic; storing, in the computer accessible memory, the acquired data associated with the plurality of the internal state variables; generating, by the computer, predicted probability density functions for the plurality of the internal state variables at time step tk; generating, by the computer, predicted probability density functions for the plurality of the internal state variables at previous time step tk−1, by evolving backwards from the predicted probability density functions at time step tk to the time step tk−1; generating, by the computer using Bayes theorem, posterior probability density functions for the internal state variables at the previous time step tk−1; determining, based on the generated posterior probability density functions for the internal state variables for the time step tk−1, a set of possible states at the previous time step tk−1 of a hidden internal state variable; generating, based on the set of possible states at the previous time step of tk−1 of the hidden internal state variable, probabilities of possible patient states, wherein the possible patient states cannot be directly measured; and causing the display, on a display device, of a plurality of graphical indicators, each of the plurality of graphical indicators corresponding to one possible patient state of the set of possible patient states, each of the plurality of graphical indicators graphically identifying the probability that the patient is in a corresponding patient state at a given point in a range of time, the plurality of graphical indicators configured to indicate a hazard level; and causing the display, on the display device, of a timeline controller configured to allow a user to dynamically select a plurality of points in time over the range of time, the graphical indicators changing dynamically in response to a specification by the user of one of the plurality of points in time to display the evolution of the one possible patient state of the set of possible patient states over the range of time.
+9. The computer-implemented method of claim 8, wherein the predicted probability density functions for the plurality of the internal state variables at previous time step tk−1 are generated using the formula:
+description="In-line Formulae" end="lead"?P(ISVs(tk−1)|M(tk))=∫ISVs∈ISVP(ISVs(tk−1)|ISVs(tk))P(ISVs(tk)|M(tk))dISVs.description="In-line Formulae" end="tail"?
+10. The method of claim 8, wherein a second plurality of internal state variables each describing a parameter physiologically relevant to one of a treatment and a condition of a patient associated with a time step tk have no acquired data associated therewith and wherein the step of generating, with a computer, predicted probability density functions for the plurality of the internal state variables for previous time step tk−1 further comprises: generating predicted probability density functions for the second plurality of the internal state variables at a time step tk−1, at least by computing the conditional probability of internal state variables given initial estimates of values for the internal state variables; and generating probability density functions for the second plurality of the internal state variables at another time step tk from the probability density functions generated at a time step tk−1 and from probability density functions associated with other internal state variables at a time step tk.
+</claims>
+</document>

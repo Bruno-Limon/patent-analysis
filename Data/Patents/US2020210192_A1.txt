@@ -1,0 +1,71 @@
+<document>
+
+<filing_date>
+2019-02-15
+</filing_date>
+
+<publication_date>
+2020-07-02
+</publication_date>
+
+<priority_date>
+2018-12-27
+</priority_date>
+
+<ipc_classes>
+G06F12/0875,G06F9/30,G06F9/38
+</ipc_classes>
+
+<assignee>
+GRAPHCORE
+</assignee>
+
+<inventors>
+KNOWLES, SIMON CHRISTIAN
+ALEXANDER, ALAN GRAHAM
+FERGUSON, JONATHAN LOUIS
+GORE, MRUDULA CHIDAMBAR
+</inventors>
+
+<docdb_family_id>
+65364666
+</docdb_family_id>
+
+<title>
+INSTRUCTION CACHE IN A MULTI-THREADED PROCESSOR
+</title>
+
+<abstract>
+A processor comprising: a barrel-threaded execution unit for executing concurrent threads, and a repeat cache shared between the concurrent threads. The processor's instruction set includes a repeat instruction which takes a repeat count operand. When the repeat cache is not claimed and the repeat instruction is executed in a first thread, a portion of code is cached from the first thread into the repeat cache, the state of the repeat cache is changed to record it as claimed, and the cached code is executed a number of times. When the repeat instruction is then executed in a further thread, then the already-cached portion of code is again executed a respective number of times, each time from the repeat cache. For each of the first and further instructions, the repeat count operand in the respective instruction specifies the number of times to execute the cached code.
+</abstract>
+
+<claims>
+1. A processor comprising: an execution unit configured to execute instances of instruction types defined in an instruction set, wherein the execution unit is a barrel-threaded execution unit configured to run a plurality of concurrent threads each in a different respective one of a repeating sequence of interleaved time slots; and a repeat cache having an associated state recording whether or not the repeat cache is currently claimed by one of the threads; wherein the types of instruction defined in the instruction set include a repeat instruction which takes a repeat count operand, the execution unit being configured so as: a) when the repeat cache is not currently claimed according to said state and a respective instance of the repeat instruction is executed in a first respective one of said threads, to cache a portion of code from the first thread into the repeat cache, to modify said state to record the repeat cache as claimed, and to execute said portion of code a respective number of times, taking each successive repetition from the repeat cache, and b) when the repeat cache is currently claimed according to said state and another instance of the repeat instruction is then executed as part of any further respective ones of said threads until the state is next reset to record the repeat cache as unclaimed again, to execute the already-cached portion of code a respective number of times, each time from the repeat cache; and wherein for each of the first and further instructions, the repeat count operand in the respective instruction specifies the respective number of times the portion of code is executed, the repeat count operand being able to specify any of a plurality of positive integer values for the respective number of times to execute the portion of code.
+2. The processor of claim 1, wherein said portion of code is a portion following the instance of the repeat instruction in the first thread.
+3. The processor of claim 2, wherein the repeat instruction takes a repeat size operand for specifying a size of said portion of code, and wherein said portion of code runs from a predefined point following the instance of the repeat instruction in the first thread, up to a subsequent point defined by the size operand of the respective instance of the repeat instruction in the first thread.
+4. The processor of claim 1, wherein the repeat count operand is additionally able to take a value of zero, and if the repeat count is zero, the repeat instruction causes the execution unit to skip execution of the portion of code in the respective thread, including in the case of the first thread.
+5. The processor of claim 1, wherein if the repeat count is one, the repeat instruction causes the execution unit to execute the portion of code, as part of the respective thread, only once without repetition.
+6. The processor of claim 1, wherein the repeat count operand is an immediate operand, and/or the repeat size operand is an immediate operand.
+7. The processor of claim 1, wherein: the repeat count operand specifies the respective number of times to execute the portion of code by reference to a register from which to read the respective number, and/or the repeat size operand specifies the size by reference to a register from which to read the size.
+8. The processor of claim 1, comprising a hardware mechanism for automatically resetting said state to record the repeat cache as unclaimed again once at least one of the first and further threads has finished executing the cached portion of code for its respective number of times.
+9. The processor of claim 8, wherein the mechanism is configured to automatically reset said state when the first thread has finished executing the cached portion of code for its respective number of times.
+10. The processor of claim 8, wherein the mechanism is configured to automatically clear the claim to the repeat cache when all first and further threads have finished executing the cached portion of code for their respective numbers of times.
+11. The processor of claim 1, comprising a plurality of sets of context registers, each set arranged to hold a program state of a respective one of the concurrent threads; wherein the execution unit is configured so as, in response to the repeat instruction in each of the first and further threads, to execute said same portion of code but operating on one or more respective operands values as held in one or more of the respective thread's own respective set of context registers.
+12. The processor of claim 11, wherein said concurrent threads comprise a plurality of worker threads and the execution unit is further arranged to run, at least at some times, a supervisor subprogram comprising at least one supervisor thread configured to manage the worker threads.
+13. The processor of claim 12, wherein the context registers comprise a respective one of the sets of context registers for each of the worker threads that can be executed concurrently, and an additional set of context registers arranged to hold a program state of the supervisor subprogram.
+14. The processor of claim 13, wherein the supervisor subprogram is arranged to begin by initially running in all the slots, and then to launch the worker threads by relinquishing each of some or all of the slots in which the supervisor subprogram was initially running to respective ones of the worker threads.
+15. The processor of claim 14, wherein the instruction set includes a run instruction which, when executed as part of the supervisor subprogram, causes the slot in which the run instruction is executed to be relinquished to one of the worker threads such that the worker thread is launched in that slot in place of the supervisor subprogram.
+16. The processor of claim 15, wherein the instruction set includes an exit instruction which, when executed as part of one of the worker threads, causes the slot in which the exit instruction is executed to be handed back to the supervisor subprogram such that the supervisor subprogram continues running in that slot again in place of the worker thread.
+17. The processor of claim 11, wherein at least one of the instructions in said portion of code is of a type that operates on a combination of i) at least operand value from at least one register in the respective set of context registers, and ii) at least one operand value from at least one register in a set of common operand registers common to the worker threads.
+18. The processor of claim 17, wherein: said concurrent threads comprise a plurality of worker threads and the execution unit is further arranged to run, at least at some times, a supervisor subprogram comprising at least one supervisor thread configured to manage the worker threads; and the set of shared register files is configured so that only the supervisor subprogram can write value to the set of common registers, whereas the worker threads can only read from the set of common registers.
+19. (canceled)
+20. (canceled)
+21. A method of operating a processor having a barrel-threaded execution unit configured to run a plurality of concurrent threads each in a different respective one of a repeating sequence of interleaved time slots, the method comprising: running a program comprising the plurality of concurrent threads on the processor through the execution unit, a first one of the threads including a first instance of a repeat instruction, the repeat instruction being a machine code instruction that is defined by an opcode and that takes a repeat count operand; and executing the first instance of the repeat instruction, including, in response to the opcode of the repeat instruction: determining that a repeat cache of the processor is not claimed; caching a portion of code from the first thread into the repeat cache; recording the repeat cache as claimed; and executing the portion of code a first number of times according to the repeat count operand of the first instance of the repeat instruction, taking at least one successive repetition from the repeat cache.
+22. The method of claim 21, further comprising: executing a second instance of the repeat instruction in a second one of the threads, in response to the opcode, including: determining that the repeat cache is claimed; and executing the portion of code of the first thread from the cache a second number of times from the repeat cache according to the repeat operand of the second instance of the repeat instruction.
+23. The method of claim 22, further comprising: automatically recording the repeat cache as unclaimed in response to the second one of the threads being finished executing the portion of code for its second number of times.
+24. The method of claim 21, wherein the portion of code is a portion following the first instance of the repeat instruction.
+25. The method of claim 21, wherein the repeat instruction takes a repeat size operand for specifying a size of the portion of code, and wherein the portion of code runs from a point following the first instance of the repeat instruction, up to a subsequent point defined by the size operand of the first instance of the repeat instruction.
+26. A computer program product embodied on non-transitory computer-readable storage, comprising code configured to run on a processor having a barrel-threaded execution unit configured to run a plurality of concurrent threads each in a different respective one of a repeating sequence of interleaved time slots, wherein when executed the code causes the processor to: run a program comprising the plurality of concurrent threads on the processor through the execution unit, a first one of the threads including a first instance of a repeat instruction that is a machine code instruction defined by an opcode and that takes a repeat count operand; and execute the first instance of the repeat instruction, including, in response to the opcode of the repeat instruction: determining that a repeat cache of the processor is not claimed; caching a portion of code from the first thread into the repeat cache; recording the repeat cache as claimed; and executing the portion of code a first number of times according to the repeat count operand of the first instance of the repeat instruction, taking a successive repetition from the repeat cache.
+27. The computer program product of claim 26, the code further causing the processor to: execute a second instance of the repeat instruction in a second one of the threads, in response to the opcode, including: determining that the repeat cache is claimed; and executing the portion of code of the first thread from the cache a second number of times from the repeat cache according to the repeat operand of the second instance of the repeat instruction.
+</claims>
+</document>

@@ -1,0 +1,61 @@
+<document>
+
+<filing_date>
+2017-11-10
+</filing_date>
+
+<publication_date>
+2020-12-29
+</publication_date>
+
+<priority_date>
+2014-02-11
+</priority_date>
+
+<ipc_classes>
+C12Q1/6869,C12Q1/6883,G06F19/22,G16B30/00,G16B45/00
+</ipc_classes>
+
+<assignee>
+SEVEN BRIDGES GENOMICS
+</assignee>
+
+<inventors>
+KURAL, DENIZ
+</inventors>
+
+<docdb_family_id>
+52589801
+</docdb_family_id>
+
+<title>
+Systems and methods for analyzing sequence data
+</title>
+
+<abstract>
+The invention provides methods for comparing one set of genetic sequences to another without discarding any information within either set. A set of genetic sequences is represented using a directed acyclic graph (DAG) avoiding any unwarranted reduction to a linear data structure. The invention provides a way to align one sequence DAG to another to produce an alignment that can itself be stored as a DAG. DAG-to-DAG alignment is a natural choice wherever a set of genomic information consisting of more than one string needs to be compared to any non-linear reference. For example, a subpopulation DAG could be compared to a population DAG in order to compare the genetic features of that subpopulation to those of the population.
+</abstract>
+
+<claims>
+1. A method for inferring a sequence part of a non-reference genome of a first organism based on paired-end sequence read data, the method comprising using at least one computer hardware processor to perform: aligning a plurality of paired-end reads from the non-reference genome of the first organism to a reference genome of a second organism to obtain an alignment, the non-reference genome of the first organism including a first region comprising at least one structural variant relative to the reference genome of the second organism; identifying, from among the plurality of paired-end reads and using the alignment, a first set of paired-end reads comprising paired-end reads each having an aligned read and an unaligned read; identifying a second set of paired-end reads from among the first set of paired-end reads, wherein aligned reads of the second set map to an overlapping anchor region of the reference genome, and wherein unaligned reads of the second set overlap with the first region of the non-reference genome; and aligning at least some of the unaligned reads of the second set against one another to create a directed acyclic graph (DAG) representing a local assembly for the first region of the non-reference genome, wherein the aligning comprises: creating an initial DAG representing a first unaligned read of the at least some of the unaligned reads; aligning the at least some of the unaligned reads other than the first unaligned read to the initial DAG to obtain an alignment among the at least some of the unaligned reads; and updating the initial DAG to represent the alignment among the at least some of the unaligned reads, thereby creating the DAG representing the local assembly for the first region of the non-reference genome.
+2. The method of claim 1, wherein identifying the second set of paired-end reads further comprises searching for windows of the alignment in which a sufficient number of aligned reads map.
+3. The method of claim 2, wherein the window size is about the read length.
+4. The method of claim 1, wherein identifying the second set of paired-end reads further comprises identifying a region of the genome showing a read-pair constraint (RP) signature.
+5. The method of claim 1, further comprising sorting the at least some of the unaligned reads of the second set according to their expected left-to-right positions.
+6. The method of claim 5, wherein the expected left-to-right position for an unaligned read of a first read pair of the second set is deduced from a position of an aligned read of the first read pair and an insert size.
+7. The method of claim 1, wherein aligning the at least some of the unaligned reads to the initial DAG comprises: identifying a difference at a position in the initial DAG between the first unaligned read and a second unaligned read of the at least some of the unaligned reads, and building an updated DAG in which the difference is represented as an alternate path from the first unaligned read.
+8. The method of claim 7, wherein the difference is identified from a CIGAR string representing the alignment among the at least some of the unaligned reads.
+9. The method of claim 1, further comprising refining the DAG representing the local assembly of the first region of the non-reference genome into a haplotype sequence representing the first region of the non-reference genome.
+10. The method of claim 9, wherein refining the DAG representing the local assembly for the first region of the non-reference genome comprises identifying a path through the DAG.
+11. The method of claim 9, wherein the haplotype sequence comprises a repetitive region, a tandem duplication, an indel, or other structural variation.
+12. A system for inferring a sequence part of a non-reference genome of a first organism based on paired-end sequence read data, the system comprising: at least one computer hardware processor; and at least one non-transitory computer-readable storage medium storing processor-executable instructions that, when executed by the at least one computer hardware processor, cause the at least one computer hardware processor to perform: aligning a plurality of paired-end reads from the non-reference genome of the first organism to a reference genome of a second organism to obtain an alignment, the non-reference genome of the first organism including a first region comprising at least one structural variant relative to the reference genome of the second organism; identifying, from among the plurality of paired-end reads and using the alignment, a first set of paired-end reads comprising paired-end reads each having an aligned read and an unaligned read; identifying a second set of paired-end reads from among the first set of paired-end reads, wherein the aligned reads of the second set map to an overlapping anchor region of the reference genome, and wherein the unaligned reads of the second set overlap with the first region of the non-reference genome; and aligning at least some of the unaligned reads of the second set against one another to create a directed acyclic graph (DAG) representing a local assembly for the first region of the non-reference genome, wherein the aligning comprises: creating an initial DAG representing a first unaligned read of the at least some of the unaligned reads; aligning the at least some of the unaligned reads other than the first unaligned read to the initial DAG to obtain an alignment among the at least some of the unaligned reads; and updating the initial DAG to represent the alignment among the at least some of the unaligned reads, thereby creating the DAG representing the local assembly for the first region of the non-reference genome.
+13. The system of claim 12, wherein identifying the second set of paired-end reads further comprises searching for windows of the alignment in which a sufficient number of aligned reads map.
+14. The system of claim 12, wherein identifying the second set of paired-end reads further comprises identifying a region of the genome showing a read-pair constraint (RP) signature.
+15. The system of claim 12, further comprising sorting the at least some of the unaligned reads of the second set according to their expected left-to-right positions.
+16. The system of claim 15, wherein the expected left-to-right position for an unaligned read of a first read pair of the second set is deduced from a position of an aligned read of the first read pair and an insert size.
+17. The system of claim 12, wherein aligning the at least some of the unaligned reads to the initial DAG comprises: identifying a difference at a position in the initial DAG between the first unaligned read and a second unaligned read of the at least some of the unaligned reads, and building an updated DAG in which the difference is represented as an alternate path from the first unaligned read.
+18. The system of claim 12, further comprising refining the DAG representing the local assembly for the first region of the non-reference genome into a haplotype sequence representing the first region of the non-reference genome.
+19. The system of claim 18, wherein refining the DAG representing the local assembly for the first region of the non-reference genome comprises identifying a path through the DAG.
+20. At least one non-transitory computer-readable storage medium storing processor executable instructions that, when executed by at least one computer hardware processor, cause the at least one computer hardware processor to perform a method for inferring a sequence part of a non-reference genome of a first organism, the method comprising: aligning a plurality of paired-end reads from the non-reference genome of the first organism to a reference genome of a second organism to obtain an alignment, the non-reference genome of the first organism including a first region comprising at least one structural variant relative to the reference genome of the second organism; identifying, from among the plurality of paired-end reads and using the alignment, a first set of paired-end reads comprising paired-end reads each having an aligned read and an unaligned read; identifying a second set of paired-end reads from among the first set of paired-end reads, wherein the aligned reads of the second set map to an overlapping anchor region of the reference genome, and the unaligned reads of the second set overlap with the first region of the non-reference genome; and aligning at least some of the unaligned reads of the second set against one another to create a directed acyclic graph (DAG) representing a local assembly for the first region of the non-reference genome, wherein the aligning comprises: creating an initial DAG representing a first unaligned read of the unaligned reads; aligning the at least some of the unaligned reads other than the first unaligned read to the initial DAG to obtain an alignment among the at least some of the unaligned reads; and updating the initial DAG to represent the alignment among the at least some of the unaligned reads, thereby creating the DAG representing the local assembly for the first region of the non-reference genome.
+</claims>
+</document>

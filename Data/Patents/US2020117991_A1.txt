@@ -1,0 +1,53 @@
+<document>
+
+<filing_date>
+2019-10-09
+</filing_date>
+
+<publication_date>
+2020-04-16
+</publication_date>
+
+<priority_date>
+2018-10-12
+</priority_date>
+
+<ipc_classes>
+G06K9/62,G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+FUJITSU
+</assignee>
+
+<inventors>
+ENDOH, TOSHIO
+SUZUKI, KANATA
+</inventors>
+
+<docdb_family_id>
+68242460
+</docdb_family_id>
+
+<title>
+LEARNING APPARATUS, DETECTING APPARATUS, LEARNING METHOD, AND DETECTING METHOD
+</title>
+
+<abstract>
+A feature model, which calculates a feature value of an input image, is trained on a plurality of first images. First feature values corresponding one-to-one with the first images are calculated using the feature model, and feature distribution information representing a relationship between a plurality of classes and the first feature values is generated. When a detection model which determines, in an input image, each region with an object and a class to which the object belongs is trained on a plurality of second images, second feature values corresponding to regions determined within the second images by the detection model are calculated using the feature model, an evaluation value, which indicates class determination accuracy of the detection model, is modified using the feature distribution information and the second feature values, and the detection model is updated based on the modified evaluation value.
+</abstract>
+
+<claims>
+1. A non-transitory computer-readable recording medium storing therein a computer program that causes a computer to execute a process comprising: training a feature model, which calculates a feature value of an input image, on a plurality of first images each containing an object that belongs to one of a plurality of classes; calculating, using the feature model, first feature values corresponding one-to-one with the plurality of first images, and generating feature distribution information representing a relationship between the plurality of classes and the first feature values; and calculating, when training, on a plurality of second images, a detection model which determines, in an input image, each region with an object and a class to which the object belongs, second feature values using the feature model, the second feature values corresponding to regions determined within the plurality of second images by the detection model, modifying an evaluation value, which indicates class determination accuracy of the detection model, using the feature distribution information and the second feature values, and updating the detection model based on the modified evaluation value.
+2. The non-transitory computer-readable recording medium according to claim 1, wherein: the feature model is an autoencoder including an input layer having a plurality of nodes, an output layer having a plurality of nodes, and a hidden layer having a smaller number of nodes than the input layer and the output layer, and the feature value calculated by the feature model is a vector computed at the hidden layer.
+3. The non-transitory computer-readable recording medium according to claim 1, wherein: the plurality of first images is images created by cropping, from a third image with attached training information that indicates regions with objects and a class to which each of the objects belongs, the regions indicated by the training information.
+4. The non-transitory computer-readable recording medium according to claim 1, wherein: the modifying of the evaluation value includes calculating distances between the second feature values and the first feature values individually corresponding to each class determined by the detection model, and modifying the evaluation value such that evaluation of the class determination accuracy is reduced further when the calculated distances are larger.
+5. The non-transitory computer-readable recording medium according to claim 1, wherein: the modifying of the evaluation value includes calculating distance distribution that represents distances between each of the second feature values and the first feature values individually corresponding to each of the plurality of classes, and modifying the evaluation value based on a first modification item representing differences between the distance distribution and correct classes indicated by training information attached to the plurality of second images and a second modification item representing differences between the distance distribution and class determination results obtained by the detection model.
+6. The non-transitory computer-readable recording medium according to claim 5, wherein: the modifying of the evaluation value includes reducing a weight of the first modification item in stages and increasing a weight of the second modification item in stages according to progress of the training of the detection model.
+7. A non-transitory computer-readable recording medium storing therein a computer program that causes a computer to execute a process comprising: acquiring a detection model which determines, in an input image, a region with an object and a class to which the object belongs, a feature model which calculates a feature value of an input image, and feature distribution information which represents a relationship between a plurality of classes and feature values calculated by the feature model; determining, using the detection model, a plurality of different regions in a target image, and calculating confidence measures for results of class determination individually made for the plurality of regions; calculating, using the feature model, feature values corresponding one-to-one with the plurality of regions, and modifying each of the confidence measures using the feature distribution information and the corresponding one of the calculated feature values; and selecting, based on the modified confidence measures, one or more regions among the plurality of regions.
+8. A learning apparatus comprising: a memory configured to store a plurality of first images each containing an object that belongs to one of a plurality of classes and a plurality of second images; and a processor configured to execute a process including: training a feature model, which calculates a feature value of an input image, on the plurality of first images, calculating, using the feature model, first feature values corresponding one-to-one with the plurality of first images, and generating feature distribution information representing a relationship between the plurality of classes and the first feature values, and calculating, when training, on the plurality of second images, a detection model which determines, in an input image, each region with an object and a class to which the object belongs, second feature values using the feature model, the second feature values corresponding to regions determined within the plurality of second images by the detection model, modifying an evaluation value, which indicates class determination accuracy of the detection model, using the feature distribution information and the second feature values, and updating the detection model based on the modified evaluation value.
+9. A detecting apparatus comprising: a memory configured to store a detection model which determines, in an input image, a region with an object and a class to which the object belongs, a feature model which calculates a feature value of an input image, and feature distribution information which represents a relationship between a plurality of classes and feature values calculated by the feature model; and a processor configured to execute a process including: determining, using the detection model, a plurality of different regions in a target image, and calculating confidence measures for results of class determination individually made for the plurality of regions, calculating, using the feature model, feature values corresponding one-to-one with the plurality of regions, and modifying each of the confidence measures using the feature distribution information and the corresponding one of the calculated feature values, and selecting, based on the modified confidence measures, one or more regions among the plurality of regions.
+10. A learning method comprising: training, by a processor, a feature model, which calculates a feature value of an input image, on a plurality of first images each containing an object that belongs to one of a plurality of classes; calculating, by the processor, using the feature model, first feature values corresponding one-to-one with the plurality of first images, and generating feature distribution information representing a relationship between the plurality of classes and the first feature values; and calculating, by the processor, when training, on a plurality of second images, a detection model which determines, in an input image, each region with an object and a class to which the object belongs, second feature values using the feature model, the second feature values corresponding to regions determined within the plurality of second images by the detection model, modifying an evaluation value, which indicates class determination accuracy of the detection model, using the feature distribution information and the second feature values, and updating the detection model based on the modified evaluation value.
+11. A detecting method comprising: acquiring, by a processor, a detection model which determines, in an input image, a region with an object and a class to which the object belongs, a feature model which calculates a feature value of an input image, and feature distribution information which represents a relationship between a plurality of classes and feature values calculated by the feature model; determining, by the processor, using the detection model, a plurality of different regions in a target image, and calculating confidence measures for results of class determination individually made for the plurality of regions; calculating, by the processor, using the feature model, feature values corresponding one-to-one with the plurality of regions, and modifying each of the confidence measures using the feature distribution information and the corresponding one of the calculated feature values; and selecting, by the processor, based on the modified confidence measures, one or more regions among the plurality of regions.
+</claims>
+</document>

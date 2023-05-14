@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2020-07-06
+</filing_date>
+
+<publication_date>
+2021-01-28
+</publication_date>
+
+<priority_date>
+2019-07-09
+</priority_date>
+
+<ipc_classes>
+B60W50/06,B60W60/00,G01C25/00,G01S17/931,G01S7/497,G05D1/00,G05D1/02
+</ipc_classes>
+
+<assignee>
+Refraction AI, Inc.
+</assignee>
+
+<inventors>
+Johnson-Roberson, Matthew
+Vasudevan, Ram
+</inventors>
+
+<docdb_family_id>
+74115306
+</docdb_family_id>
+
+<title>
+METHOD AND SYSTEM FOR AUTONOMOUS VEHICLE CONTROL
+</title>
+
+<abstract>
+The method for autonomous vehicle control preferably includes sampling measurements, determining refined sensor poses based on the measurements, determining an updated vehicle pose based on the measurements and operation matrix, optionally determining evaluation sensor poses based on the refined sensor poses, optionally updating the operation matrix(es) based on the evaluation sensor poses, and/or any other suitable elements. The system for autonomous vehicle control can include one or more vehicles, one or more sensors, one or more processing systems, and/or any other suitable components.
+</abstract>
+
+<claims>
+We claim:
+1. A system for autonomous vehicle control, comprising: a vehicle; a plurality of sensors mounted to the vehicle; and a processor, configured to: receive measurements from the plurality of sensors; determine an observation calibration for the plurality of sensors; calculate sensor poses for each of the plurality of sensors based on the measurements and the operation calibration using a bundle adjustment; calculate an evaluation calibration based the sensor poses using a Kalman filter, wherein the evaluation calibration represents an updated version of the operation calibration; and selectively update the operation calibration based on the evaluation calibration.
+2. The system of claim 1, wherein the vehicle weighs no more than 100 pounds in an unloaded state.
+3. The system of claim 1, wherein a stopping distance of the vehicle in a loaded state is less than 5 feet.
+4. The system of claim 1, wherein the processor is further configured to: calculate a vehicle pose using the bundle adjustment; and control the vehicle based on the vehicle pose.
+5. The system of claim 1, wherein the plurality of sensors comprises a visual system, wherein the visual system comprises a camera and an inertial measurement unit (IMU), and wherein the measurements comprise acceleration measurements from the IMU that were contemporaneously sampled with visual measurements from the camera.
+6. The system of claim 1, wherein the plurality of the sensors comprises a LiDAR sensor.
+7. A method for autonomous vehicle control, comprising: generating measurements from a plurality of sensors mounted to a vehicle; determining an operation calibration for the plurality of sensors; calculating a vehicle pose and sensor poses for each of the plurality of sensors based on the operation calibration using a bundle adjustment; controlling the vehicle based on the vehicle pose; calculating an evaluation calibration based on the sensor poses using a Kalman filter; and selectively updating the operation calibration based on the evaluation calibration.
+8. The method of claim 7, wherein the vehicle weighs no more than 100 pounds in an unloaded state.
+9. The method of claim 7, further comprising extracting a set of features from the measurements, wherein extracting the set of features comprises: determining static features and dynamic features relative to an environment; and extracting the static features; and wherein the vehicle pose is determined based on the extracted static features.
+10. The method of claim 7, wherein the plurality of sensors comprises an IMU, the method further comprising: calculating an IMU drift bias using the bundle adjustment; and determining a smooth IMU drift bias based on the IMU drift bias and a prior IMU drift bias determined during a prior timestep, using a drift filter; wherein the evaluation calibration is calculated based on the smooth IMU drift bias.
+11. The method of claim 7, wherein the operation calibration is initialized using an initial calibration, wherein the initial calibration is determined based on calibration acceleration measurements contemporaneously captured with calibration visual measurements.
+12. The method of claim 7, wherein the plurality of sensors comprises a visual system, wherein the visual system comprises a camera and an IMU, and wherein determining the measurements comprises determining acceleration measurements from the IMU contemporaneously with determining visual measurements from the camera.
+13. The method of claim 12, further comprising, for each visual system, filtering the visual measurements contemporaneously determined with acceleration measurements exceeding an acceleration threshold.
+14. The method of claim 7, further comprising repeating the method during operation of the vehicle.
+15. The method of claim 14, wherein an evaluation calibration version is iteratively determined for each of a series of timesteps using the Kalman filter; and wherein updating the operation calibration comprises: determining that the evaluation calibration versions have converged to a converged calibration; and updating the operation calibration with the converged calibration.
+16. The method of claim 14, wherein updating the operation calibration comprises: determining that the evaluation calibration versions have not converged; and flagging the vehicle for maintenance.
+17. The method of claim 14, further comprising calculating a new vehicle pose of the vehicle and new sensor poses for each of the plurality of sensors based on the updated operation calibration using the bundle adjustment.
+18. The method of claim 17, wherein the new vehicle pose and new sensor poses are determined during continuous vehicle operation.
+19. The method of claim 14, wherein the updated operation calibration is determined online.
+20. The method of claim 7, wherein calculating the vehicle pose comprises fitting the vehicle pose to a spline.
+</claims>
+</document>

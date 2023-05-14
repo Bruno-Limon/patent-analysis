@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2017-10-16
+</filing_date>
+
+<publication_date>
+2020-04-07
+</publication_date>
+
+<priority_date>
+2017-10-16
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/08,G06T5/00,G06T5/20
+</ipc_classes>
+
+<assignee>
+ADOBE
+</assignee>
+
+<inventors>
+LIN ZHE
+SHEN, XIAOHUI
+LU, XIN
+YANG, JIMEI
+YU, JIAHUI
+</inventors>
+
+<docdb_family_id>
+65909964
+</docdb_family_id>
+
+<title>
+Digital image completion using deep learning
+</title>
+
+<abstract>
+Digital image completion using deep learning is described. Initially, a digital image having at least one hole is received. This holey digital image is provided as input to an image completer formed with a framework that combines generative and discriminative neural networks based on learning architecture of the generative adversarial networks. From the holey digital image, the generative neural network generates a filled digital image having hole-filling content in place of holes. The discriminative neural networks detect whether the filled digital image and the hole-filling digital content correspond to or include computer-generated content or are photo-realistic. The generating and detecting are iteratively continued until the discriminative neural networks fail to detect computer-generated content for the filled digital image and hole-filling content or until detection surpasses a threshold difficulty. Responsive to this, the image completer outputs the filled digital image with hole-filling content in place of the holey digital image's holes.
+</abstract>
+
+<claims>
+1. In a digital medium environment to complete digital images having holes, a method implemented by a computing device, the method comprising: exposing, by the computing device, a holey digital image to an image completer having a framework that combines generative and discriminative neural networks using adversarial deep learning, the holey digital image having at least one hole comprising a group of contiguous pixels with values indicating an absence of depicted imagery, and the discriminative neural networks including a local discriminator network and a global discriminator network; and receiving, by the computing device, a filled digital image as output from the image completer, the filled digital image including hole-filling digital content in place of the at least one hole, the image completer outputting the filled digital image based on iterations of: generating proposed hole-filling digital content with the generative neural network based, in part, on the depicted imagery of the holey digital image; and determining with the discriminative neural networks whether the proposed hole-filling digital content is computer-generated digital content based, in part, on determining with the global discriminator network whether a proposed filled digital image including the proposed hole-filling digital content in place of the at least one hole includes computer-generated digital content, the proposed hole-filling digital content used as the hole-filling digital content.
+2. A method as described in claim 1, wherein the iterations are discontinued responsive to the discriminative neural networks failing to determine that the proposed hole-filling digital content is computer-generated.
+3. A method as described in claim 1, wherein the generative neural network is configured without batch normalization layers.
+4. A method as described in claim 1, wherein the generative neural network is configured using exponential linear unit (ELU) as an activation function to activate generating the proposed hole-filling digital content.
+5. A method as described in claim 1, wherein the generative neural network comprises a convolutional neural network having: intermediate dilation layers for performing one or more convolution operations as part of generating the proposed hole-filling digital content based on the depicted imagery of the holey digital image; and upscale layers arranged after the intermediate dilation layers to resize output of the intermediate dilation layers and perform an additional convolution operation on output of the intermediate dilation layers.
+6. A method as described in claim 1, wherein generating the proposed hole-filling digital content includes the generative neural network outputting the proposed-hole filling digital content without using sigmoid or tan h at an output layer.
+7. A method as described in claim 1, wherein the generative neural network comprises a convolutional neural network having dilated convolution in four intermediate dilation layers.
+8. A method as described in claim 1, wherein determining whether the proposed filled digital image includes computer-generated digital content is further based on determining with the local discriminator network whether the proposed hole-filling digital content is computer-generated digital content.
+9. A method as described in claim 1, further comprising combining an output of the local discriminator network indicative of whether the proposed hole-filling digital content is computer-generated content with an output of the global discriminator network indicative of whether the proposed filled digital image includes computer-generated digital content, the combined output indicating whether the proposed hole-filling digital content is determined to be computer-generated digital content.
+10. A method as described in claim 1, wherein the filled digital image is received as output from the image completer without image post-processing operations being performed in relation to the filled digital image or hole-filling digital content.
+11. A method as described in claim 1, wherein the holey digital image has multiple holes.
+12. A method as described in claim 1, further comprising discontinuing the iterations responsive to determining that detection of the computer-generated content by the discriminative neural networks surpasses a threshold difficulty.
+13. A method as described in claim 12, further comprising outputting a proposed digital image including the proposed hole-filling digital content that was generated in an iteration performed immediately prior to the discontinuing.
+14. A system comprising: an image completer having a framework that combines generative and discriminative neural networks to output filled digital images based on holey digital images received as input without performing image post-processing in relation to the filled digital images, the discriminative neural networks including a local discriminator network and a global discriminator network; at least one processor; and memory having stored thereon computer-readable instructions that are executable by the at least one processor to perform operations comprising: exposing a holey digital image to the image completer, the holey digital image having at least one hole comprising a group of contiguous pixels with values indicating an absence of depicted imagery; and receiving a filled digital image from the image completer, the filled digital image including hole-filling digital imagery generated by the generative neural network in place of the at least one hole, the hole-filling digital imagery further detected to be photo-realistic by the discriminative neural networks based, in part, on determining with the global discriminator network whether the filled digital image including the hole-filling digital imagery in place of the at least one hole includes computer-generated digital content.
+15. A system as described in claim 14, wherein at least one of: the generative neural network is configured as a convolutional neural network having four intermediate dilated convolution layers; the generative neural network is configured without batch normalization layers; the generative neural network is activated to perform convolution operations for generating the filled digital image using an exponential linear unit (ELU) activation function; the generative neural network includes upscale layers arranged after the intermediate dilated convolution layers to resize output of the intermediate dilated convolution layers and perform an additional convolution operation on the output of the intermediate dilated convolution layers; or the generative neural network outputs the hole-filling digital imagery from an output layer without using sigmoid or tan h at the output layer.
+16. A system as described in claim 14, wherein the global and local discriminator networks are separate convolutional neural networks.
+17. A system as described in claim 14, further comprising detecting with the discriminative neural networks whether the hole-filling digital imagery is photo-realistic based further on determining with the local discriminator network whether the hole-filling digital imagery generated by the generative neural network in place of the at least one hole includes computer-generated digital content.
+18. A non-transitory computer-readable storage media having instructions stored thereon that, when executed by one or more processors of a device, cause the device to perform operations comprising: exposing a holey digital image to an image completer having a framework that combines generative and discriminative neural networks using adversarial deep learning, the holey digital image having at least one hole comprising a group of contiguous pixels with values indicating an absence of depicted imagery, and the discriminative neural networks including a local discriminator network and a global discriminator network; generating hole-filling digital content with the generative neural network based, in part, on the depicted imagery of the holey digital image; determining with the discriminative neural networks of the image completer whether the hole-filling digital content is computer-generated digital content based, in part, on determining with the global discriminator network whether a filled digital image including the hole-filling digital content in place of the at least one hole includes computer-generated digital content; and receiving the filled digital image from the image completer, the filled digital image including the hole-filling digital content in place of the at least one hole.
+19. A computer-readable storage media as described in claim 18, wherein determining whether the hole-filling digital content is computer-generated digital content is further based on determining with the local discriminator network whether the hole-filling digital content is computer-generated digital content.
+20. A computer-readable storage media as described in claim 19, further comprising receiving a second filled digital image from the image completer responsive to the global discriminator network or the local discriminator network detecting computer-generated content.
+</claims>
+</document>

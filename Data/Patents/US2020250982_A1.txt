@@ -1,0 +1,73 @@
+<document>
+
+<filing_date>
+2020-01-09
+</filing_date>
+
+<publication_date>
+2020-08-06
+</publication_date>
+
+<priority_date>
+2019-01-31
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/62,G08G1/16
+</ipc_classes>
+
+<assignee>
+STRADVISION
+</assignee>
+
+<inventors>
+LEE, HYUNG SOO
+SHIN, DONGSOO
+KIM, HAK-KYOUNG
+CHO, HOJIN
+NAM, WOONHYUN
+YEO, DONGHUN
+KIM, YONGJOONG
+RYU, WOOJU
+BOO, SUKHOON
+JE, HONGMO
+SUNG, MYUNGCHUL
+JANG, TAEWOONG
+JEONG, KYUNGJOONG
+KIM, KYE-HYEON
+LEE, MYEONG-CHUN
+</inventors>
+
+<docdb_family_id>
+69191902
+</docdb_family_id>
+
+<title>
+METHOD AND DEVICE FOR ALERTING ABNORMAL DRIVER SITUATION DETECTED BY USING HUMANS' STATUS RECOGNITION VIA V2V CONNECTION
+</title>
+
+<abstract>
+A method for warning by detecting an abnormal state of a driver of a vehicle based on deep learning is provided. The method includes steps of: a driver state detecting device (a) inputting an interior image of the vehicle into a drowsiness detecting network, to detect a facial part of the driver, detect an eye part from the facial part, detect a blinking state of an eye to determine a drowsiness state, and inputting the interior image into a pose matching network, to detect body keypoints of the driver, determine whether the body keypoints match one of preset driving postures, to determine the abnormal state; and (b) if the driver is in a hazardous state referring to part of the drowsiness state and the abnormal state, transmitting information on the hazardous state to nearby vehicles over vehicle-to-vehicle communication to allow nearby drivers to perceive the hazardous state.
+</abstract>
+
+<claims>
+1. A method for giving a warning by detecting a drowsiness state and an abnormal state of a specific driver of a specific vehicle based on deep learning, comprising steps of: (a) if at least one interior image of an interior of the specific vehicle is acquired, a driver state detecting device performing at least part of (i) a process of inputting the interior image into a drowsiness detecting network, to thereby allow the drowsiness detecting network to detect at least one facial part of the specific driver from the interior image, detect at least one eye part of the specific driver from the facial part, detect a blinking state of at least one eye of the specific driver, and thus determine the drowsiness state of the specific driver, and (ii) a process of inputting the interior image into a pose matching network, to thereby allow the pose matching network to detect one or more body keypoints, corresponding to a body of the specific driver, from the interior image, determine whether the body keypoints match one of preset driving postures, and thus determine the abnormal state of the specific driver; and (b) if the specific driver is determined as in a hazardous state by referring to at least part of the drowsiness state of the specific driver outputted from the drowsiness detecting network and the abnormal state of the specific driver outputted from the pose matching network, the driver state detecting device performing a process of transmitting information on the hazardous state of the specific driver to one or more nearby vehicles over vehicle-to-vehicle communication to thereby allow one or more nearby drivers of the nearby vehicles to perceive the hazardous state of the specific driver.
+2. The method of claim 1, wherein, at the step of (a), the driver state detecting device instructs the drowsiness detecting network to (i) (i-1) generate at least one feature map by applying at least one convolution operation to the interior image via a convolutional layer of a face detector, (i-2) generate one or more proposal boxes, corresponding to one or more objects, on the feature map via a region proposal network of the face detector, (i-3) generate at least one feature vector by applying at least one pooling operation to one or more regions, corresponding to the proposal boxes, on the feature map via a pooling layer of the face detector, (i-4) generate at least one FC output by applying at least one fully-connected operation to the feature vector via a fully connected layer of the face detector, and (i-5) output class information and regression information on each of the objects by applying at least one classification operation and at least one regression operation to the FC output of the fully connected layer and thus detect the facial part of the specific driver on the interior image via a classification layer and a regression layer of the face detector, wherein said each of the objects corresponds to each of the proposal boxes, and (ii) convert the facial part into at least one Modified Census Transform (MCT) image via an eye detector wherein differences between a brightness of the facial part and an average of a brightness of a local part are encoded into the MCT image, detect the eye part of the specific driver from feature data for eye detection acquired from the Modified Census Transform image using Adaboost algorithm, and detect the blinking state of the eye by referring to an open/shut state of the eye in the eye part.
+3. The method of claim 1, wherein, at the step of (a), the driver state detecting device instructs the pose matching network to (i) generate one or more feature tensors created by extracting one or more features from the interior image via a feature extractor, (ii) generate one or more keypoint heatmaps and one or more part affinity fields corresponding to each of the feature tensors via a keypoint heatmap & part affinity field extractor, and (iii) extract one or more keypoints in each of the keypoint heatmaps and group the extracted keypoints by referring to each of the part affinity fields, to thereby generate the body keypoints corresponding to the specific driver located in the interior image, via a keypoint grouping layer.
+4. The method of claim 3, wherein the driver state detecting device instructs the pose matching network to apply at least one convolution operation to the interior image to thereby generate the feature tensors, via at least one convolutional layer of the feature extractor.
+5. The method of claim 3, wherein the driver state detecting device instructs the pose matching network to apply at least one fully-convolution operation or at least one 1×1 convolution operation to the feature tensors, to thereby generate the keypoint heatmaps and the part affinity fields corresponding to said each of the feature tensors, via a fully convolutional network or at least one 1×1 convolutional layer of the keypoint heatmap & part affinity field extractor.
+6. The method of claim 3, wherein the driver state detecting device instructs the pose matching network to extract each of highest points on each of the keypoint heatmaps as each of the keypoints corresponding to said each of the keypoint heatmaps via the keypoint grouping layer.
+7. The method of claim 6, wherein the driver state detecting device instructs the pose matching network to connect pairs respectively having highest mutual connection probabilities of being connected among pairs of the extracted keypoints by referring to the part affinity fields, to thereby group the extracted keypoints, via the keypoint grouping layer.
+8. The method of claim 1, wherein, at the step of (a), if the eye of the specific driver is shut and if duration of the eye remaining shut is equal to or greater than a preset 1-st threshold, the driver state detecting device performs a process of instructing the drowsiness detecting network to determine the specific driver as in the drowsiness state.
+9. The method of claim 1, wherein, at the step of (a), if the body keypoints fail to match any of the driving postures and if duration of the body keypoints remaining unmatched with any of the driving postures is equal to or greater than a preset 2-nd threshold, the driver state detecting device performs a process of instructing the pose matching network to determine the driver as in the abnormal state.
+10. A driver state detecting device for giving a warning by detecting a drowsiness state and an abnormal state of a specific driver of a specific vehicle based on deep learning, comprising: at least one memory that stores instructions; and at least one processor configured to execute the instructions to perform or support another device to perform: (I) if at least one interior image of an interior of the specific vehicle is acquired, at least part of (i) a process of inputting the interior image into a drowsiness detecting network, to thereby allow the drowsiness detecting network to detect at least one facial part of the specific driver from the interior image, detect at least one eye part of the specific driver from the facial part, detect a blinking state of at least one eye of the specific driver, and thus determine the drowsiness state of the specific driver, and (ii) a process of inputting the interior image into a pose matching network, to thereby allow the pose matching network to detect one or more body keypoints, corresponding to a body of the specific driver, from the interior image, determine whether the body keypoints match one of preset driving postures, and thus determine the abnormal state of the specific driver; and (II) if the specific driver is determined as in a hazardous state by referring to at least part of the drowsiness state of the specific driver outputted from the drowsiness detecting network and the abnormal state of the specific driver outputted from the pose matching network, a process of transmitting information on the hazardous state of the specific driver to one or more nearby vehicles over vehicle-to-vehicle communication to thereby allow one or more nearby drivers of the nearby vehicles to perceive the hazardous state of the specific driver.
+11. The driver state detecting device of claim 10, wherein, at the process of (I), the processor instructs the drowsiness detecting network to (i) (i-1) generate at least one feature map by applying at least one convolution operation to the interior image via a convolutional layer of a face detector, (i-2) generate one or more proposal boxes, corresponding to one or more objects, on the feature map via a region proposal network of the face detector, (i-3) generate at least one feature vector by applying at least one pooling operation to one or more regions, corresponding to the proposal boxes, on the feature map via a pooling layer of the face detector, (i-4) generate at least one FC output by applying at least one fully-connected operation to the feature vector via a fully connected layer of the face detector, and (i-5) output class information and regression information on each of the objects by applying at least one classification operation and at least one regression operation to the FC output of the fully connected layer and thus detect the facial part of the specific driver on the interior image via a classification layer and a regression layer of the face detector, wherein said each of the objects corresponds to each of the proposal boxes, and (ii) convert the facial part into at least one Modified Census Transform (MCT) image via an eye detector wherein differences between a brightness of the facial part and an average of a brightness of a local part are encoded into the MCT image, detect the eye part of the specific driver from feature data for eye detection acquired from the Modified Census Transform image using Adaboost algorithm, and detect the blinking state of the eye by referring to an open/shut state of the eye in the eye part.
+12. The driver state detecting device of claim 10, wherein, at the process of (I), the processor instructs the pose matching network to (i) generate one or more feature tensors created by extracting one or more features from the interior image via a feature extractor, (ii) generate one or more keypoint heatmaps and one or more part affinity fields corresponding to each of the feature tensors via a keypoint heatmap & part affinity field extractor, and (iii) extract one or more keypoints in each of the keypoint heatmaps and group the extracted keypoints by referring to each of the part affinity fields, to thereby generate the body keypoints corresponding to the specific driver located in the interior image, via a keypoint grouping layer.
+13. The driver state detecting device of claim 12, wherein the processor instructs the pose matching network to apply at least one convolution operation to the interior image to thereby generate the feature tensors, via at least one convolutional layer of the feature extractor.
+14. The driver state detecting device of claim 12, wherein the processor instructs the pose matching network to apply at least one fully-convolution operation or at least one 1×1 convolution operation to the feature tensors, to thereby generate the keypoint heatmaps and the part affinity fields corresponding to said each of the feature tensors, via a fully convolutional network or at least one 1×1 convolutional layer of the keypoint heatmap & part affinity field extractor.
+15. The driver state detecting device of claim 12, wherein the processor instructs the pose matching network to extract each of highest points on each of the keypoint heatmaps as each of the keypoints corresponding to said each of the keypoint heatmaps via the keypoint grouping layer.
+16. The method of claim 15, wherein the processor instructs the pose matching network to connect pairs respectively having highest mutual connection probabilities of being connected among pairs of the extracted keypoints by referring to the part affinity fields, to thereby group the extracted keypoints, via the keypoint grouping layer.
+17. The driver state detecting device of claim 10, wherein, at the process of (I), if the eye of the specific driver is shut and if duration of the eye remaining shut is equal to or greater than a preset 1-st threshold, the processor performs a process of instructing the drowsiness detecting network to determine the specific driver as in the drowsiness state.
+18. The driver state detecting device of claim 10, wherein, at the process of (I), if the body keypoints fail to match any of the driving postures and if duration of the body keypoints remaining unmatched with any of the driving postures is equal to or greater than a preset 2-nd threshold, the processor performs a process of instructing the pose matching network to determine the driver as in the abnormal state.
+</claims>
+</document>

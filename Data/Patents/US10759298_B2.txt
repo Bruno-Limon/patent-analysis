@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2018-08-29
+</filing_date>
+
+<publication_date>
+2020-09-01
+</publication_date>
+
+<priority_date>
+2018-08-29
+</priority_date>
+
+<ipc_classes>
+B60L53/64,B60L58/21,B60W20/13,H01M2/10
+</ipc_classes>
+
+<assignee>
+GM GLOBAL TECHNOLOGY OPERATIONS
+</assignee>
+
+<inventors>
+BUCKNOR, NORMAN K.
+WANG, YUE-YUN
+HU YIRAN
+GOPALAKRISHNAN, SURESH
+ZHAO, JUNFENG
+</inventors>
+
+<docdb_family_id>
+69527449
+</docdb_family_id>
+
+<title>
+Electric-drive motor vehicles, systems, and control logic for predictive charge planning and powertrain control
+</title>
+
+<abstract>
+Presented are intelligent vehicle systems and control logic for predictive charge planning and powertrain control of electric-drive vehicles, methods for manufacturing/operating such systems, and electric-drive vehicles with smart charge planning and powertrain control capabilities. Systems and methods of AI-based predictive charge planning for smart electric vehicles use machine-learning (ML) driver models that draws on available traffic, location, and roadway map information to estimate vehicle speed and propulsion torque requirements to derive a total energy consumption for a given trip. Systems and methods of AI-based predictive powertrain control for smart hybrid vehicles use ML driver models with deep learning techniques to derive a drive cycle profile defined by a preview route with available traffic, geopositional, geospatial, and map data. ML-generated driver models are developed with collected data to replicate driver behavior and predict the drive cycle profile, including predicted vehicle speed, propulsion torque, and accelerator/brake pedal positions for a preview route.
+</abstract>
+
+<claims>
+1. A method for controlling operation of an electric-drive motor vehicle, the electric-drive motor vehicle including a traction motor operable to propel the motor vehicle and a resident vehicle controller programmed to regulate operation of the traction motor, the method comprising: determining, via the resident vehicle controller, a vehicle origin and a vehicle destination for the motor vehicle; conducting a geospatial query to identify a designated route corresponding to the vehicle origin and vehicle destination; receiving, from a memory-stored map database, road-level data associated with the designated route; determining, based on the road-level data and roadway traffic and disturbance data for the designated route, a predicted motor speed of the traction motor for the designated route; estimating a predicted motor torque of the traction motor by applying a machine-learning driver model as a function of accelerator pedal position to the predicted motor speed; integrating the predicted motor torque to calculate a total motor energy usage for the traction motor to propel the motor vehicle across the designated route from the vehicle origin to the vehicle destination; and transmitting, via the resident vehicle controller, a command signal to a resident vehicle subsystem to execute a control operation based on the total motor energy usage.
+2. The method of claim 1, wherein the motor vehicle further includes a power inverter module and/or an AC-DC converter each operable to modulate a voltage transmitted to or from the traction motor, the method further comprising: calculating an inverter/converter energy loss as a function of the predicted motor speed and the predicted motor torque for the designated route, wherein the command signal to execute the control operation is further based on the inverter/converter energy loss.
+3. The method of claim 1, further comprising: calculating a motor energy loss of the traction motor as a function of the predicted motor speed and the predicted motor torque for the designated route, wherein the command signal to execute the control operation is further based on the motor energy loss.
+4. The method of claim 1, further comprising: calculating an estimated auxiliary device energy usage for one or more in-vehicle electronic devices operated during the designated route, wherein the command signal to execute the control operation is further based on the estimated auxiliary device energy usage.
+5. The method of claim 1, further comprising: calculating an estimated autonomous-driving electronics energy usage for one or more in-vehicle sensors, cameras and/or processors operated during the designated route, wherein the command signal to execute the control operation is further based on the estimated autonomous-driving electronics energy usage.
+6. The method of claim 1, wherein integrating the predicted motor torque includes determining the total motor energy usage as EMGU, the total motor energy usage EMGU being calculated as:
+description="In-line Formulae" end="lead"?EMGU=∫ABωTMGUdt−ERGN description="In-line Formulae" end="tail"? where ω is the predicted motor speed, TMGU is the predicted motor torque, A and B are indicia of the vehicle origin and vehicle destination, respectively, and ERGN is a total regenerated energy.
+7. The method of claim 1, wherein the motor vehicle further includes a traction battery pack operable to power the traction motor, the method further comprising determining a remaining battery energy ΔE of the traction battery pack when the motor vehicle reaches the vehicle destination, the remaining battery energy ΔE being calculated as:
+description="In-line Formulae" end="lead"?ΔE=∫aSOCVocdSOC−Ep(A:B)−E(T)battloss description="In-line Formulae" end="tail"? where a is a minimum state of charge (SOC) to maintain the traction battery pack in a healthy state, VOC is an open circuit voltage of the traction battery pack, Ep(A:B) is a predicted total energy usage, and E(T)battloss is a battery energy loss of the traction battery pack as a function of battery temperature T.
+8. The method of claim 1, further comprising: calculating, based on the total motor energy usage, a predicted total load current for the motor vehicle to traverse the designated route from the vehicle origin to the vehicle destination, wherein the command signal to execute the control operation is further based on the predicted total energy usage.
+9. The method of claim 8, wherein the motor vehicle further includes a traction battery pack operable to power the traction motor, the method further comprising determining a remaining state of charge SOC(B) of the traction battery pack, the remaining state of charge SOC(B) being calculated as: where SOC(A) is a starting state of charge of the traction battery pack at the vehicle origin, C is a battery capacity, and ∫AB I(t)dt is the predicted total load current.
+10. The method of claim 1, wherein the motor vehicle further includes a traction battery pack operable to power the traction motor, the method further comprising: calculating, based on the total motor energy usage, a predicted total energy usage for the motor vehicle to traverse from the vehicle origin to the vehicle destination; determining if a current state of charge (SOC) of the traction battery pack is greater than the predicted total energy usage; and responsive to a determination that the current SOC is not greater than the predicted total energy usage, conducting a second geospatial query to identify an alternative route corresponding to the vehicle origin and vehicle destination.
+11. The method of claim 10, wherein the resident vehicle subsystem includes a vehicle navigation system with an electronic display device, and wherein the control operation includes displaying, via the electronic display device, the alternative route contemporaneous with an indication that the current SOC is insufficient for the motor vehicle to reach the vehicle destination using the designated route.
+12. The method of claim 1, wherein the resident vehicle subsystem includes an Advanced Driver Assistance System (ADAS) module operable to govern driving of the motor vehicle, and wherein the control operation includes implementing a set of enhanced low-energy-consumption driving rules.
+13. The method of claim 1, wherein the resident vehicle subsystem includes an autonomous driving system module operable to automate driving of the motor vehicle, and wherein the control operation includes disabling automated driving of the motor vehicle.
+14. The method of claim 1, wherein the resident vehicle subsystem includes a vehicle navigation system with an electronic display device, and wherein the control operation includes saving, in a memory-stored map database, the total motor energy usage in connection with the designated route and displaying, via the electronic display device, the designated route with an indication of the total motor energy usage.
+15. An electric-drive motor vehicle comprising: a vehicle body; a plurality of road wheels attached to the vehicle body; a traction motor attached to the vehicle body and configured to drive at least one of the road wheels and thereby propel the motor vehicle; a traction battery pack attached to the vehicle body and electrically coupled to the traction motor to power the traction motor; a vehicle navigation system attached to the vehicle body and including a location tracking device, an input device, and an electronic display device; and a resident vehicle controller attached to the vehicle body and programmed to: determine, via the location tracking device and the input device of the vehicle navigation system, a vehicle location and a vehicle destination for the motor vehicle; determine, via the vehicle navigation system, a designated route corresponding to the vehicle origin and vehicle destination; determine, via a remote computing resource service from a memory-stored map database, road-level data associated with the designated route; determine, via the remote computing resource service based on the road-level data and roadway traffic and disturbance data for the designated route, a predicted motor speed of the traction motor for the designated route; determine, via the remote computing resource service, a predicted motor torque of the traction motor by applying a machine-learning driver model as a function of accelerator pedal position to the predicted motor speed; determine, via the remote computing resource service by integrating the predicted motor torque, a total motor energy usage for the traction motor to propel the motor vehicle across the designated route from the vehicle origin to the vehicle destination; and transmit a command signal to a resident vehicle subsystem to execute a control operation based on the total motor energy usage.
+16. The electric-drive motor vehicle of claim 15, further comprising a power inverter module and/or an AC-DC converter each operable to modulate a voltage transmitted to or from the traction motor, wherein the resident vehicle controller is further configured to: calculate, via the remote computing resource service, an inverter/converter energy loss as a function of the predicted motor speed and predicted motor torque for the designated route, wherein the command signal to execute the control operation is further based on the inverter/converter energy loss.
+17. The electric-drive motor vehicle of claim 16, wherein the resident vehicle controller is further configured to: calculate, via the remote computing resource service, a motor energy loss of the traction motor as a function of the predicted motor speed and the predicted motor torque for the designated route, wherein the command signal to execute the control operation is further based on the motor energy loss.
+18. The electric-drive motor vehicle of claim 15, wherein the resident vehicle controller is further configured to: calculate, via the remote computing resource service, an estimated auxiliary device energy usage for one or more in-vehicle electronic devices operated during the designated route, wherein the command signal to execute the control operation is further based on the estimated auxiliary device energy usage.
+19. The electric-drive motor vehicle of claim 15, wherein the resident vehicle controller is further configured to: calculate, via the remote computing resource service, an estimated autonomous-driving electronics energy usage for one or more in-vehicle sensors, cameras and/or processors operated during the designated route, wherein the command signal to execute the control operation is further based on the estimated autonomous-driving electronics energy usage.
+20. The electric-drive motor vehicle of claim 15, wherein the resident vehicle controller is further configured to: calculate, via the remote computing resource service based on the total motor energy usage, a predicted total load current for the motor vehicle to traverse the designated route from the vehicle origin to the vehicle destination, wherein the command signal to execute the control operation is further based on the predicted total energy usage.
+</claims>
+</document>

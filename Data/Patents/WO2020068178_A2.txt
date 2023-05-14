@@ -1,0 +1,126 @@
+<document>
+
+<filing_date>
+2019-05-20
+</filing_date>
+
+<publication_date>
+2020-04-02
+</publication_date>
+
+<priority_date>
+2018-05-18
+</priority_date>
+
+<ipc_classes>
+G01T1/36,G01V5/00
+</ipc_classes>
+
+<assignee>
+LAWRENCE LIVERMORE NATIONAL SECURITY
+</assignee>
+
+<inventors>
+NELSON, KARL
+LABOV, SIMON
+SEILHAN, BANDON
+</inventors>
+
+<docdb_family_id>
+68532534
+</docdb_family_id>
+
+<title>
+MULTIFACETED RADIATION DETECTION AND CLASSIFICATION SYSTEM
+</title>
+
+<abstract>
+A system identifying a source of radiation is provided. The system includes a radiation source detector and a radiation source identifier. The radiation source detector receives measurements of radiation; for one or more sources, generates a detection metric indicating whether that source is present in the measurements; and evaluates the detection metrics to detect whether a source is present in the measurements. When the presence of a source in the measurements is detected, the radiation source identifier for one or more sources, generates an identification metric indicating whether that source is present in the measurements; generates a null-hypothesis metric indicating whether no source is present in the measurements; evaluates the one or more identification metrics and the null-hypothesis metric to identify the source, if any, that is present in the measurements.
+</abstract>
+
+<claims>
+I/We claim:
+1. One or more computing systems for identifying a source of radiation, the one or more computing system comprising:
+one or more computer-readable storage mediums storing computer-executable instructions of:
+a radiation source detector that:
+receives measurements of radiation;
+for one or more sources, generates a detection metric indicating whether that source is present in the measurements; and evaluates the detection metrics to detect whether a source is present in the measurements; and
+a radiation source identifier that, when the presence of a source in the measurements is detected,
+for one or more sources, generates an identification metric indicating whether that source is present in the measurements;
+generates a null-hypothesis metric indicating whether no source is present in the measurements; and
+evaluates the one or more identification metrics and the nullhypothesis metric to identify the source, if any, that is present in the measurements; and.
+one or more processor for executing the computer-executable instructions stored in the one or more computer-readable storage mediums.
+2. The one or more computing systems of claim 1 wherein the radiation source detector generates the detection metric for a source based on a detection source signature for that source and the radiation source detector generates the identification metric for a source based on a plurality of identification source signatures for that source.
+3. The one or more computing systems of claim 2 wherein the identification sources signatures for a source represent that source with different shieldings.
+4. The one or more computing systems of claim 1 wherein the radiation source identifier identifies a radiation source class for an identified source.
+5. The one or more computing systems of claim 1 wherein the measurements are calibrated to account for drift in the detector that collected the measurements.
+6. The one or more computing systems of claim 1 wherein the radiation source identifier generates an aggregated metric for each source.
+7. The one or more computing systems of claim 1 wherein the measurements with in a window are aggregated and radiation is detected and identified based on aggregated measurements.
+8. A method performed by a computing system for detecting presence of a source of radiation from a measurement of radiation, the method comprising:
+for one or more of sources,
+for one or more detection algorithms,
+generating a metric using that detection algorithm, the metric indicating similarity between a current measurement and a source signature for that source, that detection algorithm factoring in an estimate of background radiation generated based on prior measurements to the current measurement; and
+generating an aggregated metric for that source from one or more metrics for that source;
+analyzing the aggregated metric for one or more sources to determine whether a source is likely present in the current measurement; and upon determining that a source is likely present in the current measurement, indicating that the presence of a source has been detected.
+9. The method of claim 8 further comprising generating an estimate of background radiation based on prior measurements excluding prior measurements for which the presence of a source was detected.
+10. The method of claim 9 wherein the estimate of background radiation is a weighted average based on a measurement and a prior estimate of background radiation.
+1 1. The method of claim 8 wherein a source signature is associated with an identification of a source and a shielding of the source.
+12. The method of claim 1 1 wherein for each detection algorithm, a metric is generated for each source signature associated with a source.
+13. The method of claim 8 wherein a measurement is represented by a histogram of energy ranges with a count of photons for each energy range.
+14. The method of claim 8 wherein a metric is generated for each of a plurality of windows measurements, each window including the current measurement and a number of adjacent prior measurement.
+15. The method of claim 8 wherein a detection algorithm is associated with coefficients and further comprising dynamically adjusting the coefficients based on an estimate of background radiation.
+16. The method of claim 8 wherein the analyzing of the aggregated metrics includes applying a classifier that is trained using training data that includes feature vectors with features that include detection algorithm, a window size, and an aggregated metric and a label for each feature vector indicating whether a source is present.
+17. The method of claim 16 wherein the feature vectors are generated from collected measurements of radiation.
+18. The method of claim 16 wherein the feature vectors are generated from simulated measurements of radiation.
+19. The method of claim 18 further comprising calibrating the current measurement to account for drift associated with a detector used to collect the measurements.
+20. A method performed by a computing system for identifying a source of radiation from a measurement of radiation, the method comprising:
+receiving a current measurement for which presence of a source has been detected based on detection source signatures;
+for each of a plurality of identification source signatures, generating a metric using an identification algorithm, the metric indicating similarity between a current measurement and a source signature for that source, the identification algorithm factoring in an estimate of background radiation generated when detecting the presence of the source, the identification source signatures being more comprehensive than the detection source signatures;
+for each source, generating a source metric based on one or more metrics generated using a source signature for that source;
+generating a null-hypothesis metric indicating similarity between the current measurement and the estimate of background radiation, the sources and the estimate of background radiation being targets, the source metrics and the null-hypothesis metric being target metrics; and
+for each target, generating a target probability representing presence of that target in the current measurement, the target probability based on the target metric for that target.
+21. The method of claim 20 further comprising, for each of a plurality of radiation source classes, generating a radiation source class probability that the current measurement represents a source of that radiation source class, the radiation source class probabilities generated based on target probabilities.
+22. The method of claim 20 wherein the generating of a target probability factors in prior probabilities for each target.
+23. The method of claim 20 wherein the identification algorithm is based on an orthonormal subspace projection matched filter algorithm.
+Orthonormal Subspace Projection Matched Filter Algorithm
+24. A method performed by a computing system for generating a metric relating to a source of radiation in measurements of radiation, the method comprising: accessing a source signature of the source, an estimated background, and background basis vectors;
+generating a projection vector based on the source signature, estimated background, and the background basis vectors, and
+accessing a measurement; and
+generating the metric based on the measurement, the projection vector, and an expected variance for the measurement.
+25. The method of claim 24 wherein the source signature is a histogram representing an energy range divided into energy bins, each energy bin having a value representing a count of photons emitted by that source over a time interval.
+26. The method of claim 25 wherein the generating of the projection vector includes generating a weighting matrix from the estimated background wherein a variance of each energy bin is based on the expected background.
+27. The method of claim 25 wherein the generating of the projection vector further includes generating source signature weighted projection and a background weighted projection and setting the projection vector to the difference between the source signature weighted projection and the background weighted projection.
+28. The method of claim 24 wherein a source signature represents a shielding of the source.
+29. The method of claim 24 further comprising generating aggregated measurements of different numbers of measurements and for each aggregated measurement, generating a metric based on the aggregated measurement, the projection vector, and an expected variance for the aggregated measurement.
+30. The method of claim 24 further comprising when the metric satisfies a source present threshold, indicating that presence of the source has been detected.
+31. The method of claim 24 further comprising when the metric satisfies a source present threshold, indicating that presence of the source has been semidefinitively detected.
+32. The method of the claim 24 wherein the generating of the detection metric includes dividing the product of the projection vector and the measurement by the square root of the expected variance.
+33. One or more computing system for generating a metric relating to a source of radiation in measurements of radiation, the one or more computing systems comprising:
+one or more computer-readable storage mediums storing computer-executable instructions for controlling the one or more computing systems to:
+access a source signature of the source, an estimated background, and background basis vectors;
+generate a projection vector based on the source signature, estimated background, and the background basis vectors, and
+access a measurement; and
+generate the metric based on the measurement, the projection vector, and an expected variance for the measurement.
+one or more processors for executing the computer-executable instructions stored in the one or more computer-readable storage mediums.
+34. The one or more computing systems of claim 33 wherein the source signature is a histogram representing an energy range divided into energy bins, each energy bin having a value representing a count of photons emitted by that source over a time interval;
+35. The one or more computing systems of claim 34 wherein the instructions that generate of the projection vector generate a weighting matrix from the estimated background wherein a variance of each energy bin is based on the expected background.
+36. The one or more computing systems of claim 35 wherein the instructions that generate the projection vector further generate source signature weighted projection and a background weighted projection and sets the projection vector to the difference between the source signature weighted projection and the background weighted projection.
+37. The one or more computing systems of claim 33 wherein a source signature represents a shielding of the source.
+38. The one or more computing systems of claim 33 wherein the instructions further generate aggregated measurements of different numbers of measurements and for each aggregated measurement, generate a metric based on the aggregated measurement, the projection vector, and an expected variance for the aggregated measurement.
+39. The one or more the computing systems of claim 10 wherein the instructions further, when the metric satisfies a source present threshold, indicate that presence of the source has been detected.
+40. The one or more the computing systems of claim 33 wherein the instructions further, when the metric satisfies a source present threshold, indicate that presence of the source has been semi-definitively detected.
+41 . The one or more the computing systems of claim 33 wherein the instructions that generates of the detection metric divides the product of the projection vector and the measurement by the square root of an expected variance.
+42. A method performed by a computing system for generating a metric relating to a source of radiation in measurements of radiation collected in sequence, the method comprising:
+accessing a source signature of the source, an estimated background, and background basis vectors;
+generating a projection vector as represented by the following equation:
+T = StW(I - B(BtWB)~1BtW)
+where T represents the projection vector, S represents the source signature, B represents the estimated background, and W represents the background basis vectors; and accessing a measurement; and
+generating the metric by as represented by the following equation:
+where DM represents the metric, X represents the measurement and \X\1 represents the expected variance for the measurement.
+43. The method of claim 42 further comprising detecting presence of a source of based on the metric.
+44. The method of claim 42 further comprising identifying the source based on the metric.
+45. The method of claim 42 wherein the source signature is a histogram representing an energy range divided into energy bins, each energy bin having a value representing a count of photons emitted by that source over a time interval.
+46. The method of claim 42 wherein a source signature represents a shielding of the source.
+47. The method of claim 42 further comprising generating aggregated measurements of different numbers of measurements and for each aggregated measurement, generating a metric based on the aggregated measurement, the projection vector, and an expected variance for the aggregated measurement.
+</claims>
+</document>

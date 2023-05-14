@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2020-02-04
+</filing_date>
+
+<publication_date>
+2020-08-06
+</publication_date>
+
+<priority_date>
+2015-11-12
+</priority_date>
+
+<ipc_classes>
+G05B13/02,G06F40/274,G06F40/55,G06F40/58,G06N3/04,G10L15/02,G10L15/16,G10L15/26
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+SUTSKEVER, ILYA
+BENGIO, SAMUEL
+VINYALS, ORIOL
+JAITLY, NAVDEEP
+LE, QUOC V.
+</inventors>
+
+<docdb_family_id>
+57421957
+</docdb_family_id>
+
+<title>
+Generating Target Sequences From Input Sequences Using Partial Conditioning
+</title>
+
+<abstract>
+A system can be configured to perform tasks such as converting recorded speech to a sequence of phonemes that represent the speech, converting an input sequence of graphemes into a target sequence of phonemes, translating an input sequence of words in one language into a corresponding sequence of words in another language, or predicting a target sequence of words that follow an input sequence of words in a language (e.g., a language model). In a speech recognizer, the RNN system may be used to convert speech to a target sequence of phonemes in real-time so that a transcription of the speech can be generated and presented to a user, even before the user has completed uttering the entire speech input.
+</abstract>
+
+<claims>
+1. A method for generating a target sequence comprising a respective output at each of a plurality of output time steps from an input sequence comprising a respective input at each of a plurality of input time steps, the method comprising: for each block of a fixed number of input time steps in the input sequence: processing each input in the block of input time steps using an encoder recurrent neural network (RNN) to generate a respective feature representation of the input; and processing the feature representations for the inputs in the block and a preceding output at a preceding output time step using a transducer RNN to select a respective output for each of one or more output time steps immediately following the preceding output time step.
+2. The method of claim 1, wherein, for the initial block in the input sequence, the preceding output at the preceding output time step is a placeholder start-of-sequence output.
+3. The method of claim 1, wherein processing the feature representations for the inputs in the block and a preceding output at a preceding output time step using a transducer RNN to select a respective output for each of one or more output time steps immediately following the preceding output time step comprises selecting outputs until the selected output is a designated end-of-block output.
+4. The method of claim 3, wherein processing the feature representations for the inputs in the block and the preceding output at a preceding output time step using the transducer RNN comprises: processing the feature representations for the inputs in the block and the preceding output using the transducer RNN to select a current output for a current output time step immediately following the preceding output time step; when the current output is the designated end-of-block output, refraining from generating any more outputs for the block; and when the current output is not the designated end-of-block output: processing the feature representations for the inputs in the block and the current output using the transducer RNN to select a next output for a next output time step immediately following the current output time step.
+5. The method of claim 1, wherein processing the feature representations for the inputs in the block and a preceding output at a preceding output time step using a transducer RNN to select a respective output for each of one or more output time steps immediately following the preceding output time step comprises selecting outputs until a designation portion of an intermediate output of the transducer RNN indicates that the selected output is the last in the block.
+6. The method of claim 1, wherein the transducer RNN is configured to, for a given block of input time steps and to select an output for a given output time step: process the output at an output time step immediately preceding the given output time step and a preceding context vector for the output time step immediately preceding the given output time step using a first RNN subnetwork to update a current hidden state of the first RNN subnetwork; process the updated hidden state of the first RNN subnetwork and the feature representations for the inputs in the given block of input time steps using a context subnetwork to determine a current context vector; process the current context vector and the updated hidden state of the first RNN subnetwork using a second RNN subnetwork to update a current hidden state of the second RNN subnetwork; and process the current hidden state of the second RNN subnetwork using a softmax layer to generate a respective score for each output in a dictionary of possible outputs.
+7. The method of claim 6, wherein the context subnetwork is an RNN.
+8. The method of any preceding claim, wherein the input sequence is a speech sequence and the target sequence is a sequence of phonemes representing the speech sequence.
+9. A system comprising one or more computers and one or more storage devices storing instructions that are operable, when executed by the one or more computers, to cause the one or more computers to perform operations for generating a target sequence comprising a respective output at each of a plurality of output time steps from an input sequence comprising a respective input at each of a plurality of input time steps, the operations comprising: for each block of a fixed number of input time steps in the input sequence: processing each input in the block of input time steps using an encoder recurrent neural network (RNN) to generate a respective feature representation of the input; and processing the feature representations for the inputs in the block and a preceding output at a preceding output time step using a transducer RNN to select a respective output for each of one or more output time steps immediately following the preceding output time step.
+10. The system of claim 9, wherein, for the initial block in the input sequence, the preceding output at the preceding output time step is a placeholder start-of-sequence output.
+11. The system of claim 9, wherein processing the feature representations for the inputs in the block and a preceding output at a preceding output time step using a transducer RNN to select a respective output for each of one or more output time steps immediately following the preceding output time step comprises selecting outputs until the selected output is a designated end-of-block output.
+12. The system of claim 11, wherein processing the feature representations for the inputs in the block and the preceding output at a preceding output time step using the transducer RNN comprises: processing the feature representations for the inputs in the block and the preceding output using the transducer RNN to select a current output for a current output time step immediately following the preceding output time step; when the current output is the designated end-of-block output, refraining from generating any more outputs for the block; and when the current output is not the designated end-of-block output: processing the feature representations for the inputs in the block and the current output using the transducer RNN to select a next output for a next output time step immediately following the current output time step.
+13. The system of claim 9, wherein processing the feature representations for the inputs in the block and a preceding output at a preceding output time step using a transducer RNN to select a respective output for each of one or more output time steps immediately following the preceding output time step comprises selecting outputs until a designation portion of an intermediate output of the transducer RNN indicates that the selected output is the last in the block.
+14. The system of claim 9, wherein the transducer RNN is configured to, for a given block of input time steps and to select an output for a given output time step: process the output at an output time step immediately preceding the given output time step and a preceding context vector for the output time step immediately preceding the given output time step using a first RNN subnetwork to update a current hidden state of the first RNN subnetwork; process the updated hidden state of the first RNN subnetwork and the feature representations for the inputs in the given block of input time steps using a context subnetwork to determine a current context vector; process the current context vector and the updated hidden state of the first RNN subnetwork using a second RNN subnetwork to update a current hidden state of the second RNN subnetwork; and process the current hidden state of the second RNN subnetwork using a softmax layer to generate a respective score for each output in a dictionary of possible outputs.
+15. The system of claim 14, wherein the context subnetwork is an RNN.
+16. The system of claim 9, wherein the input sequence is a speech sequence and the target sequence is a sequence of phonemes representing the speech sequence.
+17. A computer storage medium encoded with instructions that, when executed by one or more computers, cause the one or more computers to perform operations for generating a target sequence comprising a respective output at each of a plurality of output time steps from an input sequence comprising a respective input at each of a plurality of input time steps, the operations comprising: for each block of a fixed number of input time steps in the input sequence: processing each input in the block of input time steps using an encoder recurrent neural network (RNN) to generate a respective feature representation of the input; and processing the feature representations for the inputs in the block and a preceding output at a preceding output time step using a transducer RNN to select a respective output for each of one or more output time steps immediately following the preceding output time step.
+18. The computer storage medium of claim 17, wherein, for the initial block in the input sequence, the preceding output at the preceding output time step is a placeholder start-of-sequence output.
+19. The computer storage medium of claim 17, wherein processing the feature representations for the inputs in the block and a preceding output at a preceding output time step using a transducer RNN to select a respective output for each of one or more output time steps immediately following the preceding output time step comprises selecting outputs until the selected output is a designated end-of-block output.
+20. The computer storage medium of claim 17, wherein the transducer RNN is configured to, for a given block of input time steps and to select an output for a given output time step: process the output at an output time step immediately preceding the given output time step and a preceding context vector for the output time step immediately preceding the given output time step using a first RNN subnetwork to update a current hidden state of the first RNN subnetwork; process the updated hidden state of the first RNN subnetwork and the feature representations for the inputs in the given block of input time steps using a context subnetwork to determine a current context vector; process the current context vector and the updated hidden state of the first RNN subnetwork using a second RNN subnetwork to update a current hidden state of the second RNN subnetwork; and process the current hidden state of the second RNN subnetwork using a softmax layer to generate a respective score for each output in a dictionary of possible outputs.
+</claims>
+</document>

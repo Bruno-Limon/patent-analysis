@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2019-03-12
+</filing_date>
+
+<publication_date>
+2020-09-17
+</publication_date>
+
+<priority_date>
+2019-03-12
+</priority_date>
+
+<ipc_classes>
+F28F99/00
+</ipc_classes>
+
+<assignee>
+MITSUBISHI ELECTRIC RESEARCH LABORATORIES
+</assignee>
+
+<inventors>
+LAUGHMAN, CHRISTOPHER
+RAGHUNATHAN, ARVIND
+</inventors>
+
+<docdb_family_id>
+69192103
+</docdb_family_id>
+
+<title>
+Method and System for Circuiting in Heat Exchangers
+</title>
+
+<abstract>
+A system for designing a circuitry configuration of heat-exchanger units includes an interface to acquire design parameters the heat-exchanger units, a memory to store computer-executable programs including a relaxed decision diagram formation module, and a processor, in connection with the memory, configured to perform the computer-executable programs. The computer-executable programs include steps of providing a configuration of the heat-exchanger units, providing the design parameters of the heat-exchanger units acquired via the interface, generating a relaxed decision diagram based on the design parameters, creating constraints with respect to connections of the heat-exchanger units according to the relaxed decision diagram, and generating feasible configurations of the heat-exchanger units by a mixed-integer-programing method using the constraints.
+</abstract>
+
+<claims>
+1. A system for designing a circuitry configuration of heat-exchanger units, comprising: an interface to acquire design parameters the heat-exchanger units; a memory to store computer-executable programs including a relaxed decision diagram formation module; a processor, in connection with the memory, configured to perform the computer-executable programs, wherein the computer-executable programs comprising steps of: providing a configuration of the heat-exchanger units; providing the design parameters of the heat-exchanger units acquired via the interface; generating a relaxed decision diagram based on the design parameters; creating constraints with respect to connections of the heat-exchanger units according to the relaxed decision diagram; and generating feasible configurations of the heat-exchanger units by a mixed-integer-programing method using the constraints.
+2. The system of claim 1, wherein each of the heat-exchanger units is formed of a tube that includes a super-node corresponding to a bend on a far end of the tube.
+3. The system of claim 1, further comprising: providing an objective function that represents a heat capacity of the heat-exchanger units or a ratio of a heat capacity to a pressure difference across the circuitry configuration of the heat exchanger units.
+4. The system of claim 2, wherein the constraints, with respect to connections of the heat-exchanger units, include (i) adjacent pairs of the heat-exchanger units in each column, starting with a bottom unit among the heat-exchanger units, are connected, (ii) the connections on a far end of the heat-exchanger units cannot cross rows unless the heat-exchanger units are at the edge of the coil, (iii) all the heat-exchanger units in the heat exchanger must be connected, (iv) inlets and outlets of the heat-exchanger units must be located at a near end, and (v) merges and splits of the heat-exchanger units are not allowed.
+5. The system of claim 1, further comprising: applying the feasible configurations of the heat-exchanger units to a predetermined performance evaluating program for each of the feasible configurations.
+6. The system of claiml, further comprising: applying a set of samples of the feasible configurations to a predetermined performance evaluating program; building a surrogate model optimization problem using features of the feasible configurations, creating surrogate model constraints for the surrogate model according to the design parameters; and solving the surrogate model optimization problem.
+7. The system of claim 6, wherein a prediction model, which takes as input a pair of supernodes and returns a real number between 0 and 1 indicating a likelihood that given supernodes should be connected, is used to identify a set of samples of the feasible configurations to a predetermined evaluating program.
+8. The system of claim 6, wherein the prediction model iteratively identifies the next node to connect to the circuit.
+9. The system of claim 6, wherein the prediction model is constructed using neural networks or reinforcement learning on graphical models.
+10. The system of claim 1, further comprising: applying a set of samples of these feasible configurations to a predetermined performance evaluating program, building a surrogate model using features of these configurations, creating constraints for the surrogate model according to the design parameters, solving the surrogate model optimization problem, applying the results of the surrogate model optimization to a predetermined performance evaluating program, storing a subset of these configurations in a database of solutions, and repeating this process for different sample sets of feasible configurations until a time limit is reached.
+11. The system of claim 10, wherein each of the heat-exchanger units is formed of a tube that includes a super-node corresponding to a bend on a far end of the tube.
+12. The system of claim 10, further comprising: providing an objective function that represents a heat capacity of the heat-exchanger units or a ratio of a heat capacity to a pressure difference across the circuitry configuration of the heat exchanger units.
+13. The system of claim 10, wherein the constraints, with respect to connections of the heat-exchanger units, include (i) adjacent pairs of the heat-exchanger units in each column, starting with a bottom unit among the heat-exchanger units, are connected, (ii) the connections on a far end of the heat-exchanger units cannot cross rows unless the heat-exchanger units are at the edge of the coil, (iii) all the heat-exchanger units in the heat exchanger must be connected, (iv) inlets and outlets of the heat-exchanger units must be located at a near end, and (v) merges and splits of the heat-exchanger units are not allowed.
+14. The system of claim 10, further comprising applying the feasible configurations of the heat-exchanger units to a predetermined performance evaluating program for each of the feasible configurations.
+15. The system of claim 10, further comprising applying the feasible configurations of the heat-exchanger units to a set of predetermined performance evaluating programs for each of the feasible configurations is accomplish concurrently via parallel computation.
+16. The system of claim 10, wherein the features of these configurations, with respect to connections of the heat-exchanger units, include the number of parallel paths resulting from the interconnections of subsets of heat-exchanger units, the total number of heat-exchanger units included in a given path, the distance between the heat-exchanger units that are connected, the number of traversals across the columns of a limit on number of crossovers between columns, the location of inlet tubes, and the location of outlet tubes.
+17. The system of claim 10, wherein the surrogate model consists of a support vector machine or a set of radial basis functions.
+18. The system of claim 10, wherein the surrogate model optimization problem is solved in two stages that comprises applying a set of bound constraints and solving the surrogate model optimization problem with a mixed-integer nonlinear programming method, and applying a set of design parameter constraints to the results of this first stage and then solving this optimization problem with a mixed-integer nonlinear programming method.
+19. The system of claim 10, wherein the surrogate model optimization problem is solved constructively by evaluating a real number indicating the likelihood that given pairs of heat-exchanger units should be connected.
+20. The system of claim 19, wherein the constructive solution method for the surrogate model optimization problem iteratively identifies the next node to connect to the circuit.
+21. A method for designing a circuitry configuration of heat-exchanger units, comprising steps of: providing a configuration of the heat-exchanger units; providing design parameters of the heat-exchanger units; generating a relaxed decision diagram based on the design parameters; creating constraints with respect to connections of the heat-exchanger units according to the relaxed decision diagram; and generating feasible configurations of the heat-exchanger units by a mixed-integer-programing method using the constraints.
+22. The method of claim 21, wherein each of the heat-exchanger units is formed of a tube that includes a super-node corresponding to a bend on a far end of the tube.
+23. The method of claim 21, further comprising: providing an objective function that represents a heat capacity of the heatexchanger units or a ratio of a heat capacity to a pressure difference across the circuitry configuration of the heat exchanger units.
+24. The method of claim 22, wherein the constraints, with respect to connections of the heat-exchanger units, include (i) adjacent pairs of the heat-exchanger units in each column, starting with a bottom unit among the heat-exchanger units, are connected, (ii) the connections on a far end of the heat-exchanger units cannot cross rows unless the heat-exchanger units are at the edge of the coil, (iii) all the heat-exchanger units in the heat exchanger must be connected, (iv) inlets and outlets of the heat-exchanger units must be located at a near end, and (v) merges and splits of the heat-exchanger units are not allowed.
+25. The method of claim 21, further comprising: applying the feasible configurations of the heat-exchanger units to a predetermined performance evaluating program for each of the feasible configurations.
+</claims>
+</document>

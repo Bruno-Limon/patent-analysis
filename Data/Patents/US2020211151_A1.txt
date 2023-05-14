@@ -1,0 +1,70 @@
+<document>
+
+<filing_date>
+2018-12-28
+</filing_date>
+
+<publication_date>
+2020-07-02
+</publication_date>
+
+<priority_date>
+2018-12-28
+</priority_date>
+
+<ipc_classes>
+G06T1/60,G06T15/06,G06T17/00
+</ipc_classes>
+
+<assignee>
+INTEL CORPORATION
+</assignee>
+
+<inventors>
+BENTHIN, CARSTEN
+WOOP, SVEN
+VAIDYANATHAN, KARTHIK
+</inventors>
+
+<docdb_family_id>
+68296242
+</docdb_family_id>
+
+<title>
+APPARATUS AND METHOD FOR A COMPRESSED STACK REPRESENTATION FOR HIERARCHICAL ACCELERATION STRUCTURES OF ARBITRARY WIDTHS
+</title>
+
+<abstract>
+Apparatus and method for a compressed stack representation for a BVH. For example, one embodiment of an apparatus comprises: a ray generator to generate a plurality of rays in a first graphics scene; a bounding volume hierarchy (BVH) generator to construct a BVH comprising a plurality of hierarchically arranged nodes, wherein the BVH comprises a specified number of child nodes at a current BVH level beneath a parent node in the hierarchy; traversal/intersection circuitry to traverse one or more of the rays through the hierarchically arranged nodes of the BVH and intersect the one or more rays with primitives contained within the nodes; a short traversal stack of a fixed size comprising a specified number of entries fewer than the number of child nodes beneath the parent node, each entry associated with a child node at the current BVH level, the entries ordered from top to bottom within the short traversal stack based on a sorted distance of each respective child node, wherein each entry includes a field to indicate whether that entry is associated with a final child in the current BVH level; wherein the traversal/intersection circuitry is to process entries from the top of the traversal stack, removing entries as they are processed, the traversal/intersection circuitry to determine that a current entry is associated with the final child node at the current BVH level by reading a first value in the field.
+</abstract>
+
+<claims>
+1. An apparatus comprising: a ray generator to generate a plurality of rays in a first graphics scene; a bounding volume hierarchy (BVH) generator to construct a BVH comprising a plurality of hierarchically arranged nodes, wherein the BVH comprises a specified number of child nodes at a current BVH level beneath a parent node in the hierarchy; traversal/intersection circuitry to traverse one or more of the rays through the hierarchically arranged nodes of the BVH and intersect the one or more rays with primitives contained within the nodes; a short traversal stack of a fixed size comprising a specified number of entries fewer than the number of child nodes beneath the parent node, each entry associated with a child node at the current BVH level, the entries ordered from top to bottom within the short traversal stack based on a sorted distance of each respective child node, wherein each entry includes a field to indicate whether that entry is associated with a final child in the current BVH level; wherein the traversal/intersection circuitry is to process entries from the top of the traversal stack, removing entries as they are processed, the traversal/intersection circuitry to determine that a current entry is associated with the final child node at the current BVH level by reading a first value in the field.
+2. The apparatus of claim 1 wherein the value comprises a single bit value, the single bit value set to 1 to indicate that the entry is associated with the final child node in the current BVH level.
+3. The apparatus of claim 2 wherein the traversal/intersection circuitry is to move to a new set of nodes of the BVH after determining that the current entry is associated with the final child node a the current BVH level.
+4. The apparatus of claim 1 further comprising: sorting circuitry and/or logic to sort the child nodes at the current BVH level based on distance of the child nodes from an origin of the ray.
+5. The apparatus of claim 1 further comprising: indexing circuitry and/or logic to maintain a child index array having a number of index entries equal to a depth of the BVH, wherein each entry identifies a child subtree that is currently being traversed at a particular level of the BVH.
+6. The apparatus of claim 5 wherein an index value in an index entry is increased as the traversal/intersection circuitry completes processing a given child node at an associated BVH level.
+7. The apparatus of claim 6 wherein child nodes associated with index values smaller than a current index value in the index entry have been processed by the traversal/intersection circuitry.
+8. The apparatus of claim 7 wherein in the event of a restart, the traversal/intersection circuitry is to restart at the child node associated with the current index value and is to avoid re-processing those child nodes associated with index values smaller than the current index value.
+9. The apparatus of claim 1 wherein each entry in the short traversal stack further includes an offset to an associated child node and an indication of a node type.
+10. A method comprising: generating a plurality of rays in a first graphics scene; constructing a bounding volume hierarchy (BVH) comprising a plurality of hierarchically arranged nodes, wherein the BVH comprises a specified number of child nodes at a current BVH level beneath a parent node in the hierarchy; traversing one or more of the rays through the hierarchically arranged nodes of the BVH and intersecting the one or more rays with primitives contained within the nodes; providing a short traversal stack of a fixed size comprising a specified number of entries fewer than the number of child nodes beneath the parent node, each entry associated with a child node at the current BVH level, the entries ordered from top to bottom within the short traversal stack based on a sorted distance of each respective child node; wherein each entry includes a field to indicate whether that entry is associated with a final child in the current BVH level; wherein entries are to be processed from the top of the traversal stack and removed as they are processed, a current entry to be identified as associated with the final child node at the current BVH level by reading a first value from the field.
+11. The method of claim 10 wherein the value comprises a single bit value, the single bit value set to 1 to indicate that the entry is associated with the final child node in the current BVH level.
+12. The method of claim 11 wherein a new set of nodes of the BVH are to be processed after determining that the current entry is associated with the final child node a the current BVH level.
+13. The method of claim 10 further comprising: sorting the child nodes at the current BVH level based on distance of the child nodes from an origin of the ray.
+14. The method of claim 10 further comprising: generating and updating a child index array having a number of index entries equal to a depth of the BVH, wherein each entry identifies a child subtree that is currently being traversed at a particular level of the BVH.
+15. The method of claim 14 wherein an index value in an index entry is increased as the traversal/intersection circuitry completes processing a given child node at an associated BVH level.
+16. The method of claim 15 wherein child nodes associated with index values smaller than a current index value in the index entry have been processed by the traversal/intersection circuitry.
+17. The method of claim 16 wherein in the event of a restart, processing is to resume at the child node associated with the current index value and those child nodes associated with index values smaller than the current index value are bypassed.
+18. The method of claim 10 wherein each entry in the short traversal stack further includes an offset to an associated child node and an indication of a node type.
+19. A non-transitory machine-readable medium having program code stored thereon which, when executed by a machine, causes the machine to perform the operations of: generating a plurality of rays in a first graphics scene; constructing a bounding volume hierarchy (BVH) comprising a plurality of hierarchically arranged nodes, wherein the BVH comprises a specified number of child nodes at a current BVH level beneath a parent node in the hierarchy; traversing one or more of the rays through the hierarchically arranged nodes of the BVH and intersecting the one or more rays with primitives contained within the nodes; providing a short traversal stack of a fixed size comprising a specified number of entries fewer than the number of child nodes beneath the parent node, each entry associated with a child node at the current BVH level, the entries ordered from top to bottom within the short traversal stack based on a sorted distance of each respective child node; wherein each entry includes a field to indicate whether that entry is associated with a final child in the current BVH level; wherein entries are to be processed from the top of the traversal stack and removed as they are processed, a current entry to be identified as associated with the final child node at the current BVH level by reading a first value from the field.
+20. The non-transitory machine-readable medium of claim 19 wherein the value comprises a single bit value, the single bit value set to 1 to indicate that the entry is associated with the final child node in the current BVH level.
+21. The non-transitory machine-readable medium of claim 20 wherein a new set of nodes of the BVH are to be processed after determining that the current entry is associated with the final child node a the current BVH level.
+22. The non-transitory machine-readable medium of claim 19 further comprising program code to cause the machine to perform the operations of: sorting the child nodes at the current BVH level based on distance of the child nodes from an origin of the ray.
+23. The non-transitory machine-readable medium of claim 19 further comprising program code to cause the machine to perform the operations of: generating and updating a child index array having a number of index entries equal to a depth of the BVH, wherein each entry identifies a child subtree that is currently being traversed at a particular level of the BVH.
+24. The non-transitory machine-readable medium of claim 23 wherein an index value in an index entry is increased as the traversal/intersection circuitry completes processing a given child node at an associated BVH level.
+25. The non-transitory machine-readable medium of claim 24 wherein child nodes associated with index values smaller than a current index value in the index entry have been processed by the traversal/intersection circuitry.
+26. The non-transitory machine-readable medium of claim 25 wherein in the event of a restart, processing is to resume at the child node associated with the current index value and those child nodes associated with index values smaller than the current index value are bypassed.
+27. The non-transitory machine-readable medium of claim 19 wherein each entry in the short traversal stack further includes an offset to an associated child node and an indication of a node type.
+</claims>
+</document>

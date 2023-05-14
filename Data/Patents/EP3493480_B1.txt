@@ -1,0 +1,74 @@
+<document>
+
+<filing_date>
+2017-06-02
+</filing_date>
+
+<publication_date>
+2020-09-09
+</publication_date>
+
+<priority_date>
+2016-07-28
+</priority_date>
+
+<ipc_classes>
+H04L12/40,H04W4/40
+</ipc_classes>
+
+<assignee>
+PANASONIC INTELLECTUAL PROPERTY
+</assignee>
+
+<inventors>
+ANZAI, JUN
+HAGA, TOMOYUKI
+MATSUSHIMA, HIDEKI
+UJIIE, YOSHIHIRO
+</inventors>
+
+<docdb_family_id>
+61194207
+</docdb_family_id>
+
+<title>
+FRAME TRANSMISSION BLOCKING DEVICE, FRAME TRANSMISSION BLOCKING METHOD AND VEHICLE-MOUNTED NETWORK SYSTEM
+</title>
+
+<abstract>
+A frame transmission prevention apparatus is connected to a bus of a network system including a plurality of electronic control units that communicate with one another via the bus. The apparatus includes a reception unit that receives a frame from the bus and a processing unit that switches whether to perform a predetermined process for preventing transmission of the frame received by the reception unit if the received frame satisfies a predetermined condition on the basis of management information indicating whether prevention of transmission of a frame is permitted.
+</abstract>
+
+<claims>
+1. A frame transmission prevention apparatus for use in a network system including a plurality of electronic control units (100a-100d) communicating with one another via a bus (200), the apparatus being connected to the bus, the apparatus comprising: a reception unit (410;2410) adapted to receive a frame from the bus; a processing unit (440;2420) adapted to switch whether to perform a predetermined process for preventing transmission of the frame received by the reception unit (410;2410) if the received frame satisfies a predetermined condition, on the basis of management information indicating whether prevention of transmission of a frame is permitted; and a storage unit (441;2430) adapted to store the management information; characterized by an update unit (460; 2450) adapted to update the management information stored in the storage unit (441;2430) in accordance with instruction information received by the frame transmission prevention apparatus, wherein the management information includes, for each of a plurality of IDs, flag information indicating whether prevention of transmission of a frame that has the ID and that satisfies the predetermined condition is permitted, wherein if the frame received by the reception unit (410;2410) satisfies the predetermined condition and if the flag information corresponding to the ID of the frame indicates that prevention of transmission of the frame is permitted, the processing unit performs the predetermined process, and wherein if the flag information corresponding to the ID of the frame indicates that prevention of transmission of the frame is not permitted, the processing unit does not perform the predetermined process.
+2. The frame transmission prevention apparatus according to Claim 1, wherein the plurality of electronic control units (100a-100d) are adapted to communicate with one another via the bus (200) in accordance with CAN (Controller Area Network) protocol, and
+wherein the predetermined process for preventing transmission of the frame that satisfies the predetermined condition includes a process for transmitting an error frame to the bus (200) before the rearmost bit of the frame is received by the reception unit (410;2410).
+3. The frame transmission prevention apparatus according to Claim 1 or 2, wherein the flag information corresponding to each of the plurality of IDs in the management information indicates that prevention of transmission of a frame is not permitted if updating by the update unit (460; 2450) has never been performed.
+4. The frame transmission prevention apparatus according to any one of Claims 1 to 3, wherein the flag information is 1-bit information.
+5. The frame transmission prevention apparatus according to any one of Claims 1 to 4, wherein the update unit (460; 2450) is adapted to update the management information in accordance with instruction information externally received by the frame transmission prevention apparatus.
+6. The frame transmission prevention apparatus according to any one of Claims 1 to 4, wherein the network system is an in-vehicle network system (10;11),
+wherein the plurality of electronic control units (100a-100d), the bus, and the frame transmission prevention apparatus are mounted in a vehicle, and
+wherein the update unit (460; 2450) is adapted to update the management information in accordance with the instruction information transmitted by an external apparatus (500; 1500) located outside the vehicle.
+7. The frame transmission prevention apparatus according to Claim 6, wherein if the instruction information transmitted by the external apparatus (500;1500) indicates an instruction not to permit prevention of transmission of a frame having a predetermined ID under the condition that authentication as to whether the external apparatus has predetermined authority is successful, the update unit (460; 2450) is adapted to update the flag information corresponding to the predetermined ID in the management information so that prevention of transmission of a frame having the predetermined ID is not permitted, and
+wherein if the instruction information indicates an instruction to permit prevention of transmission of a frame having the predetermined ID, the update unit (460; 2450) is adapted to update the flag information corresponding to the predetermined ID in the management information so that prevention of transmission of a frame having the predetermined ID is permitted, regardless of whether the external apparatus (500;1500) has the predetermined authority.
+8. The frame transmission prevention apparatus according to Claim 7, further comprising:
+a communication unit (1600;2440) is adapted to transmit, to another vehicle, instruction information to permit prevention of transmission of a frame having an ID when the processing unit (440;2420) performs the predetermined process for preventing transmission of a frame having the ID.
+9. The frame transmission prevention apparatus according to Claim 6 or 7, further comprising:
+a communication unit (600;1600) is adapted to transmit, to the external apparatus (500;1500), information for analysis if the frame received by the reception unit (410;2410) satisfies the predetermined condition, the information for analysis including information about the frame.
+10. The frame transmission prevention apparatus according to any one of Claims 1 to 4, wherein in the case where the frame received by the reception unit (410;2410) satisfies the predetermined condition and the flag information corresponding to the ID of the frame indicates that prevention of transmission of the frame is not permitted, if the occurrence of anomaly is detected on the basis of a frame that is received by the reception unit (410;2410) and that has a specific ID different from the ID of the frame, the update unit (460; 2450) is adapted to update the flag information so that the prevention is permitted.
+11. The frame transmission prevention apparatus according to any one of Claims 1 to 4, wherein in the case where the frame received by the reception unit (410;2410) satisfies the predetermined condition and the flag information corresponding to the ID of the frame indicates that prevention of transmission of the frame is not permitted, if the update unit (460; 2450) detects that a predetermined particular electronic control unit among the plurality of electronic control units (100a-100d) is anomalous, the update unit (460; 2450) updates the flag information so that the prevention is permitted.
+12. The frame transmission prevention apparatus according to any one of Claims 1 to 11, wherein the predetermined condition is related to the ID of a frame, and
+wherein if the ID of the frame received by the reception unit (410;2410) satisfies the predetermined condition, the processing unit is adapted to switch whether to perform the predetermined process on the basis of the management information.
+13. The frame transmission prevention apparatus according to any one of Claims 1 to 11, wherein the plurality of electronic control units (100a-100d) is adapted to communicate with one another via the bus (200) in accordance with CAN (Controller Area Network) protocol,
+wherein the predetermined condition is a condition related to DLC (Data Length Code) of a data frame representing a frame, and
+wherein if the DLC of the frame received by the reception unit (410;2410) satisfies the predetermined condition, the processing unit is adapted to switch whether to perform the predetermined process on the basis of the management information.
+14. The frame transmission prevention apparatus according to any one of Claims 1 to 11, wherein the plurality of electronic control units (100a-100d) are adapted to communicate with one another via the bus (200) in accordance with CAN (Controller Area Network) protocol,
+wherein the predetermined condition is a condition related to data in a data field of a data frame representing a frame, and
+wherein if data in the data field of the frame received by the reception unit (410;2410) satisfies the predetermined condition, the processing unit is adapted to switch whether to perform the predetermined process on the basis of the management information.
+15. The frame transmission prevention apparatus according to any one of Claims 1 to 11, wherein the predetermined condition is a condition that is satisfied if a frame does not include a proper message authentication code.
+16. The frame transmission prevention apparatus according to Claim 1, wherein the plurality of electronic control units (100a-100d) are adapted to communicate with one another via the bus (200) in accordance with CAN (Controller Area Network) protocol, and
+wherein the predetermined process for preventing transmission of a frame that satisfies the predetermined condition includes a process of transmitting a dominant signal to the bus (200) while the frame is being transmitted.
+17. A frame transmission prevention method for use of a network system including a plurality of electronic control units (100a-100d) communicating with one another via a bus, the method comprising: a reception step of receiving a frame from the bus; and a processing step of switching whether to perform a predetermined process for preventing transmission of the frame received in the reception step if the received frame satisfies a predetermined condition on the basis of management information indicating whether prevention of transmission of a frame is permitted, wherein the management information is stored in a storage unit (441;2430) and is updated in accordance with instruction information, the management information including, for each of a plurality of IDs, flag information indicating whether prevention of transmission of a frame that has the ID and that satisfies the predetermined condition is permitted, wherein if the frame received in the reception step satisfies the predetermined condition and if the flag information corresponding to the ID of the frame indicates that prevention of transmission of the frame is permitted, the processing step performs the predetermined process, and wherein if the flag information corresponding to the ID of the frame indicates that prevention of transmission of the frame is not permitted, the processing step does not perform the predetermined process.
+18. An in-vehicle network system, comprising: a plurality of electronic control units (100a-100d) communicating with one another via a bus; and a frame transmission prevention apparatus (400;1400;2400) according to any one of claims 1 to 16.
+</claims>
+</document>

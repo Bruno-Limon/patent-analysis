@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2016-12-13
+</filing_date>
+
+<publication_date>
+2020-02-25
+</publication_date>
+
+<priority_date>
+2016-12-13
+</priority_date>
+
+<ipc_classes>
+G06F21/56,G06N20/00
+</ipc_classes>
+
+<assignee>
+SYMANTEC CORPORATION
+CA
+</assignee>
+
+<inventors>
+CORRALES, IGNACIO BERMUDEZ
+PARKER-WOOD, ALEATHA
+FEINMAN, REUBEN
+CURTIN, RYAN
+</inventors>
+
+<docdb_family_id>
+69590761
+</docdb_family_id>
+
+<title>
+Optimizing a malware detection model using hyperparameters
+</title>
+
+<abstract>
+The disclosed computer-implemented method for malware remediation may include constructing a malware detection model by (i) identifying multiple candidate hyperparameter sets, (ii) selecting, from the candidate hyperparameter sets, a set of hyperparameters for the malware detection model that optimizes a tradeoff between model efficacy and model size, and (iii) training the malware detection model on a set of training samples to distinguish between malicious samples and clean samples. After constructing the malware detection model, the disclosed computer-implemented method may also include using the constructed malware detection model to perform a security action. Various other methods, systems, and computer-readable media are also disclosed.
+</abstract>
+
+<claims>
+1. A computer-implemented method for malware remediation, at least a portion of the method being performed by a computing device comprising at least one processor, the method comprising: constructing a tree-based malware detection model by: identifying an objective function comprising a first function that rewards model efficacy and a second function that penalizes model size; calculating a value of the objective function for each candidate hyperparameter set within a group of candidate hyperparameter sets and selecting, from among the group of candidate hyperparameter sets, a set of hyperparameters for the malware detection model that generated the highest value for the objective function; and after selecting the set of hyperparameters for the malware detection model, training the malware detection model on a set of training samples to distinguish between malicious samples and clean samples; and using the constructed malware detection model to perform a security action.
+2. The computer-implemented method of claim 1, further comprising, prior to calculating a value of the objective function for each candidate hyperparameter set within the group of candidate hyperparameter sets, identifying the group of candidate hyperparameter sets by at least one of: performing a grid search of at least one of a predetermined grid of candidate hyperparameter sets and a random subset of the predetermined grid of candidate hyperparameter sets; and identifying a collection of individual candidate hyperparameters and iteratively creating each candidate hyperparameter set by combining different subsets of the collection of individual candidate hyperparameters using Bayesian optimization.
+3. The computer-implemented method of claim 1, wherein the objective function comprises a weighting term that adjusts the magnitude of at least one of the first function and the second function.
+4. The computer-implemented method of claim 3, further comprising creating the objective function, wherein creating the objective function comprises normalizing the first function and the second function to have a same domain.
+5. The computer-implemented method of claim 1, wherein calculating the value of the objective function for each candidate hyperparameter set comprises: creating, for each candidate hyperparameter set within the group of candidate hyperparameter sets, a potential version of the malware detection model that incorporates the candidate hyperparameter set; applying, to each potential version of the malware detection model, a series of training samples and testing samples designated for hyperparameter optimization; obtaining, from each potential version of the malware detection model, a malware classification for each testing sample applied to the potential version of the malware detection model; calculating, for each potential version of the malware detection model: a classification accuracy of the malware classifications obtained from the potential version of the malware detection model; and a size of the potential version of the malware detection model; and calculating the value of the objective function for each candidate hyperparameter set based at least in part on: the calculated classification accuracy of the one or more malware classifications obtained from each potential version of the malware detection model; the calculated size of each potential version of the malware detection model; and a value of a weighting term that adjusts the magnitude of at least one of the first function and the second function.
+6. The computer-implemented method of claim 1, wherein the security action comprises at least one of: classifying an unknown sample as malicious; blacklisting the unknown sample; sending a malware notification to an administrator of a device infected with the unknown sample; prompting a malware remediation system to perform a remediation action; and deploying the malware detection model on an endpoint device.
+7. The computer-implemented method of claim 1, wherein the malware detection model comprises at least one of: a decision tree model; and a random forest model.
+8. The computer-implemented method of claim 1, wherein the size of the malware detection model comprises at least one of: a depth of trees; a number of leaves; and a disc size.
+9. The computer-implemented method of claim 1, wherein the set of training samples comprises: a plurality of samples labeled as malicious; and a plurality of samples labeled as clean.
+10. The computer-implemented method of claim 1, wherein selecting the set of hyperparameters for the malware detection model comprises selecting hyperparameters that influence model size in conjunction with hyperparameters that do not influence model size.
+11. A system for malware remediation, the system comprising: a construction module, stored in memory, that constructs a tree-based malware detection model using: an optimization module, stored in memory, that: identifies an objective function comprising a first function that rewards model efficacy and a second function that penalizes model size; calculates a value of the objective function for each candidate hyperparameter set within a group of candidate hyperparameter sets; and selects, from the group of candidate hyperparameter sets, a set of hyperparameters for the malware detection model that generated the highest value for the objective function; and a training module, stored in memory, that, after the optimization module has selected the set of hyperparameters for the malware detection model, trains the malware detection model on a set of training samples to distinguish between malicious samples and clean samples; a security module, stored in memory, that uses the constructed malware detection model to perform a security action; and at least one physical processor configured to execute the construction module, the optimization module, the training module, and the security module.
+12. The system of claim 11, wherein the optimization module, prior to calculating a value of the objective function for each candidate hyperparameter set within the group of candidate hyperparameter sets, identifies the group of candidate hyperparameter sets by at least one of: performing a grid search of at least one of a predetermined grid of candidate hyperparameter sets and a random subset of the predetermined grid of candidate hyperparameter sets; and identifying a collection of individual candidate hyperparameters and iteratively creating each candidate hyperparameter set by combining different subsets of the collection of individual candidate hyperparameters using Bayesian optimization.
+13. The system of claim 12, wherein the objective function comprises a weighting term that adjusts the magnitude of at least one of the first function and the second function.
+14. The system of claim 12, wherein the optimization module further creates the objective function, wherein creating the objective function comprises normalizing the first function and the second function to have a same domain.
+15. The system of claim 11, wherein the optimization module calculates the value of the objective function for each candidate hyperparameter set by: creating, for each candidate hyperparameter set within the group of candidate hyperparameter sets, a potential version of the malware detection model that incorporates the candidate hyperparameter set; applying, to each potential version of the malware detection model, a series of training samples and testing samples designated for hyperparameter optimization; obtaining, from each potential version of the malware detection model, a malware classification for each testing sample applied to the potential version of the malware detection model; calculating, for each potential version of the malware detection model: a classification accuracy of the malware classifications obtained from the potential version of the malware detection model; and a size of the potential version of the malware detection model; and calculating the value of the objective function for each candidate hyperparameter set based at least in part on: the calculated classification accuracy of the one or more malware classifications obtained from each potential version of the malware detection model; the calculated size of each potential version of the malware detection model; and a value of a weighting term that adjusts the magnitude of at least one of the first function and the second function.
+16. The system of claim 11, wherein the security action comprises at least one of: classifying an unknown sample as malicious; blacklisting the unknown sample; sending a malware notification to an administrator of a device infected with the unknown sample; prompting a malware remediation system to perform a remediation action; and deploying the malware detection model on an endpoint device.
+17. The system of claim 11, wherein the malware detection model comprises at least one of: a decision tree model; and a random forest model.
+18. The system of claim 11, wherein the size of the malware detection model comprises at least one of: a depth of trees; a number of leaves; and a disc size.
+19. The system of claim 11, wherein the set of training samples comprises: a plurality of samples labeled as malicious; and a plurality of samples labeled as clean.
+20. A non-transitory computer-readable medium comprising one or more computer-readable instructions that, when executed by at least one processor of a computing device, cause the computing device to: construct a tree-based malware detection model by: identifying an objective function comprising a first function that rewards model efficacy and a second function that penalizes model size; calculating a value of the objective function for each candidate hyperparameter set within a group of candidate hyperparameter sets and selecting, from among the group of candidate hyperparameter sets, a set of hyperparameters for the malware detection model that generated the highest value for the objective function; and after selecting the set of hyperparameters for the malware detection model, training the malware detection model on a set of training samples to distinguish between malicious samples and clean samples; and use the constructed malware detection model to perform a security action.
+</claims>
+</document>

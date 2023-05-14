@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-08-23
+</filing_date>
+
+<publication_date>
+2020-02-27
+</publication_date>
+
+<priority_date>
+2018-08-24
+</priority_date>
+
+<ipc_classes>
+G06F17/18,G06K9/62,G06N20/00,G06N3/04,G06T7/10
+</ipc_classes>
+
+<assignee>
+ORDNANCE SURVEY
+</assignee>
+
+<inventors>
+SARGENT, ISABEL
+ATKINSON, PETER M.
+ZHANG, CE
+</inventors>
+
+<docdb_family_id>
+69583499
+</docdb_family_id>
+
+<title>
+Joint Deep Learning for Land Cover and Land Use Classification
+</title>
+
+<abstract>
+Land cover (LC) and land use (LU) have commonly been classified separately from remotely sensed imagery, without considering the intrinsically hierarchical and nested relationships between them. A novel joint deep learning framework is proposed and demonstrated for LC and LU classification. The proposed Joint Deep Learning (JDL) model incorporates a multilayer perceptron (MLP) and convolutional neutral network (CNN), and is implemented via a Markov process involving iterative updating. In the JDL, LU classification conducted by the CNN is made conditional upon the LC probabilities predicted by the MLP. In turn, those LU probabilities together with the original imagery are re-used as inputs to the MLP to strengthen the spatial and spectral feature representation. This process of updating the MLP and CNN forms a joint distribution, where both LC and LU are classified simultaneously through iteration.
+</abstract>
+
+<claims>
+1. A computer implemented method of jointly determining land cover and land use classifications of land from remotely sensed imagery of said land, the method comprising: receiving an input image illustrating a patch of land to be classified; segmenting, by a processor, objects within the image; determining for pixels in the image a first conditional probability of a first land cover classification from a plurality of predefined land cover classifications using a machine learning network of a first type; determining for segmented objects in the image a second conditional probability of a first land use classification from a plurality of predefined land use classifications using a machine learning network of a second type; and iterating the determining steps, using the second conditional probability as an input to the first determining step to generate land cover classification data for the pixels in the image and land use classification data for the segmented objects in the image.
+2. A method according to claim 1, wherein the machine learning network of the first type is a multilayer perceptron.
+3. A method according to claim 1, wherein the machine learning network of the second type is an object based convolutional neural network.
+4. A method according to claim 1, and further comprising generating an output image corresponding to the input image, the output image comprising the image of the patch of land visually augmented to indicate the land use classification determined for the segmented objects in the image and/or the land cover classification determined for the pixels in the image.
+5. A method according to claim 4, wherein the visual augmentation comprises overlaying a color wash on to the segmented objects in the image, the overlaid color being selected in accordance with a predetermined color mapping of color to land use classification.
+6. A method according to claim 1, wherein the segmenting comprises segmenting the input image into linearly shaped objects and non-linearly shaped objects, and wherein the determining of the first land use classification comprises: inputting the linearly shaped objects and non-linearly shaped objects into a first convolutional neural network trained with test images of predetermined land use types, and having a processing window size of a first size; inputting the linearly shaped objects and non-linearly shaped objects into a second convolutional neural network trained with test images of predetermined land use types, and having a plurality of processing windows of a second size smaller than the first size; determining land use classification data for the objects in both the first and second convolutional neural networks; receiving the land use classification data for the linearly shaped objects and the non-linearly shaped objects from both the first and second convolutional neural networks; and selecting a land use classification for a particular object from the land use classifications received from both the first and second convolutional neural networks in dependence on one or more predetermined classification fusion rules.
+7. A method according to claim 6, wherein the predetermined classification fusion rules include: i) where the land use classification data from both the first and second convolutional neural networks match for a particular object, assigning that matching land use classification to the object, and ii) where the land use classification data from both the first and second convolutional neural networks do not match, selecting one of the land use classifications for the particular object in accordance with one or more predetermined criteria.
+8. A method according to claim 7, wherein the predetermined criteria comprise: a) where an object is a linearly shaped object, assigning a majority land use classification from the land use classifications assigned to the plurality of processing windows by the second convolutional neural network; else b) for other objects assigning the land use classification determined by the first convolutional neural network.
+9. A method according to claim 6, and further comprising after the object segmentation, determining for a segmented object respective object convolutional positions for use with both the first and second convolutional neural networks.
+10. A method according to claim 9, wherein the determining the object convolutional positions includes finding a moment bounding box of each object, the moment bounding box being a minimum bounding rectangle surrounding an object and aligned with the orientation of the major axis of the object, the object convolutional positions being determined in dependence on properties of the bounding box.
+11. A method according to claim 10, and further comprising using properties of the moment bounding box to determine, for an object, a single first object convolutional position which should be used to represent the object when being processed by the first neural network, and further to select, for the object, a plurality of second object convolutional positions distributed across the bounding box which should be used to represent the object when being processed by the second neural network.
+12. A method according to claim 11, wherein the determining step comprises, for the particular segmented object, predicting the land use at the single first object convolutional position using the first neural network, and predicting the land use at the plurality of second object convolutional positions using the second neural network.
+13. A method according to claim 1, wherein the iteration is repeated 5-10 times.
+14. A method according to claim 13, wherein the iteration is repeated 8-10 times.
+15. A computer system for jointly determining land cover and land use classifications of land from remotely sensed imagery of said land, the system comprising: one or more processors; at least one computer readable storage medium storing one or more computer programs so arranged such that when executed by the one or more processors they cause the computer system to: for an input image illustrating a patch of land to be classified: i) segment objects within the image; ii) determine for pixels in the image a first conditional probability of a first land cover classification from a plurality of predefined land cover classifications using a machine learning network of a first type; iii) determine for segmented objects in the image a second conditional probability of a first land use classification from a plurality of predefined land use classifications using a machine learning network of a second type; and iv) iterate steps ii) and iii) above, using the second conditional probability as an input to the first determining step ii); wherein the iteration process produces land cover classification data for the pixels in the image and land use classification data for the segmented objects in the image.
+16. A system according to claim 15, wherein the machine learning network of the first type is a multilayer perceptron.
+17. A system according to claim 15, wherein the machine learning network of the second type is an object based convolutional neural network.
+18. A system according to claim 15, and further comprising generating an output image corresponding to the input image, the output image comprising the image of the patch of land visually augmented to indicate the land use classification determined for the segmented objects in the image and/or the land cover classification determined for the pixels in the image.
+19. A system according to claim 18, wherein the visual augmentation comprises overlaying a color wash on to the segmented objects in the image, the overlaid color being selected in accordance with a predetermined color mapping of color to land use classification.
+20. A system according to claim 15, wherein the segmenting comprises segmenting the input image into linearly shaped objects and non-linearly shaped objects, and wherein the determining of the first land use classification comprises: inputting the linearly shaped objects and non-linearly shaped objects into a first convolutional neural network trained with test images of predetermined land use types, and having a processing window size of a first size; inputting the linearly shaped objects and non-linearly shaped objects into a second convolutional neural network trained with test images of predetermined land use types, and having a plurality of processing windows of a second size smaller than the first size; determining land use classification data for the objects in both the first and second convolutional neural networks; receiving the land use classification data for the linearly shaped objects and the non-linearly shaped objects from both the first and second convolutional neural networks; and selecting a land use classification for a particular object from the land use classifications received from both the first and second convolutional neural networks in dependence on one or more predetermined classification fusion rules.
+</claims>
+</document>

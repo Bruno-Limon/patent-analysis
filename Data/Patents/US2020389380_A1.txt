@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2019-06-06
+</filing_date>
+
+<publication_date>
+2020-12-10
+</publication_date>
+
+<priority_date>
+2019-06-06
+</priority_date>
+
+<ipc_classes>
+H04B17/364,H04B17/391,H04L12/26,H04W84/18
+</ipc_classes>
+
+<assignee>
+MORGAN STANLEY SERVICES GROUP
+</assignee>
+
+<inventors>
+HUDDLESTON, RICHARD
+JEDDA, AHMED
+Senlik, Erhan
+</inventors>
+
+<docdb_family_id>
+73650945
+</docdb_family_id>
+
+<title>
+LATENCY PREDICTION AND NETWORK MESSAGE MICROTIMING
+</title>
+
+<abstract>
+A system for network message microtiming, comprising a central routing device, a first mesh network, and a second mesh network. The central routing device continuously receives utilization data from one or more devices of the first mesh network; continuously receives timing data from one of more devices of the second mesh network; builds and continuously updates a probabilistic future latency model based at least in part on the utilization data and the timing data; receives a message from a client computing device comprising data to be sent to at least one of a plurality of remote computing devices via the first mesh network; determines that a current expected latency according to the future latency model exceeds a predetermined threshold; and as a result delays transmission of a packet comprising the data to be sent to at the least one of the plurality of remote computing devices.
+</abstract>
+
+<claims>
+1. A programmable network router comprising a processor and non-transitory memory storing instructions that, when executed by the processor, cause the processor to: continuously receive utilization data from one or more devices of a first mesh network for upstream communication from a client computing device; continuously receive timing data from one of more devices of the second mesh network for downstream communication to the client computing device; build and continuously update a probabilistic future latency model based at least in part on the utilization data and the timing data; receive a message from the client computing device comprising data to be sent to at least one of a plurality of remote computing devices via the first mesh network; determine, using the probabilistic future latency model, a probability that a packet sent when the first mesh network has a current level of utilization will have a latency to its destination greater than a predetermined latency; and responsive to determining that the probability exceeds a predetermined threshold, delay transmission of a packet comprising the data to be sent to at the least one of the plurality of remote computing devices and continue re-computing the probability that a packet sent when the first mesh network has a current level of utilization will have a latency to its destination greater than the predetermined latency until the probability does not exceed the predetermined threshold and the packet is transmitted.
+2. The router of claim 1, wherein the probabilistic future latency model comprises expected latency data for a plurality of remote networks, each remote network being associated with one of the plurality of remote computing devices.
+3. The router of claim 2, wherein the expected latency data for each remote network is used to select a subset of the plurality of remote computing devices to which to transmit packets comprising at least part of the data.
+4. The router of claim 3, wherein the expected latency data for each remote network is used to divide a request the data represents into multiple smaller requests, each sent to one of the selected subset of the plurality of remote computing devices in an inverse proportion to expected latencies to the plurality of remote computing devices.
+5. (canceled)
+6. The router of claim 1, wherein, when the probabilistic future latency model predicts that no time of transmission before a maximum time limit will have an acceptable probability of a latency less than the predetermined latency, the packet is transmitted at a time having a least expected latency prior to the maximum time limit.
+7. The router of claim 1, wherein the probabilistic future latency model is based at least in part on a k-nearest neighbors regression model incorporating the utilization data and the timing data.
+8. A system for network message microtiming, comprising: a central routing device; a first mesh network comprising the central routing device and used by the central routing device to transmit data based at least in part on messages from a client computing device; and a second mesh network comprising the central routing device and used by the central routing device to receive messages comprising data to be forwarded at least in part to the client computing device; wherein the central routing device comprises a processor and non-transitory memory storing instructions that, when executed by the processor, cause the processor to: continuously receive utilization data from one or more devices of the first mesh network; continuously receive timing data from one of more devices of the second mesh network; build and continuously update a probabilistic future latency model based at least in part on the utilization data and the timing data; receive a message from the client computing device comprising data to be sent to at least one of a plurality of remote computing devices via the first mesh network; determine, using the probabilistic future latency model, a probability that a packet sent when the first mesh network has a current level of utilization will have a latency to its destination greater than a predetermined latency; and responsive to determining that the probability exceeds a predetermined threshold, delay transmission of a packet comprising the data to be sent to at the least one of the plurality of remote computing devices and continue re-computing the probability that a packet sent when the first mesh network has a current level of utilization will have a latency to its destination greater than the predetermined latency until the probability does not exceed the predetermined threshold and the packet is transmitted.
+9. The system of claim 8, wherein the utilization data comprises total utilization capacity or data throughput of at least one device of the first mesh network.
+10. The system of claim 8, wherein the timing data comprises a plurality of timestamped messages sent from one or more of the plurality of remote computing devices.
+11. The system of claim 8, wherein the probabilistic future latency model comprises expected latency data for a plurality of remote networks, each remote network being associated with one of the plurality of remote computing devices.
+12. The system of claim 8, wherein the expected latency data for each remote network is used to select a subset of the plurality of remote computing devices to which to transmit packets comprising at least part of the data.
+13. The system of claim 8, wherein the expected latency data for each remote network is used to divide a request the data represents into multiple smaller requests, each sent to one of the selected subset of the plurality of remote computing devices in an inverse proportion to expected latencies to the plurality of remote computing devices.
+14. (canceled)
+15. The system of claim 8, wherein transmission of the packet is delayed until a minimum current expected latency within a maximum time limit.
+16. The system of claim 8, wherein the probabilistic future latency model is based at least in part on a k-nearest neighbors regression model incorporating the utilization data and the timing data.
+17. A method of routing network messages with microtiming, comprising: continuously receiving, by a router, utilization data from one or more devices of a first mesh network; continuously receiving, by the router, timing data from one or more devices of a second mesh network; building and continuously updating a probabilistic future latency model based at least in part on the utilization data and the timing data based at least in part on a k-nearest neighbors regression model incorporating the utilization data and the timing data; receiving, at the router, a message from the client computing device comprising data to be sent to at least one of a plurality of remote computing devices via the first mesh network; determining, using the probabilistic future latency model, a probability that a packet sent when the first mesh network has a current level of utilization will have a latency to its destination greater than a predetermined latency; and responsive to determining that the probability exceeds a predetermined threshold, delaying transmission of a packet comprising the data to be sent to at the least one of the plurality of remote computing devices and re-computing the probability that a packet sent when the first mesh network has a current level of utilization will have a latency to its destination greater than the predetermined latency until the probability does not exceed the predetermined threshold and the packet is transmitted; and after a period of delay has elapsed and a second current expected latency is determined to be less than the first current expected latency, transmitting the packet.
+18. The method of claim 17, wherein the probabilistic future latency model comprises expected latency data for a plurality of remote networks, each remote network being associated with one of the plurality of remote computing devices, and the expected latency data for each remote network is used to select a subset of the plurality of remote computing devices to which to transmit packets comprising at least part of the data.
+19. The method of claim 18, wherein the expected latency data for each remote network is used to divide a request the data represents into multiple smaller requests, each sent to one of the selected subset of the plurality of remote computing devices in an inverse proportion to expected latencies of the plurality of remote computing devices.
+</claims>
+</document>

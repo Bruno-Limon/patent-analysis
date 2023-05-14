@@ -1,0 +1,88 @@
+<document>
+
+<filing_date>
+2019-06-25
+</filing_date>
+
+<publication_date>
+2020-12-30
+</publication_date>
+
+<priority_date>
+2019-06-25
+</priority_date>
+
+<ipc_classes>
+G06T1/20,G06T11/00
+</ipc_classes>
+
+<assignee>
+HUAWEI TECHNOLOGIES COMPANY
+SMIRNOV, VIKTOR VLADIMIROVICH
+</assignee>
+
+<inventors>
+WANG TAO
+YAN, YOULIANG
+SMIRNOV, VIKTOR VLADIMIROVICH
+ZOU, Xueyi
+</inventors>
+
+<docdb_family_id>
+67688812
+</docdb_family_id>
+
+<title>
+IMAGE PROCESSING METHOD AND APPARATUS AND COMPUTER PROGRAM PRODUCT FOR THE SAME
+</title>
+
+<abstract>
+A method, apparatus, and computer program product for processing images by using a convolutional neural network (CNN) are proposed. An original image is received from an image source. The original image has a predefined size and high resolution, and is represented in a first color space supported by the image source. Then, an intermediate image is obtained by downscaling the original image in the first color space, and converted from the first color space to a second color space. Next, a restored image is obtained by upscaling the converted intermediate image to the predefined size of the original image. Said upscaling is performed by using the CNN on the original image and the converted intermediate image as inputs and return the restored image. The CNN is pre-trained on a set of triplets, comprising a past original image, a converted past intermediate image and a past restored image.
+</abstract>
+
+<claims>
+1. An image processing method (200) comprising:
+receiving (S202) an original image from (308) an image source, the original image having a predefined size and high resolution, and the original image being represented in a first color space supported by the image source;
+obtaining (S204) an intermediate image by downscaling the original image in the first color space;
+converting (S206) the intermediate image represented in the first color space to a second color space supported by an image Tenderer, obtaining a converted intermediate image (310);
+obtaining (S208) a restored image by upscaling the converted intermediate image to the predefined size of the original image, while providing a similar high resolution of the restored image, and
+wherein said upscaling is performed by using a convolutional neural network (300) configured to receive the original image (308) and the converted intermediate image (310) as inputs and return the restored image (312) based on the inputs, and wherein the convolutional neural network (300) is pre-trained based on a training set of triplets, each triplet comprising a past original image from the image source, and a converted past intermediate image and a past restored image both corresponding to the past original image.
+2. The method of claim 1, wherein the predefined size of the original image is expressed as (w, h), where w and h are the width and height, respectively, of the original image in pixels, and said downscaling the original image in the first color space is performed such that the intermediate image has a size expressed as (w/4, h/4).
+3. The method of claim 1 or 2, wherein the training set of triplets comprises the past original images similar to the received original image in content, resolution, and lighting conditions.
+4. The method of any one of claims 1 to 3, wherein each triplet is formed by:
+receiving (S502) the past original image represented in the first color space; obtaining (S504) the past intermediate image by downscaling the past original image in the first color space;
+converting (S506) the past intermediate image represented in the first color space to the second color space;
+obtaining (S508) the past restored image by converting the past original image represented in the first color space to the second color space; and
+- combining (S510) the past original image with the converted past intermediate image and the past restored image.
+5. The method of claim 4, wherein said downscaling the original image and said downscaling each of the past original images are performed by using the same interpolation algorithm or different interpolation algorithms.
+6. The method of any one of claims 1 to 5, wherein the original image (308) comprises high-frequency and low-frequency components, and the convolutional neural network (300) comprises:
+a first extraction block (302) for extracting the high-frequency components from the original image;
+a second extraction block (304) for extracting the low-frequency components from the converted intermediate image; and
+a decoding block (306) for merging the extracted high-frequency and low-frequency components into the restored image.
+7. The method of claim 6, wherein each of the first extraction block (302), second extraction block (304) and decoding block (306) comprises at least one 2D convolutional layer of neurons.
+8. The method of claim 6 or 7, wherein the first extraction block (302) and the second extraction block (304) in the convolutional neural network (300) are configured to operate in parallel.
+9. An image processing apparatus (100) comprising:
+at least one processor (104); and a memory (102) coupled to the at least one processor and storing processor-executable instructions (106) which, when executed by the at least one processor (104), cause the at least one processor (104) to:
+receive an original image (308) from an image source, the original image having a predefined size and high resolution, and the original image being represented in a first color space supported by the image source;
+obtain an intermediate image by downscaling the original image in the first color space;
+convert the intermediate image represented in the first color space to a second color space supported by an image Tenderer, to obtain a converted intermediate image (310);
+obtain a restored image (312) by upscaling the converted intermediate image to the predefined size of the original image, while providing a similar high resolution of the restored image, and
+wherein the at least one processor (104) is configured to perform said upscaling by using a convolutional neural network (300), and the convolutional neural network (300) is configured to receive the original image (308) and the converted intermediate image (310) as inputs and return the restored image (312) based on the inputs, and wherein the at least one processor (104) is further configured to pre-train the convolutional neural network (300) based on a training set of triplets, each triplet comprising a past original image from the image source, and a converted past intermediate image and a past restored image both corresponding to the past original image.
+10. The apparatus (100) of claim 9, wherein the predefined size of the original image (308) is expressed as (w, h), where w and h are the width and height, respectively, of the original image in pixels, and the at least one processor (104) is configured to perform said downscaling the original image in the first color space such that the intermediate image has a size expressed as (w/4, h/4).
+1 1. The apparatus (100) of claim 9 or 10, wherein the training set of triplets comprises the past original images similar to the received original image in content, resolution, and lighting conditions.
+12. The apparatus (100) of any one of claims 9 to 11, wherein the at least one processor (104) is further configured to form each triplet by:
+receiving the past original image represented in the first color space;
+obtaining the past intermediate image by downscaling the past original image in the first color space;
+converting the past intermediate image represented in the first color space to the second color space;
+obtaining the past restored image by converting the past original image represented in the first color space to the second color space; and
+combining the past original image with the converted past intermediate image and the past restored image.
+13. The apparatus (100) of claim 12, wherein the at least one processor (104) is further configured to perform said downscaling the original image and said downscaling each of the past original images by using the same interpolation algorithm or different interpolation algorithms.
+14. The apparatus (100) of any one of claims 9 to 13, wherein the original image comprises high-frequency and low-frequency components, and the convolutional neural network (300) comprises:
+a first extraction block (302) for extracting the high-frequency components from the original image;
+a second extraction block (304) for extracting the low-frequency components from the converted intermediate image; and
+a decoding block (306) for merging the extracted high-frequency and low-frequency components into the restored image.
+15. The apparatus ( 100) of claim 14, wherein each of the first extraction block (302), second extraction block (304) and decoding block (306) comprises at least one 2D convolutional layer of neurons.
+16. The apparatus (100) of claim 14 or 15, wherein the first extraction block (302) and the second extraction block (304) in the convolutional neural network (300) are arranged to operate in parallel.
+17. A computer program product comprising a computer-readable storage medium storing a computer program, the computer program, when executed by at least one processor, causing the at least one processor to perform the method of any one of claims 1 to 8.
+</claims>
+</document>

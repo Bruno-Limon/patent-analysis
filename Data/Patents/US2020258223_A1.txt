@@ -1,0 +1,81 @@
+<document>
+
+<filing_date>
+2020-03-25
+</filing_date>
+
+<publication_date>
+2020-08-13
+</publication_date>
+
+<priority_date>
+2018-05-14
+</priority_date>
+
+<ipc_classes>
+G06K9/62,G06T1/20,G06T11/00,G06T7/00,G06T7/11
+</ipc_classes>
+
+<assignee>
+TEMPUS LABS
+</assignee>
+
+<inventors>
+KHAN, ALY AZEEM
+YIP, STEPHEN
+WILLIS, CALEB
+CARLSON, MICHAEL
+KRUGER, ANDREW J.
+SHA, LINGDAO
+GREENWALD, ABEL
+OSINSKI, BOLESLAW
+HO, IRVIN
+</inventors>
+
+<docdb_family_id>
+71944990
+</docdb_family_id>
+
+<title>
+DETERMINING BIOMARKERS FROM HISTOPATHOLOGY SLIDE IMAGES
+</title>
+
+<abstract>
+A generalizable and interpretable deep learning model for predicting biomarker status and biomarker metrics from histopathology slide images is provided.
+</abstract>
+
+<claims>
+1. 1.-40. (canceled)
+41. A computer-implemented method of identifying biomarkers in a digital image of a hematoxylin and eosin (H&E) stained slide of target tissue, the method comprising: receiving the digital image to an image-based biomarker prediction system having one or more processors; separating, using the one or more processors, the digital image into a plurality of tile images, where each of the plurality of tile images contains a different portion of the digital image; applying, using the one or more processors, the plurality of tile images to a deep learning framework comprising one or more trained biomarker classification models, each trained biomarker classification model being trained to classify a different biomarker; predicting, using the one or more processors, a biomarker classification for each of the plurality of tile images using the one or more trained biomarker classification models; from the predicted biomarker classifications of each of the tile images, determining a predicted presence of one or more biomarkers in the target tissue; and generating a report containing the digital image and a digital overlay visualizing the predicted presence of the one or more biomarkers.
+42. The method of claim 41, wherein the deep learning framework comprises a multiscale deep learning framework.
+43. The method of claim 42, wherein separating the digital image into a plurality of tile images comprises: performing an image tiling process, using the one or more processors, by applying a tiling mask to the digital image to separate the digital image into the plurality of tile images.
+44. The method of claim 43, wherein the tiling mask comprises tiles of the same size.
+45. The method of claim 44, wherein the tiling mask comprises tiles having a rectangular shape.
+46. The method of claim 42, wherein each of the applying the plurality of tile images to the deep learning framework and predicting the biomarker classification for each of the plurality of tile images comprises: applying each of the tile images to one or more trained deep learning multiscale classifier models, each trained deep learning multiscale classifier models being trained to classify a different tissue classification for each tile image and determining a tissue classification for each of the plurality of tile images, using the multiscale deep learning framework; identifying, using the one or more processors, cells within the digital image using a trained cell segmentation model; and from the tissue classification determined for each tile image and from the identified cells within the digital image, predicting the biomarker classification for each tile image.
+47. The method of claim 46, further comprising training the one or more trained deep learning multiscale classifier models by: receiving, at the multiscale deep learning framework, a plurality of H&E slide training images from a training images dataset, each H&E slide training image having a label corresponding to a biomarker to be trained; performing tile-based tissue classification analysis on each of the H&E slide training images; performing a pixel-based cell segmentation analysis on each of the H&E slide training images; optionally performing a tile-based biomarker classification analysis on each of the H&E slide training images; and in response, generating the one or more trained deep learning multiscale classifier models.
+48. The method of claim 47, wherein each H&E slide training image comprises a plurality of tile images each having a tile-level label.
+49. The method of claim 47, further comprising, for each H&E slide training image, imputing a tile-level label for each of a plurality of tile images of the H&E slide training image.
+50. The method of claim 47, further comprising: for each H&E slide training image, performing a tile selection process that infers a class status for each tile image in the H&E slide training image; and based on inferred class status, discarding tile images not corresponding to a desired class, before performing the tile-based tissue classification analysis on each of the H&E slide training images, such that the tile-based tissue classification analysis is performed on only selected tile images of the H&E slide training image.
+51. The method of claim 46, wherein the one of the one or more trained deep learning multiscale classifier models are each configured as a tile-resolution Fully Convolutional Network (FCN) classification model.
+52. The method of claim 46, wherein identifying cells within the digital image tile using the trained cell segmentation model comprises: applying, using the one or more processors, each of the plurality of tile images to the cell segmentation model and, for each tile, assigning a cell classification to one or more pixels within the tile image.
+53. The method of claim 52, wherein assigning the cell classification to one or more pixels within the tile image comprises: identifying, using the one or more processors, the one or more pixels as a cell interior, a cell border, or a cell exterior and classifying the one or more pixels as the cell interior, the cell border, or the cell exterior.
+54. The method of claim 46, wherein the trained cell segmentation model is a pixel-resolution three-dimensional UNet classification model trained to classify a cell interior, a cell border, and a cell exterior.
+55. The method of claim 41, wherein the one or more biomarkers are selected from the group consisting of tumor-infiltrating lymphocytes (TILs), nucleus-to-cytyoplasm (NC) ratio, ploidy, signet ring morphology, and programmed death-ligand 1 (PD-L1).
+56. The method of claim 41, wherein the deep learning framework comprises a single-scale deep learning framework.
+57. The method of claim 56, wherein separating the digital image into a plurality of tile images comprises: performing an image tiling process, using the one or more processors, by applying the digital image to a trained multiple instance learning controller that separates the digital image into the plurality of tile images.
+58. The method of claim 57, further comprising: providing each tile image to a tile selection process that infers a class status for each tile image in the H&E slide training image; and based on inferred class status, selectively discarding tile images based on a tile selection criteria before applying the remaining plurality of tile images to the deep learning framework.
+59. The method of claim 57, further comprising: providing each tile image to a tile selection process that infers a class status for each tile image in the H&E slide training image; and based on inferred class status, randomly discarding tile images before applying the remaining plurality of tile images to the deep learning framework.
+60. The method of claim 56, further comprising: receiving a molecular training dataset for a plurality of training tissue samples, the molecular training dataset comprising RNA transcriptome counts from sequencing of a substantially similar sample associated with each training tissue sample; performing a clustering process on the molecular training dataset to identify one or more molecular data subsets each corresponding to a different biomarker; for each of the one or more molecular data subsets receiving a plurality of digital images of H&E stained training slides of training tissue samples corresponding to the respective biomarker to an image-based biomarker prediction system having one or more processors; and generating, using the one or more processors, for each of the one or more molecular data subsets, one of the trained biomarker classification models, based on the plurality of digital images of the H&E stained training slides.
+61. The method of claim 60, wherein generating, for each of the one or more molecular data subsets, one of the trained biomarker classification models comprises performing a multiple instance learning process on the plurality of digital images of the H&E stained training slides.
+62. The method of claim 60, wherein each of the plurality of digital images of H&E stained training slides of training tissue samples have a slide-level label.
+63. The method of claim 60, wherein each of the plurality of digital images of H&E stained training slides of training tissue samples are unlabeled.
+64. The method of claim 56, wherein the single-scale deep learning framework is a convolution neural network having a ResNet configuration or an Inception-v3 configuration.
+65. The method of claim 56, wherein the one or more biomarkers are selected from the group consisting of consensus molecular subtype (CMS) and homologous recombination deficiency ("HRD").
+66. The method of claim 41, wherein the one or more processors are one or more graphics processing units (GPUs), tensor processing units (TPUs), and/or central processing units (CPUs).
+67. The method of claim 41, wherein the image-based biomarker prediction system is communicatively coupled to a pathology slide scanner system through a communication network, such that the image-based biomarker prediction system receives the digital image from the pathology slide scanner system over the communication network.
+68. The method of claim 41, wherein the image-based biomarker prediction system is contained within a pathology slide scanner system.
+69. The method of claim 68, wherein the pathology slide scanner system contains an image-based, adversarial trained, and/or a microsatellite instability (MSI) prediction model.
+70. The method of claim 41, wherein generating the report containing the digital image and the digital overlay comprises generating the digital overlay to include an overlay element identifying tumor content of the digital image or tumor percentage of the digital image.
+71. 71.-118. (canceled)
+</claims>
+</document>

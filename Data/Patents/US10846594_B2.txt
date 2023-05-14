@@ -1,0 +1,55 @@
+<document>
+
+<filing_date>
+2019-01-17
+</filing_date>
+
+<publication_date>
+2020-11-24
+</publication_date>
+
+<priority_date>
+2019-01-17
+</priority_date>
+
+<ipc_classes>
+G06N20/00,G06N3/08,H04L9/06
+</ipc_classes>
+
+<assignee>
+CAPITAL ONE SERVICES
+</assignee>
+
+<inventors>
+MUELLER, ERIK
+CHOQUE, OMAR FLOREZ
+</inventors>
+
+<docdb_family_id>
+71609455
+</docdb_family_id>
+
+<title>
+Systems providing a learning controller utilizing indexed memory and methods thereto
+</title>
+
+<abstract>
+A system includes one or more memory devices storing instructions, and one or more processors configured to execute the instructions to perform steps of a method. A method can include receiving observations and a corresponding class label, determining a candidate key based on the observations, determining a current memory state of a memory module based on a similarity of stored keys to the candidate key, generating a measurement vector based on the current memory state, concatenating the candidate key and measurement vector to form a state vector, determining, based on the state vector and an action distribution policy, an action of a plurality of actions such that the determined action maximizes an expected reduction in entropy as compared to the remaining actions of the plurality actions, executing the determined action, determining a value of the determined action, and update, based on the value, the action distribution policy.
+</abstract>
+
+<claims>
+We claim:
+1. A system comprising: a processor; and memory having stored thereon: a hash key vector and a label vector associated with the hash key vector; and instructions that, when executed by the processor, cause the system to: encode received data into an input data vector; measure a current state of the memory; convert the measured current state of the memory into a memory state vector; identify one or more saved keys of the hash key vector that are within a predetermined similarity to a candidate key, the candidate key being based at least in part on the input data vector, wherein the predetermined similarity is calculated based on a cosine distance algorithm; perform an entropy reduction estimation comprising: for at least one of the one or more identified saved keys, determining a first estimated entropy associated with reading the at least one of the one or more identified saved keys; for the at least one of the one or more identified saved keys, determining, based on a comparison of the candidate key to the at least one of the one or more identified saved keys, a second estimated entropy associated with updating the at least one of the one or more identified saved keys to include data indicative of the candidate key; and determining a third estimated entropy associated with inserting a new key indicative of the candidate key; and execute, based at least in part on the entropy reduction estimation, one of reading the at least one of the one or more identified saved keys, updating the at least one of the one or more identified saved keys to include data indicative of the candidate key, and inserting a new key indicative of the candidate key.
+2. The system of claim 1, wherein the system is configured to encode the received data using a convolutional neural network.
+3. The system of claim 1, wherein the system is configured to measure a current state of the memory using a multi-layer perceptron network.
+4. The system of claim 1, wherein the instructions, when executed by the processor, further cause the system to: prior to querying the memory for any saved keys that are within the predetermined similarity to the candidate key: normalize the input data vector and the memory state vector; and concatenate the input data vector and the memory state vector to create a state vector.
+5. The system of claim 1, wherein the instructions, when executed by the processor, further cause the system to, prior to performing the entropy reduction estimation, identify a single saved key that is most similar to the candidate key.
+6. The system of claim 1, wherein the instructions, when executed by the processor, further cause the system to perform the entropy reduction estimation for each of the one or more identified saved keys that is above the predetermined similarity to the candidate key.
+7. The system of claim 1, wherein the instructions, when executed by the processor, further cause the system to determine, based at least in part on a calculation of a back-propagation algorithm, a reduction in entropy in the system.
+8. The system of claim 1, wherein inserting a new key comprises adding the new key to the hash key vector and adding a new label to the label vector, the new label being associated with the new key.
+9. The system of claim 1, wherein updating the at least one of the one or more identified saved keys to include data indicative of the candidate key comprises averaging a plurality of most similar saved keys and the candidate key to generate an updated key and replacing an oldest key among the one or more identified saved keys with the updated key.
+10. The system of claim 1, wherein updating the at least one of the one or more identified saved keys to include data indicative of the candidate key comprises averaging a single most similar saved key and the candidate key to generate an updated key and replacing the single most similar saved key with the updated key.
+11. The system of claim 1, wherein the memory further comprises an age vector associated with the hash key vector, and the instructions, when executed by the processor, further cause the system to: increment the age vector by one each time a controller executes a query function associated with the hash key vector; and set the age vector equal to zero each time the controller executes an update function associated with the hash key vector or an insert function associated with the hash key vector.
+12. A method comprising: receiving a set of observations; generating a candidate key based on the set of observations; determining whether any stored keys in a stored key vector are similar to the candidate key by: determining an average vector of the stored keys in the stored key vector; and determining that the average vector has a similarity to the candidate key that is above a predetermined threshold, wherein the similarity is determined based on a cosine distance algorithm; and determining a memory state scalar based on the average vector; determining, based on the determined similarity of stored keys to the candidate key, a current memory state of a memory comprising the stored key vector; generating a measurement vector based on the current memory state wherein the measurement vector is based on the memory state scalar; normalizing the candidate key and the measurement vector; concatenating the candidate key and the measurement vector to form a state vector; determining, based on the state vector and an action distribution policy, an action of a plurality of actions; and executing the determined action; determining an expected return value for executing the determined action in a state corresponding to the state vector and following the action distribution policy by: approximating the expected return value based on weights of a neural network implementing a controller configured to execute the method; minimizing a loss function associated with execution of the determined action; determining an update to the action distribution policy based on the minimized loss function, wherein updating the action distribution policy comprises updating the action distribution policy to include the update; and updating, based on the expected return value, the action distribution policy.
+</claims>
+</document>

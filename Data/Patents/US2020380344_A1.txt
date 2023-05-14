@@ -1,0 +1,93 @@
+<document>
+
+<filing_date>
+2018-04-15
+</filing_date>
+
+<publication_date>
+2020-12-03
+</publication_date>
+
+<priority_date>
+2017-04-17
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/063,G06N3/08
+</ipc_classes>
+
+<assignee>
+CEREBRAS SYSTEMS
+</assignee>
+
+<inventors>
+MORRISON, MICHAEL
+LIE, SEAN
+JAMES, MICHAEL EDWIN
+LAUTERBACH, GARY R.
+AREKAPUDI, SRIKANTH
+</inventors>
+
+<docdb_family_id>
+73549301
+</docdb_family_id>
+
+<title>
+NEURON SMEARING FOR ACCELERATED DEEP LEARNING
+</title>
+
+<abstract>
+Techniques in advanced deep learning provide improvements in one or more of accuracy, performance, and energy efficiency. An array of processing elements performs flow-based computations on wavelets of data. Each processing element has a respective compute element and a respective routing element. Each compute element has memory. At least a first single neuron is implemented using resources of a plurality of the array of processing elements. At least a portion of a second neuron is implemented using resources of one or more of the plurality of processing elements. In some usage scenarios, the foregoing neuron implementation enables greater performance by enabling a single neuron to use the computational resources of multiple processing elements and/or computational load balancing across the processing elements while maintaining locality of incoming activations for the processing elements.
+</abstract>
+
+<claims>
+1. A method comprising: performing dataflow-based and instruction-based processing and exchanging fabric packets respectively in and between a plurality of processing elements interconnected as a fabric, each processing element comprising a compute engine and a fabric router; specifying communications and computations respectively corresponding to a plurality of branches and a plurality of nodes of a dataflow graph; allocating a plurality of the processing elements to locally perform the computations, at least two of the processing elements being allocated to respectively locally perform a plurality of computation portions corresponding to a partitioned one of the nodes; performing the computations and communications in accordance with the specifying, the allocating, and a virtual channel specifier of each fabric packet sent via one or more virtual channels between the at least two processing elements to transfer between the respective computation portions data comprising one or more sources and results; and wherein the virtual channel specifier identifies one of the one or more virtual channels.
+2. A method comprising: performing dataflow-based and instruction-based processing and exchanging fabric packets respectively in and between a plurality of processing elements interconnected as a fabric, each processing element comprising a compute engine and a fabric router; specifying communications and computations respectively corresponding to a plurality of branches and a plurality of nodes of a dataflow graph; allocating a plurality of the processing elements to locally perform the computations, at least a single one of the processing elements being allocated to locally perform a plurality of respective first computation portions of each of at least two partitioned ones of the nodes, each of the partitioned nodes comprising a respective plurality of computation portions including the respective first computation portions; performing the computations and communications in accordance with the specifying, the allocating, and a virtual channel specifier of each fabric packet sent via one or more virtual channels between the at least single one of the processing elements and other ones of the allocated processing elements to transfer data between the respective first computation portions and other ones of the respective plurality of computation portions, the data comprising one or more sources and results; and wherein the virtual channel specifier identifies one of the one or more virtual channels.
+3. The method of claim 1 or 2, wherein the processing elements are fabricated via wafer-scale integration.
+4. The method of claim 1, wherein the at least two processing elements are fabricated via wafer-scale integration on separate die of a single wafer.
+5. The method of claim 2, wherein the at least single one of the processing elements and other ones of the allocated processing elements are fabricated via wafer-scale integration on separate die of a single wafer.
+6. The method of claim 1 or 2, wherein at least some of the exchanged fabric packets are fabric vectors.
+7. The method of claim 1 or 2, wherein the data flow graph corresponds to all or any portions of a neural network, and at least a portion of the performing the computations corresponds to computing weights of the neural network.
+8. The method of claim 1 or 2, wherein the locally performed computations and the exchanging fabric packets are respectively performed by the compute engines and the fabric routers of the respective processing elements.
+9. The method of claim 1 or 2, wherein the sources and results are with respect to one or more of: multiply and accumulate operations, partial sums, activations, and final sums.
+10. The method of claims 1 or 2, wherein the allocating enables parallel partitioned node computations on multiple of the processing elements providing reduced wall-clock time, compared to performing sequential non-partitioned node computations on a single one of the processing elements.
+11. The method of claim 10, wherein the parallel computations at times comprise the concurrent use of respective all digital multipliers.
+12. The method of claim 10, wherein the parallel computations comprise at least partially overlapped computations.
+13. The method of claim 1 or 2, further comprising initializing the fabric with all node and branch parameters required for the concurrent execution of the communications and computations respectively corresponding to the dataflow graph.
+14. The method of claim 13, further comprising, subsequent to the initializing, concurrently executing all layers of the dataflow graph for one or more of inference and training.
+15. The method of claim 14, wherein the layer of the dataflow graph comprise input, hidden, and output layers.
+16. The method of claim 14, wherein the concurrently executing does not require any access to storage external to the fabric for any intermediate state or additional node and branch parameters of the dataflow graph.
+17. The method of claim 16, wherein the dataflow graph is a neural network, the nodes correspond to neurons, the partitioned node corresponds to a split neuron, and at least some of the node and branch parameters of the dataflow graph correspond to a plurality of weights of the neural network.
+18. The method of claim 1 or 2, wherein except for defects, the fabric is homogeneous, the plurality of processing elements numbers three million, and each processing element comprises 48kB of private local storage for instructions and data.
+19. The method of claim 1 or 2, wherein the fabric is enabled to concurrently store and execute a dataflow graph having communications and computations requirements of up to a combined 24 GB of instruction and data storage.
+20. The method of claim 19, wherein the data storage is used for one or more of weights, forward partial sums, activations, gradient accumulations, delta partial sums, layer errors, duplicated weights, and other implementation overhead, as required by the concurrently executing.
+21. The method of claim 7, wherein the allocating is performed by a node to processing element mapping process in accordance with predetermined criteria.
+22. The method of claim 21, wherein the mapping process is performed at least in part manually.
+23. The method of claim 21, wherein the mapping process is performed at least in part via software executing on a placement server external to the fabric.
+24. The method of claim 21, wherein the predetermined criteria comprises one or more of: reducing wall-clock time for mapping, reducing wall-clock time for configuring the fabric, reducing at least one data movement latency metric, reducing wall-clock time required for training, reducing wall-clock time required for inference after training, reducing the number of die required to fit the dataflow graph, constraining the processing elements used to a particular number of die, complying with at least one storage metric, accounting for known defects, reducing at least one power metric, and optimizing a score based on a weighted sum comprising one or more of the foregoing criteria.
+25. An apparatus comprising: means for performing dataflow-based and instruction-based processing and exchanging fabric packets respectively in and between a plurality of processing elements interconnected as a fabric, each processing element comprising a compute engine and a fabric router; means for specifying communications and computations respectively corresponding to a plurality of branches and a plurality of nodes of a dataflow graph; means for allocating a plurality of the processing elements to locally perform the computations, at least two of the processing elements being allocated to respectively locally perform a plurality of computation portions corresponding to a partitioned one of the nodes; means for performing the computations and communications in accordance with the specifying, the allocating, and a virtual channel specifier of each fabric packet sent via one or more virtual channels between the at least two processing elements to transfer between the respective computation portions data comprising one or more sources and results; and wherein the virtual channel specifier identifies one of the one or more virtual channels.
+26. An apparatus comprising: means for performing dataflow-based and instruction-based processing and exchanging fabric packets respectively in and between a plurality of processing elements interconnected as a fabric, each processing element comprising a compute engine and a fabric router; means for specifying communications and computations respectively corresponding to a plurality of branches and a plurality of nodes of a dataflow graph; means for allocating a plurality of the processing elements to locally perform the computations, at least a single one of the processing elements being allocated to locally perform a plurality of respective first computation portions of each of at least two partitioned ones of the nodes, each of the partitioned nodes comprising a respective plurality of computation portions including the respective first computation portions; means for performing the computations and communications in accordance with the specifying, the allocating, and a virtual channel specifier of each fabric packet sent via one or more virtual channels between the at least single one of the processing elements and other ones of the allocated processing elements to transfer data between the respective first computation portions and other ones of the respective plurality of computation portions, the data comprising one or more sources and results; and wherein the virtual channel specifier identifies one of the one or more virtual channels.
+27. The apparatus of claim 25 or 26, wherein the processing elements are fabricated via wafer-scale integration.
+28. The apparatus of claim 25, wherein the at least two processing elements are fabricated via wafer-scale integration on separate die of a single wafer.
+29. The apparatus of claim 26, wherein the at least single one of the processing elements and other ones of the allocated processing elements are fabricated via wafer-scale integration on separate die of a single wafer.
+30. The apparatus of claim 25 or 26, wherein at least some of the exchanged fabric packets are fabric vectors.
+31. The apparatus of claim 25 or 26, wherein the data flow graph corresponds to all or any portions of a neural network, and at least a portion of the means for performing the computations corresponds to computing weights of the neural network.
+32. The apparatus of claim 25 or 26, wherein the locally performed computations and the exchanging fabric packets are respectively performed by the compute engines and the fabric routers of the respective processing elements.
+33. The apparatus of claim 25 or 26, wherein the sources and results are with respect to one or more of: multiply and accumulate operations, partial sums, activations, and final sums.
+34. The apparatus of claims 25 or 26, wherein the means for allocating enables parallel partitioned node computations on multiple of the processing elements providing reduced wall-clock time, compared to performing sequential non-partitioned node computations on a single one of the processing elements.
+35. The apparatus of claim 34, wherein the parallel computations at times comprise the concurrent use of respective all digital multipliers.
+36. The apparatus of claim 34, wherein the parallel computations comprise at least partially overlapped computations.
+37. The apparatus of claim 25 or 26, further comprising means for initializing the fabric with all node and branch parameters required for the concurrent execution of the communications and computations respectively corresponding to the dataflow graph.
+38. The apparatus of claim 37, further comprising, subsequent to the initializing, means for concurrently executing all layers of the dataflow graph for one or more of inference and training.
+39. The apparatus of claim 38, wherein the layer of the dataflow graph comprise input, hidden, and output layers.
+40. The apparatus of claim 38, wherein the means for concurrently executing does not require any access to storage external to the fabric for any intermediate state or additional node and branch parameters of the dataflow graph.
+41. The apparatus of claim 40, wherein the dataflow graph is a neural network, the nodes correspond to neurons, the partitioned node corresponds to a split neuron, and at least some of the node and branch parameters of the dataflow graph correspond to a plurality of weights of the neural network.
+42. The apparatus of claim 25 or 26, wherein except for defects, the fabric is homogeneous, the plurality of processing elements numbers three million, and each processing element comprises 48 kB of private local storage for instructions and data.
+43. The apparatus of claim 25 or 26, wherein the fabric is enabled to concurrently store and execute a dataflow graph having communications and computations requirements of up to a combined 24 GB of instruction and data storage.
+44. The apparatus of claim 43, wherein the data storage is used for one or more of weights, forward partial sums, activations, gradient accumulations, delta partial sums, layer errors, duplicated weights, and other implementation overhead, as required by the concurrently executing.
+45. The apparatus of claim 31, wherein the means for allocating is performed by a node to processing element mapping process in accordance with predetermined criteria.
+46. The apparatus of claim 45, wherein the mapping process is performed at least in part manually.
+47. The apparatus of claim 45, wherein the mapping process is performed at least in part via software executing on a placement server external to the fabric.
+48. The apparatus of claim 45, wherein the predetermined criteria comprises one or more of: reducing wall-clock time for mapping, reducing wall-clock time for configuring the fabric, reducing at least one data movement latency metric, reducing wall-clock time required for training, reducing wall-clock time required for inference after training, reducing the number of die required to fit the dataflow graph, constraining the processing elements used to a particular number of die, complying with at least one storage metric, accounting for known defects, reducing at least one power metric, and optimizing a score based on a weighted sum comprising one or more of the foregoing criteria.
+</claims>
+</document>

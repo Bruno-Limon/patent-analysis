@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2020-04-06
+</filing_date>
+
+<publication_date>
+2020-10-08
+</publication_date>
+
+<priority_date>
+2019-04-08
+</priority_date>
+
+<ipc_classes>
+G06F17/18,G06N20/10,G06N20/20,G06N3/04,G06N3/08,G06N5/04,G10L19/26,H04L29/06
+</ipc_classes>
+
+<assignee>
+PINDROP SECURITY
+</assignee>
+
+<inventors>
+LAKHDHAR, KHALED
+KHOURY, ELIE
+NAGARSHETH, PARAV
+CHEN, Tianxiang
+</inventors>
+
+<docdb_family_id>
+72662540
+</docdb_family_id>
+
+<title>
+SYSTEMS AND METHODS FOR END-TO-END ARCHITECTURES FOR VOICE SPOOFING DETECTION
+</title>
+
+<abstract>
+Embodiments described herein provide for automatically detecting whether an audio signal is a spoofed audio signal or a genuine audio signal. A spoof detection system can include an audio signal transforming front end and a classification back end. Both the front end and the back end can include neural networks that can be trained using the same set of labeled audio signals. The audio signal transforming front end can include a one or more neural networks for per-channel energy normalization transformation of the audio signal, and the back end can include a convolution neural network for classification into spoofed or genuine audio signal. In some embodiments, the transforming audio signal front end can include one or more neural networks for bandpass filtering of the audio signals, and the back end can include a residual neural network for audio signal classification into spoofed or genuine audio signal.
+</abstract>
+
+<claims>
+1. A computer-implemented method for implementing an anti-spoofing end-to-end neural network architecture, the method comprising: receiving, by a computer, a raw audio signal of a call purportedly associated with a verified speaker identity; generating, by the computer executing a neural network architecture, a transformed representation of the raw audio signal, thereby resulting in a processed audio signal; and generating, by the computer executing the neural network architecture, a prediction score for the processed audio signal, the prediction score indicating a likelihood the processed audio signal of the call is associated with a spoof of the verified speaker identity; wherein the neural network architecture is trained according to a plurality of raw audio signals having at least one raw audio signal for at least one verified call associated with the verified speaker identity and at least one raw audio signal for at least one spoofed call.
+2. The method according to claim 1, further comprising detecting, by the computer executing a classifier backend of the neural network architecture, that the received raw audio signal is a spoofed audio signal in response to determining that the prediction score fails to satisfy a threshold value.
+3. The method according to claim 1, further comprising modifying, by the computer, one or more parameters of the neural network architecture based upon back-propagation.
+4. The method according to claim 1, wherein generating the transformed representation of the raw audio signal comprises: transforming, by the computer executing a one-dimensional convolution neural network of a signal processing frontend of the neural network architecture, the raw audio signal into a time-frequency representation; and filtering, by the computer executing the signal processing frontend, the time-frequency representation into frequency channels based upon a filter bank.
+5. The method according to claim 4, wherein, for each respective audio signal, the computer executes a per-channel transformation neural network to generate the respective processed audio signal based upon the time-frequency representation of the audio signal.
+6. The method according to claim 1, further comprising parsing, by the computer, the audio signal into a plurality of subframes, wherein each subframe has a fixed duration and overlaps in time with at least one adjacent subframe of the plurality of subframes, and wherein the computer generates the prediction score based upon the plurality of subframes.
+7. The method according to claim 1, further comprising generating, by the computer executing a convolution neural network of a classifier backend of a neural network architecture, a L2 normalized vector based upon concatenation of mean and standard deviation of a last max-pooling layer of the plurality of max-pooling layers.
+8. The method according to claim 1, wherein generating the transformed representation of the raw audio signal comprises: generating, by the computer executing a convolution layer of a signal processing frontend of a neural network architecture, a two-dimensional matrix from the raw audio signal based upon a set of bandpass filter parameters.
+9. The method according to claim 8, further comprising: receiving, by the computer, from a computing device, an updated set of bandpass filter parameters, wherein computer generates the two-dimensional matrix and the prediction score based upon the updated set of bandpass filter parameters.
+10. The method according to claim 8, wherein the computer executes a residual neural network of a classifier backend of the neural network architecture to generate the prediction score based upon the two-dimensional matrix and a set of residual neural network parameters.
+11. The method according to claim 1, further comprising: generating, by the computer executing a residual neural network of a classifier backend of the neural network architecture, a pooled feature map based upon a feature map generated by a statistics layer of the residual neural network; and executing, by the computer executing the residual neural network, two fully connected layers of the residual neural network using the pooled feature map.
+12. The method according to claim 1, wherein the raw audio signal comprises at least one of speech and background noise.
+13. A computer-implemented method for implementing an anti-spoofing end-to-end neural network architecture, the method comprising: executing, by the computer, a neural network architecture on a plurality of audio signals having at least one audio signal associated with at least one spoofed call, the neural network architecture configured to process each audio signal and classify whether each audio signal is associated with a spoofed call; and training, by the computer, a first set of parameters for signal processing based upon one or more loss functions generated for the audio signals.
+14. The method according to claim 13, further comprising training, by the computer, a second set of parameters for classifying whether each audio signal is associated with a spoofed call.
+15. The method according to claim 13, wherein training the first set of parameters further comprises: modifying, by the computer, at least one set of parameters based upon back-propagation of executing one or more neural networks of the neural network architecture.
+16. The method according to claim 13, wherein executing the neural network architecture on the plurality of audio signals further comprises, for each respective audio signal: generating, by the computer executing a classifier backend, a loss function based upon a prediction score and a predetermined verification status of the respective audio signal, wherein the verification status indicates whether the respective audio signal is associated with a spoofed call.
+17. The method according to claim 13, wherein executing the neural network architecture on the plurality of audio signals further comprises, for each respective audio signal: generating, by the computer executing a signal processing frontend, a transformed audio signal based upon a raw audio signal of the audio signal and the first set of parameters.
+18. The method according to claim 13, wherein executing the neural network architecture on the plurality of audio signals further comprises, for each respective audio signal: generating, by the computer executing a classifier backend, a prediction score based upon the audio signal and a second set of parameters, wherein the prediction score indicates a likelihood the audio signal is associated with a spoofed call.
+19. The method according to claim 18, wherein executing the neural network architecture on the plurality of audio signals further comprises, for each respective audio signal: parsing, by the computer, the audio signal into a plurality of frames, wherein the computer generates the prediction score for the audio signal using the plurality of frames.
+20. The method according to claim 13, wherein executing the neural network architecture on the plurality of audio signals further comprises, for each respective audio signal: generating, by the computer executing a one-dimensional convolution layer of a signal processing frontend, a two-dimensional matrix of the audio signal and a set of bandpass filter parameters in the first set of parameters.
+21. The method according to claim 13, wherein executing the neural network architecture on the plurality of audio signals further comprises, for each respective audio signal: generating, by the computer executing a residual neural network of a classifier backend, a prediction score based upon a two-dimensional matrix of the audio signal and a set of residual neural network parameters in a second set of parameters, wherein the prediction score indicates a likelihood that the audio signal is a genuine audio signal.
+22. The method according to claim 13, wherein executing the neural network architecture on the plurality of audio signals further comprises, for each respective audio signal: generating, by the computer executing a residual neural network of a classifier backend, a loss function based upon a prediction score and a predetermined verification status of the audio signal.
+23. The method according to claim 13, wherein training the first set of parameters for signal processing further comprises: training, by the computer, a one-dimensional convolution layer and a residual neural network based upon each of the loss functions generated for the plurality audio signals, whereby the computer modifies a set of bandpass filter parameters in the first set of parameters and a set of residual neural network parameters in a second set of parameters for classifying whether each audio signal is associated with a spoofed call.
+</claims>
+</document>

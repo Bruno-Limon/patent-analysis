@@ -1,0 +1,68 @@
+<document>
+
+<filing_date>
+2018-10-02
+</filing_date>
+
+<publication_date>
+2020-09-29
+</publication_date>
+
+<priority_date>
+2018-10-02
+</priority_date>
+
+<ipc_classes>
+G06N3/08,H04N1/60,H04N9/64,H04N9/73
+</ipc_classes>
+
+<assignee>
+INTEL CORPORATION
+</assignee>
+
+<inventors>
+MÄÄTTÄ, JONI-MATTI
+NIKKANEN, JARNO
+SUOMELA, LAURI
+</inventors>
+
+<docdb_family_id>
+65231263
+</docdb_family_id>
+
+<title>
+Method and system of deep learning-based automatic white balancing
+</title>
+
+<abstract>
+A system, article, and method to perform deep learning-based automatic white balancing uses a neural network in conjunction with other non-neural network automatic white balancing algorithms.
+</abstract>
+
+<claims>
+1. A computer-implemented method of automatic white balancing for image processing, comprising: obtaining image data of at least one image; inputting the image data to at least one convolutional neural network (CNN) arranged to provide at least one automatic white balance (AWB) white point estimate and having at least one chromaticity map channel and at least one confidence map channel with confidence estimate values to be used as weights to apply to values of the chromaticity map channel(s); determining a normalizing confidence map weight based at least in part on the individual confidence estimate values; and determining a base white point estimate comprising using both a weighted white point estimate of the CNN and weighted by the normalizing confidence map weight, and a weighted white point estimate of at least one non-CNN AWB algorithm.
+2. The method of claim 1 wherein determining a normalizing confidence map weight comprises normalizing the confidence estimate values by dividing an average of the confidence estimate values by a standard deviation of the confident estimate values.
+3. The method of claim 1 wherein the white point estimates are proportioned by setting the sum of (1) the weight of the CNN and (2) sum of weights of the non-CNN algorithms to equal 1.
+4. The method of claim 1 wherein determining a base white point estimate comprises weighting the white point estimate of the CNN and the non-CNN algorithms respectively with their own weights, and then summing the weighted white point estimates.
+5. The method of claim 1 wherein the individual weight(s) of the non-CNN algorithm is at least partly based on a color gamut size for the at least one image so that the larger the color gamut, the greater the weight.
+6. The method of claim 1 wherein the individual weight(s) of the non-CNN algorithm are determined by using a separate neural network to evaluate confidence values for the non-CNN algorithm.
+7. The method of claim 1 wherein the at least one non-CNN AWB algorithm is related to at least one algorithm of maxRGB, grey-world, shades of grade, grey-edge, gamut mapping, and color correlation.
+8. The method of claim 1 wherein the base white point estimate is formed entirely from the CNN white point estimate while the non-CNN algorithms have a weight of zero or close to zero, and the base white point estimate is formed entirely from one or more non-CNN algorithms when the CNN algorithm has a weight of zero or close to zero.
+9. The method of claim 1 comprising operating an adaptive pooling layer of the CNN comprising weighting at least one of the chromaticity map channels by using the confidence estimate values as weight values applied to the chromaticity map channel; outputting a white point estimate from the CNN by using resulting weighted values of the chromaticity map channel; and using the white point estimate to set chromaticity values for the at least one image.
+10. The method of claim 9 wherein weighting at least one of the chromaticity map channels comprises multiplying the confidence estimate values by corresponding chromaticity values element by element to apply the confidence estimate values as weights.
+11. The method of claim 9 wherein operating the adaptive pooling layer comprising obtaining a single representative value from each chromaticity channel as a value of a base white point estimate of the CNN.
+12. The method of claim 11 wherein the single representative value is the mean of weighted chromaticity values of a chromaticity channel.
+13. The method of claim 9 comprising operating two consecutive deep automatic white balance (AWB) convolutional layers of the CNN comprising a first deep AWB convolutional layer that reduces the CNN to 64 channels, and a second deep AWB convolutional layer that reduces the 64 channels to four channels including one of the confidence map channels and three chromaticity map channels each being for one of a RGB color space primary color, wherein the four channels are provided to the adaptive pooling layer.
+14. The method of claim 1 comprising transforming the image data of the at least one image from sensor-specific image data into a reference space; operating at least the CNN in the reference space; and transforming resulting white point estimates from the reference space back to sensor-specific image data.
+15. The method of claim 1 comprising generating a white map of viable white points to perform a grey-search to determine grey areas of an image, and the generating comprising: obtaining offline image data indicating an illumination chromaticity distribution for a camera sensor in a CIExy color space; generating a spectral characterization of the camera sensor by using the illumination chromaticity distribution; estimating a spectral power distribution (SPD) for individual CIExy coordinates using the spectral characterization; and forming at least one white map of viable white points by using the spectral power distribution.
+16. A computer-implemented system of automatic white balancing for image processing comprising: at least one camera capturing at least one image of a video sequence or still photograph; a display; at least one memory storing image data of the at least one image; and at least one processor communicatively coupled to the display and the memory, the processor being arranged to operate by; obtaining image data of the at least one image; inputting the image data to at least one convolutional neural network (CNN) arranged to output at least one automatic white balance (AWB) CNN white point estimate and having at least one chromaticity map channel and at least one confidence map channel with confidence estimate values to be used as weights to apply to values of the chromaticity map channel(s); determining whether or not the CNN white point estimate will be sufficiently accurate comprising using the confidence estimate values; and providing a base white point that includes a proportion of the CNN white point estimate depending on the determined accuracy, and including 0 percent of the CNN white point estimate wherein none of the CNN white point estimate forms the base white point, and 100% of the CNN white point estimate wherein the CNN white point estimate forms 100% of the base white point.
+17. The system of claim 16 wherein the at least one processor is arranged to provide all three alternatives of providing the base white point: (a) based on the CNN white point estimate alone, (b) based on at least one non-CNN AWB white point estimate generated by using an AWB algorithm without including the CNN white point estimate, and (c) a proportion of the CNN white point estimate and proportion of at least one non-CNN AWB white point estimate.
+18. The system of claim 16 wherein the base white point is formed by proportioning multiple white point estimates when the CNN white point estimate is found to be inaccurate.
+19. The system of claim 16 wherein determining whether or not the CNN white point estimate will be sufficiently accurate comprises computing the base white point by using both a weighted CNN white point estimate that indicates the accuracy of the CNN white point estimate and a weighted white point estimate of at least one non-CNN AWB algorithm.
+20. The method of claim 19 wherein the weighted white point estimate of the CNN is a normalizing confidence map weight obtained by normalizing the confidence estimate values comprising using both an average of the confidence estimate values and a standard deviation of the confidence estimate values.
+21. The system of claim 20 wherein the normalizing confidence map weight is computed by dividing the average of the confidence estimate values by the standard deviation of the confidence estimate values.
+22. At least one non-transitory computer readable medium comprising a plurality of instructions that in response to being executed on a computing device, causes the computing device to operate by: obtaining offline image data indicating an illumination chromaticity distribution for a camera sensor in a CIExy color space; generating a spectral characterization of the camera sensor by using the illumination chromaticity distribution; estimating a spectral power distribution (SPD) for individual CIExy coordinates using the spectral characterization; forming at least one white map of viable white points by using the spectral power distribution; and using the white map to determine a white point estimate of an image.
+23. The medium of claim 22 wherein the spectral characterization of the camera sensor is formed by measuring the response of the camera sensor at different visible wavelengths.
+24. The medium of claim 22 wherein the instructions cause the computing device to operate by calculating grey boundary points (BPs) from the white map by weighting the correlated color temperature (CCT) SPDs with XYZ basis functions to move the corresponding CIE 1931 xy coordinate from an xyCCT to an xyBP.
+25. The medium of claim 22 wherein the instructions cause the computing device to operate by: inputting run-time image data to at least one convolutional neural network (CNN) arranged to provide at least one automatic white balance (AWB) white point estimate and having at least one chromaticity map channel and at least one confidence map channel with confidence estimate values to be used as weights to apply to values of the chromaticity map channel(s); determining a single normalizing confidence map weight based at least in part on the individual confidence estimate values; and determining a base white point estimate comprising using (a) the single normalizing confidence map weight and white point estimate of the CNN and (b) a weight and white point estimate of at least one non-CNN AWB algorithm, wherein the base white point estimate is refined by the use of the white map to form the white point.
+</claims>
+</document>

@@ -1,0 +1,51 @@
+<document>
+
+<filing_date>
+2018-08-22
+</filing_date>
+
+<publication_date>
+2020-04-08
+</publication_date>
+
+<priority_date>
+2018-08-09
+</priority_date>
+
+<ipc_classes>
+G10L21/0208,G10L21/0216,G10L21/0224,G10L25/30
+</ipc_classes>
+
+<assignee>
+YEALINK (XIAMEN) NETWORK TECHNOLOGY COMPANY
+</assignee>
+
+<inventors>
+KANG, YUANXUN
+</inventors>
+
+<docdb_family_id>
+65153280
+</docdb_family_id>
+
+<title>
+RNN-BASED NOISE REDUCTION METHOD AND DEVICE FOR REAL-TIME CONFERENCE
+</title>
+
+<abstract>
+Disclosed herein is a method for RNN-based noise reduction in a real-time conference, comprising:performing frame-and-window for a speech signal to obtain a logarithmic spectrum of the speech signal, and placing the logarithmic spectrum into the RNN model to determine a noise reduction suppression coefficient, and then obtaining the denoised speech signal by applying the noise reduction suppression coefficient to the logarithmic spectrum of the original signal, thereby achieving utilization of the RNN noise reduction method in real-time conferences. Since the GRU model as used herein retains the characteristics of the information in past-time to some extent, and an appropriate window length is selected for performing the frame-and-window of the speech signal, when inputting the RNN model for estimation, only the logarithmic spectrum of the current frame needs to be inputted. The RNN model of the present disclosure has few requirements on inputted information, without performing huge preprocessing on the received speech signal, which in turn reduces computation burden, increases response speed, and enhances real-time performance, and provides a method for RNN-based noise reduction that can be used in real-time conferences.
+</abstract>
+
+<claims>
+1. A method for RNN-based noise reduction in a real-time conference, wherein the method comprises the following steps: S1, training RNN model that uses GRU to determine suitable parameters for the RNN model, to obtain the trained RNN model; S2, performing frame-and-window for the speech signal transmitted by a collecting unit, to calculate a logarithmic spectrum of each frame of the speech signal in the frequency domain; S3, placing the logarithmic spectrum of the current frame into the trained RNN model for estimation, to obtain an estimated logarithmic spectrum of the current speech; S4, calculating a signal-to-noise ratio of the current frame according to the estimated logarithmic spectrum and the logarithmic spectrum of the original signal, to calculate a current noise reduction suppression coefficient according to the signal-to-noise ratio; S5, applying the noise reduction suppression coefficient to the logarithmic spectrum of the original signal, performing window overlap and inverse Fourier transform on the result, and transmitting the result to a corresponding playing device through a network, to play the processed signal.
+2. The method for RNN-based noise reduction in a real-time conference according to claim1, wherein the step S1 comprises the following steps: S11, collecting a pure speech signal and a noise speech signal, and superimposing the pure speech signal and the noise speech signal in a time domain to generate a noisy speech signal; S12, performing frame-and-window for the noisy speech signal and the pure speech signal respectively, to calculate the logarithmic spectrum of each frame in the frequency domain, comparing the logarithmic spectrum of the noisy speech signal with the logarithmic spectrum of the pure speech signal to obtain corresponding accurate suppression parameters; S22, using the logarithmic spectrum of the noisy speech signal obtained after performing the frame-and-window as an input for the RNN model that uses the GRU; S23, generating a corresponding estimated logarithmic spectrum by allowing the logarithmic spectrum of the noisy speech signal to pass through a fully connected layer and two GRU layers, to obtain the expected suppression parameters according to the estimated logarithmic spectrum and the logarithmic spectrum of the noisy speech signal; S24, calculating a mean square error using the expected suppression parameters and the accurate suppression parameters, judging whether the mean square error is lower than the threshold, wherein if YES, this step is ended; and wherein if NOT, the mean square error is used for derivation to update the parameters of the RNN model that uses the GRU and return to step S11.
+3. The method for RNN-based noise reduction in a real-time conference according to claim 2, wherein a Tanh function is used as the activation function for the fully connected layer, which has a mean value of 0.
+4. The method for RNN-based noise reduction in a real-time conference according to any one of claims 1-3, wherein the noise reduction suppression coefficient is obtained by smoothing the expected suppression parameter, which is obtained by estimating the logarithmic spectrum and the logarithmic spectrum of the original signal.
+5. The method for RNN-based noise reduction in a real-time conference according to any one of claims 1-4, wherein performing frame-and-window for the signal with the window length of 256 samples, and the framed signals are overlapped by 50%.
+6. A device for RNN-based noise reduction in a real-time conference, wherein the device comprises a collection device, a computing device and a playing device; wherein the collection device collects a noisy speech signal and transmits it to the computing device, the computing device processes the noisy speech signal to obtain a denoised speech signal which is transmitted to the playing device; and the computing device is the one that uses the RNN-based noise reduction method in a real-time conference according to any one of claims 1-4.
+7. A device for RNN-based noise reduction in a real-time conference, wherein the device comprises a collection device, a computing device and a playing device; wherein the collection device collects a noisy speech signal and transmits it to the computing device, the computing device processes the noisy speech signal to obtain a denoised speech signal which is transmitted to the playing device; and the computing device is the one that uses the RNN-based noise reduction method in a real-time conference according to claim 5.
+8. The device for RNN-based noise reduction in a real-time conference according to claim 7, wherein the collection device includes an AD converter and a microphone which is coupled to the computing device via the AD converter; and wherein the playing device is coupled to the computing device via a network.
+9. The device for RNN-based noise reduction in a real-time conference according to claim 8, wherein the collection device further comprises a remote receiving unit, which is coupled to the computing device.
+10. The device for RNN-based noise reduction in a real-time conference according to any one of claims 7-9, wherein the computing device is a multi-CPU hardware device having a computing instruction function.
+</claims>
+</document>

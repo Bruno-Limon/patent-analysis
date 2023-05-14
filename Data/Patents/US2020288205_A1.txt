@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2020-05-27
+</filing_date>
+
+<publication_date>
+2020-09-10
+</publication_date>
+
+<priority_date>
+2019-05-27
+</priority_date>
+
+<ipc_classes>
+G06K9/62,G06N20/10,G06N3/08,H04N21/442,H04N21/466
+</ipc_classes>
+
+<assignee>
+BEIJING DAJIA INTERNET INFORMATION TECHNOLOGY COMPANY
+</assignee>
+
+<inventors>
+LI YAN
+DING WENKUI
+</inventors>
+
+<docdb_family_id>
+72335877
+</docdb_family_id>
+
+<title>
+METHOD, APPARATUS, ELECTRONIC DEVICE, AND STORAGE MEDIUM FOR RECOMMENDING MULTIMEDIA RESOURCE
+</title>
+
+<abstract>
+The present disclosure provides a method, an apparatus, an electronic device, and a storage medium for recommending multimedia resource, and relates to the field of machine learning. The method includes: acquiring features of the multimedia resource based on a convolutional neural network, where the convolutional neural network comprises N convolutional layers, where N is a positive integer; determining user interest information based on an identifier of a recommended user, where the user interest information is corresponding to the feature of each convolutional layer; determining a first feature matrix based on the convolution of convolution kernel and the feature, where the convolution kernel comprises the user interest information; generating user preference data based on the first feature matrix; and recommending the multimedia resource to the recommended user based on the N generated user preference data.
+</abstract>
+
+<claims>
+We claim:
+1. A method for recommending multimedia resource, comprising: acquiring features of the multimedia resource based on a convolutional neural network, wherein the convolutional neural network comprises N convolutional layers, wherein N is a positive integer; determining user interest information based on an identifier of a recommended user, wherein the user interest information is corresponding to the feature of each convolutional layer; determining a first feature matrix based on the convolution of convolution kernel and the feature, wherein the convolution kernel comprises the user interest information; generating user preference data based on the first feature matrix; and recommending the multimedia resource to the recommended user based on the N generated user preference data.
+2. The method according to claim 1, further comprising: determining user attention information based on the identifier, wherein the user attention information matches with the features; generating a user attention weight based on the user attention information and the feature; and generating the user preference data based on the first feature matrix and the user attention weight.
+3. The method according to claim 2, wherein said generating the user attention weight comprises: determining a second feature matrix based on the convolution of the convolution kernel and the feature, wherein the convolution kernel comprises the user attention information; and obtaining the user attention weight by normalizing the second feature matrix.
+4. The method according to claim 2, wherein said generating the user preference data comprises: reducing a dimension of the first feature matrix by a maximum pooling layer; and determining the user preference data by weighting and fusing the dimension-reduced first feature matrix and the user attention weight.
+5. The method according to claim 1, wherein said recommending the multimedia resource to the recommended user comprises: acquiring a target weight matrix, wherein the target weight matrix provides weights corresponding to the N generated user preference data; weighting and fusing the N generated user preference data based on the target weight matrix; and recommending the multimedia resource to the recommended user based on the weighted and fused user preference data.
+6. The method according to claim 1, wherein said determining the user interest information comprises: determining the user interest information by vectorizing the identifier based on a first embedding layer, wherein the user interest information is a matrix with an m*m size, and m indicates a width of the convolution kernel used by the each convolutional layer.
+7. The method according to claim 2, wherein said determining the user attention information comprises: determining the user attention information by vectorizing the identifier based on a second embedding layer; wherein the user attention information is a matrix with an m*m size, and m indicates a width of the convolution kernel used by the each convolutional layer; and a second weight matrix of the second embedding layer is different from a first weight matrix of a first embedding layer.
+8. The method according to claim 3, wherein the second feature matrix is normalized by a following formula:
+description="In-line Formulae" end="lead"?wi,s,t=exp(v_{i,s,t})/Σs′,t′exp(v_{i,s′,t′});description="In-line Formulae" end="tail"? wherein wi,s,t refers to the user attention weight; v_{i, s, t} and v_{i, s′, t′} refer to two elements at different positions in the second feature matrix; and s′ and t′ are positive integers for traversing all elements in the second feature matrix.
+9. The method according to claim 5, wherein weighting and fusing the N generated user preference data by a following formula: wherein oi refers to the fused user preference data; j ranges from 1 to N; oij refers to the user preference data corresponding to a feature output from a jth convolutional layer; rij refers to a weight corresponding to oij in the target weight matrix; the target weight matrix is (ri1, ri2, ri3, . . . , riL; and i refers to the identifier of the recommended user.
+10. An apparatus for recommending multimedia resource, comprising: a processor; and a memory, configured to store executable instructions of the processor, wherein the processor is configured to read and execute the executable instructions to: acquire features of the multimedia resource based on a convolutional neural network, wherein the convolutional neural network comprises N convolutional layers, wherein N is a positive integer; determine user interest information based on an identifier of a recommended user, wherein the user interest information is corresponding to the feature of each convolutional layer; determine a first feature matrix based on the convolution of convolution kernel and the feature, wherein the convolution kernel comprises the user interest information; generate user preference data based on the first feature matrix; and recommend the multimedia resource to the recommended user based on the N generated user preference data.
+11. The apparatus according to claim 10, wherein the processor is further configured to read and execute the executable instructions to: determine user attention information based on the identifier, wherein the user attention information matches with the features; generate a user attention weight based on the user attention information and the feature; and generate the user preference data based on the first feature matrix and the user attention weight.
+12. The apparatus according to claim 11, wherein the processor is further configured to read and execute the executable instructions to: determine a second feature matrix based on the convolution of the convolution kernel and the feature, wherein the convolution kernel comprises the user attention information; and obtain the user attention weight by normalizing the second feature matrix.
+13. The apparatus according to claim 11, wherein the processor is further configured to read and execute the executable instructions to: reduce a dimension of the first feature matrix by a maximum pooling layer; and determine the user preference data by weighting and fusing the dimension-reduced first feature matrix and the user attention weight.
+14. The apparatus according to claim 11, wherein the processor is further configured to read and execute the executable instructions to: acquire a target weight matrix, wherein the target weight matrix provides weights corresponding to the N generated user preference data; weight and fuse the N generated user preference data based on the target weight matrix; and recommend the multimedia resource to the recommended user based on the weighted and fused user preference data.
+15. The apparatus according to claim 10, wherein the processor is further configured to read and execute the executable instructions to: determine the user interest information by vectorizing the identifier based on a first embedding layer; wherein the user interest information is a matrix with an m*m size, and m indicates a width of the convolution kernel used by the each convolutional layer.
+16. The apparatus according to claim 11, wherein the processor is further configured to read and execute the executable instructions to: determine the user attention information by vectorizing the identifier based on a second embedding layer; wherein the user attention information is a matrix with an m*m size, and m indicates a width of the convolution kernel used by the each convolutional layer; and a second weight matrix of the second embedding layer is different from a first weight matrix of a first embedding layer.
+17. The apparatus according to claim 13, wherein the second feature matrix is normalized by a following formula:
+description="In-line Formulae" end="lead"?wi,s,t=exp(v_{i,s,t})/Σs′,t′exp(v_{i,s′,t′});description="In-line Formulae" end="tail"? wherein wi,s,t refers to the user attention weight; v_{i, s, t} and v_{i, s′, t′} refer to two elements at different positions in the second feature matrix; and s′ and t′ are positive integers for traversing all elements in the second feature matrix.
+18. The apparatus according to claim 14, wherein the N generated user preference data are weighted and fused by a following formula: wherein oi refers to the fused user preference data; j ranges from 1 to N; oij refers to the user preference data corresponding to a feature output from a jth convolutional layer; rij refers to a weight corresponding to oij in the target weight matrix; the target weight matrix is (ri1, ri2, ri3, . . . riL); and i refers to the identifier of the recommended user.
+19. A non-transitory computer readable storage medium, wherein instructions in the storage medium are executed by a processor of an electronic device to cause the electronic device to: acquire features of the multimedia resource based on a convolutional neural network, wherein the convolutional neural network comprises N convolutional layers, wherein N is a positive integer; determine user interest information based on an identifier of a recommended user, wherein the user interest information is corresponding to the feature of each convolutional layer; determine a first feature matrix based on the convolution of convolution kernel and the feature, wherein the convolution kernel comprises the user interest information; generate user preference data based on the first feature matrix; and recommend the multimedia resource to the recommended user based on the N generated user preference data.
+</claims>
+</document>

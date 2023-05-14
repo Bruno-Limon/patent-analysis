@@ -1,0 +1,70 @@
+<document>
+
+<filing_date>
+2018-12-10
+</filing_date>
+
+<publication_date>
+2020-10-13
+</publication_date>
+
+<priority_date>
+2013-03-29
+</priority_date>
+
+<ipc_classes>
+B25J9/16,G06K9/00,G06K9/46,G06K9/62,G06T7/00,G06T7/73
+</ipc_classes>
+
+<assignee>
+CANON
+</assignee>
+
+<inventors>
+AOBA, MASATO
+</inventors>
+
+<docdb_family_id>
+51620904
+</docdb_family_id>
+
+<title>
+Image processing apparatus and image processing method
+</title>
+
+<abstract>
+In a case where generating a training image of an object to be used to generate a dictionary to be referred to in image recognition processing of detecting the object from an input image, model information of an object to be detected is set, and a luminance image of the object and a range image are input. The luminance distribution of the surface of the object is estimated based on the luminance image and the range image, and the training image of the object is generated based on the model information and the luminance distribution.
+</abstract>
+
+<claims>
+1. An image processing apparatus for generating a training image to be used to train a detector of an object, comprising: one or more processors; and at least one memory coupled to the one or more processors, the memory having stored thereon instructions which, when executed by the one or more processors, cause the apparatus to: obtain, from a plurality of areas in a luminance image including a plurality of objects having various orientations, luminance values of surfaces of the objects; determine respective directions of the surfaces of the objects in the plurality of areas; derive a relationship between the directions of the surfaces of the objects in the plurality of areas and luminance values corresponding to the plurality of areas; and generate the training image based on the relationship and model information of the object.
+2. The apparatus according to claim 1, wherein the instructions, when executed by the one or more processors, further cause the apparatus to: obtain a plurality of luminance images each including the plurality of objects having different orientations, obtain the luminance values of surfaces of the objects from each of the plurality of areas in each of the plurality of luminance images, determine the direction of the surfaces of the objects in each of the plurality of areas with respect to the plurality of luminance images, and derive, with respect to each of the plurality of luminance images, the relationship between the directions of the surfaces of the objects in each of the plurality of areas and the luminance value corresponding to each of the plurality of areas.
+3. The apparatus according to claim 1, wherein the instructions, when executed by the one or more processors, further cause the apparatus to obtain distance information of each pixel in the luminance image, and to determine the directions of the surfaces of the objects in the plurality of areas on the basis of the obtained distance information.
+4. The apparatus according to claim 1, wherein the luminance image including the plurality of objects having different orientations is an image obtained by capturing a scene in which the plurality of objects are arranged at random.
+5. The apparatus according to claim 1, wherein the luminance image including the plurality of objects having different orientations is an image obtained by capturing a scene in which the plurality of objects are piled.
+6. The apparatus according to claim 1, wherein the instructions, when executed by the one or more processors, further cause the apparatus to: estimate a luminance distribution of the surfaces of the objects on the basis of the derived relationship, and generate the training image on the basis of the estimated luminance distribution and the model information of the object.
+7. The apparatus according to claim 6, wherein the instructions, when executed by the one or more processors, further cause the apparatus to determine, from a variance of the luminance distribution, luminance values corresponding to the direction of the surfaces of the objects.
+8. The apparatus according to claim 6, wherein the instructions, when executed by the one or more processors, further cause the apparatus to estimate the luminance distribution based on the derived relationship and a predetermined luminance distribution model.
+9. The apparatus according to claim 8, wherein the instructions, when executed by the one or more processors, further cause the apparatus to: obtain a plurality of luminance distribution models; assign the relationship to the plurality of luminance distribution models; and update the plurality of luminance distribution models on the basis of the relationship assigned to the luminance distribution model.
+10. The apparatus according to claim 9, wherein the instructions, when executed by the one or more processors, further cause the apparatus to assign the relationship to the luminance distribution model in which luminance values obtained by inputting information relating to the direction of the surfaces of the objects represented by the relationship is closest to a luminance value obtained by the relationship.
+11. The apparatus according to claim 9, wherein the instructions, when executed by the one or more processors, further cause the apparatus to control the assignment of the relationship and the update of the plurality of luminance distribution models to repeat processing until assignment destinations of the relationship before and after the update coincide with each other.
+12. The apparatus according to claim 1, wherein the instructions, when executed by the one or more processors, further cause the apparatus to perform projective transformation corresponding to a plurality of orientations of the objects on the model information, and to give luminance values corresponding to the direction of surfaces of the objects in the direction of the surfaces of the objects represented by the model information after the projective transformation so as to generate training images for the respective orientations.
+13. The apparatus according to claim 1, wherein the model information comprises computer-aided design (CAD) data, and the training image comprises a computer graphics (CG) image.
+14. The apparatus according to claim 1, wherein the directions of the surfaces of the objects are represented by information of a normal of the surfaces of the objects.
+15. The apparatus according to claim 1, wherein the instructions, when executed by the one or more processors, further cause the apparatus to generate a range image on the basis of the luminance image and the model information of the object.
+16. The apparatus according to claim 15, wherein the range image represents positions of the surfaces of the objects.
+17. The apparatus according to claim 1, wherein the instructions, when executed by the one or more processors, further cause the apparatus to generate a discriminator for recognizing the object on the basis of the generated training image.
+18. The apparatus according to claim 17, wherein the instructions, when executed by the one or more processors, further cause the apparatus to recognize an object in an image using the discriminator.
+19. The apparatus according to claim 1, wherein the luminance image including the plurality of obj ects having different orientations is an image obtained by capturing the object under a luminance condition same as that in the detection of the object.
+20. An image processing method of generating a training image to be used to train a detector of an object, comprising: obtaining, from a plurality of areas in a luminance image including a plurality of objects having various orientations, luminance values of surfaces of the objects; determining respective directions of the surfaces of the objects in the plurality of areas; deriving a relationship between the directions of the surfaces of the objects in the plurality of areas and luminance values corresponding to the plurality of areas; and generating the training image based on the relationship and model information of the object.
+21. A non-transitory computer-readable storage medium storing a computer program for causing a computer for generating a training image to be used to train a detector of an object to function as: an obtaining unit configured to obtain, from a plurality of areas in a luminance image including a plurality of objects having various orientations, luminance values of surfaces of the objects; a determination unit configured to determine respective directions of the surfaces of the objects in the plurality of areas; a derivation unit configured to derive a relationship between the directions of the surfaces of the objects in the plurality of areas and luminance values corresponding to the plurality of areas; and a generation unit configured to generate the training image based on the relationship and model information of the object.
+22. An image processing system for generating a training image to be used to train a recognizer of an object, comprising: one or more processors; and at least one memory coupled to the one or more processors, the memory having stored thereon instructions which, when executed by the one or more processors, cause the apparatus to: capture a luminance image including a plurality of objects having different orientations; obtain, from a plurality of areas in the luminance image including the plurality of objects having various orientations, luminance values of surfaces of the objects; determine respective directions of the surfaces of the objects in the plurality of areas; derive a relationship between the directions of the surfaces of the objects in the plurality of areas and luminance values corresponding to the plurality of areas; and generate the training image based on the relationship and model information of the object.
+23. An image processing apparatus for generating a training image to be used to train a detector of an object, comprising: one or more processors; and at least one memory coupled to the one or more processors, the memory having stored thereon instructions which, when executed by the one or more processors, cause the apparatus to: obtain, from a plurality of areas in an image including a plurality of objects having various orientations, pixel values of surfaces of the objects; determine respective directions of the surfaces of the objects in the plurality of areas; derive a relationship between the directions of the surfaces of the objects in the plurality of areas and pixel values corresponding to the plurality of areas; and generate the training image based on the relationship and model information of the object.
+24. The apparatus according to claim 23, wherein the instructions, when executed by the one or more processors, further cause the apparatus to obtain distance information of a plurality of pixels in each area of the plurality of areas, and to determine the directions of the surfaces of the objects in that area on the basis of the obtained distance information.
+25. The apparatus according to claim 23, wherein the instructions, when executed by the one or more processors, further cause the apparatus to: estimate a distribution of pixel values on the surfaces of the objects on the basis of the derived relationship, and generate the training image on the basis of the estimated distribution and the model information of the object.
+26. The apparatus according to claim 25, wherein the instructions, when executed by the one or more processors, further cause the apparatus to determine, from a variance of the distribution, pixel values corresponding to the direction of the surfaces of the objects.
+27. An image processing method of generating a training image to be used to train a detector of an object, comprising: obtaining, from a plurality of areas in an image including a plurality of objects having various orientations, pixel values of surfaces of the objects; determining respective directions of the surfaces of the objects in the plurality of areas; deriving a relationship between the directions of the surfaces of the objects in the plurality of areas and pixel values corresponding to the plurality of areas; and generating the training image based on the relationship and model information of the object.
+28. A non-transitory computer-readable storage medium storing a computer program for causing a computer for generating a training image to be used to train a detector of an object to function as: an obtaining unit configured to obtain, from a plurality of areas in an image including a plurality of objects having various orientations, pixel values of surfaces of the obj ects; a determination unit configured to determine respective directions of the surfaces of the objects in the plurality of areas; a derivation unit configured to derive a relationship between the directions of the surfaces of the objects in the plurality of areas and pixel values corresponding to the plurality of areas; and a generation unit configured to generate the training image based on the relationship and model information of the object.
+29. An image processing system for generating a training image to be used to train a detector of an object, comprising: one or more processors; and at least one memory coupled to the one or more processors, the memory having stored thereon instructions which, when executed by the one or more processors, cause the apparatus to: capture an image including a plurality of objects having different orientations; obtain, from a plurality of areas in the image including the plurality of objects having various orientations, pixel values of surfaces of the objects; determine respective directions of the surfaces of the objects in the plurality of areas; derive a relationship between the directions of the surfaces of the objects in the plurality of areas and pixel values corresponding to the plurality of areas; and generate the training image based on the relationship and model information of the object.
+</claims>
+</document>

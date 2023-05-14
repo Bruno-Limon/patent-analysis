@@ -1,0 +1,78 @@
+<document>
+
+<filing_date>
+2020-04-13
+</filing_date>
+
+<publication_date>
+2020-10-01
+</publication_date>
+
+<priority_date>
+2018-10-30
+</priority_date>
+
+<ipc_classes>
+A61B5/00,A61B6/14,G06K9/20,G06K9/32,G06K9/46,G06K9/62,G06N3/08
+</ipc_classes>
+
+<assignee>
+DIAGNOCAT
+</assignee>
+
+<inventors>
+ALEKSANDROVSKIY, VLADIMIR LEONIDOVICH
+EZHOV, MATVEY DMITRIEVICH
+GUSAREV, MAXIM
+SHUMILOV, EVGENY SERGEEVICH
+Barabanau, Ivan
+Denisenkov, Valentin
+Akhtyamov, Azat
+Kravtsov, Artem
+Timonkin, Alexey
+Schadnev, Alexandr
+Morozov, Dmitrii
+Grachev, Vasiliy Igorevich
+Manulis, David
+Fedosov, Valentin
+Kalika, Yan
+</inventors>
+
+<docdb_family_id>
+72606507
+</docdb_family_id>
+
+<title>
+Automated Tooth Localization, Enumeration, and Diagnostic System and Method
+</title>
+
+<abstract>
+A system and method for automated localization, enumeration, and diagnoses of a tooth/condition. The system detects a condition for at least one defined localized and enumerated tooth structure within a cropped image from a full mouth series based on any one of a pixel-level prediction, wherein said condition is detected by at least one of detecting or segmenting a condition on at least one of the enumerated tooth structures within the cropped image by a 2-D R-CNN.
+</abstract>
+
+<claims>
+We claim:
+1. A system for a localizer-descriptor pipeline for segmentation of teeth, said system comprising: an image processor; a localization layer; a sorting engine; a processor; a non-transitory storage element coupled to the processor; encoded instructions stored in the non-transitory storage element, wherein the encoded instructions when implemented by the processor, configure the system to: receive a series of at least one of an intra-oral or panoramic images constituting a full mouth series from a radio-image gathering or digital capturing source for processing by the image processor; parse the series of images into at least a single image frame field of view by said image processor; localize and enumerate at least one tooth residing in the at least single image frame field of view by assigning each pixel a distinct tooth structure by selecting all pixels belonging to the localized tooth structure by finding a minimal bounding rectangle around said pixels and the surrounding region for cropping as a defined enumerated tooth structure image by the localization layer; and sort images using the defined enumerated tooth structure images to fill an FMX ((full mouth series) mounting table by the sorting engine.
+2. The system of claim 1, wherein parsing is achieved by taking input images and transforming said images to gray-scale pixel intensity matrices, suitable for subsequent processing by a convolutional neural network (CNN).
+3. The system of claim 1, wherein localization is achieved by performing object detection and subsequent semantic segmentation of any tooth using any kind of object detection CNN, wherein said CNN is trained on a dataset of x-rays with teeth annotated using at least one of bounding boxes or pixel-wise masks.
+4. The system of claim 1, further comprising an enumeration layer, achieving enumeration by performing at least one of a direct classification approach, separate model classification branches, or a semantic segmentation sub-model.
+5. The system of claim 1, further comprising an enumeration post-processing layer, achieving enumeration post-processing by receiving input of predicted tooth numbers; re-orienting the image using a correct orientation prediction by a separate classification neural network; partitioning predicted tooth numbers in correct order; and reassigning numbers of incorrect numbers to get tooth order consistent with a standard tooth chart.
+6. The system of claim 1, wherein sorting is achieved by partitioning teeth in nine partitions: UR-UM-UL-MR-MM-ML-LR-LM-LL; and then ordering within each partition by first receiving average signed anatomical tooth number for each side; and then sorting images using that number in ascending order.
+7. The system of claim 1, further comprising validation, wherein validation is achieved by studying the preliminary matrix of numbered teeth, looking for things that are out of order, and if out of order, reassigning the number and re-sorting the matrix.
+8. The system of claim 1, further comprising a detection layer, wherein detection on a panoramic image is achieved by using a sliding window over a dentition region.
+9. The system of claim 1, wherein the localization starts with a localization and extraction of a jaw region of interest prior to localizing the at least one tooth residing in the at least single image frame field of view.
+10. The system of claim 1, further comprising a classification layer, wherein the classification layer detects conditions for each defined enumerated tooth structure within a cropped image.
+11. The system of claim 10, wherein conditions are detected by training a CNN to at least one of detect or segment conditions and pathologies on at least one of the enumerated tooth structures within the cropped image.
+12. The system of claim 10, wherein conditions that are not defined are masked out.
+13. The system of claim 10, wherein the classification layer detects for a whole-tooth condition.
+14. The system of claim 10, wherein the classification layer is coupled to any one of a network layer to perform at least one of the following diagnostics: probability of a pathology, volume of pathology, rate of progression or regression of pathology, creation of visual reports, and/or option to transmit at least one of the diagnostics to a second network for confirming said diagnostics.
+15. The system of claim 1, further comprising pre-processing, wherein the pre-processing comprises using any one of a normalization schemes to account for variations in image value intensity depending on at least one of an input or output of the image.
+16. An automated tooth localization, enumeration and diagnostic system, said system comprising: an image processor configured for processing at least one of an intra-oral or panoramic x-ray image; a localization layer; a detection module; a processor; a non-transitory storage element coupled to the processor; encoded instructions stored in the non-transitory storage element, wherein the encoded instructions when implemented by the processor, configure the system to: receive a series of images constituting a full mouth series from a radio-image gathering or digital capturing source by the image processor; localize and extract out a jaw region of interest in at least a single image frame field of view by the localization layer performing any one of pixel-level prediction; localize and enumerate at least one tooth residing in at least the single image frame field of view by the localization layer performing the same pixel-level prediction, wherein said pixel-level prediction is at least one of an object detection and/or segmentation of the at least one tooth using any one of a 2-D R-CNN with a training bias for at least one of relevant bounding boxes or pixel-wise masks; and detect conditions for each defined enumerated tooth structure within the localized image, wherein conditions are detected by the detection module, wherein the detection module at least one of detects or segments conditions and pathologies using a second 2-D R-CNN on at least one of the enumerated tooth structures within the localized image.
+17. The system of claim 16, further comprising a parsing layer, wherein parsing is achieved by taking input images and transforming said images to gray-scale pixel intensity matrices, suitable for subsequent processing by a convolutional neural network (CNN).
+18. The system of claim 16, further comprising a sorting engine, wherein the sorting engine sorts images using the defined enumerated tooth structure images to fill an FMX mounting table.
+19. A method for tooth localization and enumeration, said method comprising the steps of: receiving a series of at least one of an intra-oral or panoramic images constituting a full mouth series from a radio-image gathering or digital capturing source for processing; localizing and enumerating at least one tooth residing in at least single image frame field of view by assigning each pixel a distinct tooth structure by selecting all pixels belonging to the localized tooth structure by finding a minimal bounding rectangle around said pixels and the surrounding region for cropping as a defined enumerated tooth structure image; and sorting images using the defined enumerated tooth structure images to fill an FMX mounting table.
+20. The method of claim 19, further comprising the steps of detecting conditions for each defined enumerated tooth structure within a cropped image, wherein conditions are detected by at least one of detecting or segmenting conditions and pathologies on at least one of the enumerated tooth structures within the cropped image.
+21. A method for automated localization, enumeration, and diagnosis of a tooth/condition, said method comprising the steps of: receiving a series of at least one of an intra-oral or panoramic images constituting a full mouth series from a radio-image gathering or digital capturing source for processing; localizing and enumerating at least one tooth structure residing in at least single cropped image based on a pixel-level prediction; and detecting conditions for each defined enumerated tooth structure within the cropped image, wherein conditions are detected by at least one of detecting or segmenting conditions and pathologies on at least one of the enumerated tooth structures within the cropped image.
+22. A method for automated localization, enumeration, and diagnoses of a tooth/condition, said method comprising the step of: detecting a condition for at least one defined localized and enumerated tooth structure within a cropped image from a full mouth series based on any one of a pixel-level prediction (training-biased for at least one of a relevant bounding box and/or pixel-wise mask), wherein said condition is detected by at least one of detecting or segmenting a condition on at least one of the enumerated tooth structures within the cropped image.
+</claims>
+</document>

@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2019-09-27
+</filing_date>
+
+<publication_date>
+2020-04-02
+</publication_date>
+
+<priority_date>
+2018-09-27
+</priority_date>
+
+<ipc_classes>
+G06T3/40
+</ipc_classes>
+
+<assignee>
+DEEPMIND TECHNOLOGIES
+</assignee>
+
+<inventors>
+KALCHBRENNER, NAL EMMERICH
+MENICK, JACOB LEE
+</inventors>
+
+<docdb_family_id>
+68242867
+</docdb_family_id>
+
+<title>
+Image generation using subscaling and depth up-scaling
+</title>
+
+<abstract>
+Methods, systems, and apparatus, including computer programs encoded on computer storage media, for generating output images. One of the methods includes obtaining data specifying (i) a partitioning of the H by W pixel grid of the output image into K disjoint, interleaved sub-images and (ii) an ordering of the sub-images; and generating intensity values sub-image by sub-image, comprising: for each particular color channel for each particular pixel in each particular sub-image, generating, using a generative neural network, the intensity value for the particular color channel conditioned on intensity values for (i) any pixels that are in sub-images that are before the particular sub-image in the ordering, (ii) any pixels within the particular sub-image that are before the particular pixel in a raster-scan order over the output image, and (iii) the particular pixel for any color channels that are before the particular color channel in a color channel order.
+</abstract>
+
+<claims>
+1. A method of generating an output image having a plurality of pixels arranged in an H by W pixel grid, wherein each pixel includes a respective intensity value for each of one or more color channels that are ordered according to a color channel order, and wherein the method comprises: obtaining data specifying (i) a partitioning of the H by W pixel grid into K disjoint, interleaved sub-images, wherein K is an integer that is less H, and (ii) an ordering of the sub-images; and generating intensity values sub-image by sub-image according to the ordering of the sub-images, comprising: for each particular color channel for each particular pixel in each particular sub-image, generating, using a generative neural network, the intensity value for the particular color channel conditioned on intensity values for (i) any pixels that are in sub-images that are before the particular sub-image in the ordering of the sub-images, (ii) any pixels within the particular sub-image that are before the particular pixel in a raster-scan order over the output image, and (iii) the particular pixel for any color channels that are before the particular color channel in the color channel order.
+2. The method of claim 1, wherein for each particular color channel for each particular pixel in each particular sub-image, the intensity value for the particular color channel is not conditioned on any intensity values that are for (i) any pixels that are in sub-images that are after the particular sub-image in the ordering of the sub-images, (ii) any pixels within the particular sub-image that are after the particular pixel in the raster-scan order over the output image, and (iii) the particular pixel for any color channels that are after the particular color channel in the color channel order.
+3. The method of claim 1 wherein the ordering of the sub-images orders the sub-images in raster-scan order based on the locations of the top left corner pixel of each sub-image in the output image.
+4. The method of claim 1, wherein generating the intensity values comprises, for each particular sub-image: processing an embedding input comprising intensity values already generated for sub-images before the particular sub-image in the ordering using an embedding neural network to generate an encoded sub-image tensor; and auto-regressively generating the intensity values of the pixels in the particular sub-image conditioned on the encoded sub-image tensor using a decoder neural network.
+5. The method of claim 4, wherein the embedding input comprises the already generated sub-images concatenated along a depth dimension.
+6. The method of claim 5, wherein the embedding input comprises empty padding sub-images to preserve the ordering of each already generated sub-image relative to the particular sub-image.
+7. The method of claim 4, wherein the embedding input comprises data specifying a position of the particular sub-image in the ordering.
+8. The method of claim 4, wherein the embedding neural network is a convolutional neural network with residual blocks.
+9. The method of claim 4 wherein the decoder neural network generates the intensity values of the pixels in the particular sub-image in raster-scan order within the particular sub-image.
+10. The method of claim 4, wherein the decoder neural network takes as input the encoded sub-image tensor in a position-preserving manner.
+11. The method of claim 4, wherein the decoder neural network processes a decoder input that comprises the encoded sub-image tensor and that has a same spatial dimensionality as the sub-images.
+12. The method of claim 4, wherein the decoder neural network has a hybrid architecture that combines masked convolution and self-attention.
+13. The method of claim 4 further comprising obtaining a conditioning input and wherein generating intensity values comprises conditioning each intensity value on the conditioning input.
+14. The method of claim 13, wherein the conditioning input comprises a lower-resolution image, and wherein generating intensity values comprises setting the lower-resolution image to be the first sub-image in the ordering.
+15. The method of claim 13, wherein the conditioning input comprises a low bit-depth H by W image.
+16. The method of claim 15 when dependent on any one of claims 4-12, wherein generating the intensity values comprises including sub-images from the low bit-depth H by W image in the embedding input for the encoder neural network.
+17. The method of claim 13, wherein the conditioning input is a conditioning tensor characterizing a desired content of the output image, wherein the generative neural network comprises one or more convolutional layers, and wherein generating the intensity values comprises conditioning an activation function of the convolutional layers on the conditioning tensor.
+18. One or more non-transitory computer-readable storage media storing instructions that when executed by one or more computers cause the one or more computers to perform operations for generating an output image having a plurality of pixels arranged in an H by W pixel grid, wherein each pixel includes a respective intensity value for each of one or more color channels that are ordered according to a color channel order, the operations comprising: obtaining data specifying (i) a partitioning of the H by W pixel grid into K disjoint, interleaved sub-images, wherein K is an integer that is less H, and (ii) an ordering of the sub-images; and generating intensity values sub-image by sub-image according to the ordering of the sub-images, comprising: for each particular color channel for each particular pixel in each particular sub-image, generating, using a generative neural network, the intensity value for the particular color channel conditioned on intensity values for (i) any pixels that are in sub-images that are before the particular sub-image in the ordering of the sub-images, (ii) any pixels within the particular sub-image that are before the particular pixel in a raster-scan order over the output image, and (iii) the particular pixel for any color channels that are before the particular color channel in the color channel order.
+19. A system comprising one or more computers and one or more storage devices storing instructions that when executed by one or more computers cause the one or more computers to perform operations for generating an output image having a plurality of pixels arranged in an H by W pixel grid, wherein each pixel includes a respective intensity value for each of one or more color channels that are ordered according to a color channel order, the operations comprising: obtaining data specifying (i) a partitioning of the H by W pixel grid into K disjoint, interleaved sub-images, wherein K is an integer that is less H, and (ii) an ordering of the sub-images; and generating intensity values sub-image by sub-image according to the ordering of the sub-images, comprising: for each particular color channel for each particular pixel in each particular sub-image, generating, using a generative neural network, the intensity value for the particular color channel conditioned on intensity values for (i) any pixels that are in sub-images that are before the particular sub-image in the ordering of the sub-images, (ii) any pixels within the particular sub-image that are before the particular pixel in a raster-scan order over the output image, and (iii) the particular pixel for any color channels that are before the particular color channel in the color channel order.
+20. The system of claim 19 the operations further comprising obtaining a conditioning input and wherein generating intensity values comprises conditioning each intensity value on the conditioning input.
+</claims>
+</document>

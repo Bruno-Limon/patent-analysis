@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2018-08-08
+</filing_date>
+
+<publication_date>
+2020-01-16
+</publication_date>
+
+<priority_date>
+2018-07-11
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/62
+</ipc_classes>
+
+<assignee>
+HARBIN INSTITUTE OF TECHNOLOGY
+</assignee>
+
+<inventors>
+LIN, LIANLEI
+ZHOU, ZHUXU
+WEI, CHANG'AN
+YANG, JINGLI
+</inventors>
+
+<docdb_family_id>
+69139481
+</docdb_family_id>
+
+<title>
+Superpixel classification method based on semi-supervised K-SVD and multiscale sparse representation
+</title>
+
+<abstract>
+The present invention discloses a superpixel classification method based on semi-supervised K-SVD and multiscale sparse representation. The method includes carrying out semi-supervised K-SVD dictionary learning on the training samples of a hyperspectral image; using the training samples and the overcomplete dictionary as the input to obtain the multiscale sparse solution of superpixels; and using the obtained sparse representation coefficient matrix and overcomplete dictionary to obtain the result of superpixel classification by residual method and superpixel voting mechanism. The proposing of the present invention is of great significance to solving the problem of salt and pepper noise and the problem of high dimension and small samples in the field of hyperspectral image classification, as well as the problem of how to effectively use space information in classification algorithm based on sparse representation.
+</abstract>
+
+<claims>
+1. A superpixel classification method based on semi-supervised K-SVD and multiscale sparse representation, in which software test results are displayed by the monitor, characterized by comprising the following steps: step 1: carrying out semi-supervised K-SVD dictionary learning on the training samples of a hyperspectral image, and thus to obtain an overcomplete dictionary; step 2: using the training samples and the overcomplete dictionary as the input to obtain the multiscale sparse solution of superpixels, and thus to obtain the sparse representation coefficient matrix of the training samples; step 3, using the obtained sparse representation coefficient matrix and overcomplete dictionary to obtain the result of superpixel classification by residual method and superpixel voting mechanism.
+2. The superpixel classification method based on semi-supervised K-SVD and multiscale sparse representation according to claim 1, characterized in that the step 1 specifically comprises: 1) using the training samples of the hyperspectral image as the initial dictionary, and denoting the superpixel where the training samples xp are located as Xpex=[xp1, . . . , xpSp]∈ RB×Sp, wherein Sp represents number of pixels contained in the superpixel Xpex, xps (1≤s≤Sp) represents an unlabeled sample in the superpixel Xpex; expanding each of the training samples xp to obtain a new training sample set
+description="In-line Formulae" end="lead"?Xex=[X1ex, . . . , XPex]∈ RB×Pex description="In-line Formulae" end="tail"? wherein Pex=Σp=1p Sp represents the total number of the new samples; 2) each of the training samples xp having a corresponding label lp (1≤lp≤U), wherein U is the number of classes, and except that the training samples xp have labels lp, the labels of other samples in the superpixel Xpex are regarded as lp.
+3. The superpixel classification method based on semi-supervised K-SVD and multiscale sparse representation according to claim 1, characterized in that a joint sparse model is adopted in the step 2 to obtain the sparse solution during sparse dictionary learning process, which specifically comprises: 1) assuming all samples with labels u in the new training sample set Xex as one set, wherein 1≤u≤U,
+description="In-line Formulae" end="lead"?Xu=[x1, . . . , xc, . . . , xCu] ∈ RB×Cu description="In-line Formulae" end="tail"? Xu is a B×Cu matrix and represents a set composed of Cu pixels, the set is a set of all samples with labels u in Xex, and each pixel xc contains B spectral layers, wherein 1≤c≤Cu; the set satisfies that
+description="In-line Formulae" end="lead"?{Xu}pp={Xu⊆Xex|L(Xu)=u}description="In-line Formulae" end="tail"? wherein L(Xu) represents a function for obtaining Xu labels; 2) for a plurality of pixels in basically the same class of ground object materials, regarding the plurality of pixels as locally smooth and sparse areas; 3) sharing a common sparse mode by Xu of the same class of labels, and then Cp pixels can approximate the sparse representation through the atomic combination of the overcomplete dictionary:
+description="In-line Formulae" end="lead"?Xu=[x1, . . . , xc, . . . , xCu]≈D[a1, . . . , aCu]description="In-line Formulae" end="tail"? wherein D ∈ RB×ND is the overcomplete dictionary with ND atoms and labels corresponding to each atom, and the atoms are the column vectors in the overcomplete dictionary D; Au ∈ RND×CP is the matrix of sparse coefficient [a1, . . . , aCu]; due to local smoothness and sparsity, all sparse coefficient vectors {ac}1Cu are assumed to have the same non-zero row position if Au has only LC (LC<<ND) non-zero rows therein; 4) solving Au by solving the joint sparse recovery problem:
+description="In-line Formulae" end="lead"?=arg minA∥Xu−DAu∥22 description="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?∥Au∥row,0≤LC description="In-line Formulae" end="tail"? wherein ∥Au∥row,0 is l0 norm obtained by rows, and is the number of non-zero rows of Au.
+4. The superpixel classification method based on semi-supervised K-SVD and multiscale sparse representation according to claim 3, characterized in that the joint sparse recovery problem is solved by orthogonal matching pursuit, and at this point, the overcomplete dictionary D is normalized by columns to make the l2lc norm unitized.
+5. The superpixel classification method based on semi-supervised K-SVD and multiscale sparse representation according to claim 1, characterized in that the step 3 specifically comprises: 1) giving a test pixel y1 in a hyperspectral image, selecting T adjacent areas of different scales/dimensions, and arranging the pixels in the selected area to construct the corresponding multiscale matrix Ymultiscale=[Y1, . . . , Yt, . . . , YT], wherein Yt includes the pixels from the tth scale area; 2) rewritting the sparse representation problem of T scales as wherein [A1, . . . , At, . . . , AT] is the sparse coefficient of [Y1, . . . , Yt, . . . , YT], which constitutes the multiscale sparse representation matrix Amultiscale; 3) creating an adaptive set Lh, wherein h=1, 2, . . . is expressed as the index of a set of non-zero scalar coefficients and belongs to the same class in the multiscale sparse representation matrix Amultiscale; for columns in each scale of Amultiscale, indexes of adaptive set Lh are in the same row; 4) determining the class of the test pixel y1 based on the minimum total representing error
+6. The superpixel classification method based on semi-supervised K-SVD and multiscale sparse representation according to claim 5, characterized in that the sparse representation problem of T scales is solved by orthogonal matching pursuit.
+7. The superpixel classification method based on semi-supervised K-SVD and multiscale sparse representation according to claim 5, characterized in that the steps to select the adaptive set in step 3) are as follows: (1) finding a representing atom with the minimum residual error for each scale and each class; (2) combining the optimum atoms of all scales of each class into a cluster; (3) selecting the optimum cluster from clusters of all the classes and recording the index of atoms in the cluster as the adaptive set.
+8. The superpixel classification method based on semi-supervised K-SVD and multiscale sparse representation according to claim 5, characterized in that to combine and classify the information of different scales, the joint sparse constraint lrow, 0 is applied to solve the multiscale sparse representation matrix Amultiscale, which enables the sparse coefficients of different scales share the same sparse mode, i.e., the same atom set is selected to represent pixels of different scales; at this point, Amultiscale is jointly restored by solving the following problem:
+description="In-line Formulae" end="lead"?Âmultiscale=arg minAmultiscale∥Ymultiscale−DAmultiscale∥F description="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?wherein ∥Amultiscale∥row,0≤Kdescription="In-line Formulae" end="tail"?
+9. The superpixel classification method based on semi-supervised K-SVD and multiscale sparse representation according to claim 7, characterized in that the sparse coefficient required by the multiscale pixel need to be beneficial to the sparse mode of the same class level, but at the same time sparse modes of different scale levels are allowed within each class.
+10. The superpixel classification method based on semi-supervised K-SVD and multiscale sparse representation according to claim 5, characterized in that the method further comprises the following step after step 4): performing the superpixel voting process once again by using the superpixels with the least scale.
+</claims>
+</document>

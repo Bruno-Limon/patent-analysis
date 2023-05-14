@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2015-06-19
+</filing_date>
+
+<publication_date>
+2020-09-16
+</publication_date>
+
+<priority_date>
+2014-06-20
+</priority_date>
+
+<ipc_classes>
+G06F9/48,G06T1/20,G06T1/40
+</ipc_classes>
+
+<assignee>
+TENCENT TECHNOLOGY (SHENZHEN) COMPANY
+</assignee>
+
+<inventors>
+CHEN, BO
+GUO, ZHIMAO
+JIN, XING
+LI, YI
+LI, YONG
+XIAO, BIN
+XIAO, LEI
+XUE, WEI
+ZOU, YONGQIANG
+</inventors>
+
+<docdb_family_id>
+51467212
+</docdb_family_id>
+
+<title>
+MODEL PARALLEL PROCESSING METHOD AND APPARATUS BASED ON MULTIPLE GRAPHIC PROCESSING UNITS
+</title>
+
+<abstract>
+A parallel data processing method based on multiple graphic processing units (GPUs) is provided, including: creating, in a central processing unit (CPU), a plurality of worker threads for controlling a plurality of worker groups respectively, the worker groups including a plurality of GPUs; binding each worker thread to a corresponding GPU; loading one batch of training data from a nonvolatile memory to a GPU video memory corresponding to one worker group; transmitting, between a plurality of GPUs corresponding to one worker group, data required by data processing performed by the GPUs through peer to peer; and controlling the plurality of GPUs to perform data processing in parallel through the worker threads.
+</abstract>
+
+<claims>
+1. A parallel data processing method based on multiple graphic processing units "GPUs", comprising: creating (S101, 201), in a central processing unit "CPU", a plurality of worker threads for controlling a plurality of worker groups respectively, the worker groups comprising a plurality of GPUs; binding (S102, 202) each worker thread to a corresponding GPU; characterized by opening up (S111) a write cache and a read cache in a random access memory "RAM", sizes of the write cache and the read cache being the size of a storage structure configured to store one batch of training data times the total number of worker groups; making (S112) processing of all the worker threads in a barrier state before the write cache is full; exchanging (S113) preset indexes pointing to the write cache and the read cache after the write cache is full; loading (S203) one batch of training data from a nonvolatile memory to a GPU video memory corresponding to one worker group; transmitting (S103, S204), between a plurality of GPUs corresponding to one worker group, data required by data processing performed by the GPUs through peer to peer; and controlling (S104, S205) the plurality of GPUs to perform data processing in parallel through the worker threads.
+2. The method according to claim 1, comprising: creating (S105) one I/O thread, and loading the plurality of batches of training data into a RAM through the I/O thread; and pre-processing (S106) the training data on the CPU through a thread pool, wherein the I/O thread, threads in the thread pool, the worker threads and data processing in the CPU are performed in parallel.
+3. The method according to claim 1, comprising: dividing a storage region in each GPU where model parameters and gradients are stored into N partitions according to the number of the GPUs 2N; presetting sequence numbers of the 2N GPUs to be 0, 1, 2 ... 2N-1 respectively; within a cycle where the sequence number is k (k is an integer and 1≤k≤2N-1), replicating a preset partition in the N partitions from a GPU whose sequence number is i to a GPU whose sequence number is j, and merging the gradients, wherein i=(2m+k+1)%N, j=(2m+k+2)%N, m is an integer and 0≤m≤N-1; and for partition owners in the 2N GPUs, updating the model parameters according to gradient merging results in the corresponding partitions, wherein the partition owners are GPUs having gradient merging results in all other GPUs for a preset partition.
+4. The method according to claim 3, comprising:
+within a cycle where the sequence number is k, replicating a preset partition in the N partitions from a GPU whose sequence number is a to a GPU whose sequence number is b, wherein a=(2m+k)%N, and b=(2m+k+1)%N.
+5. The method according to claim 1, comprising: loading a hierarchical model (S109) according to a model configuration file of a convolutional neural network; and if it is identified that two adjacent layers in the hierarchical model are completed by different GPUs, adding (S110) a data transport layer between the two adjacent layers, the data transport layer being configured to perform the step of transmitting, between a plurality of GPUs corresponding to one worker group, data required by data processing performed by the GPUs through peer to peer.
+6. The method according to claim 1, wherein the controlling the plurality of GPUs to perform data processing in parallel through the worker threads comprises: controlling a plurality of GPUs in the same worker group to respectively train different parts of the same model through the worker threads.
+7. A data parallel processing apparatus based on multiple graphic processing units "GPUs", comprising: a thread creation module (31, 41), configured to create, in a central processing unit "CPU", a plurality of worker threads for controlling a plurality of worker groups respectively, the worker groups comprising a plurality of GPUs; a thread binding module (32, 42), configured to bind each worker thread to a corresponding GPU; characterized by a cache creation module (310), configured to open up a write cache and a read cache in a random access memory "RAM", sizes of the write cache and the read cache being the size of a storage structure configured to store one batch of training data times the total number of worker groups; a thread barrier module (311), configured to make processing of all the worker threads in a barrier state before the write cache is full; and a cache exchange module (312), configured to exchange preset indexes pointing to the write cache and the read cache after the write cache is full; a data distribution module (33, 43), configured to load one batch of training data from a nonvolatile memory to a GPU video memory corresponding to one worker group; a transmission module (44), configured to transmit, between a plurality of GPUs corresponding to one worker group, data required by data processing performed by the GPUs through peer to peer; and a data processing control module (34, 45), configured to control the plurality of GPUs to perform data processing in parallel through the worker threads.
+8. The apparatus according to claim 7, wherein the thread creation module (31) is further configured to create one I/O thread, and load the plurality of batches of training data into a RAM through the I/O thread; and
+a data processing module (35), configured to pre-process the training data on the CPU through a thread pool;
+wherein the I/O thread, threads in the thread pool, the worker threads and data processing in the CPU are performed in parallel.
+9. The apparatus according to claim 7, wherein the apparatus further comprises a parameter exchange module (36), configured to: divide a storage region in each GPU where model parameters and gradients are stored into N partitions according to the number of the GPUs 2N; preset sequence numbers of the 2N GPUs to be 0, 1, 2 ... 2N-1 respectively; within a cycle where the sequence number is k (k is an integer and 1≤k≤2N-1), replicate a preset partition in the N partitions from a GPU whose sequence number is i to a GPU whose sequence number is j, and merge the gradients, wherein i=(2m+k+1)%N, j=(2m+k+2)%N, m is an integer and 0≤m≤N-1; and for partition owners in the 2N GPUs, update the model parameters according to gradient merging results in the corresponding partitions, wherein the partition owners are GPUs having gradient merging results in all other GPUs for a preset partition.
+10. The apparatus according to claim 9, wherein the parameter exchange module (36) is further configured to:
+within a cycle where the sequence number is k, replicate a preset partition in the N partitions from a GPU whose sequence number is a to a GPU whose sequence number is b, wherein a=(2m+k)%N, and b=(2m+k+1)%N.
+11. The apparatus according to claim 7, comprising: a configuration loading module (38), configured to load a hierarchical model according to a model configuration file of a convolutional neural network; and if it is identified that two adjacent layers in the hierarchical model are completed by different GPUs, adding a data transport layer between the two adjacent layers, the data transport layer being configured to perform the step of transmitting, between a plurality of GPUs corresponding to one worker group, data required by data processing performed by the GPUs through peer to peer.
+12. The apparatus according to claim 7, wherein the data processing control module (35, 45) is configured to: control a plurality of GPUs in the same worker group to respectively train different parts of the same model through the worker threads.
+</claims>
+</document>

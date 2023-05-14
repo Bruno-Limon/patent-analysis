@@ -1,0 +1,102 @@
+<document>
+
+<filing_date>
+2019-08-19
+</filing_date>
+
+<publication_date>
+2020-03-05
+</publication_date>
+
+<priority_date>
+2018-08-27
+</priority_date>
+
+<ipc_classes>
+G16H30/40
+</ipc_classes>
+
+<assignee>
+PHILIPS ELECTRONICS
+</assignee>
+
+<inventors>
+BAKKER, BART
+TRAJANOVSKI, STOJAN
+MAVROEIDIS, DIMITROS
+</inventors>
+
+<docdb_family_id>
+63407102
+</docdb_family_id>
+
+<title>
+GENERATING METADATA FOR TRAINED MODEL
+</title>
+
+<abstract>
+The invention relates to a trained model, such as a trained neural network, which is trained on training data. System and computer-implemented methods are provided for generating metadata which encodes a numerical characteristic of the training data of the trained model, and for using the metadata to determine conformance of input data of the trained model to the numerical characteristics of the training data. If the input data does not conform to the numerical characteristics, the use of the trained model on the input data may be considered out-of-specification ('out-of-spec'). Accordingly, a system applying the trained model to the input data may, for example, warn a user of the non-conformance, or may decline to apply the trained model to the input data, etc.
+</abstract>
+
+<claims>
+1. A system (100) for processing a trained model, comprising:
+a data interface (120) for accessing:
+model data (050) representing a trained model, and
+training data (030) on which the trained model is trained;
+a processor subsystem (140) configured to:
+characterize the training data by:
+applying the trained model to the training data to obtain intermediate output of the trained model, and
+determining a numerical characteristic based on the intermediate output of the trained model;
+encode the numerical characteristic as metadata (060); and associate the metadata with the model data to enable an entity applying the trained model to input data and thereby obtaining further intermediate output of the trained model to determine whether the input data conforms to the numerical
+characteristic of the training data of the trained model based on the further intermediate output.
+2. The system (100) according to claim 1, wherein the trained model is a trained neural network, and wherein the intermediate output comprises activation values of a subset of hidden units of the trained neural network.
+3. The system (100) according to claim 2, wherein the training data (030) comprises multiple training data objects, and wherein the processor subsystem (140) is configured to:
+apply the trained model to individual ones of the multiple training data objects to obtain multiple sets of activation values; and
+determine the numerical characteristic as a probability distribution of the multiple sets of activation values.
+4. The system (100) according to claim 3, wherein the processor subsystem (140) is configured to:
+obtain out-of-spec data comprising multiple out-of-spec data objects which are different from, and have characteristics which do not conform to the characteristics of, the multiple training data objects;
+apply the trained neural network to individual ones of the multiple out-of-spec data objects to obtain further multiple sets of activation values; and
+select the subset of hidden units to establish a difference, or to increase or maximize the difference, between a) the probability distribution of the multiple sets of activation values and b) a probability distribution of the further multiple sets of activation values.
+5. The system (100) according to claim 4, wherein the processor subsystem (140) is configured to select the subset of hidden units by a combinatorial optimization method which optimizes the difference between a) the probability distribution of the multiple sets of activation values and b) the probability distribution of the further multiple sets of activation values, as a function of selected hidden units.
+6. The system (100) according to claim 5, wherein the processor subsystem (140) is configured to express the difference as or based on at least one of the group of:
+a Kullback-Leibler divergence measure,
+a cross entropy measure, and
+a mutual information measure.
+7. The system (100) according to any one of claims 4 to 6, wherein the processor subsystem (140) is configured to:
+use a generator part of a generative adversarial network to generate negative samples on the basis of the training data;
+generate the out-of-spec data from the negative samples.
+8. The system (100) according to any one of claims 1 to 7, wherein the processor subsystem (140) is configured to generate the model data (050) by training a model using the training data (030), thereby obtaining the trained model.
+9. The system (100) according to any one of claims 1 to 8, wherein the training data (030) comprises multiple images, and wherein the trained model is configured for image classification or image segmentation.
+10. A computer-implemented method (400) of processing a trained model, comprising:
+accessing (410):
+model data representing a trained model, and
+training data on which the trained model is trained;
+characterizing (420) the training data by:
+applying (430) the trained model to the training data to obtain intermediate output of the trained model, and
+determining (440) the numerical characteristic based on the intermediate output of the trained model;
+encoding (450) the numerical characteristic as metadata; and
+associating (460) the metadata with the model data to enable an entity applying the trained model to input data and thereby obtaining further intermediate output of the trained model to determine whether the input data conforms to the numerical
+characteristic of the training data of the trained model based on the further intermediate output.
+11. A system (200) for using a trained model, comprising:
+a data interface (220) for accessing:
+model data (050) representing a trained model having been trained on training data,
+metadata (060) associated with the model data and comprising a numerical characteristic, wherein the numerical characteristic is determined based on an intermediate output of the trained model when applied to the training data, and
+input data (040) to which the trained model is to be applied;
+a processor subsystem (240) configured to:
+apply the trained model to the input data to obtain a further intermediate output of the trained model;
+determine whether the input data conforms to the numerical characteristic of the training data of the trained model based on the further intermediate output; and
+if the input data is determined not to conform to the numerical characteristic, generate an output signal (242) indicative of said non-conformance.
+12. The system (200) according to claim 11, further comprising an output interface (260) for outputting the output signal (242) to a rendering device (280) for rendering the output signal in a sensory perceptible manner to a user.
+13. The system (200) according to claim 11 or 12, wherein the trained model is a trained neural network, wherein the numerical characteristic is a probability distribution obtained from multiple sets of activation values of a subset of hidden units of the trained neural network, wherein the multiple sets of activation values are obtained by applying the trained model to the training data, wherein the further intermediate output of the trained model comprises a further set of activation values of the subset of hidden units, and wherein the processor subsystem (240) is configured to:
+determine a probability of the further set of activation values based on the probability distribution; and
+determine whether the input data conforms to the numerical characteristic of the training data of the trained model as a function of the probability.
+14. A computer-implemented method (500) of using a trained model, comprising:
+accessing (510):
+model data representing a trained model having been trained on training data,
+metadata associated with the model data and comprising a numerical characteristic, wherein the numerical characteristic is determined based on an intermediate output of the trained model when applied to the training data, and
+input data to which the trained model is to be applied;
+applying (520) the trained model to the input data to obtain a further intermediate output of the trained model;
+determining (530) whether the input data conforms to the numerical characteristic of the training data of the trained model based on the further intermediate output; and if the input data is determined not to conform to the numerical characteristic, generating (540) an output signal indicative of said non-conformance.
+15. A computer-readable medium (600) comprising transitory or non-transitory data (610) representing instructions arranged to cause a processor system to perform the computer-implemented method according to claim 10 or 14.
+</claims>
+</document>

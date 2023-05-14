@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2016-02-12
+</filing_date>
+
+<publication_date>
+2020-05-26
+</publication_date>
+
+<priority_date>
+2016-02-12
+</priority_date>
+
+<ipc_classes>
+G06F16/2457,G06F16/28,G06F16/51,G06F16/583,G06F17/30,G06K9/46,G06K9/62,G06N20/10,G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+ADOBE
+</assignee>
+
+<inventors>
+BRANDT, JONATHAN
+FANG, CHEN
+LIN ZHE
+SHEN, XIAOHUI
+ZHANG, JIANMING
+</inventors>
+
+<docdb_family_id>
+59410007
+</docdb_family_id>
+
+<title>
+Accurate tag relevance prediction for image search
+</title>
+
+<abstract>
+Embodiments of the present invention provide an automated image tagging system that can predict a set of tags, along with relevance scores, that can be used for keyword-based image retrieval, image tag proposal, and image tag auto-completion based on user input. Initially, during training, a clustering technique is utilized to reduce cluster imbalance in the data that is input into a convolutional neural network (CNN) for training feature data. In embodiments, the clustering technique can also be utilized to compute data point similarity that can be utilized for tag propagation (to tag untagged images). During testing, a diversity based voting framework is utilized to overcome user tagging biases. In some embodiments, bigram re-weighting can down-weight a keyword that is likely to be part of a bigram based on a predicted tag set.
+</abstract>
+
+<claims>
+1. A computer-implemented method comprising: inputting an image into a trained image classifier, wherein the image classifier is trained using a recursive clustering process that generates data clusters, wherein a step in the recursive clustering process comprises partitioning data into clusters and recombining all clusters from the clusters with a size exceeding a predefined threshold prior to a subsequent partitioning; upon receiving the image, the trained image classifier extracting features from the image; comparing the extracted features with training features using a similarity analysis performed by the trained image classifier, wherein the training features are extracted from training images with corresponding tags; determining a cluster of the training images, the cluster generated utilizing the recursive clustering process, wherein the cluster comprises a set of training images having training features similar to the extracted features; analyzing the corresponding tags of the set of training images to determine relevance scores for each tag; and propagating a tag to the image, the tag selected from the corresponding tags of the set of training images of the cluster using the relevance scores.
+2. The method of claim 1, wherein a first relevance score of the relevance scores comprises determining a confidence value of a first tag based on similarity between two of the corresponding tags in the cluster, wherein the first tag is one of the two corresponding tags.
+3. The method of claim 2, wherein determining similarity between the two corresponding tags in the cluster includes finding a cluster-sensitive hashing distance representing a number of times the two corresponding tags are assigned to a same cluster in relation to iterations of the recursive clustering process.
+4. The method of claim 3, further comprising, determining an empirical conditional probability indicating a number of times the two corresponding tags are assigned to an image tag set in relation to a total occurrence of the first tag.
+5. The method of claim 2, further comprising propagating the first relevance score of the first tag to other similar tags in proportion to the first relevance score.
+6. A non-transitory computer storage medium comprising computer-useable instructions that, when used by one or more computing devices, cause the one or more computing devices to perform operations comprising: inputting an image into a trained image classifier, wherein the image classifier is trained using a recursive clustering process that generates data clusters, wherein a step in the recursive clustering process comprises partitioning data into clusters and, prior to a subsequent partitioning, adding a first set of clusters from the clusters to the data clusters, each of the first set of clusters having a size below a predefined threshold, and recombining a second set of clusters from the clusters, each of the second set of clusters having a size exceeding the predefined threshold; upon receiving the image, the trained image classifier extracting features from the image; comparing the extracted features with training features using a similarity analysis performed by the trained image classifier, wherein the training features are extracted from training images with corresponding tags; determining a cluster of the training images, the cluster generated utilizing the recursive clustering process, wherein the cluster comprises a set of training images having training features similar to the extracted features; analyzing the corresponding tags of the set of training images to determine relevance scores for each tag; propagating a tag to the image, the tag selected from the corresponding tags of the set of training images of the cluster using the relevance scores.
+7. The non-transitory computer storage medium of claim 6, wherein a first relevance score of the relevance scores comprises a confidence value of a first tag.
+8. The non-transitory computer storage medium of claim 7, wherein the confidence value of the first tag is based on a cluster-sensitive hashing distance and an empirical conditional probability, the cluster sensitive hashing distance representing a number of times two corresponding tags are assigned to a same cluster in relation to iterations of the recursive clustering process, the first tag one of the two corresponding tags and the empirical conditional probability indicating a number of times the two corresponding tags are assigned to an image tag set in relation to a total occurrence of the first tag.
+9. The non-transitory computer storage medium of claim 6, wherein the tag selected is the tag having a highest relevance score.
+10. The non-transitory computer storage medium of claim 6, wherein the operations further comprise: propagating the first relevance score of the first tag to other similar tags in proportion to the first relevance score.
+11. The non-transitory computer storage medium of claim 7, wherein the operations further comprise: down-weighting the first tag when the first tag is determined to be part of a bigram based on a predicted tag set.
+12. The non-transitory computer storage medium of claim 6, wherein the operations further comprise: projecting an extracted feature of the image determined into a lower dimensional space utilizing Partial Linear Squares, wherein the extracted feature corresponds with the first tag.
+13. The non-transitory computer storage medium of claim 6, wherein the operations further comprise: determining a relevance score by assigning an effective number of votes to a first tag based on a first similarity between tag sequences for a first image and a second image in relation to a second similarity between a first image tag provider of the first tag and a second tag provider of a second tag.
+14. The non-transitory computer storage medium of claim 12, wherein the operations further comprise: training a support vector machine (SVM) classifier for a dictionary of tags in the lower dimensional space using k nearest neighbors as training samples.
+15. The non-transitory computer storage medium of claim 14, wherein the operations further comprise: computing a confidence value for each tag based on the dictionary of tags.
+16. A computerized system for improving tag prediction performance comprising: a processor; and computer storage media storing computer-useable instructions that, when used by the processor, cause the processor to: input an image into a trained image classifier, wherein the image classifier is trained using a recursive clustering process that generates data clusters, wherein a step in the recursive clustering process comprises partitioning data into clusters and recombining all clusters from the clusters with a size exceeding a predefined threshold prior to a subsequent partitioning; upon receiving the image, the trained image classifier to extract features from the image; compare the extracted features with training features using a similarity analysis performed by the trained image classifier, wherein the training features are extracted from training images with corresponding labels; determine a cluster of the training images, the cluster generated utilizing the recursive clustering process, wherein the cluster comprises a set of training images having training features similar to the extracted features; analyze the corresponding tags of the set of training images to determine relevance scores for each tag; and propagate a tag to the image, the tag selected from the corresponding tags of the set of training images of the cluster using the relevance scores.
+17. The system of claim 16, wherein the computer-usable instructions, when used by the processor, further cause the processor to: determine the relevance scores for each tag comprises finding a cluster-sensitive hashing distance and an empirical conditional probability, the cluster sensitive hashing distance representing a number of times two corresponding tags are assigned to a same cluster in relation to iterations of the recursive clustering process and the empirical conditional probability indicating a number to times the two corresponding tags are assigned to an image tag set in relation to a total occurrence of a first tag.
+18. The system of claim 16, wherein the computer-usable instructions, when used by the processor, further cause the processor to: down-weight a first tag when the first tag is determined to be part of a bigram based on a predicted tag set.
+19. The system of claim 16, wherein the computer-usable instructions, when used by the processor, further cause the processor to: receive a second cluster comprising a second set of training images with corresponding tags, the second set of training images having training features similar to the extracted features of the image; determine a similarity of image tag providers for a first tag in the second cluster; based on a similarity of the image tag providers for the first tag in the second cluster, determine an effective number of votes for the first tag; and based on the effective number of votes for the first tag, label the image with the first tag.
+20. The system of claim 16, wherein the computer-usable instructions, when used by the processor, further cause the processor to: utilize Partial Linear Squares for each tag to learn a lower dimensional linear projection; project a higher dimensional image feature to a lower dimension space; train a support vector machine (SVM) classifier for a dictionary of tags in the lower dimensional space using k nearest neighbors as training samples; and compute a confidence score for each tag for a query image.
+</claims>
+</document>

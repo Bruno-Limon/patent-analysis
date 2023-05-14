@@ -1,0 +1,61 @@
+<document>
+
+<filing_date>
+2018-12-21
+</filing_date>
+
+<publication_date>
+2020-08-04
+</publication_date>
+
+<priority_date>
+2018-12-21
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/08,H03M13/00,H03M13/11,H04L1/00
+</ipc_classes>
+
+<assignee>
+HUAWEI TECHNOLOGIES COMPANY
+</assignee>
+
+<inventors>
+BENNATAN, AMIR
+CHOUKROUN, YONI
+KISILEV, PAVEL
+SHEN, JUNQIANG
+</inventors>
+
+<docdb_family_id>
+71099029
+</docdb_family_id>
+
+<title>
+System and a method for error correction coding using a deep neural network
+</title>
+
+<abstract>
+A system for reducing analog noise in a noisy channel, comprising: an interface configured to receive analog channel output comprising a stream of noisy binary codewords of a linear code; and a computation component configured to perform the following: for each analog segment of the analog channel output of block length: calculating an absolute value representation and a sign representation of a respective analog segment, calculating a multiplication of a binary representation of the sign representation with a parity matrix of the linear code, inputting the absolute value representation and the outcome of the multiplication into a neural network for acquiring a neural network output, and estimating a binary codeword by component-wise multiplication of the neural network output and the sign representation.
+</abstract>
+
+<claims>
+1. A system for reducing analog noise in a noisy channel, the system comprising: processing circuitry configured to: receive analog channel output comprising a stream of noisy binary codewords of a linear code, wherein the analog channel output includes one or more analog segments; and for each analog segment of the analog channel output that has a length equal to a block length: calculate an absolute value representation and a sign representation of the analog segment, calculate a multiplication of a binary representation of the sign representation with a parity matrix of the linear code, input the absolute value representation and an outcome of the multiplication into a neural network, to acquire a neural network output, and estimate a binary codeword by multiplying the neural network output and the sign representation.
+2. The system of claim 1, wherein the neural network is trained by sequentially employing a plurality of random words having the block length.
+3. The system of claim 1, wherein the processing circuitry is further configured to: pre-process each analog segment that has a length equal to the block length to create a permuted segment by applying a permutation selected from an automorphism group of the linear code, such that a reliability operator between the permuted segment and a respective codeword is maximized on predefined coordinates matching coordinates of a respective pre-coded word of the codeword; apply an inverse of the permutation on each binary codeword estimated by the neural network.
+4. The system of claim 3, wherein the reliability operator is a mutual information operator.
+5. The system of claim 1, wherein the processing circuitry is further configured to: for each analog segment of the analog channel output that has a length equal to a block length: select a permutation to create from the analog segment a permuted segment such that a reliability operator between the permuted segment and a respective codeword is maximized on predefined coordinates matching: a) coordinates of a respective pre-coded word of the codeword; and b) components of the permuted segment which are linear independent over a binary field; input the analog segment into the neural network; apply the permutation to the neural network output; create a shortened output of the permuted output by discarding components of the permuted neural network output with coordinates that are not matching coordinates of a respective pre-coded word of the codeword; calculate a respective value for each of the discarded components; add the respective values to the shortened output at respective coordinates matching the discarded components, and estimate a codeword by applying an inverse of the permutation applied to the neural network output.
+6. The system of claim 1, wherein the neural network comprises a plurality of fully connected layers, wherein a plurality of neurons in each layer receive as inputs both inputs to the neural network and outputs of a preceding layer.
+7. The system of claim 6, wherein each neuron of the neural network is activated by a rectified linear unit nonlinear activation function.
+8. The system of claim 6, wherein each inner layer of the neural network comprises an amount of neurons from an amount of the plurality of neurons that is a multiple of the block length.
+9. The system of claim 6, wherein an output layer of the neural network comprises an amount of neurons from an amount of the plurality of neurons which equals the block length.
+10. The system of claim 6, wherein the neural network output is produced by employing a hyperbolic tangent function.
+11. The system of claim 6, wherein the neural network is a recurrent neural network (RNN) comprising a plurality of layers, each layer comprising a plurality of neurons such that: neurons in each layer are connected to each other in a linear order, and in each layer except for an output layer, each neuron is connected to a respective neuron in a following layer.
+12. The system of claim 6, wherein each neuron of the RNN is a gated recurrent unit (GRU) activated by using a hyperbolic tangent nonlinear activation function.
+13. The system of claim 6, wherein each layer of the RNN comprises an amount of neurons from an amount of the plurality of neurons which is a multiple of block length.
+14. A method for reducing analog noise in a binary channel, the method comprising: receiving analog channel output comprising a stream of binary codewords of a linear code, wherein the analog channel output includes one or more analog segments; for each analog segment of the analog channel output that has a length equal to a block length: calculating an absolute value representation and a sign representation of the analog segment, calculating a multiplication of a binary representation of the sign representation with a parity matrix of the linear code, inputting the absolute value representation and an outcome of the multiplication into a neural network for acquiring an output, and estimating a binary codeword by multiplying the output and the sign representation.
+15. The method of claim 14, further comprising training the neural network by sequentially employing a plurality of random words having the block length.
+16. The method of claim 14, further comprising: pre-processing each analog segment that has a length equal to the block length to create a permuted segment by applying a permutation selected from an automorphism group of the linear code, such that a reliability operator between the permuted segment and a respective codeword is maximized on predefined coordinates matching coordinates of a respective pre-coded word of the codeword; and applying an inverse of the permutation on each binary codeword estimated by the neural network.
+17. A non-transitory computer-readable storage medium storing a program code that, when executed by a computer device, causes the computer device to perform the method of claim 14.
+</claims>
+</document>

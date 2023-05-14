@@ -1,0 +1,69 @@
+<document>
+
+<filing_date>
+2019-10-30
+</filing_date>
+
+<publication_date>
+2020-12-01
+</publication_date>
+
+<priority_date>
+2019-10-30
+</priority_date>
+
+<ipc_classes>
+G06F3/0481,G06F3/0484,G06F40/30,G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+SPARKCOGNITION
+</assignee>
+
+<inventors>
+SKILES, ERIK
+Amrite, Jaidev
+McNeill, William
+</inventors>
+
+<docdb_family_id>
+73555019
+</docdb_family_id>
+
+<title>
+Generation of text classifier training data
+</title>
+
+<abstract>
+A method includes receiving input designating a term of interest in a document of a document corpus and determining a target context embedding representing a target word group that includes the term of interest and context words located in the document proximate to the term of interest. The method also includes identifying, from among the document corpus, a first candidate word group that is semantically similar to the target word group and a second candidate word group that is semantically dissimilar to the target word group. The method further includes receiving user input identifying at least a portion of the first candidate word group as associated with a first label and identifying at least a portion of the second candidate word group as not associated with the first label. The method also includes generating labeled training data based on the user input to train a text classifier.
+</abstract>
+
+<claims>
+1. A method of generating a text classifier for a document corpus, the method comprising: receiving, at a computing device, input designating a term of interest in a document of the document corpus; determining a target term embedding representing the term of interest; determining a set of candidate word groups of the document corpus, wherein the set of candidate word groups corresponds to a subset of word groups of the document corpus that include the term of interest or a first term that is semantically similar to the term of interest based on distances between the target term embedding and term embeddings representing terms from the document corpus; determining a target context embedding representing a target word group, the target word group including the term of interest and context words located in the document proximate to the term of interest; identifying, from among the document corpus, a first candidate word group that is semantically similar to the target word group based on a distance between the target context embedding and a context embedding of the first candidate word group; identifying, from among the set of candidate word groups, a second candidate word group that is semantically dissimilar to the target word group based on a distance between the target context embedding and a context embedding of the second candidate word group; presenting, via a user interface, output including the first candidate word group and the second candidate word group; receiving user input via the user interface, the user input identifying at least a portion of the first candidate word group as associated with a first label and identifying at least a portion of the second candidate word group as not associated with the first label; and generating labeled training data based on the user input to train the text classifier.
+2. The method of claim 1, wherein the input designating the term of interest includes user input selecting the term of interest in the document and associating the term of interest with the first label.
+3. The method of claim 1, wherein the target word group corresponds to a single sentence in the document.
+4. The method of claim 1, wherein the target word group includes a specified number of words around the term of interest in the document.
+5. The method of claim 1, further comprising identifying as the first term a particular term that is represented by a term embedding that is within a threshold distance from the target term embedding.
+6. The method of claim 1, wherein determining the target term embedding representing the term of interest includes looking up the target term embedding in embedding data associated with the document corpus.
+7. The method of claim 1, wherein determining the target term embedding representing the term of interest includes providing data representing the term of interest as input to a trained term embedding network.
+8. The method of claim 1, wherein determining the target context embedding representing the target word group includes looking up the target context embedding in embedding data associated with the document corpus.
+9. The method of claim 1, wherein determining the target context embedding representing the target word group includes providing term embeddings representing the target word group as input to a trained context embedding network.
+10. The method of claim 9, wherein the trained context embedding network includes a neural network with one or more long short term memory layers, and wherein the term embeddings are input to the neural network as an ordered sequence of input vectors, each input vector of the ordered sequence of input vectors representing a corresponding word of the target word group and an order of the ordered sequence of input vectors corresponding to an order of words in the target word group in the document.
+11. The method of claim 1, wherein identifying the first candidate word group includes selecting, from the document corpus, a set of candidate word groups that are represented by context embeddings that are closest, among word groups in the document corpus, to the target context embedding, wherein the first candidate word group is one of the set of candidate word groups.
+12. The method of claim 1, wherein identifying the second candidate word group includes selecting, from the set of candidate word groups, a subset of candidate word groups that are represented by context embeddings that are farthest, among the set of candidate word groups, from the target context embedding, wherein the second candidate word group is one of the subset of candidate word groups.
+13. The method of claim 1, further comprising training the text classifier using the labeled training data, wherein, during training of the text classifier, the first candidate word group is used as a positive example of the first label and the second candidate word group is used as a negative example of the first label.
+14. The method of claim 1, wherein the output visually distinguishes the term of interest or a semantically similar term in the first candidate word group from other terms of the first candidate word group and visually distinguishes the term of interest or the first term in the second candidate word group from other terms of the second candidate word group.
+15. The method of claim 1, wherein the term embeddings are generated independently of the document corpus.
+16. A system for generating a text classifier for a document corpus, the system comprising: one or more processors; and one or more memory devices coupled to the one or more processors, the one or more memory devices storing instructions that are executable by the one or more processors to perform operations comprising: receiving input designating a term of interest in a document of the document corpus; determining a target term embedding representing the term of interest; determining a set of candidate word groups of the document corpus, wherein the set of candidate word groups corresponds to a subset of word groups of the document corpus that include the term of interest or a term that is semantically similar to the term of interest based on distances between the target term embedding and term embeddings representing terms from the document corpus; determining a target context embedding representing a target word group, the target word group including the term of interest and context words located in the document proximate to the term of interest; identifying, from among the document corpus, a first candidate word group that is semantically similar to the target word group based on a distance between the target context embedding and a context embedding of the first candidate word group; identifying, from among the set of candidate word groups, a second candidate word group that is semantically dissimilar to the target word group based on a distance between the target context embedding and a context embedding of the second candidate word group; presenting, via a user interface, output including the first candidate word group and the second candidate word group; receiving user input via the user interface, the user input identifying at least a portion of the first candidate word group as associated with a first label and identifying at least a portion of the second candidate word group as not associated with the first label; and generating labeled training data based on the user input to train the text classifier.
+17. The system of claim 16, wherein the one or more memory devices further store embedding data associated with the document corpus and determining the target term embedding representing the term of interest includes looking up the target term embedding in the embedding data.
+18. The system of claim 16, wherein the one or more memory devices further store a trained term embedding network and determining the target term embedding representing the term of interest includes providing data representing the term of interest as input to the trained term embedding network.
+19. The system of claim 16, wherein the one or more memory devices further store embedding data associated with the document corpus and determining the target context embedding representing the target word group includes looking up the target context embedding in the embedding data.
+20. The system of claim 16, wherein the one or more memory devices further store a trained context embedding network and determining the target context embedding representing the target word group includes providing term embeddings representing the target word group as input to the trained context embedding network.
+21. The system of claim 20, wherein the trained context embedding network includes a neural network with one or more long short term memory layers, and wherein the term embeddings are input to the neural network as an ordered sequence of input vectors, each input vector of the ordered sequence of input vectors representing a corresponding word of the target word group and an order of the ordered sequence of input vectors corresponding to an order of words in the target word group in the document.
+22. A computer-readable storage device storing instructions that are executable by a processor to perform operations including: receiving input designating a term of interest in a document of a document corpus; determining a target term embedding representing the term of interest; determining a set of candidate word groups of the document corpus, wherein the set of candidate word groups corresponds to a subset of word groups of the document corpus that include the term of interest or a term that is semantically similar to the term of interest based on distances between the target term embedding and term embeddings representing terms from the document corpus; determining a target context embedding representing a target word group, the target word group including the term of interest and context words located in the document proximate to the term of interest; identifying, from among the document corpus, a first candidate word group that is semantically similar to the target word group based on a distance between the target context embedding and a context embedding of the first candidate word group; identifying, from among the set of candidate word groups, a second candidate word group that is semantically dissimilar to the target word group based on a distance between the target context embedding and a context embedding of the second candidate word group; presenting, via a user interface, output including the first candidate word group and the second candidate word group; receiving user input via the user interface, the user input identifying at least a portion of the first candidate word group as associated with a first label and identifying at least a portion of the second candidate word group as not associated with the first label; and generating labeled training data based on the user input to train a text classifier.
+23. The computer-readable storage device of claim 22, wherein the input designating the term of interest includes user input selecting the term of interest in the document and associating the term of interest with the first label.
+24. The computer-readable storage device of claim 22, wherein the target word group corresponds to a single sentence in the document.
+25. The computer-readable storage device of claim 22, wherein the target word group includes a specified number of words around the term of interest in the document.
+26. The computer-readable storage device of claim 22, wherein determining the set of candidate word groups comprises comparing the target term embedding to the term embeddings representing the terms from the document corpus and identifying as a semantically similar term a particular term that is represented by a term embedding that is within a threshold distance from the target term embedding.
+</claims>
+</document>

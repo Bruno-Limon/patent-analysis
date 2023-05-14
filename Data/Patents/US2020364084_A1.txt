@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2020-08-03
+</filing_date>
+
+<publication_date>
+2020-11-19
+</publication_date>
+
+<priority_date>
+2018-05-16
+</priority_date>
+
+<ipc_classes>
+G06F9/48,G06F9/50,H04L9/06
+</ipc_classes>
+
+<assignee>
+TENCENT TECHNOLOGY (SHENZHEN) COMPANY
+</assignee>
+
+<inventors>
+CHEN QIAN
+ZHENG BO
+LIU, ZHIBIN
+LIU, RIJIA
+</inventors>
+
+<docdb_family_id>
+63805486
+</docdb_family_id>
+
+<title>
+GRAPH DATA PROCESSING METHOD, METHOD AND DEVICE FOR PUBLISHING GRAPH DATA COMPUTATIONAL TASKS, STORAGE MEDIUM, AND COMPUTER APPARATUS
+</title>
+
+<abstract>
+This application relates to a graph data processing method performed by a distributed computer node cluster including a plurality of computer devices, each computer device distributed on a respective computing node of the distributed computer node cluster, the method including: obtaining subgraph data divided from to-be-processed graph data; performing a computation task on the subgraph data to obtain corresponding global data and local data; writing the global data to a blockchain network, the global data of the blockchain network being updated by the distributed computing node cluster; obtaining latest global data from the blockchain network; and iteratively performing, according to the obtained latest global data and the local data, the computation task on the subgraph data without obtaining a computation result until an iteration stopping condition is met.
+</abstract>
+
+<claims>
+1. A graph data processing method, performed by a distributed computer node cluster including a plurality of computer devices, each computer device having a processor and memory storing a plurality of computer programs to be executed by the processor, and the method comprising: obtaining subgraph data divided from to-be-processed graph data; performing a computation task on the subgraph data to obtain corresponding global data and local data; writing the global data to a blockchain network, the global data in the blockchain network being updated by the distributed computing node cluster; obtaining latest global data from the blockchain network; and iteratively performing, according to the obtained latest global data and the local data, the computation task on the subgraph data without obtaining a computation result until an iteration stopping condition is met.
+2. The method according to claim 1, wherein the obtaining subgraph data divided from to-be-processed graph data comprises: obtaining task information that corresponds to the to-be-processed graph data and that is broadcast in the blockchain network; and reading, according to the task information, a corresponding task-executable file and the subgraph data that is divided from the to-be-processed graph data; and the performing a computation task on the subgraph data to obtain corresponding global data and local data comprises: performing the task-executable file, to perform the computation task on the subgraph data to obtain the corresponding global data and the local data.
+3. The method according to claim 0, wherein the obtaining task information that corresponds to the to-be-processed graph data and that is broadcast in the blockchain network comprises: regularly detecting the task information that corresponds to the to-be-processed graph data and that is broadcast in the blockchain network; determining a load status of a current computing node in a case that the task information is detected; and pulling the task information in a case that the load status meets a preset load condition.
+4. The method according to claim 1, wherein the writing the global data to a blockchain network comprises: creating a new block; writing the global data to the created new block; and adding, after the new block is verified by a blockchain network, the new block to the blockchain network.
+5. The method according to claim 4, wherein the writing the global data to the created new block comprises: writing the global data and a corresponding computation task execution log to the new block; and the method further comprises: determining a faulty computing node and corresponding lost data according to the computation task execution log in the blockchain network; determining a computing node participating in reconstructing the lost data; obtaining, from the determined computing node, local data related to the faulty computing node; and reconstructing the lost data according to the obtained local data.
+6. The method according to claim 5, the method further comprising: searching for local data related to the faulty computing node; and sharing the found local data to the computing nodes participating in reconstructing the lost data, the shared local data being used for reconstructing the lost data.
+7. The method according to claim 1, wherein the obtaining latest global data from the blockchain network comprises: regularly detecting a quantity of blocks in the blockchain network; obtaining, in a case that the quantity of blocks is increased, global data recorded in a new block; and updating local global data according to the obtained global data.
+8. The method according to claim 1, the method further comprising: obtaining a first quantized value corresponding to a completed computation task of which corresponding blockchain data has been formed; obtaining a second quantized value corresponding to a completed computation task of which corresponding blockchain data is not formed; determining a third quantized value corresponding to an uncompleted computation task in the subgraph data; and exchanging a graph node and the first quantized value between the computing nodes in a case that the second quantized value and the third quantized value do not meet an equilibrium condition.
+9. A distributed computer node cluster including a plurality of computer devices, each computer device having a processor, memory and a plurality of computer programs stored in the memory that, when executed by the processors, cause the distributed computer node cluster to perform a plurality of operations including: obtaining subgraph data divided from to-be-processed graph data; performing a computation task on the subgraph data to obtain corresponding global data and local data; writing the global data to a blockchain network, the global data in the blockchain network being updated by the distributed computing node cluster; obtaining latest global data from the blockchain network; and iteratively performing, according to the obtained latest global data and the local data, the computation task on the subgraph data without obtaining a computation result until an iteration stopping condition is met.
+10. The distributed computer node cluster according to claim 9, wherein the obtaining subgraph data divided from to-be-processed graph data comprises: obtaining task information that corresponds to the to-be-processed graph data and that is broadcast in the blockchain network; and reading, according to the task information, a corresponding task-executable file and the subgraph data that is divided from the to-be-processed graph data; and the performing a computation task on the subgraph data to obtain corresponding global data and local data comprises: performing the task-executable file, to perform the computation task on the subgraph data to obtain the corresponding global data and the local data.
+11. The distributed computer node cluster according to claim 10, wherein the obtaining task information that corresponds to the to-be-processed graph data and that is broadcast in the blockchain network comprises: regularly detecting the task information that corresponds to the to-be-processed graph data and that is broadcast in the blockchain network; determining a load status of a current computing node in a case that the task information is detected; and pulling the task information in a case that the load status meets a preset load condition.
+12. The distributed computer node cluster according to claim 9, wherein the writing the global data to a blockchain network comprises: creating a new block; writing the global data to the created new block; and adding, after the new block is verified by a blockchain network, the new block to the blockchain network.
+13. The distributed computer node cluster according to claim 12, wherein the writing the global data to the created new block comprises: writing the global data and a corresponding computation task execution log to the new block; and the plurality of operations further comprise: determining a faulty computing node and corresponding lost data according to the computation task execution log in the blockchain network; determining a computing node participating in reconstructing the lost data; obtaining, from the determined computing node, local data related to the faulty computing node; and reconstructing the lost data according to the obtained local data.
+14. The distributed computer node cluster according to claim 13, wherein the plurality of operations further comprise: searching for local data related to the faulty computing node; and sharing the found local data to the computing nodes participating in reconstructing the lost data, the shared local data being used for reconstructing the lost data.
+15. The distributed computer node cluster according to claim 9, wherein the obtaining latest global data from the blockchain network comprises: regularly detecting a quantity of blocks in the blockchain network; obtaining, in a case that the quantity of blocks is increased, global data recorded in a new block; and updating local global data according to the obtained global data.
+16. The distributed computer node cluster according to claim 9, wherein the plurality of operations further comprise: obtaining a first quantized value corresponding to a completed computation task of which corresponding blockchain data has been formed; obtaining a second quantized value corresponding to a completed computation task of which corresponding blockchain data is not formed; determining a third quantized value corresponding to an uncompleted computation task in the subgraph data; and exchanging a graph node and the first quantized value between the computing nodes in a case that the second quantized value and the third quantized value do not meet an equilibrium condition.
+17. A non-transitory computer-readable storage medium storing a plurality of computer programs, the computer programs, when executed by a distributed computer node cluster including a plurality of computer devices, each computer device having a processor, causing the distributed computer node cluster to perform a plurality of operations including: obtaining subgraph data divided from to-be-processed graph data; performing a computation task on the subgraph data to obtain corresponding global data and local data; writing the global data to a blockchain network, the global data in the blockchain network being updated by the distributed computing node cluster; obtaining latest global data from the blockchain network; and iteratively performing, according to the obtained latest global data and the local data, the computation task on the subgraph data without obtaining a computation result until an iteration stopping condition is met.
+18. The non-transitory computer-readable storage medium according to claim 17, wherein the obtaining subgraph data divided from to-be-processed graph data comprises: obtaining task information that corresponds to the to-be-processed graph data and that is broadcast in the blockchain network; and reading, according to the task information, a corresponding task-executable file and the subgraph data that is divided from the to-be-processed graph data; and the performing a computation task on the subgraph data to obtain corresponding global data and local data comprises: performing the task-executable file, to perform the computation task on the subgraph data to obtain the corresponding global data and the local data.
+19. The non-transitory computer-readable storage medium according to claim 18, wherein the obtaining task information that corresponds to the to-be-processed graph data and that is broadcast in the blockchain network comprises: regularly detecting the task information that corresponds to the to-be-processed graph data and that is broadcast in the blockchain network; determining a load status of a current computing node in a case that the task information is detected; and pulling the task information in a case that the load status meets a preset load condition.
+20. The non-transitory computer-readable storage medium according to claim 17, wherein the writing the global data to a blockchain network comprises: creating a new block; writing the global data to the created new block; and adding, after the new block is verified by a blockchain network, the new block to the blockchain network.
+</claims>
+</document>

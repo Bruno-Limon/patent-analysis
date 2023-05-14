@@ -1,0 +1,57 @@
+<document>
+
+<filing_date>
+2016-12-24
+</filing_date>
+
+<publication_date>
+2020-10-28
+</publication_date>
+
+<priority_date>
+2016-01-08
+</priority_date>
+
+<ipc_classes>
+H04N19/40,H04N19/426,H04N21/43
+</ipc_classes>
+
+<assignee>
+HUAWEI TECHNOLOGIES COMPANY
+</assignee>
+
+<inventors>
+MAZZOLA, ANTHONY
+MOGUILLANSKY, JEFF
+</inventors>
+
+<docdb_family_id>
+59273207
+</docdb_family_id>
+
+<title>
+JPEG IMAGE TO COMPRESSED GPU TEXTURE TRANSCODER
+</title>
+
+<abstract>
+A received JPEG image compression format image includes one or more minimum coded units (MCUs). Each MCU is decoded using an image compression format decoder. Each decoded MCU is then split into multiple decoded subblocks. Each decoded subblock can then be encoded into texture compression format using a texture compression format encoder. Each encoded texture compression format subblock can then be passed to a graphical processing unit (GPU) for processing.
+</abstract>
+
+<claims>
+1. A system comprising: a graphical processing unit, GPU; an image format transcoder to convert an image stored in an image compression format into a plurality of blocks represented in a texture compression format, the image format transcoder comprising: a decoder (108) to decode the image into one or more decoded blocks (502); a splitter (110) to split each decoded block (502) into multiple decoded subblocks (504A, 504B, 504C, 504D); and a texture compression format encoder configured to encode a particular one of the multiple decoded subblocks (504A, 504B, 504C, 504D) into a particular one of the blocks in the texture compression format, wherein the particular one decoded subblock includes a plurality of colors, wherein the particular one block in the texture compression format is encoded using a limited set of colors and wherein the limited set of colors have smaller number of colors than the plurality of colors, wherein the texture compression format encoder is characterized in that it is further configured to:
+determine the size of the limited set of colors to encode the decoded subblock, the determining including: computing average color in the subblock and standard deviation among the colors in the subblock; and comparing the standard deviation to a set threshold, wherein the decoded subblock is to be encoded using two colors if the standard deviation transgresses the set threshold, otherwise the decoded subblock is to be encoded using one color; the system further comprising a bus (702) to transfer the particular one block of the texture compression format to the GPU for processing.
+2. The system of claim 1, wherein when the decoded subblock is to be encoded using one colour, the decoded subblock is encoded using Ericsson Texture Compression 1, ETC1.
+3. The system of claim 1, wherein the texture compression format encoder is configured to, in response to a determination that the decoded subblock should be encoded using two colors, perform 2-means clustering operations to determine two colors from the subblock for encoding and encoding the subblock based on ETC2 with the determined two colors.
+4. The system of claim 2, wherein the encoding the decoded subblock using ETC1 comprises: determining whether to encode the subblock using vertical or horizontal sublocks; in response to a determination that the decoded subblock should be encoded using horizontal subblocks, encoding the decoded subblock using an H mode of ETC1.
+5. The system of claim 4, wherein the encoding the decoded subblock using ETC1 further comprises:
+in response to a determination that the decoded subblock should be encoded using vertical subblocks, encoding the decoded subblock using a T mode of ETC1.
+6. The system of claim 4, wherein the determining whether to encode the subblock using vertical or horizontal subblocks includes finding an average color and standard deviation of colors in each vertical subblock of the decoded subblock and the average color and standard deviation of colors in each horizontal subblock of the decoded subblock and concluding that the subblock should be encoded using vertical subblocks if the standard deviation for the vertical subblocks is less than the standard deviation for the horizontal subblocks.
+7. A non-transitory computer-readable storage medium (736) comprising instructions (716) that, when executed by at least one processor (712, 714) of a machine, cause the machine to perform operations comprising: receiving a JPEG image (500), the JPEG image (500) comprising one or more minimum coded units, MCUs (502); decoding each MCU (502) using a JPEG decoder (108); splitting each decoded MCU (502) into multiple decoded subblocks (504A, 504B, 504C, 504D); for each decoded subblock: converting a colorspace of the decoded subblock to YUV; determining if the decoded subblock should be encoded using one color or two colors, wherein the determining includes: computing an average color in the subblock and standard deviation among the colors in the subblock; comparing the standard deviation to a set threshold; and if the standard deviation transgresses the set threshold, determining that the decoded subblock should be encoded using two colors, otherwise determining that the decoded subblock should be encoded using one color; in response to a determination that the decoded subblock should be encoded using one color, encoding the decoded subblock into ETC1 using an ETC1 encoder; in response to a determination that the decoded subblock should be encoded using two colors, encoding each decoded subblock into ETC2 using an ETC2 encoder (112A, 112B, 112C, 112D); and passing each encoded subblock to a graphical processing unit (GPU) for processing.
+8. The non-transitory computer-readable storage medium (736) of claim 7, wherein the encoding further includes, for each decoded subblock:
+in response to a determination that the decoded subblock should be encoded using two colors, using a 2-means clustering algorithm to determine two colors from the subblock to use for encoding and encoding the subblock using ETC2 with the determined two colors.
+9. The non-transitory computer-readable storage medium (736) of claim 7, wherein the encoding the decoded subblock into ETC1 using the ETC1 encoder comprises: determining whether to encode the subblock using vertical or horizontal sublocks; in response to a determination that the decoded subblock should be encoded using horizontal subblocks, encoding the decoded subblock using an H mode of ETC1.
+10. The non-transitory computer-readable storage medium (736) of claim 9, wherein the encoding the decoded subblock into ETC1 using the ETC1 encoder further comprises:
+in response to a determination that the decoded subblock should be encoded using vertical subblocks, encoding the decoded subblock using a T mode of ETC1.
+11. The non-transitory computer-readable storage medium (736) of claim 9, wherein the determining whether to encode the subblock using vertical or horizontal subblocks includes finding an average color and standard deviation of colors in each vertical subblock of the decoded subblock and the average color and standard deviation of colors in each horizontal subblock of the decoded subblock and concluding that the subblock should be encoded using vertical subblocks if the standard deviation for the vertical subblocks is less than the standard deviation for the horizontal subblocks.
+</claims>
+</document>

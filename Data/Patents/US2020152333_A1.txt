@@ -1,0 +1,79 @@
+<document>
+
+<filing_date>
+2019-11-13
+</filing_date>
+
+<publication_date>
+2020-05-14
+</publication_date>
+
+<priority_date>
+2018-11-13
+</priority_date>
+
+<ipc_classes>
+G06N3/08,G16H10/60,G16H50/30,G16H50/50,G16H70/60
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+MOHAMED, SHAKIR
+RAE, JACK WILLIAM
+GLOROT, XAVIER
+TOMASEV, NENAD
+BACK, TREVOR
+ASKHAM, HARRY
+LEDSAM, JOSEPH R.
+NOBRE DOS SANTOS, ANDRE SARAIVA
+MEYER, CLEMENS LUDWIG
+ZIELINSKI, MICHAL
+MOTTRAM, ANNE
+PROTSYUK, IVAN
+RAVURI, SUMAN
+</inventors>
+
+<docdb_family_id>
+68848396
+</docdb_family_id>
+
+<title>
+PREDICTION OF FUTURE ADVERSE HEALTH EVENTS USING NEURAL NETWORKS BY PRE-PROCESSING INPUT SEQUENCES TO INCLUDE PRESENCE FEATURES
+</title>
+
+<abstract>
+Methods, systems, and apparatus, including computer programs encoded on computer storage media, for predicting future adverse health events using neural networks. One of the methods includes receiving electronic health record data for a patient; generating, from the electronic health record data, an input sequence comprising a respective feature representation at each of a plurality of time window time steps, comprising, for each time window time step: determining, for each of the possible numerical features, whether the numerical feature occurred during the time window; and generating, for each of the possible numerical features, one or more presence features that identify whether the numerical feature occurred during the time window; and processing the input sequence using a neural network to generate a neural network output that characterizes a predicted likelihood that an adverse health event will occur to the patient.
+</abstract>
+
+<claims>
+1. A system comprising one or more computers and one or more storage devices storing instructions that, when executed by the one or more computers, cause the one or more computers to perform operations comprising: receiving electronic health record data for a patient, the electronic health data comprising a plurality of features representing health events in an electronic health record for the patient, each of the plurality of features belonging to a vocabulary of possible features that comprises a plurality of possible numerical features and a plurality of possible discrete features; generating, from the electronic health record data, an input sequence comprising a respective feature representation at each of a plurality of time steps, wherein the plurality of time steps comprises a respective time window time step for each of a plurality of time windows, the generating comprising, for each time window time step: determining, for each of the possible numerical features and from the electronic health record data, whether the numerical feature occurred during the time window corresponding to the time window time step; generating, for each of the possible numerical features, one or more presence features that identify whether the numerical feature occurred during the time window corresponding to the time window time step; and including the one or more possible presence features in the feature representation for the time step; and processing the input sequence using a neural network to generate a neural network output that characterizes a predicted likelihood that an adverse health event will occur to the patient after the time window corresponding to the last time window time step in the input sequence.
+2. The system of claim 1, wherein, for each possible numerical feature, values of the feature are partitioned into a plurality of ranges, and wherein, when the numerical feature occurred during the time window corresponding to the time window time step, the one or more presence features for the possible numerical feature encode which range from the plurality of ranges the numerical feature belongs to.
+3. The system of claim 2, wherein the electronic health record data identifies only the range the numerical feature belongs to.
+4. The system of claim 1, wherein the electronic health record identifies a numerical value for the numerical feature, and wherein the feature representation for the time step includes the numerical value and the one or more presence features.
+5. The system of claim 1, wherein each presence feature is a binary feature.
+6. The system of claim 1, wherein generating the input sequence comprises: determining that the electronic health data does not identify any features as occurring during a time window corresponding to a particular time window time step; and generating a feature representation for the particular time window time step that indicates that no features occurred during the corresponding time window.
+7. The system of claim 1, wherein the plurality of time steps further comprises one or more surrogate time steps, each surrogate time step associated with a plurality of time window time steps that immediately precede the surrogate time step in the input sequence, and wherein generating the feature representation comprises, for each of the surrogate time steps: determining whether the electronic health record data identifies any features (i) as occurring during a time interval spanned by the time windows corresponding to the plurality of time window time steps associated with the surrogate time steps without (ii) identifying a specific time window during which the feature occurred; and when the electronic health record data does identify at least one feature i) as occurring during a time interval spanned by the time windows corresponding to the plurality of time window time steps associated with the surrogate time steps without (ii) identifying a specific time window during which the feature occurred: generating the feature representation for the surrogate time step from at least the at least one feature.
+8. The system of claim 1, wherein the plurality of possible features comprise a plurality of clinical features, wherein each clinical feature is mapped to a corresponding high-level concept, and wherein generating the feature representation comprises, at each of the time window time steps: generating a histogram of frequencies of each high-level concept among the features that occurred at the time window time step; and including the histogram in the feature representation for the time window time step.
+9. The system of claim 1, wherein generating the feature representation comprises, at each of the time window time steps: generating at least one aggregate historical feature representation, each aggregate historical feature representation corresponding to a respective past time interval, and each aggregate historical feature representation being based on features occurring within the respective past time interval of the time window corresponding to the time window time step; and including the at least one aggregate historical feature representation in the feature representation for the time window time step.
+10. The system of claim 1, wherein generating the feature representation comprises, at each of the time window time steps: generating an age feature based on an age of the patient as of the time window corresponding to the time window time step; and including the age feature in the feature representation for the time window time step.
+11. The system of claim 1, wherein generating the feature representation comprises, at each of the time window time steps: generating a time feature identifying the time window corresponding to the time window time step; and including the time feature in the feature representation for the time window time step.
+12. The system of claim 1, wherein the neural network comprises: a deep embedding neural network comprising a plurality of fully-connected layers and configured to, for each feature representation: embed the features in the feature representation in an embedding space; and a deep neural network configured to: generate the neural network output from the embedded features.
+13. The system of claim 12, wherein the deep embedding neural network has residual connections between the fully-connected layers.
+14. The system of claim 12, wherein the deep embedding neural network is L1 regularized.
+15. The system of claim 1, wherein the neural network comprises a plurality of recurrent neural network layers.
+16. The system of claim 15, wherein the recurrent neural network layers have highway connections.
+17. The system of claim 1, wherein the neural network output includes at least a first score that characterizes a predicted likelihood that the adverse health event will occur to the patient within a first time period after the time window corresponding to the last time window time step.
+18. The system of claim 1, wherein the neural network output includes at least (i) a first score that characterizes a predicted likelihood that the adverse health event will occur to the patient within a first time period after the time window corresponding to the last time window time step and (ii) a second score that characterizes a predicted likelihood that the adverse health event will occur to the patient within a second, longer time period after the time window corresponding to the last time window time step.
+19. The system of claim 18, wherein the neural network includes a cumulative distribution function layer configured to generate a cumulative score distribution over at least the first time window and the second time window that requires the second score to be higher than the first score.
+20. The system of claim 1, wherein the neural network output includes a respective predicted maximum future observed value for each of one or more medical tests that are correlated with the adverse health event.
+21. The system of claim 1, the operations further comprising; determining whether the neural network output indicates that the predicted likelihood exceeds a threshold; and when the neural network output indicates that the predicted likelihood exceeds a threshold, transmitting an alert for presentation to a user.
+22. The system of claim 1, the operations further comprising: generating, from the neural network output, user interface data for presentation to a user; and outputting the user interface data.
+23. The system of claim 1, the operations further comprising: obtaining new electronic health record data comprising features occurring at a next time window immediately after the last time window corresponding to the last time window time step in the input sequence; generating a new feature representation from the new electronic health record data; and processing the new feature representation using the neural network generate a new neural network output.
+24. The system of claim 1, wherein the neural network output includes a respective predicted statistic for future observed values for each of one or more medical tests that are correlated with the adverse health event.
+25. One or more non-transitory computer-readable storage media storing instructions that when executed by one or more computers cause the one or more computers to perform operations comprising: receiving electronic health record data for a patient, the electronic health data comprising a plurality of features representing health events in an electronic health record for the patient, each of the plurality of features belonging to a vocabulary of possible features that comprises a plurality of possible numerical features and a plurality of possible discrete features; generating, from the electronic health record data, an input sequence comprising a respective feature representation at each of a plurality of time steps, wherein the plurality of time steps comprises a respective time window time step for each of a plurality of time windows, the generating comprising, for each time window time step: determining, for each of the possible numerical features and from the electronic health record data, whether the numerical feature occurred during the time window corresponding to the time window time step; generating, for each of the possible numerical features, one or more presence features that identify whether the numerical feature occurred during the time window corresponding to the time window time step; and including the one or more possible presence features in the feature representation for the time step; and processing the input sequence using a neural network to generate a neural network output that characterizes a predicted likelihood that an adverse health event will occur to the patient after the time window corresponding to the last time window time step in the input sequence.
+26. A computer-implemented method comprising: receiving electronic health record data for a patient, the electronic health data comprising a plurality of features representing health events in an electronic health record for the patient, each of the plurality of features belonging to a vocabulary of possible features that comprises a plurality of possible numerical features and a plurality of possible discrete features; generating, from the electronic health record data, an input sequence comprising a respective feature representation at each of a plurality of time steps, wherein the plurality of time steps comprises a respective time window time step for each of a plurality of time windows, the generating comprising, for each time window time step: determining, for each of the possible numerical features and from the electronic health record data, whether the numerical feature occurred during the time window corresponding to the time window time step; generating, for each of the possible numerical features, one or more presence features that identify whether the numerical feature occurred during the time window corresponding to the time window time step; and including the one or more possible presence features in the feature representation for the time step; and processing the input sequence using a neural network to generate a neural network output that characterizes a predicted likelihood that an adverse health event will occur to the patient after the time window corresponding to the last time window time step in the input sequence.
+</claims>
+</document>

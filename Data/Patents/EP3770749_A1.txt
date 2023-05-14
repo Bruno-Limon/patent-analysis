@@ -1,0 +1,57 @@
+<document>
+
+<filing_date>
+2018-11-02
+</filing_date>
+
+<publication_date>
+2021-01-27
+</publication_date>
+
+<priority_date>
+2017-11-03
+</priority_date>
+
+<ipc_classes>
+G06F7/544
+</ipc_classes>
+
+<assignee>
+IMAGINATION TECHNOLOGIES
+</assignee>
+
+<inventors>
+PULIMENO, AZZURRA
+MARTIN, Chris
+</inventors>
+
+<docdb_family_id>
+60664732
+</docdb_family_id>
+
+<title>
+HARDWARE UNIT FOR PERFORMING MATRIX MULTIPLICATION WITH CLOCK GATING
+</title>
+
+<abstract>
+Hardware units and methods to perform a matrix multiplication. The hardware units include: a multiplier stage comprising a plurality of multipliers, each multiplier configured to multiply a first data element and a second data element to produce a multiplication data element; one or more adder stages following the multiplier stage that form an adder tree to produce a sum of the multiplication data elements, each adder stage comprising one or more adders configured to add at least two data elements output by a previous stage to produce an addition data element; wherein at least one multiplier and/or at least one adder is preceded by a storage element corresponding to each bit of the data elements input to the at least one adder or the at least one multiplier; and control logic configured to: (i) clock gate all or a portion of the storage elements corresponding to a data element in response to determining that all or a portion of that data element can be treated as having a zero value; and (ii) for each storage element that is clock gated, cause a zero bit to be provided to the corresponding multiplier or adder..
+</abstract>
+
+<claims>
+1. A hardware unit (100) to perform a matrix multiplication, the hardware unit (100) comprising: a multiplier stage (102) comprising a plurality of multipliers (110), each multiplier (110) configured to multiply a first data element (D1) and a second data element (D2) to produce a multiplication data element; one or more adder stages (104, 106, 108) following the multiplier stage (102) that form an adder tree to produce a sum of the multiplication data elements, each adder stage (104, 106, 108) comprising one or more adders (112) configured to add at least two data elements output by a previous stage to produce an addition data element; wherein at least one multiplier (110) and/or at least one adder (112) is preceded by a storage element (202) corresponding to each bit of the data elements input to the at least one adder (112) or the at least one multiplier (110); and control logic (302, 400, 600, 1000) configured to: (i) clock gate all or a portion of the storage elements (202) corresponding to a data element in response to determining that all or a portion of that data element can be treated as having a zero value; and (ii) for each storage element (202) that is clock gated, cause a zero bit to be provided to the corresponding multiplier (110) or adder (112).
+2. The hardware unit (100) of claim 1, wherein the control logic (302, 600, 1000) is configured to clock gate the storage elements (202) on a partial element basis based on a bit width of the first data element and/or a bit width of the second data element.
+3. The hardware unit (100) of claim 2, wherein the storage elements (202) corresponding to each data element are divided into a plurality of blocks which can be independently clock gated, and the control logic (302, 600, 1000) is configured to clock gate the storage elements (202) of one or more blocks corresponding to a data element of the at least one adder or the at least one multiplier based on the bit width of the first data element and/or the second data element.
+4. The hardware unit (100) of claim 2 or claim 3, wherein the at least one multiplier (110) and/or the at least one adder (112) comprises an adder (112) and a portion of the storage elements associated with each data element input to the adder (112) are clock-gated when at least one of the bit width of the first data element and the bit width of the second data element is less than a maximum bit width.
+5. The hardware unit (100) of any of claims 2 to 4, wherein the data elements are most significant bit aligned and the portion of the storage elements (202) corresponding to a data element that are clock-gated are the storage elements (202) corresponding to the least significant bits of the data element.
+6. The hardware unit (100) of any preceding claim, wherein the control logic (302, 400, 1000) is configured to clock gate the storage elements (202) on a per data element basis.
+7. The hardware unit (100) of claim 6, wherein the control logic (302, 400, 1000), is configured to receive information indicating which data elements input to the at least one multiplier (110) and/or the at least one adder (112) can be treated as having a zero value, and in response to determining that a particular data element can be treated as having a zero value, clock gate all the storage elements (202) corresponding to that data element.
+8. The hardware unit (100) of claim 7, wherein the at least one multiplier (110) and/or the at least one adder (112) comprises a multiplier (110) and the information indicating which data elements input to the multiplier (110) can be treated as having a zero value is configured to indicate that both the first and second data elements of the multiplier (110) can be treated as having a zero value if at least one of the first data element and the second data element has a zero value.
+9. The hardware unit (100) of claim 7 or claim 8, wherein the control logic (400, 1000) is further configured to generate information indicating whether the output data element of the at least one adder (112) and/or the at least one multiplier (110) can be treated as having a zero value based on whether the data elements input to the at least one multiplier (110) and/or the at least one adder (112) can be treated as having a zero value.
+10. A method (1100) of clock gating storage elements in a hardware unit for performing matrix multiplication, the hardware unit comprising a plurality of multipliers each configured to multiply data elements to output a multiplication data element, and a plurality of adders that form an adder tree to produce a sum of the multiplication data elements by adding data elements from a multiplier or an adder, wherein at least one multiplier and/or at least one adder is preceded by a storage element for each bit of each input data element, the method (1100) comprising: receiving information indicating whether each data element input to the at least one multiplier and/or the at least one adder can be treated as having a zero value, and/or, indicating whether a portion of each data element input to the at least one multiplier and/or the at least one adder can be treated as having a zero value (1102); and in response to receiving information that indicates that a data element or portion of a data element can be treated as having a zero value (1104), clock gating all or a portion of the storage elements corresponding to that data element (1106) and for each storage element that is clock gated, causing a zero bit to be provided to the corresponding adder or multiplier (1108).
+11. The method (1100) of claim 10, further comprising, in response to receiving information that indicates that a data element can be treated as having a zero value, clock gating all of the storage elements corresponding to that data element.
+12. The method (1100) of claim 10 or claim 11, wherein the data elements are most significant bit aligned and the portion of the storage elements corresponding to a data element that are clock-gated are the storage elements corresponding to the least significant bits of the data element.
+13. A hardware implementation of a Deep Neural Network "DNN" comprising the hardware unit of any of claims 1 to 9 configured to compute the convolution associated with one or more convolution layers and/or one or more fully-connected layers of the DNN.
+14. A computer readable storage medium having stored thereon computer readable instructions that, when executed at a computer system, cause the computer system to perform the method of any of claims 10 to 12.
+15. A computer readable storage medium having stored thereon a computer readable description of the hardware unit of any of claims 1 to 9 that, when processed in an integrated circuit manufacturing system, causes the integrated circuit manufacturing system to manufacture an integrated circuit embodying the hardware unit.
+</claims>
+</document>

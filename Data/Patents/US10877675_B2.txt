@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2019-02-15
+</filing_date>
+
+<publication_date>
+2020-12-29
+</publication_date>
+
+<priority_date>
+2019-02-15
+</priority_date>
+
+<ipc_classes>
+G06F16/22,G06F3/06
+</ipc_classes>
+
+<assignee>
+SAP
+</assignee>
+
+<inventors>
+ANDREI, MIHNEA
+MUKHERJEE, ANUPAM
+</inventors>
+
+<docdb_family_id>
+69104212
+</docdb_family_id>
+
+<title>
+Locking based on categorical memory allocation
+</title>
+
+<abstract>
+Provided is a system and method for improving memory management in a database. In one example, the method may include receiving a request to store a data object within a database, determining a category type associated with the data object from among a plurality of category types based on an attribute of the data object, and storing the data object via a memory pool corresponding to the determined category from among a plurality of memory pools corresponding to the plurality of respective categories, where the storing comprises allocating a first category type of data object to a first memory pool locked to main memory and allocating a second category type of data object to a second memory pool that is swapped out to disk over time. The locked memory pool can ensure that more important data items remain available even when they are the least recently used.
+</abstract>
+
+<claims>
+1. A computing system comprising: a main memory comprising a plurality of memory pools; and a processor configured to lock physical memory of a memory pool from among the plurality of memory pools to the main memory, receive a request to store a data object within the main memory, and determine that the data object comprises one or more of delta data from a delta storage of the main memory and multiversion concurrency control (MVCC) data of a database, where the processor is configured to allocate the data object to the locked memory pool that has been locked to the main memory in response to the determination that the data object comprise one or more of the delta data and the MVCC data.
+2. The computing system of claim 1, wherein the processor is configured to determine the data object comprises MVCC data and assign the data object including the MVCC data to the locked memory pool.
+3. The computing system of claim 1, wherein the processor is further configured to assign data objects from a differential buffer to the locked memory pool.
+4. The computing system of claim 1, wherein the processor is configured to assign data retrieved from disk to a second memory pool that is swapped out to disk over time.
+5. The computing system of claim 4, wherein the processor is further configured to swap out a second data object from the second memory pool to the disk while keeping a third data object in the locked memory pool that is older.
+6. The computing system of claim 1, wherein the processor is configured to determine the data object comprises the delta data, and assign the data object including the delta data to the locked memory pool.
+7. The computing system of claim 1, wherein the processor is further configured to allocate a category type of data object to a third memory pool which is swapped out to one or more of a non-volatile memory express (NVMe) and a solid-state disk (SSD).
+8. The computing system of claim 1, wherein data in the locked memory pool is pinned to physical memory and data stored in a second memory pool that is not locked is managed with virtual memory that is backed by less physical memory than the locked memory pool.
+9. A method comprising: locking a memory pool to main memory from among a plurality of memory pools included in the main memory; receiving a request to store a data object within the main memory; determining that the data object comprises one or more of delta data from a delta storage of the main memory and multiversion concurrency control (MVCC) data of a database; and allocating the data object to the locked memory pool that has been locked to the main memory in response to the determination that the data object comprise one or more of the delta data and the MVCC data.
+10. The method of claim 9, wherein the determining comprises determining the data object comprises the MVCC data and assigning the data object including the MVCC data to the locked memory pool.
+11. The method of claim 9, wherein the determining further comprises assigning data objects from a differential buffer to the locked memory pool.
+12. The method of claim 9, wherein the determining further comprises assigning data retrieved from disk to a second memory pool that is swapped out to disk over time.
+13. The method of claim 12, further comprising swapping out a second data object from the second memory pool to the disk while keeping a third data object in the locked memory pool that is older.
+14. The method of claim 9, wherein the determining comprises determining the data object comprises the delta data, and assigning the data object including the delta data to the locked memory pool.
+15. The method of claim 9, wherein the storing further comprises allocating a category type of data object to a third memory pool which is swapped out to one or more of a non-volatile memory express (NVMe) and a solid-state disk (SSD).
+16. The method of claim 9, wherein data in the locked memory pool is pinned to physical memory and data in a second memory pool that is not locked is managed with virtual memory that is backed by less physical memory than the locked memory pool.
+17. A non-transitory computer-readable medium storing instructions which when executed cause a computer to perform a method comprising: locking a memory pool to main memory from among a plurality of memory pools included in the main memory; receiving a request to store a data object within the main memory; determining that the data object comprises one or more of delta data from a delta storage of the main memory and multiversion concurrency control (MVCC) data of a database; and allocating the data object to the locked memory pool that has been locked to the main memory in response to the determination that the data object comprise one or more of the delta data and the MVCC data.
+18. The non-transitory computer-readable medium of claim 17, wherein the determining comprises determining the data object comprises the MVCC data and assigning the data object including the MVCC data to the locked memory pool.
+19. The non-transitory computer-readable medium of claim 17, wherein the determining comprises assigning data retrieved from disk to a second memory pool that is swapped out to disk over time.
+20. The non-transitory computer-readable medium of claim 17, wherein the determining further comprises determining the data object comprises the delta data, and assigning the data object including the delta data to the locked memory pool.
+</claims>
+</document>

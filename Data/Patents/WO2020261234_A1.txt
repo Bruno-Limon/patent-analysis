@@ -1,0 +1,80 @@
+<document>
+
+<filing_date>
+2020-06-27
+</filing_date>
+
+<publication_date>
+2020-12-30
+</publication_date>
+
+<priority_date>
+2019-06-28
+</priority_date>
+
+<assignee>
+TATA CONSULTANCY SERVICES
+</assignee>
+
+<inventors>
+AGARWAL, PUNEET
+SHROFF, GAUTAM
+VIG, LOVEKESH
+SRIVASTAVA, SAURABH
+</inventors>
+
+<docdb_family_id>
+74061784
+</docdb_family_id>
+
+<title>
+SYSTEM AND METHOD FOR SEQUENCE LABELING USING HIERARCHICAL CAPSULE BASED NEURAL NETWORK
+</title>
+
+<abstract>
+This disclosure relates generally to sequence labeling and more particularly to method and system for sequence labeling. The method includes employing a hierarchical capsule based neural network for sequence labeling, which includes a sentence encoding layer (having word embedding layer, feature extraction layer and multiple capsule layer) and a document encoding layer, Bi-LSTMs, a fully connected layer and a conditional random fields (CRF) layer. The word embedding Layer obtains fixed-size vector representation of words of sentences associated with a dialogue or an abstract, then the feature extraction layer encodes the sentences, the Capsule layer extracts high-level features from the sentence. Ah the sentence encodings are then stacked up together and are passed through another Bi-LSTM layer to derive the contextual information from sentences. A fully connected layer calculates likelihood scores. The CRF layer obtains optimized label sequence based on the likelihood scores.
+</abstract>
+
+<claims>
+1. A processor implemented method, comprising:
+employing, via one more hardware processors, a hierarchical capsule based neural network for sequence labeling, the hierarchical capsule based neural network comprising a sentence encoding layer, a document encoding layer, a fully connected layer and a conditional random fields (CRF) layer, the sentence encoding layer comprising a word embedding layer, a feature extraction layer composed of a first plurality of Bi-LSTMs, a primary capsule layer, and convolutional capsule layers, and the document encoding layer comprising a second plurality of Bi-LSTMs, wherein employing comprises:
+determining, by the word embedding layer, initial sentence representations for a plurality of sentences associated with a task, each of the initial sentence representations comprising a concatenated embedding vector;
+encoding, by the first plurality of Bi-LSTMs, contextual semantics between words within a sentence of the plurality of sentences using the associated concatenated embedding vector to obtain a plurality of context vectors (Ci);
+convolving with the plurality of context vectors (Ci) while skipping one or more context vectors in between, by the primary capsule layer comprising a filter, to obtain a capsule map comprising a plurality of contextual capsules associated with the plurality of sentences, the plurality of contextual capsules connected in multiple levels using shared transformation matrices and a routing model;
+computing, by the Convolutional Capsule Layer, a final sentence representation for the plurality of sentences by determining coupling strength between child-parent pair contextual capsules of the plurality of contextual capsules connected in the multiple levels;
+obtaining, by a second plurality of Bi-LSTMs, contextual information between the plurality of sentences using the final sentence representations associated with the plurality of sentences, wherein the second plurality of Bi-LSTMs takes sentences at multiple time steps as input and produces a sequence of hidden state vectors corresponding to each of the plurality of sentences;
+passing the hidden state vectors through the feed forward layer to output likelihood scores for probable labels for each statement of the plurality of statements; and
+determining optimized label sequence for the plurality of sentences by the CRF layer based at least on a sum of probable labels weighted by the likelihood scores.
+2. The method as claimed in claim 1, wherein the concatenated embedding vector comprises a fixed-length vector corresponding to each word of the plurality of sentences, a fixed-length vector corresponding to a sentence being representative of lexical-semantics of words of the sentence.
+3. The method as claimed in claim 1, wherein a number of the one or more vectors is a dilation rate (dr).
+4. The method as claimed in claim 1, wherein a context vector of the plurality of context vectors associated with a word comprises a right context and a left context between the word and adjacent words.
+5. The method as claimed in claim 1, wherein the filter (Wb) multiplies context vectors in {Ci + drj^with stride of one to obtain a capsule /;,, where, pi = g(WbCi), and
+g is a non-linear squash function.
+6. The method as claimed in claim 1, wherein determining the optimized label sequence comprises calculating, by the CRF layer, probability score for the label sequence associated with the plurality of sentences based on the sum of possible labels weighted by the likelihood scores and transition scores of moving from one label to another label.
+7. A system (701) for sequence labeling comprising:
+one or more memories (704); and
+one or more first hardware processors (702), the one or more first memories (704) coupled to the one or more first hardware processors (702), wherein the one or more first hardware processors (702) are configured to execute programmed instructions stored in the one or more first memories (704):
+employ a hierarchical capsule based neural network for sequence labeling, the hierarchical capsule based neural network comprising a sentence encoding layer, a document encoding layer, a fully connected layer and a conditional random fields (CRF) layer, the sentence encoding layer comprising a word embedding layer, a feature extraction layer composed of a first plurality of Bi-LSTMs, a primary capsule layer, and convolutional capsule layers, and the document encoding layer comprising a second plurality of Bi-LSTMs, wherein to employ hierarchical capsule based neural network , the one or more hardware processors are configured by the instructions to:
+determine, by the word embedding layer, initial sentence representations for a plurality of sentences associated with a task, each of the initial sentence representations comprising a concatenated embedding vector;
+encode, by the first plurality of Bi-LSTMs, contextual semantics between words within a sentence of the plurality of sentences using the associated concatenated embedding vector to obtain a plurality of context vectors (Ci);
+convolve with the plurality of context vectors (Ci) while skipping one or more context vectors in between, by the primary capsule layer comprising a filter, to obtain a capsule map comprising a plurality of contextual capsules associated with the plurality of sentences, the plurality of contextual capsules connected in multiple levels using shared transformation matrices and a routing model;
+compute, by the Convolutional Capsule Layer, a final sentence representation for the plurality of sentences by determining coupling strength between child-parent pair contextual capsules of the plurality of contextual capsules connected in the multiple levels;
+obtain, by a second plurality of Bi-LSTMs, contextual information between the plurality of sentences using the final sentence representations associated with the plurality of sentences, wherein the second plurality of Bi-LSTMs takes sentences at multiple time steps as input and produces a sequence of hidden state vectors corresponding to each of the plurality of sentences;
+pass the hidden state vectors through the feed forward layer to output likelihood scores for probable labels for each statement of the plurality of statements; and
+determine optimized label sequence for the plurality of sentences by the CRF layer based at least on a sum of probable labels weighted by the likelihood scores.
+8. The system as claimed in claim 7, wherein the concatenated embedding vector comprises a fixed-length vector corresponding to each word of the plurality of sentences, a fixed-length vector corresponding to a sentence being representative of lexical-semantics of words of the sentence.
+9. The system as claimed in claim 7, wherein a number of the one or more vectors is a dilation rate (dr).
+10. The system as claimed in claim 7, wherein a context vector of the plurality of context vectors associated with a word comprises a right context and a left context between the word and adjacent words. 11. The system as claimed in claim 7, wherein the filter (Wb) multiplies context vectors in {Ci + dr}J^1with stride of one to obtain a capsule /;,, where, pi = g(WbCi), and
+g is a non-linear squash function.
+12. The system as claimed in claim 7, wherein to determine the optimized label sequence, the one or more hardware processors are configured by the instruction to calculate, by the CRF layer, probability score for the label sequence associated with the plurality of sentences based on the sum of possible labels weighted by the likelihood scores and transition scores of moving from one label to another label.
+13. One or more non-transitory machine readable information storage mediums comprising one or more instructions which when executed by one or more hardware processors cause:
+employing, via one more hardware processors, a hierarchical capsule based neural network for sequence labeling, the hierarchical capsule based neural network comprising a sentence encoding layer, a document encoding layer, a fully connected layer and a conditional random fields (CRF) layer, the sentence encoding layer comprising a word embedding layer, a feature extraction layer composed of a first plurality of Bi-LSTMs, a primary capsule layer, and convolutional capsule layers, and the document encoding layer comprising a second plurality of Bi-LSTMs, wherein employing comprises:
+determining, by the word embedding layer, initial sentence representations for a plurality of sentences associated with a task, each of the initial sentence representations comprising a concatenated embedding vector;
+encoding, by the first plurality of Bi-LSTMs, contextual semantics between words within a sentence of the plurality of sentences using the associated concatenated embedding vector to obtain a plurality of context vectors (Ci);
+convolving with the plurality of context vectors (Ci) while skipping one or more context vectors in between, by the primary capsule layer comprising a filter, to obtain a capsule map comprising a plurality of contextual capsules associated with the plurality of sentences, the plurality of contextual capsules connected in multiple levels using shared transformation matrices and a routing model;
+computing, by the Convolutional Capsule Layer, a final sentence representation for the plurality of sentences by determining coupling strength between child-parent pair contextual capsules of the plurality of contextual capsules connected in the multiple levels;
+obtaining, by a second plurality of Bi-LSTMs, contextual information between the plurality of sentences using the final sentence representations associated with the plurality of sentences, wherein the second plurality of Bi-LSTMs takes sentences at multiple time steps as input and produces a sequence of hidden state vectors corresponding to each of the plurality of sentences;
+passing the hidden state vectors through the feed forward layer to output likelihood scores for probable labels for each statement of the plurality of statements; and
+determining optimized label sequence for the plurality of sentences by the CRF layer based at least on a sum of probable labels weighted by the likelihood scores.
+</claims>
+</document>

@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2020-05-14
+</filing_date>
+
+<publication_date>
+2020-11-19
+</publication_date>
+
+<priority_date>
+2019-05-16
+</priority_date>
+
+<ipc_classes>
+G10L13/00,G10L15/06,G10L15/08,G10L15/22,G10L15/32
+</ipc_classes>
+
+<assignee>
+SAMSUNG ELECTRONICS COMPANY
+</assignee>
+
+<inventors>
+CHO, KEUNSEOK
+KIM, JEONGSU
+</inventors>
+
+<docdb_family_id>
+73228356
+</docdb_family_id>
+
+<title>
+METHOD AND DEVICE FOR PROVIDING VOICE RECOGNITION SERVICE
+</title>
+
+<abstract>
+A method, performed by the electronic device, of providing a voice recognition service includes obtaining a user call keyword for activating the voice recognition service, based on a first user voice input; generating a user-customized voice database (DB) by inputting the obtained user-customized keyword to a text to speech module; and obtaining a user-customized feature by inputting an audio signal of the user-customized voice DB to a pre-trained wake-up recognition module.
+</abstract>
+
+<claims>
+1. A method, performed by an electronic device, of providing a voice recognition service, the method comprising: obtaining a user call keyword configured to activate the voice recognition service, based on a first user voice input; generating a user-customized voice database (DB) by inputting the obtained user call keyword to a text to speech (TTS) module; and obtaining a user-customized feature by inputting an audio signal of the user-customized voice DB to a wake-up recognition module.
+2. The method of claim 1, further comprising: obtaining a voice DB related to a call keyword stored before the user call keyword is obtained, to activate the voice recognition service; and generating the user-customized voice DB by inputting the obtained voice DB and the user call keyword to the TTS module.
+3. The method of claim 2, further comprising: obtaining an audio signal based on a second user voice input; obtaining an output value of the wake-up recognition module from the wake-up recognition module by inputting the obtained audio signal to the wake-up recognition module; and activating the voice recognition service, based on a result of a comparison between the obtained output value of the wake-up recognition module and the user-customized feature.
+4. The method of claim 2, wherein the TTS module is configured to change audio signals of the user-customized voice DB, based on at least one acoustic feature for uttering the call keyword that is obtained from a speaker voice model including acoustic features of a plurality of speakers.
+5. The method of claim 1, further comprising: generating similar keywords that are similar to the user call keyword, by using a pre-stored language model; generating a similar voice DB by inputting the generated similar keyword to the TTS module; and refining layers within the wake-up recognition module and attention related to a connection strength between the layers, based on audio signals of the similar voice DB and the user-customized voice DB.
+6. The method of claim 3, wherein the obtaining the audio signal comprises: determining a window length of a window for division in units of frames; overlapping windows each having the determined window length at a certain window interval; and dividing the obtained audio signal into a plurality of frames by using the overlapped windows.
+7. The method of claim 3, wherein the wake-up recognition module includes a wake-up recognition model including a shared layer to which audio features extracted from consecutive frames within a certain section from among a plurality of frames obtained based on the second user voice input are simultaneously input, a speaker identification layer for identifying a speaker feature of the audio signal when a frame unit representation output by the shared layer is input, an acoustic feature identification layer for identifying an acoustic feature of the audio signal, and a keyword identification layer for identifying a keyword feature included in the audio signal.
+8. The method of claim 7, wherein the obtaining the output value of the wake-up recognition module comprises: obtaining the speaker feature, the acoustic feature, and the keyword feature on respective segment levels of the speaker identification layer, the acoustic feature identification layer, and the keyword identification layer; setting attention to the speaker feature, the acoustic feature, and the keyword feature; and obtaining the output value of the wake-up recognition module by concatenating at least one of the speaker feature, the acoustic feature, or the keyword feature, according to the attention.
+9. The method of claim 7, wherein the activating the voice recognition service comprises: determining a similarity score related to a similarity between the output value of the wake-up recognition module and the user-customized feature; and activating the voice recognition service, based on whether the determined similarity score is greater than or equal to a preset first threshold value.
+10. The method of claim 7, wherein the activating the voice recognition service comprises: determining respective portion similarity scores of the speaker feature, the acoustic feature, and the keyword feature within the audio features; and activating the voice recognition service when the portion similarity score of the speaker feature is greater than or equal to a second threshold value, the portion similarity score of the acoustic feature is greater than or equal to a third threshold value, and the portion similarity score of the keyword feature is greater than or equal to a fourth threshold value.
+11. The method of claim 7, wherein the acoustic feature identification layer within the wake-up recognition model is removed when training of the wake-up recognition model is completed.
+12. The method of claim 1, further comprising: generating a user-customized voice model, based on the user-customized feature; and storing the generated user-customized voice model.
+13. An electronic device for providing a voice recognition service, the electronic device comprising: a memory storing one or more instructions; and a processor configured to execute the one or more instructions to: obtain a user call keyword for activating the voice recognition service, based on a first user voice input, generate a user-customized voice database (DB) by inputting the obtained user call keyword to a text to speech (TTS) module, and obtain a user-customized feature by inputting an audio signal of the user-customized voice DB to a wake-up recognition module.
+14. The electronic device of claim 13, wherein the processor is further configured to execute the one or more instructions to: obtain a voice DB related to a call keyword previously stored before the user call keyword is obtained, in order to activate the voice recognition service, and generate the user-customized voice DB by inputting the obtained voice DB and the user call keyword to the TTS module.
+15. The electronic device of claim 14, wherein the processor is further configured to execute the one or more instructions to: obtain an audio signal based on a second user voice input, obtain an output value of the wake-up recognition module from the wake-up recognition module by inputting the obtained audio signal to the wake-up recognition module, and activate the voice recognition service, based on a result of a comparison between the obtained output value of the wake-up recognition module and the user-customized feature.
+16. The electronic device of claim 14, wherein the TTS module is configured to change audio signals of the user-customized voice DB, based on at least one acoustic feature for uttering the call keyword that is obtained from a speaker voice model including acoustic features of a plurality of speakers.
+17. The electronic device of claim 13, wherein the processor is further configured to execute the one or more instructions to: generate similar keywords that are similar to the user call keyword, by using a pre-stored language model, generate a similar voice DB by inputting the generated similar keyword to the TTS module, and refine layers within the wake-up recognition module and attention related to a connection strength between the layers, based on audio signals of the similar voice DB and the user-customized voice DB.
+18. The electronic device of claim 13, wherein the processor is further configured to execute the one or more instructions to: determine a window length of a window for division in units of frames, overlap windows each having the determined window length at a certain window interval, and divide the obtained audio signal into a plurality of frames by using the overlapped windows.
+19. The electronic device of claim 15, wherein the wake-up recognition module includes a wake-up recognition model including a shared layer to which audio features extracted from consecutive frames within a certain section from among a plurality of frames obtained based on the second user voice input are simultaneously input, a speaker identification layer for identifying a speaker feature of the audio signal when a frame unit representation output by the shared layer is input, an acoustic feature identification layer for identifying an acoustic feature of the audio signal, and a keyword identification layer for identifying a keyword feature included in the audio signal.
+20. A non-transitory computer-readable recording medium having recorded thereon a program which, when executed by a computer system, causes the computer system to perform a method of providing a voice recognition service, the method comprising: obtaining a user call keyword for activating the voice recognition service, based on a first user voice input; generating a user-customized voice database (DB) by inputting the obtained user call keyword to a text to speech (TTS) module; and obtaining a user-customized feature by inputting an audio signal of the user-customized voice DB to a wake-up recognition module.
+</claims>
+</document>

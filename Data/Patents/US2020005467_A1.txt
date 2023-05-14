@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2018-01-31
+</filing_date>
+
+<publication_date>
+2020-01-02
+</publication_date>
+
+<priority_date>
+2017-01-31
+</priority_date>
+
+<ipc_classes>
+G06K9/38,G06K9/46,G06T7/143
+</ipc_classes>
+
+<assignee>
+KYUSHU INSTITUTE OF TECHNOLOGY
+EQUOS RESEARCH COMPANY
+</assignee>
+
+<inventors>
+YAMADA HIDEO
+SHIBATA, MASATOSHI
+KUNO, KAZUHIRO
+ENOKIDA, SHUICHI
+OHTSUKA, HIROMICHI
+</inventors>
+
+<docdb_family_id>
+63111527
+</docdb_family_id>
+
+<title>
+IMAGE PROCESSING DEVICE, IMAGE RECOGNITION DEVICE, IMAGE PROCESSING PROGRAM, AND IMAGE RECOGNITION PROGRAM
+</title>
+
+<abstract>
+An image processing device has a function for plotting a luminance gradient co-occurrence pair of an image on a feature plane and applying an EM algorithm to form a GMM. The device learns a pedestrian image and creates a GMM, subsequently learns a background image and creates a GMM, and calculates a difference between the two and generates a GMM for relearning based on the calculation. The device plots a sample that conforms to the GMM for relearning on the feature plane by applying an inverse function theorem. The device forms a GMM that represents the distribution of samples at a designated mixed number and thereby forms a standard GMM that serves as a standard for image recognition. When this mixed number is set to less than a mixed number designated earlier, the dimensions with which an image is analyzed are reduced, making it possible to reduce calculation costs.
+</abstract>
+
+<claims>
+1. An image processing device comprising: an image input means for inputting an image; a pixel combination acquiring means for acquiring a combination of two pixels from the image which is input; a co-occurrence acquiring means for acquires the co-occurrence in luminance gradient directions of the two pixels related to the acquired combination; an occurrence frequency acquiring means for acquiring distribution of an occurrence frequency of the co-occurrence to be acquired while changing the acquired combination of the pixels; a probability density function generating means for generating a probability density function corresponding the acquired distribution of the occurrence frequency; and a probability density function output means for outputting the generated probability density function in accordance with the parameter for defining the aforementioned probability density function.
+2. The image processing device according to claim 1, further comprising: a recognizing object learning means for inputting a plurality of recognizing object images including a recognizing object from the image input means, and for outputting a recognizing object probability density function based on the plurality of recognizing object images to the probability density function output means; a reference probability density function generating means for generating a reference probability density function which is a reference for executing image recognition of the recognizing object using the recognizing object probability density function which is output; and a reference probability density function output means for outputting the generated reference probability density function in accordance with the parameter for defining the aforementioned reference probability density function.
+3. The image processing device according to claim 2, further comprising: a non-recognizing object learning means for inputting a plurality of non-recognizing object images not including a recognizing object from the image input means, and for outputting a non-recognizing object probability density function according to the non-recognizing object images to the probability density function output means; and a metric information generating means for generating metric information for metricating a correlation between the recognizing object probability density function which is output and the non-recognizing object probability density function which is output, wherein the reference probability density function generating means generates the reference probability density function using the generated metric information.
+4. The image processing device according to claim 3, wherein the metric information generating means generates the metric information in which a metric of the non-recognizing object probability density function with respect to the recognizing object probability density function and a metric of the recognizing object probability density function with respect to the non-recognizing object probability density function have symmetry.
+5. 5-14. (canceled)
+15. The image processing device according to claim 3, further comprising a sample generating means for generating a plurality of samples in accordance with the generated metric information, wherein the reference probability density function generating means generates the reference probability density function on the basis of a distribution of an occurrence frequency of the generated sample.
+16. The image processing device according to claim 4, further comprising a sample generating means for generating a plurality of samples in accordance with the generated metric information, wherein the reference probability density function generating means generates the reference probability density function on the basis of a distribution of an occurrence frequency of the generated sample.
+17. The image processing device according to claim 3, wherein the recognizing object probability density function and the non-recognizing object probability density function are generated respectively by mixing a predetermined number of basis functions of, and the reference the probability density function generating means mixes the number of the basis functions smaller than the predetermined number to generate the reference probability density function.
+18. The image processing device according to claim 4, wherein the recognizing object probability density function and the non-recognizing object probability density function are generated respectively by mixing a predetermined number of basis functions of, and the reference the probability density function generating means mixes the number of the basis functions smaller than the predetermined number to generate the reference probability density function.
+19. The image processing device according to claim 15, wherein the recognizing object probability density function and the non-recognizing object probability density function are generated respectively by mixing a predetermined number of basis functions of, and the reference the probability density function generating means mixes the number of the basis functions smaller than the predetermined number to generate the reference probability density function.
+20. The image processing device according to claim 16, wherein the recognizing object probability density function and the non-recognizing object probability density function are generated respectively by mixing a predetermined number of basis functions of, and the reference the probability density function generating means mixes the number of the basis functions smaller than the predetermined number to generate the reference probability density function.
+21. The image processing device according to claim 1, further comprising a resolution conversion means for converting a resolution of the input image, wherein the pixel combination acquiring means also makes a pixel of which the resolution is converted an object of the combination.
+22. The image processing device according to claim 3, wherein the metric information is a differential probability density function using a difference between the recognizing object probability density function and the non-recognizing object probability density function.
+23. The image processing device according to claim 3, wherein the metric information is a ratio probability density function using a ratio between the recognizing object probability density function and the non-recognizing object probability density function.
+24. The image processing device according to claim 23, wherein the ratio probability density function further uses a difference between the recognizing object probability density function and the non-recognizing object probability density function.
+25. An image recognition device comprising: a reference probability density function acquiring means for acquiring a reference probability density function output from the image processing device according to claim 2; an object image acquiring means for acquiring an object image which is an image recognition object; an object image feature amount acquiring means for acquiring a feature amount of the acquired object image using the acquired reference probability density function; and a determination means for determining whether or not the object image includes the image recognition object using the acquired feature amount.
+26. The image recognition device according to claim 25, wherein the object image feature amount acquiring means inputs the acquired object image into the image input means of the image processing device according to claim 1, and acquires a distribution of an occurrence frequency of co-occurrence in gradient directions in the object image from the occurrence frequency acquiring means of the aforementioned image processing device, and acquires a feature amount of the object image on the basis of a probability that the acquired distribution of the occurrence frequency is generated from the acquired reference probability density function.
+27. An image processing program which uses a computer to realize functions comprising: an image input function for inputting an image; a pixel combination acquiring function for acquiring a combination of two pixels from the image which is input; a co-occurrence acquiring function for acquires the co-occurrence in luminance gradient directions of the two pixels related to the acquired combination; an occurrence frequency acquiring function for acquiring distribution of an occurrence frequency of the co-occurrence to be acquired while changing the acquired combination of the pixels; a probability density function generating function for generating a probability density function corresponding the acquired distribution of the occurrence frequency; and a probability density function output function for outputting the generated probability density function in accordance with the parameter for defining the aforementioned probability density function.
+28. An image recognition program which uses a computer to realize functions comprising: a reference probability density function acquiring function for acquiring the reference probability density function output from the image processing device according to claim 2; an object image acquiring function for acquiring an object image which is an image recognition object; an object image feature amount acquiring function for acquiring a feature amount of the acquired object image using the acquired reference probability density function; and a determination function for determining whether or not the object image includes the image recognition object using the acquired feature amount.
+</claims>
+</document>

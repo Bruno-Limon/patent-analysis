@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2018-09-28
+</filing_date>
+
+<publication_date>
+2020-12-08
+</publication_date>
+
+<priority_date>
+2017-12-08
+</priority_date>
+
+<ipc_classes>
+G06F11/07
+</ipc_classes>
+
+<assignee>
+APPLE
+</assignee>
+
+<inventors>
+CASTRO, JOSEPH J.
+DOSHI, HARDIK K.
+KERR, JOEL N.
+KOPP, KERRY J.
+NOE, CHRISTOPHER J.
+SMITH, MICHAEL J.
+BERLIN, JOSHUA H.
+</inventors>
+
+<docdb_family_id>
+66696155
+</docdb_family_id>
+
+<title>
+Coordinated panic flow
+</title>
+
+<abstract>
+One embodiment provides for a data processing system comprising multiple independent processors to execute multiple operating system environments of the data processing system, the multiple operating system environments to enable operation of multiple regions of a computing device associated with the data processing system. The multiple operating system environments are interconnected via a transport agnostic communication link. In response to detection of a fatal error in one or more of the multiple operating system environments, the multiple operating system environments coordinate performance of multiple separate error handling operations within the multiple operating system environments to generate a combined error log. The combined error log includes operational states of the multiple operating system environments.
+</abstract>
+
+<claims>
+1. A data processing system comprising: multiple independent processors to execute multiple operating system environments of the data processing system, the multiple operating system environments to enable operation of multiple regions of a computing device associated with the data processing system, wherein the multiple operating system environments are interconnected via a transport agnostic communication link; and wherein in response to detection of a fatal error in one or more of the multiple operating system environments, the multiple operating system environments are to coordinate performance of multiple separate error handling operations within the multiple operating system environments to generate a combined error log, the combined error log including operational states of the multiple operating system environments, store the combined error log to a volatile memory device associated with one or more of the multiple independent processors, cause a processor associated with the volatile memory device to reset while maintaining the combined error log within the volatile memory device, and store the combined error log to a non-volatile memory device of the processor associated with the volatile memory device.
+2. The data processing system as in claim 1, the multiple independent processors including: a first processor including a first set of one or more processor cores to execute a first set of instructions; and a second processor separate from the first processor, the second processor including a second set of one or more processor cores to execute a second set of instructions, the second set of instructions to enable the first set of instructions to access to a set of input/output devices within the computing device associated with the data processing system, wherein in response to an error associated with the first processor or the second processor, the first processor and the second processor are to independently execute separate instructions to gather and store respective operational states associated with each processor.
+3. The data processing system as in claim 2, the first processor having a first instruction set architecture and the second processor having a second instruction set architecture different from the first instruction set architecture.
+4. The data processing system as in claim 2, wherein the first set of instructions is associated with a first operating system environment and the second set of instructions is associated with a second operating system environment separate from and in communication with the first operating system environment.
+5. The data processing system as in claim 4, wherein in response to an error associated with the first operating system environment or the second operating system environment, the first processor and the second processor are to independently execute separate instructions to gather and store respective operational states associated with each processor.
+6. The data processing system as in claim 5, additionally comprising a microcontroller to coordinate communication between the first set of instructions and the second set of instructions.
+7. The data processing system as in claim 6, wherein the first set of instructions is to access an interface to the microcontroller and, in response to the access, the microcontroller is to cause the second set of instructions to initiate an error handler to gather and store an operational state associated with the second processor.
+8. The data processing system as in claim 7, wherein the second set of instructions is to access an interface to the microcontroller and, in response to the access, the microcontroller is to cause the first set of instructions to initiate an error handler to gather and store an operational state associated with the first processor.
+9. The data processing system as in claim 8, wherein the microcontroller is a system management microcontroller that is additionally configured to manage a power state of the data processing system.
+10. An electronic device comprising: a first processor to execute a first operating system, the first processor including one or more application processor cores; and a second processor to execute a second operating system, the second processor including one or more processor cores to manage a set of input/output devices within the electronic device; wherein in response to detection of an error state within the first operating system, the first operating system is to enter an error handler of the first operating system and cause the second operating system to enter an error handler of the second operating system; wherein the error handlers of the first operating system and the second operating system are to collect data associated with a state of operating systems and associated processors of the electronic device; wherein at least one of the first operating system or the second operating system are to write the data associated with the state of operating systems and associated processors to a volatile memory device; and wherein a processor associated with the volatile memory device is to reset while maintaining the data associated with the state of operating systems and associated processors in the volatile memory device, read the data associated with the state of operating systems and associated processors from the volatile memory device after resetting the processor associated with the volatile memory device, and store the data associated with the state of operating systems and associated processors to a non-volatile memory device of the processor associated with the volatile memory device.
+11. The electronic device as in claim 10, the first processor having a first instruction set architecture and the second processor having a second instruction set architecture different from the first instruction set architecture.
+12. The electronic device as in claim 11, wherein the error handler of the first operating system is to cause the second operating system to enter the error handler of the second operating system.
+13. The electronic device as in claim 12, wherein the error state within the first operating system indicates a potential for data corruption during continued operation of the first operating system.
+14. The electronic device as in claim 13, wherein the error state includes a kernel panic within the first operating system.
+15. The electronic device as in claim 14, additionally comprising a microcontroller or microprocessor to facilitate communication between the error handler of the first operating system and the error handler of the second operating system.
+16. An error handling method for an electronic device, the method comprising: detecting a panic or stop condition within a first operating system on a first processor of the electronic device; signaling a second operating system on a second processor to initiate an error handler, the second processor separate from the first processor; initiating the error handler on the second operating system in response to the signal from the first operating system; collecting, via an error handler on the first operating system, data associated with a state of the first processor; collecting, via the error handler on the second operating system, data associated with the state of the second processor; storing a combined set of data to a volatile memory device coupled with the first processor or the second processor; resetting a processor associated with the volatile memory device without clearing data within the volatile memory device; reading the combined set of data from the volatile memory device after resetting the processor associated with the volatile memory device; and storing the combined set of data to a non-volatile memory device of the processor associated with the volatile memory device.
+17. The method as in claim 16, additionally comprising: initiating an error handler on the first operating system in response to detecting the panic or stop condition within the first operating system; and signaling the second operating system via the error handler on the first operating system.
+18. The method as in claim 16, wherein storing the combined set of data to the volatile memory device coupled with the first processor or the second processor includes: storing a first set of log data from the first operating system to the volatile memory device; and storing a second set of log data from the second operating system to the volatile memory device.
+19. The method as in claim 18, wherein reading the combined set of data from the volatile memory device includes: after resetting the processor associated with the volatile memory device, reading, from the volatile memory device, the first set of log data and the second set of log data; and combining the first set of log data from the first operating system with the second set of log data from the second operating system to generate combined log data.
+20. The method as in claim 19, additionally including: initiating a boot process for the electronic device, the boot process including a crash reporter process to collect the combined log data from the non-volatile memory device; and reporting the combined log data to a crash reporting service.
+</claims>
+</document>

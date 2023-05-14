@@ -1,0 +1,68 @@
+<document>
+
+<filing_date>
+2019-05-07
+</filing_date>
+
+<publication_date>
+2020-11-12
+</publication_date>
+
+<priority_date>
+2019-05-07
+</priority_date>
+
+<ipc_classes>
+G06F15/173,G06N20/00
+</ipc_classes>
+
+<assignee>
+IBM (INTERNATIONAL BUSINESS MACHINES CORPORATION)
+</assignee>
+
+<inventors>
+PARNELL, THOMAS
+KOURTIS, ANTONIOS KORNILIOS
+Kaufmann, Michael
+</inventors>
+
+<docdb_family_id>
+73046468
+</docdb_family_id>
+
+<title>
+ELASTIC TRAINING OF MACHINE LEARNING MODELS VIA RE-PARTITIONING BASED ON FEEDBACK FROM THE TRAINING ALGORITHM
+</title>
+
+<abstract>
+Parallel training of a machine learning model on a computerized system may be provided. Computing tasks can be assigned to multiple workers of a system. A method may include accessing training data. A parallel training of the machine learning model can be started based on the accessed training data, so as for the training to be distributed through a first number K of workers, K>1. Responsive to detecting a change in a temporal evolution of a quantity indicative of a convergence rate of the parallel training (e.g., where said change reflects a deterioration of the convergence rate), the parallel training of the machine learning model is scaled-in, so as for the parallel training to be subsequently distributed through a second number K′ of workers, where K>K′≥1. Related computerized systems and computer program products may be provided.
+</abstract>
+
+<claims>
+1. A computer-implemented method of parallel training of a machine learning model on a computerized system, whose computing tasks can be assigned to multiple workers of the system, and wherein the method comprises: accessing training data; starting a parallel training of the machine learning model based on the accessed training data, the training distributed through a first number K of workers, K>1; and in response to detecting a change in a temporal evolution of a quantity indicative of a convergence rate of the parallel training, the change reflecting a deterioration of the convergence rate, scaling-in the parallel training of the machine learning model, so as for the parallel training to be subsequently distributed through a second number K′ of workers, where K>K′≥1.
+2. The method according to claim 1, wherein said machine learning model is a generalized linear model.
+3. The method according to claim 2, wherein said quantity is a duality-gap measuring a distance between a primal formulation of a training objective for said training and a dual formulation of this training objective.
+4. The method according to claim 3, wherein said change in the temporal evolution is detected by comparing a short-term evolution of the duality-gap to a long-term evolution thereof, said long-term evolution extending over a longer period of time than said short-term evolution.
+5. The method according to claim 3, wherein said short-term evolution is compared to said long-term evolution so as to detect a knee of the temporal evolution of the duality-gap, wherein said knee corresponds to said change and determines a given moment in time, whereby the training of the generalized linear model is scaled-in at said given moment in time.
+6. The method according to claim 3, wherein the training of the generalized linear model is scaled-in upon detecting a change in a slope of the temporal evolution of the duality-gap.
+7. The method according to claim 6, wherein said change is detected by comparing at least two slopes of the temporal evolution of the duality-gap, said at least two slopes including a short-term slope and a long-term slope.
+8. The method according to claim 7, wherein said short-term slope is compared to said long-term slope so as to detect a knee of the temporal evolution of the duality-gap, wherein said knee corresponds to said change and determines a given moment in time, whereby the parallel training of the generalized linear model is scaled-in at said given moment in time.
+9. The method according to claim 8, wherein said short-term slope is compared to said long-term slope so as for said given moment in time to be determined by a time at which Ss×d becomes smaller than S1, wherein Ss and S1 are values characterizing said short-term slope and said long-term slope, whereas d is a factor such that 1≤d<2.
+10. The method according to claim 9, wherein said factor d is set to d=1.25.
+11. The method according to claim 7, wherein said long-term slope is indicative of the convergence of the duality-gap over a period of time extending since a last scale-in event operated at the computerized system during said parallel training.
+12. The method according to claim 7, wherein said short-term slope is indicative of the convergence of the duality-gap over a period of time extending over a finite number N of one or more most recent training epochs of said parallel training, N≥1.
+13. The method according to claim 12, wherein said finite number N is set to N=2.
+14. The method according to claim 1, wherein said second number K′ is determined according to a fraction K/m, where m is a constant factor, m>1.
+15. The method according to claim 14, wherein said constant factor m is set to m=4.
+16. The method according to claim 1, wherein: said first number K of workers form a first set of workers; said second number K′ of workers form a second set of workers; and scaling-in the parallel training comprises reallocating at least part of the training data as initially used by workers of the first set to workers of said second set.
+17. The method according to claim 16, wherein reallocating at least part of the training data comprises transferring such data in parallel between multiple pairs of workers between, on the one hand, workers of said first set and, on the other hand, workers of said second set.
+18. The method according to claim 17, wherein said training data are transferred according to a foreground data copy mechanism based on a remote direct memory access.
+19. The method according to claim 18, wherein said second number K′ is determined according to a fraction K/m, where m is a constant factor, m>1, and said data copy mechanism is implemented so as to achieve a transfer rate of m×r, where r denotes a single-link bandwidth of the system.
+20. A computerized system having an architecture adapted for assigning computing tasks to multiple workers of the system, wherein the computerized system stores a computerized method of parallel training of a machine learning model, whereby the system is configured to: access training data; start a parallel training of the machine learning model based on the accessed training data, the parallel training distributed through a first number K of workers of the system, K>1; and in response to detecting a change in a temporal evolution of a quantity indicative of a convergence rate of the parallel training, said change reflecting a deterioration of the convergence rate, scale-in the parallel training of the machine learning model, so as for the parallel training to be subsequently distributed through a second number K′ of workers, where K>K′≥1.
+21. The computerized system according to claim 20, wherein said machine learning model is a generalized linear model, and the computerized system is further configured to monitor a duality-gap as said quantity, the duality-gap measuring a distance between a primal formulation of a training objective for said parallel training and a dual formulation of this training objective, whereby the system is configured to scale-in the parallel training upon detecting said change in the duality-gap, according to said computerized method.
+22. The computerized system according to claim 21, wherein the system is further configured, as per said computerized method, to detect said change in the temporal evolution by comparing a short-term evolution of the duality-gap to a long-term evolution thereof, said long-term evolution extending over a longer period of time than said short-term evolution.
+23. A computer program product for parallel training of a machine learning model on a computerized system, whose computing tasks can be assigned to multiple workers of the system, the computer program product comprising a computer readable storage medium having program instructions embodied therewith, the program instructions executable on the computerized system to cause the latter to: access training data; start a parallel training of the machine learning model based on the accessed training data, the parallel training distributed through a first number K of workers of the system, K>1; and in response to detecting a change in a temporal evolution of a quantity indicative of a convergence rate of the parallel training, said change reflecting a deterioration of the convergence rate, scale-in the parallel training of the machine learning model, so as for the parallel training to be subsequently distributed through a second number K′ of workers, where K>K′≥1.
+24. The computer program product according to claim 23, wherein said machine learning model is a generalized linear model and the program instructions are further executable on the computerized system to cause the latter to: consider a duality-gap as said quantity, the duality-gap measuring a distance between a primal formulation of a training objective for said parallel training and a dual formulation of this training objective.
+25. The computer program product according to claim 24, wherein the program instructions are further executable on the computerized system to cause the latter to detect said change in the temporal evolution by comparing a short-term evolution of the duality-gap to a long-term evolution thereof, said long-term evolution extending over a longer period of time than said short-term evolution.
+</claims>
+</document>

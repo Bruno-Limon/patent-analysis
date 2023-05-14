@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2018-06-29
+</filing_date>
+
+<publication_date>
+2020-02-25
+</publication_date>
+
+<priority_date>
+2018-05-18
+</priority_date>
+
+<ipc_classes>
+G10L15/16,G10L15/20,G10L21/0208,G10L21/0232,G10L25/84
+</ipc_classes>
+
+<assignee>
+INTEL CORPORATION
+</assignee>
+
+<inventors>
+LOPATKA, KUBA
+KUPRYJANOW, ADAM
+</inventors>
+
+<docdb_family_id>
+65229704
+</docdb_family_id>
+
+<title>
+Neural network based time-frequency mask estimation and beamforming for speech pre-processing
+</title>
+
+<abstract>
+Techniques are provided for pre-processing enhancement of a speech signal. A methodology implementing the techniques according to an embodiment includes performing de-reverberation processing on signals received from an array of microphones, the signals comprising speech and noise. The method also includes generating time-frequency masks (TFMs) for each of the signals. The TFMs indicate the probability that a time-frequency component of the signal associated with that TFM element includes speech. The TFM generation is based on application of a recurrent neural network to the signals. The method further includes generating steering vectors based on speech covariance matrices and noise covariance matrices. The TFMs are employed to filter speech components of the signals, for calculation of the speech covariance, and noise components of the signals for calculation of the noise covariance. The method further includes performing beamforming on the signals, based on the steering vectors, to generate the enhanced speech signal.
+</abstract>
+
+<claims>
+1. At least one non-transitory computer readable storage medium having instructions encoded thereon that, when executed by one or more processors, cause a process to be carried out for enhancement of a speech signal, the process comprising: performing de-reverberation (DRV) processing on first and second signals received from first and second microphones, respectively, the first and second signals each comprising a combination of speech and noise; generating first and second time-frequency masks (TFMs), each of the first and second TFMs associated with a corresponding one of the DRV processed first and second signals, each of the first and second TFMs comprising elements indicating a probability that a time-frequency component of the DRV processed signal associated with that TFM element includes speech, wherein the TFM generation is based on application of a recurrent neural network (RNN) to the DRV processed first and second signals; employing the first and second TFMs to filter the DRV processed first and second signals to generate first and second speech components: calculating speech covariance matrices based on the first and second speech components: employing the first and second TFMs to filter the DRV processed first and second signals to generate first and second noise components: calculating noise covariance matrices based on the first and second noise components: generating steering vectors based on the speech covariance matrices and the noise covariance matrices and performing beamforming on the DRV processed first and second signals, based on the steering vectors, to generate a single channel speech signal.
+2. The non-transitory computer readable storage medium of claim 1, the process further comprising performing Improved Minima Controlled Recursive Averaging to reduce stationary noise components of the single channel speech signal.
+3. The non-transitory computer readable storage medium of claim 1, wherein the RNN comprises a first Affine layer with a hyperbolic tangent activation function, a second Affine layer with a hyperbolic tangent activation function, a third Long Short-Term Memory (LSTM) layer with a sigmoid activation function, a fourth Long Short-Term Memory (LSTM) layer with a sigmoid activation function, and a fifth Affine layer with a sigmoid activation function.
+4. The non-transitory computer readable storage medium of claim 1, wherein the beamforming employs Generalized Eigenvalue beamforming with Blind Analytical Normalization.
+5. The non-transitory computer readable storage medium of claim 1, wherein the first and second signals are received from a far-field of the first and second microphones.
+6. The non-transitory computer readable storage medium of claim 1, the process further comprising providing the single channel speech signal to at least one of an Automatic Speech Recognition (ASR) engine, a keyword spotting application, a wake-on-voice (WoV) application, and a voice over internet protocol (VOIP) application.
+7. A system for pre-processing of a speech signal, the system comprising: a de-reverberation (DRV) circuit to perform DRV processing on a plurality of signals received from an array of microphones, the signals comprising a combination of speech and noise; a time-frequency mask (TFM) estimation circuit to generate a plurality of TFMs, each of the TFMs associated with one of the DRV processed signals, the TFMs comprising elements indicating a probability that a time-frequency component of the DRV processed signal associated with that TFM element includes speech, wherein the TFM generation is based on application of a recurrent neural network (RNN) to the DRV processed signals; a beamforming circuit to employ the TFMs to filter the DRV processed signals to generate speech components and calculate speech covariance matrices based on the speech components; the beamforming circuit further to employ the TFMs to filter the DRV processed signals to generate noise components and calculate noise covariance matrices based on the noise components; the beamforming circuit further to generate steering vectors based on the speech covariance matrices and the noise covariance matrices; and the beamforming circuit further to perform beamforming on the plurality of DRV processed signals, based on the steering vectors, to generate a single channel speech signal.
+8. The system of claim 7, further comprising a post filtering circuit to perform Improved Minima Controlled Recursive Averaging to reduce stationary noise components of the single channel speech signal.
+9. The system of claim 7, wherein the RNN comprises a first Affine layer with a hyperbolic tangent activation function, a second Affine layer with a hyperbolic tangent activation function, a third Long Short-Term Memory (LSTM) layer with a sigmoid activation function, a fourth Long Short-Term Memory (LSTM) layer with a sigmoid activation function, and a fifth Affine layer with a sigmoid activation function.
+10. The system of claim 7, wherein the beamforming employs Generalized Eigenvalue beamforming with Blind Analytical Normalization.
+11. The system of claim 7, wherein the plurality of received signals are received from a far-field of the microphones.
+12. The system of claim 7, wherein the single channel speech signal is provided to at least one of an Automatic Speech Recognition (ASR) engine, a keyword spotting application, a wake-on-voice (WoV) application, and a voice over internet protocol (VOIP) application.
+13. At least one non-transitory computer readable storage medium having instructions encoded thereon that, when executed by one or more processors, cause a process to be carried out for enhancement of a speech signal, the process comprising: performing de-reverberation (DRV) processing on a signal received from a microphone, the signal comprising a combination of speech and noise; generating a time-frequency mask (TFM) associated with the DRV processed signal, the TFM comprising elements indicating a probability that a time-frequency component of the DRV processed signal associated with that TFM element includes speech, wherein the TFM generation is based on application of a recurrent neural network (RNN) to the DRV processed signal; and performing noise reduction on the DRV processed signal to generate an enhanced speech signal, the noise reduction employing the TFM to identify noise to be filtered.
+14. The non-transitory computer readable storage medium of claim 13, wherein the RNN comprises a first Affine layer with a hyperbolic tangent activation function, a second Affine layer with a hyperbolic tangent activation function, a third Long Short-Term Memory (LSTM) layer with a sigmoid activation function, a fourth Long Short-Term Memory (LSTM) layer with a sigmoid activation function, and a fifth Affine layer with a sigmoid activation function.
+15. The non-transitory computer readable storage medium of claim 13, wherein the received signal is received from a far-field of the microphone.
+16. The non-transitory computer readable storage medium of claim 13, the process further comprising providing the enhanced speech signal to at least one of an Automatic Speech Recognition (ASR) engine, a keyword spotting application, a wake-on-voice (WoV) application, and a voice over internet protocol (VOIP) application.
+17. A processor-implemented method for training a recurrent neural network (RNN) to generate a time-frequency mask (TFM), the method comprising: selecting, by a processor-based system, a sample clean-speech signal from a speech database; selecting, by the processor-based system, a reverberation filter from a filter database; selecting, by the processor-based system, a sample noise-signal from a noise database; scaling, by the processor-based system, the sample noise-signal based on a selected signal to noise ratio (SNR); applying, by the processor-based system, the reverberation filter to the sample clean-speech signal, and adding the scaled sample noise-signal to the result of the reverberation filter application, to generate a noisy-speech signal; generating, by the processor-based system, an estimated TFM based on application of the RNN to features extracted from the noisy-speech signal; generating, by the processor-based system, a target TFM based on a ratio of features extracted from the sample clean-speech signal to the features extracted from the noisy-speech signal; and training, by the processor-based system, the RNN based on a calculated error between the estimated TFM and the target TFM.
+18. The method of claim 17, further comprising iterating the method for training the RNN to generate the TFM based on additional selections of the sample clean-speech signal, the reverberation filter, the sample noise-signal, and the SNR.
+19. The method of claim 17, wherein the reverberation filter is to simulate far-field environmental effects on a signal captured by a microphone in the far-field of the microphone.
+20. The method of claim 17, wherein the RNN comprises a first Affine layer with a hyperbolic tangent activation function, a second Affine layer with a hyperbolic tangent activation function, a third Long Short-Term Memory (LSTM) layer with a sigmoid activation function, a fourth Long Short-Term Memory (LSTM) layer with a sigmoid activation function, and a fifth Affine layer with a sigmoid activation function.
+</claims>
+</document>

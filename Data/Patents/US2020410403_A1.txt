@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2020-06-26
+</filing_date>
+
+<publication_date>
+2020-12-31
+</publication_date>
+
+<priority_date>
+2019-06-27
+</priority_date>
+
+<ipc_classes>
+G06N20/20,G06N5/00,G06N7/00
+</ipc_classes>
+
+<assignee>
+ROYAL BANK OF CANADA
+</assignee>
+
+<inventors>
+KAMULETE, Vathy M.
+</inventors>
+
+<docdb_family_id>
+74036731
+</docdb_family_id>
+
+<title>
+SYSTEM AND METHOD FOR DETECTING DATA DRIFT
+</title>
+
+<abstract>
+Data drift or dataset shift is detected between training dataset and test dataset by training a scoring function using a pooled dataset, the pooled dataset including a union of the training dataset and the test dataset; obtaining an outlier score for each instance in the training dataset and the test dataset based at least in part on the scoring function; assigning a weight to each outlier score based at least in part on training contamination rates; determining a test statistic based at least in part on the outlier scores and the weights; determining a null distribution of no dataset shift for the test statistic; determining a threshold in the null distribution; and when the test statistic is greater than or equal to the threshold, identifying dataset shift between the training dataset and the test dataset.
+</abstract>
+
+<claims>
+1. A computer-implemented method for detecting dataset shift between a training dataset and a test dataset, the method comprising: training a scoring function using a pooled dataset, the pooled dataset including a union of the training dataset and the test dataset; obtaining an outlier score for each instance in the training dataset and the test dataset based at least in part on the scoring function; assigning a weight to each outlier score based at least in part on training contamination rates; determining a test statistic based at least in part on the outlier scores and the weights; determining a null distribution of no dataset shift for the test statistic; determining a threshold in the null distribution; determining whether the test statistic is greater than or equal to the threshold; and when the test statistic is greater than or equal to the threshold, identifying dataset shift between the training dataset and the test dataset.
+2. The computer-implemented method of claim 1, wherein the test statistic is a weighted area under a receiver characteristic curve (WAUC).
+3. The computer-implemented method of claim 2, wherein the test statistic is based on:
+description="In-line Formulae" end="lead"?T=∫└s┘┌s┐D(s)·w(s)·d(s)description="In-line Formulae" end="tail"? where T is the WAUC, └s┘ and ┌s┐ are the lower and upper bound outlier scores, D(s) is defined as Cte(s)·fstr(s), Cte(s) is a testing contamination rate, fstr(s) is a probability density function for the training dataset, w(s) is a weight function, and integration is with respect to s.
+4. The computer-implemented method of claim 1, further comprising: labelling training instances in the pooled dataset and labelling test instances in the pooled dataset to form labels; and wherein the test statistic is determined based at least in part on the labels.
+5. The computer-implemented method of claim 4, wherein the null distribution is determined based at least in part on the outlier scores, the labels, and the weights.
+6. The computer-implemented method of claim 5, wherein the null distribution is determined based at least in part on shuffled data from randomly permutated instances in the pooled dataset.
+7. The computer-implemented method of claim 6, wherein the random permutations are sampled using a sequential Monte Carlo test.
+8. The computer-implemented method of claim 1, wherein the scoring function is based on anomaly detection.
+9. The computer-implemented method of claim 8, wherein the anomaly detection is by way of density estimation based on:
+description="In-line Formulae" end="lead"?ϕ(xi)≤ϕ(xj)⇒Pr(fXtr(xi)≥fXtr(xj))≥1−ϵdescription="In-line Formulae" end="tail"? where ϕ is the scoring function, xi, xj∈χ, χ is a domain of the training dataset and the test dataset, fXtr is a training dataset probability density function, and ϵ is an approximation error.
+10. The computer-implemented method of claim 8, wherein the scoring function includes an Isolation Forest.
+11. The computer-implemented method of claim 10, wherein the Isolation Forest is a function of the pooled dataset and hyperparameters.
+12. The computer-implemented method of claim 1, wherein the scoring function is based on probabilistic classification.
+13. The computer-implemented method of claim 12, wherein the scoring function includes a Random Forest.
+14. The computer-implemented method of claim 13, wherein the Random Forest is a function of the pooled dataset and hyperparameters.
+15. The computer-implemented method of claim 14, wherein the hyperparameters are calibrated with a Brier score.
+16. The computer-implemented method of claim 1, wherein the weight of outlier score, w(s), is based on:
+description="In-line Formulae" end="lead"?w(s)=1−Ctr(s)·(2−Ctr(s))description="In-line Formulae" end="tail"? where Ctr(s) is the training contamination rate for the outlier score s.
+17. The computer-implemented method of claim 1, wherein for a specified type-1 error α, the threshold is a 1−α percentile in a right tail of the null distribution.
+18. The computer-implemented method of claim 1, wherein the scoring function includes a density estimation based on a deep neural network.
+19. A computer system comprising: a processor; a memory in communication with the processor, the memory storing instructions that, when executed by the processor cause the processor to perform the method of claim 1.
+20. A non-transitory computer readable medium comprising a computer readable memory storing computer executable instructions thereon that when executed by a computer cause the computer to perform the method of claim 1.
+</claims>
+</document>

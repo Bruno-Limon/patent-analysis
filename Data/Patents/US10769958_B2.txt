@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2019-07-29
+</filing_date>
+
+<publication_date>
+2020-09-08
+</publication_date>
+
+<priority_date>
+2014-08-26
+</priority_date>
+
+<ipc_classes>
+G06F16/332,G09B7/00
+</ipc_classes>
+
+<assignee>
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+BASU SUMIT
+JACOBS, CHARLES E.
+LI, JUNYI
+VANDERWENDE, LUCRETIA H.
+</inventors>
+
+<docdb_family_id>
+54072977
+</docdb_family_id>
+
+<title>
+Generating high-level questions from sentences
+</title>
+
+<abstract>
+Questions about a passage of text that includes a sequence of two or more sentences are generated. Each question covers the content of a plurality of sentences in the passage, and includes a context portion of the passage and a question statement that is contextually related to the context portion of the passage. A user is also provided with questions about a passage of text they are reading. Each question is presented to the user, where this presentation includes displaying the context portion of the passage and the question statement that is contextually related to the context portion of the passage.
+</abstract>
+
+<claims>
+1. A computer-implemented process for generating questions about a passage including a sequence of two or more sentences, comprising: receiving computer-readable text data representing the passage; counting occurrences of different phrases in the computer-readable text data; ranking the different phrases by frequency of occurrence; selecting a set of topic phrases based on the ranking of the different phrases; operating a discourse relation prediction model previously trained to predict, for each pair of adjacent clauses in the computer-readable text data, a computer-readable discourse relationship; operating a classifier previously trained to: receive the computer-readable text data, the set of topic phrases, and the computer-readable discourse relationship for each of said pair of adjacent clauses in the computer-readable text data, and output a context clause and a focus clause in the computer-readable text data; translating the context clause into a question statement, wherein the question statement has an answer related to the focus clause; and outputting a question based on the question statement.
+2. The process of claim 1, further comprising outputting an answer text based on the answer related to the focus clause.
+3. The process of claim 1, wherein the classifier is trained on training data including a plurality of annotated passages, wherein each annotated passage includes exemplary computer-readable text data, annotated to indicate a boundary between an exemplary context clause in the computer-readable text data and an exemplary focus clause in the computer-readable text data.
+4. The process of claim 1, wherein the classifier is configured to identify, in the computer-readable text data, an explicit discourse marker indicating a boundary between the context clause and the focus clause in the computer-readable text data.
+5. The process of claim 4, wherein the explicit discourse marker is a phrase from a finite set of phrases.
+6. The process of claim 1, wherein the classifier includes a machine-learning split point boundary classifier previously trained to output a split point boundary location indicating a boundary between the context clause and the focus clause in the computer-readable text data.
+7. The process of claim 6, wherein operating the classifier includes: using the machine-learning split point boundary classifier in conjunction with the set of topic phrases and the computer-readable discourse relationship predicted by the discourse relation prediction model, to identify a set of candidate split point boundaries within said passage; using the machine-learning split point boundary classifier to score each of the candidate split point boundaries; selecting one of the candidate split point boundaries having a highest score; and assigning such selected candidate split point boundary to be the split point boundary location indicating the boundary between the context clause and the focus clause in the computer-readable text data.
+8. The process of claim 6, wherein the machine-learning split point boundary classifier is trained on training data including a plurality of annotated passages, wherein each annotated passage includes exemplary computer-readable text data, an exemplary set of discourse relations for the exemplary computer-readable text data, an exemplary set of topic phrases for the exemplary computer-readable text data, and a split point label indicating an exemplary split point boundary location for the exemplary computer-readable text data.
+9. The process of claim 1, wherein the discourse relation prediction model is trained on training data including a plurality of exemplary adjacent clause pairs, each exemplary adjacent clause pair labelled with an exemplary computer-readable discourse relationship.
+10. The process of claim 1, wherein said passage further comprises one or more noun phrases, and selecting the set of topic phrases based on the ranking of the different phrases includes: identifying each noun phrase in said passage; computing coreference of anaphora in said passage and the identified noun phrases; for each identified noun phrase, determining a syntactic role of the identified noun phrase in one or more syntactic units of said passage that the identified noun phrase appears in; determining the frequency of occurrence of each of the identified noun phrases and anaphora referring thereto in said passage; and ranking the identified noun phrases using the syntactic role of each of the identified noun phrases, and the frequency of occurrence of each of the identified noun phrases and anaphora referring thereto.
+11. The process of claim 1, wherein said passage includes a sequence of word n-grams, and selecting the set of topic phrases based on the ranking of the different phrases includes: identifying each word n-gram in said passage; determining a frequency of occurrence of each identified word n-gram; for each identified word n-gram, adjusting a corresponding frequency of occurrence to account for a length of the identified word n-gram; and ranking the identified word n-grams according to such adjusted frequency of occurrence.
+12. The process of claim 1, wherein the discourse relation prediction model comprises a pre-configured relation template and a pre-trained relation type classifier, and using the discourse relation prediction model to identify the discourse relation between each pair of identified clauses that are adjacent to each other in said passage comprises: whenever the pair of identified clauses that are adjacent to each other in said passage is explicitly connected, using the pre-configured relation template to identify the discourse relationship between said pair; and whenever the pair of the identified clauses that are adjacent to each other in said passage is not explicitly connected, using the pre-trained relation type classifier to identify the discourse relationship between said pair.
+13. The process of claim 1, wherein translating the context clause into the question statement includes: using the discourse relationship predicted for each of said pair of adjacent clauses to compute a computed discourse relation that exists at a boundary between the context clause and the focus clause; selecting a question fragment that corresponds to said computed discourse relation; assigning the selected question fragment to be the question statement; and using the text after the boundary to establish the answer related to the focus clause.
+14. The process of claim 13, wherein selecting the question fragment that corresponds to said computed discourse relation includes using a pre-configured question template to select the question fragment, said template mapping each possible discourse relation to a specific question fragment corresponding thereto.
+15. The process of claim 13, wherein selecting the question fragment that corresponds to said computed discourse relation includes using a pre-trained question type classifier to select said question fragment, said classifier taking into account contextual features of said passage.
+16. A system for generating questions about a passage of text, comprising: a logic device; and a storage device holding instructions executable by the logic device to: receive computer-readable text data representing the passage; count occurrences of different phrases in the computer-readable text data; rank the different phrases by frequency of occurrence; select a set of topic phrases based on the ranking of the different phrases; operate a discourse relation prediction model previously trained to predict, for each pair of adjacent clauses in the computer-readable text data, a computer-readable discourse relationship; operate a classifier previously trained to: receive the computer-readable text data, the set of topic phrases, and the computer-readable discourse relationship for each of said pair of adjacent clauses in the computer-readable text data, and output a context clause and a focus clause in the computer-readable text data; translate the context clause into a question statement, wherein the question statement has an answer related to the focus clause; output a question based on the question statement.
+17. The system of claim 16, wherein the instructions are further executable by the logic device to output an answer text based on the answer related to the focus clause.
+18. A computer-implemented process for generating questions about a passage including a sequence of two or more sentences, comprising: receiving computer-readable text data representing the passage; counting occurrences of different phrases in the computer-readable text data; ranking the different phrases by frequency of occurrence; selecting a set of topic phrases based on the ranking of the different phrases; operating a discourse relation prediction model previously trained to predict, for each pair of adjacent clauses in the computer-readable text data, a computer-readable discourse relationship; operating a classifier previously trained to: receive the computer-readable text data, the set of topic phrases, and the computer-readable discourse relationship for each of said pair of adjacent clauses in the computer-readable text data, and output a context clause and a focus clause in the computer-readable text data; translating the context clause into a question statement, wherein the question statement has an answer related to the focus clause; and using a question presentation module to present a question based on the question statement.
+19. The process of claim 18, wherein the question presentation module is configured to present the question by displaying the context clause and the question statement to a user.
+20. The process of claim 19, wherein the question presentation module is further configured to: receive a submitted answer to the question from the user; and whenever the user answers the question incorrectly, present the answer related to the focus clause to the user by displaying a portion of said passage that is outside of the context clause.
+</claims>
+</document>

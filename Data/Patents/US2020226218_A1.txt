@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2019-01-14
+</filing_date>
+
+<publication_date>
+2020-07-16
+</publication_date>
+
+<priority_date>
+2019-01-14
+</priority_date>
+
+<ipc_classes>
+G06F40/30,G06N3/04,G06N3/08,G16H50/20
+</ipc_classes>
+
+<assignee>
+IBM (INTERNATIONAL BUSINESS MACHINES CORPORATION)
+</assignee>
+
+<inventors>
+BAO, SHENG HUA
+RAMAKRISHNAN, CARTIC
+KRISHNAMURTHY, VIVEK
+Perera, Pathirage D. S. U.
+</inventors>
+
+<docdb_family_id>
+71516663
+</docdb_family_id>
+
+<title>
+Automatic classification of adverse event text fragments
+</title>
+
+<abstract>
+A method, a system, and a computer program product are provided. A training set of adverse event text fragments assigned to medical codes is analyzed to determine first text fragments having frequently occurring medical code assignments and second text fragments having infrequently occurring medical code assignments. The training set is modified to undersample the first text fragments and to oversample the second text fragments such that the text fragments of the modified training set correspond to a substantially uniform assignment of the medical codes. At least one machine learning model is generated and trained with the modified training set. Some parameters of the at least one machine learning model are updated based on errors detected during the training. After completing the training, an adverse event text fragment is applied to the at least one machine learning model to assign at least one medical code.
+</abstract>
+
+<claims>
+1. A method of interpreting text fragments for classification of adverse events into medical codes comprising: analyzing, via a processor, a training set of text fragments of adverse events assigned to the medical codes to determine frequently occurring assignments of the medical codes and infrequently occurring assignments of the medical codes; modifying, via the processor, the training set to undersample first text fragments corresponding to the frequently occurring assignments of the medical codes and to oversample second text fragments corresponding to the infrequently occurring assignments of the medical codes such that the text fragments of the modified training set correspond to a substantially uniform assignment of the medical codes; generating, via the processor, one or more machine learning models, each of the one or more machine learning models having a plurality of parameters; training, via the processor, the one or more machine learning models with the modified training set; updating, via the processor, at least some of the plurality of parameters of the one or more machine learning models based on errors detected during the training; and applying, via the processor after completion of the training, a text fragment pertaining to an adverse event to the one or more machine learning models to interpret the text fragment and assign one or more of the medical codes to the adverse event.
+2. The method of claim 1, wherein the one or more machine learning models include a convolutional neural network.
+3. The method of claim 2, wherein the convolutional neural network assigns to words of the text fragments respective multidimensional vector representations of the words.
+4. The method of claim 2, wherein the one or more machine learning models are specified using TensorFlow.
+5. The method of claim 2, further comprising: performing, by the processor, a plurality of training iterations, wherein parameters for layers of the convolutional network are updated, after each of the plurality of training iterations to minimize a loss function for the layers.
+6. The method of claim 2, further comprising: normalizing, by the processor, values of elements of a multidimensional vector produced by applying a respective text fragment to one of the one or more machine learning models and mapping each of the normalized respective values to a respective bin of a plurality of bins, the plurality of bins being equally spaced between a value of 0 and 1 inclusive, each of the elements corresponding to a respective medical code, and a respective value of the each of the elements indicating a level of certainty that the corresponding respective medical code is a correct medical code.
+7. The method of claim 2, further comprising: calibrating, by the processor, respective values of elements of a multidimensional vector result produced by applying a respective text fragment to one of the one or more machine learning models, the calibrating applying isotonic regression to each of the respective values to produce calibrated respective values as confidence scores indicating a level of certainty that the respective text fragment is correctly assigned to a medical code corresponding to a respective element based on past observations, each of the elements of the multidimensional vector corresponding to a different one of the medical codes.
+8. The method of claim 2, further comprising: selecting a plurality of highest values based on values of elements of a multidimensional vector produced by applying a respective text fragment to the convolutional neural network, each element of the multidimensional vector corresponding to a different medical code, each of the plurality of highest values corresponding to a respective element of the multidimensional vector; determining that the respective text fragment satisfies one of a plurality of rules; and selecting one of the plurality of highest values according to the satisfied one of the plurality of rules; and assigning a medical code to the respective text fragment corresponding to the selected one of the plurality of highest values.
+9. A system for interpreting text fragments for classification of adverse events into medical codes, the system comprising: at least one processing device, each of the at least one processing device comprising: at least one processor, and a memory connected to the at least one processor, wherein the at least one processing device is configured to: analyze a training set of text fragments of adverse events assigned to the medical codes to determine frequently occurring assignments of the medical codes and infrequently occurring assignments of the medical codes; modify the training set to undersample first text fragments corresponding to the frequently occurring assignments of the medical codes and to oversample second text fragments corresponding to the infrequently occurring assignments of the medical codes such that the text fragments of the modified training set correspond to a substantially uniform assignment of the medical codes; generate one or more machine learning models, each of the one or more machine learning models having a plurality of parameters; train the one or more machine learning models with the modified training set; update at least some of the plurality of parameters of the one or more machine learning models based on errors detected during the training; and apply, after completion of the training, a text fragment pertaining to an adverse event to the one or more machine learning models to interpret the text fragment and assign one or more of the medical codes to the adverse event.
+10. The system of claim 9, wherein the one or more machine learning models include a convolutional neural network.
+11. The system of claim 10, wherein the one or more machine learning models are specified using TensorFlow.
+12. The system of claim 10, wherein the at least one processing device is further configured to: perform a plurality of training iterations, wherein parameters for layers of the convolutional network are updated after each of the iterations to minimize a loss function for the layers.
+13. The system of claim 10, wherein the at least one processing device is further configured to: calibrate respective values of elements of a multidimensional vector result produced by applying a respective text fragment to one of the one or more machine learning models, the calibrating applying isotonic regression to each of the respective values to produce calibrated respective values as confidence scores indicating a level of certainty that the respective text fragment is correctly assigned to a medical code corresponding to a respective element based on the past observations, each of the elements of the multidimensional vector corresponding to a different one of the medical codes.
+14. The system of claim 10, wherein the at least one processing device is further configured to: select a plurality of highest values based on values of elements of a multidimensional vector produced by applying a respective text fragment to the convolutional neural network, each element of the multidimensional vector corresponding to a different medical code, each of the plurality of highest values corresponding to a respective element of the multidimensional vector; determine that the respective text fragment satisfies one of a plurality of rules; and select one of the plurality of highest values according to the satisfied one of the plurality of rules; and assign a medical code to the respective text fragment corresponding to the selected one of the plurality of highest values.
+15. A computer program product comprising at least one computer readable storage medium having computer readable program code embodied therewith for execution on at least one processor of a computing device, the computer readable program code being configured to be executed by the at least one processor to perform: analyzing a training set of text fragments of adverse events assigned to medical codes to determine frequently occurring assignments of medical codes and infrequently occurring assignments of the medical codes; modifying the training set to undersample first text fragments corresponding to the frequently occurring assignments of the medical codes and to oversample second text fragments corresponding to the infrequently occurring assignments of the medical codes such that the text fragments of the modified training set correspond to a substantially uniform assignment of the medical codes; generating one or more machine learning models, each of the one or more machine learning models having a plurality of parameters; training the one or more machine learning models with the modified training set; updating at least some of the plurality of parameters of the one or more machine learning models based on errors detected during the training; and applying, after completion of the training, a text fragment pertaining to an adverse event to the one or more machine learning models to interpret the text fragment and assign one or more of the medical codes to the adverse event.
+16. The computer program product of claim 15, wherein the one or more machine learning models include a convolutional neural network.
+17. The computer program product of claim 16, wherein the one or more machine learning models are specified by using TensorFlow.
+18. The computer program product of claim 16, wherein the computer readable program code is further configured to be executed by the at least one processor to perform: normalizing values of elements of a multidimensional vector produced by applying a respective text fragment to one of the one or more machine learning models and mapping each of the normalized respective values to a respective bin of a plurality of bins, the plurality of bins being equally spaced between a value of 0 and 1 inclusive, each of the elements corresponding to a respective medical code, and a respective value of the each of the elements indicating a level of certainty that the corresponding respective medical code is a correct medical code.
+19. The computer program product of claim 16, wherein the computer readable program code is further configured to be executed by the at least one processor to perform: calibrating respective values of elements of a multidimensional vector result produced by applying a respective text fragment to one of the one or more machine learning models, the calibrating applying isotonic regression to each of the respective values to produce calibrated respective values as confidence scores indicating a level of certainty that the corresponding text fragment is correctly assigned to a medical code corresponding to a respective element based on past observations, each of the elements of the multidimensional vector corresponding to a different one of the medical codes.
+20. The computer program product of claim 16, wherein in the convolutional neural network single words of the text fragments are represented by respective multidimensional vectors produced by the convolutional neural network.
+</claims>
+</document>

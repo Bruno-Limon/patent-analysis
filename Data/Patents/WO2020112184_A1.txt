@@ -1,0 +1,98 @@
+<document>
+
+<filing_date>
+2019-08-19
+</filing_date>
+
+<publication_date>
+2020-06-04
+</publication_date>
+
+<priority_date>
+2018-08-21
+</priority_date>
+
+<ipc_classes>
+B63G13/00,F41H11/02,G06K9/00,G06K9/40,G06K9/54,G06K9/62,G06T3/60,G06T7/20,H04N5/247
+</ipc_classes>
+
+<assignee>
+BAE SYSTEMS INFORMATION AND ELECTRONIC SYSTEMS INTEGRATION
+</assignee>
+
+<inventors>
+LOUCHARD, ERIC
+</inventors>
+
+<docdb_family_id>
+68466384
+</docdb_family_id>
+
+<title>
+PROJECTILE DETECTION SYSTEM AND METHOD
+</title>
+
+<abstract>
+A projectile detection technique is disclosed. The technique helps improve the self-defense capabilities of strategic platforms such as naval ships against asymmetric threats such as anti-ship missiles (ASMs). These threats can be particularly challenging in a highly cluttered maritime environment, where the threats can be too close for radar to accurately detect. In one example, the projectile detection technique automatically detects ASMs flying above the horizon by using mid-wavelength infrared (MWIR) and visible/near-infrared (VNIR) camera systems, and locating the horizon line and segmenting the imagery into different regions. Projectiles are detected in the near-horizon segment using a Fourier phase-only transform and convolution matched filters to enhance exceedances, then applying multi-frame processing to measure persistence and scintillation (e.g., flicker from missile exhaust) to help filter out background clutter objects. The use of the phase-only transform, matched filters, and multi-frame processing helps detect single -point anomalies and distinguish ASMs from background clutter.
+</abstract>
+
+<claims>
+What is claimed is:
+1. A computer program product including one or more non-transitory machinereadable storage mediums having instructions encoded thereon that when executed by one or more processors, cause a process to be carried out for projectile detection, the process comprising:
+identifying a horizon in a target image comprising thermal infrared (IR) image data of a target scene for a current frame;
+rotating the target image to align the identified horizon in the horizontal direction; equalizing the height of the horizon in the horizontal direction of the rotated image; detrending the rows of the equalized horizon-height image;
+performing a phase-only transform of the row-detrended image; and
+identifying projectile targets from the phase-only transformed image.
+2. The computer program product of claim 1, the process further comprising initiating countermeasures based on the identified projectile targets.
+3. The computer program product of claim 1 , the process further comprising fusing visible image data and the thermal IR image data of the target scene for the current frame to create the target image.
+4. The computer program product of claim 1, the process further comprising convolving the phase-only transformed image with matched filters to spread projectile patterns appearing in the transformed image.
+5. The computer program product of claim 4, the process further comprising generating a signal-to-noise ratio (SNR) for each pixel based on the convolved images, and identifying those pixels whose SNR exceeds an SNR threshold value.
+6. The computer program product of claim 5, the process further comprising: clustering nearby said identified pixels to generate a set of clusters of the current frame; assigning each cluster an azimuth and elevation for the current frame;
+generating an SNR for each cluster for the current frame based on the SNRs of the identified pixels in the cluster; and filtering the clusters based on shape characteristics matching those of projectiles.
+7. The computer program product of claim 6, the process further comprising: repeating the process for five or more target images of a corresponding five or more frames to generate a corresponding five or more sets of projectile-shaped clusters;
+identifying those projectileshaped clusters as persistent, based on their corresponding said azimuths and elevations over the five or more frames, if they appear three or more times in the five or more sets; and
+identifying those persistent clusters as the projectile targets if the variance of their corresponding said SNRs over the five or more frames exceeds an SNR variance threshold value.
+8. A system for projectile detection, the system comprising:
+the computer program product of claim 1 ; and
+the one or more processors to execute the encoded instructions.
+9. A projectile detection system comprising:
+an image rotating circuit to rotate a target image comprising thermal infrared (IR) image data of a target scene for a current frame, to align a horizon in the horizontal direction;
+a non-linear horizon correcting circuit to equalize the height of the horizon in the horizontal direction of the rotated image;
+a row detrending circuit to detrend the rows of the equalized horizon-height image; a phase-only transform circuit to perform a phase-only transform of the row-detrended image; and
+a point spread function circuit to convolve the phase-only transformed image with matched filters to spread projectile patterns appearing in the transformed image, wherein the projectile detection system is to identify projectile targets from the spread projectile patterns in the convolved images.
+10. The projectile detection system of claim 9, further comprising an image fusing circuit to fuse visible image data and the thermal IR image data of the target scene for the current frame to create the target image.
+11. The projectile detection system of claim 10, further comprising a visible imaging camera to acquire the visible image data and a thermal imaging camera to acquire the thermal IR image data of the target scene for frames including the current frame.
+12. The projectile detection system of claim 9, further comprising a horizon detecting circuit to identify the horizon in the target image before rotating the target image.
+13. The projectile detection system of claim 9, further comprising a signal-to-noise ratio (SNR) thresholding circuit to generate an SNR for each pixel based on the convolved images, and to identify those pixels whose SNR exceeds an SNR threshold value.
+14. The projectile detection system of claim 13, further comprising a clustering circuit to cluster nearby said identified pixels to generate a set of clusters of the current frame, to assign each cluster an azimuth and elevation for the current frame, and to generate an SNR for each cluster for the current frame based on the SNRs of the identified pixels in the cluster.
+15. The projectile detection system of claim 14, further comprising a shape filter circuit to filter the clusters based on shape characteristics matching those of projectiles.
+16. The projectile detection system of claim 14, further comprising:
+a frame repeating circuit to repeat the cluster generation for five or more target images of a corresponding five or more frames to generate a corresponding five or more sets of clusters; and
+a persistence filter circuit to identify those clusters as persistent, based on their corresponding said azimuths and elevations over the five or more frames, if they appear three or more times in the five or more sets.
+17. The projectile detection system of claim 16, further comprising:
+a scintillation filter circuit to identify those persistent clusters as the projectile targets if the variance of their corresponding said SNRs over the five or more frames exceeds an SNR variance threshold value;
+a tracking circuit to track the projectile targets over a longer period than the five or more frames; and
+a cueing circuit to cue appropriate countermeasures for any of the tracked projectile targets that present a threat.
+18. A method of projectile detection, the method comprising:
+equalizing, by a processor-based system, the height of a horizon in the horizontal direction of a target image comprising thermal infrared (IR) image data of a target scene for a current frame;
+detrending, by the processor-based system, the rows of the equalized horizon-height image;
+performing, by the processor-based system, a phase-only transform of the rowdetrended image;
+convolving, by the processor-based system, the phase-only transformed image with matched filters to spread projectile patterns appearing in the transformed image; generating, by the processor-based system, a signal-to-noise ratio (SNR) for each pixel based on the convolved images and identifying, by the processor-based system, those pixels whose SNR exceeds an SNR threshold value; and
+identifying, by the processor-based system, projectile targets from the identified pixels.
+19. The method of claim 18, further comprising:
+acquiring, by a visible imaging camera, visible image data of the target scene for frames including the current frame, and acquiring, by a thermal imaging camera, the thermal IR image data of the target scene for the frames;
+fusing, by the processor-based system, the visible image data and the thermal IR image data of the target scene for the current frame to create an unrotated image; identifying, by the processor-based system, the horizon in the unrotated image; and rotating, by the processor-based system, the unrotated image to create the target image by aligning the identified horizon in the horizontal direction.
+20. The method of claim 18, further comprising:
+clustering, by the processor-based system, nearby said identified pixels to generate a set of clusters of the current frame;
+assigning, by the processor-based system, each cluster an azimuth and elevation for the current frame; and
+generating, by the processor-based system, an SNR for each cluster for the current frame based on the SNRs of the identified pixels in the cluster.
+21. The method of claim 20, further comprising:
+filtering, by the processor-based system, the clusters based on shape characteristics matching those of projectiles;
+repeating, by the processor-based system, the cluster generation for five or more target images of a corresponding five or more frames to generate a corresponding five or more sets of projectile-shaped clusters; and
+identifying, by the processor-based system, those projectileshaped clusters as persistent, based on their corresponding azimuths and elevations over the five or more frames, if they appear three or more times in the five or more sets.
+22. The method of claim 21, further comprising:
+identifying, by the processor-based system, those persistent clusters as the projectile targets if the variance of their corresponding SNRs over the five or more frames exceeds an SNR variance threshold value;
+tracking, by the processor-based system, the projectile targets over a longer period than the five or more frames; and
+cueing, by the processor-based system, appropriate countermeasures for any of the tracked projectile targets that present a threat.
+</claims>
+</document>

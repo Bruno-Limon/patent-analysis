@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2020-06-30
+</filing_date>
+
+<publication_date>
+2021-01-14
+</publication_date>
+
+<priority_date>
+2019-07-11
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/46,G06T5/20,G06T7/11
+</ipc_classes>
+
+<assignee>
+BOE TECHNOLOGY GROUP COMPANY
+</assignee>
+
+<inventors>
+CHEN, GUANNAN
+WU, Yanhong
+</inventors>
+
+<docdb_family_id>
+68122020
+</docdb_family_id>
+
+<title>
+EXPRESSION RECOGNITION METHOD, COMPUTER DEVICE, AND COMPUTER-READABLE STORAGE MEDIUM
+</title>
+
+<abstract>
+The present disclosure provides an expression recognition method, a computer device, and a computer-readable storage medium. The expression recognition method includes: obtaining a facial image to be recognized; preprocessing the facial image to be recognized to obtain a preprocessed facial image; obtaining a first output image according to the preprocessed facial image, wherein the first output image at least represents a texture feature of the facial image to be recognized; obtaining a second output image according to the first output image, wherein the second output image at least represents a structural feature of organs of the facial image to be recognized; and determining an expression category corresponding to the facial image to be recognized, according to the second output image.
+</abstract>
+
+<claims>
+1. An expression recognition method, comprising: obtaining a facial image to be recognized; preprocessing the facial image to be recognized to obtain a preprocessed facial image; obtaining a first output image according to the preprocessed facial image, wherein the first output image at least represents a texture feature of the facial image to be recognized; obtaining a second output image according to the first output image, wherein the second output image at least represents a structural feature of organs of the facial image to be recognized; and determining an expression category corresponding to the facial image to be recognized, according to the second output image.
+2. The expression recognition method of claim 1, wherein obtaining the first output image according to the preprocessed facial image, comprises: performing a first partition convolution process on a first input image to obtain the first output image, wherein the first input image is obtained based on the preprocessed facial image.
+3. The expression recognition method of claim 2, wherein performing the first partition convolution process on the first input image to obtain the first output image, comprises: dividing the first input image into a plurality of first regions arranged in rows and columns; performing feature extraction on each first region of the plurality of first regions to obtain a first regional feature image corresponding to the first region; wherein a size of the first regional feature image is smaller than a size of the preprocessed facial image; and combining all of first regional feature images to generate the first output image with a same size as the preprocessed facial image.
+4. The expression recognition method of claim 3, wherein dividing the first input image into the plurality of first regions arranged in rows and columns, comprises: performing a first convolution process on the first input image to obtain a first feature image; and dividing the first feature image into the plurality of first regions arranged in rows and columns.
+5. The expression recognition method of claim 3, wherein dividing the first input into the plurality of first regions arranged in rows and columns, comprises: dividing the first input image into the plurality of first regions which are of a same size and shape and arranged in rows and columns; and/or dividing the first input image into 16 first regions arranged in 4 rows and 4 columns,
+6. The expression recognition method of claim 3, wherein performing the feature extraction on the first region to obtain the first regional feature image, comprises: performing a batch normalization process on the first region, to obtain a first normalized image of the first region; activating the first normalized image to obtain a first activated image; and performing a second convolution process on the first activated image to obtain the first regional feature image.
+7. The expression recognition method of claim 2, before performing the first partition convolution process on the first input image to obtain the first output image, further comprising: performing a third partition convolution process on a third input image to obtain a third output image; wherein the third input image is obtained based on the preprocessed facial image, and the first input image is obtained based on the third output image.
+8. The expression recognition method of claim 7, wherein performing the third partition convolution process on the third input image to obtain the third output image, comprises: dividing the third input image into a plurality of third regions arranged in rows and columns; performing feature extraction on each third region of the plurality of third regions to obtain a third regional feature image corresponding to the third region; wherein a size of he third regional feature image is smaller than a size of the preprocessed facial image; and combining all of third regional feature images to generate the third output image with a same size as the preprocessed facial image.
+9. The expression recognition method of claim 8, wherein dividing the third input image into the plurality of third regions arranged in rows and columns, comprises: performing a first convolution process on the third input image to obtain a third feature image; and dividing the third feature image into the plurality of third regions arranged in rows and columns.
+10. The expression recognition method of claim 8, wherein dividing the third input image into the plurality of third regions arranged in rows and columns, comprises: dividing the third input image into 16 third regions arranged in 4 rows and 4 columns.
+11. The expression recognition method of claim 1, wherein obtaining the second output image according to the first output image, comprises: performing a second partition convolution process on a second input image to obtain the second output image, wherein the second input image is obtained based on the first output image.
+12. The expression recognition method of claim 11, wherein performing the second partition convolution process on the second input image to obtain the second output image, comprises: dividing the second input image into a plurality of second regions based on positions of key organs on a face, so that the key organs are located in different second regions of the plurality of second regions; performing feature extraction on each second region of the plurality of second regions to obtain a second regional feature image corresponding to the second region; wherein a size of the second regional feature image is smaller than a size of the preprocessed facial image; and combining all of second regional feature images to generate the second output image with a same size as the preprocessed facial image.
+13. The expression recognition method of claim 12, wherein dividing the second input image into the plurality of second regions, comprises: performing a first convolution process on the second input image to obtain a second feature image; and dividing the second feature image into the plurality of second regions.
+14. The expression recognition method of claim 12, wherein dividing the second input image into the plurality of second regions, comprises: dividing the second input image into 3 second regions arranged in 3 rows and 1 column, wherein the 3 second regions respectively correspond to eyes, a nose and a mouth in the facial image to be recognized.
+15. The expression recognition method of claim 12, wherein performing the feature extraction on the second region to obtain the second regional feature image, comprises: performing a batch normalization process on the second region, to obtain a second normalized image of the second region; activating the second normalized image to obtain a second activated image; and performing a second convolution process on the second activated image to obtain the second regional feature image.
+16. The expression recognition method of claim 1, wherein preprocessing the facial mage to be recognized to obtain the preprocessed facial image, comprises: performing an image enhancement process on the facial image to be recognized to obtain an enhanced facial image.
+17. The expression recognition method of claim 1, wherein preprocessing the facial image to be recognized to obtain the preprocessed facial image, comprises: performing low-pass filtering on the facial image to be recognized to obtain a low-frequency image; acquiring a difference image between the facial image to be recognized and the low-frequency image; and determining a weighted sum of the difference image and the facial image to be recognized as the preprocessed facial image.
+18. The expression recognition method of claim 1, wherein determining the expression category corresponding to the facial image to be recognized, according to the second output image, comprises: performing a third convolution process on the second output image to obtain an output feature image; performing a global average pooling process on the output feature image to obtain a pooled feature image; determining confidence levels respectively corresponding to respective preset expression categories according to the pooled feature image; and determining the expression category corresponding to the facial image to be recognized, according to the confidence levels respectively corresponding to the respective preset expression categories.
+19. A computer device, comprising: one or more processors; and a memory, on which one or more programs are stored; wherein the one or more programs is configured, when executed by the one or more processors, to implement the expression recognition method of claim 1.
+20. A computer-readable storage medium having computer instructions stored thereon that, when executed by a processor, cause the processor to implement the expression recognition method of claim 1.
+</claims>
+</document>

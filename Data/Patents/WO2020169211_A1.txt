@@ -1,0 +1,153 @@
+<document>
+
+<filing_date>
+2019-02-22
+</filing_date>
+
+<publication_date>
+2020-08-27
+</publication_date>
+
+<priority_date>
+2019-02-22
+</priority_date>
+
+<ipc_classes>
+H04L12/24
+</ipc_classes>
+
+<assignee>
+TELEFONAKTIEBOLAGET LM ERICSSON (PUBL)
+</assignee>
+
+<inventors>
+DEY, KAUSHIK
+ICKIN, SELIM
+SARKAR, ABHISHEK
+WILSON, DANIEL
+</inventors>
+
+<docdb_family_id>
+65598614
+</docdb_family_id>
+
+<title>
+MANAGING TELECOMMUNICATION NETWORK EVENT DATA
+</title>
+
+<abstract>
+A method (300) is disclosed for managing network event data in a telecommunication network, wherein the network event data is associated with products provided by different vendors. The method comprises obtaining a plurality of datasets comprising network event data associated with products provided by a different vendor, the network event data comprising a plurality of data instances representing a plurality of network event features (310). The method further comprises obtaining metadata describing the network event data in the datasets (320) and generating feature description vectors from the obtained metadata (330). The method further comprises calculating a metric of the relation between network event features represented in the datasets (340) and constructing a graph of the network event features represented in the datasets, with edges weighted according to the calculated metric (350). The method further comprises partitioning the graph into clusters by minimising an edge cut between network event features (360) and, for individual clusters in the graph, labelling network event features in the cluster with a normalised network event feature index (370). The method further comprises inputting the labelled network event data to a model for making at least one of recommendations or predictions (380).
+</abstract>
+
+<claims>
+1 . A method for managing network event data in a telecommunication network, wherein the network event data is associated with products provided by different vendors, the method comprising:
+obtaining (310) a plurality of datasets, wherein each dataset comprises network event data associated with products provided by a single vendor, and wherein each dataset comprises a plurality of data instances representing a plurality of network event features;
+obtaining (320) metadata describing the network event data in the datasets; for individual network event features represented in the datasets, generating (330) a feature description vector from the obtained metadata;
+calculating (340), on the basis of the generated feature description vectors, a metric of the relation between network event features represented in the datasets; constructing (350) a graph of the network event features represented in the datasets, wherein edges between the network event features are weighted according to the calculated metric;
+partitioning (360) the graph into clusters by minimising an edge cut between network event features;
+for individual clusters in the graph, labelling (370) network event features in the cluster with a normalised network event feature index, which index is unique to the cluster and corresponds to a specific normalised network event feature; and
+inputting (380) the network event data representing the labelled network event features to a model for making at least one of recommendations or predictions based on input data representing normalised network event features.
+2. A method as claimed in claim 1 , wherein obtaining metadata describing the network event data in the datasets comprises, for a column of network data instances representing a network event feature, at least one of:
+determining (520a) a classification of the data instances in the column, wherein the classification comprises at least one of categorical data, continuous numerical data, discrete numerical data;
+determining (520d) a data type of the data instances in the column;
+determining (520b) a granularity of the data instances in the column;
+generating (520c) a statistical representation of the data instances in the column. 3. A method as claimed in claim 2, wherein generating (520c) a statistical representation of the data instances in the column comprises generating at least one of a distribution of the data instances in the column, or a count of the number of data instances in the column.
+4. A method as claimed in claim 2 or 3, wherein generating (520c) a statistical representation of the data instances in the column comprises, for a column of numerical data instances:
+calculating at least one of:
+maximum value;
+minimum value;
+standard deviation;
+percentiles;
+mean value;
+medial value;
+mode value
+of the data instances in the column.
+5. A method as claimed in any one of claims 2 to 4, wherein generating (520c) a statistical representation of the data instances in the column comprises, for a column of string data instances:
+calculating at least one of:
+maximum string length;
+minimum string length;
+mean string length;
+median string length;
+of the data instances in the column.
+6. A method as claimed in any one of claims 2 to 5, wherein generating (520c) a statistical representation of the data instances in the column comprises, for a column of timestamp data instances:
+calculating the distribution of the data instances with respect to the timestamps.
+7. A method as claimed in any one of claims 2 to 6, wherein generating (520c) a statistical representation of the data instances in the column comprises, for a column of non-string data instances: converting the data instances to data type string; and
+performing the steps of claim 5.
+8. A method as claimed in any one of the preceding claims, wherein, for individual network event features represented in the datasets, generating (330) a feature description vector from the obtained metadata comprises:
+selecting (530a) at least some of the obtained metadata; and
+writing (530b) the selected metadata into a feature description vector.
+9. A method as claimed in any one of the preceding claims, wherein calculating (340), on the basis of the generated feature description vectors, a metric of the relation between network event features represented in the datasets comprises:
+computing (540a) a pairwise similarity between the feature description vectors of network event features represented in the datasets.
+10. A method as claimed in claim 9, wherein computing (540a) a pairwise similarity between the network event features represented in the datasets comprises:
+computing the exponential chi-squared kernel in a pairwise manner for the feature description vectors of network event features represented in the datasets.
+1 1 . A method as claimed in any one of claims 1 to 9, wherein calculating, on the basis of the generated feature description vectors, a metric of the relation between network event features represented in the datasets comprises:
+computing (540b) a Euclidean distance between the feature description vectors of network event features represented in the datasets.
+12. A method as claimed in any one of the preceding claims, further comprising: filtering (542) pairs of network event features represented in the datasets on the basis of the calculated metric; and wherein
+constructing (550) a graph of the network event features represented in the datasets comprises forming an edge between a pair of network event features if the pair of network event features has been maintained after filtering.
+13. A method as claimed in any one of the preceding claims, further comprising: removing (552) edges from the constructed graph according to a criterion before partitioning the graph into clusters. 14. A method as claimed in claim 13, wherein the criterion comprises at least one of: for a network event feature, maintaining only the K strongest weighted edges to other network event features; or;
+maintaining only those edges over a threshold value.
+15. A method as claimed in any one of the preceding claims, wherein partitioning (360) the graph into clusters by minimising an edge cut between network event features comprises:
+minimising the sum of the edge weights between clusters.
+16. A method as claimed in any one of the preceding claims, wherein partitioning (360) the graph into clusters by minimising an edge cut between network event features comprises:
+calculating (560a) the ratio of variances of a pair of network event features joined by an edge;
+calculating (560b) a combined measure for edges in the graph as a combination of the edge weight and an inverse of the ratio of variances; and
+minimising (560c) the sum of the combined measures between clusters.
+17. A method as claimed in any one of the preceding claims, further comprising: aggregating (564) clusters based on at least one of Relative Interconnectivity or
+Relative Closeness before labelling network event features. 18. A method as claimed in claim 17, wherein Relative Interconnectivity is calculated according to:
+where:
+EC(Ci,Cj) is the sum of the edge weights between clusters i and j; and
+EC(Ci) is the sum of the edge weights between C, and all other clusters.
+19. A method as claimed in claim 17 or 18, wherein Relative Closeness is calculated according to:
+where:
+SEC(Ci,Cj) is the average weights of the edges that connect vertices in Ci to vertices in Cj
+SEC(Ci) is the average weights of the edges that belong in the min-cut bisector of clusters Ci
+|Ci| is the number of edges that connect the vertices in cluster Ci
+20. A method as claimed in any one of claims 17 to 19, further comprising:
+determining (562) whether the clusters are complete; and
+aggregating (564) clusters based on at least one of Relative Interconnectivity or Relative Closeness before labelling network event features if the clusters are not complete.
+21 . A method as claim in any one of the preceding claims, further comprising:
+combining (571 ) data instances from different clusters to generate compound normalised features; and
+inputting the compound normalised features to the model.
+22. A method as claimed in any one of the preceding claims, further comprising: forwarding (574) network event data representing network event features that have not been labelled for manual labelling of the network event features with a normalised network event feature index.
+23. A method as claimed in any one of the preceding claims, further comprising: forwarding (578) network event data representing labelled network event features for manual checking of the clustering.
+24. A method as claimed in claim 22 or 23, further comprising updating at least one of:
+metadata that is obtained;
+generation of the feature description vector from the obtained metadata; calculation of the metric of the relation between network event features represented in the datasets;
+filtering on the basis of the metric;
+removal of edges from the constructed graph;
+partitioning the graph into clusters;
+aggregation of clusters;
+on the basis of feedback from the manual labelling or checking.
+25. A method as claimed in any one of the preceding claims, further comprising updating at least one of:
+metadata that is obtained;
+generation of the feature description vector from the obtained metadata;
+calculation of the metric of the relation between network event features represented in the datasets;
+filtering on the basis of the metric;
+removal of edges from the constructed graph;
+partitioning the graph into clusters;
+aggregation of clusters;
+on the basis of performance of the model.
+26. A computer program (1250) comprising instructions which, when executed on at least one processor, cause the at least one processor to carry out a method according to any one of the preceding claims.
+27. A carrier containing a computer program (1250) as claimed in claim 26, wherein the carrier comprises one of an electronic signal, optical signal, radio signal or computer readable storage medium.
+28. A computer program product comprising non transitory computer readable media (1204) having stored thereon a computer program as claimed in claim 26.
+29. A manager (1200) for managing network event data in a telecommunication network, wherein the network event data is associated with products provided by different vendors, the manager comprising a processor (1202) and a memory (1204), the memory containing instructions executable by the processor such that the manager is operable to: obtain a plurality of datasets, wherein each dataset comprises network event data associated with products provided by a single vendor, and wherein each dataset comprises a plurality of data instances representing a plurality of network event features;
+obtain metadata describing the network event data in the datasets;
+for individual network event features represented in the datasets, generate a feature description vector from the obtained metadata;
+calculate, on the basis of the generated feature description vectors, a metric of the relation between network event features represented in the datasets;
+construct a graph of the network event features represented in the datasets, wherein edges between the network event features are weighted according to the calculated metric;
+partition the graph into clusters by minimising an edge cut between network event features;
+for individual clusters in the graph, label network event features in the cluster with a normalised network event feature index, which index is unique to the cluster and corresponds to a specific normalised network event feature; and
+input the network event data representing the labelled network event features to a model for making at least one of recommendations or predictions based on input data representing normalised network event features.
+30. A manager as claimed in claim 29, wherein the manager is further operable to carry out a method according to any one of claims 2 to 25.
+31 . A manager (1200, 1300) for managing network event data in a
+telecommunication network, wherein the network event data is associated with products provided by different vendors, the manager adapted to:
+obtain a plurality of datasets, wherein each dataset comprises network event data associated with products provided by a single vendor, and wherein each dataset comprises a plurality of data instances representing a plurality of network event features;
+obtain metadata describing the network event data in the datasets;
+for individual network event features represented in the datasets, generate a feature description vector from the obtained metadata;
+calculate, on the basis of the generated feature description vectors, a metric of the relation between network event features represented in the datasets; construct a graph of the network event features represented in the datasets, wherein edges between the network event features are weighted according to the calculated metric;
+partition the graph into clusters by minimising an edge cut between network event features;
+for individual clusters in the graph, label network event features in the cluster with a normalised network event feature index, which index is unique to the cluster and corresponds to a specific normalised network event feature; and
+input the network event data representing the labelled network event features to a model for making at least one of recommendations or predictions based on input data representing normalised network event features.
+32. A manager as claimed in claim 31 , wherein the manager is further adapted to carry out a method according to any one of claims 2 to 25.
+</claims>
+</document>

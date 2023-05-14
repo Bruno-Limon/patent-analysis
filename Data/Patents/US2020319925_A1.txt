@@ -1,0 +1,68 @@
+<document>
+
+<filing_date>
+2017-06-23
+</filing_date>
+
+<publication_date>
+2020-10-08
+</publication_date>
+
+<priority_date>
+2016-06-30
+</priority_date>
+
+<ipc_classes>
+G06F11/14,G06F9/445,G06F9/455,G06F9/50,H04L29/12
+</ipc_classes>
+
+<assignee>
+INTEL CORPORATION
+</assignee>
+
+<inventors>
+BARTFAI-WALCOTT, KATALIN K.
+CLAMPITT III, CHARLES C.
+</inventors>
+
+<docdb_family_id>
+60786606
+</docdb_family_id>
+
+<title>
+TECHNOLOGIES FOR IMPLEMENTING CONSOLIDATED DEVICE INFRASTRUCTURE SYSTEMS
+</title>
+
+<abstract>
+Apparatuses, methods and storage media associated with a consolidate device infrastructure to provide rapid device service are disclosed herein. In embodiments, a system comprises a portal to provide a presentation tier of services; a business logic layer to provide a logic tier of services; and a plurality of data management servers remotely and separately disposed in a plurality of locations to provide a data tier of services and a hardware tier of services. The presentation tier of services, logic tier of services, the data tier of services, and the hardware tier of services may cooperate to selectively provide a subset of a plurality of resources associated with the data management servers for use, in response to a device resource request received through the portal. Other embodiments may be described and/or claimed.
+</abstract>
+
+<claims>
+1. An apparatus to be implemented in a server to host a business logic layer (BLL) in a consolidated device infrastructure (CDI) system, the apparatus comprising: processor circuitry to operate a reservation module to identify resources, and reserve available resources of the identified resources for a client based on a reservation request submitted by the client; and interface circuitry coupled with the processor circuitry, the interface circuitry to obtain, via a CDI portal of the CDI system, a representational state transfer (REST) message including the reservation request, wherein the CDI portal is to provide user interfaces for submission of the resource request and interfaces to facilitate access to the reserved resources via a common service bus of the CDI system.
+2. The apparatus of claim 1, wherein the REST message is a first message, and wherein the processor circuitry is to: operate the reservation module to query a data management server (DMS) for available devices that provide the resources, wherein, to query the DMS for available devices, the reservation module is to control the interface circuitry to: generate a second REST message including the query, and transmit the second REST message to the DMS; and operate a device configuration module to obtain metadata for provisioning of a docker container for accessing resources provided by the available devices, wherein, to obtain the metadata, the device configuration module is to control the interface circuitry to: receive, from a metadata repository, the metadata in a third REST message, generate a fourth REST message including the metadata, and transmit the fourth REST message to the DMS.
+3. The apparatus of claim 2, wherein: the processor circuitry is to operate a heartbeat module to: identify hardware state information (HSI) indicating a state change of the available devices, and indicate, to the reservation module, an availability of the resources provided by the available devices based on the HSI; and the interface circuitry is to receive the HSI in fifth REST messages from the DMS.
+4. The apparatus of claim 2, wherein the processor circuitry is to operate an imaging module to: obtain a docker container image to be used for provisioning the docker container, the docker container image indicating a location for provisioning the docker container, a name of the docker container, and attributes of the docker container, and wherein the fourth REST message is to further include the docker container image.
+5. The apparatus of claim 1, wherein the processor circuitry is to: operate a security module to provide access to the resources via the CDI portal, wherein the security module is to obtain the reservation request through the CDI portal.
+6. One or more non-transitory computer-readable media (NTCRM) including instructions, which when executed by a data management server (DMS) in a consolidated device infrastructure (CDI) system, causes the DMS to: control receipt of a first representational state transfer (REST) message including a query, and identify, based on the query, available resources of a plurality of resources via communication with a plurality of device controllers (DCs) the plurality of DCs being communicatively coupled with a corresponding subset of a plurality of devices that provide the plurality of resources; receive a second REST message including a VM image for provisioning the VM; and provision a virtual machine (VM) to access the resources provided by the available devices.
+7. The NTCRM of claim 6, wherein, to provision the VM, the DMS, in response to execution of the instructions, is to: operate the VM to generate a device map, the device map indicating physical locations of the plurality of devices to logical addresses of resources provided by the devices; and operate the VM to determine a service coupling between a requesting entity and resources indicated by the query.
+8. The NTCRM of claim 7, wherein the DMS, in response to execution of the instructions, is to: remove the service coupling between a user of the resource; and delete the VM.
+9. The NTCRM of claim 8, wherein the DMS, in response to execution of the instructions, is to: detect a state change of a device of the plurality of devices; generate a report to indicate the state change, wherein the state change is to indicate that the device has changed a mode of operation; and control transmission of a fourth REST message including the report.
+10. The NTCRM of claim 9, wherein the DMS, in response to execution of the instructions, is to: attempt, in response to detection of the state change, recovery of the device by power cycling or adjusting the mode of operation.
+11. A method to be performed by a device controller (DC) in a consolidated device infrastructure (CDI) system, the method comprising: receiving, by the DC, a first message from first devices that are communicatively coupled with the DC; extracting, by the DC, parameters from the first message, wherein the parameters are in a first format; converting, by the DC, the parameters into a second format; and transmitting, by the DC to second devices that are communicatively coupled with the DC, a second message including the parameters, the second devices being different than the first devices.
+12. The method of claim 11, wherein the first devices comprise one or more device management servers, the second devices comprise one or more devices that provide resources in the CDI system, the parameters comprise instructions for performing general purpose input/output operations according to the instructions indicated by the parameters.
+13. The method of claim 12, wherein the first message comprises a representational state transfer (REST) message, a Rich Site Summary services message, a Message Queue Telemetry Transport message, or a publish-subscription type message; and the first format comprises a high-level programming language or schema, and the second format comprises an I2C protocol format.
+14. The method of claim 11, wherein the first devices comprise one or more devices that provide resources in the CDI system, the second devices comprise one or more device management servers, and the parameters comprise hardware state information indicating a state change of at least one of the one or more devices that provide resources.
+15. The method of claim 14, wherein the first message comprises an I2C protocol message and the first format comprises a low-level programming language, and the second format comprises a high-level programming language or schema, and the second message comprises a REST message, a Rich Site Summary services message, a Message Queue Telemetry Transport message, or a publish-subscription type message.
+16. 16-20. (canceled)
+21. A consolidated device infrastructure (CDI) system comprising: a server to host a CDI portal and arranged to provide a presentation tier of services, the presentation tier of services include facilitating access to a pool of resources provided by a plurality of devices deployed at a plurality of geographic locations of an enterprise via submission of resource requests through the CDI portal from any location of the enterprise; a server to host a business logic layer (BLL) to provide a logic tier of services, the logic tier of services include identifying available resources of the pool of resources and scheduling the identified available resources for use by one or more users; and a plurality of data management servers (DMSs) remotely and separately deployed at the plurality of geographic locations, each of the plurality of DMSs is arranged to provide a data tier of services and a hardware tier of services, the data tier of services and the hardware tier of services include providing access to the pool of resources provided by the plurality of devices.
+22. The CDI system of claim 21, further comprising: a plurality of device controllers (DCs) communicatively coupled with the plurality of DMSs, and each DC of the plurality of DCs is communicatively coupled with a corresponding subset of the plurality of devices, and wherein each DC is arranged to convert commands obtained from the plurality of DMSs into general-purpose input/output operations for utilizing resources provided by the corresponding subset of the plurality of devices.
+23. The CDI system of claim 22, wherein individual DMSs of the plurality of DMSs are arranged to: receive, from the server hosting the BLL, a query for available resources; identify available resources via communication with the plurality of DCs; transmit, to the server hosting the BLL, an indication of the determined resources; receive, from the server hosting the BLL, selections of the indicated resources and associated metadata; and provision one or more virtual machines (VMs) using the metadata, wherein the one or more VMs include a mapping of physical locations of devices that provide the selected resources to logical addresses of selected resources.
+24. The CDI system of claim 23, wherein individual DMSes of the plurality of DMSes are arranged to: transmit, to the server hosting the BLL, the logical addresses based on the mapping, the logical addresses to be displayed by the presentation tier of services; and perform network address translation on logical addresses indicated by a resource request to obtain corresponding physical locations of the devices that provide the resources.
+25. The CDI system of claim 21, further comprising: an enterprise network and a plurality of local area networks arranged to couple the server to host the BLL with the plurality of DMSs.
+26. A consolidated device infrastructure (CDI) system comprising: a presentation subsystem arranged to provide a presentation tier of services, the presentation tier of services include facilitating access to a pool of resources provided by a plurality of devices deployed at a plurality of geographic locations via submission of resource requests through the CDI portal; a business logic subsystem arranged to provide a logic tier of services, the logic tier of services include identifying available resources of the pool of resources and scheduling the identified available resources for use by one or more users; and a data management subsystem remotely and separately deployed at the plurality of geographic locations, and the data management subsystem arranged to provide a data tier of services and a hardware tier of services, the data tier of services and the hardware tier of services include providing access to the pool of resources provided by the plurality of devices.
+27. The CDI system of claim 26, further comprising: a device control subsystem arranged to convert commands obtained from the data management subsystem into general-purpose input/output operations for utilizing resources provided by a plurality of devices that are communicatively coupled with the device control subsystem.
+28. The CDI system of claim 27, wherein the data management subsystem is arranged to: receive, from the business logic subsystem, a query for available resources provided by the plurality of devices that are communicatively coupled with the device control subsystem; determine available resources based on the query; transmit, to the business logic subsystem, an indication of the available resources; receive, from the business logic subsystem, selections of the indicated resources and associated metadata; and provision a container within the device management subsystem using the metadata for accessing the selected resources.
+29. The CDI system of claim 28, wherein the data management subsystem is arranged to: transmit, to the business logic subsystem, logical addresses of the available resources based on a device map, wherein the presentation subsystem is arranged to display the logical addresses to in the presentation tier of services; and perform network address translation on logical addresses indicated by a resource request to obtain corresponding physical locations of the resources.
+30. The CDI system of claim 28, wherein the data management subsystem is arranged to: unprovision the container after a time period for accessing the selected resources has elapsed.
+</claims>
+</document>

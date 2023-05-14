@@ -1,0 +1,111 @@
+<document>
+
+<filing_date>
+2018-07-26
+</filing_date>
+
+<publication_date>
+2020-01-30
+</publication_date>
+
+<priority_date>
+2017-08-01
+</priority_date>
+
+<ipc_classes>
+A61B34/10,G16H50/50
+</ipc_classes>
+
+<assignee>
+SIEMENS HEALTHCARE
+</assignee>
+
+<inventors>
+SHARMA, PUNEET
+REDEL, THOMAS
+KLEIN PAUL
+RAPAKA, SAIKIRAN
+ITU, LUCIAN MIHAI
+PASSERINI, TIZIANO
+</inventors>
+
+<docdb_family_id>
+65232332
+</docdb_family_id>
+
+<title>
+NON-INVASIVE ASSESSMENT AND THERAPY GUIDANCE FOR CORONARY ARTERY DISEASE IN DIFFUSE AND TANDEM LESIONS
+</title>
+
+<abstract>
+A method and system for non-invasive assessment and therapy planning for coronary artery disease from medical image data of a patient is disclosed. Geometric features representing at least a portion of a coronary artery tree of the patient are extracted from medical image data. Lesions are detected in coronary artery tree of the patient and a hemodynamic quantity of interest is computed at a plurality of points along the coronary artery tree including multiple points within the lesions based on the extracted geometric features using a machine learning model, resulting in an estimated pullback curve for the hemodynamic quantity of interest. Post-treatment values for the hemodynamic quantity of interest are predicted at the plurality of points along the coronary artery tree including the multiple points within the lesions for each of one or more candidate treatment options for the patient, resulting in a respective predicted post-treatment pullback curve for the hemodynamic quantity of interest for each of the one or more candidate treatment options. A visualization of a treatment prediction for at least one of the candidate treatment options is displayed.
+</abstract>
+
+<claims>
+1. A method for non-invasive assessment and therapy planning for coronary artery disease from medical image data of a patient, comprising:
+extracting geometric features from medical image data representing at least a portion of a coronary artery tree of the patient;
+detecting one or more lesions in coronary artery tree of the patient and
+computing a hemodynamic quantity of interest at a plurality of points along the coronary artery tree including multiple points within each of the one or more lesions based on the extracted geometric features using a first machine learning model, resulting in an estimated pullback curve for the hemodynamic quantity of interest;
+predicting post-treatment values for the hemodynamic quantity of interest at the plurality of points along the coronary artery tree including the multiple points within each of the one or more lesions for each of one or more candidate treatment options for the patient, resulting in a respective predicted post-treatment pullback curve for the hemodynamic quantity of interest for each of the one or more candidate treatment options; and
+displaying a visualization of a treatment prediction for at least one of the candidate treatment options for the patient.
+2. The method of claim 1 , wherein the first machine learning model comprises a first trained regression model and a second trained regression model, and detecting one or more lesions in coronary artery tree of the patient and computing a hemodynamic quantity of interest at a plurality of points along the coronary artery tree including multiple points within each of the one or more lesions based on the extracted geometric features using a first machine learning algorithm, resulting in an estimated pullback curve for the hemodynamic quantity of interest, comprises:
+computing the hemodynamic quantity of interest at points along healthy segments of the coronary artery tree using the first trained regression model; and computing the hemodynamic quantity of interest at the multiple points within each of the one or more lesions using the second trained regression model.
+3. The method of claim 2, wherein computing the hemodynamic quantity of interest at the multiple points within each of the one or more lesions using the second trained regression model comprises, for each of the one or more lesions:
+computing a total pressure drop feature for the lesion based on values of hemodynamic quantity of interest proximal and distal to lesion computed by the first trained regression model;
+inputting the total pressure drop feature, features characterizing the entire lesion, and features characterizing the multiple points within the lesion to the second trained regression model; and
+computing the hemodynamic quantity of interest at the multiple points within the lesion based on the total pressure drop feature, the features characterizing the entire lesion, and the features characterizing the multiple points within the lesion to the second trained regression model using the second trained regression model.
+4. The method of claim 1 , wherein the first trained machine learning model comprises a trained recurrent neural network (RNN), and detecting one or more lesions in coronary artery tree of the patient and computing a hemodynamic quantity of interest at a plurality of points along the coronary artery tree including multiple points within each of the one or more lesions based on the extracted geometric features using a first machine learning algorithm, resulting in an estimated pullback curve for the
+hemodynamic quantity of interest, comprises:
+sequentially inputting local features for each of a plurality of centerline points along a centerline of the coronary artery tree to the trained RNN; and
+for each of the plurality of centerline points along the centerline of the coronary artery tree, computing the hemodynamic quantity of interest at that centerline point using the trained RNN by updating an internal state of the RNN based on the local features input for that centerline point and computing the hemodynamic quantity of interest at that centerline point based on the updated internal state of the RNN.
+5. The method of claim 1 , wherein the first machine learning model comprises a trained convolutional neural network (CNN), and detecting one or more lesions in coronary artery tree of the patient and computing a hemodynamic quantity of interest at a plurality of points along the coronary artery tree including multiple points within each of the one or more lesions based on the extracted geometric features using a first machine learning algorithm, resulting in an estimated pullback curve for the
+hemodynamic quantity of interest, comprises:
+for each of one or more branches of the coronary artery tree, inputting one or more local geometric features extracted at each of a plurality of equal spaced locations along the branch to the trained CNN as an M x N array, where N is a number of the equally spaced locations and M is a number of local geometric features input for each of the equally spaced locations, and computing the hemodynamic quantity of interest at each of a plurality of equally spaced locations along the branch based on the input array of local features using the trained CNN.
+6. The method of claim 5, wherein the CNN inputs a radius value at each of the plurality of equally spaced locations and outputs a pressure value at each of the plurality of equally spaced locations.
+7. The method of claim 1 , wherein each of the one or more candidate treatment options corresponds to a candidate percutaneous coronary intervention (PCI) treatment, and predicting post-treatment values for the hemodynamic quantity of interest at the plurality of points along the coronary artery tree including the multiple points within each of the one or more lesions for each of one or more candidate treatment options for the patient, resulting in a respective predicted post-treatment pullback curve for the hemodynamic quantity of interest for each of the one or more candidate treatment options, comprises:
+inputting the extracted geometric features to a second trained machine learning model; predicting patient-specific post-PCI geometric features for each of the one or more candidate PCI treatments based on the input geometric features using the second trained machine learning model; and
+predicting, for each of the one or more candidate PCI treatments, post-PCI values for the hemodynamic quantity of interest at the plurality of points along the coronary artery tree including the multiple points within each of the one or more lesions based on the predicted patient-specific post-PCI geometric features using the first machine learning model.
+8. The method of claim 1 , wherein each of the one or more candidate treatment options corresponds to a candidate percutaneous coronary intervention (PCI) treatment, and predicting post-treatment values for the hemodynamic quantity of interest at the plurality of points along the coronary artery tree including the multiple points within each of the one or more lesions for each of one or more candidate treatment options for the patient, resulting in a respective predicted post-treatment pullback curve for the hemodynamic quantity of interest for each of the one or more candidate treatment options, comprises:
+inputting the extracted geometric features, a number of the lesions detected in the coronary artery tree of the patient, and locations of the lesions detected in the coronary artery tree of the patient to a second trained machine learning model; and
+predicting, for each of one or more candidate PCI treatments corresponding to respective possible combinations of stenting at the detected lesions in the coronary artery tree, post-PCI values for the hemodynamic quantity of interest at the plurality of points along the coronary artery tree including the multiple points within each of the one or more lesions based on the input extracted geometric features using the second trained machine learning model.
+9. The method of claim 1 , wherein each of the one or more candidate treatment options corresponds to a candidate percutaneous coronary intervention (PCI) treatment, and the method further comprises: predicting, for each of the one or more candidate PCI treatments, a plaque vulnerability index using a second trained machine learning model based on the geometric features corresponding to post-PCI anatomy for each of the one or more candidate PCI treatments and other features including one or more of demographic features or blood biomarkers.
+10. The method of claim 9, wherein predicting, for each of the one or more candidate PCI treatments, a plaque vulnerability index using a second trained machine learning model based on the geometric features corresponding to post-PCI anatomy for each of the one or more candidate PCI treatments and other features including one or more of demographic features or blood biomarkers comprises:
+predicting, for each of the one or more candidate PCI treatments, the plaque vulnerability index at the plurality of points along the coronary artery tree including the multiple points within each of the one or more lesions using the second trained machine learning model, resulting in a respective predicted plaque vulnerability curve for each of the one or more candidate PCI treatments, wherein the plaque vulnerability index at each point corresponds to a likelihood that the vascular location will cause a
+cardiovascular event.
+1 1. The method of claim 10, wherein each of the one or more candidate PCI treatments includes one or more stenting locations, and displaying a visualization of a treatment prediction for at least one of the candidate treatment options for the patient comprises:
+displaying, for at least one of the candidate PCI treatments, an image showing at least a portion of the coronary artery tree of the patient with a visual representation of a stent overlaid on the coronary artery at the one or more stenting locations for the candidate PCI treatment, the predicted plaque vulnerability index curve for the candidate PCI treatment, and the predicted post-treatment pullback curve for the hemodynamic quantity of interest for the candidate PCI treatment.
+12. The method of claim 9, further comprising: scoring the one or more candidate PCI treatments based on the predicted posttreatment values of the hemodynamic quantity of interest and the predicted plaque vulnerability index for each of the one or more candidate PCI treatments.
+13. The method of claim 12, wherein scoring the one or more candidate PCI treatments based on the predicted post-treatment values of the hemodynamic quantity of interest and the predicted plaque vulnerability index for each of the one or more candidate PCI treatments comprises:
+automatically excluding all candidate PCI treatments for which the predicted post-treatment values of the hemodynamic quantity of interest fall below a threshold value; and
+assigned a score to each of the remaining candidate PCI treatments based on the integral average of the predicted plaque vulnerability index.
+14. The method of claim 9, wherein the one or more candidate PCI treatments include multiple stenting scenarios for stenting at least one of the lesions, including spot stenting at one or more locations within the lesion and complete stenting of the lesion.
+15. The method of claim 14, further comprising:
+generating post-PCI scenarios corresponding to each of the one or more candidate PCI treatments using a third trained machine learning model, wherein the third trained machine learning model is trained in a generative adversarial network (GAN).
+16. The method of claim 1 , further comprising:
+prior to detecting the one or more lesions in coronary artery tree and computing the hemodynamic quantity of interest at the plurality of points along the coronary artery tree including the multiple points within each of the one or more lesions based on the extracted geometric features using a first machine learning model,
+identifying a mismatch between an anatomical and functional evaluation in at least one branch of the coronary artery tree, and modifying the extracted geometric features in the at least one branch of the coronary artery tree to correct the mismatch between the anatomical and functional evaluation.
+17. An apparatus for non-invasive assessment and therapy planning for coronary artery disease from medical image data of a patient, comprising:
+means for extracting geometric features from medical image data representing at least a portion of a coronary artery tree of the patient;
+means for detecting one or more lesions in coronary artery tree of the patient and computing a hemodynamic quantity of interest at a plurality of points along the coronary artery tree including multiple points within each of the one or more lesions based on the extracted geometric features using a first machine learning model, resulting in an estimated pullback curve for the hemodynamic quantity of interest;
+means for predicting post-treatment values for the hemodynamic quantity of interest at the plurality of points along the coronary artery tree including the multiple points within each of the one or more lesions for each of one or more candidate treatment options for the patient, resulting in a respective predicted post-treatment pullback curve for the hemodynamic quantity of interest for each of the one or more candidate treatment options; and
+means for displaying a visualization of a treatment prediction for at least one of the candidate treatment options for the patient.
+18. The apparatus of claim 17, wherein each of the one or more candidate treatment options corresponds to a candidate percutaneous coronary intervention (PCI) treatment, and the apparatus further comprises:
+means for predicting, for each of the one or more candidate PCI treatments, a plaque vulnerability index using a second trained machine learning model based on the geometric features corresponding to post-PCI anatomy for each of the one or more candidate PCI treatments and other features including one or more of demographic features or blood biomarkers.
+19. The apparatus of claim 18, further comprising: means for scoring the one or more candidate PCI treatments based on the predicted post-treatment values of the hemodynamic quantity of interest and the predicted plaque vulnerability index for each of the one or more candidate PCI treatments.
+20. The apparatus of claim 17, further comprising:
+means for identifying a mismatch between an anatomical and functional evaluation in at least one branch of the coronary artery tree; and
+and means for modifying the extracted geometric features in the at least one branch of the coronary artery tree to correct the mismatch between the anatomical and functional evaluation.
+21. A non-transitory computer readable medium storing computer program instructions for non-invasive assessment and therapy planning for coronary artery disease from medical image data of a patient, the computer program instructions when executed by a processor cause the processor to perform operations comprising:
+extracting geometric features from medical image data representing at least a portion of a coronary artery tree of the patient;
+detecting one or more lesions in coronary artery tree of the patient and computing a hemodynamic quantity of interest at a plurality of points along the coronary artery tree including multiple points within each of the one or more lesions based on the extracted geometric features using a first machine learning model, resulting in an estimated pullback curve for the hemodynamic quantity of interest;
+predicting post-treatment values for the hemodynamic quantity of interest at the plurality of points along the coronary artery tree including the multiple points within each of the one or more lesions for each of one or more candidate treatment options for the patient, resulting in a respective predicted post-treatment pullback curve for the hemodynamic quantity of interest for each of the one or more candidate treatment options; and
+displaying a visualization of a treatment prediction for at least one of the candidate treatment options for the patient.
+22. The non-transitory computer readable medium of claim 21 , wherein each of the one or more candidate treatment options corresponds to a candidate percutaneous coronary intervention (PCI) treatment, and the operations further comprise:
+predicting, for each of the one or more candidate PCI treatments, a plaque vulnerability index using a second trained machine learning model based on the geometric features corresponding to post-PCI anatomy for each of the one or more candidate PCI treatments and other features including one or more of demographic features or blood biomarkers.
+23. The non-transitory computer readable medium of claim 22, wherein the operations further comprise:
+scoring the one or more candidate PCI treatments based on the predicted posttreatment values of the hemodynamic quantity of interest and the predicted plaque vulnerability index for each of the one or more candidate PCI treatments.
+24. The non-transitory computer readable medium of claim 21 , wherein the operations further comprise:
+prior to detecting the one or more lesions in coronary artery tree and computing the hemodynamic quantity of interest at the plurality of points along the coronary artery tree including the multiple points within each of the one or more lesions based on the extracted geometric features using a first machine learning model,
+identifying a mismatch between an anatomical and functional evaluation in at least one branch of the coronary artery tree, and modifying the extracted geometric features in the at least one branch of the coronary artery tree to correct the mismatch between the anatomical and functional evaluation.
+</claims>
+</document>

@@ -1,0 +1,74 @@
+<document>
+
+<filing_date>
+2020-04-30
+</filing_date>
+
+<publication_date>
+2020-12-24
+</publication_date>
+
+<priority_date>
+2019-06-19
+</priority_date>
+
+<ipc_classes>
+G06N20/10,G10L15/187,G10L19/04
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+BRUGUIER, ANTOINE JEAN
+PRABHAVALKAR, ROHIT PRAKASH
+PUNDAK, GOLAN
+SAINATH, TARA N.
+</inventors>
+
+<docdb_family_id>
+70918972
+</docdb_family_id>
+
+<title>
+CONTEXTUAL BIASING FOR SPEECH RECOGNITION
+</title>
+
+<abstract>
+A method of biasing speech recognition includes receiving audio data encoding an utterance and obtaining a set of one or more biasing phrases corresponding to a context of the utterance. Each biasing phrase in the set of one or more biasing phrases includes one or more words. The method also includes processing, using a speech recognition model, acoustic features derived from the audio data and grapheme and phoneme data derived from the set of one or more biasing phrases to generate an output of the speech recognition model. The method also includes determining a transcription for the utterance based on the output of the speech recognition model.
+</abstract>
+
+<claims>
+1. A method comprising: receiving, at data processing hardware, audio data encoding an utterance; obtaining, by the data processing hardware, a set of one or more biasing phrases corresponding to a context of the utterance, each biasing phrase in the set of one or more biasing phrases comprising one or more words; processing, by the data processing hardware, using a speech recognition model, acoustic features derived from the audio data and grapheme and phoneme data derived from the set of one or more biasing phrases to generate an output of the speech recognition model; and determining, by the data processing hardware, a transcription for the utterance based on the output of the speech recognition model.
+2. The method of claim 1, wherein the speech recognition model comprises: a first encoder configured to receive, as input, the acoustic features and generate, as output, audio encodings from the acoustic features; a first attention module configured to receive, as input, the audio encodings output from the first encoder and generate, as output, first attention outputs; a grapheme encoder configured to receive, as input, grapheme data indicating graphemes of each word in the set of one or more biasing phrases and generate, as output, grapheme encodings; a phoneme encoder configured to receive, as input, phoneme data indicating phonemes of each word in the set of one or more biasing phrases and generate, as output, phoneme encodings; a second attention module configured to receive, as input, a representation of the grapheme encodings output from the grapheme encoder and the phoneme encodings output from the phoneme encoder and generate, as output, second attention outputs; and a decoder configured to determine likelihoods of sequences of speech elements based on the first attention outputs and the second attention outputs.
+3. The method of claim 2, wherein, for each particular word of each biasing phrase in the set of one or more biasing phrases: the grapheme encoder is configured to generate a corresponding grapheme encoding for the particular word; the phoneme encoder is configured to generate a corresponding phoneme encoding for the particular word; and the second attention module is configured to encode a corresponding second attention output that comprises a corresponding contextual biasing vector for the particular word based on the corresponding grapheme and phoneme encodings for the particular word.
+4. The method of claim 2, wherein the representation of the grapheme encodings output from the grapheme encoder and the phoneme encodings output from the phoneme encoder comprises a projection vector representing a concatenation between the grapheme encodings and the phoneme encodings.
+5. The method of claim 2, wherein the first encoder, the first attention module, the grapheme encoder, the phoneme encoder, the second attention module, and the decoder are trained jointly to predict a sequence of graphemes from a sequence of acoustic feature frames.
+6. The method of claim 2, wherein: the first attention module is configured to compute attention as a function of a previous hidden state of the decoder and a full sequence of audio encodings output by the first encoder; and the second attention module is configured to compute attention as a function of the previous hidden states of the decoder and a full sequence of projection vectors representing characteristics of both the grapheme and phoneme data derived from the biasing phrases in the set of one or more biasing phrases.
+7. The method of claim 2, wherein the second attention module is configured to receive a contextual biasing vector that does not correspond to any of the biasing phrases in the set of one or more biasing phrases, the contextual biasing vector representing an option to not bias the output of the speech recognition model.
+8. The method of claim 2, wherein the speech elements comprise graphemes.
+9. The method of claim 2, wherein the speech elements comprise words or wordpieces.
+10. The method of claim 1, wherein the set of one or more biasing phrases comprises one or more contact names personalized for a particular user.
+11. The method of claim 1, wherein the set of one or more biasing phrases comprises one or more calendar events personalized for a particular user.
+12. The method of claim 1, further comprising determining, by the data processing hardware, the context of the utterance based on a location of a user that spoke the utterance.
+13. The method of claim 1, further comprising determining, by the data processing hardware, the context of the utterance based on one or more applications open on a user device associated with a user that spoke the utterance.
+14. The method of claim 1, further comprising determining, by the data processing hardware, the context of the utterance based on a current date and/or time of the utterance.
+15. The method of claim 1, wherein the speech recognition model comprises a decoder configured to determine a hidden state and the output of the speech recognition model based on: an embedding vector for a previous grapheme output by the speech recognition model; a previous hidden state of the decoder; a first vector output by a first attention module; and a second vector output by a second attention module.
+16. A system comprising: data processing hardware; and memory hardware in communication with the data processing hardware, the memory hardware storing instructions that when executed on the data processing hardware cause the data processing hardware to perform operations comprising: receiving audio data encoding an utterance; obtaining a set of one or more biasing phrases corresponding to a context of the utterance, each biasing phrase in the set of one or more biasing phrases comprising one or more words; processing, using a speech recognition model, acoustic features derived from the audio data and grapheme and phoneme data derived from the set of one or more biasing phrases to generate an output of the speech recognition model; and determining a transcription for the utterance based on the output of the speech recognition model.
+17. The system of claim 16, wherein the speech recognition model comprises: a first encoder configured to receive, as input, the acoustic features and generate, as output, audio encodings from the acoustic features; a first attention module configured to receive, as input, the audio encodings output from the first encoder and generate, as output, first attention outputs; a grapheme encoder configured to receive, as input, grapheme data indicating graphemes of each word in the set of one or more biasing phrases and generate, as output, grapheme encodings; a phoneme encoder configured to receive, as input, phoneme data indicating phonemes of each word in the set of one or more biasing phrases and generate, as output, phoneme encodings; a second attention module configured to receive, as input, a representation of the grapheme encodings output from the grapheme encoder and the phoneme encodings output from the phoneme encoder and generate, as output, second attention outputs; and a decoder configured to determine likelihoods of sequences of speech elements based on the first attention outputs and the second attention outputs.
+18. The system of claim 17, wherein, for each particular word of each biasing phrase in the set of one or more biasing phrases: the grapheme encoder is configured to generate a corresponding grapheme encoding for the particular word; the phoneme encoder is configured to generate a corresponding phoneme encoding for the particular word; and the second attention module is configured to encode a corresponding second attention output that comprises a corresponding contextual biasing vector for the particular word based on the corresponding grapheme and phoneme encodings for the particular word.
+19. The system of claim 17, wherein the representation of the grapheme encodings output from the grapheme encoder and the phoneme encodings output from the phoneme encoder comprises a projection vector representing a concatenation between the grapheme encodings and the phoneme encodings.
+20. The system of claim 17, wherein the first encoder, the first attention module, the grapheme encoder, the phoneme encoder, the second attention module, and the decoder are trained jointly to predict a sequence of graphemes from a sequence of acoustic feature frames.
+21. The system of claim 17, wherein: the first attention module is configured to compute attention as a function of a previous hidden state of the decoder and a full sequence of audio encodings output by the first encoder; and the second attention module is configured to compute attention as a function of the previous hidden states of the decoder and a full sequence of projection vectors representing characteristics of both the grapheme and phoneme data derived from the biasing phrases in the set of one or more biasing phrases.
+22. The system of claim 17, wherein the second attention module is configured to receive a contextual biasing vector that does not correspond to any of the biasing phrases in the set of one or more biasing phrases, the contextual biasing vector representing an option to not bias the output of the speech recognition model.
+23. The system of claim 17, wherein the speech elements comprise graphemes.
+24. The system of claim 17, wherein the speech elements comprise words or wordpieces.
+25. The system of claim 16, wherein the set of one or more biasing phrases comprises one or more contact names personalized for a particular user.
+26. The system of claim 16, wherein the set of one or more biasing phrases comprises one or more calendar events personalized for a particular user.
+27. The system of claim 16, wherein the operations further comprise determining the context of the utterance based on a location of a user that spoke the utterance.
+28. The system of claim 16, wherein the operations further comprise determining the context of the utterance based on one or more applications open on a user device associated with a user that spoke the utterance.
+29. The system of claim 16, wherein the operations further comprise determining the context of the utterance based on a current date and/or time of the utterance.
+30. The system of claim 16, wherein the speech recognition model comprises a decoder configured to determine a hidden state and the output of the speech recognition model based on: an embedding vector for a previous grapheme output by the speech recognition model; a previous hidden state of the decoder; a first vector output by a first attention module; and a second vector output by a second attention module.
+</claims>
+</document>

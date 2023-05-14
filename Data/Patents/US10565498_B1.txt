@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2017-02-28
+</filing_date>
+
+<publication_date>
+2020-02-18
+</publication_date>
+
+<priority_date>
+2017-02-28
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/08,G06N7/00
+</ipc_classes>
+
+<assignee>
+AMAZON TECHNOLOGIES
+</assignee>
+
+<inventors>
+ZHIYANOV, DMITRY VLADIMIR
+</inventors>
+
+<docdb_family_id>
+69528403
+</docdb_family_id>
+
+<title>
+Deep neural network-based relationship analysis with multi-feature token model
+</title>
+
+<abstract>
+A data set whose records include respective pairs of entity descriptors with at least some text and a representation of a relationship such as similarity between the entities of the pair is obtained. Using the data set, a neural network model is trained to generate relationship indicators for pairs of entity descriptors. In an extensible token model of the neural network model, a text token of a first attribute of a particular entity descriptor is represented by a plurality of features including a first feature which was added to the token model as a result of a programmatic request. A particular relationship indicator corresponding to a source entity descriptor and a target entity descriptor is generated using the trained neural network model.
+</abstract>
+
+<claims>
+1. A system, comprising: one or more computing devices of a network-accessible machine learning service; wherein the one or more computing devices are configured to: obtain an indication of a first data set comprising a plurality of training records, wherein a first training record of the first data set comprises (a) a first item descriptor comprising respective values of one or more attributes of a first item, (b) a second item descriptor comprising respective values of one or more attributes of a second item and (c) an indicator of a similarity between the first item and the second item, wherein at least one attribute of the first item comprises text; train, using the first data set, a neural network model to generate respective similarity scores with respect to pairs of item descriptors, wherein the neural network model comprises a first subnetwork and a second subnetwork in a mirrored configuration, wherein during training of the neural network model, an update to a weight associated with the first subnetwork is duplicated at the second subnetwork, wherein the neural network model comprises a token model in which a text token of a first attribute of a particular item descriptor of a first pair of item descriptors is represented by a plurality of features including (a) a first binary mask indicating whether another attribute of the particular item descriptor includes the text token and (b) a second binary mask indicating whether an attribute of the other item descriptor of the first pair includes the text token; in response to determining that a similarity query indicating at least a source item descriptor and a similarity-candidate item descriptor has been submitted, generate, using the trained neural network model, a particular similarity score with respect to the source item descriptor and the similarity-candidate item descriptor; and transmit, via a programmatic interface, the particular similarity score to a destination.
+2. The system as recited in claim 1, wherein the neural network model comprises a recurrent neural network.
+3. The system as recited in claim 2, wherein the recurrent neural network comprises one or more Long Short Term Memory (LSTM) units.
+4. The system as recited in claim 1, wherein an objective function used to train the neural network model is based at least in part on a cross-entropy loss metric.
+5. The system as recited in claim 1, wherein the one or more computing devices are configured to: generate, using respective instances of the trained neural network model at a plurality of execution platforms of a provider network, respective similarity scores pertaining to a plurality of item descriptor pairs.
+6. A method, comprising: performing, by one or more computing devices: obtaining an indication of a first data set comprising a plurality of training records, wherein a first training record of the first data set comprises (a) a first item descriptor comprising respective values of one or more attributes of a first item, (b) a second item descriptor comprising respective values of one or more attributes of a second item and (c) an indicator of a similarity between the first item and the second item, wherein at least one attribute of the first item comprises text; training, using the first data set, a neural network model to generate respective similarity scores with respect to pairs of item descriptors, wherein the neural network model comprises a token model in which a text token of a first attribute of a particular item descriptor of a first pair of item descriptors is represented by a plurality of features including a first feature indicating whether one or more attributes of the other item descriptor of the first pair include the text token; generating, using the trained neural network model, a particular similarity score corresponding to a source item descriptor and a target item descriptor; and storing the particular similarity score.
+7. The method as recited in claim 6, wherein the neural network model comprises a first subnetwork and a second subnetwork arranged in a mirrored configuration, wherein a transformation function applied at a first node of the first subnetwork is applied at a second node of the second subnetwork.
+8. The method as recited in claim 6, wherein the neural network model comprises a recurrent neural network.
+9. The method as recited in claim 8, wherein the recurrent neural network comprises one or more Long Short Term Memory (LSTM) units.
+10. The method as recited in claim 6, wherein an objective function used to train the model is based at least in part on a cross-entropy loss metric.
+11. The method as recited in claim 6, wherein the neural network model comprises an attribute model corresponding to one or more attributes of an item descriptor, wherein respective outputs of the token model corresponding to one or more tokens of a particular attribute are provided as input to the attribute model, and wherein respective outputs of the attribute model corresponding to one or more attributes are provided as input to a fully-connected layer of nodes of the neural network model.
+12. The method as recited in claim 6, wherein respective instances of a common attribute model are used to represent a plurality of attributes of an item descriptor.
+13. The method as recited in claim 12, wherein individual ones of the plurality of attributes of the item descriptor correspond to respective attribute types, wherein initialization of a first instance of the attribute model comprises setting a first state variable to a first value based at least in part on a first attribute type, and wherein initialization of a second instance of the attribute model comprises setting the first state variable to a different value based at least in part on a second attribute type.
+14. The method as recited in claim 6, further comprising performing, by the one or more computing devices: obtaining, from an automated hyper-parameter optimization service, respective values of one or more hyper-parameters of the neural network model, wherein a particular hyper-parameter of the one or more hyper-parameters comprises one or more of: (a) a minimum token frequency for inclusion of a token in a dictionary, (b) a type of gradient descent algorithm to be used during training, (c) a dropout parameter, (d) a state vector size, (e) an intermediate result vector size, (f) a feature vector length, or (g) a number of nodes of a hidden layer of the neural network model.
+15. The method as recited in claim 6, further comprising performing, by the one or more computing devices: adding, to the token model, a feature indicated via a programmatic interface.
+16. A non-transitory computer-accessible storage medium storing program instructions that when executed on one or more processors cause the one or more processors to: obtain an indication of a first data set comprising a plurality of training records, wherein a first training record of the first data set comprises (a) a first entity descriptor comprising respective values of one or more attributes of a first entity, (b) a second entity descriptor comprising respective values of one or more attributes of a second entity and (c) a representation of a relationship between the first entity and the second entity, wherein at least one attribute of the first entity comprises text; train, using the first data set, a neural network model to generate respective relationship indicators with respect to pairs of entity descriptors, wherein the neural network model comprises a token model in which a text token of a first attribute of a particular entity descriptor of a first pair of entity descriptors is represented by a plurality of features including a first feature, wherein the first feature is added to the token model in response to a request received via a programmatic interface; and transmit, to a destination, a particular relationship indicator generated using the trained neural network model, wherein the particular relationship indicator corresponds to a source entity descriptor and a target entity descriptor.
+17. The non-transitory computer-accessible storage medium as recited in claim 16, wherein the neural network model comprises a first subnetwork and a second subnetwork arranged in a mirrored configuration, wherein a transformation function applied at a first node of the first subnetwork is applied at a second node of the second subnetwork.
+18. The non-transitory computer-accessible storage medium as recited in claim 16, wherein the neural network model comprises a recurrent neural network.
+19. The non-transitory computer-accessible storage medium as recited in claim 16, wherein a second feature of the plurality of features includes an indication of a case of one or more characters of the text token.
+20. The non-transitory computer-accessible storage medium as recited in claim 16, wherein the destination comprises one or more of: (a) an inventory management system of an e-retail organization (b) a web site management system of an e-retail web site.
+21. The non-transitory computer-accessible storage medium as recited in claim 16, wherein the relationship indicator transmitted to the destination comprises one or more of: (a) a difference score with respect to one or more attributes, (b) a similarity score with respect to one or more attributes, (c) an inclusion score indicating a probability that the source entity belongs to a group represented by the target entity, or (d) a participation score indicating a probability that the source entity has participated in an activity represented by the target entity.
+22. The non-transitory computer-accessible storage medium as recited in claim 16, wherein the instructions when executed on one or more processors cause the one or more processors to: generate the relationship indicator in response to a determination that a relationship query specifying the source entity and the target entity has been submitted, wherein the relationship query indicates a particular attribute with respect to which a relationship indicator is to be obtained.
+</claims>
+</document>

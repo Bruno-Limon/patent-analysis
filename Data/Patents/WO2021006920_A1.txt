@@ -1,0 +1,127 @@
+<document>
+
+<filing_date>
+2019-10-02
+</filing_date>
+
+<publication_date>
+2021-01-14
+</publication_date>
+
+<priority_date>
+2019-07-09
+</priority_date>
+
+<ipc_classes>
+G10L13/02,G10L15/06,G10L15/16,G10L15/30
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+SCHALKWYK, JOHAN
+BEAUFAYS, Françoise
+SIM, Khe Chai
+</inventors>
+
+<docdb_family_id>
+68296774
+</docdb_family_id>
+
+<title>
+ON-DEVICE SPEECH SYNTHESIS OF TEXTUAL SEGMENTS FOR TRAINING OF ON-DEVICE SPEECH RECOGNITION MODEL
+</title>
+
+<abstract>
+Processor(s) of a client device can: identify a textual segment stored locally at the client device; process the textual segment, using a speech synthesis model stored locally at the client device, to generate synthesized speech audio data that includes synthesized speech of the identified textual segment; process the synthesized speech, using an on-device speech recognition model that is stored locally at the client device, to generate predicted output; and generate a gradient based on comparing the predicted output to ground truth output that corresponds to the textual segment. In some implementations, the generated gradient is used, by processor(s) of the client device, to update weights of the on-device speech recognition model. In some implementations, the generated gradient is additionally or alternatively transmitted to a remote system for use in remote updating of global weights of a global speech recognition model.
+</abstract>
+
+<claims>
+What is claimed is:
+1. A method performed by one or more processors of a client device, the method
+comprising:
+identifying a textual segment stored locally at the client device; generating synthesized speech audio data that includes synthesized speech of the identified textual segment, wherein generating the synthesized speech audio data comprises processing the textual segment using a speech synthesis model stored locally at the client device;
+processing, using an end-to-end speech recognition model stored locally at the client device, the synthesized audio data to generate a predicted textual segment; generating a gradient based on comparing the predicted textual segment to the textual segment; and
+updating one or more weights of the end-to-end speech recognition model based on the generated gradient.
+2. The method of claim 1, further comprising:
+transmitting, over a network to a remote system, the generated gradient without transmitting any of: the textual segment, the synthesized speech audio data, and the predicted textual segment;
+wherein the remote system utilizes the generated gradient, and additional gradients from additional client devices, to update global weights of a global end-to-end speech recognition model.
+3. The method of claim 2, wherein the updated global weights of the global end-to-end speech recognition model are stored in memory of the remote system.
+4. The method of claim 2 or 3, further comprising:
+receiving, at the client device and from the remote system, the global end-toend speech recognition model, wherein receiving the global end-to-end speech recognition model is subsequent to the remote system updating the global weights of the global end-to-end speech recognition model based on the gradient and the additional gradients; and
+responsive to receiving the global speech recognition model, replacing in local storage of the client device the end-to-end speech recognition model with the global speech recognition model.
+5. The method of claim 2 or 3, further comprising:
+receiving, at the client device and from the remote system, the updated global weights, wherein receiving the updated global weights is subsequent to the remote system updating the global weights of the global end-to-end speech recognition model based on the gradient and the additional gradients; and
+responsive to receiving the updated global weights, replacing in local storage of the client device weights of the end-to-end speech recognition model with the updated global weights.
+6. The method of any preceding claim, wherein the textual segment is identified from a contacts list, a media playlist, a list of aliases of linked smart devices, or from typed input received at the client device.
+7. The method of any preceding claim, wherein the textual segment is identified based on the textual segment being newly added as an alias for a contact or as an alias for a linked smart device.
+8. The method of any preceding claim, further comprising:
+determining, based on sensor data from one or more sensors of the client device, that a current state of the client device satisfies one or more conditions;
+wherein generating the synthesized speech audio data, and/or processing the synthesized speech audio data to generate the predicted textual segment, and/or generating the gradient, and/or updating the one or more weights are performed responsive to determining that the current state of the client device satisfies the one or more conditions.
+9. The method of claim 8, wherein the one or more conditions include at least one of: the client device is charging, the client device has at least a threshold state of charge, or the client device is not being carried by a user.
+10. The method of claim 9, wherein the one or more conditions include two or more of: the client device is charging, the client device has at least a threshold state of charge, or the client device is not being carried by a user.
+11. The method of claim 1, wherein identifying the textual segment comprises:
+identifying the textual segment based on:
+determining that a prior human utterance, detected via one or more microphones, included the textual segment; and
+determining that a prior speech recognition of the prior human utterance, performed using the end-to-end speech recognition model, failed to correctly recognize the textual segment.
+12. The method of claim 11, wherein determining that the prior speech recognition failed to correctly recognize the textual segment is based on received user input that cancels an action predicted based on the prior speech recognition, and wherein determining that the prior human utterance included the textual segment is based on additional received user input received after the user input that cancels the action predicted based on the prior speech recognition.
+13. The method of claim 12, wherein the additional received user input comprises input of the textual segment.
+14. The method of any preceding claim, wherein generating the synthesized speech audio data that includes synthesized speech of the identified textual segment further comprises:
+determining an additional textual segment; and
+wherein generating the synthesized speech audio data comprises processing the textual segment, along with the additional textual segment, using the speech synthesis model.
+15. The method of claim 14, wherein determining the additional textual segment is based on a defined relationship of the additional textual segment to a particular corpus from which the textual segment is identified.
+16. The method of any preceding claim, wherein processing the textual segment using the speech synthesis model comprises processing a sequence of phonemes determined to correspond to the textual segment.
+17. The method of any preceding claim, wherein the speech synthesis model is one of a plurality of candidate speech synthesis models for a given language, and is locally stored at the client device based at least in part on a geographic region of the client device.
+18. The method of any preceding claim, further comprising, prior to generating the
+synthesized speech audio data:
+identifying prior audio data that is detected via one or more microphones of the client device and that captures a prior human utterance;
+identifying a ground truth transcription for the prior human utterance; processing the ground truth transcription using the speech synthesis model to generate prior synthesized speech audio data;
+generating a gradient based on comparing the prior synthesized speech audio data to the prior audio data; and
+updating one or more weights of the speech synthesis model based on the gradient.
+19. The method of claim 18, wherein identifying the ground truth transcription comprises: generating a transcription using the speech recognition model;
+identifying the transcription as the ground truth transcription based on a confidence measure in generating the transcription and/or based on a user action performed responsive to the transcription.
+20. A method performed by one or more processors of a client device, the method
+comprising:
+identifying a textual segment stored locally at the client device; generating synthesized speech audio data that includes synthesized speech of the identified textual segment, wherein generating the synthesized speech audio data comprises processing the textual segment using a speech synthesis model stored locally at the client device;
+processing, using an end-to-end speech recognition model stored locally at the client device, the synthesized audio data to generate a predicted textual segment; generating a gradient based on comparing the predicted textual segment to the textual segment; and
+transmitting, over a network to a remote system, the generated gradient without transmitting any of: the textual segment, the synthesized speech audio data, and the predicted textual segment,
+wherein the remote system utilizes the generated gradient, and additional gradients from additional client devices, to update global weights of a global end-to-end speech recognition model.
+21. The method of claim 20, wherein the updated global weights of the global end-to-end speech recognition model are stored in memory of the remote system.
+22. The method of claim 20 or 21, further comprising:
+receiving, at the client device and from the remote system, the global end-toend speech recognition model, wherein receiving the global end-to-end speech recognition model is subsequent to the remote system updating the global weights of the global end-to-end speech recognition model based on the gradient and the additional gradients; and
+responsive to receiving the global end-to-end speech recognition model, replacing in local storage of the client device the speech recognition model with the global end-to-end speech recognition model.
+23. The method of claim 20 or 21, further comprising:
+receiving, at the client device and from the remote system, the updated global weights, wherein receiving the updated global weights is subsequent to the remote system updating the global weights of the global end-to-end speech recognition model based on the gradient and the additional gradients; and
+responsive to receiving the updated global weights, replacing in local storage of the client device weights of the speech recognition model with the updated global weights.
+24. The method of any of claims 20-23, further comprising:
+determining, based on sensor data from one or more sensors of the client device, that a current state of the client device satisfies one or more conditions;
+wherein generating the synthesized speech audio data, and/or processing the synthesized speech audio data to generate the predicted textual segment, and/or generating the gradient, and/or transmitting the generated gradient are performed responsive to determining that the current state of the client device satisfies the one or more conditions.
+25. The method of any of claims 20-24, wherein generating the synthesized speech audio data that includes synthesized speech of the identified textual segment further comprises:
+determining an additional textual segment; and
+wherein generating the synthesized speech audio data comprises processing the textual segment, along with the additional textual segment, using the speech synthesis model.
+26. The method of any of claims 20-25, wherein the speech synthesis model is one of a plurality of candidate speech synthesis models for a given language, and is locally stored at the client device based at least in part on a geographic region of the client device.
+27. The method of any of claims 20-26, further comprising, prior to generating the
+synthesized speech audio data:
+identifying prior audio data that is detected via one or more microphones of the client device and that captures a prior human utterance;
+identifying a ground truth transcription for the prior human utterance; processing the ground truth transcription using the speech synthesis model to generate prior synthesized speech audio data;
+generating a gradient based on comparing the prior synthesized speech audio data to the prior audio data; and
+updating one or more weights of the speech synthesis model based on the gradient.
+28. A method performed by one or more processors of a client device, the method
+comprising:
+identifying a textual segment stored locally at the client device;
+generating synthesized speech audio data that includes synthesized speech of the identified textual segment, wherein generating the synthesized speech audio data comprises processing the textual segment using a speech synthesis model stored locally at the client device;
+processing, using a recognition model stored locally at the client device, the synthesized speech audio data to generate predicted output;
+generating a gradient based on comparing the predicted output to ground truth output that corresponds to the textual segment; and
+updating one or more weights of the speech recognition model based on the generated gradient.
+29. The method of claim 28, wherein the predicted output comprises a sequence of
+predicted phonemes, and wherein the ground truth output comprises a ground truth sequence of phonemes that correspond to the textual segment.
+30. The method of claim 29, wherein the predicted output comprises a predicted textual segment, and wherein the ground truth output comprises the textual segment.
+31. A client device comprising:
+at least one microphone;
+at least one display;
+one or more processors executing locally stored instructions to cause the processors to carry out the method of any of claims 1 to 29.
+32. A computer program product comprising instructions, which, when executed by one or more processors, cause the one or more processors to carry out the method of any one of claims 1 to 29.
+</claims>
+</document>

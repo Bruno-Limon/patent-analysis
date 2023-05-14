@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2019-01-15
+</filing_date>
+
+<publication_date>
+2020-07-16
+</publication_date>
+
+<priority_date>
+2019-01-15
+</priority_date>
+
+<ipc_classes>
+G06F17/18,G06N20/00,G06N3/08,G06N5/04,G08G1/01
+</ipc_classes>
+
+<assignee>
+WAYCARE TECHNOLOGIES
+</assignee>
+
+<inventors>
+HAHN, IDAN
+SMOLYAK, ALEX
+</inventors>
+
+<docdb_family_id>
+71517802
+</docdb_family_id>
+
+<title>
+SYSTEM AND METHOD FOR DETECTION AND QUANTIFICATION OF IRREGULAR TRAFFIC CONGESTION
+</title>
+
+<abstract>
+A system and a method of detecting and handling traffic congestion outliers by at least one processor. Embodiments of the present invention may include: receiving, from a plurality of information sources, data corresponding to at least one temporal, local traffic property; producing a local, time-based traffic profile based on the received data; receiving, from at least one information source, new data corresponding to at least one temporal, local traffic property; analyzing the new data in relation to at least one respective time-based traffic profile, to produce a score of the new data; and if the score surpasses a threshold, then identifying the data as originating from a local, temporal traffic congestion outlier and producing at least one recommendation for handling the traffic congestion outlier.
+</abstract>
+
+<claims>
+1. A method of detecting and handling traffic congestion outliers by at least one processor, the method comprising: receiving, from a plurality of information sources, data corresponding to at least one temporal, local traffic property; producing a local, time-based traffic profile based on the received data; receiving, from at least one information source, new data corresponding to at least one temporal, local traffic property; analyzing the new data in relation to at least one respective time-based traffic profile, to produce a score of the new data; and if the score surpasses a threshold, then identifying the data as originating from a local, temporal traffic congestion outlier and producing at least one recommendation for handling the traffic congestion outlier.
+2. The method of claim 1, further comprising segmenting a geographic region of interest (ROI) to a plurality of segments based on a granularity parameter, and wherein producing a local, time-based traffic profile comprises: arranging the received data in a plurality of historic baselines, each associated with a specific segment; and producing a time-based traffic profile per each segment based on the respective historic baseline;
+3. The method of claim 1, wherein arranging the received data in a historic baseline comprises: fragmenting time to a plurality of discrete timestamp bins of a predefined duration; synchronizing the temporal traffic property data of the plurality of information sources according to the discrete timestamp bins; and aggregating data from the plurality of information sources into respective timestamp bins.
+4. The method according to claim 2, wherein producing a time-based traffic profile per each segment comprises: computing one or more values of one or more statistical parameters of the one or more traffic properties; and aggregating the computed one or more values to produce a time-based profile, representing a normal evolution of the traffic property over time per a specific segment.
+5. The method according to claim 4, wherein producing a score of the new data comprises: producing one or more severity rates; assigning a weight to each severity rate; and accumulating one or more severity rates according to the weights, to produce an overall accumulated weighted score.
+6. The method of claim 5, further comprising comparing the accumulated weighted score to a threshold, to identify a road segment as having a congestion outlier.
+7. The method according to claim 6, wherein computing one or more values of one or more statistical parameters comprises: producing a distribution histogram of the at least one traffic property, over the plurality of discrete timestamp bins per each segment; training a Gaussian Mixture Model (GMM) per each segment, based on the distribution histogram; and labeling each Gaussian distribution of the GMM to represent a probability of distribution of the at least one traffic property according to a timing property.
+8. The method according to 7, wherein producing one or more severity rates comprises: predicting the value of the temporal, local traffic property according to at least one GMM; comparing the value of the traffic property of the new data with the predicted value of the traffic property; and producing a first severity rate of the temporal, local traffic property based on the comparison.
+9. The method according to claim 5, wherein producing one or more severity rates comprises: producing a Gaussian distribution function of the at least one local, temporal traffic property per each segment and per each timestamp bin; calculating the difference between the new data value and the mean value of the Gaussian distribution function in z-score units; and producing a second severity rate based on the calculation.
+10. The method according to claim 5, wherein producing one or more severity rates comprises: calculating a historical extremum value of the at least one local, temporal traffic property per each segment and per each timestamp bin; comparing the new data value with the calculated historical extremum value; and producing a third severity rate based on the comparison.
+11. The method according to claim 5, wherein the new data is an indication of a driver behavior within a specific segment and timestamp bin, and wherein producing one or more severity rates comprises: counting occurrences of indications of driver behavior; and producing a forth severity rate based on the count.
+12. The method according to claim 5, wherein the new data comprises textual traffic property data originating from at least one online textual data source, and wherein producing one or more severity rates comprises: analyzing the textual data to determine whether the data indicates a condition of a traffic congestion; cross referencing the analyzed data with geo-location data of the user; determining if the congestion is a historical first-time occurrence of a congestion at the user's location; and if the congestion is a historical first-time occurrence of a congestion at the user's location then producing a fifth severity rate.
+13. The method according to claim 5, wherein the new data comprises numerical traffic property data originating from one or more online numerical data sources, and wherein producing one or more severity rates comprises: extracting the numerical data; analyzing the numerical data to determine whether the numerical data indicates a condition of a traffic congestion at a specific location; identifying whether the determined congestion is a first-time occurrence of a congestion at the respective location; and if the congestion is a historical first-time occurrence of a congestion at the respective location then producing a sixth severity rate.
+14. The method according to claim 1, further comprising: clustering a plurality of segments identified as having a traffic congestion outlier to a plurality of clusters; assigning a cluster score to each cluster, according to at least one severity rate of member congested segments; and producing a traffic report, comprising a geographic representation of the plurality of clustered segments and the clusters' respective cluster score.
+15. The method according to claim 14, further comprising: clustering the plurality of spatial clusters to form a time-based cluster model of spatial clusters; and analyzing each such time-based cluster to determine an evolution of an outlier congestion condition over time, and wherein the congestion report further comprises the evolution of at least one time-based cluster, to enable identification of weak spots in traffic planning.
+16. The method according to claim 1, wherein the plurality of information sources comprises at least one physical roadway detector selected from a list comprising one or more of: an induction loop, a radar, an infrared camera, a still camera, a video camera, a Light Detection and Ranging (LIDAR) sensor, a pneumatic sensor, a piezoelectric sensor, a magnetic sensor, an acoustic sensor, a doppler microwave sensor and a Bluetooth receiver.
+17. The method according to claim 1, wherein the plurality of information sources comprises at least one in-vehicle sensor selected from a list comprising one or more of: a geo-location sensor, a collision detector and a proximity detector.
+18. The method according to claim 1, wherein the plurality of information sources comprises a textual traffic report in a social network, and wherein the method further comprises extraction of data relating to traffic congestion from the textual traffic report.
+19. The method according to claim 1, wherein the recommendation comprises at least one data element corresponding to a condition of a local, temporal traffic congestion outlier and wherein the at least one data element is selected from a list comprising one or more of a geographical location corresponding to a spatial cluster, an origin of a time-based cluster and cluster score.
+20. The method according to claim 19 wherein the recommendation comprises a prompt for a user's attention to a condition of a congestion outlier, and wherein the method further comprises detecting a source of traffic irregularity using one or more integrated CCTV cameras according to the prompt.
+21. The method according to claim 19 further comprising sending the recommendation via a cellular communication network to at least one of a freeway service patrol and a police patrol, and wherein the recommendation comprises an assignment of a task or task list to the patrol force, according to specific characteristics of the congestion outlier.
+22. The method according to claim 19 further comprising sending the recommendation to a dynamic message signage (DMS) system and wherein the recommendation comprises a warning and/or an instruction to the public.
+23. The method of claim 1, further comprising training a neural network to predict at least one condition of at least one road segment given an identification of at least one traffic congestion outlier.
+24. A system for detecting traffic congestion outliers, the system comprising a non-transitory memory device, wherein modules of instruction code are stored, and a processor associated with the memory device, and configured to execute the modules of instruction code, where upon execution of said modules of instruction code the processor is configured to perform at least one of: segment a geographic region of interest to a plurality of segments; receive, from a plurality of information sources, data corresponding to at least one temporal, local traffic property; arrange the received data in a historic baseline; produce a time-based traffic profile per each segment based on the historic baseline; receive, from the plurality of information sources, new data corresponding to at least one temporal, local traffic property; compare the new data with the time-based traffic profile per each segment to produce a weighted score of the new data; and if the weighted score surpasses a predefined threshold, then identify the data as originating from a traffic congestion outlier and produce at least one recommendation for handling the traffic congestion outlier.
+</claims>
+</document>

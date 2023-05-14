@@ -1,0 +1,114 @@
+<document>
+
+<filing_date>
+2019-11-05
+</filing_date>
+
+<publication_date>
+2020-05-14
+</publication_date>
+
+<priority_date>
+2018-11-08
+</priority_date>
+
+<ipc_classes>
+B60R25/24,G05D1/00,H04W12/06
+</ipc_classes>
+
+<assignee>
+ZOOX
+</assignee>
+
+<inventors>
+RAMIREZ, FRANK
+GOLDMAN, MEREDITH
+</inventors>
+
+<docdb_family_id>
+69165505
+</docdb_family_id>
+
+<title>
+AUTONOMOUS VEHICLE GUIDANCE AUTHORITY FRAMEWORK
+</title>
+
+<abstract>
+A vehicle may include an authority tracker to grant and/or limit authority to provide guidance to the vehicle. The authority tracker may store a state in a memory identifying an actor that currently has the authority. An actor requesting to have authority to provide guidance to the vehicle may transmit a control message to the authority tracker which may, in turn, authorize or deny the request based on a policy. The authority tracker may periodically, and/or in response to a request, broadcast a state message identifying the actor that currently has authority, as recorded in the memory.
+</abstract>
+
+<claims>
+WHAT IS CLAIMED IS:
+1. One or more non-transitory computer-readable media storing processor-executable instructions that, when executed by one or more processors, cause the one or more processors to perform operations comprising:
+storing a first state identifying a computing device of an autonomous vehicle as having authority to provide guidance to a component of the autonomous vehicle;
+storing a policy specifying one or more conditions associated with transferring authority to an actor, the one or more conditions comprising at least one of an action, a role, or a state;
+receiving, via the network interface and from a first device associated with a first actor, a request to transfer authority to the first actor, the request including at least one of an identifier specifying an identity or a first role of the first actor;
+updating, based at least in part on determining that the at least one of the identity or the role satisfy a condition specified by the policy stored in the memory, the first state to a second state identifying the first actor as having authority;
+transmitting, via the network interface and to at least the first device, the second state; and controlling, based at least in part on guidance received from the first device via the network interface and determining that the guidance corresponds with the role, a component of the autonomous vehicle.
+2. The one or more non-transitory computer-readable media as claim 1 recites, wherein:
+determining that at least one of the identity or the role satisfy the condition comprises evaluating a state machine; and
+the condition defines at least one of the action, the role, or the state for which authority is to be transitioned between different actors,
+wherein the action comprises at least one of a takeover by a different actor, a handoff from a current actor that has authority to a different actor, or an escalation from the current actor to an actor associated with a supervisor role;
+wherein the role comprises at least one of a teleoperator, a ride operator, a supervisor, or a super user; and
+wherein the state identifies at least one of a current actor that has authority or a pending action.
+3. The one or more non-transitory computer-readable media as recited in any one of claims 1 or 2, wherein determining that the identity or the role satisfies the condition determining that a state machine transition is valid, a valid transition comprising:
+a first transition from an actor to another actor when a handoff message is first received from the actor;
+a second transition from the actor to a supervisor when an escalation message is first received from the actor and a takeover message is received from the supervisor, the supervisor being the first actor;
+a third transition from the actor to the supervisor when an emergency event indicator is first received, the supervisor being the first actor;
+a fourth transition from the actor to the supervisor when a computing device associated with the actor is inactive;
+a fifth transition from the actor to the supervisor when the supervisor overrides the policy based at least in part on indicating aberrant behavior at the computing device associated with the actor;
+a sixth transition from the actor to another based at least in part on determining that a keepalive message has not been received within a period of time; or
+a seventh transition from the actor to a device when a relinquish message has been received from the actor.
+4. The one or more non-transitory computer-readable media as any one of claims 1-3 recites, wherein:
+the guidance comprises at least one of a confirmation, a collaborative instruction, or a command; and
+controlling the component comprises at least one of:
+generating a trajectory for controlling motion of the autonomous vehicle;
+controlling an emitter of the autonomous vehicle; or
+modifying an interior condition of the vehicle.
+5. The one or more non-transitory computer-readable media as any one of claims 1-4 recites, wherein the operations further comprise:
+receiving, via the network interface and from a second actor, guidance; determining, based at least in part on evaluating a state machine, that a second condition associated with the second state is not satisfied based at least in part on determining that at least one of a role associated with the second actor is not associated with a sufficient privilege associated with the guidance, the guidance is not associated with a second action associated with the second condition, or the second state does not identify the second actor; and
+maintaining the second state, based at least in part on determining that the second condition is not satisfied.
+6. The one or more non-transitory computer-readable media as any one of claims 1-4 recites, wherein the operations further comprise:
+receiving, via the network interface and from the first actor, at least one of a relinquish message, a handoff message, or an escalation message;
+receiving, via the network interface, a second request to transfer to a second actor the authority to provide guidance; and
+updating, based at least in part on determining that a second condition specified by the policy stored in the memory is satisfied and the at least one of the relinquish message, the handoff message, or the escalation message, the second state to a third state identifying the second actor as having authority.
+7. The one or more non-transitory computer-readable media as claim 6 recites, wherein:
+the second request comprises a takeover message associated with the escalation message; and
+determining that the second condition is satisfied is based at least in part on determining that a second role associated with the second request indicates that the second actor is a supervisor.
+8. The one or more non-transitory computer-readable media as any one of claims 1-6 recites, wherein the operations further comprise:
+receiving, via the network interface, a second request to transfer to a second actor authority to provide guidance; and
+determining to reject the second request, based at least in part on determining that the second request is an invalid transfer according to the policy based at least in part on determining that the second request does not satisfy a second condition of the policy associated with the second state, wherein determining that the second request does not satisfy the second condition is based at least in part on determining that at least one of:
+a handoff message, an escalation message, or relinquish message has not been received from the first actor, or
+a second role associated with the second actor does not include an identification of a supervisor role.
+9. The one or more non-transitory computer-readable media as any one of claims 1-5 or 8 recites, wherein the operations further comprise:
+replacing the second state with the first state identifying the autonomous vehicle as having the authority based at least in part on at least one of:
+receiving, via the network interface and from the first device, a relinquish message, or determining that a time period has lapsed since a last keepalive message was received via the network interface from the first device.
+10. The one or more non-transitory computer-readable media as any one of claims I—4 recites, wherein updating the first state to the second state comprises:
+storing an identifier associated with at least one of the first actor, the first role, or a status of a transition; and
+transmitting, to one or more devices subscribing to publications of the one or more nontransitory computer-readable media over a state channel, the second state.
+11. The one or more non-transitory computer-readable media as any one of claim 1-4, recites, wherein updating the first state to the second state is based at least in part on at least one of:
+determining that an identifier associated with an identity of the first actor is authorized to take authority;
+determining that the identifier associated with the first actor is at least one of verified by a directory service or associated with a request for guidance generated by the autonomous vehicle; determining that the first role associated with the first actor is specified by the first condition;
+determining that the second action is specified by the condition;
+determining that the first actor and the request are associated with at least one of a handoff message or an escalation message received from the first actor; or
+determining that a relinquish message was received from another actor.
+12. The autonomous vehicle comprising:
+the one or more processors; and
+the one or more non-transitory computer-readable media as any one of claims 1-11 recites.
+13. A method comprising:
+storing a policy associating at least one of a state, a role, or an action;
+storing a state identifying a default actor as having authority to provide guidance to an autonomous vehicle;
+transmitting, via a network interface and to a first computing device associated with a first actor, the first state;
+receiving, via the network interface and from the first device, a request to transfer authority to the first actor, the request specifying at least one of an identifier of the first actor, an action, or a role;
+updating the state to identify the first actor as having the authority, based at least in part on at least one determining that the identifier is verified or determining that the action or the role satisfy a condition specified by the policy;
+transmitting, via the network interface to the first device, the second state; and controlling a device associated with the autonomous vehicle based at least in part on receiving guidance via the network interface from the first computing device associated with the first actor and based at least in part on the state identifying the first actor as having the authority.
+14. The method as claim 13 recites, wherein:
+the action comprises at least one of a takeover by the first actor, a handoff from the default actor to the first actor, or an escalation from the default actor to the first actor; and
+the role comprises at least one of a teleoperator, a ride operator, a supervisor, or a super user.
+15. The method as claim 13 recites, wherein updating the first state to identify the first actor as having the authority is based at least in part on at least one of:
+determining that an identifier associated with an identity of the first actor is authorized to take authority;
+determining that the second role associated with the first actor is specified by the condition; determining that the second action is specified by the condition;
+determining that the first actor and the first request are associated with at least one of a handoff message or an escalation message received from the first actor; or
+determining that a relinquish message was received from another actor.
+</claims>
+</document>

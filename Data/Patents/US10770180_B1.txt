@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-12-12
+</filing_date>
+
+<publication_date>
+2020-09-08
+</publication_date>
+
+<priority_date>
+2018-12-12
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G16H10/60,G16H50/20,G16H50/30
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+DAI, ANDREW M.
+RAJKOMAR, ALVIN RISHI
+KEMP, JONAS BEACHEY
+</inventors>
+
+<docdb_family_id>
+72290101
+</docdb_family_id>
+
+<title>
+Processing clinical notes using recurrent neural networks
+</title>
+
+<abstract>
+Methods, systems, and apparatus, including computer programs encoded on computer storage media, for predicting future patient health using neural networks. One of the methods includes receiving electronic health record data for a patient; generating a respective observation embedding for each of the observations, comprising, for each clinical note: processing the sequence of tokens in the clinical note using a clinical note embedding LSTM to generate a respective token embedding for each of the tokens; and generating the observation embedding for the clinical note from the token embeddings; generating an embedded representation, comprising, for each time window: combining the observation embeddings of observations occurring during the time window to generate a patient record embedding; and processing the embedded representation of the electronic health record data using a prediction recurrent neural network to generate a neural network output that characterizes a future health status of the patient.
+</abstract>
+
+<claims>
+1. A system comprising one or more computers and one or more storage devices storing instructions that, when executed by the one or more computers, cause the one or more computers to perform operations comprising: receiving electronic health record data for a patient, the electronic health record data comprising one or more observations of each of a plurality of different feature types, and the plurality of different feature types including a clinical note feature type, wherein each observation of the clinical note feature type is a clinical note comprising a respective sequence of text tokens; generating a respective observation embedding for each of the observations, comprising, for each clinical note: processing the sequence of text tokens in the clinical note using a clinical note embedding long short-term memory (LSTM) neural network to generate a respective token embedding for each of the text tokens; and generating the observation embedding for the clinical note from the token embeddings for the text tokens in the clinical note, comprising computing a weighted sum of the token embeddings, with each token embedding being weighted by a corresponding weight; generating an embedded representation of the electronic health record data, wherein the embedded representation comprises a respective patient record embedding corresponding to each of a plurality of time windows, and wherein generating the embedded representation comprises, for each time window: combining the observation embeddings of observations occurring during the time window to generate the patient record embedding corresponding to the time window; and processing the embedded representation of the electronic health record data using a prediction recurrent neural network to generate a neural network output that characterizes a future health status of the patient after the last time window in the embedded representation.
+2. The system of claim 1, wherein combining the observation embeddings to generate the patient record embedding corresponding to the time window comprises: for each feature type, combining all observation embeddings of observations of the feature type that occurred during the time window to generate a combined observation embedding for the feature type; and combining the combined observation embeddings to generate the patient record embedding.
+3. The system of claim 2, wherein combining all observation embeddings of observations of the feature type that occurred during the time window to generate a combined observation embedding for the feature type comprises averaging all observation embeddings of observations of the feature type that occurred during the time window.
+4. The system of claim 2, wherein combining the combined observation embeddings to generate the patient record embedding comprises concatenating the combined observation embeddings.
+5. The system of claim 1, wherein the clinical note embedding LSTM neural network is a bi-directional LSTM neural network.
+6. The system of claim 1, wherein generating the observation embedding for the clinical note from the token embeddings for the text tokens in the clinical note comprises: aggregating the token embeddings for the text tokens in the clinical note using a learned attention weighting to generate the observation embedding.
+7. The system of claim 6, wherein aggregating using the learned attention weighting comprises: generating a respective initial weight for each token embedding by computing a dot product between a learned context vector and the token embedding; generating a respective normalized weight for each token embedding using the initial weight for the token embedding, the learned context vector, a learned bias vector, and the initial weights for the other token embeddings; and computing the weighted sum of the token embeddings, with each token embedding being weighted by the corresponding normalized weight.
+8. The system of claim 6, the operations further comprising: training the clinical note LSTM neural network and the prediction recurrent neural network jointly on training data including ground truth network outputs.
+9. The system of claim 8, wherein training the clinical note LSTM neural network and the prediction recurrent neural network jointly on training data including ground truth network outputs comprises: training the clinical note LSTM neural network, the prediction recurrent neural network, and the attention weighting jointly on the training data including ground truth network outputs.
+10. The system of claim 8, the operations further comprising: prior to the training, pre-training the clinical note LSTM neural network using unsupervised learning on a set of training sequences extracted from training clinical notes to predict, for each training sequence, at least a next word that follows the last word in the training sequence in the training clinical note.
+11. The system of claim 1, wherein the network output comprises a prediction of inpatient mortality of the patient.
+12. The system of claim 1, wherein the network output comprises a prediction of a primary diagnosis of the patient at discharge.
+13. The system of claim 1, wherein the network output comprises a prediction of a set of diagnoses for the patient at discharge.
+14. The system of claim 1, wherein generating a respective observation embedding for each of the observations, comprises, for each observation that is of a feature type that is discrete: mapping the observation to a learned embedding for the observation.
+15. The system of claim 1, wherein generating a respective observation embedding for each of the observations, comprises, for each observation that of a feature type that is continuous: standardizing the observation using a cohort mean and standard deviation for the feature type.
+16. One or more non-transitory computer-readable storage media storing instructions that when executed by one or more computers cause the one or more computers to perform operations comprising: receiving electronic health record data for a patient, the electronic health record data comprising one or more observations of each of a plurality of different feature types, and the plurality of different feature types including a clinical note feature type, wherein each observation of the clinical note feature type is a clinical note comprising a respective sequence of text tokens; generating a respective observation embedding for each of the observations, comprising, for each clinical note: processing the sequence of text tokens in the clinical note using a clinical note embedding long short-term memory (LSTM) neural network to generate a respective token embedding for each of the text tokens; and generating the observation embedding for the clinical note from the token embeddings for the text tokens in the clinical note, comprising computing a weighted sum of the token embeddings, with each token embedding being weighted by a corresponding weight; generating an embedded representation of the electronic health record data, wherein the embedded representation comprises a respective patient record embedding corresponding to each of a plurality of time windows, and wherein generating the embedded representation comprises, for each time window: combining the observation embeddings of observations occurring during the time window to generate the patient record embedding corresponding to the time window; and processing the embedded representation of the electronic health record data using a prediction recurrent neural network to generate a neural network output that characterizes a future health status of the patient after the last time window in the embedded representation.
+17. A computer-implemented method comprising: receiving electronic health record data for a patient, the electronic health record data comprising one or more observations of each of a plurality of different feature types, and the plurality of different feature types including a clinical note feature type, wherein each observation of the clinical note feature type is a clinical note comprising a respective sequence of text tokens; generating a respective observation embedding for each of the observations, comprising, for each clinical note: processing the sequence of text tokens in the clinical note using a clinical note embedding long short-term memory (LSTM) neural network to generate a respective token embedding for each of the text tokens; and generating the observation embedding for the clinical note from the token embeddings for the text tokens in the clinical note, comprising computing a weighted sum of the token embeddings, with each token embedding being weighted by a corresponding weight; generating an embedded representation of the electronic health record data, wherein the embedded representation comprises a respective patient record embedding corresponding to each of a plurality of time windows, and wherein generating the embedded representation comprises, for each time window: combining the observation embeddings of observations occurring during the time window to generate the patient record embedding corresponding to the time window; and processing the embedded representation of the electronic health record data using a prediction recurrent neural network to generate a neural network output that characterizes a future health status of the patient after the last time window in the embedded representation.
+18. The method of claim 17, wherein combining the observation embeddings to generate the patient record embedding corresponding to the time window comprises: for each feature type, combining all observation embeddings of observations of the feature type that occurred during the time window to generate a combined observation embedding for the feature type; and combining the combined observation embeddings to generate the patient record embedding.
+19. The method of claim 18, wherein combining all observation embeddings of observations of the feature type that occurred during the time window to generate a combined observation embedding for the feature type comprises averaging all observation embeddings of observations of the feature type that occurred during the time window.
+20. The method of claim 17, wherein the clinical note embedding LSTM neural network is a bi-directional LSTM neural network.
+</claims>
+</document>

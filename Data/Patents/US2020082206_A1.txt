@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2018-09-10
+</filing_date>
+
+<publication_date>
+2020-03-12
+</publication_date>
+
+<priority_date>
+2018-09-10
+</priority_date>
+
+<ipc_classes>
+G06K9/62,G06N3/08
+</ipc_classes>
+
+<assignee>
+JOHNSON CONTROLS TECHNOLOGY COMPANY
+</assignee>
+
+<inventors>
+JIN, ZHONGYI
+LEE, YOUNG M.
+PARK, YOUNG CHOON
+</inventors>
+
+<docdb_family_id>
+69720319
+</docdb_family_id>
+
+<title>
+Systems and methods for occlusion handling in a neural network via activation subtraction
+</title>
+
+<abstract>
+A method for classifying an occluded object includes receiving, by one or more processing circuits, an image of the object that is partially occluded by a foreign object and classifying, by the one or more processing circuits, the object of the image into one of one or more classes of interest via an artificial neural network (ANN) by determining a plurality of neuron activations of neurons of the ANN for one or more foreign classes and the one or more classes of interest, subtracting one or more of the neuron activations of the one or more foreign classes from the neuron activations of the one or more classes of interest, wherein the foreign object belongs to one of the one or more foreign classes, and classifying the object of the image into the one of the one or more classes of interest based on the subtracting.
+</abstract>
+
+<claims>
+1. A method for classifying an object of an image that is partially occluded by a foreign object, the method comprising: receiving, by one or more processing circuits, the image of the object that is partially occluded by the foreign object; and classifying, by the one or more processing circuits, the object of the image into one of one or more classes of interest via an artificial neural network (ANN) by: determining a plurality of neuron activations of neurons of the ANN for one or more foreign classes and the one or more classes of interest; subtracting one or more of the neuron activations of the one or more foreign classes from the neuron activations of the one or more classes of interest, wherein the foreign object belongs to one of the one or more foreign classes; and classifying the object of the image into the one of the one or more classes of interest based on the subtracting.
+2. The method of claim 1, wherein determining the neuron activations of the neurons of the ANN for the one or more foreign classes and the one or more classes of interest comprises performing, with the image, one or more convolutions via one or more convolutional layers of the ANN, wherein an output of the one or more convolutions is the neuron activations of the neurons of the ANN for the one or more foreign classes and the one or more classes of interest, wherein the ANN is a convolutional neural network (CNN).
+3. The method of claim 1, wherein classifying, by the one or more processing circuits, the object of the image into the one of one or more classes of interest via the ANN comprises deactivating the neuron activations of the one or more foreign classes.
+4. The method of claim 1, wherein classifying, by the one or more processing circuits, the object of the image into the one of the one or more classes of interest via the ANN comprises performing a single forward pass of the ANN.
+5. The method of claim 4, wherein classifying, by the one or more processing circuits, the object of the image into the one of the one or more of classes of interest via the ANN comprises: performing the single forward pass of the ANN; pausing the single forward pass after determining the neuron activations of the neurons of the ANN for the one or more foreign classes and the one or more classes of interest; subtracting the one or more of the neuron activations of the one or more foreign classes from the neuron activations of the one or more classes of interest; and resuming the single forward pass to classify the object of the image into the one of the one or more classes of interest.
+6. The method of claim 1, wherein subtracting the one or more of the neuron activations of the one or more foreign classes from the neuron activations of the one or more classes of interest comprises adjusting at least one particular neuron activation of each of the one or more classes of interest to a value of a maximum of: zero; and the particular neuron activation minus a summation of the one or more of the neuron activations for the one or more foreign classes.
+7. The method of claim 6, wherein the neuron activations of the one or more foreign classes are neuron activations for one or more foreign class feature maps, each of the one or more feature class maps being a foreign class feature map for one of the one or more foreign classes; wherein the neuron activations of the one or more classes of interest are neuron activations for one or more class of interest feature maps, each of the one or more class of interest feature maps being an class of interest feature map for one of the one or more classes of interest.
+8. The method of claim 7, wherein the one or more foreign class feature maps and the one or more object of interest class feature maps are each a matrix of neuron activations of a predefined length and a predefined width; wherein the summation of the one or more of the neuron activations for the one or more foreign classes are a summation of a neuron activation of each matrix of each of the one or more foreign class feature maps at a particular length value and a particular width value, wherein the particular neuron activation of the class of interest is at the particular length value and the particular width value of one of the class of interest feature maps.
+9. The method of claim 1, wherein the method further comprises: receiving, by the one or more processing circuits, a plurality of images, wherein the plurality of images comprise images of foreign objects of the one or more foreign classes and images of objects of the one or more classes of interest; and training, by the one or more processing circuits, the ANN based on the images of the foreign objects of the one or more foreign classes and the images of the one or more classes of interest.
+10. The method of claim 9, wherein the images of the foreign objects of the one or more foreign classes do not include pixels related to the objects of the one or more classes of interest; wherein the images of the objects of the classes of interest do not include pixels related to the objects of the foreign objects of the one or more foreign classes.
+11. The method of claim 10, wherein the foreign classes and the classes of interest comprise different classes.
+12. A classification system for classifying an object of an image that is partially occluded by a foreign object, the system comprising a processing circuit configured to: receive the image of the object that is partially occluded by the foreign object; and classify the object of the image into one of one or more classes of interest via an artificial neural network (ANN) by: determining a plurality of neuron activations of neurons of the ANN for one or more foreign classes and the one or more classes of interest; subtracting one or more of the neuron activations of the one or more foreign classes from the neuron activations of the one or more classes of interest, wherein the foreign object belongs to one of the one or more foreign classes; and classifying the object of the image into the one of the one or more classes of interest based on the subtracting.
+13. The system of claim 12, wherein the processing circuit is configured to classify the object of the image into the one of one or more classes of interest via the ANN by deactivating the neuron activations of the one or more foreign classes.
+14. The system of claim 12, wherein the processing circuit is configured to classify the object of the image into the one of the one or more classes of interest via the ANN by performing a single forward pass of the ANN.
+15. The system of claim 14, wherein the processing circuit is configured to classify the object of the image into the one of the one or more of classes of interest via the ANN by: pausing the single forward pass after determining the neuron activations of the neurons of the ANN for the one or more foreign classes and the one or more classes of interest; subtracting the one or more of the neuron activations of the one or more foreign classes from the neuron activations of the one or more classes of interest; and resuming the single forward pass to classify the object of the image into the one of the one or more classes of interest.
+16. The system of claim 12, wherein subtracting the one or more of the neuron activations of the one or more foreign classes from the neuron activations of the one or more classes of interest comprises adjusting at least one particular neuron activation of each of the one or more classes of interest to a value of a maximum of: zero; and the particular neuron activation minus a summation of the one or more of the neuron activations for the one or more foreign classes.
+17. The system of claim 16, wherein the neuron activations of the one or more foreign classes are neuron activations for one or more foreign class feature maps, each of the one or more feature class maps being a foreign class feature map for one of the one or more foreign classes; wherein the neuron activations of the one or more classes of interest are neuron activations for one or more class of interest feature maps, each of the one or more class of interest feature maps being an class of interest feature map for one of the one or more classes of interest.
+18. The system of claim 17, wherein the one or more foreign class feature maps and the one or more object of interest class feature maps are each a matrix of neuron activations of a predefined length and a predefined width; wherein the summation of the one or more of the neuron activations for the one or more foreign classes are a summation of a neuron activation of each matrix of each of the one or more foreign class feature maps at a particular length value and a particular width value, wherein the particular neuron activation of the class of interest is at the particular length value and the particular width value of one of the class of interest feature maps.
+19. A device for training an artificial neural network (ANN) and classifying an object of an image that is partially occluded by a foreign object with the trained ANN, the device comprising a processing circuit configured to: receive a plurality of images, wherein the plurality of images comprise images of foreign objects of one or more foreign classes and images of objects of one or more classes of interest; train the ANN based on the images of the foreign objects of the one or more foreign classes and the images of the one or more classes of interest; receive, the image of the object that is partially occluded by the foreign object; and classify the object of the image into one of one or more classes of interest via the ANN by: determining a plurality of neuron activations of neurons of the ANN for one or more foreign classes and the one or more classes of interest; subtracting one or more of the neuron activations of the one or more foreign classes from the neuron activations of the one or more classes of interest, wherein the foreign object belongs to one of the one or more foreign classes; and classifying the object of the image into the one of the one or more classes of interest based on the subtracting.
+20. The device of claim 19, wherein the images of the foreign objects of the one or more foreign classes do not include pixels related to the objects of the one or more classes of interest; wherein the images of the objects of the classes of interest do not include pixels related to the objects of the foreign objects of the one or more foreign classes.
+</claims>
+</document>

@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2018-12-26
+</filing_date>
+
+<publication_date>
+2021-01-05
+</publication_date>
+
+<priority_date>
+2018-11-15
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/46,G06K9/54,G06K9/62,G06T5/20
+</ipc_classes>
+
+<assignee>
+INTEL CORPORATION
+</assignee>
+
+<inventors>
+RAO, SUSHMA
+MICHAEL, GILAD
+</inventors>
+
+<docdb_family_id>
+66243042
+</docdb_family_id>
+
+<title>
+Local tone mapping to reduce bit depth of input images to high-level computer vision tasks
+</title>
+
+<abstract>
+Techniques related to computer vision tasks are discussed. Such techniques include applying a pretrained non-linear transform and pretrained details boosting factor to generate an enhanced image from an input image and reducing the bit depth of the enhanced image prior to applying a pretrained computer vision network to perform the computer vision task.
+</abstract>
+
+<claims>
+1. A system for performing a computer vision task comprising: a memory to store an input image; and one or more processors coupled to the memory, the one or more processors to: apply a pretrained non-linear transform to the input image to generate a transformed image; enhance details of the transformed image based at least in part on application of a pretrained details boosting factor to image details of the transformed image to generate an enhanced image; reduce a bit depth of the enhanced image from a first bit depth to a second bit depth; apply a pretrained computer vision network to the enhanced image at the second bit depth to generate one or more computer vision indicators corresponding to a computer vision task for the input image, wherein the pretrained non-linear transform, details boosting factor, and computer vision network are pretrained in conjunction with one another to perform the computer vision task; and output the computer vision indicators corresponding to the input image.
+2. The system of claim 1, wherein the one or more processors to enhance details of the transformed image to generate the enhanced image comprises the one or more processors to: apply a low-pass filter to the transformed image to generate a low pass filtered image; difference the low pass filtered image from the transformed image to provide the details of the transformed image; multiply the details of the transformed image by the pretrained details boosting factor to generate enhanced details of the transformed image; and sum the low pass filtered image and the enhanced details of the transformed image to generate the enhanced image.
+3. The system of claim 2, wherein the low-pass filter comprises a box filter.
+4. The system of claim 1, wherein the pretrained non-linear transform, details boosting factor, and computer vision network are pretrained in an end-to-end manner using a training corpus.
+5. The system of claim 1, wherein the pretrained non-linear transform, details boosting factor, and computer vision network are pretrained, based on a training corpus, further in conjunction with one or more additional computer vision networks to minimize a shared minimization function across the pretrained computer vision network and the one or more additional computer vision networks.
+6. The system of claim 1, wherein the computer vision network is pretrained using a first training corpus to generate the pretrained computer vision network and the pretrained non-linear transform and details boosting factor are subsequently pretrained using a second training corpus as applied in an end-to-end manner to the pretrained non-linear transform, details boosting factor, and computer vision network without change to the pretrained computer vision network.
+7. The system of claim 1, wherein the pretrained non-linear transform is one of a piece-wise linear function, a trainable gamma function, a trainable sigmoid function, or a convolutional neural network layer.
+8. The system of claim 1, wherein the second bit depth is not more than one-fourth of the first bit depth.
+9. The system of claim 1, wherein the input image comprises only a luma channel, and wherein the input image, the enhanced image at the first bit depth, and the enhanced image at the second bit depth all have the same spatial image resolution.
+10. The system of claim 1, wherein the computer vision indicators comprises at least one of a detected object classification, a semantic segmentation classification, or a facial landmark.
+11. A computer-implemented method for performing a computer vision task comprising: applying a pretrained non-linear transform to an input image to generate a transformed image; enhancing details of the transformed image based at least in part on applying a pretrained details boosting factor to image details of the transformed image to generate an enhanced image; reducing a bit depth of the enhanced image from a first bit depth to a second bit depth; applying a pretrained computer vision network to the enhanced image at the second bit depth to generate one or more computer vision indicators corresponding to a computer vision task for the input image, wherein the pretrained non-linear transform, details boosting factor, and computer vision network are pretrained in conjunction with one another to perform the computer vision task; and outputting the computer vision indicators corresponding to the input image.
+12. The method of claim 11, wherein said enhancing details of the transformed image to generate the enhanced image comprises: applying a low-pass filter to the transformed image to generate a low pass filtered image; differencing the low pass filtered image from the transformed image to provide the details of the transformed image; multiplying the details of the transformed image by the pretrained details boosting factor to generate enhanced details of the transformed image; and summing the low pass filtered image and the enhanced details of the transformed image to generate the enhanced image.
+13. The method of claim 11, wherein the pretrained non-linear transform, details boosting factor, and computer vision network are pretrained in an end-to-end manner using a training corpus.
+14. The method of claim 11, wherein the pretrained non-linear transform, details boosting factor, and computer vision network are pretrained, based on a training corpus, further in conjunction with one or more additional computer vision networks to minimize a shared minimization function across the pretrained computer vision network and the one or more additional computer vision networks.
+15. The method of claim 11, wherein the second bit depth is not more than one-fourth of the first bit depth.
+16. The method of claim 11, wherein the input image comprises only a luma channel, and wherein the input image, the enhanced image at the first bit depth, and the enhanced image at the second bit depth all have the same spatial image resolution.
+17. At least one non-transitory machine readable medium comprising a plurality of instructions that, in response to being executed on a computing device, cause the computing device to perform a computer vision task by: applying a pretrained non-linear transform to an input image to generate a transformed image; enhancing details of the transformed image based at least in part on applying a pretrained details boosting factor to image details of the transformed image to generate an enhanced image; reducing a bit depth of the enhanced image from a first bit depth to a second bit depth; applying a pretrained computer vision network to the enhanced image at the second bit depth to generate one or more computer vision indicators corresponding to a computer vision task for the input image, wherein the pretrained non-linear transform, details boosting factor, and computer vision network are pretrained in conjunction with one another to perform the computer vision task; and outputting the computer vision indicators corresponding to the input image.
+18. The non-transitory machine readable medium of claim 17, wherein said enhancing details of the transformed image to generate the enhanced image comprises: applying a low-pass filter to the transformed image to generate a low pass filtered image; differencing the low pass filtered image from the transformed image to provide the details of the transformed image; multiplying the details of the transformed image by the pretrained details boosting factor to generate enhanced details of the transformed image; and summing the low pass filtered image and the enhanced details of the transformed image to generate the enhanced image.
+19. The non-transitory machine readable medium of claim 17, wherein the pretrained non-linear transform, details boosting factor, and computer vision network are pretrained in an end-to-end manner using a training corpus.
+20. The non-transitory machine readable medium of claim 17, wherein the pretrained non-linear transform, details boosting factor, and computer vision network are pretrained, based on a training corpus, further in conjunction with one or more additional computer vision networks to minimize a shared minimization function across the pretrained computer vision network and the one or more additional computer vision networks.
+21. The non-transitory machine readable medium of claim 17, wherein the second bit depth is not more than one-fourth of the first bit depth.
+22. The non-transitory machine readable medium of claim 17, wherein the input image comprises only a luma channel, and wherein the input image, the enhanced image at the first bit depth, and the enhanced image at the second bit depth all have the same spatial image resolution.
+</claims>
+</document>

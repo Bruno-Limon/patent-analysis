@@ -1,0 +1,117 @@
+<document>
+
+<filing_date>
+2019-06-28
+</filing_date>
+
+<publication_date>
+2020-02-27
+</publication_date>
+
+<priority_date>
+2018-08-20
+</priority_date>
+
+<ipc_classes>
+G06F21/55,G06N20/00,H04L29/06
+</ipc_classes>
+
+<assignee>
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+BRILL, ORAN
+ISRAEL, ASSAF
+KRAUS, NAAMA
+LEVIN, ROY
+LIVNY, YOTAM
+</inventors>
+
+<docdb_family_id>
+67263126
+</docdb_family_id>
+
+<title>
+ENHANCING CYBERSECURITY AND OPERATIONAL MONITORING WITH ALERT CONFIDENCE ASSIGNMENTS
+</title>
+
+<abstract>
+Tools and techniques are described to automate triage of security and operational alerts. Insight instances extracted from raw event data associated with an alert are aggregated, vectorized, and assigned confidence scores through classification based on machine learning. Confidence scoring enables heavily loaded administrators and controls to focus attention and resources where they are most likely to protect or improve the functionality of a monitored system. Feature vectors receive a broad base in the underlying instance values through aggregation, even when the number of instance values is unknown prior to receipt of the event data. Visibility into the confidence scoring process may be provided, to allow tuning or inform further training of a classifier model. Performance metrics are defined, and production level performance may be achieved.
+</abstract>
+
+<claims>
+1. A monitoring computing system configured to perform alert confidence scoring, the system comprising:
+one or more processors;
+a memory in operable communication with at least one processor;
+an aggregator which upon execution with at least one processor receives insight instances, each insight instance having an insight value and an insight type, each insight instance associated with an alert identifier which identifies an alert that was previously generated from a monitor through monitoring of a monitored system, the aggregator configured to aggregate insight values of received instances which have the same insight type;
+a vectorizer which upon execution with at least one processor creates a feature vector containing feature values, the feature values corresponding to insight types, the feature vector containing at least one feature value which is an aggregated insight value produced by the aggregator from multiple insight values, the feature vector associated with the alert;
+a classifier which upon execution with at least one processor accepts the feature vector, the classifier configured to assign a confidence score to the alert based at least partially upon the feature vector, the confidence score indicating a degree of confidence that the alert represents a threat to one or more operations of the monitored system; and
+an output device configured by the confidence score.
+2. The monitoring computing system of claim 1, wherein the monitoring computing system is configured for enterprise production deployment in that a total elapsed clock time from a starting point when the aggregator has received the insight instances, up to and including an ending point when the output device is configured by the confidence score, is less than one second.
+3. The monitoring computing system of claim 1, wherein the aggregator is configured to aggregate insight values by applying at least one of the following aggregation functions: sum, min, max, count, distinct count, x-percentile, mode, mean, or median.
+4. The monitoring computing system of claim 1, wherein:
+the aggregator is configured to aggregate the multiple insight values at least twice, by applying to the multiple insight values at least two aggregation functions which are denoted here as function-A and function-B;
+the vectorizer is configured to create a feature vector denoted here as vector-A containing a feature value denoted here as value-A which is an aggregated insight value produced by the aggregator's application of function-A to the multiple insight values;
+the vectorizer is configured to create a feature vector denoted here as vector-B containing a feature value denoted here as value-B which is an aggregated insight value produced by the aggregator's application of function-B to the multiple insight values, value-B different than value-A;
+the classifier is configured to assign a confidence score denoted here as score-A to the alert based at least partially upon vector-A;
+the classifier is configured to assign a confidence score denoted here as score-B to the alert based at least partially upon vector-B; and
+the output device is configured by at least one of the following: score-A, score-B, or a combined confidence score based on at least score-A and score-B.
+5. The monitoring computing system of claim 1, wherein the monitoring computing system is free of at least one of the following:
+dimensionality reduction functionality; and
+padding functionality which pads undefined values in a feature vector with a
+default value.
+6. The monitoring computing system of claim 1, wherein the classifier comprises at least one of the following:
+a naive Bayes classifier model;
+a neural network;
+a deep learning network;
+a convolutional network;
+a decision tree; or
+a probabilistic classifier.
+7. The monitoring computing system of claim 1, further comprising an insight ranker which upon execution with at least one processor ranks a plurality of the insight instances according to their respective contributions to the confidence score, and wherein the output device is further configured with a ranking list of the ranked insight instances.
+8. A method for assigning a confidence score to data that was generated from monitoring a monitored system, the method comprising:
+obtaining digital electronic event data which includes or otherwise identifies at least one of the following: one or more event structures generated from the monitoring, an alert structure generated from the monitoring, or an alert identifier which identifies an alert structure generated from the monitoring; extracting multiple insight instances from the event data, each insight instance having an insight value and an insight type;
+automatically aggregating insight values of at least two insight instances which have the same insight type, thereby producing an aggregated insight value; automatically vectorizing insight data by creating a feature vector containing
+feature values, the feature values corresponding to insight types, the feature vector containing the aggregated insight value as one of the feature values; classifying the feature vector using a machine learning driven classifier;
+assigning at least one confidence score to the event data based on a result of the classifying, each confidence score indicating a degree of confidence that the event data represents a threat to one or more operations of the monitored system; and
+configuring an output device with at least one assigned confidence score.
+9. The method of claim 8, wherein the confidence score exceeds a predetermined threshold, and the method further comprises at least one of the following: notifying a human administrator of at least a portion of the event data;
+displaying a list of alerts ranked according to respective confidence scores;
+automatically taking a control action to implement control of the monitored
+system;
+automatically commanding a security tool to take a security control action to
+implement security control of the monitored system; or automatically commanding a resource management tool to take an operational control action to implement operational control of the monitored system.
+10. The method of claim 8, further comprising providing visibility into confidence scoring by displaying on the output device in a human-legible format at least one of the following items:
+at least a portion of the event data obtained;
+at least one insight type definition which was utilized while extracting multiple insight instances;
+at least two of the extracted insight instances;
+a name of at least one aggregation function which was utilized while aggregating insight values; or
+at least one of the feature values.
+11. The method of claim 8, wherein the method repeats at least the following multiple times: extracting, aggregating, vectorizing, classifying, and assigning, and wherein the method further includes:
+comparing the resulting assigned confidence scores to a predetermined threshold; raising an alarm when one of the assigned confidence scores exceeds the
+predetermined threshold; and
+avoiding raising an alarm when one of the assigned confidence scores does not exceed the predetermined threshold.
+12. The method of claim 8, wherein the method performs repetitions in a monitoring system by automatically repeating at least the following multiple times: extracting, aggregating, vectorizing, classifying, and assigning, and wherein the method performs said repetitions at an average rate of at least one repetition per minute over a duration of at least one hundred hours.
+13. The method of claim 8, wherein vectorizing creates a feature vector containing one or more feature values corresponding to one or more insight types which represent at least one of the following:
+number of processes created on a machine of the monitored system; number of processes created on a machine of the monitored system within a specified time interval;
+number of occurrences of a particular kind of event on one or more machines of the monitored system; or
+number of occurrences of a particular kind of event on one or more machines of the monitored system within a specified time interval.
+14. The method of claim 8, wherein extracting multiple insight instances from the event data comprises accessing a log or other repository and mapping an alert to at least some of the insight instances.
+15. A storage medium configured with code which upon execution by one or more processors performs a confidence scoring method, the method comprising:
+obtaining digital electronic event data which includes or otherwise identifies an alert that was previously generated from a monitor through monitoring of a monitored system;
+extracting multiple insight instances from the event data, each insight instance having an insight value and an insight type;
+aggregating insight values of at least two insight instances which have the same insight type, thereby producing an aggregated insight value; vectorizing insight data by creating a feature vector containing feature values, the feature values corresponding to insight types, the feature vector containing the aggregated insight value as one of the feature values;
+classifying the feature vector using a machine learning driven classifier;
+assigning at least one confidence score to the alert based on a result of the
+classifying, each confidence score indicating a degree of confidence that the alert represents a threat to one or more operations of the monitored system; and
+configuring an output device with at least one assigned confidence score;
+wherein the method is further characterized by at least three of the following listed refinements:
+aggregating includes applying at least one of the following aggregation functions: sum, min, max, count, distinct count, mode, mean, or median; the method comprises applying at least two aggregation functions to a particular set of insight instances, thereby producing at least two different aggregated insight values, and creating and classifying at least two corresponding feature vectors which result in at least two corresponding confidence score assignments for the particular set of insight instances;
+the method comprises sending the assigned confidence score to the output device from a cloud service over a network connection;
+the method comprises automatically commanding a tool to take a control action to mitigate a security risk to the monitored system;
+the method comprises automatically commanding a tool to take a control action to alter accessibility of a computational resource of the monitored system;
+the method comprises ranking a plurality of the insight instances according to their respective contributions to the confidence score, and configuring the output device with a list of the ranked insight instances; or
+extracting multiple insight instances from the event data comprises
+extracting event data from a log.
+</claims>
+</document>

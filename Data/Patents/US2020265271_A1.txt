@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2019-04-30
+</filing_date>
+
+<publication_date>
+2020-08-20
+</publication_date>
+
+<priority_date>
+2019-02-15
+</priority_date>
+
+<ipc_classes>
+G06K9/62,G06N20/00
+</ipc_classes>
+
+<assignee>
+BAIDU USA
+</assignee>
+
+<inventors>
+WANG, JIANYU
+ZHANG, HAICHAO
+</inventors>
+
+<docdb_family_id>
+72040648
+</docdb_family_id>
+
+<title>
+SYSTEMS AND METHODS FOR JOINT ADVERSARIAL TRAINING BY INCORPORATING BOTH SPATIAL AND PIXEL ATTACKS
+</title>
+
+<abstract>
+Described herein are embodiments for joint adversarial training methods that incorporate both spatial transformation-based and pixel-value based attacks for improving image model robustness. Embodiments of a spatial transformation-based attack with an explicit notion of budgets are disclosed and embodiments of a practical methodology for efficient spatial attack generation are also disclosed. Furthermore, both pixel and spatial attacks are integrated into embodiments of a generation model and the complementary strengths of each other are leveraged for improving the overall model robustness. Extensive experimental results on several benchmark datasets compared with state-of-the-art methods verified the effectiveness of the presented method.
+</abstract>
+
+<claims>
+1. A computer-implemented method for adversarial image generation to train an image model using one or more processors to cause steps to be performed comprising: receiving an input image, a ground-truth label for the input image, a spatial attack budget, and a pixel perturbation budget; selecting random points for both flow field and pixel perturbation in their respective budget induced spaces; obtaining a first adversarial image for the input image using a current flow field and pixel perturbation, the current flow field and pixel perturbation are updatable and start from the selected random points; obtaining an adversarial-generation label by randomly sampling a non-ground-truth label; computing a gradient with respect to the flow field for a loss function comprising the first adversarial image, the adversarial-generation label, the ground-truth label and image model parameters; obtaining a modified flow field based on at least the computed gradient with respect to the flow field; projecting the modified flow field to a flow feasible region specified by the spatial attack budget to update the flow field; obtaining a second adversarial image for the input image using the current pixel perturbation and the updated flow field; computing a gradient with respect to pixel perturbation for a loss function comprising the second adversarial image, the adversarial-generation label and image model parameters; obtaining a modified pixel perturbation based on at least the computed gradient with respect to pixel perturbation; projecting the modified pixel perturbation to a pixel perturbation feasible region specified by the pixel perturbation budget to update the pixel perturbation; and generating an adversarial image based on the updated flow field and the updated pixel perturbation.
+2. The computer-implemented method of claim 1 further comprising: updating the flow field and the pixel perturbation for predetermined iterations to generate a final adversarial image.
+3. The computer-implemented method of claim 2 wherein in updating the flow field, changes in the flow field are accumulated toward the input image instead of applied to adversarial images accumulatively.
+4. The computer-implemented method of claim 1 wherein the first adversarial image is obtained by performing a spatial transformation for the input image using the current flow field to generate a spatial transformed image, and then applying a pixel-wise additive attack with the current pixel perturbation to the spatial transformed image.
+5. The computer-implemented method of claim 1 wherein a generalized gradient sign is applied to the computed gradient with respect to the flow field of the loss function comprising the first adversarial image, the ground-truth label and image model parameters to obtain the modified flow field.
+6. The computer-implemented method of claim 4 wherein the generalized gradient sign normalizes the computed gradient while retaining original direction of the computed gradient.
+7. The computer-implemented method of claim 5 wherein the computed gradient with respect to the flow field vector applied with the generalized gradient sign is used for an ascend step scaled by a steps size in obtaining the modified flow field.
+8. A computer-implemented method for adversarial image generation to train an image model using one or more processors to cause steps to be performed comprising: receiving an input image, a ground-truth label for the input image, a spatial attack budget, and a pixel perturbation budget; selecting random points for both flow field and pixel perturbation in their respective budget induced spaces; obtaining a first adversarial image for the input image using the current pixel perturbation and flow field, the current flow field and pixel perturbation are updatable and start from the selected random points; computing an adversarial-generation label by randomly sampling a non-ground-truth label; computing a gradient with respect to pixel perturbation for a loss function comprising the first adversarial image, the adversarial-generation label and image model parameters; obtaining a modified pixel perturbation based on at least the computed gradient with respect to pixel perturbation; projecting the modified pixel perturbation to a pixel perturbation feasible region specified by the pixel perturbation budget to update the pixel perturbation; obtaining a second adversarial image for the input image using a current flow field and the update pixel perturbation; computing a gradient with respect to the flow field for a loss function comprising the second adversarial image, the adversarial-generation label and image model parameters; obtaining a modified flow field based on at least the computed gradient with respect to the flow field; projecting the modified flow field to a flow feasible region specified by the spatial attack budget to update the flow field; and generating an adversarial image based on the updated flow field and the updated pixel perturbation.
+9. The computer-implemented method of claim 8 further comprising: updating the flow field and the pixel perturbation for a predetermined iterations to generate a final adversarial image.
+10. The computer-implemented method of claim 9 wherein in updating the flow field, changes in the flow field are accumulated toward the input image instead of applied to adversarial images accumulatively.
+11. The computer-implemented method of claim 8 wherein the first adversarial image is obtained by applying a pixel-wise additive attack with the current pixel perturbation to the input image to generate a pixel-wise attacked image, and performing a spatial transformation for the pixel-wise attacked image using the current flow field.
+12. The computer-implemented method of claim 8 wherein a generalized gradient sign is applied to the computed gradient with respect to the flow field of the loss function comprising the second adversarial image, the ground-truth label and image model parameters to obtain the modified flow field.
+13. The computer-implemented method of claim 12 wherein the generalized gradient sign normalizes the computed gradient while retaining original direction of the computed gradient.
+14. The computer-implemented method of claim 13 wherein the computed gradient with respect to the flow field vector applied with the generalized gradient sign is used for an ascend step scaled by a steps size in obtaining the modified flow field.
+15. A computer-implemented method of joint adversarial training for an image model using one or more processors to cause steps to be performed comprising: receiving a dataset comprising a plurality of input images, spatial attack budget and pixel perturbation budget, each image has a corresponding ground-truth label; randomly sampling a batch comprising multiple input images and corresponding ground-truth labels from the dataset; applying a joint adversarial attack incorporating both spatial and pixel attacks to each input image in the batch to generate an adversarial image batch comprising multiple adversarial images; generating a smoothed ground-truth label for each input image of the batch; for each adversarial image, obtaining a gradient of a loss function with respect to image model parameters based on at least the batch of perturbed images and smoothed ground-truth labels; and using a descent step based on the gradient for each adversarial image to update the image model parameters.
+16. The computer-implemented method of claim 15 further comprising repeating the steps of randomly sampling; applying the joint adversarial attack, generating non ground-truth labels, obtaining the gradient of the loss function, and updating model parameters for a predetermined iterations.
+17. The computer-implemented method of claim 15 wherein applying the joint adversarial attack incorporating both spatial and pixel attacks comprising: performing a spatial transformation for each image using a flow field to generate a spatial transformed image; and applying a pixel-wise additive attack with a pixel perturbation to the spatial transformed image to generate an adversarial image.
+18. The computer-implemented method of claim 15 wherein applying the joint adversarial attack incorporating both spatial and pixel attacks comprising: applying a pixel-wise additive attack with a pixel perturbation to each image to generate a pixel-wise attacked image; and performing a spatial transformation for the pixel-wise attacked image using a flow field to generate an adversarial image.
+19. The computer-implemented method of claim 15 wherein the smoothed ground-truth label for each image of the batch is generated replacing the ground-truth label via a label smoothing process.
+20. The computer-implemented method of claim 15 wherein the descent step is the average of the gradients for each adversarial image of the batch scaled by a learning rate.
+</claims>
+</document>

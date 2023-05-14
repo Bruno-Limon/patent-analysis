@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2018-03-16
+</filing_date>
+
+<publication_date>
+2021-01-05
+</publication_date>
+
+<priority_date>
+2017-03-17
+</priority_date>
+
+<ipc_classes>
+G01C3/08,G01S17/42,G01S7/48,G06K9/00,G06K9/62,G06K9/66,G06N3/04
+</ipc_classes>
+
+<assignee>
+HONDA MOTOR COMPANY
+CHEN YITING
+LAKSHMI NARAYANAN, ATHMANARAYANAN
+WANG, CHIEN-YI
+</assignee>
+
+<inventors>
+CHEN YITING
+LAKSHMI NARAYANAN, ATHMANARAYANAN
+WANG, CHIEN-YI
+</inventors>
+
+<docdb_family_id>
+63523320
+</docdb_family_id>
+
+<title>
+Joint 3D object detection and orientation estimation via multimodal fusion
+</title>
+
+<abstract>
+The present disclosure generally relates to methods and systems for identifying objects from a 3D point cloud and a 2D image. The method may include determining a first set of 3D proposals using Euclidean clustering on the 3D point cloud and determining a second set of 3D proposals from the 3D point cloud based on a 3D convolutional neural network. The method may include pooling the first and second sets of 3D proposals to determine a set of 3D candidates. The method may include projecting the first set of 3D proposals onto the 2D image and determining a first set of 2D proposals using 2D convolutional neural network. The method may include pooling the projected first set of 3D proposals and the first set of 2D proposals to determine a set of 2D candidates then pooling the set of 3D candidates and the set of 2D candidates.
+</abstract>
+
+<claims>
+1. A method of identifying objects from a 3D point cloud and a 2D image comprising: determining a first set of 3D proposals using Euclidean clustering on the 3D point cloud; determining a second set of 3D proposals from the 3D point cloud based on a 3D convolutional neural network; pooling the first set of 3D proposals and the second set of 3D proposals to determine a set of 3D candidates; projecting the first set of 3D proposals onto the 2D image; determining a first set of 2D proposals based on the image using a 2D convolutional neural network; pooling the projected first set of 3D proposals and the first set of 2D proposals to determine a set of 2D candidates; and pooling the set of 3D candidates and the set of 2D candidates.
+2. The method of claim 1, wherein determining a first set of 3D proposals using Euclidean clustering on the 3D point cloud comprises: generating an occupancy grid representing discretized voxels of the 3D point cloud; designating each voxel as either occupied or unoccupied based on the 3D point cloud; updating the occupancy grid with an occupancy probability corresponding to voxels traversed by LiDAR rays; and setting the occupancy probability of occluded voxels to indicate that the voxel is occupied.
+3. The method of claim 1, wherein determining a first set of 3D proposals using Euclidean clustering on the 3D point cloud comprises: removing ground points from the 3D point cloud; and clustering points of the point cloud having a Euclidean distance less than a threshold into proposed clusters.
+4. The method of claim 3, wherein determining a first set of 3D proposals using Euclidean clustering on the 3D point cloud further comprises: parameterizing each proposed cluster as a 3D proposal box having a length, width, height, and center coordinates.
+5. The method of claim 4, wherein parameterizing each proposed cluster comprises: setting a z-coordinate of the center coordinates based on a ground height and object height; generating at least one proposal box having a fixed length and height and x and y coordinates that maximize an occupancy probability of voxels within the proposal box.
+6. The method of claim 5, wherein generating the at least one proposal box comprises generating a plurality of proposal boxes for a proposed cluster, each proposal box having a different combination of length, height, and width.
+7. The method of claim 1, wherein determining a second set of 3D proposals from the 3D point cloud based on a 3D convolutional neural network comprises applying multiple convolutional layers and at least one max pooling layer to produce a convolutional feature map including the second set of 3D proposals.
+8. The method of claim 7, wherein pooling the first set of 3D proposals and the second set of 3D proposals comprises: extracting fixed size 3D feature vectors from the convolutional feature map for each 3D proposal of the second set of 3D proposals; and flattening the fixed size 3D feature vectors using a fully connected layer.
+9. The method of claim 1, wherein determining the first set of 2D proposals based on the image using a 2D convolutional neural network comprises producing 2D feature maps using the 2D convolutional neural network.
+10. The method of claim 1, wherein pooling the projected first set of 3D proposals and the first set of 2D proposals to determine a set of 2D candidates comprises extracting fixed 2D feature vectors for each 2D proposal box.
+11. The method of claim 1, wherein pooling the set of 3D candidates and the set of 2D candidates comprises computing the outer product between 3D feature vectors representing the set of 3D candidates and 2D feature vectors representing the set of 2D candidates to generate a multimodal representation.
+12. The method of claim 11, wherein pooling the set of 3D candidates and the set of 2D candidates comprises regressing size and orientation of the 3D proposal boxes from the multimodal representation.
+13. A vehicle comprising: a camera configured to obtain a 2D image; a light detection and ranging (LiDAR) system configured to obtain a 3D point cloud; and a multimodal fusion system configured to identify objects from the 3D point cloud and the 2D image, the multimodal fusion system including a memory and a processor communicatively coupled to the memory, the processor configured to: determine a first set of 3D proposals using Euclidean clustering on the 3D point cloud; determine a second set of 3D proposals from the 3D point cloud based on a 3D convolutional neural network; pool the first set of 3D proposals and the second set of 3D proposals to determine a set of 3D candidates; project the first set of 3D proposals onto the 2D image; determine a first set of 2D proposals based on the image using a 2D convolutional neural network; pool the projected first set of 3D proposals and the first set of 2D proposals to determine a set of 2D candidates; and pool the set of 3D candidates and the set of 2D candidates.
+14. The vehicle of claim 13, wherein the processor is configured to: generate an occupancy grid representing discretized voxels of the 3D point cloud; designate each voxel as either occupied or unoccupied based on the 3D point cloud; update the occupancy grid with an occupancy probability corresponding to voxels traversed by LiDAR rays; and set the occupancy probability of occluded voxels to indicate that the voxel is occupied.
+15. The vehicle of claim 13, wherein the processor is configured to: remove ground points from the 3D point cloud; and cluster points of the point cloud having a Euclidean distance less than a threshold into proposed clusters, parameterize each proposed cluster as a 3D proposal box having a length, width, height, and center coordinates.
+16. The vehicle of claim 13, wherein the processor is configured to apply multiple convolutional layers and at least one max pooling layer to produce a convolutional feature map including the second set of 3D proposals.
+17. The vehicle of claim 16, wherein the processor is configured to: extract fixed size 3D feature vectors from the convolutional feature map for each 3D proposal of the second set of 3D proposals; and flatten the fixed size 3D feature vectors using a fully connected layer.
+18. The vehicle of claim 13, wherein the processor is configured to extract fixed 2D feature vectors for each 2D proposal box to determine the set of 2D candidates.
+19. The vehicle of claim 13, wherein the processor is configured to: compute the outer product between 3D feature vectors representing the set of 3D candidates and 2D feature vectors representing the set of 2D candidates to generate a multimodal representation; and regress size and orientation of the 3D proposal boxes from the multimodal representation.
+20. A non-transitory computer-readable medium storing computer-executable instructions that when executed by a processor cause the processor to: determine a first set of 3D proposals using Euclidean clustering on the 3D point cloud; determine a second set of 3D proposals from the 3D point cloud based on a 3D convolutional neural network; pool the first set of 3D proposals and the second set of 3D proposals to determine a set of 3D candidates; project the first set of 3D proposals onto the 2D image; determine a first set of 2D proposals based on the image using a 2D convolutional neural network; pool the projected first set of 3D proposals and the first set of 2D proposals to determine a set of 2D candidates; and pool the set of 3D candidates and the set of 2D candidates.
+</claims>
+</document>

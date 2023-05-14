@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2020-05-18
+</filing_date>
+
+<publication_date>
+2021-01-28
+</publication_date>
+
+<priority_date>
+2019-07-25
+</priority_date>
+
+<ipc_classes>
+G06F16/22,G06F16/2457,G06F16/248,G06F16/28,G06K9/62,G06N20/00,G06N7/00
+</ipc_classes>
+
+<assignee>
+IBM (INTERNATIONAL BUSINESS MACHINES CORPORATION)
+</assignee>
+
+<inventors>
+SAILLET, YANNICK
+KABRA, NAMIT
+GRASSELT, MIKE W.
+BONAGIRI, KRISHNA KISHORE
+</inventors>
+
+<docdb_family_id>
+67438841
+</docdb_family_id>
+
+<title>
+DATA CLASSIFICATION
+</title>
+
+<abstract>
+A method provides for classifying data fields of a dataset. A classifier configured for determining confidence values for a plurality of data classes for the data fields may be applied. Using the confidence values, data class candidates may be identified. Data fields may be determined for which a plurality of data class candidates is identifiable. Using previous user-selected data class assignments, a probability may be determined for the data class candidates that the respective data class candidate is a data class to which the respective data field is to be assigned. The data fields may be classified using the probabilities to select for the data fields a data class from the data class candidates. The dataset may be provided with metadata identifying for the data fields the data classes to which the respective data fields are assigned.
+</abstract>
+
+<claims>
+1. A method for classifying data fields of a dataset, the method comprising: providing a classifier configured for determining confidence values for a plurality of data classes independently from one another for a plurality of data fields, wherein the confidence values identify a level of confidence that a respective data field belongs to a respective data class, and wherein the data class for which the confidence value exceeds a predefined threshold is identified as a data class candidate for the respective data field for which the respective confidence value is determined; applying the classifier to the data fields of a dataset; determining first data fields for which a plurality of data class candidates are identifiable; determining, using previous user-selected data class assignments, a probability for the data class candidates identified for the first data fields that the respective data class candidate is a data class to which a respective first data field is to be assigned; classifying the first data fields using the probabilities determined for the data class candidates to select for the first data fields a data class from the data class candidates for the respective first data field to which the respective first data field being assigned; and providing the dataset with metadata identifying for the classified data fields of the dataset the data classes to which the respective classified data fields are assigned.
+2. The method of claim 1, wherein the data fields of the dataset are organized in a form of a data table using a row-oriented data model comprising data fields in form of columns.
+3. The method of claim 1, wherein the dataset is provided in a form of a structured document defining a set of entities with the data fields being provided in form of attributes assigned to the entities.
+4. The method of claim 1, wherein the determining of the probabilities comprises: providing a machine learning model for the determining of the probabilities; providing the first data fields and identifiers of the data class candidates of the plurality of data class candidates for each of the first data fields as input data to the machine learning model; and in response to the providing of the input data, receiving from the machine learning model as output data, the probability for each of the data class candidates that the respective data class candidate is the data class to which the respective first data field is to be assigned.
+5. The method of claim 4, wherein the providing of the machine learning model comprises generating the machine learning model, the generating of the machine learning model comprising: providing training datasets, each training dataset comprising one or more training first data fields and previous user-selected data class assignments for the one or more training first data fields, each training first data field being assigned with the plurality of data class candidates; and executing a learning algorithm on the training datasets for generating the machine learning model.
+6. The method of claim 5: wherein one or more of the training datasets comprises one or more training second data fields and previous user-selected data class assignments for the one or more training second data fields, each training second data field being assigned with a single data class candidate; and the method further comprising: determining second data fields of the dataset for which the single data class candidate being identifiable; and classifying the second data fields, the classifying of the second data fields comprising assigning each of the second data fields to the single data class identified as the data class candidate for the respective second data field.
+7. The method of claim 5, wherein the learning algorithm is configured for: determining clusters of data classes being assigned as data class candidates for the same training data fields of the training datasets; and determining probabilities for each of the data class candidates assigned to the training first data fields that a respective data class candidate is a data class to which the respective training first data field is assigned taking into the clusters of data classes assigned as data class candidates to adjacent training data fields within a predefined range of interest around the respective training first data field.
+8. The method of claim 7, wherein the range of interest extends symmetrically around the respective training first data field.
+9. The method of claim 7, wherein the range of interest extends asymmetrically around the respective training first data field.
+10. The method of claim 5, wherein the learning algorithm is configured for: determining for each training dataset a pattern of data classes assigned to the data fields comprised by a respective training dataset; and determining, using a sequential pattern algorithm, sequential pattern rules indicating which data classes to be found together in a same dataset.
+11. The method of claim 10, the sequential pattern algorithm is selected from a group of association rule algorithms consisting of: an apriori algorithm, an eclat algorithm, and an FP-growth algorithm.
+12. The method of claim 5, wherein the generating of the machine learning model comprises providing one or more logical data models or industry models as a further input to the learning algorithm.
+13. The method of claim 1, wherein the determining of the probabilities comprises analyzing similarities between metadata assigned to the first data fields and metadata assigned to the data class candidates.
+14. The method of claim 1, wherein the determining of the probabilities comprises calculating a plurality of preliminary probabilities for each of the data class candidates using different calculation methods.
+15. The method of claim 14, wherein the determining of the probabilities further comprises calculating an averaged probability of the plurality of preliminary probabilities for each of the data class candidates.
+16. The method of claim 14, wherein the determining of the probabilities further comprises: determining for the first data fields the data class candidate with a largest preliminary probability for the different calculation method; and selecting for determining the probability for each of the first data fields the data class candidate for which most of the different calculation methods determined the largest preliminary probability.
+17. The method of claim 1, further comprising: executing a search query on the dataset with the metadata identifying data classes using a data class identifier as a search parameter of the search query; and providing a search result for the search query.
+18. The method of claim 1, further comprising importing the dataset into a target database, the target database being organized using a target data model defining a class-based arrangement of data fields, the importing comprising: rearranging the data fields of the dataset according to the target data model using the metadata identifying the data classes to which the data fields of the dataset are assigned; and adding the rearranged dataset to the target database in accordance with the target data model.
+19. A computer program product comprising a non-volatile computer-readable storage medium having machine-executable program instructions embodied therewith for classifying data fields of a dataset, execution of the program instructions by a processor of a computer system causing the processor to control the computer system to: provide a classifier configured for determining confidence values for a plurality of data classes independently from one another for the data fields, the confidence value identifying a level of confidence that the respective data field belongs to the respective data class, the data class for which the confidence value exceeding a predefined threshold being identified as a data class candidate for the respective data field for which the respective confidence value is determined; apply the classifier to the data fields of the dataset; determine first data fields of the dataset for which a single data class candidate being identifiable; classify the first data fields, the classifying of the first data fields comprising assigning the first data fields to the single data class identified as the data class candidate for the respective first data field; determine second data fields for which a plurality of data class candidates being identifiable; determine, using previous user-selected data class assignments, a probability for the data class candidates identified for the second data fields that the respective data class candidate is a data class to which the respective second data field is to be assigned; classify the second data fields using the probabilities determined for the data class candidates to select for the second data fields a data class from the data class candidates for the respective second data field to which the respective second data field being assigned; and provide the dataset with metadata identifying for the classified data fields of the dataset the data classes to which the respective classified data fields are assigned.
+20. A computer system for classifying data fields of a dataset, the computer system comprising a processor and a memory storing machine-executable program instructions, execution of the program instructions by the processor causing the processor to control the computer system to: provide a classifier configured for determining confidence values for a plurality of data classes independently from one another for the data fields, the confidence value identifying a level of confidence that the respective data field belongs to the respective data class, the data class for which the confidence value exceeding a predefined threshold being identified as a data class candidate for the respective data field for which the respective confidence value is determined; apply the classifier to the data fields of the dataset; determine first data fields of the dataset for which a single data class candidate being identifiable; classify the first data fields, the classifying of the first data fields comprising assigning the first data fields to the single data class identified as the data class candidate for the respective first data field; determine second data fields for which a plurality of data class candidates being identifiable; determine, using previous user-selected data class assignments, a probability for the data class candidates identified for the second data fields that the respective data class candidate is a data class to which the respective second data field is to be assigned; classify the second data fields using the probabilities determined for the data class candidates to select for the second data fields a data class from the data class candidates for the respective second data field to which the respective second data field being assigned; and provide the dataset with metadata identifying for the classified data fields of the dataset the data classes to which the respective classified data fields are assigned.
+</claims>
+</document>

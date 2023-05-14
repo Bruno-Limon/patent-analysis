@@ -1,0 +1,90 @@
+<document>
+
+<filing_date>
+2020-06-29
+</filing_date>
+
+<publication_date>
+2020-12-30
+</publication_date>
+
+<priority_date>
+2019-06-28
+</priority_date>
+
+<ipc_classes>
+G06Q10/06,G06Q50/30,G08G5/00
+</ipc_classes>
+
+<assignee>
+SATAVIA
+</assignee>
+
+<inventors>
+RIX, ANTONY
+GALLAGHER, DARREN
+DURANT, ADAM
+LENTATI, LISA
+GOENKA, Shikhar
+</inventors>
+
+<docdb_family_id>
+67540161
+</docdb_family_id>
+
+<title>
+SYSTEM AND METHOD FOR GENERATING AN AIRCRAFT FLIGHT TRAJECTORY
+</title>
+
+<abstract>
+There is provided a flight trajectory system that estimates contaminant exposure experienced by a flight for scheduling of flight maintenance interventions, comprising: at least one input interface that receives at least one trajectory of a flight comprising flight track points; a storage medium containing executable instructions for executing a flight trajectory algorithm and a database of flight trajectory data; and a computing arrangement coupled to the at least one input interface and the storage medium, wherein the computing arrangement receives the at least one trajectory of the flight and interrogates the database of flight trajectory data to: validate the flight track points, wherein the flight track points are validated based on at least one performance of the flight, generate a fixed trajectory for the flight based on the validated flight track points and the flight trajectory algorithm, and analyze, using a flight trajectory model, the fixed trajectory of the flight to estimate contaminants exposure of the flight on the fixed trajectory for scheduling flight maintenance interventions, and wherein the contaminants comprise at least one of: dust, ice, atmospheric aerosol particles or corrosive gases.
+</abstract>
+
+<claims>
+1. A flight trajectory system that estimates contaminant exposure experienced by a flight, comprising:
+at least one input interface that receives at least one trajectory of a flight comprising flight track points;
+a storage medium containing executable instructions for executing a flight trajectory algorithm and a database of flight trajectory data; and
+a computing arrangement coupled to the at least one input interface and the storage medium,
+wherein the computing arrangement receives the at least one trajectory of the flight and interrogates the database of flight trajectory data to
+validate the flight track points, wherein the flight track points are validated based at least one performance of the flight,
+generate a fixed trajectory for the flight based on the validated flight track points and the flight trajectory algorithm, and
+analyze, using a flight trajectory model, the fixed trajectory of the flight to estimate contaminants exposure of the flight on the fixed trajectory, and wherein the contaminants comprise at least one of: dust, ice, atmospheric aerosol particles or corrosive gases.
+2. A flight trajectory system of claim 1, wherein the computing arrangement is configured to generate the fixed trajectory for the flight by
+interpolating latitudes and longitudes at (i) a flight track point without latitudes and longitudes and (ii) at least one gap in the at least one trajectory of the flight if the flight track point without latitudes and longitudes and the at least one gap in the at least one trajectory of the flight are detected; interpolating altitudes at a flight track point without altitudes if the flight track point without altitudes is detected; and extrapolating take-off of the flight by modelling beginning of the flight up to the first flight track point of the at least one trajectory or landing by modelling the end of the flight from the last flight track point of the at least one trajectory, if not available.
+3. A flight trajectory system as claimed in claim 1 or 2, wherein the at least one input interface is configured to receive historical flight trajectory data relating to a plurality of flights for training the flight trajectory algorithm. 4. A flight trajectory system as claimed any one of claims 1 to 3, wherein the at least one trajectory of the flight comprises at least one of time series of times, latitudes, longitudes or altitudes associated with the flight track points.
+5. A flight trajectory system as claimed in any one of claims 1 to 4, wherein the at least one input interface is configured to receive at least one of a departure airport, a departure time, an arrival airport, an arrival time or an aircraft type of the flight.
+6. A flight trajectory system as claimed in any one of claims 1 to 5, wherein the computing arrangement is configured to format the flight track points into a predefined format by converting timestamps in seconds if the timestamps are in different formats;
+converting latitudes and longitudes in decimals if the latitudes and longitudes are in different formats;
+and
+converting altitudes in meters above mean sea level if the altitudes are in different formats.
+7. A flight trajectory system as claimed in any one of claims 1 to 6, wherein the computing arrangement validates the flight track points by discarding flight track points with timestamps that are associated with incorrect latitudes and longitudes incorrect ground speeds, or incorrect vertical speeds, wherein the incorrect latitudes and longitudes comprises latitudes and longitudes exceeding predetermined values of longitude and latitude, wherein the incorrect ground speed corresponds to a ground speed exceeding or receding a predetermined range of ground speed and wherein the incorrect vertical speed corresponds to a vertical speed exceeding or receding a predetermined range of vertical speed, and selecting one or more flight track points with timestamps that are associated with at least one of: correct latitudes and longitudes, correct ground speeds, or correct vertical speeds, for validation.
+8. A flight trajectory system as claimed in any one of claims 1 to 7, wherein the computing arrangement discards incorrect flight track points by:
+calculating at least one of: a ground speed or a vertical speed, for each flight track point using at least one of: a latitude data or a longitude data;
+generating at least one of: a smoothed average ground speed or a smoothed average vertical speed, using a rolling median, mean method or at least one performance of the flight;
+calculating a difference between the ground speed and the smoothed average ground speed and a difference between the vertical speed and the smoothed average vertical speed, respectively for each flight track point; and
+discarding the flight track point upon at least one of: a) if the calculated difference for the ground speeds is more than 50 meters per second (m/s), or b) if the calculated difference for the vertical speeds is more than 5m/s.
+9. A flight trajectory system as claimed in any one of claims 1 to 8, wherein the computing arrangement is configured to model the altitude at a flight track point without altitudes according to a flight phase if the rate of change of the altitude is not constant. 10. A flight trajectory system as claimed in any one of claims 1 to 9, wherein the fixed trajectory comprises at least one of a complete time series of times, latitudes, longitudes, altitudes from when the flight is moving on the take-off runway up to when the flight reaches speed of 0 kilometre per hour on the landing runway.
+11. A flight trajectory system as claimed in any one of claims 1 to 10, wherein the fixed trajectory comprises quality metrics that indicate a quality of the at least one received trajectory of the flight. 12. A flight traj ectory system as claimed in claim 1 to 11 , wherein the system is configured to schedule maintenance interventions for the aircraft in response to the estimated contaminants exposure.
+13. A method using a computing arrangement for estimating contaminant exposure experienced by a flight, comprising:
+(a) receiving at least one trajectory of a flight comprising flight track points;
+(b) validating the flight track points of the at least one trajectory, wherein the flight track points are validated based on at least one performance of the flight;
+(c) generating, using the flight trajectory algorithm, a fixed trajectory for the flight; (d) analysing, using a flight trajectory model, the fixed trajectory of the flight to estimate contaminants exposure of the flight on the fixed trajectory, and wherein the contaminants comprise at least one of: dust, ice, atmospheric aerosol particles or corrosive gases.
+14. A method as claimed in claim 13, wherein the method comprises generating the fixed trajectory for the flight by
+interpolating latitudes and longitudes at (i) a flight track point without latitudes and longitudes and (ii) at least one gap in the at least one trajectory of the flight if the flight track point without latitudes and longitudes and the at least one gap in the at least one trajectory of the flight are detected; interpolating altitudes at a flight track point without altitudes if the flight track point without altitudes is detected; and extrapolating take-off of the flight by modelling beginning of the flight up to the first flight track point of the at least one trajectory or landing by modelling the end of the flight from the last flight track point of the at least one trajectory, if not available.
+15. A method as claimed in claim 13 or 14, wherein the method comprises calibrating, training or optimizing the flight trajectory algorithm using historical flight trajectory data relating to a plurality of flights, wherein the flight trajectory algorithm is configured to receive at least one trajectory of the flight and to output at least one fixed trajectory for the flight.
+16. A method as claimed in claim 13 to 15, wherein the at least one trajectory of the flight comprises at least one of time series of times, latitudes, longitudes or altitudes associated with the flight track points.
+17. A method as claimed in any one of claims 13 to 16, wherein the method comprises using an input interface to receive at least one of a departure airport, a departure time, an arrival airport, an arrival time or an aircraft type of the flight. 18. A method as claimed in any one of claims 13 to 17, wherein the method comprises using the computing arrangement to format the flight track points by
+converting timestamps in seconds if the timestamps are in different formats;
+converting latitudes and longitudes in decimals if the latitudes and longitudes are in different formats;
+and converting altitudes in meters above mean sea level if the altitudes are in different formats.
+19. A method as claimed in any one of claims 13 to 18, wherein the method comprises using the computing arrangement to validate the flight track points by discarding flight track points with timestamps that are associated with incorrect latitudes and longitudes, incorrect ground speeds or incorrect vertical speeds, wherein the incorrect latitudes and longitudes comprises latitudes and longitudes exceeding predetermined values of longitude and latitude, wherein the incorrect ground speed corresponds to a ground speed exceeding or receding a predetermined range of ground speed and wherein the incorrect vertical speed corresponds to a vertical speed exceeding or receding a predetermined vertical range of speed, and selecting one or more flight track points with timestamps that are associated with at least one of: correct latitudes and longitudes, correct ground speeds, or correct vertical speeds, for validation.
+20. A method as claimed in any one of claims 13 to 19, wherein method comprises discarding incorrect flight track points by:
+calculating at least one of: a ground speed or a vertical speed, for each flight track point using at least one of: a latitude data or a longitude data;
+generating at least one of: a smoothed average ground speed or a smoothed average vertical speed, using a rolling median, mean method, or at least one performance of the flight;
+calculating a difference between the ground speed and the smoothed average ground speed and a difference between the vertical speed and the smoothed average vertical speed, respectively for each flight track point; and
+discarding the flight track point upon at least one of: a) if the calculated difference for the ground speeds is more than 50 meters per second (m/s), or b) if the calculated difference for the vertical speeds is more than 5m/s. 21. A method as claimed in any one of claims 13 to 20, wherein the method comprises using the flight trajectory algorithm to model the altitude at a flight track point without altitudes according to a flight phase if the rate of change of the altitude is not constant. 22. A method as claimed in any one of claims 13 to 21, wherein the fixed trajectory comprises at least one of a complete time series of times, latitudes, longitudes, altitudes from when the flight is moving on the take-off runway up to when the flight reaches speed of 0 kilometre per hour on the landing runway.
+23. A method as claimed in any one of claims 13 to 22, wherein the fixed trajectory comprises quality metrics that indicate a quality of the at least one received trajectory of the flight.
+24. A method as claimed in claim 13 to 23, wherein the method includes scheduling maintenance interventions for the aircraft in response to the estimated contaminants exposure.
+25. A computer program product comprising instructions to cause the system of any one of claims 1 to 12 to carry out the method of any one of claims 13 to 24.
+</claims>
+</document>

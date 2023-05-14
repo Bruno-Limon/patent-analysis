@@ -1,0 +1,44 @@
+<document>
+
+<filing_date>
+2019-03-01
+</filing_date>
+
+<publication_date>
+2020-07-15
+</publication_date>
+
+<priority_date>
+2018-11-09
+</priority_date>
+
+<ipc_classes>
+G01C1/04,G01C9/00,G06T7/73,H01Q1/12
+</ipc_classes>
+
+<assignee>
+WUYI UNIVERSITY
+</assignee>
+
+<docdb_family_id>
+66184673
+</docdb_family_id>
+
+<title>
+ANTENNA DOWNWARD INCLINATION ANGLE MEASUREMENT METHOD BASED ON MULTI-SCALE DEEP SEMANTIC SEGMENTATION NETWORK
+</title>
+
+<abstract>
+A method for measuring an antenna downtilt angle based on a multi-scale deep semantic segmentation network is disclosed, including: collecting base station antenna data by using an unmanned aerial vehicle, and labeling an acquired antenna image with a labeling tool to make a data set; calling the data set for training and debugging a model; recognizing and detecting a target antenna, performing semantic segmentation on an output image, finally obtaining a target image finally segmented, and calculating a downtilt angle of the target image. The method is highly applicable, cost-effective, and safe.
+</abstract>
+
+<claims>
+1. A method for measuring an antenna downtilt angle based on a multi-scale deep semantic segmentation network, comprising: collecting image data: wherein base station antenna data is collected by using an unmanned aerial vehicle, and antenna images collected are taken as a data set; predicting a target bounding box: wherein a target antenna in the data set is positioned, and a bounding box is predicted by logistic regression; performing target recognition and semantic segmentation: wherein target features of the target antenna in the data set are extracted, the target features are learned and processed by an activation function, a target image is output for semantic image segmentation, and pixel points of the target image and the background are classified; and calculating an antenna downtilt angle: wherein the width and height of an antenna box are obtained according to a border of the target image to calculate the antenna downtilt angle.
+2. The method for measuring an antenna downtilt angle based on a multi-scale deep semantic segmentation network according to claim 1, wherein the step of collecting image data comprises: locating the unmanned aerial vehicle on the top of a pole of a base station antenna, and recording the longitude and latitude (L0, W0) of the pole in the vertical direction; causing the unmanned aerial vehicle to fly around a point of the base station antenna, setting a flight radius of the unmanned aerial vehicle, and the unmanned aerial vehicle moving around the pole along the radius on the same horizontal plane to acquire antenna images with different attitudes and angles of a mobile base station antenna as a data set.
+3. The method for measuring an antenna downtilt angle based on a multi-scale deep semantic segmentation network according to claim 2, wherein the step of predicting a target bounding box comprises: positioning a target antenna in the antenna image, predicting a bounding box by logistic regression, first dividing the entire antenna image into N*N grids, predicting the entire antenna image after the antenna image is input, scanning each grid at a time, and starting to predict the target antenna when the center of the grid where the target antenna is located is positioned, wherein four coordinate values predicted for each bounding box are tx, ty, tw, and th, respectively, an upper-left offset of each target cell is (cx, cy), box heights of the bounding boxes are px, py respectively, and the network predicts their values as: where the input antenna image is divided into N*N grids, each grid comprises 5 predictors (x, y, w, h, confidence) and a c class, and the output of the network is of a size of S*S*(5*B+C); B is the number of the bounding boxes in each grid, C means the class is only antenna in the present disclosure, and thus is 1, and confidence represents that the predicted grid comprises two pieces of information, i.e., confidence of the target antenna and prediction accuracy of the bounding box: a threshold is set to 0.5 when Pr(Object)=1; the target antenna falls in the center of the grid, that is, the bounding box currently predicted coincides with an actual background box object better than before; if the predicted bounding box is not the best currently, the bounding box is not predicted when the threshold is smaller than 0.5, so as to determine that the target antenna does not fall into the grid.
+4. The method for measuring an antenna downtilt angle based on a multi-scale deep semantic segmentation network according to claim 3, wherein the step of performing target recognition and semantic segmentation comprises: performing target recognition by using a network convolutional layer for feature extraction: antenna image pixel 416*416 is input, the channel number is 3, there are 32 layers of convolution kernels, each kernel has a size of 3*3, 32 layers of convolution kernels are used to learn 32 feature maps, and for color differences of the target antenna, features of the target antenna are learned by using different convolution kernels; convolutional layer up-sampling is performed during feature extraction, and a prediction formula for object classes is as follows: wherein Pr(Classi/object) is an object class probability; then applying the activation function by logistic regression: a predicted target output range is made between 0 and 1, the antenna image is processed by the activation function after feature extraction, and when the output value is greater than 0.5, the object is determined as an antenna; then performing semantic image segmentation on the antenna image by using a deep convolutional network, and classifying the pixel points of the target image and the background:
+after the target image is input, the feature extraction goes through by a dilated convolutional network; and after a feature image is input, dilated convolution is calculated: for a two-dimensional signal, an output corresponding to each position i is y, w is a filter, and the detour rate r is a step size for sampling the input signal; after the input image is processed by the convolutional network for output, pixel points of the output target image are classified by a fully connected conditional random field, and the classification is mainly performed for the target image and the background boundary.
+5. The method for measuring an antenna downtilt angle based on a multi-scale deep semantic segmentation network according to claim 4, wherein the step of calculating an antenna downtilt angle comprises:
+obtaining the width x and the height y of the antenna box according to the border of the target image, and calculating a downtilt angle of the base station antenna according to a geometric relation, the downtilt angle of the base station antenna being an angle θ between the base station antenna and a vertical plane:
+</claims>
+</document>

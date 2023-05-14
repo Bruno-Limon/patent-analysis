@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2018-06-29
+</filing_date>
+
+<publication_date>
+2020-08-04
+</publication_date>
+
+<priority_date>
+2018-06-29
+</priority_date>
+
+<ipc_classes>
+G06K9/00,H04N21/222,H04N21/231,H04N21/234,H04N21/414,H04N21/4223,H04N21/845
+</ipc_classes>
+
+<assignee>
+HPE (HEWLETT PACKARD ENTERPRISE)
+</assignee>
+
+<inventors>
+BHARDE, MADHUMITA
+BHATTACHARYA, SUPARNA
+SHREE, DILEEP DEEPA
+</inventors>
+
+<docdb_family_id>
+69054670
+</docdb_family_id>
+
+<title>
+Transformation of video streams
+</title>
+
+<abstract>
+Example aspects for transformation of video streams include searching for a first signature of a segment of a video stream in an index comprising a first level signature of each of a plurality of stored segments. In response to identifying a first set of similar segments from the stored segments, a second signature of the segment may be determined. In response to identifying a second set of similar segments from the first set of similar segments based on the second signature, a matching segment may be ascertained from the second set of similar segments. The matching segment may be provided for being stored in place of the segment in a storage medium.
+</abstract>
+
+<claims>
+We claim:
+1. A method comprising: searching, at an edge device, for a first signature of a segment of a video stream in an index on the edge device to identify a first set of similar segments, the index comprising a first level signature of each of a plurality of stored segments; in response to identifying the first set of similar segments from the stored segments, determining, by the edge device, a second signature of the segment; identifying, by the edge device, a second set of similar segments from the first set of similar segments based on a comparison of the second signature of the segment to a second level signature of each of the first set of similar segments; ascertaining, by the edge device, a matching segment from the second set of similar segments; and providing, by the edge device, the matching segment for being stored in place of the segment in a storage medium on the edge device, wherein the first level signature of each of the plurality of stored segments, the second level signature of each of the first set of similar segments, and the plurality of stored segments are stored on the edge device previously to and separate from the video stream.
+2. The method of claim 1, wherein the first signature is based on summarized descriptors of a scene in the segment and the first set of similar segments includes similar segments that are approximate matches for the segment; and the second signature is based on detailed descriptors of the scene in the segment and the second set of similar segments includes the similar segments that are near exact matches for the segment.
+3. The method of claim 1, wherein a similar segment of the first set of similar segments is selected to be in the second set of similar segments when a difference value obtained on comparison between the second signature of the segment and a second level signature of the similar segment is less than a threshold.
+4. The method of claim 1, wherein ascertaining the matching segment comprises selecting the matching segment from the second set of similar segments based on a rule when the second set of similar segments comprises a plurality of similar segments, and wherein the rule includes: selecting, as the matching segment, a similar segment for which a difference value between a second level signature of the similar segment and the second signature is the least; or selecting, as the matching segment, a chronologically most recent similar segment from the plurality of similar segments as the matching segment.
+5. The method of claim 1, comprising intercepting the video stream and obtaining segments from the video stream, wherein each segment is one of a snippet and a key frame, and wherein the snippet includes multiple key frames.
+6. The method of claim 1, comprising obtaining the first signature and the second signature for the segment from a video processing pipeline of the edge device.
+7. The method of claim 1, wherein the index is one of a dictionary of first and second level signatures associated with corresponding stored segments, and a de-duplication index of the storage medium.
+8. The method of claim 1, further comprising: de-duplicating, at the edge device, the storage medium to obtain de-duplicated data that includes a reduced video stream, the reduced video stream resulting from de-duplication of segments of the video stream that were replaced by matching previously stored segments; and transfer, by the edge device, the de-duplicated data to another storage medium on a core computing device via mirror replication.
+9. A computing device comprising: a processor; a storage medium; and a memory coupled to the processor, the memory storing instructions executable by the processor to: intercept a video stream and obtain segments from the video stream; and for each segment obtained from the video stream, search for a matching segment from among stored segments, the search being based on a comparison of a first signature of the segment with a first level signature of each of the stored segments to identify a subset of the stored segments and based on a comparison of a second signature of the segment with a second level signature of each of the subset of the stored segments, wherein the first signature is based on summarized descriptors of the segment and the second signature is based on detailed descriptors of the segment; store the matching segment in place of the segment in the storage medium when the matching segment is found; and provide the segment for being stored in the storage medium when no matching segment is found, wherein the first level signature of each of the stored segments, the second level signature of each of the subset of the stored segments, and the stored segments are stored in the storage medium previously to and separate from the video stream being intercepted.
+10. The computing device of claim 9, wherein to store the matching segment in place of the segment, a link to the matching segment is stored.
+11. The computing device of claim 9, wherein, to search for the matching segment from among stored segments, the memory further stores instructions executable by the processor to: compare the first signature of the segment with a first level signature of each of the stored segments; identify a first set of similar segments from the stored segments as the subset of the stored segments, wherein a stored segment is selected to be in the first set of similar segments when the first signature matches with a first level signature of the stored segment; compare the second signature of the segment with a second level signature of each similar segment of the first set of similar segments; identify a second set of similar segments from the first set of similar segments based on the second signature, wherein a similar segment of the first set of similar segments is selected to be in the second set of similar segments when a difference value obtained on comparison between the second signature of the segment and the second level signature of the similar segment is less than a threshold; and ascertain the matching segment from the second set of similar segments, wherein the matching segment is ascertained based on a rule when the second set of similar segments includes a plurality of similar segments.
+12. The computing device of claim 9, wherein the memory storage medium further stores an index of first level signatures and second level signatures, wherein the index is one of a dictionary of the stored segments and a de-duplication index of the storage medium, and wherein the first level signatures and the second level signatures include hashes.
+13. The computing device of claim 12, wherein the memory further stores instructions executable by the processor to store the first signature and the second signature of the segment in the index when no matching segment is found.
+14. The computing device of claim 9, wherein the memory further stores instructions corresponding to a video processing pipeline that is executable by the processor to process the video stream for decision making at the computing device, and wherein the segment, the first signature, and the second signature are obtained from the video processing pipeline.
+15. The computing device of claim 9, wherein the memory further stores instructions executable by the processor to: de-duplicate the storage medium to obtain de-duplicated data corresponding to the video stream, the storage medium being at an edge device; and send the de-duplicated data from the edge device to another storage medium on a core computing device.
+16. The computing device of claim 9, wherein the processor, the storage medium, and the memory are included in an autonomous car, and the video stream is generated by a camera of the autonomous car.
+17. A non-transitory computer-readable medium comprising computer-readable instructions for transformation of a video stream, the computer-readable instructions when executed by a processor cause the processor to: obtain segments from the video stream, each segment being one of a key frame and a snippet; and for each segment: identify a first set of similar segments from among stored segments based on a comparison of a first signature of the segment with a first level signature of each of the stored segments; when the first set of similar segments includes at least one stored segment, identify a second set of similar segments from the first set of similar segments, wherein a similar segment of the first set of similar segments is selected to be in the second set of similar segments when a difference value obtained on comparison between a second signature of the segment and a second level signature of the similar segment is less than a threshold; when the second set of similar segments includes at least one similar segment, ascertain a matching segment from the second set of similar segments; and provide the matching segment for being stored in place of the segment in a storage medium, wherein the first level signature of each of the stored segments, the second level signature, and the stored segments are stored in the storage medium previously to and separate from the video stream being obtained.
+18. The non-transitory computer-readable medium of claim 17, further comprising computer-readable instructions that when executed by a processor cause the processor to: de-duplicate the storage medium to obtain de-duplicated data corresponding to the video stream; and transfer the de-duplicated data to another storage medium over a network.
+19. The non-transitory computer-readable medium of claim 17, further comprising computer-readable instructions that when executed by a processor cause the processor to: select the matching segment from the second set of similar segments based on a rule when the second set of similar segments comprises a plurality of similar segments, wherein the rule is one of: selecting the similar segment for which a difference value between the second level signature of the similar segment and the second signature is the least, in comparison to corresponding difference values for other similar segments in the plurality of similar segments, as the matching segment; and selecting a chronologically most recent similar segment from the plurality of similar segments as the matching segment.
+20. The non-transitory computer-readable medium of claim 17, further comprising computer-readable instructions that when executed by a processor cause the processor to: store the segment in the storage medium when no stored segment is selected to be in the first set of similar segments or no similar segment is selected to be in the second set of stored segment; and store the first signature and the second signature in an index comprising first level signatures and second level signatures, wherein the index is one of a dictionary and a de-duplication index of the storage medium.
+</claims>
+</document>

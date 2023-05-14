@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2018-05-23
+</filing_date>
+
+<publication_date>
+2020-05-27
+</publication_date>
+
+<priority_date>
+2017-05-23
+</priority_date>
+
+<ipc_classes>
+G06F12/0846,G06F12/0875,G06N3/04,G06N3/063,G06N3/08
+</ipc_classes>
+
+<assignee>
+SHANGHAI CAMBRICON INFORMATION TECHNOLOGY COMPANY
+</assignee>
+
+<inventors>
+ZHOU, XUDA
+DU, ZIDONG
+HAO, YIFAN
+LIU, SHAOLI
+WANG, ZAI
+CHEN, TIANSHI
+</inventors>
+
+<docdb_family_id>
+64396230
+</docdb_family_id>
+
+<title>
+WEIGHT QUANTIZATION METHOD FOR A NEURAL NETWORK AND ACCELERATING DEVICE THEREFOR
+</title>
+
+<abstract>
+The present disclosure provides a data quantization configured to perform the following steps: grouping the weights of a neural network; performing a clustering operation on each group of weights by using a clustering algorithm, dividing a group of weights into m classes, computing a center weight for each class, and replacing all the weights in each class by the center weights, where m is a positive integer; encoding the center weight to get a weight codebook and a weight dictionary; and retraining the neural network, where only the weight codebook is trained, and the weight dictionary remains unchanged.
+</abstract>
+
+<claims>
+1. A data quantization method, comprising: grouping weights of a neural network; performing a clustering operation on each group of weights by using a clustering algorithm, dividing a group of weights into m classes, computing a center weight for each class, and replacing all the weights in each class by the center weights, where m is a positive integer; and encoding the center weight to get a weight codebook and a weight dictionary.
+2. The data quantization method of claim 1, further comprising:
+retraining the neural network, where only the weight codebook is trained, and the weight dictionary remains unchanged.
+3. The data quantization method of claim 2, wherein the retraining adopts a back-propagation algorithm.
+4. The data quantization method of any one of claims 1-3, wherein the grouping includes: grouping into a group, layer-type-based grouping, inter-layer-based grouping, and/or intra-layer-based grouping.
+5. The data quantization method of any one of claims 1-4, wherein the clustering algorithm includes K-means, K-medoids, Clara, and/or Clarans.
+6. The data quantization method of claim 4 or 5, wherein the grouping is grouping all weights of the neural network into one group.
+7. The data quantization method of claim 4 or 5, wherein the grouping is the layer-type-based grouping, the neural network has a total of t different types of layers including i convolutional layers, j fully connected layers, and m LSTM layers, where i, j, m are integers greater than or equal to 0, and satisfy i+j+m≥1, t is an integer greater than or equal to 1 and satisfies t=i+j+m, and the layer-type-based grouping includes:
+grouping the weights of the neural network into t groups.
+8. The data quantization method of claim 4 or 5, wherein the grouping is the inter-layer-based grouping, and the method includes:
+grouping the weights of one or a plurality of convolutional layers, the weights of one or a plurality of fully connected layers, and the weights of one or a plurality of LSTM layers in the neural network into one group respectively.
+9. The data quantization method of claim 4 or 5, wherein the grouping is the intra-layer-based grouping, and the method includes: determining the convolutional layer of the neural network as a four-dimensional matrix (Nfin, Nfout, Kx, Ky), where Nfin, Nfout, Kx, Ky are positive integers, Nfin represents a count of input feature maps, Nfout represents a count of output feature maps, and (Kx, Ky) represents a size of a convolution kernel; grouping the weights of the convolutional layer into Nfin*Nfout*Kx*Ky/(Bfin*Bfout*Bx*By) different groups according to a group size of (Bfin, Bfout, Bx, By), where Bfin is a positive integer less than or equal to Nfin, Bfout is a positive integer less than or equal to Nfout, Bx is a positive integer less than or equal to Kx, and By is a positive integer less than or equal to Ky; determining the fully connected layer of the neural network as a two-dimensional matrix (Nin, Nout), where Nin and Nout are positive integers, Nin represents a count of input neurons, Nout represents a count of output neurons, and a count of weight is Nin*Nout; the weights of fully connected layer are divided into (Nin*Nout)/(Bin*Bout) different groups according to a group size of (Bin, Bout), where Bin is a positive integer less than or equal to Nin, and Bout is a positive integer less than or equal to Nout; and determining the weights of the LSTM layer of the neural network as a combination of the weights of a plurality of fully connected layers, where the weights of the LSTM layer are composed of the weights of n fully connected layers, and n is a positive integer, in this way, each fully connected layer can be grouped according to a grouping mode of the fully connected layer.
+10. The data quantization method of claim 4 or 5, wherein the grouping method is the grouping into a group, the inter-layer-based grouping, and the intra-layer-based grouping, and the method includes grouping the convolutional layer into one group, grouping the fully connected layers by the intra-layer-based grouping method, and grouping the LSTM layers by the inter-layer-based grouping method.
+11. The data quantization method of any one of claims 1-10, wherein a center weight selection method of a class is: minimizing a cost function J(w,w0).
+12. The data quantization method of claim 11, wherein the cost function is: where w is a weight of a class, w0 is a center weight of the class, n is a count of weights in the class, n is a positive integer, wi is an ith weight of the class, i is a positive integer, and1≤i≤n.
+13. A data quantization device, comprising: a memory configured to store an operation instruction; and a processor configured to perform the operation instruction stored in the memory in accordance with the quantization method of any one of claims 1-12.
+14. The data quantization device of claim 13, wherein the operation instruction is a binary number including an operation code and an address code, where the operation code indicates an operation to be performed by the processor, and the address code indicates an address in the memory where the processor reads data participating in the operation.
+</claims>
+</document>

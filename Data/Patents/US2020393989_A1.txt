@@ -1,0 +1,71 @@
+<document>
+
+<filing_date>
+2019-08-16
+</filing_date>
+
+<publication_date>
+2020-12-17
+</publication_date>
+
+<priority_date>
+2019-06-12
+</priority_date>
+
+<ipc_classes>
+G06F12/02,G06F3/06
+</ipc_classes>
+
+<assignee>
+PHISON ELECTRONICS CORPORATION
+</assignee>
+
+<inventors>
+YEH, CHIH-KANG
+</inventors>
+
+<docdb_family_id>
+73745060
+</docdb_family_id>
+
+<title>
+MEMORY CONTROL METHOD, MEMORY STORAGE DEVICE AND MEMORY CONTROL CIRCUIT UNIT
+</title>
+
+<abstract>
+A memory control method, a memory storage device, and a memory control circuit unit are disclosed. The memory control method includes: performing a first write operation to write first data to a first physical unit in a first physical group through a first channel; performing a limited data collection operation to collect second data, wherein the limited data collection operation limits that the second data does not include data to be collected from the first physical group after the first write operation is completed; and performing a second write operation during a period of performing the first write operation, so as to write the second data to a second physical unit in the second physical group through a second channel. In addition, the limited data collection operation and the second write operation are configured to release at least one spare physical unit.
+</abstract>
+
+<claims>
+1. A memory control method for a rewritable non-volatile memory module, wherein the rewritable non-volatile memory module comprises at least one first physical group and at least one second physical group, and the memory control method comprises: performing a first write operation to write first data to at least one first physical unit in the at least one first physical group through at least one first channel; performing a limited data collection operation to collect second data, wherein the limited data collection operation limits that the second data does not comprise data to be collected from the at least one first physical group after the first write operation is completed; and performing a second write operation during a period of performing the first write operation, so as to write the second data to at least one second physical unit in the at least one second physical group through at least one second channel, wherein the limited data collection operation and the second write operation are configured to release at least one spare physical unit.
+2. The memory control method as claimed in claim 1, further comprising: starting a data merge operation to perform the limited data collection operation and the second write operation.
+3. The memory control method as claimed in claim 1, wherein the at least one first channel is in a busy state during the period of performing the first write operation.
+4. The memory control method as claimed in claim 1, wherein the at least one first physical group corresponds to at least one first die in the rewritable non-volatile memory module, and the at least one second physical group corresponds to at least one second die in the rewritable non-volatile memory module.
+5. The memory control method as claimed in claim 1, wherein the limited data collection operation comprises: adjusting a priority of at least one command in a buffer memory, wherein the at least one command is configured to instruct a collecting of valid data from the at least one first physical group after the first write operation is completed.
+6. The memory control method as claimed in claim 1, wherein the limited data collection operation comprises: maintaining table information in a buffer memory, wherein the table information records information relating to a data merge operation; and adjusting an ordered position of at least one command in the buffer memory according to the table information.
+7. The memory control method as claimed in claim 6, wherein adjusting the ordered position of the at least one command in the buffer memory according to the table information comprises: sorting the at least one command according to a channel state of the at least one first channel.
+8. The memory control method as claimed in claim 7, wherein sorting the at least one command according to the channel state of the at least one first channel comprises: evaluating a busy time of the at least one first channel in correspondence with the first write operation; and sorting the at least one command according to the busy time.
+9. The memory control method as claimed in claim 1, wherein the limited data collection operation comprises: adjusting a command queue in a buffer memory, so as to arrange each of at least one read command being a command not indicating a reading of data in the first physical group, and the at least one read command is arranged after at least one read command indicating the first write operation.
+10. The memory control method as claimed in claim 1, wherein the limited data collection operation comprises: evaluating a state of the at least one first channel; and moving backward an ordered position of at least one read command for performing data reading through the at least one first channel in a command queue according to the state of the at least one first channel.
+11. A memory storage device, comprising: a connection interface unit, configured to be coupled to a host system; a rewritable non-volatile memory module, comprising at least one first physical group and at least one second physical group; and a memory control circuit unit, coupled to the connection interface unit and the rewritable non-volatile memory module, wherein the memory control circuit unit is configured to perform a first write operation to write first data to at least one first physical unit in the at least one first physical group through at least one first channel, the memory control circuit unit is further configured to perform a limited data collection operation to collect second data, wherein the limited data collection operation limits that the second data does not comprise data to be collected from the at least one first physical group after the first write operation is completed, the memory control circuit unit is further configured to perform a second write operation during a period of performing the first write operation, so as to write the second data to at least one second physical unit in the at least one second physical group through at least one second channel, and the limited data collection operation and the second write operation are configured to release at least one spare physical unit.
+12. The memory storage device as claimed in claim 11, wherein the memory control circuit unit is further configured to start a data merge operation to perform the limited data collection operation and the second write operation.
+13. The memory storage device as claimed in claim 11, wherein the at least one first channel is in a busy state during the period of performing the first write operation.
+14. The memory storage device as claimed in claim 11, wherein the at least one first physical group corresponds to at least one first die in the rewritable non-volatile memory module, and the at least one second physical group corresponds to at least one second die in the rewritable non-volatile memory module.
+15. The memory storage device as claimed in claim 11, wherein the limited data collection operation comprises: adjusting a priority of at least one command in a buffer memory, wherein the at least one command is configured to instruct a collecting of valid data from the at least one first physical group after the first write operation is completed.
+16. The memory storage device as claimed in claim 11, wherein the limited data collection operation comprises: maintaining table information in a buffer memory of the memory control circuit unit, wherein the table information comprises information relating to a data merge operation; and adjusting an ordered position of at least one command in the buffer memory according to the table information.
+17. The memory storage device as claimed in claim 16, wherein an operation for adjusting the ordered position of the at least one command in the buffer memory by the memory control circuit unit according to the table information comprises: sorting the at least one command according to a channel state of the at least one first channel.
+18. The memory storage device as claimed in claim 17, wherein an operation for sorting the at least one command by the memory control circuit unit according to the channel state of the at least one first channel comprises: evaluating a busy time of the at least one first channel in correspondence with the first write operation; and sorting the at least one command according to the busy time.
+19. The memory storage device as claimed in claim 11, wherein the limited data collection operation comprises: adjusting a command queue in a buffer memory, so as to arrange each of at least one read command being a command not indicating a reading of data in the first physical group, and the at least one read command is arranged after at least one read command indicating the first write operation.
+20. The memory storage device as claimed in claim 11, wherein the limited data collection operation comprises: evaluating a state of the at least one first channel; and moving backward an ordered position of at least one read command for performing data reading through the at least one first channel in a command queue according to the state of the at least one first channel.
+21. A memory control circuit unit for controlling a rewritable non-volatile memory module, wherein the rewritable non-volatile memory module comprises at least one first physical group and at least one second physical group, and the memory control circuit unit comprises: a host interface, configured to be coupled to a host system; a memory interface, configured to be coupled to the rewritable non-volatile memory module; a buffer memory; and a memory management circuit, coupled to the host interface, the memory interface, and the buffer memory, wherein the memory management circuit is configured to perform a first write operation to write first data to at least one first physical unit in the at least one first physical group through at least one first channel, the memory management circuit is further configured to perform a limited data collection operation to collect second data, wherein the limited data collection operation limits that the second data does not comprise data to be collected from the at least one first physical group after the first write operation is completed, the memory management circuit is further configured to perform a second write operation during a period of performing the first write operation, so as to write the second data to at least one second physical unit in the at least one second physical group through at least one second channel, and the limited data collection operation and the second write operation are configured to release at least one spare physical unit.
+22. The memory control circuit unit as claimed in claim 21, wherein the memory management circuit is further configured to start a data merge operation to perform the limited data collection operation and the second write operation.
+23. The memory control circuit unit as claimed in claim 21, wherein the at least one first channel is in a busy state during the period of performing the first write operation.
+24. The memory control circuit unit as claimed in claim 21, wherein the at least one first physical group corresponds to at least one first die in the rewritable non-volatile memory module, and the at least one second physical group corresponds to at least one second die in the rewritable non-volatile memory module.
+25. The memory control circuit unit as claimed in claim 21, wherein the limited data collection operation comprises: adjusting a priority of at least one command in the buffer memory, wherein the at least one command is configured to instruct a collecting of valid data from the at least one first physical group after the first write operation is completed.
+26. The memory control circuit unit as claimed in claim 21, wherein the limited data collection operation comprises: maintaining table information in the buffer memory, wherein the table information comprises information relating to a data merge operation; and adjusting an ordered position of at least one command in the buffer memory according to the table information.
+27. The memory control circuit unit as claimed in claim 26, wherein an operation for adjusting the ordered position of the at least one command in the buffer memory by the memory management circuit according to the table information comprises: sorting the at least one command according to a channel state of the at least one first channel.
+28. The memory control circuit unit as claimed in claim 27, wherein an operation for sorting the at least one command by the memory management circuit according to the channel state of the at least one first channel comprises: evaluating a busy time of the at least one first channel in correspondence with the first write operation; and sorting the at least one command according to the busy time.
+29. The memory control circuit unit as claimed in claim 21, wherein the limited data collection operation comprises: adjusting a command queue in the buffer memory, so as to arrange each of at least one read command being a command not indicating a reading of data in the first physical group, and the at least one read command is arranged after at least one read command indicating the first write operation.
+30. The memory control circuit unit as claimed in claim 21, wherein the limited data collection operation comprises: evaluating a state of the at least one first channel; and moving backward an ordered position of at least one read command for performing data reading through the at least one first channel in a command queue according to the state of the at least one first channel.
+</claims>
+</document>

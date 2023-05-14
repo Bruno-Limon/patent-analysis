@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2020-05-08
+</filing_date>
+
+<publication_date>
+2020-08-27
+</publication_date>
+
+<priority_date>
+2016-08-29
+</priority_date>
+
+<ipc_classes>
+G06F16/22,G06F16/25,G06F16/28
+</ipc_classes>
+
+<assignee>
+AMAZON TECHNOLOGIES
+</assignee>
+
+<inventors>
+GUPTA, ANURAG WINDLASS
+CALDWELL, ANDREW EDWARD
+</inventors>
+
+<docdb_family_id>
+70612669
+</docdb_family_id>
+
+<title>
+TIERED STORAGE FOR DATA PROCESSING
+</title>
+
+<abstract>
+Tiered storage may be implemented for processing data. Data processors may maintain some of a data set, including user data and metadata describing the user data, locally. The data set is also maintained a data store remote to the data processor. When processing requests are received, a determination is made as to whether the local portions of the data set can execute the processing request or one or more additional portions of the data set are needed from the remote data store. If additional portions of the data set are needed, then a request may be sent to the data store for the additional portions. Once received, the data processor may execute the processing request utilizing the additional portions. Portions of the data set maintained locally at the data processor may be selected and flushed from local storage to the remote data store.
+</abstract>
+
+<claims>
+1. A system, comprising: one or more storage devices, configured to maintain at least some of a data set additionally maintained at a remote data store; one or more compute nodes, comprising at least one processor and a memory, configured to implement a processing engine for executing processing requests directed to the data set; the processing engine, configured to: receive a processing request directed to the data set; in response to the receipt of the processing request: identify a portion of the data set not maintained at the one or more storage devices in order to execute the processing request; send a request to the remote data store to obtain the portion of the data set from the remote data store; upon receipt of the portion of the data set, execute the processing request based, at least in part, on the portion of the data set obtained from the remote data store.
+2. The system of claim 1, wherein the one or more compute nodes are further configured to implement a local data manager, configured to: track access statistics for different portions of the at least some data maintained in the storage devices; apply a decay function to the access statistics according to respective amounts of time since the different portions were last accessed to determine weighted access statistics for the different portions; select one of the different portions for removal from the persistent storage devices based, at least in part, on the weighted access statistics; and flush the selected portion from the persistent storage devices to update a corresponding portion in the data set maintained in the remote data store.
+3. The system of claim 1, wherein the processing engine is further configured to: receive another processing request directed to the data set; in response to the receipt of the other request: identify the at least some data maintained in the storage devices for execution of the other request without additional data from the remote data store; and execute the other processing request based, at least in part, on the at least some data of the data set.
+4. The system of claim 1, wherein the data processor is a processing cluster implemented as part of a data warehouse service in a provider network, wherein the remote data store is implemented as part of a different service in the provider network.
+5. A method, comprising: performing, by one or more computing devices: receiving a processing request directed to a data set at a data processor that executes processing requests directed to the data set, wherein the data set is maintained at a data store remote to the data processor, wherein the data processor maintains one or more portions of the data set at the data processor for executing processing requests; in response to receiving the processing request: identifying, by the data processor, a different portion of the data set not maintained at the data processor for executing the processing request; obtaining, by the data processor, the different portion of the data set from the remote data store; and executing, by the data processor, the processing request based, at least in part, on the different portion of the data set.
+6. The method of claim 5, wherein the obtained portion of the data set is metadata describing one or more portions of user data in the data set and wherein executing the processing request comprises optimizing execution of the processing request according to the obtained metadata.
+7. The method of claim 6, wherein the obtained metadata further describes the one or more portions of the user data in addition to other metadata maintained at the data processor that also describes the one or more portions of the user data.
+8. The method of claim 5, further comprising: selecting, by the data processor, one of the portions or the different portion of the data set to remove from local storage at the data processor; and flushing, by the data processor, the selected portion from the local storage at the data processor to update a corresponding portion in the data set maintained in the remote data store.
+9. The method of claim 8, further comprising: tracking, by the data processor, access statistics for the portions and the different portion of the data set maintained at the data processor; and applying, by the data processor, one or more statistical analyses to the access statistics to determine usage predictions for the portions and the different portion of the data set, wherein the selection of the one portion is based, at least in part, on the usage predictions.
+10. The method of claim 5, wherein the processing request is query comprising one or more predicates, wherein identifying the different portion of the data set not maintained at the data processor for executing the processing request comprises evaluating metadata describing the data set maintained at the data processor that indicates those portions of the data set that satisfy at least one of the query predicates.
+11. The method of claim 5, further comprising: prior to receiving the processing request: identifying, by the data processor, the one or more portions of the data set based, at least in part, on access statistics tracked for the one or more portions; and obtaining, by the data processor, the one or more portions of the data set from the remote data store.
+12. The method of claim 5, further comprising: receiving another processing request directed to the data set at the data processor; in response to receiving the other request: identifying, by the data processor, the one or more portions of the data set maintained at the data processor for execution of the other request without additional data from the remote data store; and executing, by the data processor, the other processing request based, at least in part, on the one or more portions of the data set.
+13. The method of claim 5, wherein the data processor is implemented as part of a network-based service of a provider network, and wherein the remote data store is another network-based service of the provider network or a data store external to the provider network.
+14. A non-transitory, computer-readable storage medium, storing program instructions that when executed by one or more computing devices cause the one or more computing devices to implement: maintaining, at a data processer, at least some of a data set that is also maintained at a remote data store; receiving, at the data processor, a request directed to the data set; in response to receiving the processing request: identifying, by the data processor, a different portion of the data set not maintained at the data processor for executing the processing request; obtaining, by the data processor, the different portion of the data set from the remote data store; and executing, by the data processor, the processing request based, at least in part, on the different portion of the data set.
+15. The non-transitory, computer-readable storage medium of claim 14, wherein the program instructions cause the one or more computing devices to further implement: receiving another processing request directed to the data set at the data processor; in response to receiving the other request: identifying, by the data processor, the one or more portions of the data set maintained at the data processor for execution of the other request without additional data from the remote data store; and executing, by the data processor, the other processing request based, at least in part, on the one or more portions of the data set.
+16. The non-transitory, computer-readable storage medium of claim 14, wherein the processing request is a query comprising one or more query predicates, wherein the identified portion is user data identified as possibly containing data that satisfies at least one of the query predicates, and wherein executing the processing request comprises evaluating the identified portion with respect to the query predicates.
+17. The non-transitory, computer-readable storage medium of claim 16, wherein the data set is maintained as a table in a column-oriented format, wherein the obtained portion of the data set comprises a portion of a column entries in the table.
+18. The non-transitory, computer-readable storage medium of claim 14, wherein the program instructions cause the one or more computing devices to further implement: selecting, by the data processor, one of the portions or the different portion of the data set to remove from local storage at the data processor; and flushing, by the data processor, the selected portion from the local storage at the data processor to update a corresponding portion in the data set maintained in the remote data store.
+19. The non-transitory, computer-readable storage medium of claim 18, wherein the programming instructions cause the one or more computing devices to further implement: tracking, by the data processor, access statistics for the portions and the different portion of the data set maintained at the data processor; and applying, by the data processor, a decay function to the access statistics according to respective amounts of time since the portions and the different portion of the data set were last accessed to determine weighted access statistics for the portions and the different portion of the data set, wherein the selection of the one portion is based, at least in part, on the weighted access statistics.
+20. The non-transitory, computer-readable storage medium of claim 14, wherein the remote data store is implemented as part of a network-based service of a provider network, and wherein the data processor is implemented as part of another network-based service of the provider network or a data processor external to the provider network.
+</claims>
+</document>

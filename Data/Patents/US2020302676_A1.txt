@@ -1,0 +1,71 @@
+<document>
+
+<filing_date>
+2020-06-04
+</filing_date>
+
+<publication_date>
+2020-09-24
+</publication_date>
+
+<priority_date>
+2018-08-10
+</priority_date>
+
+<ipc_classes>
+G06T15/00,G06T15/06
+</ipc_classes>
+
+<assignee>
+NVIDIA CORPORATION
+</assignee>
+
+<inventors>
+AILA, TIMO
+BURGESS, JOHN
+KARRAS, TERO
+KOLB, CRAIG
+LAINE, SAMULI
+LLAMAS, IGNACIO
+MUTHLER, GREGORY
+BABICH, JR., Ronald C.
+NEWHALL, JR., William P.
+</inventors>
+
+<docdb_family_id>
+69185990
+</docdb_family_id>
+
+<title>
+QUERY-SPECIFIC BEHAVIORAL MODIFICATION OF TREE TRAVERSAL
+</title>
+
+<abstract>
+Methods and systems are described in some examples for changing the traversal of an acceleration data structure in a highly dynamic query-specific manner, with each query specifying test parameters, a test opcode and a mapping of test results to actions. In an example ray tracing implementation, traversal of a bounding volume hierarchy by a ray is performed with the default behavior of the traversal being changed in accordance with results of a test performed using the test opcode and test parameters specified in the ray data structure and another test parameter specified in a node of the bounding volume hierarchy. In an example implementation a traversal coprocessor is configured to perform the traversal of the bounding volume hierarchy.
+</abstract>
+
+<claims>
+1. The method according to claim 1, wherein the performing an intersection test and an auxiliary ray operation test comprises selecting the ray operation test based upon an opcode in the ray data.
+2. The method according to claim 2, wherein the performing an intersection test and an auxiliary ray operation test further comprises performing the selected ray operation test based upon at least one parameter each from the ray data and the at least one node.
+3. The method according to claim 3, wherein the at least one parameter from the ray data is configurable per ray and the at least one parameter from the at least one node is configurable per node.
+4. The method according to claim 3, wherein the performing an intersection test and an auxiliary ray operation test further comprises performing the selected ray operation test based on non-geometric attributes of the ray and the acceleration data structure.
+5. The method according to claim 2, wherein the performing an intersection test and an auxiliary ray operation test further comprises performing the selected ray operation test based upon one parameter from the at least one node and the opcode.
+6. The method according to claim 2, wherein the performing at least one of changing a state of the traversing and selecting an output data comprises choosing said at least one of changing a state of the traversing and selecting an output data based at least on one or more mode flags specified in the ray data.
+7. The method according to claim 7, wherein said one or more mode flags are selected based on a node type of the at least one node.
+8. The method according to claim 8, wherein said one or more mode flags are selected based further on a result of the auxiliary ray operation test.
+9. The method according to claim 7, wherein the perform at least one of changing a state of the traversing and selecting an output data further comprises changing, based on said one or more mode flags, an order in which respective nodes in the accelerated data structure are traversed during said traversing.
+10. The method according to claim 7, wherein the perform at least one of changing a state of the traversing and selecting an output data further comprises dynamically changing, based on said one or more mode flags, a structure of the accelerated data structure by culling a portion of the accelerated data structure.
+11. The method according to claim 7, wherein the choosing said at least one of changing a state of the traversing and selecting an output data based on one or more mode flags specified in the ray data further comprises choosing in accordance with one or more override flags in the at least one node.
+12. The method according to claim 12, wherein the at least one node is an instance node.
+13. The method according to claim 12, wherein the at least one node represents a primitive and at least one of the override flags is configured to override a culling configuration specified in the ray data.
+14. The method according to claim 2, wherein the performing for at least one node in the acceleration data structure an intersection test based upon geometric attributes associated with the ray and geometric attributes associated with the acceleration data structure and an auxiliary ray operation test comprises performing the auxiliary ray operation test based on said opcode, wherein said opcode provides for comparing a value computed during the intersection test scaled by one geometric attribute associated with the ray and biased by another geometric attribute associated with the ray to at least one geometric parameter associated with the at least one node.
+15. The method according to claim 2, wherein the performing for at least one node in the acceleration data structure an intersection test based upon geometric attributes of the ray and the acceleration data structure and an auxiliary ray operation test comprises performing the auxiliary ray operation test based on said opcode, wherein said opcode provides for comparing a distance associated with the ray to at least one parameter of the at least one node.
+16. The method according to claim 2, wherein the performing for at least one node in the acceleration data structure an intersection test based upon geometric attributes of the ray and the acceleration data structure and an auxiliary ray operation test comprises performing the auxiliary ray operation test based on said opcode, wherein said opcode provides for comparing a first value based on at least one parameter in the ray data to a second value based on at least one parameter of the at least one node.
+17. The method according to claim 2, wherein the performing for at least one node in the acceleration data structure an intersection test based upon geometric attributes of the ray and the acceleration data structure and an auxiliary ray operation test comprises performing the auxiliary ray operation test based on said opcode, wherein said opcode provides for comparing a size of a surface area represented in the at least one node based upon at least one parameter from the at least one node with a distance along the ray at which an intersection occurs.
+18. The method according to claim 1, further comprising rendering, by a parallel processor, the scene to the display based at least in part on the output data provided by a traversal processor executing said traversing.
+19. A system comprising a traversal coprocessor comprising hardware processing circuitry for traversing acceleration data structures, configured to: access ray data corresponding to a ray and an acceleration data structure corresponding to a scene; traverse the acceleration data structure in accordance with the ray data; during the traversing, perform for at least one node in the acceleration data structure an intersection test based upon geometric attributes of the ray and the acceleration data structure and an auxiliary ray operation test; based on results of the intersection test and the auxiliary ray operation test, during the traversing, perform at least one of changing a state of the traversing and selecting an output data corresponding to one or more nodes of the acceleration data structure intersected by the ray; and provide output data from the traversing to a rendering process for rendering at least a portion of the scene to a display.
+20. The system according to claim 20, further comprising a parallel processor configured to generate said ray data corresponding to the ray and the acceleration data structure corresponding to a model of the scene.
+21. The system according to claim 21, wherein the ray data includes one or more ray parameters, one or more opcodes and one or more mode flags, wherein the at least one node includes at least one node parameter, and wherein the system is further configured to: perform said auxiliary ray operation test by comparing, based upon at least one of the opcodes, values derived from the one or more ray parameters and the at least one node parameter; select one or more of said mode flags based at least upon a result of the auxiliary test; and perform said at least one of changing a state of the traversing and selecting an output data corresponding to one or more nodes of the acceleration data structure intersected by the ray based on the selected one or more said mode flags.
+22. A coprocessor for accelerating traversal of a tree data structure, comprising: interface circuitry configured to communicate with a multiprocessor and a memory to receive a plurality of query data structures, the tree data structure, and a query command, wherein each query data structure includes query test parameters, a test opcode and mode flags, and wherein a node in the tree data structure includes a node test parameter; and tree traversal circuitry configured to: in response to the query command, traverse the tree data structure in accordance with each of the query data structures; and determine for each of the query data structures: a result of tests based upon the opcode and the query test parameters of the respective query data structures and the node test parameter of the node in the tree data structure; and changing the traversing or one or more outputs returned based upon the result and the mode flags of the respective query data structures.
+</claims>
+</document>

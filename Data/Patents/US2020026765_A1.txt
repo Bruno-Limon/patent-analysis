@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2017-10-03
+</filing_date>
+
+<publication_date>
+2020-01-23
+</publication_date>
+
+<priority_date>
+2016-10-03
+</priority_date>
+
+<ipc_classes>
+G06N3/08,G10L15/16,G10L15/197
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+ZHANG, YU
+JAITLY, NAVDEEP
+CHAN, WILLIAM
+LE, QUOC V.
+</inventors>
+
+<docdb_family_id>
+60084127
+</docdb_family_id>
+
+<title>
+PROCESSING TEXT SEQUENCES USING NEURAL NETWORKS
+</title>
+
+<abstract>
+A computer-implemented method for training a neural network that is configured to generate a score distribution over a set of multiple output positions. The neural network is configured to process a network input to generate a respective score distribution for each of a plurality of output positions including a respective score for each token in a predetermined set of tokens that includes n-grams of multiple different sizes. Example methods described herein provide trained neural networks which produce results with improved accuracy compared to the state of the art, e.g. translations that are more accurate compared to the state of the art, or more accurate speech recognition compared to the state of the art.
+</abstract>
+
+<claims>
+1. A computer-implemented method comprising: obtaining training data for training a neural network, wherein the neural network is configured to receive a network input and to process the network input in accordance with a plurality of parameters of the neural network to generate a respective score distribution for each of a plurality of output positions, wherein the respective score distribution for each of the output positions comprises a respective score for each token in a predetermined set of tokens, wherein the predetermined set of tokens includes n-grams of multiple different sizes, wherein, for each output position, the respective score for each of the tokens in the score distribution for the output position represents a likelihood that the token is a token at the output position in an output sequence for the network input, and wherein the training data comprises a plurality of training inputs, and for each training input, a respective target output sequence comprising one or more words; for each training input: processing the training input using the neural network in accordance with current values of the parameters of the neural network to generate a respective score distribution for each of a plurality of output positions; sampling, from a plurality of possible valid decompositions of the target output sequence for the training input, a valid decomposition of the target output sequence, wherein each possible valid decomposition of the target sequence decomposes the target sequence into a different sequence of tokens from the predetermined set of tokens; and adjusting the current values of the parameters of the neural network to increase likelihoods of the tokens in the sampled valid decomposition being the tokens at the corresponding output positions in the output sequence.
+2. The method of claim 1, wherein the sampled valid decomposition includes n-grams of multiple different sizes.
+3. The method of claim 1, wherein adjusting the current values of the parameters of the neural network to increase likelihoods of the tokens in the sampled valid decomposition being the tokens at the corresponding output positions in the output sequence comprises: performing an iteration of a neural network training procedure to increase a logarithm of a product of the respective scores for each token in the sampled valid decomposition in the score distribution for the output position corresponding to the position of the token in the sampled valid decomposition.
+4. The method of claim 1, wherein sampling a valid decomposition of the target output sequence comprises, for each of the plurality of output positions and in order starting from an initial position: sampling, from valid tokens in the predetermined set of tokens, a valid token randomly with probability ε, wherein a valid token for the output position is a token from the predetermined set of tokens that would be a valid addition to a current partial valid decomposition of the target output sequence as of the output position; and sampling, from the valid tokens, a valid token in accordance with the scores for the valid tokens in the score distribution for the output position for the training input with probability 1−ε.
+5. The method of claim 4, further comprising, for each of the plurality of output positions and in order starting from an initial position: providing the sampled valid token for the output position as input to the neural network for use in generating the score distribution for a next output position of the plurality of output positions.
+6. The method of claim 1, wherein one or more of the n-grams in the predetermined set of tokens are prefixes for one or more other n-grams in the predetermined set of tokens.
+7. The method of claim 1, wherein the n-grams in the predetermined set of tokens include characters and word pieces.
+8. The method of claim 7, wherein the n-grams in the predetermined set of tokens further include words.
+9. The method of claim 1, wherein the neural network is a speech recognition neural network and the network input is audio data or audio features representing an utterance.
+10. The method of claim 1, wherein the neural network is a neural machine translation neural network and the network input is a sequence of input tokens representing a sequence of words in a source language, and wherein the n-grams in the predetermined set of tokens are n-grams in a target natural language.
+11. The method of claim 1, wherein the neural network is an image caption generation neural network and the network input is an image.
+12. The method of claim 1, wherein the neural network is an auto-encoder neural network and the network input is a sequence of words.
+13. A system comprising one or more computers and one or more storage devices storing instructions that when executed by the one or more computers cause the one or more computers to perform operations comprising: obtaining training data for training a neural network, wherein the neural network is configured to receive a network input and to process the network input in accordance with a plurality of parameters of the neural network to generate a respective score distribution for each of a plurality of output positions, wherein the respective score distribution for each of the output positions comprises a respective score for each token in a predetermined set of tokens, wherein the predetermined set of tokens includes n-grams of multiple different sizes, wherein, for each output position, the respective score for each of the tokens in the score distribution for the output position represents a likelihood that the token is a token at the output position in an output sequence for the network input, and wherein the training data comprises a plurality of training inputs, and for each training input, a respective target output sequence comprising one or more words; for each training input: processing the training input using the neural network in accordance with current values of the parameters of the neural network to generate a respective score distribution for each of a plurality of output positions; sampling, from a plurality of possible valid decompositions of the target output sequence for the training input, a valid decomposition of the target output sequence, wherein each possible valid decomposition of the target sequence decomposes the target sequence into a different sequence of tokens from the predetermined set of tokens; and adjusting the current values of the parameters of the neural network to increase likelihoods of the tokens in the sampled valid decomposition being the tokens at the corresponding output positions in the output sequence.
+14. One or more non-transitory computer storage media storing instructions that when executed by one or more computers cause the one or more computers to perform operations comprising: obtaining training data for training a neural network, wherein the neural network is configured to receive a network input and to process the network input in accordance with a plurality of parameters of the neural network to generate a respective score distribution for each of a plurality of output positions, wherein the respective score distribution for each of the output positions comprises a respective score for each token in a predetermined set of tokens, wherein the predetermined set of tokens includes n-grams of multiple different sizes, wherein, for each output position, the respective score for each of the tokens in the score distribution for the output position represents a likelihood that the token is a token at the output position in an output sequence for the network input, and wherein the training data comprises a plurality of training inputs, and for each training input, a respective target output sequence comprising one or more words; for each training input: processing the training input using the neural network in accordance with current values of the parameters of the neural network to generate a respective score distribution for each of a plurality of output positions; sampling, from a plurality of possible valid decompositions of the target output sequence for the training input, a valid decomposition of the target output sequence, wherein each possible valid decomposition of the target sequence decomposes the target sequence into a different sequence of tokens from the predetermined set of tokens; and adjusting the current values of the parameters of the neural network to increase likelihoods of the tokens in the sampled valid decomposition being the tokens at the corresponding output positions in the output sequence.
+15. The non-transitory computer storage media of claim 14, wherein the sampled valid decomposition includes n-grams of multiple different sizes.
+16. The non-transitory computer storage media of claim 14, wherein adjusting the current values of the parameters of the neural network to increase likelihoods of the tokens in the sampled valid decomposition being the tokens at the corresponding output positions in the output sequence comprises: performing an iteration of a neural network training procedure to increase a logarithm of a product of the respective scores for each token in the sampled valid decomposition in the score distribution for the output position corresponding to the position of the token in the sampled valid decomposition.
+17. The non-transitory computer storage media of claim 14, wherein sampling a valid decomposition of the target output sequence comprises, for each of the plurality of output positions and in order starting from an initial position: sampling, from valid tokens in the predetermined set of tokens, a valid token randomly with probability ε, wherein a valid token for the output position is a token from the predetermined set of tokens that would be a valid addition to a current partial valid decomposition of the target output sequence as of the output position; and sampling, from the valid tokens, a valid token in accordance with the scores for the valid tokens in the score distribution for the output position for the training input with probability 1−ε.
+18. The non-transitory computer storage media of claim 17, further comprising, for each of the plurality of output positions and in order starting from an initial position: providing the sampled valid token for the output position as input to the neural network for use in generating the score distribution for a next output position of the plurality of output positions.
+19. The non-transitory computer storage media of claim 14, wherein one or more of the n-grams in the predetermined set of tokens are prefixes for one or more other n-grams in the predetermined set of tokens.
+20. The non-transitory computer storage media of claim 14, wherein the n-grams in the predetermined set of tokens include characters and word pieces.
+</claims>
+</document>

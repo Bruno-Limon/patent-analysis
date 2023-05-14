@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2019-04-23
+</filing_date>
+
+<publication_date>
+2020-10-29
+</publication_date>
+
+<priority_date>
+2019-04-23
+</priority_date>
+
+<ipc_classes>
+B25J9/16,G06F16/23,G06F16/27,H04L29/08
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+KOHLER, DAMON
+SCHMIDT DAVID
+Kammerl, Julius
+Larkworthy, Thomas
+Wolter, Steve
+</inventors>
+
+<docdb_family_id>
+72916628
+</docdb_family_id>
+
+<title>
+DISTRIBUTED ROBOTIC CONTROLLERS
+</title>
+
+<abstract>
+The technology provides for a robotic control system implemented on a distributed system, which may include at least one processor on a cloud computing system and at least one processor on a robot. For instance, configuration data for a plurality of controllers of the robot may be received and the plurality of controllers may be deployed on the distributed system. For example, a first controller may be deployed on the cloud while a second controller may be deployed on the robot. The system may include a cloud database and a robot database. Both databases may store configuration data and current states of the first controller and the second controller, and may be synchronized. Workload for the first controller and the second controller may both be controlled based on the configuration data and the current states of the first controller and the second controller.
+</abstract>
+
+<claims>
+1. A method, comprising: receiving, by one or more processors in a distributed system, configuration data for a plurality of controllers of a robot, wherein the distributed system includes at least one processor on a cloud computing system and at least one processor on the robot, and wherein the configuration data includes desired states for the plurality of controllers; deploying, by the one or more processors, the plurality of controllers on the distributed system, wherein a first controller of the plurality of controllers is deployed on one or more processors on the cloud computing system and a second controller of the plurality of controllers is deployed on one or more processors on the robot; synchronizing, by the one or more processors, a cloud database on the cloud computing system with a robot database on the robot, the cloud database and the robot database store configuration data and current states of the first controller and configuration data and current states of the second controller; controlling, by the one or more processors, workload for the first controller based on the configuration data and the current states of the first controller and the configuration data and current states of the second controller; and controlling, by the one or more processors, workload for the second controller based on the configuration data and the current states of the first controller and the configuration data and the current states of the second controller.
+2. The method of claim 1, further comprising: generating, by the one or more processors, a first master node on the cloud computing system, the first master node including the cloud database; generating, by the one or more processors, a second master node on the robot, the second master node including the robot database.
+3. The method of claim 2, further comprising: generating, by the one or more processors, a plurality of worker nodes on the cloud computing system, wherein the first master node controls the worker nodes on the cloud computing system to perform the workload for the first controller; generating, by the one or more processors, a plurality of worker nodes on the robot, wherein the second master node controls the worker nodes on the robot to perform the workload for the second controller.
+4. The method of claim 3, further comprising: receiving, by the one or more processors, statuses from the worker nodes on the cloud computing system; updating, by the one or more processors, the cloud database with the received statuses; comparing, by the one or more processors, the desired states of the first controller with the received statuses; controlling, by the one or more processors, workload of the worker nodes on the cloud computing system based on the comparison.
+5. The method of claim 3, further comprising: receiving, by the one or more processors, statuses from the worker nodes on the robot; updating, by the one or more processors, the robot database with the received statuses; comparing, by the one or more processors, the desired states of the second controller with the received statuses; controlling, by the one or more processors, workload of the worker nodes on the robot based on the comparison.
+6. The method of claim 1, further comprising: receiving, by the one or more processors, a first message from the first controller, the first message includes an intent for the second controller; updating, by the one or more processors, the cloud database with the intent for the second controller; synchronizing, by the one or more processors, the robot database with the updated cloud database, the synchronized robot database includes the intent for the second controller; accessing, by the one or more processors, the intent for the second controller stored on the robot database; controlling, by the one or more processors, workload for the second controller based on the intent for the second controller.
+7. The method of claim 6, further comprising: prior to updating the cloud database, translating, by the one or more processors, the first message from a programming language of the first controller into a programming language of the cloud database.
+8. The method of claim 6, further comprising: prior to controlling the workload for the second controller, converting, by the one or more processors, a poll based interface for accessing the robot database to a request based interface for interacting with the second controller.
+9. The method of claim 1, further comprising: receiving, by the one or more processors, a second message from the second controller, the second message reporting a status of the second controller; updating, by the one or more processors, the robot database with the status for the second controller; synchronizing, by the one or more processors, the cloud database with the updated robot database, the synchronized cloud database includes the status for the second controller; accessing, by the one or more processors, the status for the second controller stored on the cloud database; controlling, by the one or more processors, workload for the first controller based on the statues for the second controller.
+10. The method of claim 6, wherein the first message conforms to rules defined by a declarative API, the declarative API being defined in a repository of the distributed system.
+11. The method of claim 10, wherein the declarative API is independent of programming language.
+12. The method of claim 10, wherein the declarative API includes a progress field with standardized codes, and wherein the first controller is configured to send messages for controlling unknown capabilities of the second controller based on the standardized codes.
+13. The method of claim 1, wherein the configuration data further includes definitions for a plurality of resources each of the plurality of controllers can manipulate to perform workload.
+14. The method of claim 13, further comprising: obtaining, by the one or more processors, a first lease for the first controller for manipulating a resource of the plurality of resources, the first lease including a deadline, wherein other controllers of the plurality of controllers cannot manipulate the resource while being leased to the first controller.
+15. The method of claim 13, further comprising: obtaining, by the one or more processors, a first lease for the first controller for manipulating a resource of the plurality of resources, the first lease including a first priority level; breaking, by the one or more processors, the first lease held by the first controller, wherein another controller of the plurality of controllers holds a second lease for the resource with a second priority level higher than the first priority level.
+16. The method of claim 13, further comprising: generating, by the one or more processors, a conflict-resolving resource, the conflict-resolving resource including a resource, at least two requests to manipulate the resource from at least two of the plurality of controllers, and a priority level for each of the requests; generating, by the one or more processors, a conflict-resolving controller, the conflict resolving controller configured to select a request among the requests with a highest priority level, manipulate the resource based on the selected request, and pass the manipulated resource to another controller of the plurality of controllers for actuation.
+17. The method of claim 13, wherein the plurality of resources includes only one resource of a type to be used by the plurality of controllers of the robot, each of the resources includes a current action to be executed and identifies a controller of the plurality of controllers for execution.
+18. The method of claim 1, further comprising: monitoring, by the one or more processors, changes in the current states for the first controller and changes in the current states for the second controller; generating, by the one or more processors, a log including in the current states for the first controller and changes in the current states for the second controller.
+19. A system, comprising: a plurality of processors in a distributed system including at least one processor on a cloud computing system and at least one processor on a robot, the plurality of processors configured to: receive configuration data for a plurality of controllers of a robot, the configuration data including desired states for the plurality of controllers; deploy the plurality of controllers on the distributed system, wherein a first controller of the plurality of controllers is deployed on one or more processors on the cloud computing system and a second controller of the plurality of controllers is deployed on one or more processors on the robot; synchronize a cloud database on the cloud computing system with a robot database on the robot, the cloud database and the robot database store configuration data and current states of the first controller and configuration data and current states of the second controller; control workload for the first controller based on the configuration data and the current states of the first controller and the configuration data and current states of the second controller; and control workload for the second controller based on the configuration data and the current states of the first controller and the configuration data and the current states of the second controller.
+20. A computer-readable storage medium storing instructions executable by one or more processors for performing a method, comprising: receiving configuration data for a plurality of controllers of a robot, wherein the configuration data includes desired states for the plurality of controllers; deploying the plurality of controllers on a distributed system, wherein a first controller of the plurality of controllers is deployed on one or more processors on a cloud computing system and a second controller of the plurality of controllers is deployed on one or more processors on the robot; synchronizing a cloud database on the cloud computing system with a robot database on the robot, the cloud database and the robot database store configuration data and current states of the first controller and configuration data and current states of the second controller; controlling workload for the first controller based on the configuration data and the current states of the first controller and the configuration data and current states of the second controller; and controlling workload for the second controller based on the configuration data and the current states of the first controller and the configuration data and the current states of the second controller.
+</claims>
+</document>

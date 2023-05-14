@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2019-08-05
+</filing_date>
+
+<publication_date>
+2020-07-30
+</publication_date>
+
+<priority_date>
+2019-01-29
+</priority_date>
+
+<ipc_classes>
+G06K9/62,G06K9/66,G06K9/68,G06N3/08
+</ipc_classes>
+
+<assignee>
+BOE TECHNOLOGY GROUP COMPANY
+</assignee>
+
+<inventors>
+WANG, TINGTING
+</inventors>
+
+<docdb_family_id>
+66062706
+</docdb_family_id>
+
+<title>
+METHOD AND ELECTRONIC DEVICE FOR RETRIEVING AN IMAGE AND COMPUTER READABLE STORAGE MEDIUM
+</title>
+
+<abstract>
+According to the embodiments of the present application, there are proposed a method and electronic device for retrieving an image, and computer readable storage medium. The method includes: processing an image to be retrieved using a first neural network to determine a local feature vector of the image to be retrieved; processing the image to be retrieved using a second neural network to determine a global feature vector of the image to be retrieved; and determining, based on the local feature vector and the global feature vector, an image having a similarity to the image to be retrieved which is higher than a similarity threshold.
+</abstract>
+
+<claims>
+I/We claim:
+1. A method for retrieving an image, comprising: processing an image to be retrieved using a first neural network to determine a local feature vector of the image to be retrieved; processing the image to be retrieved using a second neural network to determine a global feature vector of the image to be retrieved; and determining, based on the local feature vector and the global feature vector, an image having a similarity to the image to be retrieved which is higher than a similarity threshold.
+2. The method according to claim 1, wherein the first neural network is trained using a plurality of training image data having different resolutions of a training image, and the first neural network is used for processing a plurality of image data to be retrieved having different resolutions of the image to be retrieved.
+3. The method according to claim 2, wherein a number of pixels of the shortest side of the plurality of training image data having different resolutions or the plurality of training image data having different resolutions comprises at least two of 256, 384, 512, 640, and 768.
+4. The method according to claim 2, wherein the first neural network comprises the following convolutional layers: a first convolutional layer having 96 convolution kernels with a dimension of 11*11*3; a second convolutional layer having 256 convolution kernels with a dimension of 5*5*96; a third convolutional layer having 384 convolution kernels with a dimension of 3*3*256; a fourth convolutional layer having 384 convolution kernels with a dimension of 3*3*384; a fifth convolutional layer having 256 convolution kernels with a dimension of 3*3*384; a sixth convolutional layer having 4096 convolution kernels with a dimension of 1*1*256; and a seventh convolutional layer having 4096 convolution kernels with a dimension of 13*13*4096.
+5. The method according to claim 4, wherein the first neural network further comprises a max pooling layer and a sum pooling layer subsequent to the seventh convolutional layer.
+6. The method according to claim 2, wherein the first neural network is trained by using a loss function as follows:
+description="In-line Formulae" end="lead"?Lt(ya,yp,yn)=max(∥ya−yp∥22−∥ya−yn∥22+α,0),description="In-line Formulae" end="tail"? where Lt represents a loss function for the first neural network, ya is a feature vector of a standard image, yp is a feature vector of a positive sample, yn is a feature vector of a negative sample, ∥⋅∥22 represents a square of 2-norm of a vector, max( ) represents a maximum value solving function, and α is margin value.
+7. The method according to claim 6, wherein α is defined as:
+description="In-line Formulae" end="lead"?α=0.5*∥yp−yn∥22.description="In-line Formulae" end="tail"?
+8. The method according to claim 4, wherein the step of processing an image to be retrieved using a first neural network to determine a local feature vector of the image to be retrieved comprises: processing, by using each convolutional layer in the first neural network, a plurality of image data to be retrieved having different resolutions of the image to be retrieved, and determining a plurality of receptive fields respectively having a maximum activation value in a plurality of feature maps for the respective resolutions as an output; and processing the plurality of receptive fields using a sum pooling layer in the first neural network to determine the local feature vector.
+9. The method according to claim 1, wherein the second neural network comprises the following convolutional layers: a first convolutional layer having 96 convolution kernels with a dimension of 11*11*3; a second convolutional layer having 256 convolution kernels with a dimension of 5*5*96; a third convolutional layer having 384 convolution kernels with a dimension of 3*3*256; a fourth convolutional layer having 384 convolution kernels with a dimension of 3*3*384; a fifth convolutional layer having 256 convolution kernels with a dimension of 3*3*384; a first fully connected layer with a dimension of 1*4096; and a second fully connected layer with a dimension of 1*4096.
+10. The method according to claim 9, wherein the second neural network further has a spatial transformer network between the fifth convolutional layer and the first fully connected layer.
+11. The method according to claim 1, wherein the loss function used for training the second neural network is a loss function as follows: where Ls represents a loss function for the second neural network, y1 and y2 are feature vectors of two sample images respectively, y is a correct label indicating whether the two sample images are similar, ∥⋅∥22 represents a square of 2-norm of a vector, max( ) represents a maximum value solving function, and m is a margin value.
+12. The method according to claim 2, wherein the loss function used for training the first neural network and the second neural network at the same time is a loss function as follows: where L is a total loss function, Lt represents a loss function for the first neural network, and Ls represents a loss function for the second neural network, and where ya is a feature vector of a standard image, yp is a feature vector of a positive sample, yn is a feature vector of a negative sample, ∥⋅∥22 represents a square of 2-norm of a vector, max( ) represents a maximum value solving function, α is a margin value, y1 and y2 are feature vectors of two sample images respectively, y is a correct label indicating whether two input images are similar, ∥⋅∥22 represents a square of 2-norm of a vector, and m is a margin value.
+13. An electronic device for retrieving an image, comprising: a processor; and a memory having stored thereon instructions which, when executed by the processor, cause the processor to perform the following steps: processing an image to be retrieved using a first neural network to determine a local feature vector of the image to be retrieved; processing the image to be retrieved using a second neural network to determine a global feature vector of the image to be retrieved; and determining, based on the local feature vector and the global feature vector, an image having a similarity to the image to be retrieved which is higher than a similarity threshold.
+14. The electronic device according to claim 13, wherein the first neural network is trained using a plurality of training image data having different resolutions of a training image, and the first neural network is used for processing a plurality of image data to be retrieved having different resolutions of the image to be retrieved.
+15. The electronic device according to claim 13, wherein the first neural network is trained by using a loss function as follows:
+description="In-line Formulae" end="lead"?Lt(ya,yp,yn)=max(∥ya−yp∥22−∥ya−yn∥22+α,0),description="In-line Formulae" end="tail"? where Lt represents a loss function for the first neural network, ya is a feature vector of a standard image, yp is a feature vector of a positive sample, yn is a feature vector of a negative sample, ∥⋅∥22 represents a square of 2-norm of a vector, max( ) represents a maximum value solving function, and α is margin value.
+16. The electronic device according to claim 13, wherein the step of processing an image to be retrieved using a first neural network to determine a local feature vector of the image to be retrieved comprises: processing, by using each convolutional layer in the first neural network, a plurality of image data to be retrieved having different resolutions of the image to be retrieved, and determining a plurality of receptive fields respectively having a maximum activation value in a plurality of feature maps for the respective resolutions as an output; and processing the plurality of receptive fields using a sum pooling layer in the first neural network to determine the local feature vector.
+17. The electronic device according to claim 13, wherein the loss function used for training the second neural network is a loss function as follows: where Ls represents a loss function for the second neural network, y1 and y2 are feature vectors of two sample images respectively, y is a correct label indicating whether the two sample images are similar, ∥⋅∥22 represents a square of 2-norm of a vector, max( ) represents a maximum value solving function, and m is a margin value.
+18. A computer readable storage medium having stored thereon instructions which, when executed by one or more processors, cause the one or more processors to perform the following steps: processing an image to be retrieved using a first neural network to determine a local feature vector of the image to be retrieved; processing the image to be retrieved using a second neural network to determine a global feature vector of the image to be retrieved; and determining, based on the local feature vector and the global feature vector, an image having a similarity to the image to be retrieved which is higher than a similarity threshold.
+19. The computer readable storage medium according to claim 18, wherein the first neural network is trained using a plurality of training image data having different resolutions of a training image, and the first neural network is used for processing a plurality of image data to be retrieved having different resolutions of the image to be retrieved.
+20. The computer readable storage medium according to claim 18, wherein the step of processing an image to be retrieved using a first neural network to determine a local feature vector of the image to be retrieved comprises: processing, by using each convolutional layer in the first neural network, a plurality of image data to be retrieved having different resolutions of the image to be retrieved, and determining a plurality of receptive fields respectively having a maximum activation value in a plurality of feature maps for the respective resolutions as an output; and processing the plurality of receptive fields using a sum pooling layer in the first neural network to determine the local feature vector.
+</claims>
+</document>

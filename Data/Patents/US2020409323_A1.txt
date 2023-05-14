@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2019-07-30
+</filing_date>
+
+<publication_date>
+2020-12-31
+</publication_date>
+
+<priority_date>
+2019-06-28
+</priority_date>
+
+<ipc_classes>
+G05B19/042,G06F17/18,G06N20/00,G06Q50/06
+</ipc_classes>
+
+<assignee>
+UTILIDATA
+</assignee>
+
+<inventors>
+Spalt, Taylor
+Lama, Lobsang
+Li, Ning
+Hummon, Marissa
+</inventors>
+
+<docdb_family_id>
+74043602
+</docdb_family_id>
+
+<title>
+UTILITY GRID CONTROL USING A DYNAMIC POWER FLOW MODEL
+</title>
+
+<abstract>
+Systems and methods are directed controlling components of a utility grid. The system can receive signals. The system can determine one or more statistical metrics based on the signals. The system can generate an input matrix. The system can input the input matrix into a machine learning model. The system can predict, based on the input matrix and via the machine learning model, the value for the signal of the utility grid at a time period for which the value is not provided in the input matrix. The system can provide a command to control a component of the utility grid responsive to the value for the signal of the utility grid predicted by the machine learning model.
+</abstract>
+
+<claims>
+1. A method of controlling components of a utility grid, comprising: identifying, by a data processing system, a first plurality of signals detected by one or more devices located at one or more portions of a utility grid, and a second plurality of signals received from a server remote from the utility grid; determining, by the data processing system, one or more statistical metrics based on the first plurality of signals and the second plurality of signals; generating, by the data processing system, an input matrix having a first dimension corresponding to timestamps, and a second dimension corresponding to the first plurality of signals, the second plurality of signals, and the one or more statistical metrics; inputting, by the data processing system, the input matrix into a machine learning model constructed to output a value for a signal of the utility grid based on the input matrix; predicting, by the data processing system based on the input matrix and via the machine learning model, the value for the signal of the utility grid at a time period for which the value is not provided in the input matrix; and providing, by the data processing system, a command to control a component of the utility grid responsive to the value for the signal of the utility grid predicted by the machine learning model.
+2. The method of claim 1, wherein: the first plurality of signals include: substation signals corresponding to at least one of a voltage regulator, a load tap changer, a substation meter, a digital relay, or a circuit breaker; primary circuit signals corresponding to at least one of a primary circuit meter, capacitor bank, primary circuit voltage regulator, line voltage monitor, primary solar inverter; and secondary circuit signals corresponding to at least one of a secondary solar inverter, an electric vehicle charging point, a residential electric meter, or data from an electronic device located at a customer location; and the second plurality of signals include at least one of current weather, forecasted weather, current transmission, forecasted transmission, or distribution capacity.
+3. The method of claim 1, comprising: determining that a sampling rate for a first signal of the first plurality of signals is different from a sampling rate for a second signal of the first plurality of signals; synchronizing the first signal with the second signal; and cleaning, by the data processing system, the first plurality of signals to remove time periods corrupted by noise or comprising null values.
+4. The method of claim 1, comprising: detecting that one or more samples of at least one signal of the first plurality of signals is corrupted by noise or includes null values; and cleaning the first plurality of signals by removing samples from each signal in the first plurality of signals corresponding to timestamps of the one or more samples of the at least one signal that is corrupted by noise or includes null values.
+5. The method of claim 1, comprising: selecting, by the data processing system based on at least one of a sampling rate of the first plurality of signals or a smoothness parameter, a filter; applying, by the data processing system, the selected filter to the first plurality of signals to generate filtered data; and generating the input matrix using the filtered data, wherein the smoothness parameter is set to maintain underlying trends in the first plurality of signals.
+6. The method of claim 1, comprising: training, by the data processing system, the machine learning model using a historical input matrix generated from historical signals and historical statistical metrics.
+7. The method of claim 6, comprising: applying one or more weights to a dimension of the historical input matrix to adjust an impact values of the dimension have on the machine learning model.
+8. The method of claim 1, comprising: comparing the value for the signal of the utility grid predicted by the machine learning model with a threshold; and generating the command to control the component based on the comparison.
+9. The method of claim 1, comprising: predicting, via the input matrix and the machine learning model, a plurality of changes to a plurality of signals associated with a plurality of components of the utility grid; evaluating the plurality of changes to identify a desired outcome for the utility grid; and generating one or more commands to control one or more of the plurality of components to achieve the desired outcome for the utility grid.
+10. The method of claim 1, comprising: receiving, subsequent to controlling the component with the command, a third plurality of signals detected by the one or more devices located at the one or more portions of the utility grid; and updating the machine learning model based on the command and the third plurality of signals.
+11. A system to control components of a utility grid, comprising: one or more processors and memory to: identify a first plurality of signals detected by one or more devices located at one or more portions of a utility grid, and a second plurality of signals received from a server remote from the utility grid; determine one or more statistical metrics based on the first plurality of signals and the second plurality of signals; generate an input matrix having a first dimension corresponding to timestamps, and a second dimension corresponding to the first plurality of signals, the second plurality of signals, and the one or more statistical metrics; input the input matrix into a machine learning model constructed to output a value for a signal of the utility grid based on the input matrix; predict, based on the input matrix and via the machine learning model, the value for the signal of the utility grid at a time period for which the value is not provided in the input matrix; and provide command to control a component of the utility grid responsive to the value for the signal of the utility grid predicted by the machine learning model.
+12. The system of claim 11, wherein: the first plurality of signals include: substation signals corresponding to at least one of a voltage regulator, a load tap changer, a substation meter, a digital relay, or a circuit breaker; primary circuit signals corresponding to at least one of a primary circuit meter, capacitor bank, primary circuit voltage regulator, line voltage monitor, primary solar inverter; and secondary circuit signals corresponding to at least one of a secondary solar inverter, an electric vehicle charging point, a residential electric meter, or data from an electronic device located at a customer location; and the second plurality of signals include at least one of current weather, forecasted weather, current transmission, forecasted transmission, or distribution capacity.
+13. The system of claim 11, wherein the one or more processors are configured to: determine that a sampling rate for a first signal of the first plurality of signals is different from a sampling rate for a second signal of the first plurality of signals; synchronize the first signal with the second signal prior to cleaning the first plurality of signals; and clean the first plurality of signals to remove time periods corrupted by noise or comprising null values.
+14. The system of claim 11, wherein the one or more processors are configured to: detect that one or more samples of at least one signal of the first plurality of signals is corrupted by noise or includes null values; and clean the first plurality of signals by removing samples from each signal in the first plurality of signals corresponding to timestamps of the one or more samples of the at least one signal that is corrupted by noise or includes null values.
+15. The system of claim 11, wherein the one or more processors are configured to: select, based on at least one of a sampling rate of the first plurality of signals or a smoothness parameter, a filter; apply the selected filter to the first plurality of signals to generate filtered data; and generate the input matrix using the filtered data, wherein the smoothness parameter is set to maintain underlying trends in the first plurality of signals.
+16. The system of claim 11, wherein the one or more processors are configured to: train the machine learning model using a historical input matrix generated from historical signals and historical statistical metrics.
+17. The system of claim 16, wherein the one or more processors are configured to: apply one or more weights to a dimension of the historical input matrix to adjust an impact values of the dimension have on the machine learning model.
+18. The system of claim 11, wherein the one or more processors are configured to: compare the value for the signal of the utility grid predicted by the machine learning model with a threshold; and generate the command to control the component based on the comparison.
+19. The system of claim 11, wherein the one or more processors are configured to: predict, via the input matrix and the machine learning model, a plurality of changes to a plurality of signals associated with a plurality of components of the utility grid; evaluate the plurality of changes to identify a desired outcome for the utility grid; and generate one or more commands to control one or more of the plurality of components to achieve the desired outcome for the utility grid.
+20. The system of claim 11, wherein the one or more processors are configured to: receive, subsequent to controlling the component with the command, a third plurality of signals detected by the one or more devices located at the one or more portions of the utility grid; and update the machine learning model based on the command and the third plurality of signals.
+</claims>
+</document>

@@ -1,0 +1,59 @@
+<document>
+
+<filing_date>
+2016-12-27
+</filing_date>
+
+<publication_date>
+2020-10-20
+</publication_date>
+
+<priority_date>
+2016-08-12
+</priority_date>
+
+<ipc_classes>
+G06F17/16,G06F7/50,G06F7/523,G06F7/544,G06N3/04,G06N3/063,G06N3/08
+</ipc_classes>
+
+<assignee>
+BEIJING DEEPHI INTELLIGENCE TECHNOLOGY COMPANY
+XILINX
+</assignee>
+
+<inventors>
+HAN, SONG
+SHAN, YI
+XIE, DONGLIANG
+</inventors>
+
+<docdb_family_id>
+61159182
+</docdb_family_id>
+
+<title>
+Hardware accelerator for compressed GRU on FPGA
+</title>
+
+<abstract>
+The present technical disclosure relates to artificial neural networks, e.g., gated recurrent unit (GRU). In particular, the present technical disclosure relates to how to implement a hardware accelerator for compressed GRU based on an embedded FPGA. Specifically, it proposes an overall design processing method of matrix decoding, matrix-vector multiplication, vector accumulation and activation function. In another aspect, the present technical disclosure proposes an overall hardware design to implement and accelerate the above process.
+</abstract>
+
+<claims>
+1. A device for implementing a compressed Gated Recurrent Unit (GRU), said device comprising: a receiving unit, which is used to receive a plurality of input vectors and distribute them to a plurality of processing elements (PE); the plurality of processing elements (PE), each of which comprising: an Arithmetic Logic Unit (ALU) configured to perform multiplication and addition calculation of a weight matrix W; and an act buffer configured to store results of matrix-vector multiplication; an assemble unit configured to receive results from the plurality of PEs and assemble the results into a complete resultant vector; a hidden layer computation circuitry, configured to read the results of matrix-vector multiplication from said plurality of processing elements, and to compute an update signal, a reset signal, and a hidden layer's activation output vector h; and a control unit configured for implementing a state machine to control said plurality of processing elements for the plurality of processing elements to work with the hidden layer computation circuitry in a parallelized pipeline in which calculation of matrix-vector multiplication of a current layer is performed by said plurality of processing elements in parallel with accumulation and activation function operation of a preceding layer performed by the hidden layer computation circuitry to achieve pipeline computation.
+2. The device of claim 1, said hidden layer computation circuitry further comprising: a function module, configured to perform hidden layer's activation function of said GRU; a selector, configured to receive data from said assemble unit and element-wise multiplier and select one of the received data to be output to an adder tree; a Wx buffer, configured to receive and store matrix-vector multiplication results from the assemble unit and output corresponding result to the adder tree according to the instruction from the control unit; an adder tree, configured to conduct vector accumulation operation on vectors received from the Wx buffer and the selector; an element-wise multiplier, configured to conduct element-wise multiplication on vectors received from the assemble unit and the function module, and to output the multiplication result to the selector.
+3. The device of claim 1, wherein said receiving unit further comprises: a plurality of first-in-first-out buffer, and each of which corresponds to a PE.
+4. The device of claim 1, wherein each of the plurality of PEs further comprises: a pointer read unit configured to read pointer information of non-zero elements in the weight matrix W; a sparse matrix read unit configured to use the pointer information obtained by the pointer read unit to read weight values; and a weight decoder configured to decode a virtual weight to obtain a real weight of the weight matrix W.
+5. The device of claim 1, wherein said ALU further comprises: a multiplier configured to perform a multiplication operation on matrix elements and input vector elements; an adder configured to perform addition operation on results of the multiplication operation.
+6. The device of claim 1, wherein said act buffer further comprises: a first output buffer and a second output buffer, said first and second buffer receive and output computation result alternatingly, wherein while the first output buffer receives present computation result, the second output buffer outputs previous computation result.
+7. The device of claim 1, wherein said hidden layer computation circuitry further comprises: a {tilde over (h)} buffer, configured to receive and store a candidate activation {tilde over (h)} from the function module, and to send the received candidate activation {tilde over (h)} to a linear interpolation unit to compute a hidden layer activation h; a Z buffer, configured to receive and store a update signal Z, and to send the received update signal Z to the linear interpolation unit in order to compute a hidden layer activation h; a linear interpolation unit, configured to compute said hidden layer activation h by conducting linear interpolation operation on data received from the {tilde over (h)} buffer, Z buffer and a vector buffer; and a vector buffer, configured to receive and store the layer activation h of respective hidden layers.
+8. The device of claim 1, wherein the state machine includes: an initial state for preparing an input vector and a corresponding weight matrix; a first state_1 performing calculation of multiplication of the input vector to the corresponding weight matrix while reading Uh, Uh, being a matrix combining Ur, U and Uh, in which Uz is an update gate's weight matrix being applied to hidden layers, Ur is a reset gate's weight matrix being applied to the hidden layers, U is a transformation matrix being applied to the hidden layers, and a next state_1 performing calculation of an update signal Z, a reset signal R, a candidate hidden layer activation {tilde over (h)} and a hidden layer activation h; and a state_2 performing Uh ht−1, where ht−1 is an activation to be applied to a previous input vector by the hidden layers.
+9. A method for implementing a compressed Gated Recurrent Unit (GRU) based on a device, the method comprising: a) receiving data related to GRU computation, including an input vector, a bias vector and weight matrices; b) decoding the data received in step a) in order to obtain real weights; c) conducting matrix computation by performing matrix-vector multiplication using on-chip processing elements of the device; d) computing an update signal and a reset signal of the GRU, by performing vector accumulating and activation function computing; e) computing a candidate hidden layer activation of the GRU, by performing element-wise multiplication, addition, and activation function computing on the reset signal and results of the matrix computation; f) computing a hidden layer activation of the GRU, by performing a linear interpolation operation on the candidate hidden layer activation, update signal, and hidden layer activation applied to a previous input vector; and iterating the above steps a), b), c), d), e), f) to transition between three different states of a state machine to obtain the GRU's activation sequences and computing the GRU's output on the basis of the GRU's activation sequences in a parallelized pipeline in which calculation of matrix-vector multiplication of a current layer is performed by said on-chip processing elements of the device in parallel with accumulation and activation function operation of a preceding layer performed by the device to achieve pipeline computation.
+10. The method of claim 9, further comprising: distributing received data to the on-chip processing elements (PE) of the device after receiving data in step a); and assembling results from each PE to obtain a complete result vector of matrix-vector multiplication after computation in step c).
+11. The method of claim 9, in at least one of said steps a), b), c), providing a pair of ping-pong buffers in an on-chip memory of the device.
+12. The method of claim 9, wherein the three different states of the state machine include an initial state, a state_1, and a state_2, wherein steps a) and b) are performed during the initial state; steps a), b), c) are performed during a first state_1; steps a), b), c), d), and e) are performed during a next state_1; and steps a), b), and f) are performed during the state_2.
+13. A method for implementing a Gated Recurrent Unit (GRU) network, wherein weights of said GRU being characterized by Wz, Wr, W, Wx, Uz, Ur, U and Uh, where: Wz is an update gate's weight matrix being applied to inputs; Wr is a reset gate's weight matrix being applied to the inputs; W is a transformation matrix being applied to the inputs; Wx is a matrix combining W, Wr and W; Uz is the update gate's weight matrix being applied to hidden layers; Ur is the reset gate's weight matrix being applied to the hidden layers; U is a transformation matrix being applied to the hidden layers; and Uh is a matrix combining Ur, U and Uz, where an activation to be applied to an input vector by said hidden layers is ht, and an input of said GRU is a series of input vectors x=(x1,x2 . . . , xT), said method comprises: an initialization step of reading data for computing WxX into an on-chip memory of a device; by processing elements of said device, step 1 of computing WxX, and reading data for computing Uh ht−1 into the on-chip memory of the device, where ht−1 is an activation to be applied to a previous input vector by the hidden layers; by the processing elements of said device, step 2 of computing Uh ht−1 and reading data for computing a next WxX into the on-chip memory of the device; and iteratively and alternatingly repeating said step 1 and step 2, wherein the initialization step, step 1 and step 2 are three states of a state machine, and the three states are carried out in a parallelized pipeline in which calculation of matrix-vector multiplication of a current layer is performed by said processing elements of the device in parallel with accumulation and activation function operation of a preceding layer being performed by the device to achieve pipeline computation.
+14. The method of claim 13, wherein each of said Step 1 and Step 2 further comprises: while computing matrix-vector multiplication for a present input vector, computing the update signal Z, reset signal R, candidate hidden layer activation {tilde over (h)} and hidden layer activation ht in a preceding layer to achieve pipeline computation.
+15. The method of claim 14, wherein: said initial step, step 1 and step 2 are processed sequentially.
+</claims>
+</document>

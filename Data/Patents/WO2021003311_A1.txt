@@ -1,0 +1,103 @@
+<document>
+
+<filing_date>
+2020-07-01
+</filing_date>
+
+<publication_date>
+2021-01-07
+</publication_date>
+
+<priority_date>
+2019-07-02
+</priority_date>
+
+<ipc_classes>
+G06F16/332,G10L15/18
+</ipc_classes>
+
+<assignee>
+SERVICENOW
+</assignee>
+
+<inventors>
+SAPUGAY, EDWIN
+HEATON-DUNLAP, Anne Katharine
+PARK, Jonggun
+</inventors>
+
+<docdb_family_id>
+74065244
+</docdb_family_id>
+
+<title>
+PREDICTIVE SIMILARITY SCORING SUBSYSTEM IN A NATURAL LANGUAGE UNDERSTANDING (NLU) FRAMEWORK
+</title>
+
+<abstract>
+Present embodiments include an agent automation framework having a similarity scoring subsystem that performs meaning representation similarity scoring to facilitate extraction of artifacts to address an utterance. The similarity scoring subsystem identifies a CCG form of an utterance-based meaning representation and queries a database to retrieve a comparison function list that enables quantifications of similarities between the meaning representation and candidates within a search space. The comparison functions enable the similarity scoring subsystem to perform computationally-cheapest and/or most efficient comparisons before other comparisons. The similarity scoring subsystem may determine an initial similarity score between the particular meaning representation and the candidates of the search space, then prune non-similar candidates from the search space. Selective search space pruning enables the similarity scoring subsystem to iteratively compare more data of the meaning representation to the search space via increasingly-complex comparison functions, while narrowing the search space to potentially-matching candidates.
+</abstract>
+
+<claims>
+What is claimed is:
+1. An agent automation system, comprising:
+a memory configured to store a natural language understanding (NLU) framework including a similarity scoring subsystem having a form class database; and
+a processor configured to execute instructions to cause the similarity scoring subsystem of the NLU framework to perform actions comprising:
+receiving a meaning representation of a user utterance;
+identifying a cognitive construction grammar (CCG) form of the meaning representation;
+determining at least one form class entry of the form class database that matches the CCG form of the meaning representation; and
+retrieving a mathematical comparison function list from the at least one form class entry, wherein the mathematical comparison function list enables the similarity scoring subsystem to compare at least a portion of the meaning representation to at least a searchspace portion of a search-space meaning representation to determine a similarity score therebetween.
+2. The agent automation system of claim 1, wherein the mathematical comparison function list includes a set of ordered functions that enable the similarity scoring subsystem to progressively utilize more computationally-expensive functions to compare the meaning representation and the search-space meaning representation.
+3. The agent automation system of claim 1, wherein the search-space meaning representation is one of a plurality of search-space meaning representations defining a search space of the NLU framework, and wherein the instructions cause the similarity scoring subsystem to perform actions comprising searching the search space for a subset of the plurality of search-space meaning representations that matches the meaning
+representation of the user utterance.
+4. The agent automation system of claim 1, wherein the instructions cause the similarity scoring subsystem to perform actions comprising comparing the meaning representation to the search-space meaning representation, via the mathematical comparison function list, to determine the similarity score between the meaning representation and the search-space meaning representation.
+5. The agent automation system of claim 4, wherein the similarity scoring subsystem is configured to compare the meaning representation to the search-space meaning representation by:
+comparing a first root node of the meaning representation to a second root node of the search-space meaning representation to determine the similarity score; and
+comparing the first root node and a first dependent node of the meaning representation to the second root node and a second dependent node of the search-space meaning representation to refine the similarity score.
+6. The agent automation system of claim 5, wherein the instructions cause the similarity scoring subsystem to perform actions comprising:
+determining whether the similarity score is less than a predetermined threshold score; and
+disregarding the search-space meaning representation from subsequent comparisons to the meaning representation in response to determining that the similarity score is less than the predetermined threshold score.
+7. The agent automation system of claim 1, wherein the meaning representation comprises an utterance tree structure that includes a root node and at least one dependent node semantically coupled to the root node.
+8. The agent automation system of claim 7, wherein the at least a portion of the meaning representation is the root node and the at least a search-space portion of the searchspace meaning representation is a search-space root node of the search-space meaning representation, such that the similarity score quantifies a similarity between a subtree vector of the root node and a subtree vector of the search-space root node.
+9. The agent automation system of claim 1, wherein the CCG form comprises a first CCG form, the at least one form class entry comprises a first form class entry, and the mathematical comparison function list comprises a first mathematical comparison function list, and wherein the instructions cause the similarity scoring subsystem to perform actions comprising: identifying a second CCG form of the meaning representation;
+determining a second form class entry of the form class database that matches the second CCG form of the meaning representation; and
+retrieving a second mathematical comparison function list from the second form class entry.
+10. The agent automation system of claim 9, wherein the instructions cause the similarity scoring subsystem to perform actions comprising:
+comparing the meaning representation to the search-space meaning representation via the first mathematical comparison function list to determine a first similarity score;
+comparing the meaning representation to the search-space meaning representation via the second mathematical comparison function list to determine a second similarity score; and
+aggregating the first similarity score and the second similarity score into an aggregate similarity score via a reconciliation function, wherein the aggregate similarity score enables the similarity scoring subsystem to determine whether the search-space meaning representation is a match to the meaning representation.
+11. A method of operating a similarity scoring subsystem of an agent automation system, comprising:
+for each search-space meaning representation of a plurality of search-space meaning representations defining a search space of the agent automation system, comparing, via a plurality of comparison functions, a first portion of a meaning representation to a plurality of search-space portions of the plurality of search-space meaning representations to generate a plurality of initial similarity scores;
+pruning the search space of dissimilar search-space meaning representations of the plurality of search-space meaning representations, wherein each of the dissimilar searchspace meaning representations provide a respective one of the plurality of initial similarity scores that is below a predetermined score threshold;
+increasing a number of nodes considered between the meaning representation and the plurality of search-space meaning representations remaining within the search space;
+for each one of the plurality of search-space meaning representations remaining within the search space, comparing, via the plurality of comparison functions, the considered nodes of the meaning representation and the plurality of search-space meaning representations to generate a plurality of refined similarity scores;
+pruning the search space of the dissimilar search-space meaning representations that provide a respective one of the plurality of refined similarity scores that is below the predetermined score threshold; and
+identifying a meaning representation match for the meaning representation from any search-space meaning representations of the plurality of search-space meaning representations remaining within the search space.
+12. The method of claim 11, wherein increasing the number of nodes considered comprises considering an additional node of the meaning representation and an additional search-space node of the plurality of search-space meaning representations remaining within the search space.
+13. The method of claim 11, comprising:
+after pruning the search space of any dissimilar search-space meaning
+representations having a respective one of the plurality of refined similarity scores below the predetermined score threshold, determining whether each node of the meaning
+representation has been considered; and
+in response to determining that at least one node of the meaning representation has not been considered, returning to increasing the number of nodes considered between the meaning representation and the plurality of search-space meaning representations remaining within the search space.
+14. The method of claim 11, comprising determining the plurality of comparison functions by:
+identifying a cognitive construction grammar (CCG) form of the meaning representation;
+determining at least one form class entry of a form class database that matches the CCG form of the meaning representation; and
+retrieving a mathematical comparison function list comprising the plurality of comparison functions from the at least one form class entry.
+15. The method of claim 11, wherein determining the at least one form class entry that matches the CCG form of the meaning representation comprises identifying that the form class database comprises the mathematical comparison function list for comparing the CCG form of the meaning representation to a comparable CCG form of at least one of the plurality of search-space meaning representations.
+16. The method of claim 11, comprising:
+determining that the meaning representation comprises a plurality of CCG forms; determining a respective refined similarity score for comparing the meaning representation having a respective CCG form interpretation from the plurality of CCG forms to the plurality of search-space meaning representations; and
+aggregating, via a reconciliation function of the similarity scoring subsystem, the respective refined similarity score for each CCG form interpretation into an aggregate similarity score.
+17. The method of claim 16, wherein the reconciliation function specifies that the aggregate similarity score is a maximum or a weighted average of the respective refined similarity score for each CCG form.
+18. A non-transitory, computer-readable medium storing instructions that, when executed by one or more processors of an agent automation system, cause the agent automation system to implement a similarity scoring subsystem to:
+identify a cognitive construction grammar (CCG) form of a meaning
+representation corresponding to a received user utterance;
+determining at least one form class entry of a form class database that matches the CCG form of the meaning representation; retrieving a mathematical comparison function list that corresponds to the CCG form of the meaning representation, wherein the mathematical comparison function list enables the similarity scoring subsystem to progressively compare the meaning
+representation and a search-space meaning representation; and
+compare the meaning representation to the search-space meaning representation of by iteratively:
+applying a respective function of the mathematical comparison function list to determine a similarity score quantifying a similarity between a first considered portion of the meaning representation and a second considered portion of the search-space meaning representation; and
+applying a subsequent function of the mathematical comparison function list to refine the similarity score, until the similarity score is representative of the similarity between an entirety of the meaning representation and at least a portion of the search-space meaning representation or until the subsequent function is a highest-cost function of the mathematical comparison function list.
+19. The non-transitory, computer-readable medium of claim 18, wherein the searchspace meaning representation is one of a plurality of search-space meaning representations defining a search space of the agent automation system.
+20. The non-transitory, computer-readable medium of claim 19, wherein the instructions are configured to cause the agent automation system to implement the similarity scoring subsystem to: after each refinement of the similarity score, narrow the search space to similar ones of the plurality of search-space meaning representations that provide a respective similarity score above a predetermined score threshold; and
+after the respective similarity score is representative of the similarity between the entirety of the meaning representation, identify the similar ones of the plurality of searchspace meaning representations remaining within the search space as matches to the meaning representation.
+</claims>
+</document>

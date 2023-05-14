@@ -1,0 +1,71 @@
+<document>
+
+<filing_date>
+2018-03-29
+</filing_date>
+
+<publication_date>
+2020-01-07
+</publication_date>
+
+<priority_date>
+2018-03-29
+</priority_date>
+
+<ipc_classes>
+G06F7/483,G06F7/544,G06F9/30,G06F9/38,G06N3/063
+</ipc_classes>
+
+<assignee>
+INTEL CORPORATION
+</assignee>
+
+<inventors>
+DAS, DIPANKAR
+DUTTA, MRINMAY
+KUMAR, ARUN
+KUNDU, ABHISEK
+MELLEMPUDI, NAVEEN K.
+MUDIGERE, DHEEVATSA
+</inventors>
+
+<docdb_family_id>
+65231079
+</docdb_family_id>
+
+<title>
+Instructions for fused multiply-add operations with variable precision input operands
+</title>
+
+<abstract>
+Disclosed embodiments relate to instructions for fused multiply-add (FMA) operations with variable-precision inputs. In one example, a processor to execute an asymmetric FMA instruction includes fetch circuitry to fetch an FMA instruction having fields to specify an opcode, a destination, and first and second source vectors having first and second widths, respectively, decode circuitry to decode the fetched FMA instruction, and a single instruction multiple data (SIMD) execution circuit to process as many elements of the second source vector as fit into an SIMD lane width by multiplying each element by a corresponding element of the first source vector, and accumulating a resulting product with previous contents of the destination, wherein the SIMD lane width is one of 16 bits, 32 bits, and 64 bits, the first width is one of 4 bits and 8 bits, and the second width is one of 1 bit, 2 bits, and 4 bits.
+</abstract>
+
+<claims>
+1. A processor to execute an asymmetric fused multiply-add (FMA) instruction, comprising: fetch circuitry to fetch an FMA instruction having fields to specify an opcode, a destination, and first and second source vectors having first and second widths, respectively; decode circuitry to decode the fetched FMA instruction; and a single instruction multiple data (SIMD) execution circuit to execute the decoded FMA instruction to process as many elements of the second source vector as fit into a SIMD lane width by multiplying each element by a corresponding element of the first source vector, and accumulating a resulting product with previous contents of the destination; wherein the SIMD lane width is one of 16 bits, 32 bits, and 64 bits, the first width is one of 4 bits and 8 bits, and the second width is one of 1 bit, 2 bits, and 4 bits.
+2. The processor of claim 1, wherein the SIMD execution circuit processes the as many elements concurrently.
+3. The processor of claim 1, wherein the SIMD execution circuit processes the as many elements in a single clock cycle.
+4. The processor of claim 1, wherein the SIMD execution circuit uses a plurality of FMA hardware units to process a maximal number of elements, the plurality of FMA hardware units either being arranged in parallel or cascaded.
+5. The processor of claim 1, wherein the first and second widths are specified by the opcode.
+6. The processor of claim 1, wherein the FMA instruction further specifies a repeat indicator being one of two, four, and eight, the specified destination comprises a vector, and the SIMD execution circuit uses a plurality of source vectors to concurrently repeat the execution a number of times as specified by the repeat indicator, each time accumulating the result to a same element of the destination vector.
+7. The processor of claim 1, wherein the SIMD execution circuit further rounds the accumulation of the resulting product and the previous contents of the destination to fit within a number of bits of the destination, and wherein the processor further comprises a software-accessible control register to store a rounding control, wherein the SIMD execution circuit performs the rounding according to the rounding control, wherein the rounding control specifies one of round to nearest with ties to even, round to nearest with ties away from zero, round toward 0, round toward positive infinity, and round toward negative infinity.
+8. The processor of claim 1, wherein the SIMD execution circuit further checks for saturation and saturates the accumulation of the resulting product and the previous contents of the destination to a predefined maximum value, and wherein the processor further comprises a software-accessible status register to be used by the SIMD execution circuit to report occurrence of saturation to software.
+9. A method of executing an asymmetric fused multiply-add (FMA) instruction, comprising: fetching, by fetch circuitry, an FMA instruction having fields to specify an opcode, a destination, and first and second source vectors having first and second widths, respectively; decoding, by decode circuitry, the fetched FMA instruction; and executing, by a single instruction multiple data (SIMD) execution circuit, the decoded FMA instruction by processing as many elements of the second source vector as fit into an SIMD lane width by multiplying each element by a corresponding element of the first source vector, and accumulating a resulting product with previous contents of the destination; wherein the SIMD lane width is one of 16 bits, 32 bits, and 64 bits, the first width is one of 4 bits and 8 bits, and the second width is one of 1 bit, 2 bits, and 4 bits.
+10. The method of claim 9, wherein the SIMD execution circuit processes the as many elements concurrently.
+11. The method of claim 9, wherein the SIMD execution circuit processes the as many elements in a single clock cycle.
+12. The method of claim 9, wherein the SIMD execution circuit uses a plurality of FMA hardware units to process a maximal number of elements, the plurality of FMA hardware units either being arranged in parallel or cascaded.
+13. The method of claim 9, wherein the FMA instruction further specifies a repeat indicator being one of two, four, and eight, and the specified destination comprises a vector, further comprising the SIMD execution circuit using a plurality of source vectors to concurrently repeat the execution a number of times as specified by the repeat indicator, writing the accumulated result to the same element of the destination vector.
+14. The method of claim 9, further comprising rounding, by the SIMD execution circuit, the accumulation of the resulting product and the previous contents of the destination to fit within a number of bits of the destination, and wherein the SIMD execution circuit performs the rounding according to a rounding control in a software-accessible control register, the rounding control specifying one of round to nearest with ties to even, round to nearest with ties away from zero, round toward 10, round toward positive infinity, and round toward negative infinity.
+15. The method of claim 9, further comprising checking for saturation, by the SIMD execution circuit, and saturating the accumulation of the resulting product and the previous contents of the destination to a predefined maximum value, and further comprising using, by the SIMD execution circuit, a software-accessible status register to report occurrence of saturation to software.
+16. A system to execute an asymmetric fused multiply-add (FMA) instruction, comprising: means for fetching an FMA instruction having fields to specify an opcode, a destination, and first and second source vectors having first and second widths, respectively; means for decoding the fetched FMA instruction; and means for executing the decoded FMA instruction to process as many elements of the second source vector as fit into a SIMD lane width by multiplying each element by a corresponding element of the first source vector, and accumulating a resulting product with previous contents of the destination; and wherein the SIMD lane width is one of 16 bits, 32 bits, and 64 bits, the first width is one of 4 bits and 8 bits, and the second width is one of 1 bit, 2 bits, and 4 bits.
+17. The system of claim 16, wherein the means for executing processes the as many elements concurrently.
+18. The system of claim 16, wherein the FMA instruction further specifies a repeat indicator being one of two, four, and eight, the specified destination comprises a vector, and the means for executing uses a plurality of source vectors to concurrently repeat the execution a number of times as specified by the repeat indicator, each time accumulating the result to a same element of the destination vector.
+19. The system of claim 16, wherein the means for executing further rounds the accumulation of the resulting product and the previous contents of the destination to fit within a number of bits of the destination.
+20. The system of claim 16, wherein the means for executing further checks for saturation and saturates the accumulation of the resulting product and the previous contents of the destination to a predefined maximum value.
+21. A non-transitory machine-readable medium having stored thereon instructions that, when executed by a processor, cause the processor to execute an asymmetric fused multiply-add (FMA) instruction by: fetching, by fetch circuitry, an FMA instruction having fields to specify an opcode, a destination, and first and second source vectors having first and second widths, respectively; decoding, by decode circuitry, the fetched FMA instruction; and executing, by a single instruction multiple data (SIMD) execution circuit, the decoded FMA instruction by processing as many elements of the second source vector as fit into an SIMD lane width by multiplying each element by a corresponding element of the first source vector, and accumulating a resulting product with previous contents of the destination; wherein the SIMD lane width is one of 16 bits, 32 bits, and 64 bits, the first width is one of 4 bits and 8 bits, and the second width is one of 1 bit, 2 bits, and 4 bits.
+22. The non-transitory machine-readable medium of claim 21, wherein the SIMD execution circuit processes the as many elements concurrently.
+23. The non-transitory machine-readable medium of claim 21, wherein the FMA instruction further specifies a repeat indicator being one of two, four, and eight, and the specified destination comprises a vector, further comprising the SIMD execution circuit using a plurality of source vectors to concurrently repeat the execution a number of times as specified by the repeat indicator, writing the accumulated result to the same element of the destination vector.
+24. The non-transitory machine-readable medium of claim 21, further comprising rounding, by the SIMD execution circuit, the accumulation of the resulting product and the previous contents of the destination to fit within a number of bits of the destination, and wherein the SIMD execution circuit performs the rounding according to a rounding control in a software-accessible control register, the rounding control specifying one of round to nearest with ties to even, round to nearest with ties away from zero, round toward 10, round toward positive infinity, and round toward negative infinity.
+25. The non-transitory machine-readable medium of claim 21, further comprising checking for saturation, by the SIMD execution circuit, and saturating the accumulation of the resulting product and the previous contents of the destination to a predefined maximum value, and further comprising using, by the SIMD execution circuit, a software-accessible status register to report occurrence of saturation to software.
+</claims>
+</document>

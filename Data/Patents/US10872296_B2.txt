@@ -1,0 +1,59 @@
+<document>
+
+<filing_date>
+2019-05-03
+</filing_date>
+
+<publication_date>
+2020-12-22
+</publication_date>
+
+<priority_date>
+2016-11-04
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+ALEMI, ALEXANDER AMIR
+</inventors>
+
+<docdb_family_id>
+60382627
+</docdb_family_id>
+
+<title>
+Training neural networks using a variational information bottleneck
+</title>
+
+<abstract>
+Methods, systems, and apparatus, including computer programs encoded on computer storage media, for training a neural network. One of the methods includes receiving training data; training a neural network on the training data, wherein the neural network is configured to: receive a network input, convert the network input into a latent representation of the network input, and process the latent representation to generate a network output from the network input, and wherein training the neural network on the training data comprises training the neural network on a variational information bottleneck objective that encourages, for each training input, the latent representation generated for the training input to have low mutual information with the training input while the network output generated for the training input has high mutual information with the target output for the training input.
+</abstract>
+
+<claims>
+1. A method comprising: receiving training data, the training data comprising a plurality of training inputs and, for each training input, a respective target output; training a neural network on the training data, wherein the neural network is configured to: receive a network input, generate a latent representation of the network input, comprising: processing the network input through one or more initial neural network layers of the neural network to generate an intermediate output that defines a distribution over latent representations; and sampling the latent representation of the network input from the distribution defined by the intermediate output, and process the latent representation through one or more additional neural network layers of the neural network to generate a network output from the network input, wherein training the neural network on the training data comprises training the neural network on the training data to have improved generalization to inputs outside the training data by, for each training input, performing an iteration of stochastic gradient descent on a lower bound of a variational information bottleneck objective to determine an update to current values of parameters of the neural network, wherein the lower bound is represented as an objective function to be minimized that satisfies, for a given training input xn:
+description="In-line Formulae" end="lead"?1/N([−log(q(yn|ƒ(xn,∈))]+βKL[p(Z|xn),r(Z)]),description="In-line Formulae" end="tail"? where N is the total number of training inputs in the set of training data, q(yn|ƒ(xn,∈)) is a score assigned to the target output yn for the training input xn by the network output for the training input xn, ∈ is noise sampled from a noise distribution, ƒ(xn,∈) is the latent representation generated from the sampled noise and the intermediate output for the training input xn, β is a fixed constant value, KL is the Kullback-Leibler divergence, p(Z|xn) is the probability distribution over latent representations Z defined by the intermediate output, and r(Z) is a variational approximation of a marginal distribution of the latent representations Z; and providing data specifying the trained neural network for use in processing new network inputs.
+2. The method of claim 1, wherein sampling the latent representation comprises: sampling noise from a pre-determined noise distribution that is independent of the intermediate output; and generating the latent representation from the sampled noise and the intermediate output.
+3. The method of claim 1, wherein the lower bound depends on a variational approximation of a likelihood of the network output for the training input given the latent representation for the training input.
+4. The method of claim 1, wherein the lower bound depends on a variational approximation of a marginal distribution of the latent representation for the training input.
+5. The method of claim 1, wherein the trained neural network is resistant to adversarial perturbations.
+6. The method of claim 5, wherein the trained neural network generates a same network output for a test input and a minimal perturbation of the test input.
+7. A system comprising one or more computers and one or more storage devices storing instructions that when executed by the one or more computers cause the one or more computers to perform operations comprising: receiving training data, the training data comprising a plurality of training inputs and, for each training input, a respective target output; training a neural network on the training data, wherein the neural network is configured to: receive a network input, generate a latent representation of the network input, comprising: processing the network input through one or more initial neural network layers of the neural network to generate an intermediate output that defines a distribution over latent representations; and sampling the latent representation of the network input from the distribution defined by the intermediate output, and process the latent representation through one or more additional neural network layers of the neural network to generate a network output from the network input, wherein training the neural network on the training data comprises training the neural network on the training data to have improved generalization to inputs outside the training data by, for each training input, performing an iteration of stochastic gradient descent on a lower bound of a variational information bottleneck objective to determine an update to current values of parameters of the neural network, wherein the lower bound is represented as an objective function to be minimized that satisfies, for a given training input xn:
+description="In-line Formulae" end="lead"?1/N([−log(q(yn|ƒ(xn,∈))]+βKL[p(Z|xn),r(Z)]),description="In-line Formulae" end="tail"? where N is the total number of training inputs in the set of training data, q(yn|ƒ(xn,∈)) is a score assigned to the target output yn for the training input xn by the network output for the training input xn, ∈ is noise sampled from a noise distribution, ƒ(xn,∈) is the latent representation generated from the sampled noise and the intermediate output for the training input xn, β is a fixed constant value, KL is the Kullback-Leibler divergence, p(Z|xn) is the probability distribution over latent representations Z defined by the intermediate output, and r(Z) is a variational approximation of a marginal distribution of the latent representations Z; and providing data specifying the trained neural network for use in processing new network inputs.
+8. The system of claim 7, wherein sampling the latent representation comprises: sampling noise from a pre-determined noise distribution that is independent of the intermediate output; and generating the latent representation from the sampled noise and the intermediate output.
+9. The system of claim 7, wherein the lower bound depends on a variational approximation of a likelihood of the network output for the training input given the latent representation for the training input.
+10. The system of claim 7, wherein the lower bound depends on a variational approximation of a marginal distribution of the latent representation for the training input.
+11. The system of claim 7, wherein the trained neural network is resistant to adversarial perturbations.
+12. The system of claim 11, wherein the trained neural network generates a same network output for a test input and a minimal perturbation of the test input.
+13. One or more non-transitory computer-readable storage media storing instructions that when executed by one or more computers cause the one or more computers to perform operations comprising: receiving training data, the training data comprising a plurality of training inputs and, for each training input, a respective target output; training a neural network on the training data, wherein the neural network is configured to: receive a network input, generate a latent representation of the network input, comprising: processing the network input through one or more initial neural network layers of the neural network to generate an intermediate output that defines a distribution over latent representations; and sampling the latent representation of the network input from the distribution defined by the intermediate output, and process the latent representation through one or more additional neural network layers of the neural network to generate a network output from the network input, wherein training the neural network on the training data comprises training the neural network on the training data to have improved generalization to inputs outside the training data by, for each training input, performing an iteration of stochastic gradient descent on a lower bound of a variational information bottleneck objective to determine an update to current values of parameters of the neural network, wherein the lower bound is represented as an objective function to be minimized that satisfies, for a given training input xn:
+description="In-line Formulae" end="lead"?1/N([−log(q(yn|ƒ(xn,∈))]+βKL[p(Z|xn),r(Z)]),description="In-line Formulae" end="tail"? where N is the total number of training inputs in the set of training data, q(yn|ƒ(xn,∈)) is a score assigned to the target output yn for the training input xn by the network output for the training input xn, ∈ is noise sampled from a noise distribution, ƒ(xn,∈) is the latent representation generated from the sampled noise and the intermediate output for the training input xn, β a is a fixed constant value, KL is the Kullback-Leibler divergence, p(Z|xn) is the probability distribution over latent representations Z defined by the intermediate output, and r(Z) is a variational approximation of a marginal distribution of the latent representations Z; and providing data specifying the trained neural network for use in processing new network inputs.
+14. The non-transitory computer-readable storage media of claim 13, wherein sampling the latent representation comprises: sampling noise from a pre-determined noise distribution that is independent of the intermediate output; and generating the latent representation from the sampled noise and the intermediate output.
+15. The non-transitory computer-readable storage media of claim 13, wherein the lower bound depends on a variational approximation of a likelihood of the network output for the training input given the latent representation for the training input.
+</claims>
+</document>

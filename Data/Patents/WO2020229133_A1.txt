@@ -1,0 +1,80 @@
+<document>
+
+<filing_date>
+2020-04-23
+</filing_date>
+
+<publication_date>
+2020-11-19
+</publication_date>
+
+<priority_date>
+2019-05-10
+</priority_date>
+
+<ipc_classes>
+G05B13/02
+</ipc_classes>
+
+<assignee>
+EMPA EIDGENOESSISCHE MATERIALPRUEFUNGS- UND FORSCHUNGSANSTALT
+</assignee>
+
+<inventors>
+WASMER, KILIAN
+SHEVCHIK, SERGEY
+QUANG TRI, Le
+</inventors>
+
+<docdb_family_id>
+66685335
+</docdb_family_id>
+
+<title>
+METHOD FOR AUTOMATED CONTROL OF MATERIAL PROCESSING
+</title>
+
+<abstract>
+The disclosed invention comprises a method for automated control of material processing processes, wherein the method is controlled by a control unit (12) calculating correction output signals (u) and controlling an energy generator unit (1), an energy delivery unit (3), an energy delivery output measurement (4), at least one material- energy interaction measurement unit (7) for measurement of actual machining results (s), which are fed via a control unit input (13) and sub-units for generating correction output signals (u) in a close loop, which lead to desired machining results, wherein the correction output signals (u) are applied via a control unit output (14) to the energy generator unit (1) and the energy delivery unit (3) by an energy delivery control sub-unit (11) and/or a second energy delivery control sub-unit (15), and the computation of correction output signals (u) is executed by machine learning procedures.
+</abstract>
+
+<claims>
+PATENT CLAIMS
+1. Method for automated real-time adaptive control of material processing processes, wherein the method is controlled by a control unit (12) calculating correction output signals (u) and controlling an energy generator unit (1), an energy delivery unit (3), an energy delivery output measurement (4), at least one material-energy interaction measurement unit (7) for
+measurement of actual machining results (s), which are fed via a control unit input (13) and sub-units for generating correction output signals (u) in a close loop, which lead to desired machining results (s'), wherein the correction output signals (u) are applied via a control unit output (14) to the energy generator unit (1) and the energy delivery unit (3) by an energy delivery control sub-unit (11) and/or a second energy delivery control sub-unit (15), and the computation of correction output signals (u) is executed by machine learning procedures,
+characterized in the steps:
+- measurement of n time series of actual machining results (s) by each of n material-energy interaction measurement units (7) in time intervals, leading to time series of n (s[.])
+measurements, wherein the time-series is delivered in a form of a matrix with the size (nxm), where m is the time stamps and n is the number of the material-energy interaction measurement units (7) and the values of such matrix are the momentary material-energy interaction measurements at different time stamps preceding and including the current moment with known time intervals between m and n, where n > 1 and m > 1,
+- storing time series of (s[.]) measurements, desired machining results (s') and correction output signals (u) within a time series of the past in a memory (120) of the control unit (12),
+- sending of the n time series of actual machining results (s[.]) to an observation sub-unit (121), - analysis by comparison of n time-series u and n time-series s in observation sub-unit (121) based on machine learning technique,
+- sending of n time-series u and/or n time-series s and/or results of observation sub-unit (121) to a correction sub-unit
+(123) based on neural networks as machine learning technique, before
+- correction output signals (u) in form of production conditions
+(124) are send from correction sub-unit (123) via control unit output (14) of the control unit (12) out to energy delivery control sub-unit (11) and/or a second energy delivery control sub-unit (15), initiating the next processing step of the adaptive self-learning material processing and
+- repetition for the next n time-series s.
+2. Method according to claim 1, wherein n time-series u and/or n time-series s and/or results of observation sub-unit (121) are sent to an optimization sub-unit (122) based on neural networks as machine learning technique, before n time-series u and/or n time-series s and/or results of observation sub-unit (121) and/or results of optimization sub-unit (122) are send to the correction sub-unit (123), wherein the optimization sub-unit
+(122) includes the inner parameters of the correction sub-unit
+(123) and updates those for a better performance during changing production conditions, optimizing the results of the correction sub-unit (123).
+3. Method according to one of the preceding claims, wherein the correction sub-unit (123) and/or the optimization sub-unit (122) and/or observation sub-unit (121) are realized as cascaded groups of layers within a single network and each group has different depth.
+4. Method according to one of the claims 1 or 2, wherein the correction sub-unit (123) and/or the optimization sub-unit (122) and/or observation sub-unit (121) are realized as cascaded groups of layers within multiple separate networks.
+5. Method according to one of the preceding claims, wherein the training is carried out first on more shallow
+sublayers/subnetworks forming subunits (121, 122, 123) with lower numbers of neurons inside each sublayers/subnetworks, before the results are transmitted further to deeper
+sublayers/subnetworks with greater number of neurons than the shallow sublayers/subnetworks, while at least one group of shallow or deeper sublayers/subnetworks is at the same time in training process and the actual process control is taken over by at least one group of sublayers/subnetworks which is not in training at the same time.
+6. Method according to claim 5, wherein the correction sub-unit (123) is included into the closed feedback loop and runs independently from the observation sub-unit (121) and optimization sub-unit (122) of the control unit (12).
+7. Method according to one of the preceding claims 3 or 4, wherein parallel to the cascaded groups of layers of neural networks of the correction sub-unit (123) and/or the optimization sub-unit (122) and/or observation sub-unit (121), mirror neural networks comprising cascaded groups of layers of neural networks and working in the background and mirroring the operating sub units (121, 122, 123) are used, executing the retraining in the background and therewith avoiding to stop the actual process, so that after finishing the retraining, the parameters from the mirror neural networks are transferred to the operating subunits (121, 122, 123)
+8. Method according to one of the preceding claims, wherein the neural networks of the sub-units (121, 122, 123) are formed as
+- feed forward neural networks with regular or irregular connection grids and/or
+- spiking neural networks and/or
+- Hopfield networks and/or
+- Bayesian networks.
+9. Method according to one of the preceding claims, wherein a minimum time series comprising a multiplicity of m>20 measurements from at least one sensor (7) n³l in a measuring time of at least 100 microseconds is used for estimation of trajectory the actual process is running. 10. Method according to one of the preceding claims, wherein a retraining inside the optimization sub-unit (122) by neural networks is done by parameter updates from optimization sub unit (122) which are loaded in the correction sub-unit (123) in a regular manner within defined time intervals and/or in case the correction sub-unit (123) cannot find a right correction strategy during some fixed time period.
+11. Method according to one of the preceding claims, wherein the estimated values of the neural networks of the observation subunit (121) are either kept in memory (120) of the control unit
+(12) or an internal memory of the observation sub-unit (121).
+12. Method according to claim 10, wherein if new production
+conditions (124) are not known from internal memory of the observation sub-unit (121) or memory (120), inner parameters of observation sub-unit (121) are updated by the correction sub unit (123) for estimating new correction output signals (u).
+13. Method according to one of the preceding claims, wherein the n time series of actual machining results (s) are updated every time after new measurements by adding the new times seriesmeasurements and erasing the older time series
+measurements.
+14. Method according to one of the preceding claims, wherein the n time-series of actual machining results (s) are substituted by any other representation of the history of the measurements, like distributions, differential statistic parameters, like moment estimators, Tailor expansions within Delta method, M and Z estimators, like hood functions and/or any other asymptotic characteristics like asymptotic expansions, differential form for example transfer functions or zeros/poles of the preceding process.
+15. Retraining process as part of the method according to one of the preceding claims, wherein the measurements of n time series of actual machining results (s) by each of n materialenergy interaction measurement units (7) in time intervals, leading to time series of n (s[.]) measurements are processed further with cascades of neural networks of different depth, running in parallel with a main neural network, wherein new acquired knowledge processed in shallow neural networks is transferred from the shallow neural networks to the deeper neural networks and once the deepest neural networks are trained the updated coefficients are transferred back to the main neural network, while the control method is running during the neural network retraining process.
+</claims>
+</document>

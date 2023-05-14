@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2018-12-21
+</filing_date>
+
+<publication_date>
+2020-09-22
+</publication_date>
+
+<priority_date>
+2017-12-22
+</priority_date>
+
+<ipc_classes>
+G06F30/00,G06T17/20,G06T17/30
+</ipc_classes>
+
+<assignee>
+DASSAULT SYSTEMES
+</assignee>
+
+<inventors>
+BOUFARGUINE, MOURAD
+RANDON, GUILLAUME
+SANCHEZ BERMUDEZ, FERNANDO MANUEL
+</inventors>
+
+<docdb_family_id>
+60957102
+</docdb_family_id>
+
+<title>
+Determining a set of facets that represents a skin of a real object
+</title>
+
+<abstract>
+The disclosure notably relates to a computer-implemented method for 3D reconstruction. The method comprises providing a 3D point cloud representing a real object. The method also comprises fitting the 3D point cloud with parametric surfaces. The method also comprises defining a partition of the parametric surfaces into oriented facets which respect intersections between the parametric surfaces. The method also comprises determining, among the oriented facets of the partition, a set of facets that represents a skin of the real object. The determining comprises minimizing an energy. The energy includes a data term and a constraint term. The data term increasingly penalizes discarding facets, as a level of fit between a discarded facet and the 3D point cloud increases. The constraint term penalizes formation of non-skin geometry by kept facets. Such a method provides an improved solution for 3D reconstruction.
+</abstract>
+
+<claims>
+1. A computer-implemented method for 3D reconstruction, comprising: obtaining a 3D point cloud representing a real object; fitting the 3D point cloud with parametric surfaces; defining a partition of the parametric surfaces into oriented facets which respect intersections between the parametric surfaces; and determining, among the oriented facets of the partition, a set of facets that represents a skin of the real object, the determining including minimizing an energy which includes: a data term that increasingly penalizes discarding facets, as a level of fit between a discarded facet and the 3D point cloud increases, and a constraint term that penalizes formation of non-skin geometry by kept facets, wherein non-skin geometry is formed, for each group of four neighboring facets, in at least two situations including: a first situation where the number of kept facets is different from 0 and 2, and a second situation where the number of kept facets is equal to 2 and have inconsistent orientations, and the constraint term penalizes the at least two situations.
+2. The method of claim 1, wherein the energy explores a continuum of labels assignable to each respective one of the facets and representing a level of confidence for keeping the respective facet.
+3. The method of claim 2, wherein the determining further comprises selecting which facets to keep and which facets to discard based on the assigned labels.
+4. The method of claim 3, wherein deciding which facets to keep and which facets to discard based on the assigned labels, includes comparing each assigned label to a predetermined threshold.
+5. The method of claim 2, wherein minimizing the energy includes a continuous optimization.
+6. The method of claim 2, wherein: the energy has free variables, and the data term is monotonous relative to each one of the free variables, or the constraint term has summed elements which are each monotonous relative to each of their free variables when the other free variables are fixed, or the data term is monotonous relative to each one of the free variables and the constraint term has summed elements which are each monotonous relative to each of their free variables when the other free variables are fixed.
+7. The method of any one of claim 6, wherein the constraint term is of the type: with
+description="In-line Formulae" end="lead"?car=max(0,−l1r−l3r+1)+max(0,−l2r−l4r+1)+|min(l1r,l3r)−min(l2r,l4r)|description="In-line Formulae" end="tail"? where: A is the set of groups of four neighboring facets, a is a group of four neighboring facets i, cost(⋅) is a cost function, and lir is the label assigned to facet i, facets 1 and 2 belong to a respective same parametric surface and facets 3 and 4 belong to a respective same parametric surface.
+8. The method of claim 1, wherein the level of fit between a facet and the 3D point cloud corresponds to a facet density, the facet density being equal to a number of points associated to a facet divided by an area of the facet.
+9. The method of claim 1, wherein fitting the 3D point cloud with the parametric surfaces comprises a random sample consensus (RANSAC) algorithm.
+10. The method of claim 1, wherein obtaining the 3D point cloud representing a real object comprises: obtaining a physical instance of the real object and one or more sensing devices; performing one or more measurements on the physical instance with the one or more sensing devices; and outputting the 3D point cloud based on the one or more measurements.
+11. The method of claim 10, wherein the one or more sensing devices comprise at least from a group consisting of: a lidar, a depth sensor, and a camera configured for structure-from-motion analysis.
+12. A non-transitory computer readable storage medium having recorded thereon a computer program comprising instructions for performing a computer-implemented method for 3D reconstruction, the method comprising: obtaining a 3D point cloud representing a real object; fitting the 3D point cloud with parametric surfaces; defining a partition of the parametric surfaces into oriented facets which respect intersections between the parametric surfaces; determining, among the oriented facets of the partition, a set of facets that represents a skin of the real object, the determining comprising minimizing an energy which includes: a data term that increasingly penalizes discarding facets, as a level of fit between a discarded facet and the 3D point cloud increases, and a constraint term that penalizes formation of non-skin geometry by kept facets, wherein non-skin geometry is formed, for each group of four neighboring facets, in at least two situations including: a first situation where the number of kept facets is different from 0 and 2, and a second situation where the number of kept facets is equal to 2 and have inconsistent orientations, and the constraint term penalizes the at least two situations.
+13. The non-transitory computer readable medium of claim 12, wherein the energy explores a continuum of labels assignable to each respective one of the facets and representing a level of confidence for keeping the respective facet.
+14. The non-transitory computer readable medium of claim 13, wherein the determining further comprises selecting which facets to keep and which facets to discard based on the assigned labels.
+15. The non-transitory computer readable medium of claim 14, wherein deciding which facets to keep and which facets to discard based on the assigned labels comprises comparing each assigned label to a predetermined threshold.
+16. The non-transitory computer readable medium of claim 13, wherein minimizing the energy comprises a continuous optimization.
+17. The non-transitory computer readable medium of claim 13, wherein: the energy has free variables, and the data term is monotonous relative to each one of the free variables, or the constraint term has summed elements which are each monotonous relative to each of their free variables when the other free variables are fixed, or the data term is monotonous relative to each one of the free variables and the constraint term has summed elements which are each monotonous relative to each of their free variables when the other free variables are fixed.
+18. A system comprising: a processor coupled to a memory, the memory having recorded thereon a computer program comprising instructions for 3D reconstruction that when executed by the processor cause the processor to be configured to obtain a 3D point cloud representing a real object; fit the 3D point cloud with parametric surfaces; define a partition of the parametric surfaces into oriented facets which respect intersections between the parametric surfaces; and determine, among the oriented facets of the partition, a set of facets that represents a skin of the real object, the determining comprising minimizing an energy which includes: a data term that increasingly penalizes discarding facets, as a level of fit between a discarded facet and the 3D point cloud increases, and a constraint term that penalizes formation of non-skin geometry by kept facets, wherein non-skin geometry is formed, for each group of four neighboring facets, in at least two situations including: a first situation where the number of kept facets is different from 0 and 2, and a second situation where the number of kept facets is equal to 2 and have inconsistent orientations, and the constraint term penalizes the at least two situations.
+</claims>
+</document>

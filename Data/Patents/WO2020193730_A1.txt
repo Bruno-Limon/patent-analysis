@@ -1,0 +1,77 @@
+<document>
+
+<filing_date>
+2020-03-26
+</filing_date>
+
+<publication_date>
+2020-10-01
+</publication_date>
+
+<priority_date>
+2019-03-27
+</priority_date>
+
+<ipc_classes>
+G06F15/173
+</ipc_classes>
+
+<assignee>
+GRAPHCORE
+</assignee>
+
+<inventors>
+KNOWLES, SIMON
+</inventors>
+
+<docdb_family_id>
+66381537
+</docdb_family_id>
+
+<title>
+A NETWORKED COMPUTER WITH MULTIPLE EMBEDDED RINGS
+</title>
+
+<abstract>
+According to an aspect of the invention, there is provided a computer comprising a plurality of interconnected processing nodes arranged in a configuration with multiple stacked layers. Each layer comprises four processing nodes connected by respective links between the processing nodes. In end layers of the stack, the four processing nodes are interconnected in a ring formation by two links between the nodes, the two links adapted to operate simultaneously. Processing nodes in the multiple stacked layers provide four faces, each face comprising multiple layers, each layer comprising a pair of processing nodes. The processing nodes are programmed to operate a configuration to transmit data around embedded one-dimensional rings, each ring formed by processing nodes in two opposing faces.
+</abstract>
+
+<claims>
+1. A computer comprising a plurality of interconnected processing nodes arranged in a configuration of multiple stacked layers of processing nodes forming a multi-face prism; wherein each face of the prism comprises a plurality of stacked pairs of processing nodes,
+wherein the processing nodes of each pair are connected to each other by at least two intralayer links, and the processing node of each pair is connected to a corresponding processing node in an adjacent pair by at least one interlayer link; and
+wherein each pair of processing nodes forms part of one of the layers of the configuration, each layer comprising multiple processing nodes, each processing node connected to their neighbouring processing nodes in the layer by at least one of the intralayer links to form a ring;
+wherein the multiple stacked layers include first and second endmost layers, and at least one intermediate layer,
+wherein the processing nodes are programmed to transmit data along each of a plurality of one dimensional paths formed by respective sets of processing nodes and links, each one dimensional path having a first portion between the first and second endmost layers using all processing nodes in one of the faces only once and a second portion between the second and first endmost layers using all processing nodes in an opposing face of the configuration only once.
+2. The computer of claim 1 wherein the multi-face prism has four processing nodes in each layer such that the configuration comprises four faces.
+3. The computer of any preceding claim wherein in the at least one intermediate layer each processing is connected to its neighbouring processing node by two interlayer links.
+4. The computer of any preceding claim wherein in the first and second endmost layer each processing node is connected to its neighbouring processing node by three interlayer links to enable simultaneous transmission of data on four one dimensional paths in the configuration.
+5. The computer of any preceding claim which has been configured from a multi-face prism comprising a set of stacked layers, the processing nodes of each stacked layer having an interlayer link to a corresponding processing node in an adjacent stacked layer and an intralayer link between neighbouring processing nodes in the layer, by disconnecting each interlayer link in a designated stacked layer and connecting it to a neighbouring processing node in the designated stacked layer to provide a further intralayer link, whereby the designated stacked layer forms one of the first and second endmost layers.
+6. The computer of any preceding claim wherein each of the processing nodes is programmed to identify one of its interlayer and intralayer links to transmit data in order to determine the one dimensional path for that data.
+7. The computer of any preceding claim where each of the processing nodes is programmed to deactivate any of its interlayer and intralayer links which are unused in a data transmission step.
+8. The computer according to any preceding claim wherein each processing node is programmed to divide a respective partial vector of that node into fragments and to transmit the data in the form of successive fragments around each one dimensional path.
+9. The computer according to claim 8 which is programmed to operate each path as a set of logical rings, wherein the successive fragments are transmitted around each logical ring in simultaneous transmission steps.
+10. The computer according to claim 8 wherein each processing node is configured to output a respective fragment on each of two links simultaneously.
+11. The computer according to any of claims 8 to 10 wherein each processing node is configured to reduce incoming fragments with respective corresponding locally stored fragments of the respective partial vector at that processing node, and to transmit the reduced fragments on each of two links simultaneously in a reduce-scatter phase of an Allreduce collective.
+12. The computer according to claim 11 wherein each processing node is configured to transmit fully reduced fragments on each of two of its links simultaneously in an Allgather phase of an Allreduce collective.
+13. The computer according to any preceding claim where each link is bi-directional.
+14. A method of generating a set of programs to be executed in parallel on a computer comprising a plurality of processing nodes connected in a configuration of multiple stacked layers of processing nodes forming a multi-face prism;
+wherein each face of the prism comprises a plurality of stacked pairs of processing nodes,
+wherein the processing nodes of each pair are connected to each other by at least two intralayer links, and the processing node of each pair is connected to a corresponding processing node in an adjacent pair by at least one interlayer link; and
+wherein each pair of processing nodes forms part of one of the layers of the
+configuration, each layer comprising multiple processing nodes, each processing node connected to their neighbouring processing nodes in the layer by at least one of the intralayer links to form a ring;
+wherein the multiple stacked layers include first and second endmost layers, and at least one intermediate layer, the method comprising:
+generating at least one data transmission instruction for each program to perform a data transmission stage in which data is transmitted from the processing node executing that program, wherein the data transmission instruction comprises a link identifier which defines an outgoing link on which data is to be transmitted in that data transmission stage; and
+determining the link identifiers in order to transmit data on each of a plurality of one dimensional paths formed by respective sets of processing nodes and links, each one dimensional path having a first portion between the first and second endmost layers using all processing nodes in one of the faces and a second portion between the second and first endmost layers using all processing nodes in an opposing face of the configuration only once.
+15. The method according to claim 14 wherein each program comprises one or more instruction to deactivate any of its interlayer and intralayer links which are unused in a data transmission step.
+16. The method according to claim 14 or 15 wherein each program comprises one or more instruction to divide a respective partial vector of the processing node on which that program is executed into fragments and to transmit the data in the form of successive fragments over the respectively defined link.
+17. The method according to claim 16 wherein each program comprises one or more instruction to output a respective fragment on each of two links simultaneously.
+18. The method according to claim 16 or 17 wherein each program comprises one or more instruction to reduce multiple incoming fragments with multiple respective corresponding locally stored fragments.
+19. The method according to claim 18 wherein each program comprises one or more instruction to transmit fully reduced fragments on each of two links simultaneously in an Allgather phase of an Allreduce collective.
+20. A method of executing a set of programs in parallel on a computer comprising a plurality of processing nodes connected in a configuration comprising a multi-face prism; wherein each face of the prism comprises multiple stacked pairs of processing nodes, wherein the processing nodes of each pair are connected to each other by at least two intralayer links, and the processing node of each pair is connected to a corresponding processing node in an adjacent pair by at least one interlayer link wherein the corresponding processing nodes are connected by respective interlayer links to form respective edges of the configuration; and
+wherein each pair of processing nodes forms part of one of the layers of the configuration, each layer comprising multiple processing nodes, each processing node connected to their neighbouring processing nodes in the layer by at least one of the intralayer links to form a ring;
+wherein the multiple stacked layers comprise first and second endmost layers, and at least one intermediate layer, the method comprising:
+executing at least one data transmission instruction in each program to define a data transmission stage in which data is transmitted from the processing node executing that program, wherein the data transmission instruction comprises a link identifier which defines an outgoing link on which data is to be transmitted in that data transmission stage;
+the link identifiers having been determined in order to transmit data around each of a plurality of one dimensional paths formed by respective sets of processing nodes and links, each one dimensional path having a first portion between the first and second endmost layers using all processing nodes in one of the faces of the configuration only once, and a second portion using all processing nodes in an opposing face of the configuration only once.
+21. The method according to claim 20 comprising executing the programs to operate each path as a set of logical rings, wherein successive fragments of a partial vector provided at each processing node are transmitted around each logical ring in simultaneous transmission steps.
+</claims>
+</document>

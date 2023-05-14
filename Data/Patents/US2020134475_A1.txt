@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2019-10-29
+</filing_date>
+
+<publication_date>
+2020-04-30
+</publication_date>
+
+<priority_date>
+2018-10-30
+</priority_date>
+
+<ipc_classes>
+G06F17/17,G06N3/04,G06N3/08,G06N5/00,H03M7/24
+</ipc_classes>
+
+<assignee>
+QUALCOMM
+</assignee>
+
+<inventors>
+MAHURIN, ERIC WAYNE
+LAMB, AARON DOUGLASS
+HILL, REXFORD ALAN
+DANYSH, ALBERT
+HOYLE, DAVID
+PLONDKE, ERIC
+</inventors>
+
+<docdb_family_id>
+70326896
+</docdb_family_id>
+
+<title>
+CONSTRAINING FUNCTION APPROXIMATION HARDWARE INTEGRATED WITH FIXED-POINT TO FLOATING-POINT CONVERSION
+</title>
+
+<abstract>
+A method of constraining data represented in a deep neural network is described. The method includes determining an initial shifting specified to convert a fixed-point input value to a floating-point output value. The method also includes determining an additional shifting specified to constrain a dynamic range during converting of the fixed-point input value to the floating-point output value. The method further includes performing both the initial shifting and the additional shifting together to form a dynamic, range constrained, normalized floating-point output value.
+</abstract>
+
+<claims>
+1. A method of constraining data represented in a deep neural network, comprising: determining an initial shifting specified to convert a fixed-point input value to a floating-point output value; and determining an additional shifting specified to constrain a dynamic range during converting of the fixed-point input value to the floating-point output value; and performing both the initial shifting and the additional shifting together to form a dynamic, range constrained, normalized floating-point output value.
+2. The method of claim 1, in which determining the initial shifting comprises: counting a number of leading zeros of the fixed-point input value; and counting a number of leading ones of the fixed-point input value.
+3. The method of claim 1, further comprising shifting and masking bits of the fixed-point input value to form the dynamic, range constrained, normalized floating-point output value.
+4. The method of claim 1, further comprising approximating a hyperbolic tangent (tanh) function and/or a sigmoid (sigm) function.
+5. The method of claim 4, further comprising training the deep neural network using the tanh function and/or the sigm function.
+6. The method of claim 1, in which the dynamic, range constrained, normalized floating-point output value is represented using a 16-bit floating-point (FP 16) format.
+7. A circuit to constrain a dynamic range of data represented in a deep neural network, the circuit comprising: CLZ/CLO logic configured to count a number of leading zeros and/or a number of leading ones of a fixed-point input value; a shift block configured to shift the fixed-point input value; mask logic; and control logic configured to control the shift block to convert the fixed-point input value to a floating-point output value according to at least the number of leading zeros and/or the number of leading ones of the fixed-point input value, and configured to control the mask logic to constrain a dynamic range during converting of the fixed-point input value to the floating-point output value to form a dynamic, range constrained, normalized floating-point output value.
+8. The circuit of claim 7, in which the mask logic comprises: a logical-AND mask coupled to an output the control logic and an output of the shift block; and a logical-OR mask coupled to the output of the control logic and an output of the logical-AND mask.
+9. The circuit of claim 8, in which the mask logic further comprises: a first XOR gate coupled to the output of the control logic and the output of the shift block and having an output coupled to the logical-AND mask; a multiplexer coupled to the output of the logical-AND mask and the output of the control logic to select a MUX output; a second XOR gate coupled to the output of the control logic and the MUX output to generate an XOR output; and an adder coupled to an output of the logical-OR mask and the XOR output to form the dynamic, range constrained, normalized floating-point output value.
+10. The circuit of claim 9, in which the control logic is configured to receive an exponent value of the fixed-point input value.
+11. A method of implementing a full accumulator size to support arbitrary calculations with full precision, comprising: analyzing weights and activations of a trained neural network; identifying bits of an accumulator that are not specified to achieve a predetermined dynamic range derived from analyzing weights and activations; and disabling accumulator hardware when processing an identified accumulator bit.
+12. The method of claim 11, in which disabling the accumulator hardware further comprising clock gating accumulator logic when processing the identified accumulator bit.
+13. The method of claim 11, further comprising disabling upstream and downstream logic coupled to the accumulator hardware when disabled.
+14. The method of claim 11, further comprising determining a smaller dynamic range relative to the predetermined dynamic range derived from analyzing weights and activations.
+15. The method of claim 14, further comprising reducing a dynamic range of the accumulator hardware to support the smaller dynamic range.
+16. A circuit to constrain a dynamic range of data represented in a deep neural network, the circuit comprising: means for count a number of leading zeros and/or a number of leading ones of a fixed-point input value; a shift block configured to shift the fixed-point input value; mask logic; and control logic configured to control the shift block to convert the fixed-point input value to a floating-point output value according to at least the number of leading zeros and/or the number of leading ones of the fixed-point input value, and configured to control the mask logic to constrain a dynamic range during converting of the fixed-point input value to the floating-point output value to form a dynamic, range constrained, normalized floating-point output value.
+17. The circuit of claim 16, in which the mask logic comprises: a logical-AND mask coupled to an output the control logic and an output of the shift block; and a logical-OR mask coupled to the output of the control logic and an output of the logical-AND mask.
+18. The circuit of claim 17, in which the mask logic further comprises: a first XOR gate coupled to the output of the control logic and the output of the shift block and having an output coupled to the logical-AND mask; a multiplexer coupled to the output of the logical-AND mask and the output of the control logic to select a MUX output; and a second XOR gate coupled to the output of the control logic and the MUX output to generate an XOR output.
+19. The circuit of claim 18, in which the mask logic further comprises an adder coupled to an output of the logical-OR mask and the XOR output to form the dynamic, range constrained, normalized floating-point output value.
+20. The circuit of claim 18, in which the control logic is configured to receive an exponent value of the fixed-point input value.
+</claims>
+</document>

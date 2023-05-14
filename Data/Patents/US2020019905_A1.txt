@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2019-09-20
+</filing_date>
+
+<publication_date>
+2020-01-16
+</publication_date>
+
+<priority_date>
+2019-06-21
+</priority_date>
+
+<ipc_classes>
+G06K9/22,G06N3/08,G06Q10/06,G06Q50/26,H04W4/90,H04W76/50
+</ipc_classes>
+
+<assignee>
+LG ELECTRONICS
+</assignee>
+
+<inventors>
+SHIN, WON HO
+MAENG, JI CHAN
+</inventors>
+
+<docdb_family_id>
+67255153
+</docdb_family_id>
+
+<title>
+SYSTEM AND METHOD FOR SAFETY MANAGEMENT
+</title>
+
+<abstract>
+The present disclosure relates to a safety management system. The safety management system calculates a real-time data risk score and an incident data risk score based on real-time data received from a wearable device and incident data selected from big data, calculates a total risk score by summing all values obtained by multiplying calculated risk for respective data by weights for respective data, compares the total risk store with a preset threshold score, and transmits a dangerous situation message to a risk recognition subject when it is determined that a user is at risk. The safety management system of the present disclosure may transmit the real-time data, the incident data, and the dangerous situation message using a 5G communication system, and a safety management server for determining whether or not the user is at risk may be implemented using an artificial neural network.
+</abstract>
+
+<claims>
+1. A safety management system comprising: a wearable device carried by a user, the wearable device including a sensor configured to obtain real-time data and a device communication unit configured to perform data transmission or reception with a safety management server; and the safety management server including: a server communication unit configured to perform data transmission or reception, an input unit configured to receive risk determination data including the real-time data and incident data, a storage configured to store the risk determination data, a calculator configured to calculate a risk score using the risk determination data, and a determinator configured to determine whether or not the user is at risk based on the calculated risk score, wherein the calculator is configured to calculate risk scores for respective risk determination data by comparing the risk determination data with preset risk score reference values for respective data, and to calculate a total risk score for values obtained by using respective risk scores of the risk determination data and preset weights for respective data.
+2. The safety management system of claim 1, wherein the real-time data includes at least one of user surrounding-environment data and user body data, and the calculator is configured to calculate the total risk score using Equation 1 below:
+description="In-line Formulae" end="lead"?Σ(De×Pe)+Σ(Db×Pb)+Σ(Da×Pa) [Equation 1]description="In-line Formulae" end="tail"? wherein "De" is an environment data risk score, "Pe" is an environment data weight, "Db" is a body data risk score, "Pb" is a body data weight, "Da" is an incident data risk score, and Pa is an incident data weight.
+3. The safety management system of claim 2, wherein the environment data includes at least one of time information, illuminance information, sound information, and position information, the body data includes at least one of heart rate information, blood pressure information, and body temperature of the user, and the incident data includes at least one of safety accident information and criminal incident information.
+4. The safety management system of claim 3, wherein a real-time data weight is set in proportion to reliability of the wearable device, which measures the real-time data, the reliability of the wearable device is set based on at least one of time information, user position information, and user surrounding-environment information, and the incident data weight is set in inverse proportion to a distance between a user position and an incident occurrence position.
+5. The safety management system claim 1, wherein the determinator is configured to determine that the user is at risk when any one body data risk score is equal to or greater than a preset individual threshold risk score.
+6. The safety management system of claim I, wherein, when the real-time data is not received from the wearable device, the determinator determines that the user is at risk.
+7. The safety management system of claim 2, wherein the environment data includes captured data, the risk determination data includes criminal image data, and the determinator includes an image determination unit configured to determine identity of image data, and when the image determination unit determines that the captured data is equal to the criminal image data, the determinator determines that the user is at risk.
+8. The safety management system of claim 1, wherein the safety management server is implemented using an artificial neural-network algorithm.
+9. The safety management system of claim 1, wherein at least one of the server communication unit and the device communication unit is configured to perform data transmission or reception with an external device using a 5G communication system.
+10. The safety management system of claim 1, wherein the determinator is configured to determine that the user is at risk when the total risk score is equal to or greater than a preset threshold risk score, and the server communication unit is configured to transmit a dangerous situation message to a risk recognition subject when the determinator determines that the user is at risk.
+11. The safety management system of claim 10, wherein the determinator is configured to compare the total risk score with a preset risk level for each risk score so as to determine a risk level of the user's environment, and the server communication unit is configured to transmit the determined risk level of the user's environment to the risk recognition subject.
+12. A safety management method comprising: receiving, by a risk management server, real-time data obtained through a wearable device carried by a user, and risk determination data including incident data; storing the risk determination data in a storage; calculating, by the risk management server, risk scores for respective risk determination data by comparing the risk determination data with preset risk score reference values for respective data, and calculating a total risk score for values obtained by using respective risk scores of the risk determination data and preset weights for respective data; determining, by the risk management server, that the user is at risk using the total risk score and a preset threshold risk score; and transmitting a dangerous situation message to a risk recognition subject when it is determined that the user is at risk.
+13. The safety management method of claim 12, wherein the real-time data includes at least one of user surrounding-environment data and user body data, and in the calculating, the total risk score is calculated using Equation 1 below:
+description="In-line Formulae" end="lead"?Σ(De×Pe)+Σ(Db×Pb)+Σ(Da×Pa) [Equation 1]description="In-line Formulae" end="tail"? wherein "De" is an environment data risk score, "Pe" is an environment data weight, "Db" is a body data risk score, "Pb" is a body data weight, "Da" is an incident data risk score, and Pa is an incident data weight.
+14. The safety management method of claim 13, wherein the environment data includes at least one of time information, illuminance information, and sound information, the body data includes at least one of heart rate information, blood pressure information, and a body temperature of the user, and the incident data comprises at least one of safety accident information and criminal incident information.
+15. The safety management method of claim 14, wherein a real-time data weight is set in proportion to reliability of the wearable device, which measures the real-time data, the reliability of the wearable device is set based on at least one of time information, user position information, and user surrounding-environment information, and the incident data weight is set in inverse proportion to a distance between a user position and an incident occurrence position.
+16. The safety management method of claim 12, wherein, in the determining, it is determined that the user is at risk when any one body data risk score is equal to or greater than a preset individual threshold risk score.
+17. The safety management method of claim 12, wherein, in the determining, it is determined that the user is at risk when the real-time data is not received from the wearable device.
+18. The safety management method of claim 13, wherein the environment data includes captured data, the risk determination data includes criminal image data, and the determining includes determining identity of image data, and determining that the user is at risk when the captured data is equal to the criminal image data.
+19. The safety management method of claim 12, wherein, in the determining, the total risk score is compared with a preset risk level for each risk score so as to determine a risk level of the user's environment, and in the transmitting, the determined risk level of the user's environment is transmitted to the risk recognition subject.
+20. The safety management method of claim 12, wherein, in the receiving, the risk determination data is received by the risk management server using a 5G communication system, and in the transmitting, the dangerous situation message is transmitted to the risk recognition subject using the 5G communication system.
+</claims>
+</document>

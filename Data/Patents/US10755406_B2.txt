@@ -1,0 +1,82 @@
+<document>
+
+<filing_date>
+2017-06-30
+</filing_date>
+
+<publication_date>
+2020-08-25
+</publication_date>
+
+<priority_date>
+2014-12-30
+</priority_date>
+
+<ipc_classes>
+G06F19/00,G06T7/00
+</ipc_classes>
+
+<assignee>
+VENTANA MEDICAL SYSTEMS
+</assignee>
+
+<inventors>
+CHEN TING
+SINGH, SHALINI
+TUBBS, ALISA
+BARNES, MICHAEL
+CHEFD'HOTEL, CHRISTOPHE
+</inventors>
+
+<docdb_family_id>
+55069872
+</docdb_family_id>
+
+<title>
+Systems and methods for co-expression analysis in immunoscore computation
+</title>
+
+<abstract>
+Described herein are methods for co-expression analysis of multiple markers in a tissue sample comprising: computing a heat map of marker expression for each of a plurality of single marker channel images, wherein each of the plurality of single marker channel images comprise a single marker; identifying one or more candidate regions of interest in each heat map of marker expression; computing overlay masks comprising the identified one or more candidate regions of interest from each heat map of marker expression; determining one or more co-localized regions of interest from the overlay masks; mapping the one or more co-localized regions of interest to a same coordinate position in each of the plurality of single marker channel images; and estimating a number of cells in at least one of the determined one or more co-localized regions of interest in each of the plurality of single marker channel images.
+</abstract>
+
+<claims>
+1. A digital image analysis method for co-expression analysis of multiple markers in a tissue sample comprising: accessing a plurality of single marker channel images, each of the plurality of single marker channel images being a digital image whose pixel intensity values correlate with the amount of a respective single marker in the tissue sample, wherein the plurality of single marker channel images comprise images derived from a series of serial tissue sections; computing a heat map of marker expression for each of the single marker channel images; identifying one or more candidate regions of interest (ROIs) in each heat map of marker expression; computing overlay masks comprising the identified one or more candidate ROIs from each heat map of marker expression, an overlay mask being an image mask masking out all pixels not belonging to one of the identified candidate ROIs of the heat map the overlay mask was derived from; identifying one or more co-localized ROIs from the overlay masks by identifying intersection areas and/or union areas of the candidate ROIS of two or more of the heat maps; mapping the identified intersection or union areas back to the two or more heat maps; and using the candidate ROIs or parts thereof which correspond to said mapped-back intersection or union areas as the one or more co-localized ROIs; and selectively analyzing pixel intensities of the co-localized ROIs of two or more of the heat maps for determining if the markers corresponding to the two or more heat maps are co-expressed in the tissue sample.
+2. The method of claim 1, wherein the identifying of the one or more candidate ROIs comprises applying an intensity threshold to each heat map of marker expression.
+3. The method of claim 2, wherein in case the intensity values of the pixels of one or more sub-regions of any of the heat maps are below the intensity threshold, said sub-region of the heat map is identified a candidate ROI, said candidate ROI corresponding to regions in the sample in which the marker is not expressed or is expressed less than a given expression threshold.
+4. The method of claim 2, wherein in case the intensity values of the pixels of one or more sub-regions of any of the heat maps are above the intensity threshold, said sub-region of the heat map is identified a candidate ROI, said candidate ROI corresponding to regions in the sample in which the marker is expressed stronger than the given expression threshold.
+5. The method of claim 1, wherein the identifying of the one or more candidate ROIs comprises applying a local maximum filter to each heat map of marker expression for identifying the highest ranked local pixel intensity maxima in said heat map, selecting a predetermined number of sub-regions of the heat map surrounding a respective one of identified local intensity maxima, and using the selected sub-regions as the candidate ROIs of said heat map.
+6. The method of claim 5, further comprising a step of delineating a field of view (FOV) having a set (N×N) of pixels around each of the selected predetermined number of highest ranked local intensity maxima, and using the delineated set (N×N) of pixel FOVs as the selected sub-regions to be used as the candidate ROIs of said heat map.
+7. The method of claim 1, wherein the identifying of co-localized ROIs comprises: identifying one or more at least partially overlapping candidate ROIs corresponding to different markers and respective marker-specific heat maps of marker expression; identifying an intersection area of the identified at least partially overlapping candidate ROIs; identifying a union area of the identified at least partially overlapping ROIs of the different marker-specific heat maps; computing a ratio between the identified intersection area and the identified union area; evaluating whether the computed ratio exceeds an overlap threshold.
+8. The method of claim 1, wherein the computing of the heat maps of marker expression comprises applying a low pass filter to each of the plurality of single marker channel images.
+9. The method of claim 1, wherein the plurality of single marker channel images further comprise single marker channel images derived by unmixing a multi-channel image of a tissue sample into single marker channel images.
+10. The method of claim 1, wherein the method further comprises the step of registering each of the identified candidate ROIs to a common coordinate system.
+11. The method of claim 1, further comprising preprocessing the plurality of single marker channel images such that non-tissue regions are masked.
+12. The method of claim 1, wherein less than all of the plurality of single marker channel images are used to identify co-localized ROIs; and/or wherein a GUI enables a user to select the single marker channel images to be used for identifying co-localized ROIs.
+13. The method of claim 1, further comprising counting cells within at least one identified co-localized region of interest in at least some of the plurality of single marker channel images; and optionally using the cell counts of co-localized regions of two or more different marker channel images for computing an immune score.
+14. A computer system for co-expression analysis of multiple markers in a tissue sample comprising one or more processors communicatively coupled to at least one memory, the at least one memory storing non-transitory computer-readable instructions for execution by the one or more processors to cause the one or more processors to: compute a heat map of marker expression for each of a plurality of single marker channel images, wherein each of the plurality of single marker channel images comprise a single marker; identify one or more candidate regions of interest (ROIs) in each heat map of marker expression; compute overlay masks comprising the identified one or more candidate ROIs from each heat map of marker expression; determine one or more co-localized ROIs from the overlay masks; and transfer the identified one or more co-localized ROIs to each of the plurality of single marker channel images, wherein the plurality of single marker channel images comprise images derived from a series of serial tissue sections.
+15. The computer system of claim 14, wherein the one or more candidate ROIs are identified by applying a threshold to each heat map of marker expression.
+16. The computer system of claim 15, wherein the identified one or more candidate ROIs have a value less than the applied threshold and correspond to regions of negative marker expression.
+17. The computer system of claim 15, wherein the identified one or more candidate ROIs have a value greater than the applied threshold and correspond to regions of positive marker expression.
+18. The computer system of claim 14, wherein the one or more candidate ROIs are identified by applying a local maximum filter to each heat map and selecting a predetermined number of highest ranked local maxima.
+19. The computer system of claim 18, wherein a field of view (FOV) having N×N pixels is delineated around each of the selected predetermined number of highest ranked local maxima and wherein the N×N pixel FOVs are selected as the identified one or more candidate ROIs.
+20. The computer system of claim 19, wherein the co-localized ROIs are determined by identifying one or more at least partially overlapping candidate ROIs that correspond to different markers.
+21. The computer system of claim 20, wherein the one or more at least partially overlapping candidate ROIs are determined by morphologically and/or logically processing the overlay mask.
+22. The computer system of claim 20, wherein the system executes instructions to evaluate whether an area of intersection of each of the one or more at least partially overlapping candidate ROIs meets an overlap threshold.
+23. The computer system of claim 22, wherein the evaluation of whether the area of intersection meets the overlap threshold comprises computing a ratio between the area of intersection and an area of union of the at least partially overlapping candidate ROIs and comparing the computed ratio to the overlap threshold.
+24. The computer system of claim 14, wherein the heat maps are computed by applying a low pass filter to each of the plurality of single marker channel images.
+25. The computer system of claim 14, wherein the plurality of single marker channel images further comprise single marker channel images derived by unmixing a multi-channel image of a tissue sample.
+26. The computer system of claim 14, wherein each of the identified candidate ROIs are registered to a common coordinate system.
+27. The computer system of claim 14, wherein the plurality of single marker channel images are preprocessed such that non-tissue regions are masked.
+28. The computer system of claim 14, wherein the identified co-localized ROIs correspond to less than all of the markers.
+29. The computer system of claim 14, wherein the computer system further executes instructions to count cells in at least one identified co-localized region of interest in at least some of the plurality of single marker channel images.
+30. A computer-implemented method for co-expression analysis of multiple markers in a tissue sample comprising: computing a heat map of marker expression for each of a plurality of single marker channel images, wherein each of the plurality of single marker channel images comprise a single marker; identifying one or more candidate regions of interest (ROIs) in each heat map of marker expression; computing overlay masks comprising the identified one or more candidate ROIs from each heat map of marker expression; determining one or more co-localized ROIs from the overlay masks; mapping the one or more co-localized ROIs to a same coordinate position in each of the plurality of single marker channel images; and estimating a number of cells in at least one of the determined one or more co-localized ROIs in at least some of the plurality of single marker channel images.
+31. The computer-implemented method of claim 30, wherein the identifying of one or more candidate ROIs comprises applying a threshold to each heat map of marker expression.
+32. The computer-implemented method of claim 31, wherein the identified one or more candidate ROIs have a value less than the applied threshold and correspond to regions of negative marker expression.
+33. The computer-implemented method of claim 31, wherein the identifying of one or more candidate ROIs comprises applying a local maximum filter to each heat map of marker expression and selecting a predetermined number of highest ranked local maxima.
+34. The computer-implemented method of claim 31, wherein the determining of one or more co-localized ROIs comprises morphologically and/or logically processing the identified one or more candidate ROIs in the overlay masks.
+35. The computer-implemented method of claim 34, wherein the morphological processing step identifies candidate ROIs corresponding to two or more different markers that at least partially overlap with each other.
+36. The computer-implemented method of claim 35, further comprising the step of evaluating whether an area of intersection of the at least partially overlapping candidate ROIs meets an overlap threshold.
+37. The computer-implemented method of claim 31, wherein each of the plurality of single marker channel images are derived from a series of serial tissue sections, where each serial tissue section is stained with a single marker.
+</claims>
+</document>

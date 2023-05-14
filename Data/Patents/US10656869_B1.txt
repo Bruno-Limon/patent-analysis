@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2018-06-28
+</filing_date>
+
+<publication_date>
+2020-05-19
+</publication_date>
+
+<priority_date>
+2018-06-28
+</priority_date>
+
+<ipc_classes>
+G06F11/30,G06F3/06,G06N20/00
+</ipc_classes>
+
+<assignee>
+AMAZON TECHNOLOGIES
+</assignee>
+
+<inventors>
+FLAHERTY, MITCHELL GANNON
+GREENWOOD, CHRISTOPHER MAGEE
+VENUGOPAL, SRIRAM
+</inventors>
+
+<docdb_family_id>
+70736349
+</docdb_family_id>
+
+<title>
+Performance-based volume replica migration
+</title>
+
+<abstract>
+A movement system of a block-level data storage service obtains usage information for a data storage volume. The movement system processes the usage information to identify a placement strategy for the data storage volume that is associated with a second operational state for the data storage volume. Based on the placement strategy, the movement system causes a set of servers to perform an operation to implement the second operational state for the data storage volume. As a result of the operation being successfully performed, the movement system provides access to the data storage volume in accordance with the second operational state.
+</abstract>
+
+<claims>
+1. A computer-implemented method, comprising: determining a first operational state of a data storage volume corresponding to a first set of replicas implemented on a set of servers; generating first information corresponding to the first operational state and second information corresponding to operational impact to the data storage volume based on a set of possible operational states; generating a movement strategy for the data storage volume based at least in part on the first information and the second information, the movement strategy associated with a second operational state associated with a second set of replicas, and specifying an operation performable by the set of servers to update the first set of replicas; executing the movement strategy by causing the set of servers to perform the operation, thereby generating a second set of replicas; monitoring performance of the operation to determine that the second set of replicas is successfully generated; and as a result of the second set of replicas being successfully generated, providing access to the data storage volume.
+2. The computer-implemented method of claim 1, wherein the operation performable by the set of servers includes: generating a new replica for the data storage volume; and replicating data from the first set of replicas to the new replica.
+3. The computer-implemented method of claim 1, wherein: the first set of replicas comprises a master replica and a slave replica of the data storage volume; and the operation performable by the set of servers includes: reassigning the master replica as a new slave replica of the data storage volume; and reassigning the slave replica as a new master replica of the data storage volume.
+4. The computer-implemented method of claim 1, wherein the operation performable by the set of servers includes: generating a second data storage volume; and migrating data from the data storage volume to the second data storage volume.
+5. A system, comprising: one or more processors; and memory that stores computer-executable instructions that, if executed, cause the system to: determine a first operational state of a data storage volume corresponding to a first set of replicas; determine, from a set of possible operational states and based on the first operational state and operational impact to the data storage volume, a second operational state for the data storage volume; update the first set of replicas to generate a second set of replicas of the data storage volume, the second set of replicas associated with the second operational state; and update the data storage volume to operate, using the second set of replicas, in the second operational state.
+6. The system of claim 5, wherein the computer-executable instructions further cause the system to utilize first information reflecting the first operational state and second information corresponding to the operational impact as input to a machine learning model configured to determine the second operational state.
+7. The system of claim 5, wherein the computer-executable instructions that cause the system to update the first set of replicas to generate the second set of replicas further cause the system to: generate a new replica for the data storage volume; and replicate data from a replica of the first set of replicas to the new replica.
+8. The system of claim 5, wherein the computer-executable instructions that cause the system to update the first set of replicas to generate the second set of replicas further cause the one or more processors to: identify, from the first set of replicas, a master replica of the data storage volume; identify, from the first set of replicas, a slave replica of the data storage volume; reassign the master replica as a new slave replica of the data storage volume; and reassign the slave replica as a new master replica of the data storage volume.
+9. The system of claim 5, wherein the computer-executable instructions that cause the system to update the first set of replicas to generate the second set of replicas further cause the system to: generate a new data storage volume, the new data storage volume comprising a new set of replicas being distinct from the first set of replicas; generate the second set of replicas by migrating data from the first set of replicas to the new set of replicas; and as a result of the data having been migrated to the new set of replicas, remove the first set of replicas.
+10. The system of claim 9, wherein the computer-executable instructions that cause the system to migrate the data from the first set of replicas on to the new set of replicas further cause the system to: receive a request to obtain a subset of the data from the data storage volume; determine that the subset of the data is stored in the first set of replicas of the data storage volume; and process the request by providing the subset of the data from the first set of replicas.
+11. The system of claim 9, wherein the computer-executable instructions that cause the system to migrate the data from the first set of replicas on to the new set of replicas further cause the system to: receive a request to read data from the new data storage volume; determine that the data is stored in the first set of replicas; and process the request by obtaining the data from the first set of replicas.
+12. The system of claim 5, wherein the computer-executable instructions that cause the system to determine the second operational state further cause the system to process information that specifies at least a storage capacity usage of the data storage volume and a rate at which input and output operations are processed using the data storage volume to determine the second operational state.
+13. A non-transitory computer-readable storage medium having stored thereon executable instructions that, as a result of being executed by one or more processors of a computer system, cause the computer system to at least: obtain a first operational state of a first set of replicas of a data storage volume; identify, based at least in part on the first operational state and operational impact to the data storage volume based at least in part on a set of possible operational states, an operation performable by a set of servers to update the first set of replicas to a second operational state; cause the set of servers to perform the operation, thereby generating a second set of replicas associated with the second operational state; and provide access to the second set of replicas.
+14. The non-transitory computer-readable storage medium of claim 13, wherein the executable instructions that cause the computer system to cause the set of servers to perform the operation further cause the computer system to: identify, from the first set of replicas, a master replica of the data storage volume; identify, from the first set of replicas, a slave replica of the data storage volume; and transmit a request to the set of servers to cause the set of servers to: reassign the master replica as a new slave replica of the data storage volume; and reassign the slave replica as a new master replica of the data storage volume.
+15. The non-transitory computer-readable storage medium of claim 13, wherein the executable instructions that cause the computer system to cause the set of servers to perform the operation further cause the computer system to: generate, using a second set of servers, a new data storage volume; transmit a request to the set of servers to migrate data from the first set of replicas to the new data storage volume; monitor migration of the data to the new data storage volume; and as a result of the migration of the data to the new data storage volume being completed, cause the set of servers to remove the first set of replicas.
+16. The non-transitory computer-readable storage medium of claim 15, wherein the instructions that cause the computer system to monitor the migration of the data to the new data storage volume further cause the computer system to cause the set of servers to process requests to read the data from the first set of replicas during the migration.
+17. The non-transitory computer-readable storage medium of claim 15, wherein the instructions that cause the computer system to monitor the migration of the data to the new data storage volume further cause the computer system to cause a second set of servers that maintain the new data storage volume to process requests to write new data to the data storage volume by writing the new data on to the new data storage volume.
+18. The non-transitory computer-readable storage medium of claim 13, wherein the executable instructions that cause the computer system to identify the operation further cause the computer system to process information that specifies at least a storage capacity utilized by the data storage volume, a rate at which other operations are performed using the data storage volume, and capacity information for the set of servers to identify the operation.
+19. The non-transitory computer-readable storage medium of claim 13, wherein the instructions that cause the computer system to cause the set of servers to perform the operation further cause the computer system to: generate a new replica for the data storage volume; and cause the set of servers to replicate data from a replica of the first set of replicas to the new replica.
+20. The non-transitory computer-readable storage medium of claim 13, wherein the instructions that cause the computer system identify the operation further cause the computer system to utilize first information reflecting the first operational state and second information corresponding to the operational impact as input to a machine learning model configured to determine the operation performable to update the first set of replicas.
+</claims>
+</document>

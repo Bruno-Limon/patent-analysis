@@ -1,0 +1,72 @@
+<document>
+
+<filing_date>
+2019-06-20
+</filing_date>
+
+<publication_date>
+2021-01-19
+</publication_date>
+
+<priority_date>
+2017-04-21
+</priority_date>
+
+<ipc_classes>
+G06T1/20,G06T15/00
+</ipc_classes>
+
+<assignee>
+INTEL CORPORATION
+</assignee>
+
+<inventors>
+VEMBU, BALAJI
+KOKER, ALTUG
+RAY, JOYDEEP
+</inventors>
+
+<docdb_family_id>
+63854453
+</docdb_family_id>
+
+<title>
+Handling pipeline submissions across many compute units
+</title>
+
+<abstract>
+One embodiment provides for a general-purpose graphics processing unit multiple processing elements having a single instruction, multiple thread (SIMT) architecture, the multiple processing elements to perform hardware multithreading during execution of multiple warps of threads, wherein a warp is a group of parallel threads; a scheduler to schedule a set of sub-warps to the multiple processing elements at sub-warp granularity, wherein a sub-warp is a sub-group of parallel threads, a warp includes multiple sub-warps, and the scheduler is to schedule threads in a first sub-warp of a first warp of threads to execute concurrently with the threads in a second sub-warp of a second warp of threads; and a logic unit including hardware or firmware logic, the logic unit to group active threads for execution on the multiple processing elements.
+</abstract>
+
+<claims>
+1. A graphics processor device comprising: a host interconnect; multiple processing elements having a single instruction, multiple thread (SIMT) architecture including hardware multithreading, the multiple processing elements to execute multiple warps of threads, wherein a warp includes a group of parallel threads and during execution of the multiple warps of threads, the multiple processing elements are to yield execution at per-thread granularity and execution context is maintained on-chip during execution; and a scheduler to schedule a set of sub-warps to the multiple processing elements, wherein a sub-warp includes a sub-group of parallel threads, a warp includes multiple sub-warps, and threads within the warp can diverge at sub-warp granularity.
+2. The graphics processor device as in claim 1, wherein the scheduler is to schedule a first sub-warp from a first warp of threads to execute concurrently with a second sub-warp from a second warp of threads.
+3. The graphics processor device as in claim 2, additionally comprising a logic unit including hardware or firmware logic, the logic unit to group active threads for execution on the multiple processing elements.
+4. The graphics processor device as in claim 3, wherein the multiple processing elements are to complete the first sub-warp and execute a third sub-warp of threads after the first sub-warp completes.
+5. The graphics processor device as in claim 2, wherein the first warp of threads includes 32 threads, the second warp of threads includes 32 threads, and each sub-warp includes fewer than 32 threads.
+6. The graphics processor device as in claim 1, additionally including a streaming multiprocessor, the streaming multiprocessor including the multiple processing elements and the scheduler.
+7. The graphics processor device as in claim 6, the streaming multiprocessor additionally including a dispatch unit, wherein the dispatch unit is to dispatch threads to the multiple processing elements.
+8. The graphics processor device as in claim 7, the streaming multiprocessor additionally including a register file to store independent thread state.
+9. A general-purpose graphics processing unit comprising: multiple processing elements having a single instruction, multiple thread (SIMT) architecture including hardware multithreading, the multiple processing elements to execute multiple warps of threads, wherein a warp includes a group of parallel threads and execution context is maintained on-chip during execution; and a scheduler to schedule a set of sub-warps to the multiple processing elements at sub-warp granularity, wherein a sub-warp includes a sub-group of parallel threads, and a warp includes multiple sub-warps.
+10. The general-purpose graphics processing unit as in claim 9, wherein the scheduler is to schedule a first sub-warp from a first warp of threads to execute concurrently with a second sub-warp from a second warp of threads.
+11. The general-purpose graphics processing unit as in claim 10, wherein the multiple processing elements are to maintain per-thread execution state and threads within the first warp of threads and the second warp of threads can diverge at sub-warp granularity.
+12. The general-purpose graphics processing unit as in claim 11, additionally comprising a logic unit including hardware or firmware logic, the logic unit to group active threads for execution on the multiple processing elements, wherein the multiple processing elements are to switch between execution contexts during execution of the multiple warps of threads.
+13. The general-purpose graphics processing unit as in claim 12, wherein the multiple processing elements are to yield execution at per-thread granularity during execution of the multiple warps of threads.
+14. The general-purpose graphics processing unit as in claim 13, wherein multiple processing elements are to complete the first sub-warp and execute a third sub-warp of threads after the first sub-warp completes.
+15. The general-purpose graphics processing unit as in claim 10, wherein the first warp of threads includes 32 threads, the second warp of threads includes 32 threads, and each sub-warp includes fewer than 32 threads.
+16. The general-purpose graphics processing unit as in claim 9, additionally including a streaming multiprocessor, the streaming multiprocessor including the multiple processing elements and the scheduler.
+17. The general-purpose graphics processing unit as in claim 16, the streaming multiprocessor additionally including a dispatch unit, wherein the dispatch unit is to dispatch threads to the multiple processing elements.
+18. The general-purpose graphics processing unit as in claim 17, the streaming multiprocessor additionally including a register file to store independent thread state.
+19. A method of managing thread execution on a general-purpose graphics processing unit, the method comprising: scheduling a warp to multiple processing elements of the general-purpose graphics processing unit at sub-warp granularity, wherein the warp includes a group of parallel threads, the warp includes multiple sub-warps, each sub-warp includes a sub-group of parallel threads, and threads within the warp can diverge at sub-warp granularity; and grouping active threads from a first sub-warp from a first warp of threads to execute concurrently on the multiple processing elements with active threads of a second sub-warp from a second warp of threads, the multiple processing elements having a single instruction, multiple thread (SIMT) architecture, the multiple processing elements enabled to perform hardware multithreading, wherein execution context for threads executed by the multiple processing elements is maintained on-chip during execution.
+20. The method as in claim 19, additionally comprising maintaining per-thread execution state on the multiple processing elements and switching between execution contexts on the multiple processing elements.
+21. The method as in claim 20, additionally comprising yielding execution at per-thread granularity on the multiple processing elements.
+22. The method as in claim 21, wherein switching between the execution contexts includes retrieving per-thread execution state from a register file within the general-purpose graphics processing unit.
+23. The method as in claim 19, wherein the first warp of threads includes 32 threads, the second warp of threads includes 32 threads, and each sub-warp includes fewer than 32 threads.
+24. A graphics processing system comprising: a memory device; and a streaming multiprocessor coupled with the memory device, the streaming multiprocessor including: multiple processing elements having a single instruction, multiple thread (SIMT) architecture including hardware multithreading, the multiple processing elements to execute multiple warps of threads, wherein a warp includes a group of parallel threads and execution context for threads to be executed is maintained within the streaming multiprocessor during execution; a scheduler to schedule a set of sub-warps to the multiple processing elements at sub-warp granularity, wherein a sub-warp includes a sub-group of parallel threads, a warp includes multiple sub-warps; and a logic unit including hardware or firmware logic, the logic unit to group active threads for execution on the multiple processing elements.
+25. The graphics processing system as in claim 24, wherein the scheduler is to schedule threads in a first sub-warp of a first warp of threads to execute concurrently with threads in a second sub-warp of a second warp of threads.
+26. The graphics processing system as in claim 25, wherein the multiple processing elements are to maintain per-thread execution state and switch between execution contexts and yield execution at per-thread granularity during execution of multiple warps of threads.
+27. The graphics processing system as in claim 26, wherein multiple processing elements are to complete the first sub-warp and execute a third sub-warp of threads after the first sub-warp completes.
+28. The graphics processing system as in claim 27, wherein the streaming multiprocessor additionally includes a dispatch unit to dispatch threads to the multiple processing elements and a register file to store independent thread state.
+29. The graphics processing system as in claim 25, wherein the first warp of threads includes 32 threads, the second warp of threads includes 32 threads, and each sub-warp includes fewer than 32 threads.
+</claims>
+</document>

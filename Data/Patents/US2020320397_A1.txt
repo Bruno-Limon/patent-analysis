@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2019-04-04
+</filing_date>
+
+<publication_date>
+2020-10-08
+</publication_date>
+
+<priority_date>
+2019-04-04
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/08,H04L12/24,H04L29/08
+</ipc_classes>
+
+<assignee>
+CISCO TECHNOLOGY
+</assignee>
+
+<inventors>
+ALIZADEH, ARDALAN
+BHANAGE, GAUTAM DILIP
+LIU, DANTONG
+MIRFAKHRAEI, KHASHAYAR
+ZHANG, XU
+ZHAO, QING
+</inventors>
+
+<docdb_family_id>
+72663125
+</docdb_family_id>
+
+<title>
+LEARNING-BASED SERVICE MIGRATION IN MOBILE EDGE COMPUTING
+</title>
+
+<abstract>
+Learning-based service migration in mobile edge computing may be provided. First, a service migration policy may be created for a network that includes a plurality of edge clouds configured to provide a service to users. Next, a movement of a user receiving the service from a source edge cloud may be detected. The source edge cloud may be associated with a first area and the detected movement may be from the first area to a second area. Then, the service migration policy may be applied to determine whether to migrate the service for the user from the source edge cloud. In response to determining to migrate the service, a target edge cloud may be identified and the service for the user may be migrated from the source edge cloud to the target edge cloud. The service migration policy may then be updated based on a success of the migration.
+</abstract>
+
+<claims>
+1. A method comprising: creating a service migration policy for a network comprising a plurality of edge clouds configured to provide a service to users; detecting a movement of a user from a first area to a second area, the user receiving the service from a source edge cloud of the plurality of edge clouds associated with the first area; applying the service migration policy to determine whether to migrate the service from the source edge cloud; in response to determining to migrate the service, identifying a target edge cloud from the plurality of edge clouds to migrate the service to; migrating the service from the source edge cloud to the target edge cloud; and updating the service migration policy based on a success of the migration.
+2. The method of claim 1, wherein creating the service migration policy for the network comprises iteratively performing a reinforcement learning process over a period of time to develop a policy determination function, the reinforcement learning process including: receiving a state of the network; receiving a predicted state-value function and a predicted action-value function; determining an action to perform based on the state, the predicted state-value function, and the predicted action-value function, the action comprising one of migration of the service or no migration of the service; receiving a reward indicating a success of the action performed; and storing the state, the action, and the reward associated in a network statistic pool.
+3. The method of claim 2, further comprising receiving the predicted state-value function and the predicted action-value function as output from a Deep Neural Network (DNN), the DNN trained with data stored in the network statistic pool using a truncated back propagation through time technique.
+4. The method of claim 3, wherein, based on the service migration policy, determining whether to migrate the service from the source edge cloud comprises: receiving a current state of the network at a current time; receiving a prediction of a state-value function and an action-value function from the DNN; providing the current state and the prediction as input into the policy determination function; and receiving, as output from the policy determination function, a current action to perform at the current time, wherein the current action is to migrate the service.
+5. The method of claim 1, wherein updating the service migration policy based on the success of the migration comprises: receiving a reward indicating the success of the migration, wherein the reward is measured as a Quality of Service (QoS) as perceived by the user less a data transferring cost and a cost function associated with transferring time for the migration.
+6. The method of claim 1, wherein identifying the target edge cloud comprises determining a Quality of Service (QoS) utility associated with each of a plurality of candidate target edge clouds.
+7. The method of claim 6, wherein identifying the target edge cloud further comprises identifiying the target edge cloud as the candidate target edge cloud having a highest QoS utility.
+8. The method of claim 7, wherein determining the QoS utility associated with each of the plurality of candidate target edge clouds comprises determining network latency, energy consumption, and a cost for each of the plurality of candidate target edge clouds to provide the service to the user.
+9. The method of claim 1, wherein migrating the service from the source edge cloud to the target edge cloud comprises selecting a path to transfer data from the source edge cloud to the target edge cloud based on a cost and a latency associated with transferring the data along the path.
+10. A method comprising: receiving a state of a network, the network comprising a plurality of edge clouds configured to provide a service to users; receiving a predicted state-value function and a predicted action-value function; determining an action to perform based on the state, the predicted state-value function, and the predicted action-value function, the action comprising one of maintaining the service for a user at a source edge cloud or migrating the service for the user from the source edge cloud to a target edge cloud; performing the action; receiving a reward indicating a success of the action performed; storing data associated with the state, the action, and the reward in a network statistic pool; and iteratively determining actions to perform and receive rewards indicating successes of the actions performed based on varying states of the network received over a period of time to optimize a service migration policy for the network.
+11. The method of claim 10, wherein receiving the predicted state-value function and the predicted action-value function comprises receiving the predicted state-value function and the predicted action-value function as output from a Deep Neural Network (DNN), the DNN trained with data stored in the network statistic pool.
+12. The method of claim 10, wherein determining the action to perform based on the state, the predicted state-value function, and the predicted action-value function comprises: providing the state, the predicted state-value function, and the predicted action-value function as input to a policy determination function; and receiving the action as output from the policy determination function.
+13. The method of claim 10, wherein, in response to the action comprising migration of the service for the user from the source edge cloud to the target edge cloud, receiving the reward indicating the success of the action comprises receiving a scalar value representing a Quality of Service (QoS) as perceived by the user less a data transferring cost and a cost function associated with transferring time for the migration.
+14. The method of claim 10, wherein, in response to the action comprising maintenance of the service for the user at the source edge cloud, receiving the reward indicating the success of the action comprises receiving a scalar value representing a Quality of Service (QoS) as perceived by the user.
+15. A system comprising: a memory storage being disposed in an agent, wherein the agent is an entity within a network that comprises a plurality of edge clouds configured to provide a service to users; and a processing unit coupled to the memory storage and being disposed in the agent, wherein the processing unit is operative to: receive a state of the network; receive a predicted state-value function and a predicted action-value function; determine an action to perform based on the state, the predicted state-value function, and the predicted action-value function, the action comprising one of maintaining the service for a user at a source edge cloud or migrating the service for the user from the source edge cloud to a target edge cloud; perform the action; determine a reward indicating a success of the action performed; store data associated with the state, the action, and the reward in a network statistic pool; and iteratively determine actions to perform and rewards indicating successes of the actions performed based on varying states of the network received over a period of time to optimize a service migration policy for the network.
+16. The system of claim 15, wherein the state of the network includes a latency of the network, an amount of energy consumed by the network, and a cost for each of the plurality of edge clouds to provide the service to the users.
+17. The system of claim 15, wherein the network further comprises a central cloud, a backhaul network, and a plurality of access points corresponding the plurality of edge clouds.
+18. The system of claim 17, wherein the agent is the central cloud, one of the plurality of edge clouds, or one of the users.
+19. The system of claim 15, wherein the predicted state-value function and the predicted action-value function are received as output from a Deep Neural Network (DNN) trained with data stored in the network statistic pool.
+20. The system of claim 19, wherein the processing unit is further operative to store data associated with the varying states and corresponding iteratively determined actions and rewards in the network statistic pool to enable continuous training of the DNN.
+</claims>
+</document>

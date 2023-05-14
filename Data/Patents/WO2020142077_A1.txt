@@ -1,0 +1,85 @@
+<document>
+
+<filing_date>
+2018-12-31
+</filing_date>
+
+<publication_date>
+2020-07-09
+</publication_date>
+
+<priority_date>
+2018-12-31
+</priority_date>
+
+<ipc_classes>
+G06N3/02,G06N3/04,G06N3/08,G06T1/20,G06T3/00,G06T7/246
+</ipc_classes>
+
+<assignee>
+DIDI RESEARCH AMERICA
+</assignee>
+
+<inventors>
+RUXIAO, BAO
+XUN, XU
+</inventors>
+
+<docdb_family_id>
+71407381
+</docdb_family_id>
+
+<title>
+METHOD AND SYSTEM FOR SEMANTIC SEGMENTATION INVOLVING MULTI-TASK CONVOLUTIONAL NEURAL NETWORK
+</title>
+
+<abstract>
+Methods and systems involving convolutional neural networks as applicable for semantic segmentation, including multi-task convolutional networks employing curriculum based transfer learning, are disclosed herein. In one example embodiment, a method of semantic segmentation involving a convolutional neural network includes training and applying the convolutional neural network. The training of the convolutional neural network includes each of training a semantic segmentation decoder network of the convolutional neural network, generating first feature maps by way of an encoder network of the convolutional neural network, based at least in part upon a dataset received at the encoder network, and training an instance segmentation decoder network of the convolutional neural network based at least in part upon the first feature maps. The applying includes receiving an image, and generating each of a semantic segmentation map and an instance segmentation map in response to the receiving of the image, in a single feedforward pass.
+</abstract>
+
+<claims>
+WHAT IS CLAIMED IS:
+1. A method comprising:
+an encoder network and a semantic segmentation decoder network of a convolutional neural network training on a dataset to perform a semantic segmentation task, wherein the encoder network generates first feature maps during the semantic segmentation task;
+an instance segmentation decoder network of the convolutional neural network receiving the first feature maps from the encoder network generated during the semantic segmentation task; and
+the instance segmentation decoder network training on the dataset using the first feature maps generated during the semantic segmentation to perform an instance segmentation task.
+2. The method of claim 1 further comprising:
+the encoder network receiving an image;
+the semantic segmentation decoder network outputting a semantic segmentation map and the instance segmentation decoder network outputting an instance segmentation map in a single feedforward pass, wherein the encoder network outputs second feature maps for the image to the instance segmentation decoder network and to the semantic segmentation decoder network.
+3. The method of claim 2 wherein the image includes a plurality of pixels, wherein the semantic segmentation map assigns respective integer values to the respective pixels of the image, wherein each of the integer values is representative of a respective class label, and wherein the instance segmentation map assigns instance-wise labels to objects detected in the image.
+4. The method of claim 1, wherein the dataset comprises a publicly available dataset, wherein the encoder network comprises Xception, wherein the semantic segmentation decoder network comprises DeepLab, and wherein the instance segmentation decoder network comprises Mask R-CNN.
+5. The method of claim 1 further comprising one or both of randomly initializing first parameters of the semantic segmentation decoder network, and randomly initializing second parameters of the instance segmentation decoder network.
+6. The method of claim 1, wherein the convolutional neural network is a multi-task convolutional neural network, wherein the encoder network is shared by each of the semantic segmentation decoder network and the instance segmentation decoder network, wherein the multi-task convolutional neural network operates at least partly in accordance with curriculum based transfer learning, wherein the curriculum based learning transfer comprises the encoder network being trained using the dataset, the encoder network and the semantic segmentation decoder network being trained end-to-end on a semantic segmentation target, the encoder network generating the first feature maps, the instance segmentation decoder network receiving the first feature maps to train the instance segmentation decoder network, and combining parameters from the encoder network, the semantic segmentation decoder network, and the instance segmentation decoder network to form the multi-task convolutional neural network.
+7. The method of claim 1 wherein the training of the semantic segmentation decoder network further comprises back propagating a gradient with respect to a semantic loss function.
+8. The method of claim 1 wherein the training of the instance segmentation decoder network further comprises back propagating a gradient with respect to an instance loss function.
+9. The method of claim 1 further comprising training the encoder network using a training dataset.
+10. A system comprising:
+at least one memory device; and
+at least one processing device coupled at least indirectly with the at least one memory device, and configured to operate in accordance with a convolutional neural network architecture including an encoder network, a semantic segmentation decoder network, and an instance segmentation decoder network,
+wherein the encoder network and the semantic segmentation decoder network are configured to train on a dataset to perform a semantic segmentation task,
+wherein the encoder network is further configured to generate first feature maps during the semantic segmentation task,
+wherein the instance segmentation decoder network is configured to receive the first feature maps generated by the encoder network, and
+wherein the instance segmentation decoder network is configured to train using the first feature maps and the dataset to perform an instance segmentation task.
+11. The system of claim 10,
+wherein the encoder network is further configured to receive an image, and
+wherein the encoder network is further configured to generate and to output, to the instance segmentation decoder network, second feature maps relating to the image generated during the semantic segmentation task.
+12. The system of claim 11, wherein the at least one processing device is further configured to operate so that, in a single feedforward pass, the semantic segmentation decoder network outputs a semantic segmentation map and the instance segmentation decoder network outputs an instance segmentation map based at least in part upon the second feature maps.
+13. The system of claim 12, wherein the image includes a plurality of pixels, wherein the semantic segmentation map assigns respective integer values to the respective pixels of the image, wherein each of the integer values is representative of a respective class label, and wherein the instance segmentation map assigns instance-wise labels to objects detected in the image.
+14. The system of claim 10, wherein the dataset comprises a publicly available dataset, wherein the encoder network comprises Xception, wherein the semantic segmentation decoder network comprises DeepLab, and wherein the instance segmentation decoder network comprises Mask R-CNN.
+15. The system of claim 10, wherein the at least one processing device is further configured to randomly initialize first parameters of the semantic segmentation decoder network, or to randomly initialize second parameters of the instance segmentation decoder network.
+16. The system of claim 10, wherein the semantic segmentation decoder network is further configured to back propagate a first gradient with respect to a semantic loss function, and wherein the instance segmentation decoder network is further configured to back propagate a second gradient with respect to an instance loss function.
+17. The system of claim 10, wherein the processor is further configured to train the encoder network using the dataset.
+18. A method of image processing involving a convolutional neural network, the method comprising:
+training the convolutional neural network, wherein the training includes each of:
+training a semantic segmentation decoder network of the convolutional neural network;
+generating first feature maps by way of an encoder network of the convolutional neural network after training the semantic segmentation decoder network, based at least in part upon a dataset received at the encoder network; and
+training an instance segmentation decoder network of the convolutional neural network based at least in part upon the first feature maps; and
+applying the convolutional neural network, wherein the applying includes each of:
+receiving an image; and
+generating each of a semantic segmentation map and an instance segmentation map in response to the receiving of the image, in a single feedforward pass.
+19. The method of image processing of claim 18,
+wherein the convolutional neural network is initialized as a multi-task convolutional neural network after the training of the semantic segmentation decoder network and the training of the instance segmentation decoder network have both been completed, and
+wherein the training of the convolutional neural network additionally includes training of the encoder network.
+20. The method of claim 18, wherein the applying of the convolutional neural network additionally includes generating second feature maps by way of the encoder network, wherein the semantic segmentation map is generated by the semantic segmentation decoder network, and wherein the instance segmentation map is generated by the instance segmentation decoder network based at least in part upon the second feature maps.
+</claims>
+</document>

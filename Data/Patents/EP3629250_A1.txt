@@ -1,0 +1,59 @@
+<document>
+
+<filing_date>
+2019-09-27
+</filing_date>
+
+<publication_date>
+2020-04-01
+</publication_date>
+
+<priority_date>
+2018-09-27
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+HOWARD, ANDREW GERALD
+MUDRAKARTA, PRAMOD KAUSHIK
+SANDLER, MARK
+ZHMOGINOV, ANDREY
+</inventors>
+
+<docdb_family_id>
+68072259
+</docdb_family_id>
+
+<title>
+PARAMETER-EFFICIENT MULTI-TASK AND TRANSFER LEARNING
+</title>
+
+<abstract>
+The present disclosure provides systems and methods that enable parameter-efficient transfer learning, multi-task learning, and/or other forms of model re-purposing such as model personalization or domain adaptation. In particular, as one example, a computing system can obtain a machine-learned model that has been previously trained on a first training dataset to perform a first task. The machine-learned model can include a first set of learnable parameters. The computing system can modify the machine-learned model to include a model patch, where the model patch includes a second set of learnable parameters. The computing system can train the machine-learned model on a second training dataset to perform a second task that is different from the first task, which may include learning new values for the second set of learnable parameters included in the model patch while keeping at least some (e.g., all) of the first set of parameters fixed.
+</abstract>
+
+<claims>
+1. A computer-implemented method, the method comprising: obtaining, by one or more computing devices, a machine-learned model that has been previously trained on a first training dataset to perform a first task, the machine-learned model including a first set of learnable parameters; modifying, by the one or more computing devices, the machine-learned model to include a model patch, the model patch including a second set of learnable parameters; and after modifying the machine-learned model to include the model patch, training, by the one or more computing devices, the machine-learned model on a second training dataset to perform a second task that is different from the first task, wherein training, by the one or more computing devices, the machine-learned model on the second training dataset to perform the second task comprises learning new values for the second set of learnable parameters included in the model patch.
+2. The computer-implemented method of any preceding claim, wherein training, by the one or more computing devices, the machine-learned model on the second training dataset to perform the second task comprises learning the new values for the second set of learnable parameters while keeping, at least some of the first set of learnable parameters fixed, or keeping at least a majority of the first set of learnable parameters fixed, or keeping all of the first set of learnable parameters fixed.
+3. The computer-implemented method of claim 1 or 2, wherein, after modification of the machine-learned model to include the model patch, at least a portion of the model patch is positioned structurally prior to a final layer of the machine-learned model, or at least a portion of the model patch is included in an intermediate layer of the machine-learned model.
+4. The computer-implemented method of any preceding claim, wherein: the machine-learned model comprises a plurality of layers; and at least some the second set of learnable parameters included in the model patch comprise one or both of scale and bias parameters for one or more layers of the plurality of layers; and optionally wherein the scale and bias parameters for the one or more layers comprise scale and bias parameters for one or more layer normalization operations, one or more batch renormalization operations, or one or more group normalization operations performed respectively for the one or more layers.
+5. The computer-implemented method of any preceding claim, wherein: the machine-learned model comprises a convolutional machine-learned model that includes one or more convolutional filters; and modifying, by the one or more computing devices, the machine-learned model to include the model patch comprises replacing, by the one or more computing devices, at least one of the convolutional filters with a reduced-parameter version of the convolutional filter or a depth-wise separable convolution.
+6. The computer-implemented method of any preceding claim, wherein: the machine-learned model comprises a plurality of layers; and at least some the second set of learnable parameters included in the model patch comprise parameters included in one or both of a squeeze function or an excite function for one or more layers of the plurality of layers, and/or parameters included in a gating function for one or more layers of the plurality of layers.
+7. The computer-implemented method of any preceding claim, wherein: the machine-learned model comprises a plurality of layers; and the model patch comprises at least one additional intermediate layer that is structurally positioned between at least two of the plurality of layers; and/or wherein: the machine-learned model comprises a neural network and the model patch comprises a patch subnetwork; and/or wherein the first task comprises object detection and the second task comprises image classification.
+8. The computer-implemented method of any preceding claim further comprising, simultaneous with training, by the one or more computing devices, the machine-learned model including the model patch on the second training dataset to perform the second task: training, by the one or more computing devices, the machine-learned model excluding the model patch on the first training dataset to perform the first task; and optionally wherein training, by the one or more computing devices, the machine-learned model excluding the model patch on the first training dataset to perform the first task comprises training, by the one or more computing devices, the machine-learned model excluding the model patch but including an alternative model patch on the first training dataset to perform the first task.
+9. The computer-implemented method of any preceding claim, wherein the first task comprises processing of first input data structured according to a first domain and the second task comprises processing of second input data structured according to a second domain that is different than the first domain.
+10. The computer-implemented method of claim 9, further comprising, after training, by the one or more computing devices, the machine-learned model on the second training dataset to perform the second task: receiving, by the one or more computing devices, new input data; and when the new input data is structured according to the first domain, employing, by the one or more computing devices, the machine-learned model excluding the model patch to process the new input data to generate a first prediction; and when the new input data is structured according to the second domain, employing, by the one or more computing devices, the machine-learned model including the model patch to process the new input data to generate a second prediction.
+11. The computer-implemented method of claim 10, wherein the new input data is structured according to the first domain, wherein the second domain comprises a smaller number of dimensions than the first domain, and wherein the method further comprises: determining, by the one or more computing devices, a resource-allocation parameter that corresponds to a desired amount of resources allocated to processing of the new input data; and determining, by the one or more computing devices, whether to convert the new input data from the first domain to the second domain based at least in part on the resource-allocation parameter; wherein, when the new input data is converted to the second domain, the method includes said employing, by the one or more computing devices, the machine-learned model including the model patch to process the new input data to generate the second prediction.
+12. The computer-implemented method of any one of claims 9 to 11, wherein the first domain comprises a first image resolution, the first task comprises processing imagery of the first input resolution, the second domain comprises a second image resolution that is smaller than the first image resolution, and the second task comprises processing imagery of the second input resolution.
+13. The computer-implemented method of any preceding claim, wherein training, by the one or more computing devices, the machine-learned model on the second training dataset to perform the second task comprises: determining, by the one or more computing devices, a training allocation parameter that corresponds to a desired amount of resources to allocate to training the machine-learned model on the second training dataset to perform the second task; and learning the new values for the second set of learnable parameters while keeping a subset of first set of learnable parameters fixed, wherein a ratio of the subset of first set of learnable parameters to all of the first set of learnable parameters is determined based at least in part on and is correlated with the training allocation parameter.
+14. A computer system, comprising: one or more processors; and one or more non-transitory computer-readable media that collectively store instructions that, when executed by the one or more processors, cause the computer system to perform the method of any of claims 1 to 13.
+15. One or more non-transitory computer-readable media that collectively store instructions that, when executed by one or more processors, cause the one or more processors to perform the method of any of claims 1 to 13.
+</claims>
+</document>

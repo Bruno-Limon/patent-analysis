@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2020-03-05
+</filing_date>
+
+<publication_date>
+2020-09-17
+</publication_date>
+
+<priority_date>
+2019-03-11
+</priority_date>
+
+<ipc_classes>
+G06F13/16,G06N3/04,G06N3/063,G11C11/4096
+</ipc_classes>
+
+<assignee>
+SAMSUNG ELECTRONICS COMPANY
+</assignee>
+
+<inventors>
+O, SEONGIL
+KANG, SHINHAENG
+LEE, SUKHAN
+KIM, NAMSUNG
+Sohn, Kyomin
+</inventors>
+
+<docdb_family_id>
+72422648
+</docdb_family_id>
+
+<title>
+MEMORY DEVICE FOR PROCESSING OPERATION AND METHOD OF OPERATING THE SAME
+</title>
+
+<abstract>
+A memory device includes a memory bank including at least one bank group, a processor in memory (PIM) circuit including a first processing element arranged to correspond to the bank group, which processes operations by using at least one of data provided by a host and data read from the bank group, a processing element input and output (PEIO) gating circuit configured to control electric connection between a bank local IO arranged to correspond to each bank of the bank group and a bank group IO arranged to correspond to the bank group, and a control logic configured to perform a control operation so that a memory operation for the memory bank is performed or operations are processed by the PIM circuit. When the operations are processed by the first processing element, the PEIO gating circuit blocks the electric connection between the bank local IO and the bank group IO.
+</abstract>
+
+<claims>
+1. A memory device comprising: a memory bank including a bank group including a plurality of banks; a processor in memory (PIM) circuit including a first processing element arranged to correspond to the bank group, wherein the first processing element is configured to process operations by using at least one of data provided by a host and data read from the bank group; a processing element input and output (PEIO) gating circuit configured to control electric connection between a bank local input and output line (bank local IO) arranged to correspond to each of the plurality of banks of the bank group and a bank group input and output line (bank group IO) arranged to correspond to the bank group; and a control logic configured to perform a control operation so that a memory operation for the memory bank is performed or operations are processed by the PIM circuit based on a decoding result for a command/address received from the host, wherein, when the operations are processed by the first processing element, the PEIO gating circuit blocks the electric connection between the bank local IO and the bank group IO.
+2. The memory device of claim 1, wherein the first processing element processes the operations by using at least one of the data provided by the host, the data read from the bank group, and data stored in a register.
+3. The memory device of claim 1, wherein the bank group comprises a first bank and a second bank, wherein the PEIO gating circuit comprises a first PEIO gating circuit arranged in a first bank local IO corresponding to the first bank and a second PEIO gating circuit arranged in a second bank local IO corresponding to the second bank, and wherein the first processing element processes the operations by receiving data from at least one of the first bank and the second bank.
+4. The memory device of claim 3, wherein, when the operations are processed by the first processing element, electric connection between the first and second bank local IOs and the bank group IO is blocked.
+5. The memory device of claim 1, further comprising instruction memory configured to store at least one instruction provided by the host, wherein, when the command/address that instructs the operations to be processed are received from the host, the PIM circuit processes an operation corresponding to the at least one instruction read from the instruction memory.
+6. The memory device of claim 5, wherein the PIM circuit comprises a processing element (PE) controller configured to generate control signals for controlling storage and reading of the at least one instruction and controlling the first processing element in relation to processing the operations.
+7. The memory device of claim 6, wherein the first processing element comprises: an input selector configured to receive data transmitted through the bank local IO and data transmitted through the bank group IO, and to output data to be used for operations; an operator configured to process operations for one or more data provided from the input selector; and a register file configured to store an operation result by the operator.
+8. The memory device of claim 7, wherein the first processing element further comprises an output selector configured to receive the operation result from the register file and to output the operation result to the bank local IO or the bank group IO.
+9. The memory device of claim 1, wherein a plurality of operation commands for instructing the operations to be processed by the memory device are defined, and wherein, in accordance with a kind of operation command of the plurality of operation commands, a switching state of the PEIO gating circuit is controlled to vary.
+10. The memory device of claim 1, wherein the PIM circuit further comprises second to Mth processing elements (where M is an integer less than or equal to N and N is a natural number greater than two) to correspond to N banks of the bank group, and wherein the first to Mth processing elements are substantially simultaneously enabled, receive data transmitted from the host through the bank group IO, and process operations in parallel by using the data provided by the host.
+11. The memory device of claim 1, wherein at least parts of a plurality of operations for processing a neural network are processed by the memory device, and wherein the PIM circuit processes operations by using the data provided by the host and data corresponding to weight information stored in the memory bank.
+12. A memory device comprising: a memory bank including a bank group including first and second banks; a bank group input and output line (bank group IO) arranged to correspond to the bank group and including a data transmitting path between an external host and the bank group; a first bank local input and output line (bank local IO) arranged to correspond to the first bank and including a transmitting path of data provided to the first bank and data read from the first bank; a first processing element connected to the bank group IO and the first bank local IO and configured to process operations by using at least one of data provided from the host and the data read from the first bank; and a first processing element input and output (PEIO) gating circuit configured to control a data transmitting path so that the data provided from the host is provided to the first processing element without being provided to the memory bank when operations are processed by the first processing element.
+13. The memory device of claim 12, wherein the first PEIO gating circuit is arranged between the bank group IO and the first bank local IO, and wherein, when the operations are processed by the first processing element, the first PEIO gating circuit blocks connection between the bank group IO and the first bank local IO.
+14. The memory device of claim 12, wherein the first PEIO gating circuit is arranged between the bank group IO and a data bus for transmitting the data provided from the host, and wherein, when the operations are processed by the first processing element, the first PEIO gating circuit blocks connection between the bank group IO and the data bus.
+15. The memory device of claim 12, further comprising: a second bank local IO arranged to correspond to the second bank and including a transmitting path of data provided to the second bank and data read from the second bank; and a second PEIO gating circuit configured to control electric connection between the bank group IO and the second bank local IO, wherein the first processing element is further connected to the second bank local IO and processes operations by using the data read from the second bank.
+16. The memory device of claim 15, wherein the first PEIO gating circuit is arranged between the bank group IO and the first bank local IO, and wherein, when the operations are processed by the first processing element, connection between the bank group IO and the first and second bank local IOs is blocked.
+17. The memory device of claim 12, further comprising: instruction memory configured to store at least one instruction provided by the host; an instruction decoder configured to decode an instruction read from the instruction memory as a command/address for instructing the operations to be processed is received from the host; and a processing element controller configured to output a control signal to the first processing element so that operations are processed in accordance with a decoding result of the instruction read from the instruction memory.
+18. A method of operating a memory device including a bank group including a plurality of banks, the method comprising: determining an operation processing mode of the memory device based on a decoding result of a command/address from a host; blocking electric connection between a bank local input and output line (bank local IO) corresponding to a selected bank among the plurality of banks and a bank group input and output line (bank group IO) arranged to correspond to the bank group when the operation processing mode is determined; providing at least one of data provided by the host and data read from the selected bank to a processing element in a state in which electric connection between the bank local IO and the bank group IO is blocked; and processing operations by the processing element.
+19. The method of claim 18, further comprising: electrically connecting the bank local IO to the bank group IO when it is determined that the operation processing mode is not determined; and performing a memory operation by transmitting data between the bank local IO and the bank group IO.
+20. The method of claim 18, wherein, in the determining of the operation processing mode, in addition to a command related to a normal memory operation, it is determined whether a command that instructs operations to be processed is received.
+</claims>
+</document>

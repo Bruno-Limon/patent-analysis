@@ -1,0 +1,61 @@
+<document>
+
+<filing_date>
+2018-10-31
+</filing_date>
+
+<publication_date>
+2020-04-30
+</publication_date>
+
+<priority_date>
+2018-10-31
+</priority_date>
+
+<ipc_classes>
+G06F17/17,G06K9/62,G06N7/00
+</ipc_classes>
+
+<assignee>
+SALESFORCE.COM
+</assignee>
+
+<inventors>
+HUBENIG, PAUL WALTER
+</inventors>
+
+<docdb_family_id>
+70327268
+</docdb_family_id>
+
+<title>
+AUTOMATIC FEATURE SELECTION AND MODEL GENERATION FOR LINEAR MODELS
+</title>
+
+<abstract>
+Methods, systems, and devices for automated feature selection and model generation are described. A device (e.g., a server, user device, database, etc.) may perform model generation for an underlying dataset and a specified outcome variable. The device may determine relevance measurements (e.g., stump R-squared values) for a set of identified features of the dataset and can reduce the set of features based on these relevance measurements (e.g., according to a double-box procedure). Using this reduced set of features, the device may perform a least absolute shrinkage and selection operator (LASSO) regression procedure to sort the features. The device may then determine a set of nested linear models—where each successive model of the set includes an additional feature of the sorted features—and may select a "best" linear model for model generation based on this set of models and a model quality criterion (e.g., an Akaike information criterion (AIC)).
+</abstract>
+
+<claims>
+1. A method for automated feature selection for linear model generation, comprising: determining, for a set of data features related to a plurality of data records, a set of relevance measurements, wherein each relevance measurement of the set of relevance measurements corresponds to a respective feature of the set of data features; selecting a subset of the set of data features based at least in part on the set of relevance measurements; generating a matrix based at least in part on the selected subset of the set of data features, wherein generating the matrix comprises iteratively scanning the plurality of data records, and wherein the matrix enables computation of feature coefficients for the selected subset of the set of data features based at least in part on an increasing penalty value; sorting the selected subset of the set of data features according to an order that the feature coefficients are set to zero as the penalty value increases; determining a plurality of nested linear models according to the sorting; and selecting a linear model of the plurality of nested linear models based at least in part on a model quality criterion and the plurality of nested linear models.
+2. The method of claim 1, further comprising: identifying a curve corresponding to the set of relevance measurements sorted in descending order, wherein selecting the subset of the set of data features is further based at least in part on a shape of the curve.
+3. The method of claim 2, wherein selecting the subset of the set of data features comprises: fitting one or more boxes to the curve based at least in part on a least squares analysis, wherein features contained within the one or more boxes correspond to the subset of the set of data features.
+4. The method of claim 1, wherein generating the matrix based at least in part on the selected subset of the set of data features and sorting the selected subset of the set of data features according to the order that the feature coefficients are set to zero as the penalty value increases comprise: performing a least absolute shrinkage and selection operator (LASSO) regression procedure.
+5. The method of claim 1, wherein iteratively scanning the plurality of data records comprises: performing batch processing on the plurality of data records stored in a database to generate the matrix.
+6. The method of claim 1, wherein generating the matrix further comprises: reading a first subset of the plurality of data records; performing a first matrix building procedure using the first subset of the plurality of data records; reading a second subset of the plurality of data records; and performing a second matrix building procedure using the second subset of the plurality of data records, wherein the matrix is generated based at least in part on the first matrix building procedure and the second matrix building procedure.
+7. The method of claim 6, wherein the first subset of the plurality of data records and the second subset of the plurality of data records each comprise a respective single data record.
+8. The method of claim 1, wherein selecting the linear model further comprises: determining a first set of model quality criterion values for the plurality of nested linear models according to a first sampling interval, wherein a number of values in the first set of model quality criterion values is less than a number of models in the plurality of nested linear models; identifying a model of the plurality of nested linear models corresponding to a minimum value of the first set of model quality criterion values; and determining a subset of the plurality of nested linear models based at least in part on the identified model and a threshold value, wherein the subset of the plurality of nested linear models comprises the selected linear model.
+9. The method of claim 8, wherein selecting the linear model further comprises: determining a second set of model quality criterion values for the subset of the plurality of nested linear models according to a second sampling interval, wherein a number of values in the second set of model quality criterion values is less than a number of models in the subset of the plurality of nested linear models; identifying an additional model corresponding to a minimum value of the second set of model quality criterion values or the minimum value of the first set of model quality criterion values; and determining a further subset of the subset of the plurality of nested linear models based at least in part on the identified additional model and an additional threshold value, wherein the further subset of the subset of the plurality of nested linear models comprises the selected linear model.
+10. The method of claim 9, wherein selecting linear model further comprises: identifying that a sampling interval for a set of nested linear models corresponds to each model of the set of nested linear models; determining model quality criterion values for the set of nested linear models; and determining a minimum value of the model quality criterion values for the set of nested linear models, wherein the minimum value of the model quality criterion values for the set of nested linear models corresponds to the selected linear model.
+11. The method of claim 8, wherein the threshold value comprises a model reduction factor for a rake sampling procedure, a feature range for the subset of the plurality of nested linear models, or a combination thereof.
+12. The method of claim 1, further comprising: receiving, based at least in part on a user input, a set of user-selected features to remove from the set of data features; and determining an initial subset of the set of data features according to the set of user-selected features to remove, wherein the subset of the set of data features is selected from the initial subset of the set of data features.
+13. The method of claim 1, further comprising: displaying the selected linear model, an indication of data features corresponding to the selected linear model, or both in a user interface.
+14. The method of claim 1, further comprising: transmitting, to a database, a user device, or a combination thereof, the selected linear model, an indication of data features corresponding to the selected linear model, or both.
+15. The method of claim 1, wherein the set of relevance measurements comprises a set of stump R-squared values.
+16. The method of claim 1, wherein the model quality criterion comprises an Akaike information criterion (AIC).
+17. The method of claim 1, wherein the set of data features comprises single features, compound features, or a combination thereof.
+18. The method of claim 1, wherein selecting the linear model comprises two passes through the plurality of data records.
+19. An apparatus for automated feature selection for linear model generation, comprising: a processor; memory in electronic communication with the processor; and instructions stored in the memory and executable by the processor to cause the apparatus to: determine, for a set of data features related to a plurality of data records, a set of relevance measurements, wherein each relevance measurement of the set of relevance measurements corresponds to a respective feature of the set of data features; select a subset of the set of data features based at least in part on the set of relevance measurements; generate a matrix based at least in part on the selected subset of the set of data features, wherein generating the matrix comprises iteratively scanning the plurality of data records, and wherein the matrix enables computation of feature coefficients for the selected subset of the set of data features based at least in part on an increasing penalty value; sort the selected subset of the set of data features according to an order that the feature coefficients are set to zero as the penalty value increases; determine a plurality of nested linear models according to the sorting; and select a linear model of the plurality of nested linear models based at least in part on a model quality criterion and the plurality of nested linear models.
+20. A non-transitory computer-readable medium storing code for automated feature selection for linear model generation, the code comprising instructions executable by a processor to: determine, for a set of data features related to a plurality of data records, a set of relevance measurements, wherein each relevance measurement of the set of relevance measurements corresponds to a respective feature of the set of data features; select a subset of the set of data features based at least in part on the set of relevance measurements; generate a matrix based at least in part on the selected subset of the set of data features, wherein generating the matrix comprises iteratively scanning the plurality of data records, and wherein the matrix enables computation of feature coefficients for the selected subset of the set of data features based at least in part on an increasing penalty value; sort the selected subset of the set of data features according to an order that the feature coefficients are set to zero as the penalty value increases; determine a plurality of nested linear models according to the sorting; and select a linear model of the plurality of nested linear models based at least in part on a model quality criterion and the plurality of nested linear models.
+</claims>
+</document>

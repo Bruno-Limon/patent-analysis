@@ -1,0 +1,54 @@
+<document>
+
+<filing_date>
+2020-05-18
+</filing_date>
+
+<publication_date>
+2020-09-03
+</publication_date>
+
+<priority_date>
+2017-11-20
+</priority_date>
+
+<ipc_classes>
+G06F17/18,G06K9/62,G06N3/08,G06T7/557
+</ipc_classes>
+
+<assignee>
+SHANGHAI TECH UNIVERSITY
+</assignee>
+
+<inventors>
+SHI, ZHIRU
+ZHANG, YINGLIANG
+ZHANG, GULI
+</inventors>
+
+<docdb_family_id>
+66540083
+</docdb_family_id>
+
+<title>
+LIGHT FIELD IMAGE RENDERING METHOD AND SYSTEM FOR CREATING SEE-THROUGH EFFECTS
+</title>
+
+<abstract>
+A light field image processing method is disclosed for removing occluding foreground and blurring uninterested objects, by differentiating objects located at different depths of field and objects belonging to distinct categories, to create see-through effects. In various embodiments, the image processing method may blur a background object behind a specified object of interest. The image processing method may also at least partially remove from the rendered image any occluding object that may prevent a viewer from viewing the object of interest. The image processing method may further blur areas of the rendered image that represent an object in the light field other than the object of interest. The method includes steps of constructing a light field weight function comprising a depth component and a semantic component, where the weight function assigns a ray in the light field with a weight; and conducting light field rendering using the weight function.
+</abstract>
+
+<claims>
+1. An image processing method for rendering a light field, comprising: constructing a weight function for the light field comprising a depth component and a semantic component, where the weight function assigns a ray in the light field with a weight; and conducting light field rendering using the weight function, wherein the depth component and the semantic component of the weight function respectively assigns a depth-guided weight and a label-guided weight to a ray, and a joint weight for the ray is calculated by multiplying the depth-guided weight and the label-guided weight.
+2. The image processing method of claim 1, wherein the label-guided weight assigned to a ray further depends on a focal depth for rendering, wherein the label-guided weight is assigned a minimum weight when the focal depth is either less than a minimum depth value or greater than a maximum depth value.
+3. The image processing method of claim 1, wherein the semantic component of the weight function is defined as follows: wherein srst represents the classification label for a ray rst, df is the focal depth, Dminst=min{dr: sr=srst} is the minimum depth among depths of all rays which the classification label srst is assigned to, Dmaxst=max{dr: sr=srst} is the maximum depth among depths of all rays which the classification label srst is assigned to, and C2 is a second fading factor that is between 0 and 1 and determines the minimum weight.
+4. The image processing method of claim 1, wherein the depth component of the weight function is defined as follows:
+description="In-line Formulae" end="lead"?W(drst,df)=(1−C1)W*(drst,df)+C1,description="In-line Formulae" end="tail"? wherein drst is the depth value of the ray, df is the focal depth, σd is a standard deviation that controls how many rays are impactive for rendering, and C1 is a first fading factor that is between 0 and 1.
+5. The image processing method of claim 1, wherein the image processing method is configured to at least partially remove from the rendered image an occluding object that prevents the viewing of an object of interest.
+6. The image processing method of claim 1, further comprising calculating a depth value for a ray comprising: training a convolutional neural network using a data set with similar and dissimilar pairs of images; applying the trained convolutional neural network to each image patch of the pair of images to obtain an initial matching cost for the each image patch; and applying a stereo method to refine the matching cost for the each image patch and to determine a disparity value for the each image patch.
+7. The image processing method of claim 6, further comprising assigning a classification label to a ray comprising: computing a probability distribution for each pixel of the rendered image using a convolutional neural network, wherein the probability distribution for each pixel comprises probabilities that the pixel belongs to each one of the distinct categories, respectively; calculating a confidence score for each pixel's probability distribution; determining that a pixel's probability distribution is unreliable when the calculated confidence score for the pixel's probability distribution is below a threshold and specifying any rays that correspond to the pixel as unlabeled; and assigning, for each of remaining pixels whose probability distribution is not determined to be unreliable, a classification label having a highest probability among the probability distribution to all rays corresponding to the each one of the remaining pixels.
+8. The image processing method of claim 10, further comprising: recalculating classification label assignments for rays that correspond to distinct objects that are separate in depth of field and rays specified as unlabeled based on depth values of these rays.
+9. The image processing method of claim 8, wherein recalculating classification label assignment based on depth values of the rays comprises: creating, for each classification label assigned to the remaining pixels, a probability distribution function for each classification label by fitting a normal distribution with the depth values of all rays to which the each classification label is assigned; determining, for each pixel corresponding to unlabeled rays and each of the remaining pixels, a classification label whose probability distribution function value with respect to a depth value for the each pixel is highest among other classification labels; and assigning the classification label to rays corresponding to the each pixel.
+10. An image processing system for rendering a light field, comprising: one or more processors; and a memory storing instructions that, when executed by the one or more processors, is configured for: constructing a weight function for the light field comprising a depth component and a semantic component, where the weight function assigns a ray in the light field with a weight; and conducting light field rendering using the weight function; wherein the depth component and the semantic component of the weight function respectively assigns a depth-guided weight and a label-guided weight to a ray, and a joint weight for the ray is calculated by multiplying the depth-guided weight and the label-guided weight.
+</claims>
+</document>

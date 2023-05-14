@@ -1,0 +1,59 @@
+<document>
+
+<filing_date>
+2019-04-26
+</filing_date>
+
+<publication_date>
+2020-10-28
+</publication_date>
+
+<priority_date>
+2019-04-26
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+NAVER CORPORATION
+</assignee>
+
+<inventors>
+REVAUD, JÉRÔME
+SAMPAIO DE REZENDE, RAFAEL
+ALMAZAN, Jon
+DE SOUZA, Cesar
+</inventors>
+
+<docdb_family_id>
+67139676
+</docdb_family_id>
+
+<title>
+TRAINING A CONVOLUTIONAL NEURAL NETWORK FOR IMAGE RETRIEVAL WITH A LISTWISE RANKING LOSS FUNCTION
+</title>
+
+<abstract>
+A method of performing image retrieval is provided, that comprises the following steps. A query image is obtained (1102). A corresponding global feature descriptor is computed (1104) as a result of inputting the query image into a trained convolutional neural network, CNN, where the CNN has been previously trained on a known batch of training images using a listwise ranking loss function directly optimizing a mean average precision (mAP) ranking evaluation metric. A similarity between the query image and other images is computed (1106) based on a distance between the respective global feature descriptors. A ranking function is applied (1108) to the other images to obtain a ranking of these images based on their similarity to the query image. Finally, a set of images is selected (1110) based on their similarity to the query image and a set of identifiers representative of the set of images is output.
+</abstract>
+
+<claims>
+1. A computer-implemented method of performing image retrieval, the method comprising: obtaining (1102) a query image; computing (1104) a global feature descriptor of the query image by inputting the query image into a trained convolutional neural network, CNN, and obtaining the global feature descriptor in an embedding space as output, wherein learnable parameters of the CNN have been learned by training the CNN on a known batch of training images using a listwise ranking loss function directly optimizing a quantized mean average precision, mAPQ, ranking evaluation metric; computing (1106) a similarity between the query image and images that have been previously input into the CNN based on a distance in the embedding space between the global feature descriptor of the query image and the global feature descriptors of the images that have been previously input into the CNN; applying (1108) a ranking function to the images that have been previously input into the CNN to obtain a ranking of these images based on their similarity to the query image; and selecting (1110) a set of images based on their similarity to the query image and outputting a set of identifiers representative of the set of images.
+2. The method of claim 1, wherein the CNN is a ResNet network with more than 20 layers, preferably around 100 layers.
+3. The method of claim 1 or 2, wherein the training images of the batch are high-resolution images with a size of at least 65000 pixels.
+4. The method of one of claims 1 to 3, wherein the listwise ranking loss function is a loss function adapted to optimize ranking during a training phase of the CNN, which takes a variable number of training images at the same time and optimizes their ranking jointly, wherein the listwise ranking loss function is minimal when the variable number of training images has been ranked correctly by the ranking function during the training phase.
+5. The method of one of claims 1 to 4, wherein training the CNN on a known batch of training images includes: a1) obtaining (1002) a batch of training images; b1) computing (1004) a global feature descriptor of each given image of the batch in the embedding space by inputting the given image into the CNN and obtaining the global feature descriptor of the given image as output of the CNN; c1) computing (1006) a similarity between each given pair of images of the batch based on a distance between the global feature descriptors of the images of the given pair in the embedding space; d1) applying (1008) a ranking function to the images of the batch to obtain a ranking of the images of the batch based on their similarities; e1) evaluating (1010) the quality of the ranking using an average precision, AP, ranking evaluation metric, the AP ranking evaluation metric containing a non-differentiable indicator function; f1) reformulating (1012) the AP ranking evaluation metric into a differentiable AP ranking evaluation metric called quantized AP, APQ, using histogram binning and quantization; g1) computing (1014) a mean of APQ, which is the quantized mean average precision mAPQ, over the batch of training images; h1) for each given learnable parameter of the CNN, adapting (1016) the given learnable parameter of the CNN by back-propagating a gradient of mAPQ with respect to the given learnable parameter; i1) determining (1018) whether the listwise ranking loss function based on mAPQ has reached a minimum; if it is determined that the listwise ranking loss function has not reached a minimum, repeating the previous steps b1) to i1) until it is determined that mAPQ has reached a maximum; and if it is determined that the listwise ranking loss function has reached a minimum, concluding (1020) the training phase.
+6. The method of claim 5, further comprising computing (1015) the listwise ranking loss function based on mAPQ as being equal to 1 - mAPQ, and wherein determining whether the listwise ranking loss function based on mAPQ has reached a minimum is equivalent to determining that mAPQ has reached a maximum.
+7. The method of claim 5 or 6, wherein reformulating the AP ranking evaluation metric into APQ comprises replacing the indicator function in the AP ranking evaluation metric by a quantization function δ being a set of triangular kernels each centered around a bin center bm of a histogram binning.
+8. The method of one of claims 5 to 7, wherein relative similarities between the images of the batch are known, and wherein evaluating the quality of the ranking using an average precision, AP, ranking evaluation metric is performed by computing an average precision of the ranking compared to the known relative similarities between the images of the batch.
+9. The method of one of claims 5 to 8, where the AP is the sum over all images of the product of a precision at rank k times an incremental recall from ranks k-1 to k, where the precision at rank k is the proportion of relevant images found in the k first indexes of the ranking, and the incremental recall is the proportion of relevant images found at rank k out of a total of relevant images.
+10. The method of one of claims 5 to 9, wherein training the CNN on a known batch of training images is performed in a memory-efficient way through a three-stage algorithm comprising: a2) computing (1004; 1202) a global feature descriptor of each given image of the batch in the embedding space further includes discarding intermediary tensors obtained during the computation of the global feature descriptor in the memory; b2) computing (1006; 1204) a similarity between each given pair of images of the batch; c2) computing (1204) the listwise ranking loss function, and gradients of the loss function with respect to the global feature descriptors, without performing back-propagation of the gradients to the learnable parameters at that time; d2) processing all the images of the batch by: a') selecting (1206) a given image of the batch; b') re-computing (1208) the corresponding global feature descriptor of the given image and the gradients of the loss function with respect to the learnable parameters of the CNN, and keeping the intermediary tensors in the memory; c') for each given learnable parameter of the CNN, adding (1210) the contribution of the given image to an overall gradient of the loss function with respect to the given learnable parameter; and repeating steps a') to c') until it is determined (1212) that there is no remaining unselected image in the batch; e2) once it is determined that there is no remaining unselected image in the batch, adapting (1016; 1214) the given learnable parameters of the CNN by back-propagating each overall gradient of the loss function to adapt the corresponding learnable parameter of the CNN; and f2) repeating steps a2) to e2) of the algorithm until it is determined that the loss function has reached a minimum.
+11. The method of one of claims 1 to 10, wherein selecting a set of images comprises selecting a predefined number of images most similar to the query image in a ranked order according to their similarity to the query image in decreasing order.
+12. A computer-implemented method for training learnable parameters of a convolutional neural network, CNN, on a known batch of training images in a memory-efficient way through a three-stage algorithm, the method comprising: a3) computing (1202) a global feature descriptor for each image of the batch in the embedding space, but discarding intermediary tensors obtained during the computation of the global feature descriptor in the memory; b3) computing (1204) a similarity between each pair of images in the batch, a listwise ranking loss function, and gradients of the loss function with respect to the global feature descriptors, without performing back-propagation of the gradients to the learnable parameters at that time; c3) processing all the images of the batch by: a') selecting (1206) a given image of the batch; b') re-computing (1208) the corresponding global feature descriptor of the given image and the gradients of the loss function with respect to the learnable parameters of the CNN, and keeping the intermediary tensors in the memory; c') for each given learnable parameter of the CNN, adding (1210) the contribution of the given image to an overall gradient of the loss function with respect to the given learnable parameter; and repeating steps a') to c') until it is determined (1212) that there is no remaining unselected image in the batch; d3) once it is determined that there is no remaining unselected image in the batch, back-propagating (1214) each overall gradient of the loss function to adapt the corresponding learnable parameter of the CNN; and e3) repeating steps a3) to d3) of the algorithm until it is determined that the listwise ranking loss function has reached a minimum.
+13. The method of claim 12, wherein determining that the listwise ranking loss function has reached a minimum is equivalent to determining whether a quantized mean average precision ranking evaluation metric, mAPQ, has reached a maximum, and wherein mAPQ is the mean over the batch of training images of a quantized average precision ranking evaluation metric, APQ, which is a quantized version of an average precision, AP, ranking evaluation metric that has been rendered differentiable using histogram binning and quantization.
+14. One or more computer-readable media storing thereon computer-executable instructions that, when carried out by a processor, cause the processor to perform the method of one of claims 1 to 13.
+15. An apparatus comprising processing circuitry, the processing circuitry being configured to perform the method of one of claims 1 to 13.
+</claims>
+</document>

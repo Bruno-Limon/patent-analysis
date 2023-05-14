@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2019-10-16
+</filing_date>
+
+<publication_date>
+2021-01-07
+</publication_date>
+
+<priority_date>
+2019-07-05
+</priority_date>
+
+<ipc_classes>
+G06K9/62,G06N3/04,G06N3/08,G06T7/50,G06T7/70
+</ipc_classes>
+
+<assignee>
+TOYOTA RESEARCH INSTITUTE
+</assignee>
+
+<inventors>
+AMBRUS, RARES A.
+LI, JIE
+Pillai, Sudeep
+Guizilini, Vitor
+Gaidon, Adrien David
+</inventors>
+
+<docdb_family_id>
+74065166
+</docdb_family_id>
+
+<title>
+NETWORK ARCHITECTURE FOR EGO-MOTION ESTIMATION
+</title>
+
+<abstract>
+System, methods, and other embodiments described herein relate to estimating ego-motion. In one embodiment, a method for estimating ego-motion based on a plurality of input images in a self-supervised system includes receiving a source image and a target image, determining a depth estimation Dt based on the target image, determining a depth estimation Ds based on a source image, and determining an ego-motion estimation in a form of a six degrees-of-freedom (6 DOF) transformation between the target image and the source image by inputting the depth estimations (Dt, Ds), the target image, and the source image into a two-stream network architecture trained to output the 6 DOF transformation based at least in part on the depth estimations (Dt, Ds), the target image, and the source image.
+</abstract>
+
+<claims>
+1. A self-supervised system for estimating ego-motion based on a plurality of input images, comprising: one or more processors; a memory, communicably connected to the one or more processors and storing: a depth module including instructions that when executed by the one or more processors cause the one or more processors to determine a depth estimation Dt based on a target image and a depth estimation Ds based on a source image; and a pose module including instructions that when executed by the one or more processors cause the one or more processors to determine an ego-motion estimation in a form of a six degrees-of-freedom (6 DOF) transformation between the target image and the source image by inputting the depth estimations (Dt, Ds), the target image, and the source image into a two-stream network architecture trained to output the 6 DOF transformation based at least in part on the depth estimations (Dt, Ds), the target image, and the source image.
+2. The self-supervised system of claim 1, wherein the two-stream network architecture comprises: an appearance stream convolution neural network (CNN) that convolves the source image and the target image; and a structure stream CNN that convolves the depth estimations (Dt, Ds), wherein the pose module further includes instructions to fuse outputs of the appearance stream CNN and the structure stream CNN into a unified output to produce the 6 DOF transformation.
+3. The self-supervised system of claim 1, further comprising: a synthesizer module including instructions that when executed by the one or more processors cause the one or more processors to synthesize a predicted image based at least in part on the ego-motion estimation, the depth estimation Dt and the source image, wherein the memory further stores instructions to compare the predicted image against the target image to determine photometric loss for the self-supervised system and adjust parameters of the self-supervised system to reduce the photometric loss by optimizing an associated loss function.
+4. The self-supervised system of claim 3, wherein the loss function includes an appearance based matching term defined as a linear combination between an L1 loss and a structural similarity (SSIM) patch-based loss, an edge-aware smoothness loss term, and a mask term that filters out stationary pixels and pixels with little photometric variation.
+5. The self-supervised system of claim 1, wherein the self-supervised system is trained using training data that is augmented with noise.
+6. The self-supervised system of claim 5, wherein the noise comprises random noise patches sized 81×81 to 101×101 at a noise augmentation level of 20%-40% coverage.
+7. The self-supervised system of claim 1, wherein the source image and the target image are both monocular images.
+8. A method for estimating ego-motion based on a plurality of input images in a self-supervised system, comprising: receiving a source image and a target image; determining a depth estimation Dt based on the target image; determining a depth estimation Ds based on a source image; and determining an ego-motion estimation in a form of a six degrees-of-freedom (6 DOF) transformation between the target image and the source image by inputting the depth estimations (Dt, Ds), the target image, and the source image into a two-stream network architecture trained to output the 6 DOF transformation based at least in part on the depth estimations (Dt, Ds), the target image, and the source image.
+9. The method of claim 8, wherein determining the ego-motion estimation comprises: convolving the source image and target image via an appearance stream convolution neural network (CNN); convolving the depth estimations (Dt, Ds) via a structure stream CNN; and fusing outputs of the appearance stream CNN and the structure stream CNN into a unified output to produce the 6 DOF transformation.
+10. The method of claim 8, further comprising: synthesizing a predicted image based at least in part on the ego-motion estimation, the depth estimation Dt and the source image; comparing the predicted image against the target image to determine systemic photometric loss; and adjusting parameters of the self-supervised system to reduce the systemic photometric loss by optimizing an associated loss function.
+11. The method of claim 10, wherein the loss function includes an appearance based matching term defined as a linear combination between an L1 loss and a structural similarity (SSIM) patch-based loss, an edge-aware smoothness loss term, and a mask term that filters out stationary pixels and pixels with little photometric variation.
+12. The method of claim 8, further comprising training a network implementation of the method using training data that is augmented with noise.
+13. The method of claim 12, wherein the noise comprises random noise patches sized 81×81 to 101×101 at a noise augmentation level of 20%-40% coverage.
+14. The method of claim 8, wherein the source image and the target image are both monocular images.
+15. A non-transitory computer-readable medium for estimating ego-motion based on a plurality of input images in a self-supervised system, including instructions that, when executed by one or more processors, cause the one or more processors to: receive a source image and a target image; determine a depth estimation Dt based on the target image; determine a depth estimation Ds based on a source image; and determine an ego-motion estimation in a form of a six degrees-of-freedom (6 DOF) transformation between the target image and the source image by inputting the depth estimations (Dt, Ds), the target image, and the source image into a two-stream network architecture trained to output the 6 DOF transformation based at least in part on the depth estimations (Dt, Ds), the target image, and the source image.
+16. The non-transitory computer-readable medium of claim 15, further including instructions to determine the ego-motion estimation by: convolving the source image and target image via an appearance stream convolution neural network (CNN); convolving the depth estimations (Dt, Ds) via a structure stream CNN; and fusing outputs of the appearance stream CNN and the structure stream CNN into a unified output to produce the 6 DOF transformation.
+17. The non-transitory computer-readable medium of claim 15, further including instructions to: synthesize a predicted image based at least in part on the ego-motion estimation, the depth estimation Dt and the source image; compare the predicted image against the target image to determine systemic photometric loss; and adjusting parameters of the self-supervised system to reduce the systemic photometric loss by optimizing an associated loss function.
+18. The non-transitory computer-readable medium of claim 17, wherein the loss function includes an appearance based matching term defined as a linear combination between an L1 loss and a structural similarity (SSIM) patch-based loss, an edge-aware smoothness loss term, and a mask term that filters out stationary pixels and pixels with little photometric variation.
+19. The non-transitory computer-readable medium of claim 15, further including instructions to train a network implementation of the non-transitory computer-readable medium by using training data that is augmented with noise.
+20. The non-transitory computer-readable medium of claim 19, wherein the noise comprises random noise patches sized 81×81 to 101×101 at a noise augmentation level of 20%-40% coverage.
+</claims>
+</document>

@@ -1,0 +1,82 @@
+<document>
+
+<filing_date>
+2019-09-05
+</filing_date>
+
+<publication_date>
+2020-03-12
+</publication_date>
+
+<priority_date>
+2018-09-05
+</priority_date>
+
+<ipc_classes>
+G06N3/04
+</ipc_classes>
+
+<assignee>
+SARTORIUS STEDIM DATA ANALYTICS
+</assignee>
+
+<inventors>
+TRYGG, JOHAN
+SJÖGREN, RICKARD
+</inventors>
+
+<docdb_family_id>
+63517723
+</docdb_family_id>
+
+<title>
+COMPUTER-IMPLEMENTED METHOD, COMPUTER PROGRAM PRODUCT AND SYSTEM FOR ANOMALY DETECTION AND/OR PREDICTIVE MAINTENANCE
+</title>
+
+<abstract>
+A computer-implemented method and a respective system for anomaly detection and/or predictive maintenance is provided. The method comprises: receiving a new observation characterizing at least one parameter of the entity; inputting the new observation to a deep neural network (100) having a plurality of hidden layers and being trained using a training data set that includes possible observations; obtaining a second set of intermediate output values that are output from at least one of the plurality of hidden layers of the deep neural network by inputting the received new observation to the deep neural network; mapping, using a latent variable model stored in a storage medium, the second set of intermediate output values to a second set of projected values; determining whether or not the received new observation is an outlier with respect to the training dataset based on the latent variable model and the second set of projected values, calculating, by the deep neural network, a prediction for the new observation; and determining a result indicative of the occurrence of at least one anomaly in the entity based on the prediction and the determination whether or not the new observation is an outlier. The latent variable model stored in the storage medium is constructed by obtaining first sets of intermediate output values that are output from said one of the plurality of hidden layers of the deep neural network, each of the first sets of intermediate output values obtained by inputting a different one of the possible observations included in at least a part of the training dataset; and constructing the latent variable model using the first sets of intermediate output values, the latent variable model providing a mapping of the first sets of intermediate output values to first sets of projected values in a sub-space of the latent variable model that has a dimension lower than a dimension of the sets of the intermediate outputs.
+</abstract>
+
+<claims>
+1. A computer-implemented method for anomaly detection in an entity of interest comprising:
+receiving a new observation said new observation characterizing at least one parameter of the entity;
+inputting the new observation to a deep neural network (100), the deep neural network (100) having a plurality of hidden layers and being trained using a training data set that includes possible observations that can be input to the deep neural network
+(100);
+obtaining a second set of intermediate output values that are output from at least one of the plurality of hidden layers of the deep neural network (100) by inputting the received new observation to the deep neural network (100);
+mapping, using a latent variable model stored in a storage medium, the second set of intermediate output values to a second set of projected values;
+determining whether or not the received new observation is an outlier with respect to the training dataset based on the latent variable model and the second set of projected values,
+calculating, by the deep neural network (100), a prediction for the new observation; and
+determining a result indicative of the occurrence of at least one anomaly in the entity based on the prediction and the determination whether or not the new observation is an outlier;
+wherein the latent variable model stored in the storage medium is constructed by:
+obtaining first sets of intermediate output values that are output from said one of the plurality of hidden layers of the deep neural network (100), each of the first sets of intermediate output values obtained by inputting a different one of the possible observations included in at least a part of the training dataset; and constructing the latent variable model using the first sets of intermediate output values, the latent variable model providing a mapping of the first sets of intermediate output values to first sets of projected values in a sub-space of the latent variable model that has a dimension lower than a dimension of the sets of the intermediate outputs.
+2. A computer-implemented method according to claim 1 , further comprising; obtaining the deep neural network (100) for processing data and at least a part of a training dataset used for training the deep neural network (100), the deep neural network comprising a plurality of hidden layers and being trained by using the training dataset, the training dataset including a plurality of possible observations that can be input to the deep neural network;
+obtaining first sets of intermediate output values that are output from at least one of the plurality of hidden layers, each of the first sets of intermediate output values obtained by inputting a different one of the possible observations included in said at least a part of the training dataset;
+constructing or fitting a latent variable model using the first sets of intermediate output values, the latent variable model providing a mapping of the first sets of intermediate output values to first sets of projected values in a sub-space that has a dimension lower than a dimension of the sets of the intermediate outputs; storing the latent variable model and the first sets of projected values in a storage medium.
+3. The method according to claim 1 or 2, wherein said step of determining whether or not the received new observation is an outlier comprises:
+determining a distance of the second set of projected values with respect to a distribution of the first sets of projected values; and
+determining that the received new observation is an outlier with respect to the training dataset if the calculated distance is larger than a threshold value for the determined distance.
+4. The method according to claim 3, wherein the threshold value for the distance is determined based on distances, each of which being calculated for a different one of the first sets of projected values with respect to the distribution of the first sets of projected values.
+5. The method of claim 3 or 4, wherein the distance is one of a compound distance, residual sum of squares, Mahalanobis distance or Local Outlier Factor.
+6. The method according to any one of claims 1 to 5, wherein said step of determining whether or not the received new observation is an outlier comprises: determining an approximate set of intermediate output values corresponding to the second set of intermediate output values, using the latent variable mode! and the second set of projected values;
+calculating a squared approximation residual for the second set of intermediate output values and the approximate set of intermediate output values; and
+determining that the received observation is an outlier with respect to the training dataset if the calculated squared approximation residual is larger than a threshold value for the squared approximation residual.
+7. The method according to claim 6, wherein the threshold value for the squared approximation residual is determined based on squared approximation residuals, each of which is calculated for a different one of the first sets of intermediate output values and an approximate set of intermediate output values corresponding to said one of the first sets of intermediate output values.
+8. The method according to any one of the preceding claims, wherein the steps of obtaining the first sets of intermediate output values and constructing the latent variable model are performed for two or more of the plurality of hidden layers;
+wherein the steps of obtaining the second set of intermediate output values and mapping the second set of intermediate output values to the second set of projected values are performed concerning said two or more of the plurality of hidden layers; and wherein, the step of determining whether or not the received new observation is an outlier is performed based on the latent variable model and the second sets of projected values obtained concerning said two or more of the plurality of hidden layers.
+9. The method according to any one of the preceding claims, wherein the step of obtaining the intermediate output values that are output from at least one of the plurality of hidden layers of the deep neural network (100) comprises determining activations from the at least one of the plurality of hidden layers and optionally applying a global pooling on the determined activations.
+10. The method according to any one of the preceding claims, wherein the latent variable model is constructed according to principal component analysis or using an autoencoder.
+11. A method according to any one of the preceding claims, wherein the observations are obtained based on physical measurements by one or more sensors.
+12. A computer-implemented method for predictive maintenance of an entity;
+obtaining a new observation based on sensor data from at least one sensor measurement performed on the entity;
+determining a result indicative of the occurrence of at least one anomaly in the entity according to the method of any one of the preceding claims;
+determining whether a corrective action should be taken and optionally, the type of the corrective action to be taken based on the result indicative of the occurrence of at least one anomaly.
+13. A computer program product comprising computer-readable instructions that, when loaded and run on a computer, cause the computer to perform the method according to any one of the preceding claims.
+14. A system for anomaly detection or predictive maintenance of an entity, the system comprising:
+a data acquisition unit for obtaining one or more observations characterizing at least one parameter of the entity;
+a storage medium (12) storing a training dataset used for training a deep neural network (100), the deep neural network (100) comprising a plurality of hidden layers and being trained using the training dataset, the training dataset including possible observations that can be input to the deep neural network (100); and
+a predictive analytics unit comprising at least one processor configured to perform the method of any one of claims 1 to 12.
+15. The system according to claim 14 further comprising:
+at least one sensor for measuring at least one parameter of the entity;
+a data communication unit for data transfer between the at least one sensor and the data acquisition unit and/or the at least one processor.
+</claims>
+</document>

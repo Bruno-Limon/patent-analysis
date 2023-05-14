@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2019-07-22
+</filing_date>
+
+<publication_date>
+2021-01-28
+</publication_date>
+
+<priority_date>
+2019-07-22
+</priority_date>
+
+<ipc_classes>
+G06F17/15,G06F17/16,G06K9/62,G06N3/04
+</ipc_classes>
+
+<assignee>
+ADOBE
+</assignee>
+
+<inventors>
+CHANG, WALTER
+FANG, CHEN
+KIM, DOO SOON
+DERNONCOURT, FRANCK
+KIM, SEOKHWAN
+MacAvaney, Sean
+</inventors>
+
+<docdb_family_id>
+74190614
+</docdb_family_id>
+
+<title>
+CLASSIFYING TERMS FROM SOURCE TEXTS USING IMPLICIT AND EXPLICIT CLASS-RECOGNITION-MACHINE-LEARNING MODELS
+</title>
+
+<abstract>
+This disclosure relates to methods, non-transitory computer readable media, and systems that can classify term sequences within a source text based on textual features analyzed by both an implicit-class-recognition model and an explicit-class-recognition model. For example, by applying machine-learning models for both implicit and explicit class recognition, the disclosed systems can determine a class corresponding to a particular term sequence within a source text and identify the particular term sequence reflecting the class. The dual-model architecture can equip the disclosed systems to apply (i) the implicit-class-recognition model to recognize implicit references to a class in source texts and (ii) the explicit-class-recognition model to recognize explicit references to the same class in source texts.
+</abstract>
+
+<claims>
+We claim:
+1. A non-transitory computer readable medium storing instructions thereon that, when executed by at least one processor, cause a computer system to: generate a first plurality of class scores corresponding to a plurality of classes for term sequences from a source text utilizing an implicit-class-recognition model; generate a second plurality of class scores corresponding to the plurality of classes for the term sequences from the source text utilizing an explicit-class-recognition model, wherein the first plurality of class scores and the second plurality of class scores indicate measures of likelihood that the term sequences from the source text correspond to the plurality of classes; and determine a class from the plurality of classes corresponding to the source text and a term sequence from the source text reflecting the class based on the first plurality of class scores and the second plurality of class scores.
+2. The non-transitory computer readable medium of claim 1, further comprising instructions that that, when executed by the at least one processor, cause the computer system to: generate the first plurality of class scores by generating a first set of unigram class scores, a first set of bigram class scores, and a first set of trigram class scores utilizing the implicit-class-recognition model; and generate the second plurality of class scores by generating a second set of unigram class scores, a second set of bigram class scores, and a second set of trigram class scores utilizing the explicit-class-recognition model.
+3. The non-transitory computer readable medium of claim 1, further comprising instructions that that, when executed by the at least one processor, cause the computer system to: apply a max pooling layer to the first plurality of class scores and the second plurality of class scores to generate consolidated-class scores for the term sequences; and identify the class and the term sequence based on the consolidated-class scores.
+4. The non-transitory computer readable medium of claim 1, further comprising instructions that, when executed by the at least one processor, cause the computer system to generate the first plurality of class scores for the term sequences from the source text utilizing the implicit-class-recognition model by: generating a plurality of feature vectors based on terms from the source text utilizing a plurality of long-short-term memory ("LSTM") layers from the implicit-class-recognition model; and generating the first plurality of class scores for the term sequences based on the plurality of feature vectors utilizing a convolutional neural network from the implicit-class-recognition model.
+5. The non-transitory computer readable medium of claim 4, further comprising instructions that, when executed by the at least one processor, cause the computer system to: generate the plurality of feature vectors by: generating a first feature vector for a first term embedding from a first term of the source text utilizing the plurality of LSTM layers; and generating a second feature vector for a second term embedding from a second term of the source text utilizing the plurality of LSTM layers; and generate the first plurality of class scores for the term sequences by utilizing the convolutional neural network to generate a first unigram class score based on the first feature vector, generate a second unigram class score based on the second feature vector, and generate a bigram class score based on the first feature vector and the second feature vector.
+6. The non-transitory computer readable medium of claim 1, further comprising instructions that, when executed by the at least one processor, cause the computer system to generate the second plurality of class scores for the term sequences from the source text utilizing the explicit-class-recognition model by: generating similarity matrices based on terms from the source text and a plurality of labels corresponding to a plurality of classes; and analyzing the similarity matrices utilizing a convolutional neural network of the explicit-class-recognition model to generate the second plurality of class scores.
+7. The non-transitory computer readable medium of claim 6, further comprising instructions that, when executed by the at least one processor, cause the computer system to generate the similarity matrices by: generating a first similarity matrix comprising similarity scores between source-term-feature vectors for the terms from the source text and label-feature vectors for a first label corresponding to a first class; and generating a second similarity matrix comprising similarity scores between the source-term-feature vectors for the terms from the source text and label-feature vectors for a second label corresponding to a second class.
+8. The non-transitory computer readable medium of claim 1, further comprising instructions that, when executed by the at least one processor, cause the computer system to provide, for display within a graphical user interface of a computing device, the source text and a visual indicator identifying the term sequence in the source text as corresponding to the class.
+9. The non-transitory computer readable medium of claim 1, wherein: the term sequences from the source text comprise unigrams, bigrams, and trigrams; and the term sequence comprises one of a unigram, a bigram, or a trigram.
+10. A system comprising: at least one processor; and at least one non-transitory computer readable medium comprising instructions that, when executed by the at least one processor, cause the system to: generate a first plurality of class scores for term sequences from a source text utilizing an implicit-class-recognition model by: generating a plurality of feature vectors based on terms from the source text utilizing a plurality of LSTM layers; and generating the first plurality of class scores for the term sequences based on the plurality of feature vectors utilizing a first convolutional neural network; generate a second plurality of class scores for the term sequences from the source text utilizing an explicit-class-recognition model by: generating similarity matrices based on the terms from the source text and a plurality of labels corresponding to the plurality of classes; and analyzing the similarity matrices utilizing a second convolutional neural network to generate the second plurality of class scores; and determine a class corresponding to a term sequence from the source text reflecting the class based on the first plurality of class scores and the second plurality of class scores.
+11. The system of claim 10, further comprising instructions that, when executed by the at least one processor, cause the system to: generate the first plurality of class scores by generating a first set of unigram class scores, a first set of bigram class scores, and a first set of trigram class scores utilizing the implicit-class-recognition model; and generate the second plurality of class scores by generating a second set of unigram class scores, a second set of bigram class scores, and a second set of trigram class scores utilizing the explicit-class-recognition model.
+12. The system of claim 10, further comprising instructions that, when executed by the at least one processor, cause the system to: generate the plurality of feature vectors by: generating a first feature vector for a first term embedding from a first term of the source text utilizing the plurality of LSTM layers; and generating a second feature vector for a second term embedding from a second term of the source text utilizing the plurality of LSTM layers; and generate the first plurality of class scores for the term sequences by utilizing the first convolutional neural network to generate a first unigram class score based on the first feature vector, generate a second unigram class score based on the second feature vector, and generate a bigram class score based on the first feature vector and the second feature vector.
+13. The system of claim 10, further comprising instructions that, when executed by the at least one processor, cause the system to generate the similarity matrices by: generating a first similarity matrix comprising similarity scores between source-term-feature vectors for the terms from the source text and label-feature vectors for a first label corresponding to a first class; and generating a second similarity matrix comprising similarity scores between the source-term-feature vectors for the terms from the source text and label-feature vectors for a second label corresponding to a second class.
+14. The system of claim 10, further comprising instructions that, when executed by the at least one processor, cause the system to generate the second plurality of class scores for the term sequences from the source text utilizing the explicit-class-recognition model by: generating term frequency measures for the terms within the source text and within the plurality of labels; and analyzing the term frequency measures and the similarity matrices utilizing the second convolutional neural network to generate the second plurality of class scores.
+15. The system of claim 10, further comprising instructions that, when executed by the at least one processor, cause the system to apply a max pooling layer to the first plurality of class scores and the second plurality of class scores to generate consolidated-class scores for the term sequences.
+16. The system of claim 15, further comprising instructions that, when executed by the at least one processor, cause the system to train the implicit-class-recognition model and the explicit-class-recognition model by: applying an additional max pooling layer to the consolidated-class scores to determine the class; and comparing the class to a ground-truth class to modify internal parameters of the implicit-class-recognition model and the explicit-class-recognition model.
+17. The system of claim 10, further comprising instructions that, when executed by the at least one processor, cause the system to provide, for display within a graphical user interface of a computing device, the source text and a visual indicator identifying the term sequence in the source text as corresponding to the class.
+18. The system of claim 10, wherein: the term sequences from the source text comprise unigrams, bigrams, and trigrams; and the term sequence comprises one of a unigram, a bigram, or a trigram.
+19. In a digital medium environment for analyzing source texts from digital documents, a computer-implemented method of applying machine-learning models to classify term sequences comprising: identifying a source text from a digital document and a plurality of classes; a step for determining a class from the plurality of classes and a term sequence corresponding to the class from the source text utilizing an implicit-class-recognition model and an explicit-class-recognition model; and providing the digital document for display within a graphical user interface comprising the source text and an indication of the term sequence corresponding to the class within the source text.
+20. The method of claim 19, wherein: the implicit-class-recognition model comprises a plurality of long-short-term memory layers and a first convolutional neural network; and the explicit-class-recognition model comprises a second convolutional neural network for multiple channels.
+</claims>
+</document>

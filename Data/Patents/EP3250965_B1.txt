@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2016-01-18
+</filing_date>
+
+<publication_date>
+2020-08-12
+</publication_date>
+
+<priority_date>
+2015-01-30
+</priority_date>
+
+<ipc_classes>
+G05B23/02,G05B9/02
+</ipc_classes>
+
+<assignee>
+ROLLS-ROYCE
+</assignee>
+
+<inventors>
+RACHMAWATI, LILY
+XUE, YUHAI
+</inventors>
+
+<docdb_family_id>
+52705485
+</docdb_family_id>
+
+<title>
+METHODS AND SYSTEMS FOR DETECTING, CLASSIFYING AND/OR MITIGATING SENSOR ERROR
+</title>
+
+<abstract>
+The present disclosure provides methods and systems to automatically detect, classify and/or mitigate sensor errors using partial qualitative and quantitative knowledge of the subsystems. In various examples, sensor fault detection is performed with a custom designed representation scheme covering causality, correlation, system of equality and inequalities, and an associated logic. The logic is described by a set of algorithmic steps to iteratively assign trustworthiness level of sensors. Sensor fault classification is performed by combining mathematical and statistical techniques that can be utilized to expose bias, drift, multiplicative calibration error, precision degradation and spike error. Sensor fault mitigation is also performed on identified bias, drift, multiplicative calibration error, precision degradation and spike error.
+</abstract>
+
+<claims>
+1. A method (10) for detecting sensor error in a system (100) having a plurality of subsystems and a number of sensors (102) associated with said subsystems, each sensor producing at least one respective sensor output, the method including the steps of: identifying a plurality of system equations, or expressions, based on principles of the subsystems, which relate the expected sensor outputs of two or more of said sensors to each other, said principles being one or more of: engineering relationships, physical relationships, and empirically derived rules; deducing the degree of reliability of each of said sensor outputs based on whether the or each system equation involving said sensor output is satisfied or not and the known degree of reliability of other sensor outputs in said system equation; and assigning a trustworthiness level to each of said sensor outputs based on said deduction, wherein the deducing step comprises ordering the system equations based on the number of signals involved and the trustworthiness of those signals and working through the equations in said order starting with the equation with the most signals and the highest degree of reliability.
+2. The method of claim 1 wherein:
+the set of system equations includes equalities, inequalities, correlations and/or causations, and
+wherein the step of assigning a trustworthiness level involves the following sub-steps: a) identifying (S100) any sensor outputs that can be independently verified and assigning a very high trustworthiness to such outputs; assigning an indeterminate trustworthiness to all other signals; b) sorting (S101) the system equations based on the number of sensor outputs involved in each equation; c) counting (S102) the number of outputs assigned to each trustworthiness level; d) selecting (S103) one of the system equations which involves the lowest number of sensor outputs; e) assigning (S106, S107, S111, S112) trustworthiness to the outputs in said equation as follows: i) if the equation is a causation, correlation, or equality, and the equation is satisfied by the sensor outputs involved, assign a very high trustworthiness to all outputs in said equation; ii) if the equation is a causation, correlation, or equality and the equation is not satisfied by the sensor outputs involved, determine whether there is more than one sensor output included in the equation which has not been assigned a very high or a very low trustworthiness level: if there is more than one such output, then assigning a low trustworthiness level to those outputs; and if there is only one such output, then assigning a very low trustworthiness level to that output; iii) if the equation is an inequality and the inequality is satisfied, assigning a high trustworthiness level to any signal in that equation which has not previously been assigned a very high or very low trustworthiness level; iv) if the equation is an inequality and the inequality is not satisfied, assigning a low trustworthiness level to any signal in that equation which has not previously been assigned a very high or a very low trustworthiness level; f) selecting (S113, S114), a further one of said system equations which shares the most number of sensor outputs in common with previously processed expressions and repeating sub-step d) above until all expressions have been processed; g) assigning (S115) a trustworthiness level to each sensor according to the trustworthiness level assigned to its sensor outputs; h) if relevant, merge (S16) any replicated sensor outputs by utilizing only the sensor output with the highest trustworthiness level within those replicated sensor outputs; i) counting (S117) the number of outputs assigned to each trustworthiness level and comparing to the outcome of the previous count; if there is a change, repeating from sub-step d) above; if there is no change then completing the assigning of trustworthiness levels.
+3. A method according to claims 1 or 2, further comprising:
+processing the system equations and historic sensor output data from said sensor to determine if the error involves spike error, bias error, drift, multiplicative calibration error or precision degradation error and then classifying the error as such, or else classifying the error as unknown,
+wherein, in order to detect whether a sensor error involves a spike error, the method involves the sub-steps of: removing from the historic sensor output data the extreme high and extreme low data; re-evaluating system equations which include that sensor output and determining if there is a change in trustworthiness; if there is a change in trustworthiness, classifying said sensor as having suffered a spike error.
+4. A method according to claim 3 wherein the step of processing includes:
+performing stepwise regression on any system equations involving an equality to obtain maximum agreement using the factors: signal, x(t); time, t; and bias, 1, to obtain multiplicative factors of each of these factors that maximise agreement with the equalities.
+5. A method according to claim 4 wherein, if: i) the multiplicative factor of x(t) is greater than 1, a multiplicative calibration error is determined; ii) the multiplicative factor of t is greater than 10-3 a drift error is determined; or iii) the multiplication factor of the bias term is greater than 10-3 a bias error is determined.
+6. A method according to claims 3 or 4, wherein the step of processing involves: filtering the signal with a first order high pass filter; computing the energy of the filtered signal under Fourier transform; and if an increased energy level is computed, a precision degradation error is determined.
+7. A method according to any one of claims 3 to 6, further comprising:
+mitigating the detected error; and
+wherein the step of mitigating includes, if the detected error is a spike error, removing values in future output data from that sensor and replacing them with averaged values of neighbouring time point.
+8. A method according to claim 7 wherein the step of mitigating includes, if the detected error is a bias error, drift or a multiplicative calibration error, algebraically processing future output data from that sensor to remove the error.
+9. A method according to claim 7 or 8 wherein the step of mitigating includes, if the detected error is a precision degradation error, filtering future output data from that sensor with a filter of order two or more.
+10. A computer program comprising code which, when run on a computer, causes the computer to perform the method of any one of claims 1 to 9.
+11. A system (100) for detecting sensor error in a system having a plurality of subsystem and a number of sensors (102) associated with said subsystems, each sensor producing at least one respective sensor output, the system including a processor (103) which is arranged to carry out the method of claims 1 or 2.
+12. A system (100) according to claim 11, further comprising:
+an error classifier (120) which is arranged to carry out the method of claim 3.
+</claims>
+</document>

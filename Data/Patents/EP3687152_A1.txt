@@ -1,0 +1,85 @@
+<document>
+
+<filing_date>
+2019-12-11
+</filing_date>
+
+<publication_date>
+2020-07-29
+</publication_date>
+
+<priority_date>
+2019-01-23
+</priority_date>
+
+<ipc_classes>
+H04N1/64
+</ipc_classes>
+
+<assignee>
+STRADVISION
+</assignee>
+
+<inventors>
+JANG, TAEWOONG
+KIM, KYE-HYEON
+JEONG, KYUNGJOONG
+KIM, INSU
+NAM, WOONHYUN
+RYU, WOOJU
+KIM, YONGJOONG
+KIM, HAK-KYOUNG
+SUNG, MYUNGCHUL
+JE, HONGMO
+BOO, SUKHOON
+CHO, HOJIN
+YEO, DONGHUN
+</inventors>
+
+<docdb_family_id>
+66826056
+</docdb_family_id>
+
+<title>
+LEARNING METHOD AND LEARNING DEVICE FOR POOLING ROI BY USING MASKING PARAMETERS TO BE USED FOR MOBILE DEVICES OR COMPACT NETWORKS VIA HARDWARE OPTIMIZATION, AND TESTING METHOD AND TESTING DEVICE USING THE SAME
+</title>
+
+<abstract>
+A method for pooling at least one ROI by using one or more masking parameters is provided. The method is applicable to mobile devices, compact networks, and the like via hardware optimization. The method includes steps of: (a) a computing device, if an input image is acquired, instructing a convolutional layer of a CNN to generate a feature map corresponding to the input image; (b) the computing device instructing an RPN of the CNN to determine the ROI corresponding to at least one object included in the input image by using the feature map; (c) the computing device instructing an ROI pooling layer of the CNN to apply each of pooling operations correspondingly to each of sub-regions in the ROI by referring to each of the masking parameters corresponding to each of the pooling operations, to thereby generate a masked pooled feature map.
+</abstract>
+
+<claims>
+1. A method for pooling at least one ROI by using one or more masking parameters, comprising steps of: (a) a computing device, if an input image is acquired, instructing a convolutional layer of a CNN to generate a feature map corresponding to the input image; (b) the computing device instructing an RPN of the CNN to determine the ROI corresponding to at least one object included in the input image by using the feature map; and (c) the computing device instructing an ROI pooling layer of the CNN to apply each of pooling operations correspondingly to each of sub-regions in the ROI by referring to each of the masking parameters corresponding to each of the pooling operations, to thereby generate a masked pooled feature map.
+2. The method of Claim 1, wherein, each of the masking parameters is determined as either a first value or a second value, and
+wherein, at the step of (c), the computing device instructs the ROI pooling layer to apply each of the pooling operations correspondingly to each of the sub-regions in the ROI by referring to information on whether each of the masking parameters is the first value or the second value, to thereby generate the masked pooled feature map.
+3. The method of Claim 2, wherein the computing device instructs the ROI pooling layer not to apply its corresponding pooling operation to feature values, included in each of the corresponding sub-regions in the ROI, whose corresponding masking parameters are the first value.
+4. The method of Claim 1, further comprising steps of: (d) the computing device instructing an output layer of the CNN to generate CNN output values by applying neural network operations to the masked pooled feature map; and (e) the computing device instructing a loss layer of the CNN to generate loss values by referring to the CNN output values and their corresponding GTs, and learning the masking parameters of the ROI pooling layer by backpropagating the loss values.
+5. The method of Claim 4, wherein, at the step of (e), the computing device further learns at least part of parameters included in the convolutional layer and the output layer by backpropagating the loss values.
+6. The method of Claim 1, wherein, each of the masking parameters is determined as either a first value or a second value,
+wherein, at the step of (c), the computing device instructs the ROI pooling layer to apply each of the pooling operations correspondingly to each of the sub-regions in the ROI by referring to information on whether each of the masking parameters is the first value or the second value, to thereby generate the masked pooled feature map,
+wherein, at the step of (c), the computing device instructs the ROI pooling layer to output each of representative feature values, as each component of the masked pooled feature map, and
+wherein each of the representative feature values is each of averages of feature values, included in each of the corresponding sub-regions in the ROI, whose corresponding masking parameters are the second value.
+7. The method of Claim 1, wherein, each of the masking parameters is determined as either a first value or a second value,
+wherein, at the step of (c), the computing device instructs the ROI pooling layer to apply each of the pooling operations correspondingly to each of the sub-regions in the ROI by referring to information on whether each of the masking parameters is the first value or the second value, to thereby generate the masked pooled feature map,
+wherein, at the step of (c), the computing device instructs the ROI pooling layer to output each of representative feature values, as each component of the masked pooled feature map, and
+wherein each of the representative feature values is each of largest ones among feature values, included in each of the corresponding sub-regions in the ROI, whose corresponding masking parameters are the second value.
+8. A testing method for pooling at least one ROI by using one or more masking parameters, comprising steps of: (a) on condition that (1) a computing device has instructed a convolutional layer of a CNN to generate a feature map for training corresponding to a training image, (2) the computing device has instructed an RPN of the CNN to determine the ROI for training corresponding to at least one object for training included in the training image by using the feature map for training, (3) the computing device has instructed an ROI pooling layer of the CNN to apply each of pooling operations correspondingly to each of sub-regions for training in the ROI for training by referring to each of the masking parameters corresponding to each of the pooling operations, to thereby generate a masked pooled feature map for training, (4) the computing device has instructed an output layer of the CNN to generate CNN output values for training by applying neural network operations to the masked pooled feature map for training, and (5) the computing device has instructed a loss layer of the CNN to generate loss values by referring to the CNN output values for training and their corresponding GTs, and learning the masking parameters of the ROI pooling layer by backpropagating the loss values; a testing device, if a test image is acquired, instructing the convolutional layer of the CNN to generate a feature map for testing corresponding to the test image; (b) the testing device instructing the RPN of the CNN to determine the ROI for testing corresponding to at least one object for testing included in the test image by using the feature map for testing; (c) the testing device instructing the ROI pooling layer of the CNN to apply each of the pooling operations correspondingly to each of sub-regions for testing in the ROI for testing by referring to each of the masking parameters corresponding to each of the pooling operations, to thereby generate a masked pooled feature map for testing; and (d) the testing device instructing the output layer of the CNN to generate CNN output values for testing by applying the neural network operations to the masked pooled feature map for testing.
+9. The testing method of Claim 8, wherein, each of the masking parameters is determined as either a first value or a second value, and
+wherein, at the step of (c), the testing device instructs the ROI pooling layer to apply each of the pooling operations correspondingly to each of the sub-regions for testing in the ROI for testing by referring to information on whether each of the masking parameters is the first value or the second value, to thereby generate the masked pooled feature map for testing.
+10. The method of Claim 9, wherein, the computing device instructs the ROI pooling layer not to apply its corresponding pooling operation to feature values for testing, included in each of the corresponding sub-regions for testing in the ROI for testing, whose corresponding masking parameters are the first value.
+11. The method of Claim 8, wherein, each of the masking parameters is determined as either a first value or a second value,
+wherein, at the step of (c), the testing device instructs the ROI pooling layer to apply each of the pooling operations correspondingly to each of the sub-regions for testing in the ROI for testing by referring to information on whether each of the masking parameters is the first value or the second value, to thereby generate the masked pooled feature map for testing,
+wherein, at the step of (c), the testing device instructs the ROI pooling layer to output each of representative feature values for testing, as each component of the masked pooled feature map for testing, and
+wherein each of the representative feature values for testing is each of averages of feature values for testing, included in each of the corresponding sub-regions for testing in the ROI for testing, whose corresponding masking parameters are the second value.
+12. The method of Claim 8, wherein, each of the masking parameters is determined as either a first value or a second value,
+wherein, at the step of (c), the testing device instructs the ROI pooling layer to apply each of the pooling operations correspondingly to each of the sub-regions for testing in the ROI for testing by referring to information on whether each of the masking parameters is the first value or the second value, to thereby generate the masked pooled feature map for testing,
+wherein, at the step of (c), the testing device instructs the ROI pooling layer to output each of representative feature values for testing, as each component of the masked pooled feature map for testing, and
+wherein each of the representative feature values for testing is each of largest ones among feature values for testing, included in each of the corresponding sub-regions for testing in the ROI for testing, whose corresponding masking parameters are the second value.
+13. A computing device for pooling at least one ROI by using one or more masking parameters, comprising: at least one memory that stores instructions; and at least one processor configured to execute the instructions to: perform processes of (I) instructing a convolutional layer of a CNN to generate a feature map corresponding to an input image; (II) instructing an RPN of the CNN to determine the ROI corresponding to at least one object included in the input image by using the feature map; and (III) instructing an ROI pooling layer of the CNN to apply each of pooling operations correspondingly to each of sub-regions in the ROI by referring to each of the masking parameters corresponding to each of the pooling operations, to thereby generate a masked pooled feature map.
+14. The computing device of Claim 13, wherein, each of the masking parameters is determined as either a first value or a second value,
+wherein, at the process of (III), the processor instructs the ROI pooling layer to apply each of the pooling operations correspondingly to each of the sub-regions in the ROI by referring to information on whether each of the masking parameters is the first value or the second value, to thereby generate the masked pooled feature map,
+wherein, at the process of (III), the processor instructs the ROI pooling layer to output each of representative feature values, as each component of the masked pooled feature map, and
+wherein each of the representative feature values is each of averages of feature values, included in each of the corresponding sub-regions in the ROI, whose corresponding masking parameters are the second value.
+15. A testing device for pooling at least one ROI by using one or more masking parameters, comprising: at least one memory that stores instructions; and at least one processor, on condition that (1) a computing device has instructed a convolutional layer of a CNN to generate a feature map for training corresponding to a training image, (2) the computing device has instructed an RPN of the CNN to determine the ROI for training corresponding to at least one object for training included in the training image by using the feature map for training, (3) the computing device has instructed an ROI pooling layer of the CNN to apply each of pooling operations correspondingly to each of sub-regions for training in the ROI for training by referring to each of the masking parameters corresponding to each of the pooling operations, to thereby generate a masked pooled feature map for training, (4) the computing device has instructed an output layer of the CNN to generate CNN output values for training by applying neural network operations to the masked pooled feature map for training, and (5) the computing device has instructed a loss layer of the CNN to generate loss values by referring to the CNN output values for training and their corresponding GTs, and learning the masking parameters of the ROI pooling layer by backpropagating; the loss values; configured to execute the instructions to: perform processes of (I) instructing the convolutional layer of the CNN to generate a feature map for testing corresponding to a test image; (II) instructing the RPN of the CNN to determine the ROI for testing corresponding to at least one object for testing included in the test image by using the feature map for testing; (III) instructing the ROI pooling layer of the CNN to apply each of the pooling operations correspondingly to each of sub-regions for testing in the ROI for testing by referring to each of the masking parameters corresponding to each of the pooling operations, to thereby generate a masked pooled feature map for testing; and (IV) instructing the output layer of the CNN to generate CNN output values for testing by applying the neural network operations to the masked pooled feature map for testing.
+</claims>
+</document>

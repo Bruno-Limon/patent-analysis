@@ -1,0 +1,166 @@
+<document>
+
+<filing_date>
+2019-12-11
+</filing_date>
+
+<publication_date>
+2020-06-18
+</publication_date>
+
+<priority_date>
+2018-12-12
+</priority_date>
+
+<ipc_classes>
+A61B17/56,A61B34/00,A61B34/10,A61B34/20,A61B5/00,G06N3/00,G16H50/20,G16H50/50
+</ipc_classes>
+
+<assignee>
+TORNIER
+</assignee>
+
+<inventors>
+CHAOUI, JEAN
+LE SAINT, CHARLOTTE
+MAYYA, MAXIMILIEN
+URVOY, MANUEL JEAN-MARIE
+</inventors>
+
+<docdb_family_id>
+69143688
+</docdb_family_id>
+
+<title>
+SOFT TISSUE MODELING AND PLANNING SYSTEM FOR ORTHOPEDIC SURGICAL PROCEDURES
+</title>
+
+<abstract>
+A surgical planning system for use in surgical procedures to repair an anatomy of interest includes a preplanning system to generate a virtual surgical plan and a mixed reality system that includes a visualization device wearable by a user to view the virtual surgical plan projected in a real environment. The virtual surgical plan includes a 3D virtual model of the anatomy of interest. When wearing the visualization device, the user can align the 3D virtual model with the real anatomy of interest, thereby achieving a registration between details of the virtual surgical plan and the real anatomy of interest. The registration enables a surgeon to implement the virtual surgical plan on the real anatomy of interest without the use of tracking markers.
+</abstract>
+
+<claims>
+1. A system for modeling a soft-tissue structure of a patient, the system comprising: a memory configured to store patient-specific image data for the patient; and processing circuitry configured to:
+receive the patient-specific image data;
+determine, based on intensities of the patient-specific image data, a patientspecific shape representative of the soft-tissue structure of the patient; and
+output the patient-specific shape.
+2. The system of claim 1, wherein the processing circuitry is configured to:
+receive an initial shape;
+determine a plurality of surface points on the initial shape;
+register the initial shape to the patient-specific image data;
+identify one or more contours in the patient-specific image data representative of at least a partial boundary of the soft-tissue structure of the patient; and
+iteratively move the plurality of surface points towards respective locations of the one or more contours to change the initial shape to the patient-specific shape representative of the soft-tissue structure of the patient.
+3. The system of claim 2, wherein the processing circuitry is configured to identify the one or more contours by:
+extending, from each surface point of the plurality of surface points, a vector at least one of outward from or inward from a respective surface point; and
+determining, for the vector from each surface point, a respective location in the patient-specific image data exceeding a threshold intensity value, wherein the respective locations for at least one surface point of the plurality of surface points at least partially define the one or more contours.
+4. The system of any of claims 2 and 3, wherein the processing circuitry is configured to identify the one or more contours by: determining a Hessian feature image from the patient-specific image data, wherein the Hessian feature image indicates regions of the patient-specific image data comprising higher intensity gradients between two or more voxels;
+identifying, based on the Hessian feature image, one or more separation zones between the soft-tissue structure and an adjacent soft-tissue structure; and
+determining at least a portion of the one or more contours as passing through the one or more separation zones.
+5. The system of any of claims 2 through 4, wherein the processing circuitry is configured to determine the respective location in the patient-specific image data exceeding the threshold intensity value by determining the respective location in the patient-specific image data greater than a predetermined intensity value.
+6. The system of claim 5, wherein the predetermined threshold intensity value represents bone in the patient-specific image data, and wherein the processing circuitry is configured to, for each respective location in the patient-specific image data exceeding the predetermined threshold intensity value that represents bone, move the surface point to the respective location.
+7. The system of any of claims 2 through 6, wherein the processing circuitry is configured to determine the respective location in the patient-specific image data exceeding the threshold intensity value by determining the respective location in the patient-specific image data less than a predetermined intensity value.
+8. The system of any of claims 2 through 7, wherein the processing circuitry is configured to determine the respective location in the patient-specific image data exceeding the threshold intensity value by determining the respective location in the patient-specific image data greater than a difference threshold between an intensity associated with the respective surface point and an intensity of the respective location in the patient-specific image data.
+9. The system of any of claims 2 through 8, wherein the processing circuitry is configured to iteratively move the plurality of surface points towards respective locations of the one or more contours by, for each iteration of moving the plurality of surface points: extending, from each surface point of the plurality of surface points, a vector from a respective surface point and normal to a surface comprising the respective surface point; determining, for the vector from each surface point, a respective point in the patientspecific image data exceeding a threshold intensity value;
+determining, for each respective point, a plurality of potential locations within an envelope of the respective point and exceeding the threshold intensity value in the patientspecific image data, wherein the plurality of potential locations at least partially define a surface of the one or more contours;
+determining, for each of the plurality of potential locations, a respective normal vector normal to the surface;
+determining, for each of the respective normal vectors, an angle between the respective normal vector and the vector from the respective surface point;
+selecting, for each respective surface point, one potential location of the plurality of potential locations comprising a smallest angle between the vector from the respective surface point and the respective normal vector from each of the plurality of potential locations; and
+moving, for each respective surface point, the respective surface point at least partially towards the selected one potential location, wherein moving the respective surface points modifies the initial shape towards the patient-specific shape.
+10. The system of claim 9, wherein the processing circuitry is configured to move the respective surface point at least half of a distance between the respective surface point and the selected one potential location.
+11. The system of any of claims 9 and 10, wherein the processing circuitry is configured to iteratively move the plurality of surface points towards respective potential locations of the one or more contours by:
+moving, in a first iteration from the initial shape, each surface point of the plurality of surface points a first respective distance within a first tolerance of a first modification distance to generate a second shape, the first tolerance selected to maintain smoothness of the second shape; and
+moving, in a second iteration following the first iteration, each surface point of the plurality of surface points a second respective distance within a second tolerance of a second modification distance to generate a third shape from the second shape, wherein the second tolerance is larger than the first tolerance.
+12. The system of any of claims 2 through 11, wherein the processing circuitry is configured to identify the one or more contours by:
+determining a Hessian feature image from the patient-specific image data, wherein the Hessian feature image indicates regions of the patient-specific image data comprising higher intensity gradients between two or more voxels;
+identifying, based on the Hessian feature image, one or more separation zones between the soft-tissue structure and an adjacent soft-tissue structure; and
+determining at least a portion of the one or more contours as passing through the one or more separation zones.
+13. The system of any of claims 2 through 12, wherein the processing circuitry is configured to register the initial shape by registering a plurality of locations on the initial shape to corresponding insertion locations on one or more bones identified in the patientspecific image data.
+14. The system of any of claims 2 through 13, wherein the initial shape and the patientspecific shape are three-dimensional shapes.
+15. The system of any of claims 1 through 14, wherein the initial shape comprises a geometric shape.
+16. The system of any of claims 1 through 15, wherein the initial shape comprises an anatomical shape representative of the soft-tissue structure of a plurality of subjects different than the patient.
+17. The system of claim 16, wherein the anatomical shape comprises a statistical mean shape generated from the soft-tissue structure imaged for the plurality of subjects.
+18. The system of any of claims 1 through 17, wherein the patient-specific image data comprises computed tomography (CT) image data generated from the patient.
+19. The system of any of claims 1 through 18, wherein the soft-tissue structure comprises a muscle.
+20. The system of claim 19, wherein the muscle is associated with a rotator cuff of the patient.
+21. The system of any of claims 1 through 20, wherein the patient-specific shape comprises a three-dimensional shape.
+22. The system of any of claims 1 through 21, wherein the processing circuitry is configured to:
+determine a fat volume ratio for the patient-specific shape;
+determine an atrophy ratio for the patient-specific shape;
+determine, based on the fat volume ratio and the atrophy ratio of the patient-specific shape of the soft-tissue structure of the patient, a range of motion of a humerus of the patient; and
+determine, based on the range of motion of the humerus, a type of shoulder treatment for the patient.
+23. The system of claim 22, wherein the processing circuitry is configured to determine the range of motion of the humerus by determining, based on fat volume ratios and atrophy ratios for each muscle of a rotator cuff of the patient, the range of motion of the humerus of the patient.
+24. The system of any of claims 22 and 23, wherein the type of shoulder treatment is selected from one of an anatomical shoulder replacement surgery or a reverse shoulder replacement surgery.
+25. The system of any of claims 1 through 24, wherein the processing circuitry is configured to:
+apply a mask to the patient-specific shape;
+apply a threshold to the voxels under the mask;
+determine a fat volume based on the voxels under the threshold;
+determine a fatty infiltration value based on the fat volume and a volume of the patient-specific shape for the soft-tissue structure; and
+output a fatty infiltration value for the soft-tissue structure.
+26. The system of any of claims 1 through 25, wherein the processing circuitry is configured to:
+determine bone to muscle dimensions for the soft-tissue structure of the patient; obtain a statistical mean shape (SMS) for the soft-tissue structure;
+deform the SMS by satisfying a threshold of an algorithm to fit a deformed version of the SMS to the bone to muscle dimensions of the soft-tissue structure;
+determine an atrophy ratio for the soft-tissue structure by dividing the SMS volume by the soft-tissue structure volume; and
+output the atrophy ratio for the soft-tissue structure.
+27. A method for modeling a soft-tissue structure of a patient, the method comprising: storing, by a memory, patient-specific image data for the patient;
+receiving, by processing circuitry, the patient-specific image data;
+determining, by the processing circuitry and based on intensities of the patientspecific image data, a patient-specific shape representative of the soft-tissue structure of the patient; and
+outputting, by the processing circuitry, the patient-specific shape.
+28. The method of claim 27, further comprising:
+receiving an initial shape;
+determining a plurality of surface points on the initial shape;
+registering the initial shape to the patient-specific image data; identifying one or more contours in the patient-specific image data representative of a boundary of the soft-tissue structure of the patient; and
+iteratively moving the plurality of surface points towards respective locations of the one or more contours to change the initial shape to the patient-specific shape representative of the soft-tissue structure of the patient.
+29. The method of claim 28, wherein identifying the one or more contours by:
+extending, from each surface point of the plurality of surface points, a vector at least one of outward from or inward from a respective surface point; and
+determining, for the vector from each surface point, a respective location in the patient-specific image data exceeding a threshold intensity value, wherein the respective locations for at least one surface point of the plurality of surface points at least partially define the one or more contours.
+30. The method of any of claims 28 and 29, identifying the one or more contours comprises:
+determining a Hessian feature image from the patient-specific image data, wherein the Hessian feature image indicates regions of the patient-specific image data comprising higher intensity gradients between two or more voxels;
+identifying, based on the Hessian feature image, one or more separation zones between the soft-tissue structure and an adjacent soft-tissue structure; and
+determining at least a portion of the one or more contours as passing through the one or more separation zones.
+31. The method of any of claims 28 through 30, wherein determining the respective location in the patient-specific image data exceeding the threshold intensity value comprises determining the respective location in the patient-specific image data greater than a predetermined intensity value.
+32. The method of claim 32, wherein the predetermined threshold intensity value represents bone in the patient-specific image data, and wherein the method further comprises, for each respective location in the patient-specific image data exceeding the predetermined threshold intensity value that represents bone, moving the surface point to the respective location.
+33. The method of any of claims 28 through 32, wherein determining the respective location in the patient-specific image data exceeding the threshold intensity value comprises determining the respective location in the patient-specific image data less than a
+predetermined intensity value.
+34. The method of any of claims 28 through 33, wherein determining the respective location in the patient-specific image data exceeding the threshold intensity value comprises determining the respective location in the patient-specific image data greater than a difference threshold between an intensity associated with the respective surface point and an intensity of the respective location in the patient-specific image data.
+35. The method of any of claims 28 through 34, wherein iteratively moving the plurality of surface points towards respective locations of the one or more contours comprises, for each iteration of moving the plurality of surface points:
+extending, from each surface point of the plurality of surface points, a vector from a respective surface point and normal to a surface comprising the respective surface point; determining, for the vector from each surface point, a respective point in the patientspecific image data exceeding a threshold intensity value;
+determining, for each respective point, a plurality of potential locations within an envelope of the respective point and exceeding the threshold intensity value in the patientspecific image data, wherein the plurality of potential locations at least partially define a surface of the one or more contours;
+determining, for each of the plurality of potential locations, a respective normal vector normal to the surface;
+determining, for each of the respective normal vectors, an angle between the respective normal vector and the vector from the respective surface point;
+selecting, for each respective surface point, one potential location of the plurality of potential locations comprising a smallest angle between the vector from the respective surface point and the respective normal vector from each of the plurality of potential locations; and moving, for each respective surface point, the respective surface point at least partially towards the selected one potential location, wherein moving the respective surface points modifies the initial shape towards the patient-specific shape.
+36. The method of claim 35, further comprising moving the respective surface point at least half of a distance between the respective surface point and the selected one potential location.
+37. The method of any of claims 35 and 36, wherein iteratively moving the plurality of surface points towards respective potential locations of the one or more contours comprises: moving, in a first iteration from the initial shape, each surface point of the plurality of surface points a first respective distance within a first tolerance of a first modification distance to generate a second shape, the first tolerance selected to maintain smoothness of the second shape; and
+moving, in a second iteration following the first iteration, each surface point of the plurality of surface points a second respective distance within a second tolerance of a second modification distance to generate a third shape from the second shape, wherein the second tolerance is larger than the first tolerance.
+38. The method of any of claims 28 through 37, wherein the processing circuitry is configured to identify the one or more contours by:
+determining a Hessian feature image from the patient-specific image data, wherein the Hessian feature image indicates regions of the patient-specific image data comprising higher intensity gradients between two or more voxels;
+identifying, based on the Hessian feature image, one or more separation zones between the soft-tissue structure and an adjacent soft-tissue structure; and
+determining at least a portion of the one or more contours as passing through the one or more separation zones.
+39. The method of any of claims 28 through 38, wherein registering the initial shape comprises registering a plurality of locations on the initial shape to corresponding insertion locations on one or more bones identified in the patient-specific image data.
+40. The method of any of claims 38 through 30, wherein the initial shape and the patientspecific shape are three-dimensional shapes.
+41. The method of any of claims 27 through 40, wherein the initial shape comprises a geometric shape.
+42. The method of any of claims 27 through 41, wherein the initial shape comprises an anatomical shape representative of the soft-tissue structure of a plurality of subjects different than the patient.
+43. The method of claim 42, wherein the anatomical shape comprises a statistical mean shape generated from the soft-tissue structure imaged for the plurality of subjects.
+44. The method of any of claims 27 through 43, wherein the patient-specific image data comprises computed tomography (CT) image data generated from the patient.
+45. The method of any of claims 27 through 44, wherein the soft-tissue structure comprises a muscle.
+46. The method of claim 45, wherein the muscle is associated with a rotator cuff of the patient.
+47. The method of any of claims 27 through 46, wherein the patient-specific shape comprises a three-dimensional shape.
+48. The method of any of claims 27 through 47, further comprising:
+determining a fat volume ratio for the patient-specific shape;
+determining an atrophy ratio for the patient-specific shape;
+determining, based on the fat volume ratio and the atrophy ratio of the patient-specific shape of the soft-tissue structure of the patient, a range of motion of a humerus of the patient; and
+determining, based on the range of motion of the humerus, a type of shoulder treatment for the patient.
+49. The method of claim 48, wherein determining the range of motion of the humerus comprises determining, based on fat volume ratios and atrophy ratios for each muscle of a rotator cuff of the patient, the range of motion of the humerus of the patient.
+50. The method of any of claims 48 and 49, wherein the type of shoulder treatment is selected from one of an anatomical shoulder replacement surgery or a reverse shoulder replacement surgery.
+51. The method of any of claims 27 through 50, further comprising:
+applying a mask to the patient-specific shape;
+applying a threshold to the voxels under the mask;
+determining a fat volume based on the voxels under the threshold;
+determining a fatty infiltration value based on the fat volume and a volume of the patient-specific shape for the soft-tissue structure; and
+outputting a fat volume ratio for the soft-tissue structure.
+52. The method of any of claims 27 through 51, further comprising:
+determining bone to muscle dimensions for the soft-tissue structure of the patient; obtaining a statistical mean shape (SMS) for the soft-tissue structure;
+deforming the SMS by satisfying a threshold of an algorithm to fit a deformed version of the SMS to the bone to muscle dimensions of the soft-tissue structure;
+determining an atrophy ratio for the soft-tissue structure by dividing the SMS volume by the soft-tissue structure volume; and
+outputting the atrophy ratio for the soft-tissue structure.
+</claims>
+</document>

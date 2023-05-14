@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2019-09-20
+</filing_date>
+
+<publication_date>
+2020-01-09
+</publication_date>
+
+<priority_date>
+2019-07-26
+</priority_date>
+
+<ipc_classes>
+G06K9/32,G06T11/00,G06T7/246,G06T7/73,G06T7/90
+</ipc_classes>
+
+<assignee>
+LG ELECTRONICS
+</assignee>
+
+<inventors>
+KIM, SANG HOON
+LI, RUEI HUNG
+IM, JIN SEOK
+KIM, JIN GYEONG
+</inventors>
+
+<docdb_family_id>
+67622529
+</docdb_family_id>
+
+<title>
+APPARATUS AND METHOD FOR RECOGNIZING OBJECT IN IMAGE
+</title>
+
+<abstract>
+An apparatus and a method for recognizing an object in an image are disclosed. The method for recognizing an object in an image may include: executing a deep neural network algorithm which has been trained in advance to recognize an object in an image, on a first image inputted from a camera module; finding an amount of change in image between the first image and a second image inputted from the camera module after the first image according to a predetermined cycle; and in response that an object has been detected from the first image as a result of executing the deep neural network algorithm, tracking the position of the detected object from the second image, based on the found amount of change in image.
+</abstract>
+
+<claims>
+1. A method for recognizing an object in an image, the method comprising: executing a deep neural network (DNN) algorithm which has been trained in advance to recognize an object in an image, on a first image inputted from a camera module; finding an amount of change in image between the first image and a second image inputted from the camera module after the first image according to a predetermined cycle; and in response that an object has been detected from the first image as a result of executing the deep neural network algorithm, tracking the position of the detected object from the second image, based on the found amount of change in image.
+2. The method of claim 1, further comprising: after the finding an amount of change in image, determining the reliability of the result of finding the amount of change in image, wherein the tracking the position of the detected object comprises: in response that the result of determining the reliability indicates that the reliability of the result of finding the amount of change in image is lower than a predetermined threshold, estimating the position of the object based on the result of finding the amount of change in image, and setting a first region of interest in the second image to include the estimated position of the object; and tracking the position of the object from the second image by executing the deep neural network algorithm on the set first region of interest.
+3. The method of claim 1, wherein the finding an amount of change in image comprises: calculating a motion vector by using an optical flow to find the amount of change in image.
+4. The method of claim 3, further comprising: after the finding an amount of change in image, determining the reliability of the result of finding the amount of change in image, wherein the calculating a motion vector by using an optical flow comprises: calculating a motion vector for each pixel in the first image and the second image, based on a result of comparing the first image and the second image, and obtaining a color corresponding to the direction of the motion vector in consideration of a color predetermined for each direction; and generating an optical flow image, based on the color corresponding to the motion vector for each pixel, and wherein the determining the reliability comprises: identifying an object region corresponding to the object in the optical flow image, and based on that a pixel having a color indicating an error exists above a reference value in the object region, determining that the reliability of the result of finding the amount of change in image is less than a predetermined threshold.
+5. The method of claim 3, further comprising: after the finding an amount of change in image, determining the reliability of the result of finding the amount of change in image, wherein the calculating a motion vector by using an optical flow comprises: calculating a motion vector for each pixel in the first image and the second image, based on a result of comparing the first image and the second image, and obtaining a color corresponding to the direction of the motion vector in consideration of a color predetermined for each direction; and generating an optical flow image, based on the color corresponding to the motion vector for each pixel, and wherein the determining the reliability comprises: identifying an object region corresponding to the object in the optical flow image, and based on that the number of color types determined for the pixels in the object region is greater than or equal to a predetermined value, determining that the reliability of the result of finding the amount of change in image is less than a predetermined threshold.
+6. The method of claim 1, further comprising: after the finding an amount of change in image, in response that the object has not been detected from the first image, checking that there is a motion of a new object based on the result of finding the amount of change in image; based on confirmation that there is a motion of the new object as a result of the checking, setting a second region of interest in the second image to include the position of the new object; and detecting the new object from the second image by executing the deep neural network algorithm on the set second region of interest.
+7. The method of claim 1, wherein the tracking the position of the detected object comprises: obtaining an initial position of the object from the result of executing the deep neural network algorithm, and obtaining a moving distance of the object from the result of finding the amount of change in image; and tracking the position of the object based on the moving distance of the object and the initial position of the object.
+8. The method of claim 7, further comprising: calculating a moving speed of the object by using the moving distance of the object and the cycle; and in response that the moving speed of the object is greater than or equal to a predetermined speed, generating a warning notification.
+9. The method of claim 1, further comprising: tracking the position of the object by finding an amount of change in image for a plurality of images inputted after the second image, and executing the deep neural network algorithm instead of finding the amount of change in image, per a predetermined period, and wherein the predetermined period is defined longer than the cycle.
+10. The method of claim 1, further comprising: based on determination that the object is in a "stopped state" as a result of tracking the position of the object, increasing the cycle for finding the amount of change in image by a predetermined time.
+11. An apparatus for recognizing an object in an image, comprising: an executor configured to execute a deep neural network algorithm which has been trained in advance to recognize an object in an image, on a first image inputted from a camera module, and find an amount of change in image between the first image and a second image inputted from the camera module after the first image according to a predetermined cycle; and a processor configured to, in response that an object has been detected from the first image as a result of executing the deep neural network algorithm, track the position of the detected object from the second image, based on the found amount of change in image.
+12. The apparatus of claim 11, further comprising: a determiner configured to determine the reliability of the result of finding the amount of change in image, wherein the processor comprises: a setter configured to, in response that the result of determining the reliability indicates that the reliability of the result of finding the amount of change in image is lower than a predetermined threshold, estimate the position of the object based on the result of finding the amount of change in image, and set a first region of interest in the second image to include the estimated position of the object; and a tracker configured to track the position of the object from the second image by executing the deep neural network algorithm on the set first region of interest.
+13. The apparatus of claim 11, wherein the executor is configured to calculate a motion vector by using an optical flow to find the amount of change in image.
+14. The apparatus of claim 13, further comprising: a determiner configured to determine the reliability of the result of finding the amount of change in image, wherein the executor is configured to: calculate a motion vector for each pixel in the first image and the second image, based on a result of comparing the first image and the second image, obtain a color corresponding to the direction of the motion vector in consideration of a color predetermined for each direction, and thereafter, generate an optical flow image based on the color corresponding to the motion vector for each pixel, and wherein the determiner is configured to: identify an object region corresponding to the object in the optical flow image, and based on that a pixel having a color indicating an error exists above a reference value in the object region, determine that the reliability of the result of finding the amount of change in image is less than a predetermined threshold.
+15. The apparatus of claim 13, further comprising: a determiner configured to determine the reliability of the result of finding the amount of change in image, wherein the executor is configured to: calculate a motion vector for each pixel in the first image and the second image, based on a result of comparing the first image and the second image, obtain a color corresponding to the direction of the motion vector in consideration of a color predetermined for each direction, and thereafter, generate an optical flow image based on the color corresponding to the motion vector for each pixel, and wherein the determiner is configured to: identify an object region corresponding to the object in the optical flow image, and based on that the number of color types determined for the pixels in the object region is greater than or equal to a predetermined value, determine that the reliability of the result of finding the amount of change in image is less than a predetermined threshold.
+16. The apparatus of claim 11, wherein the processor comprises: a setter configured to, in response that the object has not been detected from the first image, check that there is a motion of a new object based on the result of finding the amount of change in image, and based on confirmation that there is a motion of the new object as a result of the check, set a second region of interest in the second image to include the position of the new object; and a tracker configured to detect the new object from the second image by executing the deep neural network algorithm on the set second region of interest.
+17. The apparatus of claim 11, wherein the processor is configured to: track the position of the object by finding an amount of change in image for a plurality of images inputted after the second image, and execute the deep neural network algorithm instead of finding the amount of change in image, per a predetermined period, and wherein the predetermined period is defined longer than the cycle.
+18. The apparatus of claim 11, wherein the processor is configured to: based on determination that the object is in a "stopped state" as a result of tracking the position of the object, increase the cycle for finding the amount of change in image by a predetermined time.
+</claims>
+</document>

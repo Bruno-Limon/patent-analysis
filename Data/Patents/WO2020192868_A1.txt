@@ -1,0 +1,71 @@
+<document>
+
+<filing_date>
+2019-03-22
+</filing_date>
+
+<publication_date>
+2020-10-01
+</publication_date>
+
+<priority_date>
+2019-03-22
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/46,G06K9/62
+</ipc_classes>
+
+<assignee>
+HUAWEI TECHNOLOGIES COMPANY
+REDZIC, MILAN
+</assignee>
+
+<inventors>
+LIU, SHAOQING
+REDZIC, MILAN
+YUAN, PENG
+</inventors>
+
+<docdb_family_id>
+66001180
+</docdb_family_id>
+
+<title>
+EVENT DETECTION
+</title>
+
+<abstract>
+A neural network-based video processing system for determining a correlation between two time-spaced images from a video stream, the system comprising: an image feature map extractor comprising a neural network, the image feature map extractor being configured to determine, for each of the images, a feature map comprising a plurality of channels and a plurality of locations of pixels in the image, the feature map representing the response of the respective image over each of the plurality of channels and at each of the plurality of locations of pixels in the respective image; and a feature map aggregator configured to form an aggregated feature map by weighting each of the values in the feature map by (i) a factor representing the total channel response at the location corresponding to the respective value in the feature map normalised with respect to the total channel response over the respective image and (ii) a factor that indicates the extent to which the feature map indicates the image's response over the channel corresponding to the respective value in the feature map; the system being configured to determine the correlation by comparing the aggregated feature maps for each of the images.
+</abstract>
+
+<claims>
+1 . A neural network-based video processing system for determining a correlation between two time-spaced images from a video stream, the system comprising:
+an image feature map extractor comprising a neural network, the image feature map extractor being configured to determine, for each of the images, a feature map comprising a plurality of channels and a plurality of locations of pixels in the image, the feature map representing the response of the respective image over each of the plurality of channels and at each of the plurality of locations of pixels in the respective image; and
+a feature map aggregator configured to form an aggregated feature map by weighting each of the values in the feature map by (i) a factor representing the total channel response at the location corresponding to the respective value in the feature map normalised with respect to the total channel response over the respective image and (ii) a factor that indicates the extent to which the feature map indicates the image's response over the channel corresponding to the respective value in the feature map; the system being configured to determine the correlation by comparing the aggregated feature maps for each of the images.
+2. The system as claimed in claim 1 , wherein comparing the aggregated feature maps for each of the images to determine the correlation comprises using a linear weighted combination of unidirectional and bidirectional combinations of values from the aggregated feature maps.
+3. The system as claimed in claim 2, wherein the linear weightings are determined based on one of: (i) a determination of the importance of the locations; (ii) a metric determined for the exponential space of the locations; and (iii) a metric determined by correlating values from the aggregated feature maps.
+4. The system as claimed in any one of the preceding claims, wherein the factor that indicates the extent to which the feature map indicates the image's response over the channel corresponding to the respective value in the feature map is derived from the proportion of non-zero locations per channel.
+5. The system as claimed in any one of the preceding claims, wherein the determined correlation between the two time-spaced images represents the 2D motion of pixels between the images.
+6. The system as claimed in claim 5, wherein the system is further configured to use the determined correlation to match and/or fail to match heuristics corresponding to one or more predetermined types of objects or activities.
+7. A method for determining correlation between two time-spaced images from a video stream, the method comprising:
+determining, for each of the images, a feature map comprising a plurality of channels and a plurality of locations of pixels in the image, the feature map representing the response of the respective image over each of the plurality of channels and at each of the plurality of locations of pixels in the respective image; forming an aggregated feature map by weighting each of the values in the feature map by (i) a factor representing the total channel response at the location corresponding to the respective value in the feature map normalised with respect to the total channel response over the respective image and (ii) a factor that indicates the extent to which the feature map indicates the image's response over the channel corresponding to the respective value in the feature map; and
+determining the correlation by comparing the aggregated feature maps for each of the images.
+8. A video processing system for estimating subject matter of a video stream, the system being configured to:
+for each of a series of still images in the video stream, form a first series of estimates of the respective image's subject matter ranked by prediction strength; for each of a series of video segments in the video stream, form a second series of estimates of the respective video segment's subject matter ranked by prediction strength;
+for each of a first set of numbers in turn, analyse that number of the estimates having the highest prediction strength in each of the first series, and thereby form a first combined estimate of the subject matter of the video stream; for each of a second set of numbers in turn, analyse that number of the estimates having the highest prediction strength in each of the second series, and thereby form a second combined estimate of the subject matter of the video stream; for each of a third set of numbers in turn, analyse that number of the estimates having the highest prediction strength in each of the first series, and thereby form a third combined estimate of the subject matter of the video stream, the third set being different from the first set;
+for each of a fourth set of numbers in turn, analyse that number of the estimates having the highest prediction strength in each of the second series, and thereby form a fourth combined estimate of the subject matter of the video stream, the fourth set being different from the second set; and
+analyse the first, second, third and fourth combined estimates to form a global estimate of the subject matter of the video stream.
+9. The video processing system as claimed in claim 8, wherein the second set of numbers is the same as the first set of numbers.
+10. The video processing system as claimed in claim 8 or claim 9, wherein the fourth set of numbers is the same as the third set of numbers.
+1 1 . The video processing system as claimed in any one of claims 8 to 10, wherein the first set of numbers is the set of integers between 4 and 10 inclusive and/or the third set of numbers is the set of integers between 6 and 1 1 inclusive.
+12. The video processing system as claimed in any of claims 8 to 1 1 , wherein the second series of estimates is formed from an intermediate input representing the 2D motion of pixels between two still images, the two still images being the first and last frames of each respective video segment in the series.
+13. The video processing system as claimed in claim 12, wherein the intermediate input is formed by the method of claim 7.
+14. The video processing system as claimed in any one of claims 8 to 13, wherein the first and second series of estimates are formed using a respective pretrained deep learning network model.
+15. A method for estimating subject matter of a video stream, the method comprising: for each of a series of still images in the video stream, forming a first series of estimates of the respective image's subject matter ranked by prediction strength; for each of a series of video segments in the video stream, forming a second series of estimates of the respective video segment's subject matter ranked by prediction strength;
+for each of a first set of numbers in turn, analysing that number of the estimates having the highest prediction strength in each of the first series, and thereby form a first combined estimate of the subject matter of the video stream;
+for each of a second set of numbers in turn, analysing that number of the estimates having the highest prediction strength in each of the second series, and thereby form a second combined estimate of the subject matter of the video stream; for each of a third set of numbers in turn, analysing that number of the estimates having the highest prediction strength in each of the first series, and thereby form a third combined estimate of the subject matter of the video stream, the third set being different from the first set;
+for each of a fourth set of numbers in turn, analysing that number of the estimates having the highest prediction strength in each of the second series, and thereby form a fourth combined estimate of the subject matter of the video stream, the fourth set being different from the second set; and
+analysing the first, second, third and fourth combined estimates to form a global estimate of the subject matter of the video stream.
+</claims>
+</document>

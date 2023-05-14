@@ -1,0 +1,60 @@
+<document>
+
+<filing_date>
+2016-04-26
+</filing_date>
+
+<publication_date>
+2020-03-24
+</publication_date>
+
+<priority_date>
+2016-04-26
+</priority_date>
+
+<ipc_classes>
+G06F16/28,G06F16/9535,G06F17/30,G06F7/00,G06N20/00,G06N99/00
+</ipc_classes>
+
+<assignee>
+BAIDU USA
+</assignee>
+
+<inventors>
+ZHU, YU
+LI, LIN
+</inventors>
+
+<docdb_family_id>
+60089592
+</docdb_family_id>
+
+<title>
+Method and system of determining categories associated with keywords using a trained model
+</title>
+
+<abstract>
+Described is a technique for associating words used in a search query with categories. This technique aims to produce potentially more relevant search results by improving the associations with words used for a search. A machine learning technique is implemented to train a classification model, which may include a word embedding model. The classification model is trained to receive words as input and to create vectors of the words as output. These word vectors may then be mapped to a vector space and the technique may then perform a cluster analysis of the vectors. Based on the cluster analysis, clusters may be identified and each cluster may be associated with a corresponding category.
+</abstract>
+
+<claims>
+1. A computer-implemented method for categorizing keywords, the method comprising: extracting, by one or more processors for a keyword extraction module, one or more keywords from a query received from a client, the one or more keywords to be categorized as one of a plurality of predetermined categories of word vectors; determining, by the one or more processors, a category associated with the keywords using a classification model, wherein the classification model includes a neural network model, including applying the keywords to the classification model to create at least one keyword vector, determining, amongst a plurality of clusters of word vectors associated with the classification model, a nearest cluster based on a distance from a centroid of the nearest cluster to a position of the at least one keyword vector, wherein the centroid of each cluster corresponds to one of the predetermined categories of word vectors, wherein the classification model is periodically trained in response to newly added keywords or a keyword plan, wherein a first of the predetermined categories is associated with a first entity and a second of the predetermined categories is associated with a second entity, and selecting a category represented by the nearest cluster as the category associated with the keywords; and transmitting, by the one or more processors, the selected category to the client as part of a query result, and wherein the classification model is trained by determining a set of words amongst words associated with a group of keywords; applying the classification model to convert the set of words into word vectors; clustering, using hierarchical clustering, the word vectors into clusters; and labelling the centroid of each cluster with a corresponding one of the predetermined categories.
+2. The method of claim 1, wherein each of the predetermined categories is associated with one of a plurality of medical data segments, and each medical data segment is associated with one of a plurality of medical departments of a medical organization.
+3. The method of claim 1, wherein the set of words is a unique set of words unique to the associated group of keywords.
+4. The method of claim 3, wherein the unique set of words is determined based on a frequency of the words in the set by determining a term frequency-inverse document frequency (TF-IDF) statistic amongst the words associated with the group of keywords.
+5. The method of claim 1, wherein the classification model is based on a word embedding model to create the word vectors.
+6. The method of claim 5, wherein the word embedding model is based on a Word2vec model that applies either a skip-gram or a continuous bag of words (CBOW) process to create the word vectors.
+7. A non-transitory machine-readable medium having instructions stored therein, which when executed by a processor, cause the processor to perform operations for categorizing keywords, the operations comprising: extracting, by one or more processors for a keyword extraction module, one or more keywords from a query received from a client, the one or more keywords to be categorized as one of a plurality of predetermined categories of word vectors; using a classification model, determining, by the one or more processors, a category associated with the keywords, wherein the classification model includes a neural network model, including applying the keywords to the classification model to create at least one keyword vector, determining, amongst a plurality of clusters of word vectors associated with the classification model, a nearest cluster based on a distance from a centroid of the nearest cluster to a position of the at least one keyword vector, wherein the centroid of each cluster corresponds to one of the predetermined categories of word vectors, wherein the classification model is periodically trained in response to newly added keywords or a keyword plan, wherein a first of the predetermined categories is associated with a first entity and a second of the predetermined categories is associated with a second entity, and selecting a category represented by the nearest cluster as the category associated with the keywords; and transmitting, by the one or more processors, the selected category to the client as part of a query result, wherein the classification model is trained by determining a set of words amongst words associated with a group of keywords; applying the classification model to convert the set of words into word vectors; clustering, using hierarchical clustering, the word vectors into clusters; and labelling each cluster with a corresponding one of the predetermined categories.
+8. The machine-readable medium of claim 7, wherein each of the predetermined categories is associated with one of a plurality of medical data segments, and each medical data segment is associated with one of a plurality of medical departments of a medical organization.
+9. The machine-readable medium of claim 7, wherein the labelling comprises mapping a centroid of each cluster with the corresponding one of the predetermined categories.
+10. The machine-readable medium of claim 7, wherein the set of words is a unique set of words unique to the group of keywords, and the unique set of words is determined based on a frequency of the words in the set by determining a term frequency-inverse document frequency (TF-IDF) statistic amongst the words associated with the group of keywords.
+11. The machine-readable medium of claim 7, wherein the classification model is based on a word embedding model to create the word vectors.
+12. The machine-readable medium of claim 11, wherein the word embedding model is based on a Word2vec model that applies either a skip-gram or a continuous bag of words (CBOW) process to create the word vectors.
+13. A processing system, comprising: one or more processors; a memory coupled to the one or more processors; an extraction module loaded in the memory and executed by the one or more processors to extract one or more keywords from a query, the one or more keywords to be categorized as one of a plurality of predetermined categories of word vectors; and a determination module loaded in the memory and executed by the one or more processors to use a classification model to determine a category associated with the keywords, wherein the classification model includes a neural network model, by applying the keywords to the classification model to create at least one keyword vector, determining, amongst a plurality of clusters of word vectors associated with the classification model, a nearest cluster based on a distance from a centroid of the nearest cluster to a position of the at least one keyword vector, wherein the centroid of each cluster corresponds to one of the predetermined categories of word vectors, wherein the classification model is periodically trained in response to newly added keywords or a keyword plan, wherein a first of the predetermined categories is associated with a first entity and a second of the predetermined categories is associated with a second entity, and selecting a category represented by the nearest cluster as the category associated with the keywords, wherein the classification model is trained by determining a set of words amongst words associated with a group of keywords, applying classification model to convert the set of words into word vectors, clustering, using hierarchical clustering, the word vectors into clusters, and labelling each cluster with a corresponding one of the predetermined categories.
+14. The system of claim 13, wherein each of the predetermined categories is associated with one of a plurality of medical data segments, and each medical data segment is associated with one of a plurality of medical departments of a medical organization.
+15. The system of claim 13, wherein the labelling comprises mapping a centroid of each cluster with the corresponding one of the predetermined categories.
+16. The system of claim 13, wherein the set of words is a unique set of words unique to the group of keywords, and the unique set of words is determined based on a frequency of the words in the set by determining a term frequency-inverse document frequency (TF-IDF) statistic amongst the words associated with the group of keywords.
+17. The system of claim 13, wherein the classification model is based on a word embedding model to create the word vectors.
+18. The system of claim 17, wherein the word embedding model is based on a Word2vec model that applies either a skip-gram or a continuous bag of words (CBOW) process to create the word vectors.
+</claims>
+</document>

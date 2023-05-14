@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2019-03-29
+</filing_date>
+
+<publication_date>
+2020-10-01
+</publication_date>
+
+<priority_date>
+2019-03-29
+</priority_date>
+
+<ipc_classes>
+G06F16/17,G06F21/62,H04L29/06,H04L9/08,H04L9/32
+</ipc_classes>
+
+<assignee>
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+WANG, BING
+Davenport, Neil Scott
+</inventors>
+
+<docdb_family_id>
+72608149
+</docdb_family_id>
+
+<title>
+SECURE AND VERIFIABLE DATA ACCESS LOGGING SYSTEM
+</title>
+
+<abstract>
+Techniques for providing a secure and verifiable data access logging system are disclosed herein. In some embodiments, a computer system receives an indication of a data request from a client device that is requesting data of one or more users from a data server, stores a request log entry corresponding to the data request in a log file, generates a request token based on the received indication of the data request, transmits the generated request token to the client device, receives a fetch event from the data server that requests a request digest corresponding to the request token and configured to indicate that the request log entry corresponding to the data request is stored in the log file, stores a response log entry corresponding to the received fetch event in the log file, and transmits the request digest to the data server based on the received fetch event.
+</abstract>
+
+<claims>
+1. A computer-implemented method comprising: receiving, by a log server having a memory and at least one hardware processor, an indication of a data request from a client device; the data request requesting data of one or more users of an online service from a data server; storing; by the log server, a request log entry corresponding to the data request in a log file based on the receiving of the indication of the data request; generating, by the log server, a request token based on the received indication of the data request; transmitting, by the log server, the generated request token to the client device; receiving, by the log server, a fetch event from the data server, the fetch event requesting a request digest corresponding to the request token, the fetch event corresponding to a transmission of the data request from the client device to the data server, and the request digest being configured to indicate that the request log entry corresponding to the data request is stored in the log file; storing, by the log server, a response log entry corresponding to the received fetch event in the log file based on the receiving of the fetch event; and transmitting, by the log server, the request digest to the data server based on the received fetch event.
+2. The computer-implemented method of claim 1, wherein the generated request token comprises an encryption of the request log entry.
+3. The computer-implemented method of claim 1, wherein the request log entry comprises: a query of the data request, the query requesting the data of the one or more users from the data server; a client identifier configured to uniquely identify a human user of the client device or a software application of the client device; and a request timestamp indicating a time at which the data request was issued by the client device.
+4. The computer-implemented method of claim 1, wherein the storing of the request log entry comprises: encrypting data of the request log entry using an encryption algorithm; and storing the encrypted data of the request log entry in the log file.
+5. The computer-implemented method of claim 1, wherein the response log entry comprises: a request identifier configured to uniquely identify the data request; one or more attributes that correspond to a response dataset for the data request, the response dataset comprising the data of the one or more users that is requested by the client device from the data server via the data request; and a response timestamp indicating a time at which the data server responded to the data request.
+6. The computer-implemented method of claim 5, wherein the response log entry further comprises a response status indicating whether the data request was successful in providing the data of the user to the client device.
+7. The computer-implemented method of claim 1, wherein the storing of the response log entry comprises: encrypting data of the response log entry using an encryption algorithm; and storing the encrypted data of the response log entry in the log file.
+8. The computer-implemented method of claim 7, wherein the encryption algorithm used to encrypt the data of the response log entry comprises an attribute-based encryption that builds an attribute-based access policy into cyphertext of the encrypted data of the response log entry, the attribute-based access policy configured to allow decryption of the encrypted data only with a key that satisfies the attribute-based access policy, and the attribute-based access policy based on the one or more attributes of the response log entry.
+9. The computer-implemented method of claim 8, further comprising: receiving, by the log server, a log review request from a competing device of a reviewer user to access information in the log file; determining, by the log server, a degree of access to information in the log file for the reviewer user based on one or more attributes of the reviewer user; and causing, by the log server, information corresponding to the response log entry stored in the log file to be displayed on the computing device of the reviewer user based on the determined degree of access for the reviewer user.
+10. A system comprising: at least one hardware processor; and a non-transitory machine-readable medium embodying a set of instructions that, when executed by the at least one hardware processor, cause the at least one processor to perform operations, the operations comprising: receiving an indication of a data request from a client device, the data request requesting data of one or more users of an online service from a data server; storing a request log entry corresponding to the data request in a log file based on the receiving of the indication of the data request; generating a request token based on the received indication of the data request; transmitting the generated request token to the client device; receiving a fetch event from the data server, the fetch event requesting a request digest corresponding to the request token, the fetch event corresponding to a transmission of the data request from the client device to the data server; and the request digest being configured to indicate that the request log entry corresponding to the data request is stored in the log file; storing a response log entry corresponding to the received fetch event in the log file based on the receiving of the fetch event; and transmitting the request digest to the data server based on the received fetch event.
+11. The system of claim 10, wherein the generated request token comprises an encryption of the request log entry.
+12. The system of claim 10, wherein the request log entry comprises: a query of the data request, the query requesting the data of the one or more users from the data server; a client identifier configured to uniquely identify a human user of the client device or a software application of the client device; and a request timestamp indicating a time at which the data request was issued by the client device.
+13. The system of claim 10; wherein the storing of the request log entry comprises: encrypting data of the request log entry using an encryption algorithm; and storing the encrypted data of the request log entry in the log file.
+14. The system of claim 10, wherein the response log entry comprises: a request identifier configured to uniquely identify the data request; one or more attributes that correspond to a response dataset for the data request, the response dataset comprising the data of the one or more users that is requested by the client device from the data server via the data request; and a response timestamp indicating a time at which the data server responded to the data request.
+15. The system of claim 14, wherein the response log entry further comprises a response status indicating whether the data request was successful in providing the data of the user to the client device.
+16. The system of claim 10, wherein the storing of the response log entry comprises: encrypting data of the response log entry using an encryption algorithm; and storing the encrypted data of the response log entry in the log file.
+17. The system of claim 16, wherein the encryption algorithm used to encrypt the data of the response log entry comprises an attribute-based encryption that builds an attribute-based access policy into cyphertext of the encrypted data of the response log entry, the attribute-based access policy configured to allow decryption of the encrypted data only with a key that satisfies the attribute-based access policy, and the attribute-based access policy based on the one or more attributes of the response log entry.
+18. The system of claim 17, wherein the operations further comprise: receiving a log review request from a computing device of a reviewer user to access information in the log file; determining a degree of access to information in the log file for the reviewer user based on one or more attributes of the reviewer user; and causing information corresponding to the response log entry stored in the log file to be displayed on the computing device of the reviewer user based on the determined degree of access for the reviewer user.
+19. A non-transitory machine-readable medium embodying a set of instructions that, when executed by at least one hardware processor, cause the processor to perform operations, the operations comprising: receiving an indication of a data request from a client device, the data request requesting data of one or more users of an online service from a data server; storing a request log entry corresponding to the data request in a log file based on the receiving of the indication of the data request; generating a request token based on the received indication of the data request; transmitting the generated request token to the client device; receiving a fetch event from the data server, the fetch event requesting a request digest corresponding to the request token, the fetch event corresponding to a transmission of the data request from the client device to the data server, and the request digest being configured to indicate that the request log entry corresponding to the data request is stored in the log file; storing a response log entry corresponding to the received fetch event in the log file based on the receiving of the fetch event; and transmitting the request digest to the data server based on the received fetch event.
+20. The non-transitory machine-readable medium of claim 19, wherein the request log entry comprises: a query of the data request, the query requesting the data of the one or more users from the data server; a client identifier configured to uniquely identify a human user of the client device or a software application of the client device; and a request timestamp indicating a time at which the data request was issued by the client device.
+</claims>
+</document>

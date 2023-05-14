@@ -1,0 +1,76 @@
+<document>
+
+<filing_date>
+2016-05-23
+</filing_date>
+
+<publication_date>
+2020-04-21
+</publication_date>
+
+<priority_date>
+2016-05-23
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/46,G06K9/62,H04N11/02,H04N11/04,H04N19/119,H04N19/136,H04N19/167,H04N19/172,H04N19/186,H04N19/194,H04N19/543,H04N19/85,H04N7/12
+</ipc_classes>
+
+<assignee>
+INTEL CORPORATION
+</assignee>
+
+<inventors>
+PURI, ATUL
+SOCEK, DANIEL
+</inventors>
+
+<docdb_family_id>
+60331059
+</docdb_family_id>
+
+<title>
+Fast and robust face detection, region extraction, and tracking for improved video coding
+</title>
+
+<abstract>
+Techniques related to improved video coding based on face detection, region extraction, and tracking are discussed. Such techniques may include performing a facial search of a video frame to determine candidate face regions in the video frame, testing the candidate face regions based on skin tone information to determine valid and invalid face regions, rejecting invalid face regions, and encoding the video frame based on valid face regions to generate a coded bitstream.
+</abstract>
+
+<claims>
+1. A computer implemented method for performing video coding based on face detection comprising: receiving a video frame comprising one of a plurality of video frames of a video sequence; determining the video frame is a key frame of the video sequence; performing, in response to the video frame being a key frame of the video sequence, a multi-stage facial search of the video frame based on predetermined feature templates and a predetermined number of stages to determine a first candidate face region and a second candidate face region in the video frame; testing the first and second candidate face regions based on skin tone information to determine the first candidate face region is a valid face region and the second candidate face region is an invalid face region; rejecting the second candidate face region and outputting the first candidate face region; and encoding the video frame based at least in part on the first candidate face region being a valid face region to generate a coded bitstream.
+2. The method of claim 1, wherein the skin tone information comprises a skin probability map.
+3. The method of claim 1, wherein said testing the first and second candidate face regions based on skin tone information is performed in response to the video frame being a key frame of the video sequence.
+4. The method of claim 1, wherein the first candidate face region comprises a rectangular region, the method further comprising: determining a free form shape face region corresponding to the first candidate face region, wherein the free form shape face region has at least one of a pixel accuracy or a small block of pixels accuracy.
+5. The method of claim 4, wherein determining the free form shape face region comprises: generating an enhanced skip probability map corresponding to the first candidate face region; binarizing the enhanced skip probability map; and overlaying the binarized enhanced skip probability map over at least a portion of the video frame to provide the free form shape face region.
+6. The method of claim 4, wherein a second video frame comprises a non-key frame of the video sequence, the method further comprising performing face detection in the second video frame of the video sequence based on the free form shape face region.
+7. The method of claim 6, further comprising: tracking a second free form shape face region in the second video frame based on the free form shape face region in the video frame.
+8. The method of claim 7, wherein tracking the second free form shape face region comprises determining a location of a second valid face region in the second video frame based on a displacement offset with respect to the first candidate face region.
+9. The method of claim 8, further comprising: determining the displacement offset based on an offset between a centroid of a bounding box around a skin enhanced region corresponding to the first candidate face region and a second centroid of a second bounding box around a second skin enhanced region in the second video frame.
+10. The method of claim 1, wherein encoding the video frame based at least in part on the first candidate face region being a valid face region comprises at least one of reducing a quantization parameter corresponding to the first candidate face region, adjusting a lambda value for the first candidate face region, or disabling skip coding for the first candidate face region.
+11. The method of claim 1, wherein the bitstream comprises at least one of an H.264/Advanced Video Coding (AVC) compliant bitstream, an H.265/High Efficiency Video Coding (HEVC) compliant bitstream, a VP9 compliant bitstream, a VP10 compliant bitstream, or an Alliance for Open Media (AOM) AV1 compliant bitstream.
+12. A computer implemented method for performing face detection comprising: receiving a video frame of a sequence of video frames; performing a multi-stage facial search of the video frame based on predetermined feature templates and a predetermined number of stages to determine a first candidate face region and a second candidate face region in the video frame; testing the first and second candidate face regions based on skin tone information to determine the first candidate face region is a valid face region and the second candidate face region is an invalid face region; rejecting the second candidate face region and outputting the first candidate face region as a valid face region for further processing; and providing an index indicative of a person being present in the video frame based on the valid face region.
+13. The method of claim 12, wherein the sequence of video frames comprises a sequence of surveillance video frames, the method further comprising: performing face recognition in the surveillance video frames based on the valid face region.
+14. The method of claim 12, wherein the sequence of video frames comprises a sequence of decoded video frames, the method further comprising: adding a marker corresponding to the received video frame to perform face recognition on the received video frame based on the valid face region.
+15. The method of claim 12, wherein the sequence of video frames is received during a device login attempt, the method further comprising: performing face recognition based on the valid face region; and allowing access to the device if a secured face is recognized.
+16. The method of claim 12, wherein the sequence of video frames comprises a sequence of videoconferencing frames, the method further comprising: encoding the video frame based at least in part on the valid face region to generate a coded bitstream.
+17. The method of claim 16, wherein encoding the video frame comprises not encoding a background region of the video frame into the bitstream.
+18. The method of claim 12, further comprising: encoding the video frame based at least in part on the valid face region to generate a coded bitstream, wherein encoding the video frame comprises including metadata corresponding to the valid face region in the bitstream.
+19. The method of claim 18, further comprising: decoding the coded bitstream to generate a decoded video frame and to determine the metadata corresponding to the valid face region in the bitstream.
+20. The method of claim 19, further comprising at least one of replacing the valid face region based on the decoded metadata, cropping and displaying image data corresponding only to the valid face region based on the decoded metadata, or indexing the decoded video frame based on the decoded metadata.
+21. A system for performing video coding based on face detection comprising: a memory configured to store a video frame comprising one of a plurality of video frames of a video sequence; and a processor coupled to the memory, the processor to receive the video frame, to determine the video frame is a key frame of the video sequence; to perform, in response to the video frame being a key frame of the video sequence, a multi-stage facial search of the video frame based on predetermined feature templates and a predetermined number of stages to determine a first candidate face region and a second candidate face region in the video frame, to test the first and second candidate face regions based on skin tone information to determine the first candidate face region is a valid face region and the second candidate face region is an invalid face region, to reject the second candidate face region and outputting the first candidate face region, and to encode the video frame based at least in part on the first candidate face region being a valid face region to generate a coded bitstream.
+22. The system of claim 21, wherein the skin tone information comprises a skin probability map.
+23. The system of claim 21, wherein the first candidate face region comprises a rectangular region, the processor further to determine a free form shape face region corresponding to the first candidate face region, wherein the free form shape face region has at least one of a pixel accuracy or a small block of pixels accuracy.
+24. The system of claim 23, wherein the processor to determine the free form shape face region comprises the processor to generate an enhanced skip probability map corresponding to the first candidate face region, to binarize the enhanced skip probability map, and to overlay the binarized enhanced skip probability map over at least a portion of the video frame to provide the free form shape face region.
+25. The system of claim 23, wherein a second video frame comprises a non-key frame of the video sequence, and the processor is further to perform face detection in the second video frame of the video sequence based on the free form shape face region.
+26. The system of claim 25, wherein the processor is further to track a second free form shape face region in the second video frame based on the free form shape face region in the video frame.
+27. The system of claim 21, wherein to encode the video frame based at least in part on the first candidate face region being a valid face region comprises the processor to reduce a quantization parameter corresponding to the first candidate face region, adjust a lambda value for the first candidate face region, or disable skip coding for the first candidate face region.
+28. At least one non-transitory machine readable medium comprising a plurality of instructions that, in response to being executed on a device, cause the device to perform video coding based on face detection by: receiving a video frame comprising one of a plurality of video frames of a video sequence; determining the video frame is a key frame of the video sequence; performing, in response to the video frame being a key frame of the video sequence, a multi-stage facial search of the video frame based on predetermined feature templates and a predetermined number of stages to determine a first candidate face region and a second candidate face region in the video frame; testing the first and second candidate face regions based on skin tone information to determine the first candidate face region is a valid face region and the second candidate face region is an invalid face region; rejecting the second candidate face region and outputting the first candidate face region; and encoding the video frame based at least in part on the first candidate face region being a valid face region to generate a coded bitstream.
+29. The non-transitory machine readable medium of claim 28, wherein the skin tone information comprises a skin probability map.
+30. The non-transitory machine readable medium of claim 28, wherein the first candidate face region comprises a rectangular region, the machine readable medium comprising further instructions that, in response to being executed on the device, cause the device to perform video coding based on face detection by: determining a free form shape face region corresponding to the first candidate face region, wherein the free form shape face region has at least one of a pixel accuracy or a small block of pixels accuracy.
+31. The non-transitory machine readable medium of claim 30, wherein determining the free form shape face region comprises: generating an enhanced skip probability map corresponding to the first candidate face region; binarizing the enhanced skip probability map; and overlaying the binarized enhanced skip probability map over at least a portion of the video frame to provide the free form shape face region.
+32. The non-transitory machine readable medium of claim 30, wherein a second video frame comprises a non-key frame of the video sequence, the machine readable medium comprising further instructions that, in response to being executed on the device, cause the device to perform video coding based on face detection by performing face detection in the second video frame of the video sequence based on the free form shape face region.
+33. The non-transitory machine readable medium of claim 32, the machine readable medium comprising further instructions that, in response to being executed on the device, cause the device to perform video coding based on face detection by: tracking a second free form shape face region in the second video frame based on the free form shape face region in the video frame.
+34. The non-transitory machine readable medium of claim 28, wherein encoding the video frame based at least in part on the first candidate face region being a valid face region comprises at least one of reducing a quantization parameter corresponding to the first candidate face region, adjusting a lambda value for the first candidate face region, or disabling skip coding for the first candidate face region.
+</claims>
+</document>

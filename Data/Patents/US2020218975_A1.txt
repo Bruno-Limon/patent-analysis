@@ -1,0 +1,51 @@
+<document>
+
+<filing_date>
+2018-08-21
+</filing_date>
+
+<publication_date>
+2020-07-09
+</publication_date>
+
+<priority_date>
+2017-09-04
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+NTT (NIPPON TELEGRAPH AND TELEPHONE CORPORATION)
+</assignee>
+
+<inventors>
+MASUMURA, RYO
+MASATAKI, HIROKAZU
+</inventors>
+
+<docdb_family_id>
+65525508
+</docdb_family_id>
+
+<title>
+CONFUSION NETWORK DISTRIBUTED REPRESENTATION GENERATION APPARATUS, CONFUSION NETWORK CLASSIFICATION APPARATUS, CONFUSION NETWORK DISTRIBUTED REPRESENTATION GENERATION METHOD, CONFUSION NETWORK CLASSIFICATION METHOD AND PROGRAM
+</title>
+
+<abstract>
+There is provided a technique for transforming a confusion network to a representation that can be used as an input for machine learning. A confusion network distributed representation sequence generating part that generates a confusion network distributed representation sequence, which is a vector sequence, from an arc word set sequence and an arc weight set sequence constituting the confusion network is included. The confusion network distributed representation sequence generating part comprises: an arc word distributed representation set sequence transforming part that, by transforming an arc word included in the arc word set to a word distributed representation, obtains an arc word distributed representation set and generates an arc word distributed representation set sequence; and an arc word distributed representation set weighting/integrating part that generates the confusion network distributed representation sequence from the arc word distributed representation set sequence and the arc weight set sequence.
+</abstract>
+
+<claims>
+1. A confusion network distributed representation generation apparatus comprising a confusion network distributed representation sequence generating part that, when T is assumed to be an integer equal to or larger than 1, and Wt=(wt1, wt2, . . . , wtN_t) (1≤t≤T) and Ct=(ct1, ct2, . . . , ctN_t) (1≤t≤T) are assumed to be a t-th arc word set constituting a confusion network (wherein wtn (1≤n≤Nt; Nt is an integer equal to or larger than 1) denotes an arc word included in the arc word set Wt) and a t-th arc weight set constituting the confusion network (wherein ctn (1≤n≤N) denotes an arc weight corresponding to the arc word wtn), respectively, generates a confusion network distributed representation sequence U1, U2, . . . , UT, which is a vector sequence, from an arc word set sequence W1, W2, . . . , WT and an arc weight set sequence C1, C2, . . . , CT constituting the confusion network; wherein the confusion network distributed representation sequence generating part comprises: an arc word distributed representation set sequence transforming part that, by transforming the arc word wtn included in the arc word set Wt to a word distributed representation ωtn, obtains an arc word distributed representation set Ωt=(ωt1, ωt2, . . . , ΩT) and generates an arc word distributed representation set sequence Ω1, Ω2, . . . , ΩT; and an arc word distributed representation set weighting/integrating part that generates the confusion network distributed representation sequence U1, U2, . . . , UT from the arc word distributed representation set sequence Ω1, Ω2, . . . , ΩT and the arc weight set sequence C1, C2, . . . , CT.
+2. The confusion network distributed representation generation apparatus according to claim 1, further comprising a text transforming part that generates, from a word sequence w1, w2, . . . , wT, the arc word set sequence W1, W2, . . . , WT and the arc weight set sequence C1, C2, . . . , CT constituting the confusion network by the following formula:
+description="In-line Formulae" end="lead"?Wt=(wt)(1≤t≤T)description="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?Ct=(1)(1≤t≤T) [Formula 10]description="In-line Formulae" end="tail"?
+3. A confusion network classification apparatus comprising: a confusion network distributed representation sequence generating part that, when T is assumed to be an integer equal to or larger than 1, and Wt=(wt1, wt2, . . . , wtN_t) (1≤t≤T) and Ct=(ct1, ct2, . . . , ctN_t) (1≤t≤T) are assumed to be a t-th arc word set constituting a confusion network (wherein wtn(1≤n≤Nt; Nt is an integer equal to or larger than 1) denotes an arc word included in the arc word set Wt) and a t-th arc weight set constituting the confusion network (wherein ctn (1≤n≤Nt) denotes an arc weight corresponding to the arc word wtn), respectively, generates a confusion network distributed representation sequence U1, U2, . . . , UT, which is a vector sequence, from an arc word set sequence W1, W2, . . . , WT and an arc weight set sequence C1, C2, . . . , CT constituting the confusion network; and a class label estimating part that estimates a class label showing a class of the confusion network, from the confusion network distributed representation sequence U1, U2, . . . , UT; wherein the confusion network distributed representation sequence generating part comprises: an arc word distributed representation set sequence transforming part that, by transforming the arc word wtn included in the arc word set Wt to a word distributed representation ωtn, obtains an arc word distributed representation set Ωt=(ωt1, ωt2, . . . , ωtN_t) and generates an arc word distributed representation set sequence Ω1, Ω2, . . . , ΩT; and an arc word distributed representation set weighting/integrating part that generates the confusion network distributed representation sequence U1, U2, . . . , UT from the arc word distributed representation set sequence Ω1, Ω2, . . . , ΩT and the arc weight set sequence C1, C2, . . . , CT.
+4. The confusion network classification apparatus according to claim 3, wherein the confusion network distributed representation sequence generating part and the class label estimating part are configured as neural networks; and parameters of the neural network constituting the confusion network distributed representation sequence generating part and parameters of the neural network constituting the class label estimating part are learned with the two neural networks as one neural network obtained by combining the two neural networks.
+5. A confusion network distributed representation generation method comprising a confusion network distributed representation sequence generating step of, when T is assumed to be an integer equal to or larger than 1, and Wt=(wt1, wt2, . . . , wtN_t) (1≤t≤T) and Ct=(ct1, ct2, . . . , ctN_t) (1≤t≤T) are assumed to be a t-th arc word set constituting a confusion network (wherein wtn (1≤n≤Nt; Nt is an integer equal to or larger than 1) denotes an arc word included in the arc word set Wt) and a t-th arc weight set constituting the confusion network (wherein ctn (1≤n≤Nt) denotes an arc weight corresponding to the arc word wtn), respectively, a confusion network distributed representation generation apparatus generating a confusion network distributed representation sequence U1, U2, . . . , UT, which is a vector sequence, from an arc word set sequence W1, W2, . . . , WT and an arc weight set sequence C1, C2, . . . , CT constituting the confusion network; wherein the confusion network distributed representation sequence generating step comprises: an arc word distributed representation set sequence transforming step of, by transforming the arc word wtn included in the arc word set Wt to a word distributed representation ωtn, obtaining an arc word distributed representation set Ωt=(ωt1, ωt2, . . . , ωtN_t) and generating an arc word distributed representation set sequence Ω1, Ω2, . . . , ΩT; and an arc word distributed representation set weighting/integrating step of generating the confusion network distributed representation sequence U1, U2, . . . , UT from the arc word distributed representation set sequence Ω1, Ω2, . . . , ΩT and the arc weight set sequence C1, C2, . . . , CT.
+6. A confusion network classification method comprising a confusion network distributed representation sequence generating step of, when T is assumed to be an integer equal to or larger than 1, and Wt=(wt1, wt2, . . . , wtN_t) (1≤t≤T) and Ct=(ct1, ct2, . . . , ctN_t) (1≤t≤T) are assumed to be a t-th arc word set constituting a confusion network (wherein wtn (1≤n≤Nt; Nt is an integer equal to or larger than 1) denotes an arc word included in the arc word set Wt) and a t-th arc weight set constituting the confusion network (wherein ctn, (1≤n≤Nt) denotes an arc weight corresponding to the arc word wtn), respectively, a confusion network classification apparatus generating a confusion network distributed representation sequence U1, U2, . . . , UT, which is a vector sequence, from an arc word set sequence W1, W2, . . . , WT and an arc weight set sequence C1, C2, . . . , CT constituting the confusion network; and a class label estimating step of the confusion network classification apparatus estimating a class label showing a class of the confusion network, from the confusion network distributed representation sequence U1, U2, . . . , UT; wherein the confusion network distributed representation sequence generating step comprises: an arc word distributed representation set sequence transforming step of, by transforming the arc word wtn included in the arc word set Wt to a word distributed representation ωtn, obtaining an arc word distributed representation set Ωt=(ωt1, ωt2, . . . , ωtN_t) and generating an arc word distributed representation set sequence Ω1, Ω2, . . . , ΩT; and an arc word distributed representation set weighting/integrating step of generating the confusion network distributed representation sequence U1, U2, . . . , UT from the arc word distributed representation set sequence Ω1, Ω2, . . . , ΩT and the arc weight set sequence C1, C2, . . . , CT.
+7. A program for causing a computer to function as the confusion network distributed representation generation apparatus according to claim 1 or 2, or the confusion network classification apparatus according to claim 3 or 4.
+</claims>
+</document>

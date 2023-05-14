@@ -1,0 +1,52 @@
+<document>
+
+<filing_date>
+2019-12-27
+</filing_date>
+
+<publication_date>
+2020-10-14
+</publication_date>
+
+<priority_date>
+2019-04-10
+</priority_date>
+
+<ipc_classes>
+G06T7/13
+</ipc_classes>
+
+<assignee>
+Chinese Academy Of Surveying And Mapping
+</assignee>
+
+<inventors>
+GUO, Peipei
+LIU, Xiaoli
+WU, Wei
+WU, Pengda
+LI, Chengming
+YIN, Yong
+</inventors>
+
+<docdb_family_id>
+67170620
+</docdb_family_id>
+
+<title>
+METHODS FOR EXTRACTING SKELETON LINES IN INTERSECTION-INTENSIVE AREAS
+</title>
+
+<abstract>
+The present invention discloses a method for extracting a skeleton line in an intersection-intensive area, comprising following steps: S1: establishing a constrained Delaunay triangulation network for a polygon, encrypting a long side of the polygon, and updating the constrained Delaunay triangulation network; S2: extracting a skeleton line of the polygon based on the updated constrained Delaunay triangulation network; S3: identifying an intersection-intensive area based on the extracted skeleton line; and S4: adjusting and optimizing the skeleton line for the identified intersection-intensive area. The present invention has the following advantages: with the use of this method, the overall features of the original area can be maintained after the extraction of the skeleton line, and both the natural extensibility and the human visual requirements can be satisfied; this method is free from the interference from the boundary with complex branches and the arrangement structure during the extraction of the skeleton line, and can handle the jitter on the skeleton line in this area; the extracted skeleton line will not have great distortion and the overall structure of this area will not be lost.
+</abstract>
+
+<claims>
+1. A method for extracting a skeleton line in an intersection-intensive area, comprising following steps: S1: establishing a constrained Delaunay triangulation network for a polygon, encrypting a long side of the polygon, and updating the constrained Delaunay triangulation network; S2: extracting a skeleton line of the polygon based on the updated constrained Delaunay triangulation network; S3: identifying an intersection-intensive area based on the extracted skeleton line; and S4: adjusting and optimizing the skeleton line for the identified intersection-intensive area.
+2. The method for extracting a skeleton line in an intersection-intensive area according to claim 1, wherein, the step S1 further comprises following steps: S101: identifying obtuse triangles from type-III triangles in the constrained Delaunay triangulation network, setting a minimal angle threshold, marking obtuse triangles having a minimal angle less than the minimal angle threshold and putting them in a triangle set; S102: identifying longest sides of all triangles in the triangle set, and finding type-II triangles which are adjacent to those longest sides and have a side that is a boundary; S103: selecting all type-II triangles whose longest side is a boundary, marking them as triangles to be encrypted, and marking their respective longest side as a local long side to be encrypted; and S104: setting, as an encryption step, a shortest side of type-III triangles in the triangle set associated with the triangles to be encrypted, and encrypting the triangles to be encrypted and the local long side to be encrypted with the encryption step.
+3. The method for extracting a skeleton line in an intersection-intensive area according to claim 1, wherein, the step S3 comprises following steps: S301: building a topology between points and lines for an initial skeleton line, and recording the number of associated arcs to which each node in the skeleton line topology is associated; S302: selecting a node having three associated arcs, this node being called a three-intersection node and an area containing this node being called a three-intersection area; S303: calculating a local approximate width of the three-intersection area; S304: defining an arc having a starting endpoint and an ending endpoint that are three-intersection nodes as a link arc, calculating a local approximate width of an area containing a starting node and of an area containing an ending node of the link arc, and using the greater one of the local approximate widths as the local approximate width of the area containing the link arc; S305: regarding the length between the starting node and the ending node of the link arc, except for the internal length of the type-III triangles, as the valid length of the link arc, and determining whether the valid length of the link arc is less than the local approximate width of the area containing the link arc, wherein, if so, the starting node and the ending node of the link arc are associated and this link arc is an associated arc, and if not, the starting node and the ending node of the link arc are not associated and this link arc is not an associated arc; and S306: putting all associated arcs obtained in the step S305 into an associated arc set; successively selecting one associated arc from the associated arc set as a first associated arc and using the starting node and the ending node of the first associated arc as tracking nodes, regarding an associated arc containing the starting node or the ending node of the first associated arc as a second associated arc and recording the second associated arc in the associated arc set; and, at the end of the detection of all associated arcs, clustering the associated arcs to obtain an intersection concentration result.
+4. The method for extracting a skeleton line in an intersection-intensive area according to claim 1, wherein, the step S4 comprises following steps: S401: weighting, by the CRITIC method, the length, connectivity, proximity and betweenness of a link arc to obtain an importance of the link arc; S402: selecting a three-intersection node having an associated arc on only one side as a starting node for stroke connection tracking, and using the link arc of the three-intersection node as a tracking arc and a node on the other side of the tracking arc as a tracking node; S403: using link arcs for the tracking node as a stroke connection candidate set, and calculating the importance of each link arc; S404: preferentially linking a link arc having a high importance to a previous link arc to form a stroke; S405: on the basis of the step S403 and the step S404, continuously tracking upward to calculate the stroke connection until there is no link arc for the tracking node, and then ending the single stroke connection; S406: exploring branched link arcs for the existing stroke connection until all link arcs in the intersection-intensive area have been calculated, and then ending the calculation of the stroke connection; and S407: on the basis of the calculated stroke connection in the intersection-intensive area, by using two link arcs on the stroke connection as reference arcs, and by regarding a midpoint of a line between two points on a side of a type-III triangle as an adjustment position for the three-intersection node, linking three link arcs associated with the three-intersection node to this midpoint to complete the adjustment of the skeleton line in the three-intersection area.
+5. The method for extracting a skeleton line in an intersection-intensive area according to claim 1, wherein the intersection node is a central point of a type-III triangle.
+6. The method for extracting a skeleton line in an intersection-intensive area according to claim 1, wherein the local approximate width of the three-intersection area is twice the maximum value of the internal skeleton line of a type-III triangle corresponding to the three-intersection point.
+</claims>
+</document>

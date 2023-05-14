@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2019-02-27
+</filing_date>
+
+<publication_date>
+2021-01-27
+</publication_date>
+
+<priority_date>
+2018-03-22
+</priority_date>
+
+<ipc_classes>
+G10L15/02,G10L15/04,G10L15/08,G10L15/22
+</ipc_classes>
+
+<assignee>
+TENCENT TECHNOLOGY (SHENZHEN) COMPANY
+</assignee>
+
+<inventors>
+LIN, Shilun
+JIANG, Xiucai
+LI, Xinhui
+ZHANG, Xilin
+LIU, Bo
+LU, Li
+MA, Wenhua
+</inventors>
+
+<docdb_family_id>
+63533050
+</docdb_family_id>
+
+<title>
+SPEECH RECOGNITION METHOD, APPARATUS AND DEVICE, AND STORAGE MEDIUM
+</title>
+
+<abstract>
+Disclosed are a speech recognition method, apparatus and device, which fall within the field of speech recognition. The method comprises: acquiring speech information (201); determining start and end positions of a candidate speech segment in the speech information by means of a weighted finite state transducer network (202); capturing the candidate speech segment from the speech information according to the start and end positions of the candidate speech segment (203); and inputting the candidate speech segment into a machine learning model, and detecting whether the candidate speech segment contains a pre-set keyword by means of the machine learning model (204). A candidate speech segment subjected to coarse positioning of a weighted finite state transducer network is checked by means of a machine learning model to determine whether the candidate speech segment contains a pre-set keyword, thereby solving the problem in the relevant art that false wake-up occurs on account that speech information without semantics may be recognized as speech information with semantics, and improving the accuracy of speech recognition.
+</abstract>
+
+<claims>
+1. A speech recognition method, performed by a terminal or a server, and comprising: obtaining speech information; determining beginning and ending positions of a candidate speech segment in the speech information by using a weighted finite state transducer (WFST) network; clipping the candidate speech segment from the speech information according to the beginning and ending positions; inputting the candidate speech segment into a machine learning model, and detecting whether the candidate speech segment comprises a preset keyword by using the machine learning model; and determining, upon determining that the candidate speech segment comprises the preset keyword, that the speech information comprises the preset keyword.
+2. The method according to claim 1, wherein the determining a candidate speech segment and beginning and ending positions of the candidate speech segment in the speech information by using a weighted finite state transducer (WFST) network comprises: performing framing on the speech information, to obtain a plurality of frames of speech segments; inputting the plurality of frames of speech segments into the WFST network, to obtain language information of a maximum posterior probability corresponding to the plurality of frames of speech segments; and determining, when the language information comprises the preset keyword, the beginning and ending positions of the candidate speech segment corresponding to the preset keyword in the speech information, wherein the candidate speech segment comprises at least one of the plurality of frames of speech segments.
+3. The method according to claim 2, wherein the WFST network comprises a deep neural network (DNN), a hidden Markov model (HMM), a dictionary, and a language model, and the inputting the plurality of frames of speech segments into the WFST network, to obtain language information of a maximum posterior probability corresponding to the plurality of frames of speech segments comprising: inputting the plurality of frames of speech segments into the DNN, to obtain a posterior probability of a hidden state corresponding to each of the plurality of frames of speech segments; obtaining the hidden state corresponding to each frame of speech segment according to the posterior probability of the hidden state corresponding to each frame of speech segment by using the HMM; obtaining a phoneme corresponding to the plurality of frames of speech segments according to the hidden state corresponding to each frame of speech segment; and obtaining the language information of the maximum posterior probability corresponding to the plurality of frames of speech segments according to the phoneme corresponding to the plurality of frames of speech segments according to the dictionary and the language model, wherein the dictionary comprises a correspondence between the phoneme and a word, and the language model comprises a correspondence between the word and grammar and/or syntax.
+4. The method according to claim 3, wherein the obtaining the hidden state corresponding to each frame of speech segment according to the posterior probability of the hidden state corresponding to each frame of speech segment by using the HMM comprises: converting, by using a Bayes formula, the posterior probability of the hidden state corresponding to each frame of speech segment to an emission probability of the hidden state corresponding to each frame of speech segment; and performing forward decoding, by using the HMM, according to the emission probability of the hidden state corresponding to each frame of speech segment, an initial probability of each hidden state in the HMM, and a transition probability between hidden states in the HMM, to obtain the hidden state corresponding to each frame of speech segment.
+5. The method according to any one of claims 1 to 4, wherein the machine learning model is a convolutional neural network (CNN), and the inputting the candidate speech segment into a machine learning model, and detecting whether the candidate speech segment comprises a preset keyword by using the machine learning model comprises: inputting the candidate speech segment into the CNN; performing convolution and pooling on the candidate speech segment by using the CNN, to obtain high-level semantic features of the candidate speech segment through extraction; and classifying the high-level semantic features of the candidate speech segment by using a fully connected layer and a Softmax function in the CNN, and detecting whether the candidate speech segment comprises the preset keyword.
+6. A speech wakeup method, comprising: transmitting, by a terminal, obtained speech information to a server; detecting, by the server, whether the speech information comprises a preset keyword; clipping, by the server in a case that the speech information comprises the preset keyword, a candidate speech segment from the speech information, the candidate speech segment being a speech information segment corresponding to the preset keyword; verifying, by the server, the candidate speech segment, and detecting again whether the candidate speech segment comprises the preset keyword; transmitting a wakeup instruction to the terminal in a case that the candidate speech segment comprises the preset keyword; and lifting, by the terminal, a dormant state and/or a lock screen state of the terminal according to the wakeup instruction.
+7. A speech recognition apparatus, comprising: an obtaining module, configured to obtain speech information; and a processing module, configured to determine beginning and ending positions of a candidate speech segment in the speech information by using a weighted finite state transducer (WFST) network; clip the candidate speech segment from the speech information according to the beginning and ending positions; input the candidate speech segment into a machine learning model, and detect whether the candidate speech segment comprises a preset keyword by using the machine learning model; and determine, upon determining that the candidate speech segment comprises the preset keyword, that the speech information comprises the preset keyword.
+8. The apparatus according to claim 7, wherein
+the processing module is further configured to perform framing on the speech information, to obtain a plurality of frames of speech segments; and input the plurality of frames of speech segments into the WFST network, to obtain language information of a maximum posterior probability corresponding to the plurality of frames of speech segments; and
+the obtaining module is further configured to determine, when the language information comprises the preset keyword, the beginning and ending positions of the candidate speech segment corresponding to the preset keyword in the speech information, wherein the candidate speech segment comprises at least one of the plurality of frames of speech segments.
+9. The apparatus according to claim 8, wherein the WFST network comprises a deep neural network (DNN), a hidden Markov model (HMM), a dictionary, and a language model; and
+the processing module is further configured to input the plurality of frames of speech segments into the DNN, to obtain a posterior probability of a hidden state corresponding to each of the plurality of frames of speech segments; obtain the hidden state corresponding to each frame of speech segment according to the posterior probability of the hidden state corresponding to each frame of speech segment by using the HMM; obtain a phoneme corresponding to the plurality of frames of speech segments according to the hidden state corresponding to each frame of speech segment; and obtain the language information of the maximum posterior probability corresponding to the plurality of frames of speech segments according to the phoneme corresponding to the plurality of frames of speech segments according to the dictionary and the language model, wherein
+the dictionary comprises a correspondence between the phoneme and a word, and the language model comprises a correspondence between the word and grammar and/or syntax.
+10. The apparatus according to claim 9, wherein
+the processing module is further configured to converting, by using a Bayes formula, the posterior probability of the hidden state corresponding to each frame of speech segment, to obtain an emission probability of the hidden state corresponding to each frame of speech segment; and perform forward decoding, by using the HMM, according to the emission probability of the hidden state corresponding to each frame of speech segment, an initial probability of each hidden state in the HMM, and a transition probability between hidden states by using the HMM, to obtain the hidden state corresponding to each frame of speech segment.
+11. The apparatus according to any one of claims 7 to 10, wherein the machine learning model is a convolutional neural network (CNN); and
+the processing module is further configured to input the candidate speech segment into the CNN; perform convolution and pooling on the candidate speech segment by using the CNN, to obtain high-level semantic features of the candidate speech segment through extraction; and classify the high-level semantic features of the candidate speech segment by using a fully connected layer and a Softmax function in the CNN, and detect whether the candidate speech segment comprises the preset keyword.
+12. A speech recognition device, comprising a processor and a memory, the memory storing at least one instruction, and the at least one instruction being loaded and executed by the processor to implement the speech recognition method according to any one of claims 1 to 5.
+13. A computer-readable storage medium, storing at least one instruction, the at least one instruction being loaded and executed by a processor to implement the speech recognition method according to any one of claims 1 to 5.
+</claims>
+</document>

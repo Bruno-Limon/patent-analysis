@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2018-10-30
+</filing_date>
+
+<publication_date>
+2020-09-24
+</publication_date>
+
+<priority_date>
+2017-11-01
+</priority_date>
+
+<ipc_classes>
+G06F17/16,G06N3/08
+</ipc_classes>
+
+<assignee>
+NEC CORPORATION
+</assignee>
+
+<inventors>
+SHIBATA, SEIYA
+</inventors>
+
+<docdb_family_id>
+66331787
+</docdb_family_id>
+
+<title>
+INFORMATION PROCESSING APPARATUS, INFORMATION PROCESSING METHOD, AND PROGRAM
+</title>
+
+<abstract>
+An information processing apparatus includes a sparse element detection part, a sparse location weight addition part, a multiplication part, a non-sparse data operation part, and an addition part. The sparse element detection part detects a predetermined sparse element from input data and outputs information about the sparse element. The sparse location weight addition part adds a first weight elements corresponding to the sparse element. The multiplication part multiplies an output of the sparse location weight addition part by the sparse element. The non-sparse data operation part performs an operation on non-sparse elements, each other than the sparse element in the input data. The addition part adds an output of the multiplication part and an output of the non-sparse data operation part.
+</abstract>
+
+<claims>
+1. An information processing apparatus, comprising: a processor; and a memory in circuit communication with the processor, wherein the processor is configured to execute program instructions stored in the memory to execute: a sparse element detection process that detects a predetermined sparse element from input data and outputs information about the sparse element; a sparse location weight addition process that adds a plurality of first weight elements, each corresponding to each location of the sparse element in the input data; a multiplication process that multiplies an output of the sparse location weight addition process by the sparse element; a non-sparse data operation process that performs an operation on a plurality of non-sparse elements, each being an element other than the sparse element in the input data; and an addition process that adds an output of the multiplication process and an output of the non-sparse data operation process.
+2. The information processing apparatus according to claim 1, wherein the processor is configured to execute the program instructions stored in the memory to execute a sparse location weight acquisition process that acquires based on the information outputted by the sparse element detection process, the plurality of first weight elements, from weights received, the weights including the plurality of first weight elements.
+3. The information processing apparatus according to claim 2, wherein the processor is configured to execute the program instructions stored in the memory to, as the sparse location weight addition calculate a sum of the plurality of first weight elements outputted by the sparse location weight acquisition process.
+4. The information processing apparatus according to claim 1, wherein the processor is configured to execute the program instructions stored in the memory to execute a non-sparse location weight acquisition process that acquires a plurality of second weight elements corresponding to locations of the plurality of non-sparse elements in the input data from weights including the plurality of first weight elements and the plurality of second weight elements.
+5. The information processing apparatus according to claim 4, wherein the processor is configured to execute the program instructions stored in the memory to execute the sparse location weight addition process including: a weight addition process that calculates a sum of the plurality of second weight elements outputted by the non-sparse location weight acquisition process; and a subtraction process that subtracts an output of the weight addition process from a sum of the plurality of first weight elements and the plurality of second weight elements.
+6. The information processing apparatus according to claim 1, wherein the processor is configured to execute the program instructions stored in the memory to execute: a sparse location weight acquisition process that acquires the plurality of first weight elements from weights including the plurality of first weight elements and the plurality of second weight elements, each of the second weight elements corresponding to each of the non-sparse elements; and a non-sparse location weight acquisition process that acquires the plurality of second weight element from the weights.
+7. The information processing apparatus according to claim 6, wherein the processor is configured to execute the program instructions stored in the memory to execute the sparse location weight addition process including: a sparsity level calculation process that calculates a ratio of the sparse element included in the input data as a sparsity level; a weight selection process that selects and outputs the plurality of first weight elements outputted by the sparse location weight acquisition process or the plurality of second weight elements outputted by the non-sparse location weight acquisition process, based on the sparsity level; a weight addition process that calculates a sum of the plurality of first weight elements or the plurality of second weight elements outputted by the weight selection process; a subtraction process that subtracts an output of the weight addition process from a sum of the plurality of first weight elements and the plurality of second weight elements; and a result selection process that outputs the output of the weight addition process or an output of the subtraction process, based on the sparsity level.
+8. The information processing apparatus according to claim 1, wherein the processor is configured to execute the program instructions stored in the memory to execute the non-sparse data operation process that iterates multiplication of a non-sparse element by a weight element corresponding to the non-sparse element for all the non-sparse elements included in the input data and adds results obtained by iteration of the multiplication.
+9. An information processing method comprising: detecting a predetermined a sparse element from input data and outputting information about the sparse element; adding a plurality of first weight elements corresponding to the sparse element; multiplying a sum of the plurality of first weight elements by the sparse element; performing an operation on a plurality of non-sparse elements, each being an element other than the sparse element in the input data; and adding a multiplication result of a sum of the plurality of first weight elements and the sparse element and an operation result on the plurality of non-sparse elements.
+10. A non-transitory computer readable medium storing therein a program causing a computer to execute processing comrising: detecting a predetermined a sparse element from input data and outputting information about the sparse element; adding a plurality of first weight elements corresponding to the sparse element; multiplying a sum of the plurality of first weight elements by the sparse element; performing an operation on a plurality of non-sparse elements, each being an element other than the sparse element in the input data; and adding a multiplication result of a sum of the plurality of first weight elements and the sparse element and an operation result on the plurality of non-sparse elements.
+11. The information processing apparatus according to claim 1, wherein the processor is configured to execute the program instructions stored in the memory to execute at least the sparse location weight addition process and the multiplication process, in parallel with the non-sparse data operation process.
+12. The information processing apparatus according to claim 5, wherein the processor is configured to execute the program instructions stored in the memory to execute the weight addition process, the subtraction process, and the multiplication process, in parallel with the non-sparse data operation process.
+13. The information processing apparatus according to claim 4, wherein the processor is configured to execute the program instructions stored in the memory to execute the addition process that outputs
+description="In-line Formulae" end="lead"?(α×ΣW(is,js))+Σ(W(ins,jns)×X(ins,jns))description="In-line Formulae" end="tail"? where a is the sparse element in the input data, W(is,js) is the first weight element at a location (is,js) of the wrights represented by a matrix W, the location (is,js) corresponding to a location of the sparse element a in the input data represented by a matrix X, and W(ins,jns) is the second weight element at a location (ins,jns) of the wrights represented by the matrix W, the location (ins,jns) corresponding to a location of the non-sparse element in the input data represented by the matrix X (ins,jns).
+14. The information processing apparatus according to claim 4, wherein the processor is configured to execute the program instructions stored in the memory to execute the subtraction process that outputs
+description="In-line Formulae" end="lead"?ΣW(i,j)−ΣW(ins,jns) description="In-line Formulae" end="tail"? where W(i,j) is an element at a location (i,j) of the weights represented by a matrix W, the location (i,j) corresponding to a location (i,j) including a location of the sparse element and a location of a non-sparse element in the input data represented by the matrix X, and W(ins,jns) is the second weight element at a location (ins,jns) of the wrights represented by the matrix W, the location (ins,jns) corresponding to a location of the non-sparse element in the input data represented by the matrix X (ins,jns).
+15. The information processing method according to claim 9, comprising: acquiring based on the information about the sparse element, the plurality of first weight elements, from weights received, the weights including the plurality of first weight elements.
+16. The information processing method according to claim 9, comprising acquiring a plurality of second weight elements corresponding to locations of the plurality of non-sparse elements in the input data from weights including the plurality of first weight elements and the plurality of second weight elements.
+17. The information processing method according to claim 16, comprising: calculating a sum of the plurality of second weight elements; and subtracting the sum of the plurality of second weight elements from a sum of the plurality of first weight elements and the plurality of second weight elements.
+18. The non-transitory computer readable medium according to claim 10, storing therein the program causing a computer to execute processing comrising acquiring, based on the information about the sparse element, the plurality of first weight elements, from weights received, the weights including the plurality of first weight elements.
+19. The non-transitory computer readable medium according to claim 10, storing therein the program causing a computer to execute processing comrising acquiring a plurality of second weight elements corresponding to locations of the plurality of non-sparse elements in the input data from weights including the plurality of first weight elements and the plurality of second weight elements.
+20. The non-transitory computer readable medium according to claim 10, storing therein the program causing a computer to execute processing comrising: calculating a sum of the plurality of second weight elements; and subtracting the sum of the plurality of second weight elements from a sum of the plurality of first weight elements and the plurality of second weight elements.
+</claims>
+</document>

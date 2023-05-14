@@ -1,0 +1,59 @@
+<document>
+
+<filing_date>
+2017-12-22
+</filing_date>
+
+<publication_date>
+2020-08-25
+</publication_date>
+
+<priority_date>
+2017-12-22
+</priority_date>
+
+<ipc_classes>
+G06F16/242,G06F16/2457,G06F16/248,G06F16/26,G06F16/30,G06K9/18,G06N3/02,G06N3/04,G06N3/08,G06N5/04,G06T11/20
+</ipc_classes>
+
+<assignee>
+ADOBE
+</assignee>
+
+<inventors>
+COHEN, SCOTT
+KAFLE, KUSHAL
+PRICE, BRIAN
+</inventors>
+
+<docdb_family_id>
+64453668
+</docdb_family_id>
+
+<title>
+Question answering for data visualizations
+</title>
+
+<abstract>
+Systems and techniques are described that provide for question answering using data visualizations, such as bar graphs. Such data visualizations are often generated from collected data, and provided within image files that illustrate the underlying data and relationships between data elements. The described techniques analyze a query and a related data visualization, and identify one or more spatial regions within the data visualization in which an answer to the query may be found.
+</abstract>
+
+<claims>
+1. A computer program product, the computer program product being tangibly embodied on a non-transitory computer-readable storage medium and comprising instructions that, when executed by at least one computing device, are configured to cause the at least one computing device to: identify a data visualization (DV); generate a DV feature map characterizing the data visualization, including maintaining a correspondence of spatial relationships of mapped features of the data visualization within the DV feature map with corresponding features of the data visualization, wherein each location of the DV feature map represents a DV feature vector representing a corresponding location of the data visualization; identify a query for an answer included within the data visualization; encode the query as a query feature vector; generate an attention map, using an attention weight distribution of attention weights distributed over the DV feature map with weight values that are set based on a relevance of the query feature vector to each attention weight and corresponding DV feature vector of the DV feature map; generate an attention-weighted feature map that includes an array of weighted DV feature vectors, including multiplying each attention weight value of the attention weight distribution with the corresponding DV feature vectors of the DV feature map, including the DV feature vector; generate a prediction of at least one answer location within the data visualization, based on the attention-weighted feature map; and determine the answer from the at least one answer location.
+2. The computer program product of claim 1, wherein the instructions, when executed, are further configured to cause the at least one computing device to: identify the data visualization included within an image file during a computer-based search of at least one document with at least one embedded image file, including the image file.
+3. The computer program product of claim 1, wherein the data visualization includes at least one visual element and associated value and label that are arranged visually to represent, and are generated from, source data.
+4. The computer program product of claim 1, wherein the instructions, when executed to generate the DV feature map, are further configured to cause the at least one computing device to: input an image file containing the data visualization to a convolutional neural network trained using a dataset of data visualizations and associated query/answer pairs.
+5. The computer program product of claim 1, wherein the instructions, when executed to encode the query, are further configured to cause the at least one computing device to: input the query to a long short term memory model trained using a dataset of query/answer pairs.
+6. The computer program product of claim 1, wherein the instructions, when executed to generate the attention map, are further configured to cause the at least one computing device to: generate a composite DV feature vector from the array of weighted DV feature vectors; concatenate the composite DV feature vector with the query feature vector to obtain a joint query/answer feature vector; and determine the answer location from the joint query/answer feature vector.
+7. The computer program product of claim 1, wherein the instructions, when executed to determine the answer, are further configured to cause the at least one computing device to: execute optical character recognition (OCR) within the at least one answer location to provide the answer as answer text.
+8. The computer program product of claim 1, wherein the instructions, when executed to determine the answer, are further configured to cause the at least one computing device to: apply a set of source data queries against the DV feature map, including the at least one query; and generate source data from which the data visualization was created, based on answers obtained from the applying of the source data queries.
+9. The computer program product of claim 8, wherein the instructions, when executed to determine the answer, are further configured to cause the at least one computing device to: generate a new data visualization, based on the generated source data.
+10. The computer program product of claim 1, wherein the instructions, when executed to determine the answer, are further configured to cause the at least one computing device to: render an overlaid image within a rendering of the data visualization and positioned to visually identify the answer at the answer location.
+11. A computer-implemented method, the method comprising: receiving a query for a data visualization (DV); encoding the query as a query feature vector; generating a DV feature map characterizing at least one spatial region of the data visualization, the DV feature map including an array of DV feature vectors corresponding to each of a plurality of locations within the at least one spatial region, wherein each location of the DV feature map represents a DV feature vector representing a corresponding location of the data visualization; generating an attention map including applying a weighted distribution of attention weights to the DV feature vectors, in which, for each DV feature vector, a corresponding location of the plurality of locations is associated with a weight indicating a relative likelihood of inclusion of the answer; generating an attention-weighted feature map that includes an array of weighted DV feature vectors, including multiplying each attention weight value of the attention weight distribution with the corresponding DV feature vectors of the DV feature map, including the DV feature vector; generating a prediction of at least one answer location within the at least one spatial region, based on the attention-weighted feature map; and determining an answer to the query from the at least one answer location.
+12. The method of claim 11, comprising: inputting an image file containing the data visualization to a convolutional neural network trained using a dataset of data visualizations and associated query/answer pairs; and inputting the query to a long short term memory model trained using a dataset of query/answer pairs.
+13. The method of claim 11, comprising: executing optical character recognition (OCR) within the at least one answer location to provide the answer as answer text.
+14. A system comprising: at least one memory including instructions; and at least one processor that is operably coupled to the at least one memory and that is arranged and configured to execute instructions that, when executed, cause the at least one processor to: generate a visualization training dataset that includes a plurality of training data visualizations and visualization parameters, and query/answer pairs for the plurality of training data visualizations; train a feature map generator to generate a feature map of each of the training data visualizations; train a query feature vector generator to generate a query feature vector of each of the queries of the query/answer pairs; train an answer location generator to generate an answer location within each of the training data visualizations of an answer for a corresponding query of the query/answer pairs, based on outputs of the trained feature map generator and the trained query feature vector; input a new data visualization and a new query into the trained feature map generator and the trained query feature vector to obtain a new feature map and a new query feature vector; and generate a new answer location within the new data visualization for the new query, based on the new feature map and the new query feature vector, wherein the answer location generator includes an attention map that assigns to each feature map of each of the training data visualizations a plurality of attention weights, each attention weight assigned to a spatial location of a corresponding feature map and indicating a relative likelihood that each spatial location includes the answer location, further wherein the answer location generator is configured to use the attention map and the plurality of attention weights to generate an attention-weighted feature map, which includes an array of weighted feature vectors having weights set by the plurality of attention weights, including multiplying each attention weight with corresponding feature vectors of the feature map.
+15. The system of claim 14, wherein the system is further configured to: generate the visualization training dataset synthetically.
+16. The system of claim 14, wherein the system is further configured to: apply a set of source data queries against the new feature map; and generate source data from which the data visualization was created, based on answers obtained from the applying of the source data queries.
+</claims>
+</document>

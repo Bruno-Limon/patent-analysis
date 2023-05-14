@@ -1,0 +1,61 @@
+<document>
+
+<filing_date>
+2018-05-14
+</filing_date>
+
+<publication_date>
+2020-06-09
+</publication_date>
+
+<priority_date>
+2018-05-14
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06T7/246,G06T7/292,G06T7/73,G06T7/80
+</ipc_classes>
+
+<assignee>
+VULCAN CORPORATION
+</assignee>
+
+<inventors>
+MCKENNOCH, SAMUEL ALLAN
+</inventors>
+
+<docdb_family_id>
+70973220
+</docdb_family_id>
+
+<title>
+Multi-camera homogeneous object trajectory alignment
+</title>
+
+<abstract>
+A first plurality of images obtained via an image capture device is obtained. A first set of pixels in a first image of the first plurality of images identify is identified based on specified criteria. A first set of coordinates associated with the first set of pixels is determined. A second set of coordinates is generated based on the first set of coordinates. A second set of pixels in a second image of the first plurality of images is identified, based on the specified criteria and a proximity to the second set of coordinates. A first trajectory between the first set of pixels and the second set of pixels is generated. The first trajectory is determined to correspond to a second trajectory associated with a second plurality of images obtained via a second image capture device, and the first trajectory and the second trajectory are outputted.
+</abstract>
+
+<claims>
+1. A computer-implemented method, comprising: obtaining a sequence of images recorded by an image capture device, the sequence including a first image and a second image, the first image including a first representation of an object; determining a position of the first representation in the first image; generating, at least in part by providing the position as input to a prediction algorithm, a predicted position for a representation of the object in the second image; identifying, based at least in part on a distance between the predicted position and a second representation, that the second representation represents the object in the second image; generating a trajectory between the position of the first representation and a position of the second representation; receiving a request for a state of the object at a moment in time captured by the image capture device; determining, based at least in part on the trajectory and the moment in time, the state of the object at the moment; and providing the state of the object in response to the request.
+2. The computer-implemented method of claim 1, wherein the prediction algorithm is a particle filter.
+3. The computer-implemented method of claim 1, further comprising validating that one or more points in the trajectory are correctly assigned to the object.
+4. The computer-implemented method of claim 1, wherein the trajectory represents a path of motion of the object over a duration of time between capture of the first image and capture of the second image.
+5. A non-transitory computer-readable storage medium having stored thereon executable instructions that, if executed by one or more processors of a computer system, cause the computer system to at least: obtain a first image and a second image recorded by an image capture device, the first image being recorded prior to the second image and including a first set of pixels representing an object in physical space; determine, in the first image, a first position associated with the first set of pixels; determine, based at least in part on the first position, a second position in the second image; determine, based at least in part on the second position, whether a second set of pixels in the second image corresponds to the object; on a condition that the second set of pixels is determined to correspond to the object, generate a first trajectory between the first position and a location of the second set of pixels; determine, based at least in part on a cost of associating the first trajectory with a second trajectory in a set of images that includes neither the first image nor the second image, whether the first trajectory is associated with the second trajectory; and output the first trajectory.
+6. The non-transitory computer-readable storage medium of claim 5, wherein: the second set of pixels is one of a plurality of sets of pixels corresponding to objects in the second image; and the executable instructions that cause the computer system to determine that the second set of pixels in the second image corresponds to the object includes instructions that cause the computer system to identify that the second set of pixels is within a threshold distance from the second position.
+7. The non-transitory computer-readable storage medium of claim 5, wherein the second position is a member of a plurality of predicted positions of the object in the second image that is closest in distance to the location of the second set of pixels.
+8. The non-transitory computer-readable storage medium of claim 5, wherein the executable instructions further cause the computer system to, on a condition that no set of pixels is determined to correspond to the object in the second image: determine a third position in a third image, a distance between the third position and the first position being greater than a distance between the second position and the first position; and determine, based at least in part on the third position, that a third set of pixels in the third image correspond to the object, generate the first trajectory to be between the first position and a location of the third set of pixels.
+9. The non-transitory computer-readable storage medium of claim 5, wherein the first trajectory is a set of coordinates representing a path of motion of the object between the first image and the second image.
+10. The non-transitory computer-readable storage medium of claim 5, wherein the executable instructions that cause the computer system to determine whether the first trajectory is associated with the second trajectory include instructions that cause the computer system to: determine that at least a portion of the first trajectory is associated with a third trajectory in the set of images; and associating the at least a portion of the first trajectory with the third trajectory.
+11. The non-transitory computer-readable storage medium of claim 5, wherein: the first image and the second image are members of a first sequence of images that includes the first trajectory, the first sequence of images captured from a first perspective; and the set of images is a second sequence of images that includes the second trajectory, the second sequence of images captured from a second perspective simultaneously with the first sequence of images.
+12. The non-transitory computer-readable storage medium of claim 11, wherein the executable instructions further cause the computer system to: receive a request via an interface to locate the object, at a specified point, in the first sequence of images and the second sequence of images; obtain a pair of images corresponding to the specified point in the first sequence of images and the second sequence of images; determine, based at least in part on the first trajectory and the second trajectory, coordinates in the pair of images for the object; and cause a display of a computing device to indicate the object at the coordinates in the pair of images.
+13. A system, comprising: one or more processors; and memory including executable instructions that, if executed by the one or more processors, cause the system to: obtain a first image and a second image recorded by an image capture device, the first image being recorded prior to the second image and including a first set of pixels representing an object in physical space; determine, in the first image, a first position associated with the first set of pixels; determine, based at least in part on the first position, a second position in the second image; determine, based at least in part on the second position, whether a second set of pixels in the second image corresponds to the object; on a condition that the second set of pixels is determined to correspond to the object, generate a first trajectory between the first position and a location of the second set of pixels; determine, based at least in part on a cost of associating the first trajectory with a second trajectory in a set of images that includes neither the first image nor the second image, whether the first trajectory is associated with the second trajectory; and output the first trajectory.
+14. The system of claim 13, wherein: the second set of pixels is one of a plurality of sets of pixels corresponding to objects in the second image; and the executable instructions that cause the system to determine that the second set of pixels in the second image corresponds to the object includes instructions that cause the system to identify that the second set of pixels is within a threshold distance from the second position.
+15. The system of claim 13, wherein the second position is a member of a plurality of predicted positions of the object in the second image that is closest in distance to the location of the second set of pixels.
+16. The system of claim 13, wherein the executable instructions further cause the system to, on a condition that no set of pixels is determined to correspond to the object in the second image: determine a third position in a third image, a distance between the third position and the first position being greater than a distance between the second position and the first position; and determine, based at least in part on the third position, that a third set of pixels in the third image correspond to the object, generate the first trajectory to be between the first position and a location of the third set of pixels.
+17. The system of claim 13, wherein the first trajectory is a set of coordinates representing a path of motion of the object between the first image and the second image.
+18. The system of claim 13, wherein the executable instructions that cause the system to determine whether the first trajectory is associated with the second trajectory include instructions that cause the system to: determine that at least a portion of the first trajectory is associated with a third trajectory in the set of images; and associating the at least a portion of the first trajectory with the third trajectory.
+19. The system of claim 13, wherein: the first image and the second image are members of a first sequence of images that includes the first trajectory, the first sequence of images captured from a first perspective; and the set of images is a second sequence of images that includes the second trajectory, the second sequence of images captured from a second perspective simultaneously with the first sequence of images.
+20. The system of claim 19, wherein the executable instructions further cause the system to: receive a request via an interface to locate the object, at a specified point, in the first sequence of images and the second sequence of images; obtain a pair of images corresponding to the specified point in the first sequence of images and the second sequence of images; determine, based at least in part on the first trajectory and the second trajectory, coordinates in the pair of images for the object; and cause a display of a computing device to indicate the object at the coordinates in the pair of images.
+</claims>
+</document>

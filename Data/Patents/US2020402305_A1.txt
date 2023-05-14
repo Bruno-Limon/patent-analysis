@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2020-09-02
+</filing_date>
+
+<publication_date>
+2020-12-24
+</publication_date>
+
+<priority_date>
+2018-12-05
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/08,G06T17/20,G06T7/73
+</ipc_classes>
+
+<assignee>
+SNAP
+</assignee>
+
+<inventors>
+XUE, ZEHAO
+REN, ZHOU
+WANG, YINGYING
+GE, LIUHAO
+LI, YUNCHENG
+</inventors>
+
+<docdb_family_id>
+70972046
+</docdb_family_id>
+
+<title>
+3D HAND SHAPE AND POSE ESTIMATION
+</title>
+
+<abstract>
+Aspects of the present disclosure involve a system comprising a computer-readable storage medium storing a program and a method for receiving a monocular image that includes a depiction of a hand and extracting features of the monocular image using a plurality of machine learning techniques. The program and method further include modeling, based on the extracted features, a pose of the hand depicted in the monocular image by adjusting skeletal joint positions of a three-dimensional (3D) hand mesh using a trained graph convolutional neural network (CNN); modeling, based on the extracted features, a shape of the hand in the monocular image by adjusting blend shape values of the 3D hand mesh representing surface features of the hand depicted in the monocular image using the trained graph CNN; and generating, for display, the 3D hand mesh adjusted to model the pose and shape of the hand depicted in the monocular image.
+</abstract>
+
+<claims>
+1. A method comprising: receiving, by one or more processors, a monocular image that includes a depiction of a hand; modeling, by the one or more processors, a pose of the hand depicted in the monocular image by adjusting skeletal joint positions of a three-dimensional (3D) hand mesh using a trained graph convolutional neural network (CNN), the trained graph CNN estimating 3D coordinates of vertices in the 3D hand mesh; linearly regressing the joint positions using a linear graph CNN; and generating, for display by the one or more processors, the 3D hand mesh adjusted to model the pose of the hand depicted in the monocular image.
+2. The method of claim 1, further comprising: extracting one or more features of the monocular image using a plurality of machine learning techniques, the extracting comprises: applying a first of the plurality of machine learning techniques to the monocular image to estimate a two-dimensional (2D) heat map of the hand in the monocular image and to generate an image feature map; and encoding the 2D heat map and the image feature map using a second of the plurality of machine learning techniques to generate a feature vector, wherein the trained CNN is applied to the feature vector.
+3. The method of claim 2, wherein the first machine learning technique comprises a stacked hourglass network, and wherein the second machine learning technique comprises a residual network.
+4. The method of claim 1 further comprising: modeling based on one or more extracted features of the monocular image, a shape of the hand in the monocular image by adjusting blend shape values of the 3D hand mesh representing surface features of the hand depicted in the monocular image using the trained graph CNN.
+5. The method of claim 4 further comprising: training a plurality of machine learning techniques and the graph CNN in first and second training phases.
+6. The method of claim 5, wherein the first training phase comprises training the plurality of machine learning techniques and the graph CNN based on a first plurality of input images that include synthetic representations of a hand, ground truth 3D hand meshes corresponding to the synthetic representations of the hand, and 3D hand joint locations of the synthetic representations of the hand.
+7. The method of claim 6 further comprising generating an input image of the first plurality of input images by: generating a 3D hand model by combining a plurality of hand joints with a plurality of surface textures; and combining the generated hand model with a background image.
+8. The method of claim 7 further comprising: randomly selecting a hand pose from a plurality of hand poses; adjusting the plurality of hand joints based on the selected hand pose; and adjusting the plurality of surface textures by applying random weights to blend shapes and ratios.
+9. The method of claim 7, wherein generating the 3D hand model comprises: obtaining a 3D hand model that includes a first level of coarseness having a first number of vertices; applying the graph CNN to the first level of coarseness; upsampling the 3D hand model to increase the level of coarseness to a second level of coarseness having a second number of vertices greater than the first number of vertices; generating a tree structure representing correspondences of vertices in the first and second levels of coarseness; and updating the graph CNN based on the upsampled 3D hand model and the generated tree structure.
+10. The method of claim 6 further comprising: initially training a first of the plurality of machine learning techniques based on a first feature of the first plurality of input images; initially training a second of the plurality of machine learning techniques based on a second feature of the first plurality of input images separately from the first machine learning technique; and after initially training the first and second machine learning techniques, training the first and second machine learning techniques together with the graph CNN based on the first plurality of input images.
+11. The method of claim 10, wherein initially training the first machine learning technique comprises training the first machine learning technique based on a heat map loss function, wherein initially training the second machine learning technique comprises training the second machine learning technique based on a 3D pose loss function, and wherein training the first and second machine learning techniques together with the graph CNN comprises training the first and second machine learning techniques together based on the heat map loss function, the 3D pose loss function, and a mesh loss function.
+12. The method of claim 6, wherein the second training phase is performed following the first training phase, further comprising in the second training phase: receiving a second plurality of input images that include real-world depictions of a hand and reference 3D depth maps of the real-world depictions of the hand captured using a depth camera; generating a pseudo-ground truth mesh of the real-world depictions of the hand using the graph CNN trained in the first phase; and training the first and second machine learning techniques and the graph CNN based on the generated pseudo-ground truth mesh, the real-world depictions of the hand, and the reference 3D depth maps of the real-world depictions of the hand.
+13. The method of claim 12 further comprising: initially training a first of the plurality of machine learning techniques based on a heat map loss function and the second plurality of input images; and after initially training the first machine learning technique, training the first machine learning technique, a second machine learning technique, and the graph CNN based on the second plurality of input images, the reference 3D depth maps, the heat map loss function, a 3D pose loss function, and a mesh loss function.
+14. The method of claim 13, wherein the first machine learning technique comprises a stacked hourglass network and the second machine learning technique comprises a differentiable renderer network.
+15. The method of claim 1, wherein the monocular image comprises a red, green, and blue (RGB) image without depth information.
+16. The method of claim 1 further comprising continuously changing an appearance of the 3D hand mesh by continuously capturing new monocular images of the hand in different positions, wherein the appearance of the 3D hand mesh changes to resemble the different positions of the hand as the hand changes from one position to another position.
+17. A system comprising: a processor configured to perform operations comprising: receiving a monocular image that includes a depiction of a hand; modeling a pose of the hand depicted in the monocular image by adjusting skeletal joint positions of a three-dimensional (3D) hand mesh using a trained graph convolutional neural network (CNN), the trained graph CNN estimating 3D coordinates of vertices in the 3D hand mesh; linearly regressing the joint positions using a linear graph CNN; and generating, for display, the 3D hand mesh adjusted to model the pose of the hand depicted in the monocular image.
+18. The system of claim 17, wherein the operations further comprise: extracting one or more features of the monocular image using a plurality of machine learning techniques, the extracting comprises: applying a first of the plurality of machine learning techniques to the monocular image to estimate a two-dimensional (2D) heat map of the hand in the monocular image and to generate an image feature map; and encoding the 2D heat map and the image feature map using a second of the plurality of machine learning techniques to generate a feature vector, wherein the trained CNN is applied to the feature vector.
+19. The system of claim 18, wherein the first machine learning technique comprises a stacked hourglass network, and wherein the second machine learning technique comprises a residual network.
+20. A non-transitory machine-readable storage medium that includes instructions that, when executed by one or more processors of a machine, cause the machine to perform operations comprising: receiving a monocular image that includes a depiction of a hand; modeling a pose of the hand depicted in the monocular image by adjusting skeletal joint positions of a three-dimensional (3D) hand mesh using a trained graph convolutional neural network (CNN), the trained graph CNN estimating 3D coordinates of vertices in the 3D hand mesh; linearly regressing the joint positions using a linear graph CNN; and generating, for display, the 3D hand mesh adjusted to model the pose of the hand depicted in the monocular image.
+</claims>
+</document>

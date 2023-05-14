@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-01-18
+</filing_date>
+
+<publication_date>
+2020-08-25
+</publication_date>
+
+<priority_date>
+2017-03-08
+</priority_date>
+
+<ipc_classes>
+G06F11/34,G06F11/36,G06F16/31,G06F16/43,G06F16/903,G06F16/9038,G06F9/44
+</ipc_classes>
+
+<assignee>
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+AREVALO BAEZA, JUAN CARLOS
+MOLA, JORDI
+MICHOCKA, DAREK JOSIP
+</inventors>
+
+<docdb_family_id>
+63446481
+</docdb_family_id>
+
+<title>
+Indexing time-travel traces
+</title>
+
+<abstract>
+Querying resource lifetime using a trace of program execution. An embodiment includes identifying a query expression targeted at least a portion of the trace of program execution. The query expression specifies at least (i) a data object representing a plurality of events identified in the trace, each event associated with one or more attributes relating to resource lifetime, and (ii) one or more conditions matching the one attributes relating to resource lifetime. In response to receiving the query expression, the query expression is processed based at least on an analysis of an identified subset of the trace. Based on processing the query expression, a result data set that includes or identifies at least one of the plurality of events that meets the one or more conditions is presented.
+</abstract>
+
+<claims>
+1. A method, implemented at a computer system that includes one or more processing units, for creating key frames during indexing of a trace, the method comprising: identifying one or more responsiveness goals for trace replay, including identifying a target trace section replay time based on a computation using at least (i) an estimated number of trace sections to be replayed to obtain a replay result, and (ii) an estimated number of processing units available during replay; replaying at least a portion of execution of one or more executable entities based on one or more traces; while replaying execution of the one or more executable entities, and based at least on the identified target trace section replay time, identifying a plurality of points in execution of the one or more executable entities that bound trace sections that can each be replayed within the target trace section replay time; determining that at least one of the identified plurality of points in execution of the one or more executable entities corresponds to execution of a particular function or module; and creating at least one key frame for one or more of the identified plurality of points in execution of the one or more executable entities, while refraining from creating any key frame for the at least one of the identified plurality of points in execution of the one or more executable entities that corresponds to execution of the particular function or module, each created key frame enabling replay of at least one trace section of the one or more executable entities beginning at the key frame.
+2. The method of claim 1, wherein the particular function or module corresponds to third party code.
+3. The method of claim 1, further comprising using machine learning in order to identify at least one point in execution of the one or more executable entities at which to create a key frame.
+4. The method of claim 3, wherein the machine learning identifies the at least one point in execution of the one or more executable entities based on determining that the at least one point in execution corresponds to a code entity that is part of a family of code entity invocations.
+5. The method of claim 3, wherein the machine learning is supervised machine learning that uses, as a training dataset, at least one of (i) a manually curated dataset, (ii) a dataset based on telemetry from a debugging session, (iii) a dataset based on coding activity by a particular user, (iv) a dataset based on telemetry from a version control system, or (v) a dataset based on telemetry from a bug tracking system.
+6. The method of claim 1, wherein identifying the plurality of points in execution of the one or more executable entities also comprises identifying at least one point in execution based on one or more of (i) a replay time interval, (ii) an orderable event, (iii) an exception, (iv) a kernel transition, (v) runtime environment activity, (vi) a cache flush, (vii) an amount of elapsed time, (viii) an amount of processing time, (ix) reaching a particular instruction count, or (x) an input/output activity.
+7. The method of claim 1, further comprising inserting the created at least one key frame into the one or more traces.
+8. The method of claim 1, further comprising inserting the created at least one key frame into one or more new traces.
+9. The method of claim 1, wherein identifying the one or more responsiveness goals for trace replay comprises identifying a target disk usage, and wherein identifying the plurality of points in execution of the one or more executable entities comprises identifying a number of the plurality of points based on the target disk usage.
+10. The method of claim 1, wherein identifying the one or more responsiveness goals for trace replay comprises identifying a target physical computing environment for replay of the one or more traces.
+11. A computer system, comprising: one or more processing units; and one or more hardware storage devices having stored thereon computer-executable instructions that are executable by the one or more processing units to create key frames during indexing of a trace, the computer-executable instructions including instructions that are executable by the one or more processing units to at least: identify one or more responsiveness goals for trace replay, including identifying a target trace section replay time based on a computation using at least (i) an estimated number of trace sections to be replayed to obtain a replay result, and (ii) an estimated number of processing units available during replay; replay at least a portion of execution of one or more executable entities based on one or more traces; while replaying execution of the one or more executable entities, and based at least on the identified target trace section replay time, identify a plurality of points in execution of the one or more executable entities that bound trace sections that can each be replayed within the target trace section replay time; determine that at least one of the identified plurality of points in execution of the one or more executable entities corresponds to execution of a particular function or module; and create at least one key frame for one or more of the identified plurality of points in execution of the one or more executable entities, while refraining from creating any key frame for the at least one of the identified plurality of points in execution of the one or more executable entities that corresponds to execution of the particular function or module, each created key frame enabling replay of at least one trace section of the one or more executable entities beginning at the key frame.
+12. The computer system of claim 11, wherein the particular function or module corresponds to third party code.
+13. The computer system of claim 11, the computer-executable instructions also including instructions that are executable by the one or more processing units to use machine learning in order to identify at least one point in execution of the one or more executable entities at which to create a key frame.
+14. The computer system of claim 13, wherein the machine learning identifies the at least one point in execution of the one or more executable entities based on determining that the at least one point in execution corresponds to a code entity that is part of a family of code entity invocations.
+15. The computer system of claim 13, wherein the machine learning is supervised machine learning that uses, as a training dataset, at least one of (i) a manually curated dataset, (ii) a dataset based on telemetry from a debugging session, (iii) a dataset based on coding activity by a particular user, (iv) a dataset based on telemetry from a version control system, or (v) a dataset based on telemetry from a bug tracking system.
+16. The computer system of claim 11, wherein identifying the plurality of points in execution of the one or more executable entities also comprises identifying at least one point in execution based on one or more of (i) a replay time interval, (ii) an orderable event, (iii) an exception, (iv) a kernel transition, (v) runtime environment activity, (vi) a cache flush, (vii) an amount of elapsed time, (viii) an amount of processing time, (ix) reaching a particular instruction count, or (x) an input/output activity.
+17. The computer system of claim 11, the computer-executable instructions also including instructions that are executable by the one or more processing units to insert the created at least one key frame into the one or more traces.
+18. The computer system of claim 11, the computer-executable instructions also including instructions that are executable by the one or more processing units to insert the created at least one key frame into one or more new traces.
+19. The computer system of claim 11, wherein identifying the one or more responsiveness goals for trace replay comprises identifying a target disk usage, and wherein identifying the plurality of points in execution of the one or more executable entities comprises identifying a number of the plurality of points based on the target disk usage.
+20. A computer program product comprising one or more hardware storage devices having stored thereon computer-executable instructions that are executable by one or more processing units to create key frames during indexing of a trace, the computer-executable instructions including instructions that are executable by the one or more processing units to at least: identify one or more responsiveness goals for trace replay, including identifying a target trace section replay time based on a computation using at least (i) an estimated number of trace sections to be replayed to obtain a replay result, and (ii) an estimated number of processing units available during replay; replay at least a portion of execution of one or more executable entities based on one or more traces; while replaying execution of the one or more executable entities, and based at least on the identified target trace section replay time, identify a plurality of points in execution of the one or more executable entities that bound trace sections that can each be replayed within the target trace section replay time; determine that at least one of the identified plurality of points in execution of the one or more executable entities corresponds to execution of a particular function or module; and create at least one key frame for one or more of the identified plurality of points in execution of the one or more executable entities, while refraining from creating any key frame for the at least one of the identified plurality of points in execution of the one or more executable entities that corresponds to execution of the particular function or module, each created key frame enabling replay of at least one trace section of the one or more executable entities beginning at the key frame.
+</claims>
+</document>

@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2018-06-08
+</filing_date>
+
+<publication_date>
+2020-04-28
+</publication_date>
+
+<priority_date>
+2017-06-08
+</priority_date>
+
+<ipc_classes>
+G06K9/00
+</ipc_classes>
+
+<assignee>
+MO QI
+</assignee>
+
+<inventors>
+TANG, LINPENG
+TAI, CHENG
+</inventors>
+
+<docdb_family_id>
+62567552
+</docdb_family_id>
+
+<title>
+System and method for fingerprint recognition
+</title>
+
+<abstract>
+Fingerprint matching may include one or more of the following techniques. Space-frequency representations are adaptively computed for one or more fingerprint images. Key feature points of the fingerprint images are automatically extracted. Mesoscopic features are extracted based on the key feature points and the space-frequency representations. Fingerprint images are matched against a database of known fingerprint images using a matching algorithm based on the key points and mesoscopic features of the fingerprint images. Deep neural networks may be used for some or all of these steps.
+</abstract>
+
+<claims>
+1. A method implemented on a computer system comprising a processor, the processor executing instructions to effect a method for matching an unknown fingerprint image against a database of known fingerprint images, the method comprising: applying an analysis operator of a space-frequency framelet basis to the unknown fingerprint image to obtain multi-dimensional coefficients that represent the unknown fingerprint image using the framelet basis, wherein the framelet basis is also used to represent the known fingerprint images and the framelet basis is determined by solving a unitary extension principle equation to obtain the framelet basis that is optimized for constructing space-frequency representations of the known fingerprint images; extracting multiple mesoscopic features of the unknown fingerprint image, wherein the multi-dimensional coefficients that represent the unknown fingerprint image contain at least two key feature points and each mesoscopic feature is based on the multi-dimensional coefficients in a local vicinity of one of the key feature points of the unknown fingerprint image; calculating overall similarity scores between the unknown fingerprint image and the known fingerprint images based on the mesoscopic features of the unknown fingerprint image and mesoscopic features of the known fingerprint images; and ordering the known fingerprint images according to their overall similarity scores.
+2. The method of claim 1 wherein automatically extracting multiple mesoscopic features of the unknown fingerprint image comprises: identifying the key feature points of the unknown fingerprint image; and for each key feature point: selecting a set of highest amplitude coefficients for the multi-dimensional coefficients in the local vicinity of the key feature point; and quantizing the selected coefficients.
+3. The method of claim 2 wherein the multi-dimensional coefficients in the local vicinity of the key feature point is a space-frequency hypercube of a predefined size around the key feature point, and the set of highest amplitude coefficients contains a predefined number of coefficients from the space-frequency hypercube.
+4. The method of claim 1 further comprising: applying a threshold to the multi-dimensional coefficients.
+5. The method of claim 1 further comprising identifying the key feature points of the unknown fingerprint image by: computing a cross-channel correlation of the multi-dimensional coefficients of the unknown fingerprint image, wherein the channels are tensor slices through the multi-dimensional coefficients; identifying maximums of the cross-channel correlations as peaks; and suppressing false peaks from among the identified peaks.
+6. The method of claim 1 further comprising identifying the key feature points of the unknown fingerprint image by: identifying a plurality of candidate key feature points; estimating an image quality of areas around the candidate key feature points; and suppressing candidate key feature points based on the estimated image quality.
+7. The method of claim 6 wherein estimating the image quality of areas around the candidate key feature points is performed by a neural network.
+8. The method of claim 1 further comprising identifying the key feature points of the unknown fingerprint image by: identifying a plurality of candidate key feature points; estimating a foreground area of the unknown fingerprint image; and suppressing candidate key feature points based on whether the candidate key feature point lies outside the foreground area.
+9. The method of claim 8 wherein estimating the foreground area of the unknown fingerprint image comprises: computing a level-set of the unknown fingerprint image; computing a normal map and a tangent map of the level-set; computing a contrast map and a saliency map from the normal map and the tangent map; and applying a threshold value to the contrast map and to the saliency map to estimate the foreground area.
+10. The method of claim 8 wherein estimating the foreground area of the unknown fingerprint image comprises: using a neural network to compute a first saliency map; computing a second saliency map by: computing a level-set of the unknown fingerprint image; computing a normal map and a tangent map of the level-set; computing a contrast map and an intermediate saliency map from the normal map and the tangent map; and applying a threshold value to the contrast map and to the intermediate saliency map to estimate an intermediate foreground area; and transforming the intermediate foreground area to the second saliency map; and combining the first and second saliency maps to estimate the foreground area.
+11. The method of claim 1 wherein automatically extracting multiple mesoscopic features of the unknown fingerprint image comprises: using a neural network to identify key feature points of the unknown fingerprint image; and extracting the multiple mesoscopic features based on the key feature points.
+12. The method of claim 1 wherein extraction of mesoscopic features for at least one known fingerprint image was performed using at least one different parameter than used for the extraction of mesoscopic features for the unknown fingerprint image.
+13. The method of claim 12 wherein the different parameter includes at least one of a window size of the multi-dimensional coefficients in the local vicinity of the key feature point, a thresholding value, a number of channels, and parameters for neural networks.
+14. The method of claim 1 wherein calculating the overall similarity score between the unknown fingerprint image and one of the known fingerprint images comprises: for different pairs of mesoscopic features, each pair containing one mesoscopic feature from the unknown fingerprint image and one mesoscopic feature from the known fingerprint image, calculating a similarity score between the two mesoscopic features in the pair; and combining the similarity scores for the different pairs of mesoscopic features to obtain an overall similarity score.
+15. The method of claim 14 wherein calculating the similarity score between two mesoscopic features comprises: using a neural network to calculate the similarity score.
+16. The method of claim 14 wherein calculating the similarity score between the mesoscopic features in the pair comprises: compressing the mesoscopic features for each fingerprint image into a bit array; and calculating a bitwise distance between the bit arrays for the mesoscopic features.
+17. The method of claim 16 wherein the bitwise distance is calculated by a GPU, TPU or AI-specific chip.
+18. The method of claim 1 wherein the framelet basis results in multi-dimensional coefficients that are more sparse than a set of multi-dimensional coefficients resulting from a set of orthogonal wavelets with a same dimensionality.
+19. The method of claim 1 wherein the framelet basis is optimized for sparseness.
+20. A system for matching fingerprint images, the system comprising: a database of known fingerprint images, wherein a framelet basis is used to represent the known fingerprint images and the framelet basis is determined by solving a unitary extension principle equation to obtain the framelet basis that is optimized for constructing space-frequency representations of the known fingerprint images; a fingerprint matching engine comprising: a space-frequency analysis module that applies an analysis operator of the framelet basis to the unknown fingerprint image to obtain multi-dimensional coefficients that represent the unknown fingerprint image using the framelet basis; a feature extraction module that extracts multiple mesoscopic features of the unknown fingerprint image, wherein the multi-dimensional coefficients that represent the unknown fingerprint image contain at least two key feature points and each mesoscopic feature is based on the multi-dimensional coefficients in a local vicinity of one of the key feature points of the unknown fingerprint image; and a comparison module that calculates overall similarity scores between the unknown fingerprint image and the known fingerprint images based on the mesoscopic features of the unknown fingerprint image and mesoscopic features of the known fingerprint images.
+</claims>
+</document>

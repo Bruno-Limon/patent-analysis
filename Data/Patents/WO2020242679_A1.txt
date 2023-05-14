@@ -1,0 +1,91 @@
+<document>
+
+<filing_date>
+2020-04-23
+</filing_date>
+
+<publication_date>
+2020-12-03
+</publication_date>
+
+<priority_date>
+2019-05-30
+</priority_date>
+
+<ipc_classes>
+G06F21/60,G06F21/62,G06F9/48,G06F9/50,G06F9/54
+</ipc_classes>
+
+<assignee>
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+ALPEROVICH, ALEXANDER
+MAMIDIPAKA, Krishna Gyana
+PORTER, Todd R.
+</inventors>
+
+<docdb_family_id>
+70614686
+</docdb_family_id>
+
+<title>
+AUTOMATED CLOUD-EDGE STREAMING WORKLOAD DISTRIBUTION AND BIDIRECTIONAL MIGRATION WITH LOSSLESS, ONCE-ONLY PROCESSING
+</title>
+
+<abstract>
+Methods, systems, and computer program products are described herein for automated cloud-edge workload distribution and bidirectional migration with lossless, once-only data stream processing. A cloud service may provide workload and bidirectional migration management between cloud and edge to provide once-only processing of data streams before and after migration. Migrated logic nodes may begin processing data streams where processing stopped at source logic nodes before migration without data loss or repetition, for example, by migrating and using anchors in pull-based stream processing. Query logic implementing customer queries of data streams may be distributed to edge and/or cloud devices based on placement criteria. Query logic may be migrated from source to target edge and/or cloud devices based on migration criteria.
+</abstract>
+
+<claims>
+1. A method performed by at least one computing device, comprising:
+receiving, by a cloud service, a query pertaining to at least one data stream;
+determining a workload comprising query logic to implement the query;
+analyzing the workload and workload placement criteria;
+creating, based on the analysis, a workload placement plan to deploy the query logic by selecting between an edge deployment, a cloud deployment and a split deployment on cloud and edge; and
+invoking the workload placement plan to create a deployed workload that provides stream processing of the at least one data stream based on the query logic.
+2. The method of claim 1, wherein the deployed workload comprises a split deployment on cloud and edge.
+3. The method of claim 2, wherein invoking the workload placement plan to create the deployed workload that provides the stream processing of the at least one data stream comprises:
+invoking the workload placement plan to create the deployed workload that provides the stream processing of the at least one data stream with pull-based, once-only processing using anchors that describe points in the at least one data stream.
+4. The method of claim 3, further comprising:
+monitoring the deployed workload by analyzing workload performance statistics and workload migration criteria to determine whether to migrate at least a portion of the deployed workload.
+5. The method of claim 4, wherein the workload migration criteria comprises one or more of:
+edge and cloud communication quality;
+edge load or capacity;
+cloud load or capacity;
+a workload performance requirement;
+cost of cloud workload deployment; or
+customer constraints.
+6. The method of claim 4, further comprising:
+migrating at least a portion of the deployed workload from edge to cloud, from edge to edge and cloud, from cloud to edge, or from cloud to cloud and edge based on user-defined migration instructions.
+7. The method of claim 4, further comprising:
+determining, based on the analysis of the workload performance statistics and the workload migration criteria, that at least a portion of the deployed workload qualifies to be migrated from edge to cloud, from edge to edge and cloud, from cloud to edge, or from cloud to cloud and edge.
+8. The method of claim 7, further comprising:
+creating a workload migration plan to migrate deployment of at least a portion of the query logic from at least one migration source to at least one migration target comprising at least one of the following: edge to edge, edge to cloud, edge to edge and cloud, cloud to cloud, cloud to edge, cloud to cloud and edge; and
+invoking the workload migration plan.
+9. A method of claim 8, wherein invoking the workload migration plan comprises: stopping at least one source query logic node affected by the workload migration plan;
+checkpointing the at least one source query logic node to create a snapshot of a state of the at least one source query logic node;
+creating at least one target query logic node with a configuration and connections matching a configuration and connections of the at least one source query logic node; providing the at least one target query logic node with the state of the at least one source query logic node from the checkpoint; and
+starting the at least one target query logic node.
+10. The method of claim 9, the at least one source query logic node comprising a source upstream node and a source output node and the at least one target query logic node comprising a target upstream node and a target output node, wherein the providing of the at least one target query logic node with the state of the at least one source query logic node from the checkpoint comprises:
+assigning an anchor for the source output node as an anchor of the target output node;
+providing, by the target output node, the anchor to the target upstream node; and providing a state of the source upstream node to the target upstream node by using the anchor provided by the target output node to access the checkpoint.
+11. The method of claim 10, further comprising:
+pulling data, by the target output node, from the target upstream node, that was not pulled by the source output node from the source upstream node to provide once-only processing of the at least one data stream before and after migration.
+12. The method of claim 1, the at least one data stream comprising personally identifiable information (PII), wherein the workload placement plan splits deployment of the query logic between the cloud and edge, restricting processing of the PII to the edge based on the workload placement criteria comprising a customer constraint for PII handling.
+13. A system comprising:
+a processing system that includes one or more processors; and
+a memory configured to store program code for execution by the processing system, the program code being configured to manage placement and migration of data streaming workloads distributed among cloud and edge computing devices, with onceonly streaming data processing before and after migration of the data streaming workloads.
+14. The system of claim 13, wherein the program code comprises:
+a streaming workload placement manager configured to:
+receive a query pertaining to at least one data stream;
+determine a workload comprising query logic to implement the query; create, based on an analysis of the workload and workload placement criteria, a workload placement plan to deploy the query logic; and
+invoke the workload placement plan to create a deployed workload that provides once-only streaming data processing of the at least one data stream based on the query logic; and
+a streaming workload migration manager configured to:
+monitor the deployed workload by analyzing workload performance statistics and workload migration criteria to determine whether to migrate at least a portion of the deployed workload;
+create a workload migration plan to migrate deployment of at least a portion of the query logic from at least one migration source to at least one migration target; and
+invoke the workload migration plan to create a migrated workload that continues providing the once-only streaming data processing of the at least one data stream.
+15. The system of claim 14, wherein the once-only streaming data processing of the at least one data stream comprises: processing the at least one data stream with pull-based, once-only processing using anchors that describe points in the at least one data stream.
+</claims>
+</document>

@@ -1,0 +1,100 @@
+<document>
+
+<filing_date>
+2019-12-26
+</filing_date>
+
+<publication_date>
+2020-07-16
+</publication_date>
+
+<priority_date>
+2018-12-26
+</priority_date>
+
+<ipc_classes>
+G06F16/33,G06F40/53,G06F40/55,G06F40/58
+</ipc_classes>
+
+<assignee>
+PAYPAL
+</assignee>
+
+<inventors>
+KAULAGI, ADITYA
+LAKSHMIPATHY, DHAMODHARAN
+RAMESH, NANDHINI
+UPADHYAY, RUSHIK
+</inventors>
+
+<docdb_family_id>
+71124315
+</docdb_family_id>
+
+<title>
+MACHINE LEARNING APPROACH TO CROSS-LANGUAGE TRANSLATION AND SEARCH
+</title>
+
+<abstract>
+Techniques are disclosed relating to implementing a machine learning approach to cross-language translation and search. In certain embodiments, a method may include receiving a plurality of characters of a first language that are unsegmented and grouping the plurality of character into multiple groups. The method also includes determining a set of word tokens based on one or more transliterations of the multiple groups and one or more translations of the multiple groups to a second language. Further, the method includes generating one or more word token solution sets by querying an index file using the one or more word tokens. The method also includes determining whether the index file references an entity name corresponding to the plurality of characters of the first language based on comparing the one or more token solution sets with the index file.
+</abstract>
+
+<claims>
+1. A system, comprising:
+one or more hardware processors; and
+a memory storing computer-executable instructions, that in response to execution by the one or more hardware processors, causes the system to perform operations comprising:
+receiving an input set of characters of a logographic language and grouping the input set of characters into a plurality of character groups based on a grouping algorithm;
+determining respective romanizations of the character groups and determining respective translations of the character groups in a second language; based on the respective romanizations and the respective translations, generating a plurality of word tokens;
+performing a query on an index file using one or more subsets of the plurality of word tokens, the query returning one or more results;
+generating one or more token solution sets by comparing the plurality of word tokens with the one or more results;
+determining, based on a set of elimination criteria, whether to remove any token solution sets from the one or more token solutions sets and identifying one or more remaining token solution sets subsequent to the determining; and
+based on comparing the one or more remaining token solution sets with the one or more results, determining a match between the input set of characters and a first result of the one or more results.
+2. The system of claim 1, wherein the logographic language is Chinese and the second language is English.
+3. The system of claim 1 , wherein the determining the match between the input set of characters and the first result further comprises: calculating a similarity score between a first token solution set of the one or more remaining token solution sets and a set of word tokens included in the first result; and determining that the similarity score satisfies a score threshold.
+4. The system of claim 1 , wherein the generating the one or more token solution sets further comprises:
+generating respective one more token solution sets for each result of the one or more results.
+5. The system of claim 1, wherein the generating the one or more token solution sets further comprises:
+determining that an edit distance between a first word token from the plurality of word tokens and a second word token included in the index file of word tokens satisfies a distance threshold.
+6. The system of claim 1 , wherein the generating the one or more token solution sets further comprises:
+accessing a lemmas file that stores a plurality of token pairs, the plurality of token pairs including a first token pair, wherein the first token pair includes a first word token and a second work token;
+determining that a third word token of the plurality of word tokens matches the first word token and that a fourth word token included in the index file of word tokens matches the second word token;
+responsive to the determining, adding the third word token to a token solution set.
+7. The system of claim 1 , wherein the one or more token solution sets includes a first token solution set having one or more pairs of word tokens, wherein a first pair of the one or more pairs of word tokens includes a first word token from the plurality of work tokens and a corresponding second word token from the index file.
+8. The system of claim 7, wherein the determining whether to remove any token solution sets from the one or more token solutions sets further comprises:
+in response to determining that the second word token corresponds to a romanization of one or more characters of the logographic language, determining whether the first word token is an exact match with the second word token.
+9. The system of claim 8, further comprising:
+in response to determining that the first word token is not an exact match with the second word token, removing the first token solution set from the one or more token solution sets.
+10. The system of claim 1, wherein the determining whether to remove any token solution sets from the one or more token solutions sets further comprises:
+determining whether a number of character groups represented by the one or more token solution sets satisfies a number threshold.
+11. The system of claim 10, wherein the number threshold is determined based on a second number of character groups included in plurality of character groups.
+12. A method, comprising:
+receiving, by a computer comprising one or more hardware processors, a plurality of characters of a first language that are unsegmented;
+segmenting, based on a character grouping algorithm, the plurality of character into multiple groups, each group including one or more characters of the plurality of characters;
+determining a set of word tokens based on one or more transliterations of the multiple groups and one or more translations of the multiple groups to a second language; generating one or more word token solution sets by querying an index file using the one or more word tokens, the index file including words of the second language; and determining whether the index file references an entity name corresponding to the plurality of characters of the first language based on comparing the one or more token solution sets with the index file.
+13. The method of claim 12, wherein the index file stores a list of entries, each entry of the list of entries corresponding to a respective entity name, and wherein the method further comprises:
+for each respective entity name:
+calculating respective ranking scores for each word of the respective entity name;
+based on the respective ranking scores, determining one or more important words for the respective entity name.
+14. The method of claim 12, wherein the determining the set of word tokens further comprises:
+generating an initial set of word tokens comprises of each word token included in the one or more transliterations and each word token included in the one or more translations;
+identifying a first word token included in the initial set of word tokens as a duplicate of a second word token included in the initial set of word tokens; and
+in response to the identifying, removing the first word token from the initial set of word tokens.
+15. The method of claim 12, wherein the querying the index file further comprises: generating a trigram from the set of word tokens; and
+performing a text search against the index file using the trigram.
+16. The method of claim 12, wherein the generating one or more word token solution sets further comprises:
+generating an initial set of word token solution sets; eliminating a first word token solution set from the initial set of word token solution according to elimination criteria.
+17. A non-transitory computer readable medium storing computer-executable instructions that in response to execution by one or more hardware processors, causes a payment provider system to perform operations comprising:
+receiving a plurality of characters of a first language that are unsegmented;
+grouping, based on a character grouping algorithm, the plurality of character into multiple groups, each group including one or more characters of the plurality of characters;
+determining a set of word tokens based on one or more transliterations of the multiple groups and one or more translations of the multiple groups to a second language; generating one or more word token solution sets by querying an index file using the one or more word tokens, the index file including words of the second language; and determining whether the index file references an entity name corresponding to the plurality of characters of the first language based on comparing the one or more token solution sets with the index file.
+18. The non-transitory computer readable medium of claim 17, wherein the determining the set of word tokens further comprises:
+generating an initial set of word tokens comprises of each word token included in the one or more transliterations and each word token included in the one or more translations;
+identifying a first word token included in the initial set of word tokens as a duplicate of a second word token included in the initial set of word tokens; and
+in response to the identifying, removing the first word token from the initial set of word tokens.
+19. The non-transitory computer readable medium of claim 17, wherein the querying the index file further comprises:
+generating a trigram from the set of word tokens; and performing a text search against the index file using the trigram.
+20. The non-transitory computer readable medium of claim 17, wherein the generating one or more word token solution sets further comprises:
+generating an initial set of word token solution sets;
+eliminating a first word token solution set from the initial set of word token solution according to elimination criteria.
+</claims>
+</document>

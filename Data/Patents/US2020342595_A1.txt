@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2020-04-24
+</filing_date>
+
+<publication_date>
+2020-10-29
+</publication_date>
+
+<priority_date>
+2019-04-26
+</priority_date>
+
+<ipc_classes>
+G06T7/00,G06T9/00
+</ipc_classes>
+
+<assignee>
+OREGON HEALTH AND SCIENCE UNIVERSITY
+</assignee>
+
+<inventors>
+JIA, YALI
+Guo, Yukun
+</inventors>
+
+<docdb_family_id>
+72916954
+</docdb_family_id>
+
+<title>
+DETECTING AVASCULAR AREAS USING NEURAL NETWORKS
+</title>
+
+<abstract>
+An example method includes generating, using a multi-scale block of a convolutional neural network (CNN), a first output image based on an optical coherence tomography (OCT) reflectance image of a retina and an OCT angiography (OCTA) image of the retina. The method further includes generating, using an encoder of the CNN, at least one second output image based on the first output image and generating, using a decoder of the CNN, a third output image based on the at least one second output image. An avascular map is generated based on the third output image. The avascular map indicates at least one avascular area of the retina depicted in the OCTA image.
+</abstract>
+
+<claims>
+1. A system, comprising: an output device; at least one processor; and memory storing: a convolutional neural network (CNN) comprising a multi-scale block, a merge block, at least one encoder block, and at least one decoder block; and instructions that, when executed by the at least one processor, cause the system to perform operations comprising: generating, using at least one first convolution layer in the multi-scale block, a first output image by cross-correlating at least one first filter with at least one input image using a first dilation rate, the at least one input image comprising an optical coherence tomography (OCT) reflectance image depicting a superficial vascular complex (SVC) of a retina and an optical coherence tomography angiography (OCTA) image depicting the SVC; generating, using at least one second convolution layer in the multi-scale block, a second output image by cross-correlating at least one second filter with the at least one input image using a second dilation rate, the first dilation rate being different than the second dilation rate; generating, using the merge block, a merged image by concatenating the first output image and the second output image; generating, using the at least one encoder block, at least one third output image by cross-correlating at least one third filter with the merged image; generating, using the at least one decoder block, an avascular map by cross-correlating at least one fourth filter with the at least one third output image, the avascular map indicating at least one avascular area of the SVC; and causing the output device to display the OCTA image overlaid with the avascular map.
+2. The system of claim 1, further comprising: an imaging device configured to obtain a plurality of B-scans of the retina, wherein the operations further comprise: identifying a slab in the plurality of B-scans corresponding to the SVC by identifying a first boundary between a vitrous and an internal limiting membrane (ILM) of the retina depicted in the plurality of B-scans and a second boundary between a superficial vascular complex (SVC) and a deep vascular complex (DVC) of the retina based on the plurality of B-scans, the slab being defined between the first boundary and the second boundary; generating the OCT reflectance image by calculating a mean projection of the slab; and generating the OCTA image by calculating a maximum projection of the slab.
+3. The system of claim 1, wherein generating the avascular map comprises: generating a second merged image by concatenating, using a first decoder block among the one or more decoder blocks, a fourth output image and a fifth output image among the one or more third output images, the fourth output image being output by a first encoder block among the one or more encoder blocks, the fourth output image being output by a second encoder block among the one or more encoder blocks; generating, using the first decoder block, a sixth output image by cross-correlating the second merged image with a fifth filter among the one or more fourth filters; and generating the avascular map based on the sixth output image.
+4. A method comprising: generating, using a multi-scale block of a convolutional neural network (CNN), a first output image based on an optical coherence tomography (OCT) reflectance image of a retina and an OCT angiography (OCTA) image of the retina; generating, using an encoder of the CNN, at least one second output image based on the first output image; generating, using a decoder of the CNN, a third output image based on the at least one second output image; and generating an avascular map based on the third output image, the avascular map indicating at least one avascular area of the retina depicted in the OCTA image.
+5. The method of claim 4, wherein generating the first output image comprises: generating fourth output images by convolving or cross-correlating the OCT reflectance image and the OCTA image with filters using different dilation rates; and generating the first output image by concatenating the fourth output images.
+6. The method of claim 4, the at least one second output image comprising multiple output images, wherein generating the third output image comprises: generating a merged image by merging two of the second output images; and generating the third output image by convolving or cross-correlating the merged image with at least one filter.
+7. The method of claim 4, wherein generating the avascular map comprises convolving or cross-correlating the third output image with at least one filter.
+8. The method of claim 4, wherein the OCT reflectance image and the OCTA image depict an area of the retina that is at least 3×3 mm2.
+9. The method of claim 4, further comprising: identifying a plurality of B-scans of the retina; identifying a first boundary between a vitreous and an internal limiting membrane (ILM) of the retina depicted in the plurality of B-scans; identifying a second boundary between an internal limiting membrane (ILM) and a superficial vascular complex (SVC) of the retina depicted in the plurality of B-scans; identifying a slab in the B-scans between the first boundary and the second boundary; generating the OCT reflectance image based on the slab; and generating the OCTA image based on the slab.
+10. The method of claim 9, wherein generating the OCT reflectance image comprises calculating a mean projection of the slab.
+11. The method of claim 9, wherein generating the OCTA image comprises at least one of calculating a maximum projection of the slab or a mean projection of the slab.
+12. The method of claim 4, further comprising: displaying, on an output device, the OCTA image overlaid with the avascular map, the at least one avascular area of the SVC being indicated by a first color that is different than a second color in the OCTA image.
+13. A system comprising: at least one processor; and memory storing: a convolutional neural network (CNN) comprising filters; instructions that, when executed by the at least one processor, cause the system to perform operations comprising: identifying optical coherence tomography (OCT) reflectance images depicting retinas; identifying OCTA images depicting the retinas; generating, using the CNN, estimated avascular maps indicating avascular areas of the retinas based on the OCT reflectance images and the OCTA images; and optimizing parameters of the filters by minimizing a loss between the estimated avascular maps and ground truth avascular maps indicating avascular areas of the retinas.
+14. The system of claim 13, wherein the retinas comprise at least one healthy retina, at least one retina exhibiting diabetic retinopathy (DR), and at least one retina developing DR.
+15. The system of claim 13, wherein optimizing the parameters of the filters comprises using an optimizer with an exponential decay learning rate to minimize the loss.
+16. The system of claim 13, wherein the operations further comprise: generating a ground truth map among the ground truth maps by: receiving a first indication that a first pixel of an OCTA image among the OCTA images indicates a vascular area, the first indication corresponding to a first assessment by a first expert; receiving a second indication that the first pixel indicates an avascular area, the second indication corresponding to a second assessment by a second expert; receiving a third indication that the first pixel indicates the avascular area, the third indication corresponding to a third assessment by a third expert; determining that the pixel indicates the avascular area based on the first indication, the second indication, and the third indication; and defining a second pixel of the ground truth map as indicating an avascular area, the second pixel of the ground truth map corresponding to the first pixel of the OCTA image.
+17. The system of claim 13, wherein generating the estimated avascular maps comprises: cross-correlating or convolving the filters with the OCT reflectance images and the OCTA images.
+18. The system of claim 13, wherein the OCT reflectance images and the OCTA images depict areas of the retinas that are at least 3×3 mm2.
+19. The system of claim 13, wherein the filters comprise at least one 3×3 pixel filter.
+20. The system of claim 13, wherein the CNN comprises: a multi-scale block comprising a first set of the filters, the third set of the filters comprising atrous filters configured to apply multiple dilation rates; an encoder comprising a second set of the filters; and a decoder comprising a third set of the filters.
+</claims>
+</document>

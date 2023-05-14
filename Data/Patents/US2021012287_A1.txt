@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2020-09-30
+</filing_date>
+
+<publication_date>
+2021-01-14
+</publication_date>
+
+<priority_date>
+2017-10-30
+</priority_date>
+
+<ipc_classes>
+G06Q10/08,G06Q30/06
+</ipc_classes>
+
+<assignee>
+DOORDASH
+</assignee>
+
+<inventors>
+AUGHNEY, CODY DUANE
+STEPHENS, THOMAS SCOTT
+HAN, JEFF NING
+BABCOCK, DAN MICHAEL
+</inventors>
+
+<docdb_family_id>
+66244108
+</docdb_family_id>
+
+<title>
+DEPOT DISPATCH PROTOCOL FOR AGGREGATING ON-DEMAND DELIVERIES
+</title>
+
+<abstract>
+Provided are various mechanisms and processes for optimizing real-time, on-demand delivery service for perishable goods. In one aspect, a method is provided for aggregating on-demand deliveries using a depot dispatch protocol. The method comprises dispatching runners to pick up on-demand orders for drop off at a depot where the orders are aggregated and batched based on optimized delivery routes and destination proximities. Batches of orders are then assigned to couriers who may arrive at the depot to receive the batched orders without having to navigate through areas of high congestion. Such delivery routing system may be implemented alongside a delivery tracking system for generating estimated time of arrival predictive updates for real-time delivery of perishable goods.
+</abstract>
+
+<claims>
+1. A method comprising: receiving, at a server system, an order message for a first order from a customer device corresponding to a first customer for real-time delivery of goods from a first merchant; receiving confirmations for a plurality of first events for the first order from at least one of a first merchant device corresponding to the first merchant, a runner device corresponding to a runner, and a courier device corresponding to a courier, wherein the confirmations for the plurality of first events include a first timestamp corresponding to an initial event of the plurality of first events; training a neural network to dynamically generate estimated time of arrivals (ETAs) for one or more of the plurality of first events using a dataset including a series of successive training events with corresponding known time durations between training events to adjust weighted parameters in the neural network; inputting the first timestamp for the initial event of the plurality of first events into the neural network to automatically generate a first ETA using the weighted parameters; and transmitting a first order notification to the runner device, wherein the first order notification includes the first ETA.
+2. The method of claim 1, further comprising: inputting an updated timestamp for a subsequent event of the plurality of first events into the neural network to automatically adjust the first ETA with an updated ETA; and updating the first order notification to include the updated ETA.
+3. The method of claim 1, wherein the initial event of the plurality of first events corresponds to a receipt of the first order by the first merchant.
+4. The method of claim 1, wherein training the neural network comprises inputting different combinations of training events and comparing generated ETA predictions with known time durations to allow for the neural network to automatically and iteratively adjust weighted parameters in the neural network, wherein the weighted parameters include one or more of the following: time, date, weather, data on dishes in the first order, a sub-total of the first order, and a number of pending orders at the first merchant.
+5. The method of claim 1, wherein the first order notification further includes a storage location in an automated locker system of an aggregation depot, wherein the storage location is configured to store a batch of one or more orders grouped based on delivery proximity to the first customer, the batch of one or more orders including the first order.
+6. The method of claim 5 further comprising: transmitting a delivery notification to the courier device, the delivery notification including the storage location in the automated locker system and a customer location corresponding to the first customer; and authenticating the courier by the automated locker system to provide the courier access to the storage location.
+7. The method of claim 1, further comprising receiving, at the server system, an order message for a second order for real-time delivery of perishable goods from a second merchant, receiving confirmations for a plurality of second events for the second order from at least one of a second merchant device corresponding to the second merchant, the runner device, and the courier device, wherein the confirmations for the plurality of second events include a second timestamp corresponding to an initial event of the plurality of second events; inputting the second timestamp into the neural network to dynamically generate ETAs for one or more of the plurality of second events including a second ETA; grouping the first order and the second order into a first group of orders based upon the first ETA and the second ETA; and transmitting a second order notification to the runner device, wherein the second order notification includes the second ETA.
+8. The method of claim 7, wherein the first order and the second order are grouped into the first group of orders based upon a proximity of the first merchant to the second merchant.
+9. The method of claim 7, wherein the first order and the second order are grouped into the first group of orders are based upon a generated route assigned to the runner.
+10. The method of claim 7, wherein a storage location in an automated locker system of an aggregation depot is configured to store a batch of one or more orders grouped based on delivery proximity to the first customer; and wherein the first order and the second order are grouped into the batch of one or more orders for pickup at the aggregation depot in the storage location in the automated locker system.
+11. A server system comprising: one or more processors; memory; and one or more programs stored in the memory, the one or more programs comprising instructions for: receiving, at the server system, an order message for a first order from a customer device corresponding to a first customer for real-time delivery of goods from a first merchant; receiving confirmations for a plurality of first events for the first order from at least one of a first merchant device corresponding to the first merchant, a runner device corresponding to a runner, and a courier device corresponding to a courier, wherein the confirmations for the plurality of first events include a first timestamp corresponding to an initial event of the plurality of first events; training neural network to dynamically generate estimated time of arrivals (ETAs) for one or more of the plurality of first events using a dataset including a series of successive training events with corresponding known time durations between training events to adjust weighted parameters in the neural network; inputting the first timestamp for the initial event of the plurality of first events into the neural network to automatically generate a first ETA using the weighted parameters; and transmitting a first order notification to the runner device, wherein the first order notification includes the first ETA.
+12. The server system of claim 11, further comprising: inputting an updated timestamp for a subsequent event of the plurality of first events into the neural network to automatically adjust the first ETA with an updated ETA; and updating the first order notification to include the updated ETA.
+13. The server system of claim 11, wherein training the neural network comprises inputting different combinations of training events and comparing generated ETA predictions with known time durations to allow for the neural network to automatically and iteratively adjust weighted parameters in the neural network, wherein the weighted parameters include one or more of the following: time, date, weather, data on dishes in the first order, a sub-total of the first order, and a number of pending orders at the first merchant.
+14. The server system of claim 11, wherein the first order notification further includes a storage location in an automated locker system of an aggregation depot, wherein the storage location is configured to store a batch of one or more orders grouped based on delivery proximity to the first customer, the batch of one or more orders including the first order.
+15. The server system of claim 14 further comprising: transmitting a delivery notification to the courier device, the delivery notification including the storage location in the automated locker system and a customer location corresponding to the first customer; and authenticating the courier by the automated locker system to provide the courier access to the storage location.
+16. The server system of claim 11, wherein the one or more programs further comprise instructions for: receiving, at the server system, an order message for a second order for real-time delivery of perishable goods from a second merchant, receiving confirmations for a plurality of second events for the second order from at least one of a second merchant device corresponding to the second merchant, the runner device, and the courier device, wherein the confirmations for the plurality of second events include a second timestamp corresponding to an initial event of the plurality of second events; inputting the second timestamp into the neural network to dynamically generate ETAs for one or more of the plurality of second events including a second ETA; grouping the first order and the second order into a first group of orders based upon the first ETA and the second ETA; and transmitting a second order notification to the runner device, wherein the second order notification includes the second ETA.
+17. The server system of claim 16, wherein the first order and the second order are grouped into the first group of orders based upon a proximity of the first merchant to the second merchant.
+18. The server system of claim 16, wherein the first order and the second order are grouped into the first group of orders are based upon a generated route assigned to the runner.
+19. The server system of claim 16, wherein a storage location in an automated locker system of an aggregation depot is configured to store a batch of one or more orders grouped based on delivery proximity to the first customer; and wherein the first order and the second order are grouped into the batch of one or more orders for pickup at the aggregation depot in the storage location in the automated locker system.
+20. A programmable device configured for aggregating on-demand deliveries, wherein the programmable device is configured for: receiving, at a server system, an order message for a first order from a customer device corresponding to a first customer for real-time delivery of perishable goods from a first merchant; receiving confirmations for a plurality of first events for the first order from at least one of a first merchant device corresponding to the first merchant, a runner device corresponding to a runner, and a courier device corresponding to a courier, wherein the confirmations for the plurality of first events include a first timestamp corresponding to an initial event of the plurality of first events; training a neural network to dynamically generate estimated time of arrivals (ETAs) for one or more of the plurality of first events using a dataset including a series of successive training events with corresponding known time durations between training events to adjust weighted parameters in the neural network; inputting the first timestamp for the initial event of the plurality of first events into the neural network to automatically generate a first ETA using the weighted parameters; and transmitting a first order notification to the runner device, wherein the first order notification includes the first ETA.
+</claims>
+</document>

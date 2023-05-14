@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2019-08-22
+</filing_date>
+
+<publication_date>
+2020-02-27
+</publication_date>
+
+<priority_date>
+2018-08-23
+</priority_date>
+
+<ipc_classes>
+G06F17/15,G06K9/32,G06K9/62,G06N3/08,G06T7/20
+</ipc_classes>
+
+<assignee>
+SEOUL NATIONAL UNIVERSITY
+</assignee>
+
+<inventors>
+HAN, BOHYUNG
+JUNG, ILCHAE
+NAM, HYEONSEOB
+</inventors>
+
+<docdb_family_id>
+69583511
+</docdb_family_id>
+
+<title>
+METHOD AND SYSTEM FOR REAL-TIME TARGET TRACKING BASED ON DEEP LEARNING
+</title>
+
+<abstract>
+The invention disclosed here relates to a method and system for real-time target tracking based on deep learning. The method for real-time target tracking according to an embodiment is performed by a computing device including a processor, and includes pre-training a target tracking model for detecting a tracking target from an image using pre-inputted training data, receiving an image with a plurality of frames, and detecting the tracking target for each of the plurality of frames by applying the target tracking model to the image. According to an embodiment, there is a remarkable reduction in the time required to detect the target from the image, thereby allowing real-time visual tracking, and improvement of the hierarchical structure and introduction of a new loss function make it possible to achieve more precise localization and distinguish different targets of similar shapes.
+</abstract>
+
+<claims>
+1. A method for real-time target tracking based on deep learning, performed by a computing device including a processor, comprising: pre-training a target tracking model for detecting a tracking target from an image using pre-inputted training data; receiving an image with a plurality of frames; and detecting the tracking target for each of the plurality of frames by applying the target tracking model to the image.
+2. The method for real-time target tracking based on deep learning according to claim 1, wherein the target tracking model includes: a feature map generation layer including at least one convolutional layer, the feature map generating layer for generating a feature map from the image; a feature extraction layer for extracting features of the target using bilinear interpolation of Regions of Interest (ROIs) on the feature map; and a classification layer including at least one fully-connected layer, the classification layer for detecting a location of the target by calculating classification scores from the extracted features.
+3. The method for real-time target tracking based on deep learning according to claim 2, wherein the feature map generation layer includes three convolutional layers, a max pooling layer is included between a first convolutional layer and a second convolutional layer, a max pooling layer is excluded between the second convolutional layer and a third convolutional layer to generate a dense feature map, and dilation of the third convolutional layer is set to be larger than dilation of the first convolutional layer and dilation of the second convolutional layer to maintain a large receptive field.
+4. The method for real-time target tracking based on deep learning according to claim 3, wherein a kernel size of the first convolutional layer is set to 7×7×3×96, a stride is set to 2, and the dilation is set to 1, a kernel size of the max pooling layer is set to 3×3, and a stride is set to 2, a kernel size of the second convolutional layer is set to 5×5×96×256, a stride is set to 2, and the dilation is set to 1, and a kernel size of the third convolutional layer is set to 3×3×256×512, a stride is set to 1, and the dilation is set to 3.
+5. The method for real-time target tracking based on deep learning according to claim 4, wherein the classification layer includes three fully-connected layers, a kernel size of a first fully-connected layer is set to 3×3×512×512, a kernel size of a second fully-connected layer is set to 1×1×512×512, and a kernel size of a third fully-connected layer is set to 1×1×512×2.
+6. The method for real-time target tracking based on deep learning according to claim 1, wherein the pre-training of the target tracking model is multi domain based learning in which training is performed on each domain for each image in which an independent target is present.
+7. The method for real-time target tracking based on deep learning according to claim 6, wherein the pre-training of the target tracking model comprises updating parameters of each layer included in the target tracking model to minimize a loss function, and the loss function represents a difference between a result value of detection of the tracking target from the image by the target tracking model and a true value.
+8. The method for real-time target tracking based on deep learning according to claim 7, wherein the loss function includes an instance embedding loss for distinguishing different targets of similar shapes.
+9. The method for real-time target tracking based on deep learning according to claim 8, wherein the instance embedding loss Linst is represented as the following Equation, where N denotes the number of data included in a training batch, and D denotes the number of domains, and the target tracking model is trained, taking both the instance embedding loss and a binary class loss into account.
+10. A computer program stored in a computer-readable recording medium for implementing the method for real-time target tracking based on deep learning according to claim 1.
+11. A system for real-time target tracking based on deep learning, comprising: a target tracking model for detecting a tracking target from an image; a training unit configured to pre-train the target tracking model using pre-inputted training data; a receiving unit configured to receive an image with a plurality of frames; and a detection unit configured to detect the tracking target for each of the plurality of frames by applying the target tracking model to the image.
+12. The system for real-time target tracking based on deep learning according to claim 11, wherein the target tracking model includes: a feature map generation layer including at least one convolutional layer, the feature map generation layer for generating a feature map from the image; a feature extraction layer for extracting features of the target using bilinear interpolation of Regions of Interest (ROIs) on the feature map; and a classification layer including at least one fully-connected layer, the classification layer for detecting a location of the target by calculating classification scores from the extracted features.
+13. The system for real-time target tracking based on deep learning according to claim 12, wherein the feature map generation layer includes three convolutional layers, a max pooling layer is included between a first convolutional layer and a second convolutional layer, a max pooling layer is excluded between the second convolutional layer and a third convolutional layer to generate a dense feature map, and dilation of the third convolutional layer is set to be larger than dilation of the first convolutional layer and dilation of the second convolutional layer to maintain a large receptive field.
+14. The system for real-time target tracking based on deep learning according to claim 13, wherein a kernel size of the first convolutional layer is set to 7×7×3×96, a stride is set to 2, and the dilation is set to 1, a kernel size of the max pooling layer is set to 3×3, and a stride is set to 2, a kernel size of the second convolutional layer is set to 5×5×96×256, a stride is set to 2, and the dilation is set to 1, a kernel size of the third convolutional layer is set to 3×3×256×512, a stride is set to 1, and the dilation is set to 3.
+15. The system for real-time target tracking based on deep learning according to claim 14, wherein the classification layer includes three fully-connected layers, a kernel size of a first fully-connected layer is set to 3×3×512×512, a kernel size of a second fully-connected layer is set to 1×1×512×512, and a kernel size of a third fully-connected layer is set to 1×1×512×2.
+16. The system for real-time target tracking based on deep learning according to claim 11, wherein the pre-training of the target tracking model is multi domain based learning in which training is performed on each domain for each image in which an independent target is present.
+17. The system for real-time target tracking based on deep learning according to claim 16, wherein the training unit is configured to update parameters of each layer included in the target tracking model to minimize a loss function, and the loss function represents a difference between a result value of detection of the tracking target from the image by the target tracking model and a true value.
+18. The system for real-time target tracking based on deep learning according to claim 17, wherein the loss function includes an instance embedding loss for distinguishing different targets of similar shapes.
+19. The system for real-time target tracking based on deep learning according to claim 18, wherein the instance embedding loss Linst is represented as the following Equation, where N denotes the number of data included in a training batch, and D denotes the number of domains, and the target tracking model is trained, taking both the instance embedding loss and a binary class loss into account.
+</claims>
+</document>

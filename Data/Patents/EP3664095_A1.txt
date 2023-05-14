@@ -1,0 +1,58 @@
+<document>
+
+<filing_date>
+2018-12-06
+</filing_date>
+
+<publication_date>
+2020-06-10
+</publication_date>
+
+<priority_date>
+2018-12-06
+</priority_date>
+
+<ipc_classes>
+G16B15/20,G16B15/30
+</ipc_classes>
+
+<assignee>
+UNIVERIDADE NOVA DE LISBOA
+UNIVERSITY OF MINHO
+</assignee>
+
+<inventors>
+DE ALMEIDA PEREIRA DA ROCHA, ISABEL CRISTINA
+RESENDE, TIAGO FILIPE COELHO
+SOARES, CLÁUDIO MANUEL SIMÕES LOUREIRO NUNES
+</inventors>
+
+<docdb_family_id>
+64650254
+</docdb_family_id>
+
+<title>
+METHOD AND COMPUTER PROGRAM FOR DETERMINING OR ALTERING A COFACTOR SPECIFICITY OF A TARGET ENZYME
+</title>
+
+<abstract>
+The invention relates to a method and a computer program for determining a cofactor specificity of a target enzyme, wherein the target enzyme is expected to use one of a first cofactor and a second cofactor based on an amino-acid sequence of the target enzyme, and/or for determining an amino-acid sequence of a target enzyme variant, wherein the variant is characterized by a cofactor specificity differing from that of the target enzyme, the method comprising at least the steps of: providing an atomic structure for each of both cofactors, wherein each atomic structure comprises cofactor atoms, and wherein cofactor atoms in the atomic structures that are located at the same corresponding locations in both atomic structures are selected; providing the amino-acid sequence of the target enzyme; determining an estimated target enzyme-cofactor structure comprising information on a spatial structure of the target enzyme bound to one of the cofactors; generating an interaction matrix for the target enzyme-cofactor structure, wherein the interaction matrix comprises entries relating the selected cofactor atoms to surrounding amino-acid residues of the target enzyme; determining a cofactor specificity of the target enzyme by providing the interaction matrix, particularly the entries of the interaction matrix, to a trained classifier that is configured to classify the cofactor specificity of the target enzyme based on the provided interaction matrix to either the first or the second cofactor.
+</abstract>
+
+<claims>
+1. A method for determining a cofactor specificity of a target enzyme, wherein the target enzyme is expected to use one of a first cofactor and a second cofactor based on an amino-acid sequence of the target enzyme, and/or for determining an amino-acid sequence of a target enzyme variant, wherein the variant is characterized by a cofactor specificity differing from that of the target enzyme, the method comprising at least the steps of: i) providing an atomic structure for each of both cofactors, wherein each atomic structure comprises cofactor atoms, and wherein cofactor atoms in the atomic structures that are located at the same corresponding locations in both atomic structures are selected, ii) providing the amino-acid sequence of the target enzyme, iii) determining an estimated target enzyme-cofactor structure comprising information on a spatial structure of the target enzyme bound to one of the cofactors, iv) generating an interaction matrix for the target enzyme-cofactor structure, wherein the interaction matrix comprises entries relating the selected cofactor atoms to surrounding amino-acid residues of the target enzyme, particularly wherein for each selected cofactor atom, entries are generated in the interaction matrix that comprise the counts of each amino-acid residue of the target enzyme within a predefined distance to the selected cofactor atom, v) determining a cofactor specificity of the target enzyme by providing the interaction matrix, particularly the entries of the interaction matrix, to a trained classifier that is configured to classify the cofactor specificity of the target enzyme based on the provided interaction matrix to either the first or the second cofactor.
+2. The method according to claim 1, wherein particularly if the target enzyme-cofactor structure is unknown, the following steps are executed for determining the estimated target enzyme-cofactor structure: - performing a homology search with the amino-acid sequence of the target enzyme in a protein structure database comprising information on molecular structures of enzymes bound to the first or the second cofactor, - assigning the molecular structure comprising the enzyme that exhibits a highest degree of homology to the amino-acid sequence of the target enzyme as a molecular structure template, - from the molecular structure template determining the target enzyme-cofactor structure for the amino-acid sequence of the target enzyme bound to the cofactor particularly by aligning the amino-acid sequence of the target enzyme to the molecular structure template.
+3. The method according to any one of the preceding claims, wherein the classifier is trained by - providing information on molecular structures of a plurality of enzymes, wherein each molecular structure represents an enzyme bound to the first or the second cofactor, - for each molecular structure, generating the interaction matrix, wherein each interaction matrix is associated to the respective cofactor of the molecular structure, - training the classifier with the interaction matrices so that the classifier is configured to classify the cofactor specificity for the first or the second cofactor of an enzyme based on the entries of the interaction matrix.
+4. The method according to any one of the preceding claims, wherein the trained classifier provides a cofactor specificity probability for the first and/or the second cofactor for the interaction matrix for classifying the cofactor specificity of the target enzyme, wherein if said probability exceeds a predefined threshold value, the target enzyme is classified to be specific to the respective cofactor.
+5. The method according to any one of the preceding claims, wherein the amino-acid sequence of the target enzyme having the cofactor specificity switched from the first cofactor to the second cofactor is determined by the steps of: a) particularly providing the target cofactor enzyme structure with a target enzyme being specific to the first cofactor, b) prior to step v), replacing at least one amino-acid in the interaction matrix, c) determining whether the cofactor specificity determined in step v) is switched from the first cofactor to the second cofactor, d) particularly repeating the steps b) to c), particularly until the cofactor specificity determined in step v) is switched from the first cofactor to the second cofactor.
+6. The method according to any one of the preceding claims, wherein for each of the two cofactors and for each of the selected cofactor atoms and for each amino-acid, a feature weight indicative of a cofactor specificity strength is determined or provided, particularly wherein the trained classifier determines and/or provides the feature weights after being trained, particularly wherein said feature weights are provided in form of a computer readable look-up table.
+7. The method according to claim 6, wherein a maximum impact matrix is determined or provided relating each selected cofactor atom to the amino-acid having the largest feature weight for the cofactor specificity for the first cofactor and the second cofactor, particularly wherein the maximum impact matrix is determined and/or provided by the trained classifier, particularly wherein the maximum impact matrix stored as a computer readable look-up table.
+8. The method according to any one of the preceding claims, wherein the amino-acid sequence of the target enzyme having the cofactor specificity switched from the first cofactor to the second cofactor is determined by the steps of: - before the interaction matrix is provided to the trained classifier in step v), replacing M amino-acid residues in the interaction matrix corresponding to the amino-acid residues of the target enzyme with the M largest feature weights for the first cofactor, with the corresponding M amino-acid residues for the same cofactor atoms having the largest feature weight for the second cofactor, wherein M is a natural number, - particularly providing the such altered interaction matrix to the trained classifier as the interaction matrix in step v), - after step v), determining whether the specificity of the enzyme variant associated to the interaction matrix is switched with respect to the target enzyme.
+9. The method according to claim 8, wherein starting from an initial value for M, particularly M =1, the steps of claim 8 are repeated, wherein M is incremented by one or more during each repetition, until the cofactor specificity of the target enzyme is switched or a predefined maximum value for M is reached.
+10. The method according to any one of the claims 5 to 9, wherein the amino-acid sequence of the target enzyme having the cofactor specificity switched from the first cofactor to the second cofactor is determined by the steps of: I) before the interaction matrix is provided to the trained classifier in step v), determining N amino-acid residues of the target enzyme with the N largest feature weights for the first cofactor, wherein N is a natural number, particularly 10, II) repeatedly performing a stochastic evolutionary method for replacing the N amino-acid residues with other amino-acid residues in the interaction matrix, and for each cycle of the stochastic evolutionary method and for each amino-acid sequence retrieved from the cycle determining the cofactor specificity and the cofactor specificity probability with step v) with the trained classifier, III) after step v) of claim 1, selecting at least one target enzyme with a switched cofactor specificity.
+11. The method according to claim 10, wherein in step II) selected amino sequences are submitted to a next cycle of the stochastic evolutionary method, wherein the amino-acid sequences are selected based on the highest cofactor probability for the second cofactor.
+12. The method according to one of the preceding claims, wherein the first cofactor is selected from one of the redox pairs NAD / NADH and NADP / NADPH, and the second cofactor is the other of the redox pairs.
+13. Method according to one of the preceding claims, wherein the target enzyme is synthesized.
+14. A computer program comprising instructions which, when the program is executed by a computer, cause the computer to carry out the method according to any of the claims 1 to 12.
+</claims>
+</document>

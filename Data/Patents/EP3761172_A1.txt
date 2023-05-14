@@ -1,0 +1,99 @@
+<document>
+
+<filing_date>
+2019-03-18
+</filing_date>
+
+<publication_date>
+2021-01-06
+</publication_date>
+
+<priority_date>
+2018-03-30
+</priority_date>
+
+<ipc_classes>
+G06F9/48
+</ipc_classes>
+
+<assignee>
+HUAWEI TECHNOLOGIES COMPANY
+</assignee>
+
+<inventors>
+LIN, Jian
+HONG, Sibao
+YANG, Jie
+</inventors>
+
+<docdb_family_id>
+64403353
+</docdb_family_id>
+
+<title>
+DEEP LEARNING TASK SCHEDULING METHOD AND SYSTEM AND RELATED APPARATUS
+</title>
+
+<abstract>
+This application discloses a deep learning job scheduling method and system, and a related device. The method includes: obtaining a job request of a deep learning job, where the job request carries a deep learning library type and a job type; determining a target job description file template from a plurality of pre-stored job description file templates based on the deep learning library type and the job type; determining an identifier of a target job basic image from identifiers of a plurality of pre-stored job basic images based on the deep learning library type and the job type; generating a target job description file based on the target job description file template and the identifier of the target job basic image; sending the target job description file to a container scheduler; and selecting, by the container scheduler, the target job basic image from the pre-stored job base images based on the target job description file, and creating at least one container for executing the job request. The foregoing solution can improve compatibility of deep learning job scheduling.
+</abstract>
+
+<claims>
+1. A deep learning job scheduling method, comprising: obtaining a job request of a deep learning job, wherein the job request carries a deep learning library type and a job type; determining a target job description file template from a plurality of pre-stored job description file templates based on the deep learning library type and the job type; determining an identifier of a target job basic image from identifiers of a plurality of pre-stored job basic images based on the deep learning library type and the job type; generating a target job description file based on the target job description file template and the identifier of the target job basic image; sending the target job description file to a container scheduler; and selecting, by the container scheduler, the target job basic image from the pre-stored job basic images based on the target job description file, and creating at least one container for executing the job request.
+2. The method according to claim 1, wherein the deep learning job comprises at least one task;
+the job request further comprises at least one piece of the following information: a job name, a deep learning program storage location, an application boot file, a dataset storage location, a type of the at least one task, a quantity of each type of task in the at least one task, a job command line parameter, and a resource requirement of each of the at least one task; or
+the job request further comprises at least one piece of the following information: a job name, a deep learning program, an application boot file, a dataset storage location, a type of the at least one task, a quantity of each type of task in the at least one task, a job command line parameter, and a resource requirement of each of the at least one task; and
+the generating a target job description file based on the target job description file template and the identifier of the target job basic image comprises:
+generating the target job description file based on the job request, the target job description file template, and the identifier of the target job basic image.
+3. The method according to claim 2, wherein the generating the target job description file based on the job request, the target job description file template, and the identifier of the target job basic image comprises:
+filling the target job description file template with the information comprised in the job request and the identifier of the target job basic image, to obtain the target job description file.
+4. The method according to any one of claims 1 to 3, wherein
+the job basic images comprise an image of a deep learning library and an image of a dependency library, and the job basic images do not comprise an image of the deep learning program; or
+the job basic images comprise an image of a deep learning library, an image of a dependency library, and an image of the deep learning program; and
+the dependency library is a library required when the deep learning job is executed, and an instantiation of the deep learning program is the deep learning job.
+5. The method according to any one of claims 1 to 4, wherein
+the plurality of pre-stored job description file templates are generated based on deep learning library types and job types, and each of the plurality of pre-stored job description file templates is corresponding to one deep learning library type and one job type; and
+the plurality of pre-stored job basic images are generated based on the deep learning library types and the job types, and each of the plurality of pre-stored job basic images is corresponding to one deep learning library type and one job type.
+6. The method according to any one of claims 1 to 5, wherein after the sending the target job description file to a container scheduler, the method further comprises:
+when the container scheduler fails in scheduling, storing, in a queue, a job identifier indicating the job request, wherein the job identifier comprises at least one of the job request, the information comprised in the job request, the target job description file, a pointer, and a data structure; the pointer points to at least one of the job request, the information carried in the job request, and the target job description file; and the data structure points to at least one of the job request, the information carried in the job request, and the target job description file.
+7. The method according to claim 6, wherein after storing, in the queue, the job identifier used to indicate the job request, the method further comprises: determining that the container scheduler has a condition for resubmitting a job request; and extracting the job identifier from the queue, and resubmitting the job request to the container scheduler based on the job identifier.
+8. A deep learning job scheduling system, wherein the system comprises a job scheduler and a container scheduler;
+the job scheduler is configured to obtain a job request of a deep learning job, wherein the job request carries a deep learning library type and a job type;
+the job scheduler is configured to determine a target job description file template from a plurality of pre-stored job description file templates based on the deep learning library type and the job type, and determine an identifier of a target job basic image from identifiers of a plurality of pre-stored job basic images based on the deep learning library type and the job type;
+the job scheduler is configured to generate a target job description file based on the target job description file template and the identifier of the target job basic image;
+the job scheduler is configured to send the target job description file to the container scheduler; and
+the container scheduler is configured to select the target job basic image from the pre-stored job basic images based on the target job description file, and create at least one container for executing the job request.
+9. The system according to claim 8, wherein the deep learning job comprises at least one task;
+the job request further comprises at least one piece of the following information: a job name, a deep learning program storage location, an application boot file, a dataset storage location, a type of the at least one task, a quantity of each type of task in the at least one task, a job command line parameter, and a resource requirement of each of the at least one task; or
+the job request further comprises at least one piece of the following information: a job name, a deep learning program, an application boot file, a dataset storage location, a type of the at least one task, a quantity of each type of task in the at least one task, a job command line parameter, and a resource requirement of each of the at least one task; and
+the job scheduler is further configured to generate the target job description file based on the job request, the target job description file template, and the identifier of the target job basic image.
+10. The system according to claim 9, wherein the job scheduler is further configured to:
+fill the target job description file template with the information comprised in the job request and the identifier of the target job basic image, to obtain the target job description file.
+11. The system according to any one of claims 8 to 10, wherein
+the job basic images comprise an image of a deep learning library and an image of a dependency library, and the job basic images do not comprise an image of the deep learning program; or
+the job basic images comprise an image of a deep learning library, an image of a dependency library, and an image of the deep learning program; and
+the dependency library is a library required when the deep learning job is executed, and an instantiation of the deep learning program is the deep learning job.
+12. The system according to any one of claims 8 to 11, wherein
+the plurality of pre-stored job description file templates are generated based on deep learning library types and job types, and each of the plurality of pre-stored job description file templates is corresponding to one deep learning library type and one job type; and
+the plurality of pre-stored job basic images are generated based on the deep learning library types and the job types, and each of the plurality of pre-stored job basic images is corresponding to one deep learning library type and one job type.
+13. The system according to any one of claims 8 to 12, wherein
+the container scheduler is further configured to: when the container scheduler fails in scheduling, store, in a queue, a job identifier indicating the job request, wherein the job identifier comprises at least one of the job request, the information comprised in the job request, the target job description file, a pointer, and a data structure; the pointer points to at least one of the job request, the information carried in the job request, and the target job description file; and the data structure points to at least one of the job request, the information carried in the job request, and the target job description file.
+14. The system according to claim 13, wherein the job scheduler is further configured to determine that the container scheduler has a condition for resubmitting a job request, and extract the job identifier from the queue and resubmit the job request to the container scheduler based on the job identifier.
+15. A cloud service cluster, comprising at least one management node and at least one compute node, wherein the at least one management node communicates with the at least one compute node through a communications network, and the at least one management node is configured to: obtain a job request of a deep learning job, wherein the job request carries a deep learning library type and a job type; determine a target job description file template from a plurality of pre-stored job description file templates based on the deep learning library type and the job type; determine an identifier of a target job basic image from identifiers of a plurality of pre-stored job basic images based on the deep learning library type and the job type; generate a target job description file based on the target job description file template and the identifier of the target job basic image; send the target job description file to a container scheduler; and select the target job basic image from the pre-stored job basic images based on the target job description file, and create at least one container on the at least one compute node for executing the job request.
+16. The cloud service cluster according to claim 15, wherein the deep learning job comprises at least one task;
+the job request further comprises at least one piece of the following information: a job name, a deep learning program storage location, an application boot file, a dataset storage location, a type of the at least one task, a quantity of each type of task in the at least one task, a job command line parameter, and a resource requirement of each of the at least one task; or
+the job request further comprises at least one piece of the following information: a job name, a deep learning program, an application boot file, a dataset storage location, a type of the at least one task, a quantity of each type of task in the at least one task, a job command line parameter, and a resource requirement of each of the at least one task; and
+the management node is further configured to generate the target job description file based on the job request, the target job description file template, and the identifier of the target job basic image.
+17. The cloud service cluster according to claim 16, wherein the management node is further configured to:
+fill the target job description file template with the information comprised in the job request and the identifier of the target job basic image, to obtain the target job description file.
+18. The cloud service cluster according to any one of claims 15 to 17, wherein
+the job basic images comprise an image of a deep learning library and an image of a dependency library, and the job basic images do not comprise an image of the deep learning program; or
+the job basic images comprise an image of a deep learning library, an image of a dependency library, and an image of the deep learning program; and
+the dependency library is a library required when the deep learning job is executed, and an instantiation of the deep learning program is the deep learning job.
+19. The cloud service cluster according to any one of claims 15 to 18, wherein the plurality of pre-stored job description file templates are generated based on deep learning library types and job types, and each of the plurality of pre-stored job description file templates is corresponding to one deep learning library type and one job type; and
+the plurality of pre-stored job basic images are generated based on the deep learning library types and the job types, and each of the plurality of pre-stored job basic images is corresponding to one deep learning library type and one job type.
+20. The cloud service cluster according to any one of claims 15 to 19, wherein the management node is further configured to:
+when the container scheduler fails in scheduling, store, in a queue, a job identifier indicating the job request, wherein the job identifier comprises at least one of the job request, the information comprised in the job request, the target job description file, a pointer, and a data structure; the pointer points to at least one of the job request, the information carried in the job request, and the target job description file; and the data structure points to at least one of the job request, the information carried in the job request, and the target job description file.
+21. The cloud service cluster according to claim 20, wherein the management node is further configured to determine that the container scheduler has a condition for resubmitting a job request, and extract the job identifier from the queue and resubmit the job request to the container scheduler based on the job identifier.
+</claims>
+</document>

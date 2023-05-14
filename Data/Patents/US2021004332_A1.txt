@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-07-02
+</filing_date>
+
+<publication_date>
+2021-01-07
+</publication_date>
+
+<priority_date>
+2019-07-02
+</priority_date>
+
+<ipc_classes>
+G06F12/0815,G06F12/0891,G06F12/1081,G06F16/9035
+</ipc_classes>
+
+<assignee>
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+Senderovich, Daniel
+BUDIK, Asher
+GERI, Amir
+</inventors>
+
+<docdb_family_id>
+74066107
+</docdb_family_id>
+
+<title>
+PER-TENANT INCREMENTAL OUTWARD DISTRIBUTED PROACTIVE CACHING
+</title>
+
+<abstract>
+Distributed computing system functionality is enhanced. Transmission of data changes may be incremental, thus reducing bandwidth usage and latency. Data changes may be propagated over geographic distances in an outward-only manner from a central data store to one or more servers or other remote nodes, using proactive updates as opposed to making cache updates only in reaction to cache misses. Cache expiration and eviction may be reduced or avoided as mechanisms for determining when cached data is modified. A central computing environment may proactively push incremental data entity changes to place them in remote data stores. Remote nodes proactively check their remote data store, find changes, pull respective selected changes into their remote node caches, and provide current data in response to service requests. Data may be owned by particular tenants. Data pulls may be limited to data in selected categories, data of recently active tenants, or both.
+</abstract>
+
+<claims>
+1. A data provisioning remote computing system which is configured to receive data entity updates from a central computing environment that has a central data store, the remote computing system comprising: a memory including a cache; a processor in operable communication with the memory, the processor configured to perform steps which include (a) receiving from the central computing environment a proactively pushed incremental change to a data entity that is owned by a tenant, (b) placing the incremental change in a remote data store of the remote computing system, (c) proactively checking the remote data store for tenant data updates, (d) finding the incremental change in the remote data store, (e) determining that the incremental change has not yet been pulled onto a remote server of the remote computing system, (f) pulling the incremental change onto the remote server, (g) applying the incremental change to produce an updated copy of the data entity in the cache, and (h) providing tenant data of the updated copy of the data entity in response to a request to the remote server for current tenant data; wherein the remote computing system is configured to maintain updated tenant data in the cache without requiring an expiration of the cached data entity as a precondition for updating tenant data in the cache, and without requiring eviction of the data entity from the cache as a precondition for updating tenant data in the cache, thereby avoiding increased latency or increased provision of non-current tenant data or both.
+2. The computing system of claim 1, wherein the data entity comprises the tenant data, an identification of the data entity, an identification of the tenant which owns the tenant data, and a timestamp.
+3. The computing system of claim 1, wherein the processor comprises multiple cores, a processor core of the remote data store places the incremental change in the remote data store, and a processor core of the remote server produces an updated copy of the data entity in the cache.
+4. The computing system of claim 1, wherein the remote computing system is configured to avoid sending the central computing environment any change to the data entity.
+5. The computing system of claim 1, wherein the remote data store and the remote server each reside in a cloud computing environment.
+6. The computing system of claim 1, wherein the remote computing system is located at a geographic distance from the central data store, and wherein being located at a geographic distance means at least one of the following is present between the remote computing system and the central data store: a physical distance between respective data center facilities, a physical distance of at least ten miles, a network distance spanning at least two routers, a network distance spanning at least one network address translation, a network distance spanning at least a portion of a publicly addressable wide area network, or a network distance having a latency of at least thirty seconds.
+7. The computing system of claim 1, wherein operation of the remote computing system in coordination with the central computing environment provisions the cache such that the tenant data in the cache is identical to tenant data in the central data store for at least 99% of instances in which the remote server provides tenant data from the cache in response to a request to the remote server for current tenant data.
+8. A highly responsive data provisioning method for maintaining cache content in a distributed computing system which includes a central computing environment having a central data store and also includes at least one remote computing environment located at a distance from the central computing environment, the method comprising: a remote data store in the remote computing environment receiving an incremental change to a data entity that is owned by a tenant, the incremental change having been pushed proactively to the remote data store from the central computing environment; a remote server in the remote computing environment proactively checking the remote data store, determining that the incremental change has not yet been pulled onto the remote server, pulling the incremental change onto the remote server, and applying the incremental change to produce an updated copy of the data entity in a cache of the remote server; wherein the method maintains updated data in the cache on a per-tenant basis without requiring an expiration of the cached data entity as a precondition for updating data of the data entity in the cache, and without requiring eviction of the data entity from the cache as a precondition for updating data of the data entity in the cache.
+9. The method of claim 8, further comprising discerning all tenants whose interaction with the remote server satisfies a predetermined criterion for being recently active, and for each recently active tenant checking the remote data store for an incremental change to a data entity owned by that recently active tenant, while avoiding pulling onto the remote server any incremental change to any data entity that is not owned by some recently active tenant.
+10. The method of claim 8, further comprising: selecting one or more data categories, each data category defined in terms of one or more of the following: a policy of a tenant, an application used by a tenant, a configuration of a tenant, or a setting of a tenant; checking the remote data store for any incremental change to a data entity belonging to at least one selected data category; and avoiding pulling onto the remote server any incremental change to any data entity that does not belong to at least one selected data category.
+11. The method of claim 8, further comprising: discerning all tenants whose interaction with the remote server satisfies a predetermined criterion for being recently active; selecting one or more data categories, each data category defined in terms of one or more of the following: a policy of a recently active tenant, an application used by a recently active tenant, a configuration of a recently active tenant, or a setting of a recently active tenant; checking the remote data store for any incremental change to a data entity of a recently active tenant belonging to at least one selected data category; and avoiding pulling onto the remote server any incremental change to any data entity that does not belong to at least one selected data category and to a recently active tenant.
+12. The method of claim 8, further comprising: ascertaining that the incremental change indicates deletion of the data entity; and removing the data entity from the remote server cache in response to the ascertaining.
+13. The method of claim 8, wherein performance of the method provisions the remote server cache such that the tenant data in the remote server cache is identical to tenant data in the central data store for at least 95% of instances in which the remote server provides tenant data from the remote server cache in response to a request to the remote server for current tenant data.
+14. The method of claim 8, wherein any update to tenant data in the remote server cache is made only in response to finding a corresponding incremental change in the remote data store.
+15. The method of claim 8, wherein the remote server proactively checks the remote data store at an interval which is less than one minute.
+16. A computer-readable storage medium configured with data and instructions which upon execution by a processor cause a server to perform a highly responsive data provisioning method, the method comprising: proactively and periodically checking a data store for incremental changes to data entities; upon finding an incremental change that has not yet been pulled onto the server, pulling the incremental change onto the server; applying the incremental change to produce an updated copy of the data entity in a cache of the server without requiring an expiration of the cached data entity as a precondition for updating data of the data entity in the cache, and without requiring eviction of the data entity from the cache as a precondition for updating data of the data entity in the cache; and providing data of the updated copy of the data entity in response to a request to the server for current data, without getting the current data from the data store in response to the request or getting the current data from another computing environment in response to the request.
+17. The computer-readable storage medium of claim 16, wherein any update to data in the server cache is made only in response to finding a corresponding incremental change in the data store.
+18. The computer-readable storage medium of claim 16, wherein the method further comprises: discerning all tenants whose interaction with the server satisfies a predetermined criterion for being recently active; selecting one or more data categories; checking the data store for any incremental change to a data entity of a recently active tenant belonging to at least one selected data category; and avoiding pulling onto the server any incremental change to any data entity that does not belong to at least one selected data category and to a recently active tenant.
+19. The computer-readable storage medium of claim 18, wherein the predetermined criterion for being recently active includes the detection of a communication with the server from the tenant or regarding the tenant, which occurred within a period including the most recent N minutes, where N is not greater than one hundred twenty.
+20. The computer-readable storage medium of claim 16, wherein the server is configured to avoid sending the data store any change to the data entity.
+</claims>
+</document>

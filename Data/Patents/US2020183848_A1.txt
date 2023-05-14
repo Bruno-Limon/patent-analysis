@@ -1,0 +1,61 @@
+<document>
+
+<filing_date>
+2018-12-10
+</filing_date>
+
+<publication_date>
+2020-06-11
+</publication_date>
+
+<priority_date>
+2018-12-10
+</priority_date>
+
+<ipc_classes>
+G06F12/0877
+</ipc_classes>
+
+<assignee>
+AMD (ADVANCED MICRO DEVICES)
+</assignee>
+
+<inventors>
+LOH, GABRIEL H.
+</inventors>
+
+<docdb_family_id>
+69137998
+</docdb_family_id>
+
+<title>
+CACHE FOR STORING REGIONS OF DATA
+</title>
+
+<abstract>
+Systems, apparatuses, and methods for efficiently performing memory accesses in a computing system are disclosed. A computing system includes one or more clients, a communication fabric and a last-level cache implemented with low latency, high bandwidth memory. The cache controller for the last-level cache determines a range of addresses corresponding to a first region of system memory with a copy of data stored in a second region of the last-level cache. The cache controller sends a selected memory access request to system memory when the cache controller determines a request address of the memory access request is not within the range of addresses. The cache controller services the selected memory request by accessing data from the last-level cache when the cache controller determines the request address is within the range of addresses.
+</abstract>
+
+<claims>
+1. An apparatus comprising: an interface configured to receive memory access requests comprising request addresses; and logic configured to: maintain an identification of a first region of contiguous data in a system memory that has a copy of the contiguous data stored in a second region of a cache, wherein the first region represents a range of addresses and the identification comprises: a first start address that identifies the beginning of the first region; and a size of the second region; and in response to receiving a memory access request: send the memory access request to the system memory, in response to determining the request address is not within the range of addresses; and service the memory request by accessing data from the cache, in response to determining the request address is within the range of addresses.
+2. The apparatus as recited in claim 1, wherein to service the selected memory request by accessing data from the cache, the logic is further configured to: determine an offset based on a difference between the request address and the first start address; determine a translated address based on the offset and a second start address pointing to a beginning of the second region of the cache; and service the memory request by accessing data from the cache beginning at the translated address.
+3. The apparatus as recited in claim 2, wherein in response to determining the translated address points to a memory location outside of the second region of the cache, the logic is further configured to: determine a wrap around address by subtracting a largest address of the second region from the translated address; and service the memory request by accessing data from the cache beginning at the wrap around address.
+4. The apparatus as recited in claim 2, wherein the logic is further configured to: maintain the second start address; and determine the translated address as a sum of the offset and the second start address.
+5. The apparatus as recited in claim 4, wherein in response to determining a size of the first region changes, the logic is further configured to: update one or more of the first start address, the second start address and the size of the second region; and update the range of addresses based at least in part on the updated size of the second region.
+6. The apparatus as recited in claim 4, wherein in response to predicting a region of upcoming data accesses, the logic is further configured to: initialize one or more of the first start address, the second start address and the size of the second region; and store a copy of contiguous data from the region of upcoming data accesses in the system memory into the cache.
+7. The apparatus as recited in claim 6, wherein determining the region of data accesses is defined comprises one or more of: the logic monitors received memory access requests and identifies a pattern used to identify the region; and the logic receives a hint from software that identifies the region.
+8. The apparatus as recited in claim 6, wherein in response to determining there are no more upcoming data accesses for the region, the logic is further configured to: store an indication that specifies that there is no region stored in the cache by updating the size of the second region to a value of zero bytes.
+9. The apparatus as recited in claim 1, wherein the logic is further configured to maintain an identification of a plurality of regions of contiguous data in the system memory, each region has a copy of respective contiguous data stored in the cache, wherein the logic is further configured to: determine a plurality of ranges of addresses, one for each of the plurality of regions; send the selected memory request to system memory, in response to determining a request address of the selected memory request is not within any of the plurality of ranges of addresses; and service the memory request by accessing data from the cache, in response to determining the address of the selected memory access request is within one of the plurality of ranges of addresses.
+10. A method, comprising: receiving memory access requests comprising request addresses; maintaining an identification of a first region of contiguous data in a system memory that has a copy of the contiguous data stored in a second region of a cache, wherein the first region represents a range of addresses and the identification comprises: a first start address pointing to a memory location storing data at the beginning of the first region; and a size of the second region; and in response to receiving a memory access request: sending the memory access request to the system memory, in response to determining the request address is not within the range of addresses; and servicing the memory request by accessing data from the cache, in response to determining the request address is within the range of addresses.
+11. The method as recited in claim 10, wherein to service the selected memory request by accessing data from the cache, the method further comprises: determining an offset based on a difference between the request address and the first start address; determining a translated address based on the offset and a second start address pointing to a beginning of the second region of the cache; and servicing the memory request by accessing data from the cache beginning at the translated address.
+12. The method as recited in claim 11, wherein in response to determining the translated address points to a memory location outside of the second region of the cache, the method further comprises: determining a wrap around address by subtracting a largest address of the second region from the translated address; and servicing the memory request by accessing data from the cache beginning at the wrap around address.
+13. The method as recited in claim 11, further comprising: maintaining the second start address; and determining the translated address as a sum of the offset and the second start address.
+14. The method as recited in claim 13, wherein in response to determining a size of the first region changes, the method further comprises: updating one or more of the first start address, the second start address and the size of the second region; and updating the range of addresses based at least in part on the updated size of the second region.
+15. The method as recited in claim 13, wherein in response to predicting a region of upcoming data accesses, the method further comprises: initializing one or more of the first start address, the second start address and the size of the second region; and storing a copy of contiguous data from the region of upcoming data accesses in the system memory into the cache.
+16. A non-transitory computer readable storage medium storing program instructions, wherein the program instructions are executable by a processor to: receive memory access requests comprising request addresses; maintain an identification of a first region of contiguous data in a system memory that has a copy of the contiguous data stored in a second region of a cache, wherein the first region represents a range of addresses and the identification comprises: a first start address pointing to a memory location storing data at the beginning of the first region; and a size of the second region; and in response to receiving a memory access request: send the memory access request to the system memory, in response to determining the request address is not within the range of addresses; and service the memory request by accessing data from the cache, in response to determining the request address is within the range of addresses.
+17. The non-transitory computer readable storage medium as recited in claim 16, wherein to service the selected memory request by accessing data from the cache, the program instructions are further executable by a processor to: determine an offset based on a difference between the request address and the first start address; determine a translated address based on the offset and a second start address pointing to a beginning of the second region of the cache; and service the memory request by accessing data from the cache beginning at the translated address.
+18. The non-transitory computer readable storage medium as recited in claim 17, wherein in response to determining the translated address points to a memory location outside of the second region of the cache, the program instructions are further executable by a processor to: determine a wrap around address by subtracting a largest address of the second region from the translated address; and service the memory request by accessing data from the cache beginning at the wrap around address.
+19. The non-transitory computer readable storage medium as recited in claim 17, wherein the program instructions are further executable by a processor to: maintain the second start address; and determine the translated address as a sum of the offset and the second start address.
+20. The non-transitory computer readable storage medium as recited in claim 19, wherein in response to determining a size of the first region changes, the program instructions are further executable by a processor to: update one or more of the first start address, the second start address and the size of the second region; and update the range of addresses based at least in part on the updated size of the second region.
+</claims>
+</document>

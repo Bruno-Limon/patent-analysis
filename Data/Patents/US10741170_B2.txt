@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2018-05-03
+</filing_date>
+
+<publication_date>
+2020-08-11
+</publication_date>
+
+<priority_date>
+2015-11-06
+</priority_date>
+
+<ipc_classes>
+G06F40/20,G10L15/00,G10L15/02,G10L15/06,G10L15/26,G10L15/30
+</ipc_classes>
+
+<assignee>
+ALIBABA GROUP
+</assignee>
+
+<inventors>
+LI, HONGYAN
+LI, XIAOHUI
+</inventors>
+
+<docdb_family_id>
+58661629
+</docdb_family_id>
+
+<title>
+Speech recognition method and apparatus
+</title>
+
+<abstract>
+A speech recognition method comprises: generating, based on a preset speech knowledge source, a search space comprising preset client information and for decoding a speech signal; extracting a characteristic vector sequence of a to-be-recognized speech signal; calculating a probability at which the characteristic vector corresponds to each basic unit of the search space; and executing a decoding operation in the search space by using the probability as an input to obtain a word sequence corresponding to the characteristic vector sequence.
+</abstract>
+
+<claims>
+1. A method, comprising: generating, based on a preset speech knowledge source, a search space comprising preset client information, the preset speech knowledge source comprising: a lexicon, a language model, and a triphone state bundling list, the search space comprising: a weighted finite state transducer (WFST) that is based on the triphone state bundling list, the lexicon, and the language model, each of the basic units of the search space comprising a context-dependent triphone, wherein generating the search space comprises: obtaining the WFST by adding, by label replacement, preset client information corresponding to a preset theme class into a pre-generated WFST that is at least based on the language model; extracting a characteristic vector sequence of a to-be-recognized speech signal, the characteristic vector sequence comprising a sequence of characteristic vectors; calculating a probability at which a first characteristic vector of the characteristic vectors corresponds to each of the basic units of the search space; and executing a decoding operation in the search space by using the probability as an input to obtain a word sequence corresponding to the characteristic vector sequence.
+2. The method of claim 1, further comprising: obtaining the language model by replacing a preset name entity in texts for language model training with a label corresponding to the preset theme class to obtain modified texts, and using the modified texts to train the language model.
+3. The method of claim 1, wherein obtaining the WFST comprises: adding, by the label replacement, the preset client information into the pre-generated WFST obtain a first WFST; and combining the first WFST with a second pre-generated WFST that is based on the triphone state bundling list and the lexicon.
+4. The method of claim 1, wherein adding the preset client information into the pre-generated WFST comprises: determining that the to-be-recognized speech signal belongs to the preset theme class; selecting the pre-generated WFST based on its correspondence to the preset theme class; and after selecting the pre-generated WFST, adding the preset client information into the pre-generated WFST.
+5. The method of claim 4, wherein determining that the to-be-recognized speech signal belongs to the present theme class, comprises: determining, according to a type of a client or an application program that collects the to-be-recognized speech signal, the preset theme class.
+6. The method of claim 5, wherein the preset theme class comprises: making a phone call, sending a text message, playing a song, or setting an instruction; and the corresponding preset client information comprises: names of contacts, names of songs in a song library, or instructions in an instruction set.
+7. The method of claim 2, wherein a wordlist used to pre-train the language model is consistent with words comprised in the lexicon.
+8. The method of claim 1, wherein calculating the probability comprises: using a pre-trained DNN (Deep Neural Network) model to calculate, for each triphone state associated with each of the context-dependent triphones, a first probability at which the first characteristic vector corresponds to the triphone state; and using a pre-trained HMM (Hidden Markov Model) model to calculate according to the first probabilities, for each of the context-dependent triphones, a second probability at which the first characteristic vector corresponds to the context-dependent triphone.
+9. The method of claim 1, wherein extracting the characteristic vector sequence comprises: dividing the to-be-recognized speech signal frame by frame according to a preset frame length to obtain a plurality of audio frames; and extracting a characteristic vector of each of the audio frames.
+10. The method of claim 9, wherein extracting the characteristic vector of each of the audio frames comprises: extracting an MFCC (Mel Frequency Cepstrum Coefficient) characteristic, a PLP (Perceptual Linear Predictive) characteristic, or an LPC (Linear Predictive Coding) characteristic.
+11. The method of claim 1, further comprising: after obtaining the word sequence, verifying an accuracy of the word sequence by performing text matching with the preset client information.
+12. The method of claim 11, wherein verifying the accuracy of the word sequence comprises: selecting from the word sequence a to-be-verified word that corresponds to the preset client information; searching for the to-be-verified word in the preset client information; if the to-be-verified word is found in the preset client information, using the word sequence as a speech recognition result; and if the to-be-verified word is not found in the preset client information, correcting the word sequence by pinyin-based fuzzy matching, and using the corrected word sequence as the speech recognition result.
+13. The method of claim 12, wherein correcting the word sequence comprises: converting the to-be-verified word to a to-be-verified pinyin sequence; converting each word in the preset client information into a comparison pinyin sequence, respectively; sequentially calculating a degree of similarity between the to-be-verified pinyin sequence and each comparison pinyin sequence, and selecting a word from the preset client information that is ranked high after being sorted in a descending order of the degree of similarity; and using the selected word to replace the to-be-verified word in the word sequence to obtain the corrected word sequence.
+14. A speech recognition apparatus, comprising a processor and a non-transitory computer-readable storage medium storing instructions that, when executed by the processor, cause the apparatus to perform a method, the method comprising: generating, based on a preset speech knowledge source, a search space comprising preset client information corresponding to a preset theme class, the preset speech knowledge source comprising: a lexicon, a language model, and a triphone state bundling list, the search space comprising: a weighted finite state transducer (WFST) that is based on the triphone state bundling list, the lexicon, and the language model, each of the basic units of the search space comprising a context-dependent triphone, wherein generating the search space comprises: obtaining the WFST by adding, by label replacement, the preset client information into a pre-generated WFST that is at least based on the language model; extracting a characteristic vector sequence of a to-be-recognized speech signal, the characteristic vector sequence comprising a sequence of characteristic vectors; calculating a probability at which a first characteristic vector of the characteristic vectors corresponds to each of the basic units of the search space; and executing a decoding operation in the search space by using the probability as an input to obtain a word sequence corresponding to the characteristic vector sequence.
+15. The speech recognition apparatus of claim 14, wherein the method further comprises: obtaining the language model by replacing a preset name entity in texts for-language model training with a label corresponding to the preset theme class to obtain modified texts, and using the modified texts to train the language model.
+16. The speech recognition apparatus of claim 14, wherein obtaining the WFST comprises: adding, by the label replacement, the preset client information into the pre-generated WFST; and combining the first WFST with a second pre-generated WFST that is based on the triphone state bundling list and the lexicon.
+17. The speech recognition apparatus of claim 14, wherein adding the preset client information into the pre-generated WFST comprises: determinging that the to-be-recognized speech signal belongs to the preset theme class; selecting the pre-generated WFST based on its correspondence to the preset theme class; and after selecting the pre-generated WFST, adding the preset client information into the pre-generated WFST.
+18. The speech recognition apparatus of claim 17, wherein determining that the to-be-recognized speech signal belongs to the present theme class, comprises: determining, according to a type of a client or an application program that collects the to-be-recognized speech signal, the preset theme class.
+19. The speech recognition apparatus of claim 18, wherein the preset theme class comprises: making a phone call, sending a text message, playing a song, or setting an instruction; and wherein the corresponding preset client information comprises: names of contacts, names of songs in a song library, or instructions in an instruction set.
+20. A non-transitory computer-readable storage medium storing instructions that, when executed by a processor, cause the processor to perform a method, the method comprising: generating, based on a preset speech knowledge source, a search space comprising preset client information corresponding to a preset theme class, the preset speech knowledge source comprising: a lexicon, a language model, and a triphone state bundling list, the search space comprising: a weighted finite state transducer (WFST) that is based on the triphone state bundling list, the lexicon, and the language model, each of the basic units of the search space comprising a context-dependent triphone, wherein generating the search space comprises: obtaining the WFST by adding, by label replacement, the preset client information into a pre-generated WFST that is at least based on the language model; extracting a characteristic vector sequence of a to-be-recognized speech signal, the characteristic vector sequence comprising a sequence of characteristic vectors; calculating a probability at which a first characteristic vector of the characteristic vectors corresponds to each of the basic units of the search space; and executing a decoding operation in the search space by using the probability as an input to obtain a word sequence corresponding to the characteristic vector sequence.
+</claims>
+</document>

@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2018-08-03
+</filing_date>
+
+<publication_date>
+2020-02-06
+</publication_date>
+
+<priority_date>
+2018-08-03
+</priority_date>
+
+<ipc_classes>
+G06K9/46,G06N3/04,G06N3/08,H04N21/234,H04N21/24,H04N21/25
+</ipc_classes>
+
+<assignee>
+FACEBOOK
+</assignee>
+
+<inventors>
+GAO, TIANSHI
+JIN, OU
+HUANG, YIFEI
+RAMANATHAN, VIGNESH
+WANG, XIANGYU
+</inventors>
+
+<docdb_family_id>
+67766270
+</docdb_family_id>
+
+<title>
+Neural network based content distribution in an online system
+</title>
+
+<abstract>
+An online system receives content items from a third party content provider. For each content item, the online system inputs an image into a neural network and extracts a feature vector from a hidden layer of the neural network. The online system compresses each feature vector by assigning a label to each feature value representing whether the feature value was above a threshold value. The online system identifies a set of content items that the user has interacted with and determines a user feature vector by aggregating feature vectors of the set of content items. For a new set of content items, the online system compares the compressed feature vectors of the content item with the user feature vector. The online system selects one or more of the new content items based on the comparison and sends the selected content items to the user.
+</abstract>
+
+<claims>
+1. A computer-implemented method comprising: receiving, from a third party content provider, a plurality of content items, each content item comprising at least one image; for each of the plurality of content items: extracting a feature vector from an image input to a neural network, wherein the feature vector comprises an array of feature values; and based on the extracted feature vector, generating a compressed feature vector comprising a label assigned to each feature value, wherein each label represents whether the corresponding feature value was above a threshold value; identifying a set of content items that a user interacted with; determining a user feature vector by aggregating the feature vectors corresponding to the set of content items; receiving a new set of content items; for each content item of the new set of content items, comparing the compressed feature vector for the content item with the user feature vector; selecting one or more content items from the new set of content items based on the comparison of the compressed feature vector corresponding to the content items with the user feature vector; and sending the one or more selected content items to the user.
+2. The method of claim 1, wherein the user feature vector comprises an array of labels assigned to each feature of the vector and represents a set of interests associated with the user of an online system.
+3. The method of claim 1, wherein aggregating the feature vectors to determine a user feature vector comprises: for each content item of the set of content items, identifying features from the compressed feature vector with a label indicating that the corresponding feature value was below the threshold value; and removing the identified features from the compressed feature vector; and for the remaining features, aggregating features common to all content items of the plurality into the user feature vector.
+4. The method of claim 1, wherein aggregating the feature vectors to determine a user feature vector comprises: determining an average for each feature value of the feature vector, the average value based on feature vectors for the set of content items; and assigning the label to each feature based on a comparison of the average and the threshold value.
+5. The method of claim 1, wherein the label assigned to a feature value in a compressed feature vector is a binary label indicating whether the corresponding feature value was above the threshold value.
+6. The method of claim 1, wherein the compressed feature vector for a content item is compared to the user feature vector using a binary "and" operator.
+7. The method of claim 1, wherein the compressed feature vector occupies less storage space in computer memory than the feature vector.
+8. The method of claim 1, wherein the neural network is a convolutional neural network.
+9. The method of claim 1, wherein the neural network is trained using a set of content items, each content item associated with a pre-determined label representing whether the corresponding feature value was above the threshold value.
+10. A computer-implemented method comprising: receiving, from a third party content provider, a plurality of content items, each content item comprising at least one image; for each of the plurality of content items: extracting a feature vector for each content item, wherein the feature vector comprises an array of feature values; based on the extracted feature vector, generating a compressed feature vector comprising a label assigned to each feature value, wherein each label represents whether the corresponding feature value was above a threshold value; accessing, from a database of feature vectors, a user feature vector for a user representing an aggregate of a plurality of compressed feature vectors, each compressed feature vector including binary labels assigned to each feature value and corresponding to an image with which the user previously interacted; comparing each compressed feature vector and the user feature vector; selecting one or more content items from the received plurality of content items based on the comparison of the compressed feature vector corresponding to the content items with the user feature vector; and sending the one or more selected content items to the user.
+11. The computer-implemented method of claim 10, further comprising: receiving a set of content items that the user interacted with, each content item comprising at least one image; for each content item of the set, extracting a feature vector, wherein the feature vector comprises an array of feature values describing the presence of each feature in an image associated with a content item; for each content item of the set, compressing the feature vector by assigning a label to each feature value, wherein the label is a binary label representing whether the corresponding feature value was above the threshold value; and generating the user feature vector by aggregating the compressed feature vectors for each content item of the set.
+12. The computer-implemented method of claim 11, wherein aggregating the feature vectors to determine a user feature vector comprises: for each content item of the set of content items, identifying features from the compressed feature vector with a label indicating that the corresponding feature value was below the threshold value; and removing the identified features from the compressed feature vector; and for the remaining features, aggregating features common to all content items of the plurality into the user feature vector.
+13. The computer-implemented method of claim 11, wherein aggregating the feature vectors to determine a user feature vector comprises: determining an average for each feature value of the feature vector, the average value based on feature vectors for the set of content items; and assigning the label to each feature based on a comparison of the average and the threshold value.
+14. The computer-implemented method of claim 10, wherein the compressed feature vector for a content item is compared to the user feature vector using a binary "and" operator.
+15. The computer-implemented method of claim 10, wherein the compressed feature vector occupies less storage space in computer memory than the feature vector.
+16. The computer-implemented method of claim 10, wherein the image associated with each content item is provided as input to a neural network to extract the feature vector.
+17. The computer-implemented method of claim 16, wherein the neural network is a convolutional neural network.
+18. The computer-implemented method of claim 16, wherein the neural network is trained using a set of content items, each content item associated with a pre-determined label representing whether the corresponding feature value was above a threshold value.
+19. A non-transitory computer readable medium storing instructions comprising: receiving, from a third party content provider, a plurality of content items, each content item comprising at least one image; for each of the plurality of content items: extracting a feature vector from an image input to a neural network, wherein the feature vector comprises an array of feature values; based on the extracted feature vector, generating a compressed feature vector comprising a label assigned to each feature value, wherein each label represents whether the corresponding feature value was above a threshold value; identifying a set of content items that a user interacted with; determining a user feature vector by aggregating the feature vectors corresponding to the set of content items; receiving a new set of content items; for each content item of the new set of content items: comparing the compressed feature vector for the content item with the user feature vector; and determining a score for the content item based on the comparison; selecting one or more content items from the new set of content items based on the score values for the content items; and sending the one or more selected content items to the user.
+20. The non-transitory computer readable medium of claim 19, wherein aggregating the feature vectors to determine a user feature vector comprises: for each content item of the set of content items, identifying features from the compressed feature vector with a label indicating that the corresponding feature value was below the threshold value; and removing the identified features from the compressed feature vector; and for the remaining features, aggregating features common to all content items of the plurality into the user feature vector.
+</claims>
+</document>

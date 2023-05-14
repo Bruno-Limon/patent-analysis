@@ -1,0 +1,68 @@
+<document>
+
+<filing_date>
+2018-08-10
+</filing_date>
+
+<publication_date>
+2020-10-20
+</publication_date>
+
+<priority_date>
+2018-08-10
+</priority_date>
+
+<ipc_classes>
+G06F9/38,G06N5/04,G06T1/20,G06T1/60,G06T15/00,G06T15/06,G06T17/00
+</ipc_classes>
+
+<assignee>
+NVIDIA CORPORATION
+</assignee>
+
+<inventors>
+BABICH, JR., RONALD CHARLES
+BURGESS, JOHN
+MUTHLER, GREG
+NELSON, PETER
+NEWHALL, JR., WILLIAM PARSONS
+ROBERTSON, JAMES
+</inventors>
+
+<docdb_family_id>
+69406142
+</docdb_family_id>
+
+<title>
+Method for forward progress tree traversal mechanisms in hardware
+</title>
+
+<abstract>
+In a ray tracer, to prevent any long-running query from hanging the graphics processing unit, a traversal coprocessor provides a preemption mechanism that will allow rays to stop processing or time out early. The example non-limiting implementations described herein provide such a preemption mechanism, including a forward progress guarantee, and additional programmable timeout options that can be time or cycle based. Those programmable options provide a means for quality of service timing guarantees for applications such as virtual reality (VR) that have strict timing requirements.
+</abstract>
+
+<claims>
+1. An interruptible coprocessor providing a forward progress guarantee comprising: traversal circuitry configured to receive, from a processor, a query including ray information for a ray and in response to the query, traverse an acceleration data structure to determine bounding volumes or geometric primitives the ray intersects, the traversal circuitry comprising a traversal stack configured to store information about bounding volumes or geometric primitives the traversal circuitry determines are intersected by the ray; and control circuitry operatively coupled to the traversal circuitry and connected to receive a preemption signal, wherein the control circuitry is configured to complete at least one traversal operation after receiving the preemption signal, to thereby ensure that the traversal circuitry makes forward progress in traversing the acceleration data structure before halting further processing of the query in response to the preemption signal, wherein the traversal circuitry is configured to simultaneously process a plurality of queries, and the control circuitry is configured to ensure that the traversal circuitry make forward progress for each query that has been started when the preemption signal is received.
+2. The interruptible coprocessor of claim 1 wherein the interruptible coprocessor is stateless and the control circuitry is stack-based.
+3. The interruptible coprocessor of claim 1 wherein the interruptible coprocessor confirms forward progress by ensuring that at least one operation that changes an entry in the traversal stack has or will be performed.
+4. The interruptible coprocessor of claim 1 wherein the interruptible coprocessor uses a bit array to track traversal.
+5. The interruptible coprocessor of claim 1 wherein the control circuitry uses an inference that forward progress has occurred.
+6. The interruptible coprocessor of claim 1 wherein the control circuitry uses an inference that a stack modification of the traversal stack will take place.
+7. The interruptible coprocessor of claim 1 wherein the control circuitry is configured to test that forward progress of a certain type of stack update to the traversal stack has occurred.
+8. The interruptible coprocessor of claim 1 wherein the forward progress in traversing the acceleration data structure comprises traversal of at least one leaf node of the acceleration data structure.
+9. The interruptible coprocessor of claim 1 wherein the control circuitry is configured to test whether a counter has been incremented or decremented based on an operation that has been specified by the query and has reached a certain threshold.
+10. The interruptible coprocessor of claim 1 wherein the interruptible coprocessor is configured to work autonomously with variable and unpredictable latency in traversing the acceleration data structure.
+11. The interruptible coprocessor of claim 1 wherein completing at least one additional traversal operation results in modifying the traversal stack.
+12. The interruptible coprocessor of claim 11 wherein modifying comprises popping an entry from the traversal stack.
+13. A method implemented by a hardware-based traversal coprocessor coupled to a processor, the method comprising: receiving from the processor a query including ray information for a ray; in response to receiving the query, traversing an acceleration data structure to determine bounding volumes or geometric primitives the ray intersects and storing information about bounding volumes or geometric primitives determined to be intersected by the ray in a traversal stack; receiving a preemption signal during traversal of the acceleration data structure; and competing at least one traversal operation after receiving the preemption signal, to thereby ensure that forward progress in traversing the acceleration data structure is made before halting further processing of the query in response to the preemption signal, wherein a plurality of queries are received from the processor, the plurality of queries are processed simultaneously, and forward progress is confirmed for each query that has been started when the preemption signal is received.
+14. The method of claim 13, wherein forward progress is confirmed by ensuring that at least one operation that changes an entry in the traversal stack has or will be performed.
+15. The method of claim 13, wherein the coprocessor uses a bit array to track traversal.
+16. The method of claim 13, wherein the forward progress in traversing the acceleration data structure comprises a certain type of stack update to the traversal stack.
+17. The method of claim 13, wherein the forward progress in traversing the acceleration data structure comprises traversal of at least one leaf node of the acceleration data structure.
+18. The method of claim 13, wherein the forward progress in traversing the acceleration data structure comprises testing whether a counter has been incremented or decremented based on an operation that has been specified by the query and has reached a certain threshold.
+19. The method of claim 13, wherein the forward progress in traversing the acceleration data structure comprises storing one or more primitives determined to be intersected by the ray in the traversal stack.
+20. The method of claim 13, wherein the forward progress in traversing the acceleration data structure comprises modifying a range of triangles identified in an entry of the traversal stack.
+21. The method of claim 13 wherein completing at least one additional traversal operation results in modifying the traversal stack.
+22. The method of claim 21 wherein modifying comprises popping an entry from the traversal stack.
+</claims>
+</document>

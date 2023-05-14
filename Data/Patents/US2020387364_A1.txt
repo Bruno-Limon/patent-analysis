@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2017-08-11
+</filing_date>
+
+<publication_date>
+2020-12-10
+</publication_date>
+
+<priority_date>
+2017-08-11
+</priority_date>
+
+<ipc_classes>
+G06F8/51
+</ipc_classes>
+
+<assignee>
+VISA INTERNATIONAL SERVICE ASSOCIATION
+</assignee>
+
+<inventors>
+HARRIS, THEODORE
+KOROLEVSKAYA, TATIANA
+LI YUE
+O'CONNELL, CRAIG
+</inventors>
+
+<docdb_family_id>
+65272378
+</docdb_family_id>
+
+<title>
+SYSTEMS AND METHODS FOR GENERATING DISTRIBUTED SOFTWARE PACKAGES USING NON-DISTRIBUTED SOURCE CODE
+</title>
+
+<abstract>
+Systems and methods are provided for transcompiling non-distributed source code for a nondistributed software program into a distributed software package for implementation on a distributed computing system. A transcompiler can identify loops within non-distributed source code written in a data-driven language. The transcompiler can generate MapReduce jobs using mapper keys based on grouping indicators associated with each of the loops. The MapReduce jobs can be linked together based on input-output connections of the loops in the non-distributed source code. Then, the transcompiler can generate a distributed software package including the generated MapReduce jobs to implement the same functionality as the non-distributed source code on the distributed computing system, thereby improving the speed of execution over very large datasets. The distributed software package can be optimized using machine learning searching algorithms. The distributed software package can also be optimized based on execution usage statistics.
+</abstract>
+
+<claims>
+1. A method for transcompiling non-distributed source code for a non-distributed software program into a distributed software package for implementation on a distributed computing system, the method comprising: identifying a first loop within the non-distributed software program using the non-distributed source code; determining a first grouping indicator associated with the first loop; determining a first mapper key based on the first grouping indicator associated with the first loop; generating a first MapReduce job using the non-distributed source code within the first loop, the first MapReduce job including first mapper code and first reducer code using the first mapper key; and generating the distributed software package, the distributed software package including the first MapReduce job.
+2. The method of claim 1, further comprising identifying a first aggregation type of the first loop, the aggregation type being aggregative, and wherein the determining of the first mapper key is further based on the first aggregation type being aggregative.
+3. The method of claim 1, further comprising: identifying a first input of the first loop and a first output of the first loop; identifying a second loop within the non-distributed software program using the non-distributed source code: identifying a second input of the second loop and a second output of the second loop; generating a second MapReduce job using the non-distributed source code within the second loop; and generating a directed input-output graph including the first MapReduce job and the second MapReduce job based on the first input of the first loop, the first output of the first loop, the second input of the second loop, and the second output of the first loop, an output of the first MapReduce job or the second MapReduce job being connected to the input of the other of the first MapReduce job or the second MapReduce job, wherein the generating of the distributed software package is further based on the directed input-output graph, and wherein the distributed software package further includes the second MapReduce job.
+4. The method of claim 3, further comprising analyzing the non-distributed source code using a second compiler or interpreter for a programming language that the non-distributed source code is written in, the second compiler creating a code generator object for the non-distributed software program, wherein the identifying of the first loop within the non-distributed software program is based on the code generator object, wherein the identifying of the first input, the first output, and the first grouping indicator is based on the code generator object, wherein the identifying of the second loop is based on the code generator object, and wherein the identifying of the second input of the second loop and the second output of the second loop is based on the code generator object.
+5. The method of claim 4, wherein the analyzing of the non-distributed source code using the second compiler determines the first aggregation type associated with the first loop using a configuration file for a function performed by the first loop, and wherein the second compiler determines the first grouping indicator.
+6. The method of claim 4, further comprising determining a second mapper key for the second loop based on the directed input-output graph, the second MapReduce job occurring before the first MapReduce job in the directed input-output graph, the second mapper key being the same as the first mapper key, and wherein the second MapReduce job includes second mapper code using the second mapper key.
+7. The method of claim 1, further comprising executing the distributed software package using the distributed computing system, the distributed computing system including more than one computer systems in communication with each other over a network.
+8. The method of claim 7, further comprising: generating usage statistics using on a log based on the execution of the distributed software package by the distributed computing system; regenerating the first MapReduce job based on the usage statistics; and regenerating the distributed software package using the regenerated the first MapReduce job.
+9. The method of claim 7, further comprising: monitoring the executing of the distributed software package; generating a usage table based on the monitoring of the executing of the distributed software package; and identifying one or more rules for regenerating the distributed software package using a machine learning searching algorithm.
+10. The method of claim 9, further comprising: moving a set of code functionality from a reducer of the first MapReduce job into a mapper of the first MapReduce job based on the usage table and the one or more rules: regenerating the first MapReduce job; and regenerating the distributed software package using the regenerated the first MapReduce job.
+11. A computer for transcompiling non-distributed source code for a non-distributed software program into a distributed software package for implementation on a distributed computing system, the computer comprising: a processor; and a non-transitory computer readable medium coupled to the processor, the computer readable medium comprising code that, when executed by the processor, cause the processor to: identify a first loop within the non-distributed software program using the non-distributed source code; determine a first grouping indicator associated with the first loop; determine a first mapper key based on the first grouping indicator associated with the first loop; generate a first MapReduce job using the non-distributed source code within the first loop, the first MapReduce job including first mapper code and first reducer code using the first mapper key; and generate the distributed software package, the distributed software package including the first MapReduce job.
+12. The computer of claim 11, wherein the computer readable medium further comprises code that, when executed by the processor, cause the processor to identify a first aggregation type of the first loop, the aggregation type being aggregative, and wherein the determining of the first mapper key is further based on the first aggregation type being aggregative.
+13. The computer of claim 11, wherein the computer readable medium further comprises code that, when executed by the processor, cause the processor to:: identify a first input of the first loop and a first output of the first loop; identify a second loop within the non-distributed software program using the non-distributed source code; identify a second input of the second loop and a second output of the second loop; generate a second MapReduce job using the non-distributed source code within the second loop; and generate a directed input-output graph including the first MapReduce job and the second MapReduce job based on the first input of the first loop, the first output of the first loop, the second input of the second loop, and the second output of the first loop, an output of the first MapReduce job or the second MapReduce job being connected to the input of the other of the first MapReduce job or the second MapReduce job, wherein the generating of the distributed software package is further based on the directed input-output graph, and wherein the distributed software package further includes the second MapReduce job.
+14. The computer of claim 13, wherein the computer readable medium further comprises code that, when executed by the processor, cause the processor to analyze the non-distributed source code using a second compiler or interpreter for a programming language that the non-distributed source code is written in, the second compiler creating a code generator object for the non-distributed software program, wherein the identifying of the first loop within the non-distributed software program is based on the code generator object, wherein the identifying of the first input, the first output, and the first grouping indicator is based on the code generator object, wherein the identifying of the second loop is based on the code generator object, and wherein the identifying of the second input of the second loop and the second output of the second loop is based on the code generator object.
+15. The computer of claim 14, wherein the analyzing of the non-distributed source code using the second compiler determines the first aggregation type associated with the first loop using a configuration file for a function performed by the first loop, and wherein the second compiler determines the first grouping indicator.
+16. The computer of claim 14, wherein the computer readable medium further comprises code that, when executed by the processor, cause the processor to determine a second mapper key for the second loop based on the directed input-output graph, the second MapReduce job occurring before the first MapReduce job in the directed input-output graph, the second mapper key being the same as the first mapper key, and wherein the second MapReduce job includes second mapper code using the second mapper key.
+17. The computer of claim 11, wherein the computer readable medium further comprises code that, when executed by the processor, cause the processor to execute the distributed software package using the distributed computing system, the distributed computing system including more than one computer systems in communication with each other over a network.
+18. The computer of claim 17, wherein the computer readable medium further comprises code that, when executed by the processor, cause the processor to: generate usage statistics using on a log based on the execution of the distributed software package by the distributed computing system: regenerate the first MapReduce job based on the usage statistics; and regenerate the distributed software package using the regenerated the first MapReduce job.
+19. The computer of claim 17, wherein the computer readable medium further comprises code that, when executed by the processor, cause the processor to: monitor the executing of the distributed software package; generate a usage table based on the monitoring of the executing of the distributed software package; and identify one or more rules for regenerating the distributed software package using a machine learning searching algorithm.
+20. The computer of claim 19, wherein the computer readable medium further comprises code that, when executed by the processor, cause the processor to: move a set of code functionality from a reducer of the first MapReduce job into a mapper of the first MapReduce job based on the usage table and the one or more rules: regenerate the first MapReduce job; and regenerate the distributed software package using the regenerated the first MapReduce job.
+</claims>
+</document>

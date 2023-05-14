@@ -1,0 +1,59 @@
+<document>
+
+<filing_date>
+2019-11-19
+</filing_date>
+
+<publication_date>
+2021-01-28
+</publication_date>
+
+<priority_date>
+2019-07-26
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/40,G06T5/00,H04N1/409
+</ipc_classes>
+
+<assignee>
+ZHEJIANG UNIVERSITY OF TECHNOLOGY
+</assignee>
+
+<inventors>
+WU WEI
+LUO, Jiancheng
+XIA, Liegang
+CHEN, Tingting
+GE, Weiwei
+CHEN, Zhenqian
+SHEN, Ying
+</inventors>
+
+<docdb_family_id>
+68509281
+</docdb_family_id>
+
+<title>
+NOISE DETECTION METHOD FOR TIME-SERIES VEGETATION INDEX DERIVED FROM REMOTE SENSING IMAGES
+</title>
+
+<abstract>
+A noise detection method for time-series vegetation index (TSVI) derived from remote sensing images. Firstly, unit root test is used to classify observation values of each pixel into a stationary series or a non-stationary series; for the non-stationary, an appropriate mathematical model is used to model discrete TSVI, then differences between actual observation values and prediction values of the model are calculated and recorded as a deviation. As the deviation has removed seasonal components, the non-stationary series is transformed into a stationary series. For a stationary series or deviation data, noise detection is performed based on the assumption that observation values are distributed within a certain range around mean values; then model fitting and noise detection are iteratively carried out with remained observation values—until the iterations reached the maximum number or no noise is detected at one iteration. The time series is then converted back to image space to obtain a noise mask and optimized. The present invention can obtain an accurate noise mask and improve reliability of land surface-related applications.
+</abstract>
+
+<claims>
+1. A noise detection method for time-series vegetation index derived from remote sensing images includes the following steps: step 1, time series feature computation; assume that a study area consists of n images I acquired at different dates:
+description="In-line Formulae" end="lead"?I=<I1, I2, . . . , In> (16)description="In-line Formulae" end="tail"? acquisition date T of each image is expressed as
+description="In-line Formulae" end="lead"?T=<t1, t2, . . . , tn> (17)description="In-line Formulae" end="tail"? for the acquisition dates there is a relationship ti−1≤ti, i=2,3, . . . , n, that is, ti−1 is prior to ti; m pixels P in the study area are expressed as:
+description="In-line Formulae" end="lead"?P={P1, P2, . . . , Pm}T (18)description="In-line Formulae" end="tail"? TSVI Xj extracted from time series images for pixel (Pj)j=1m is expressed as:
+description="In-line Formulae" end="lead"?Xj=<x1j, x2j, . . . , xnj> (19)description="In-line Formulae" end="tail"? the vegetation index use the normalized difference vegetation index NDVI, enhanced vegetation index EVI or other vegetation index, the vegetation index is characterized by the fact that the vegetation index eliminates the radiation background of the surface and highlights the vegetation characteristics; step 2, series classification determine the temporal variations of TSVI for each pixel, and classify them into a stationary series set S or a non-stationary series set NS, while S and NS satisfy:
+description="In-line Formulae" end="lead"?S∩NS=Ø (20)description="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?S∪NS=P (21)description="In-line Formulae" end="tail"? where a stationary series refers to a series in which the mean value and standard deviation do not change with time, and a non-stationary series refers to a series in which the mean value and standard deviation change with time; the stationary series test uses a unit root detection method, and its improved methods, which is characterized in that these method classifies the pixels in the images into a stationary series set or a non-stationary series set; step 3, non-stationary series fitting; for pixels in the non-stationary series set NS, a composite Gaussian model is used to fit the discrete TSVI; in the fitting process, T is the independent variable, X is the dependent variable, {circumflex over (X)} is the fitting result, and the model is expressed as: where αk, μk and σk are parameters to be estimated, which describe the Gaussian model; αk represents the proportion of the Gaussian component k, that is, the proportion of the current component in the total components; K represents the component number in the Gaussian model, that is, the number of peak-and-valley combinations contained by the curve; μk represents the mean value, and when t equals μk, the current Gaussian component reaches the maximum value; σk determines the steepness of the peak; step 4, deviation computation for the pixel Pj∈NS, when ti∈T, the value {circumflex over (x)}ij,1 calculated by the model and an actual observed value xij,1 has been obtained, the deviation dij,1 can be computed as:
+description="In-line Formulae" end="lead"?dij,1={circumflex over (x)}ij,1−xij,1 (23)description="In-line Formulae" end="tail"? its superscript 1 indicates the result of the first iteration; dij,1 indicates the closeness of the calculated value {circumflex over (x)}ij,1 to the actual observed value xij,1; the larger |dij,1|, the greater the difference between the two, and therefore the worse the fitting result will be; the smaller |dij,1|, the closer the two, and therefore the better the fitting result will be; for the pixel Pj∈P when ti∈T, the result of deviation computation from the first iteration is expressed as:
+description="In-line Formulae" end="lead"?Dj,1=<d1j,1, d2j,1, . . . , dnj,1> (24)description="In-line Formulae" end="tail"? as the deviation Dj,1 removes seasonal components, the non-stationary series is converted into a stationary series; step 5, noise detection; for the converted deviation series Dj,1 and stationary series S, noise detection is performed based on the assumption that observed values are distributed within a certain range around the mean; for Pj∈S, the original series Xj is used for noise detection; whereas for Pj∈NS, the deviation series Dj,1 is used, for the convenience of description, the original series and the deviation series are written as sj uniformly:
+description="In-line Formulae" end="lead"?sj=<s1j, s2j, . . . , snj> (25)description="In-line Formulae" end="tail"? then noise is detected by the following method, where mij is mask data, indicating whether the pixel Pj∈P at ti∈T is a valid observation as indicated by 1, or is noise as indicated by 0; where μ(sj) represents the mean of sj, σ(sj) represents the standard deviation of sj, and λ represents a multiple of the standard deviation; the significance of the algorithm is that an observation value, whose distance from the fitting curve is distributed within the range of the mean value plus or minus λ standard deviations are taken as a valid observation, while an observation distributed outside of that range is taken as noise; through the above process, the mask Mj of the pixel Pj∈P is obtained;
+description="In-line Formulae" end="lead"?Mj=<m1j, m2j, . . . , mnj> (27)description="In-line Formulae" end="tail"? step 6, iteration process; for the remaining observation values after noise removal, that is, excluding the observation with mij=0, the step of non-stationary series fitting according to step 3, deviation computation according to step 4, and noise detection according to step 5 are repeated, until the iteration reaches the maximum number or no noise is detected in one iteration; step 7, noise mask; the mask data of each pixel Pj∈P is converted back to the image space to obtain the noise mask M;
+description="In-line Formulae" end="lead"?M=<M1, M2, . . . , Mn> (28)description="In-line Formulae" end="tail"? where Mi∈M indicates whether each observation value of the image Ii∈I is a valid observation value or not, in subsequent applications, noise needs to be eliminated to obtain accurate application results; step 8, mask optimization; the noise is optimized according to mathematical morphology method to obtain a smooth mask result.
+</claims>
+</document>

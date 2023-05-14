@@ -1,0 +1,60 @@
+<document>
+
+<filing_date>
+2014-03-14
+</filing_date>
+
+<publication_date>
+2020-09-16
+</publication_date>
+
+<priority_date>
+2013-03-15
+</priority_date>
+
+<ipc_classes>
+G06F16/23,G06F16/31,G06F17/30,G06Q10/10,G06Q50/00,H04W4/02,H04W4/021,H04W4/029,H04W4/50
+</ipc_classes>
+
+<assignee>
+FACTUAL
+</assignee>
+
+<inventors>
+Shimanovsky, Boris
+Polovets, Leonid
+Lagang, Manuel
+</inventors>
+
+<docdb_family_id>
+50625176
+</docdb_family_id>
+
+<title>
+APPARATUS, SYSTEMS, AND METHODS FOR GROUPING DATA RECORDS
+</title>
+
+<abstract>
+The present application relates to apparatus, systems, and methods for grouping data records based on entities referenced by the data records. The disclosed grouping mechanism can include determining a pair- wise similarity between a large number of data records, and clustering a subset of the data records based on their pair-wise similarity.
+</abstract>
+
+<claims>
+1. A data analytics system comprising a plurality of computing devices;
+a first computing device of the plurality of computing devices comprising a processor (108) configured to execute instructions stored in memory (110) to: bucket data records based on a bucket type, wherein a bucket type includes a predetermined set of attributes that are likely to be shared by related data records and that are unlikely to be stored by unrelated data records, and compare bucket types in data records using a hashing technique, wherein the step of comparing includes converting values of bucket types into hashes and estimating a similarity between data records based on the hashes; identify a plurality of candidate pairs of data records (502, 504) for which to determine a similarity value based on bucketing the data records; provide a central coordination module to divide the plurality of candidate pairs of data records into a plurality of groups of candidate pairs; and provide each group of candidate pairs to a further one of the plurality of computing devices; wherein each further computing device is configured to: determine the similarity value for at least one pair of data records (502, 504) of the group based, at least in part, on a plurality of attributes associated with the at least one pair of data records; associate the at least one pair of data records (502, 504) with one or more sub-clusters (702), each associated with a unique entity, based on the similarity value for the at least one pair of data records; determine an importance score of one or more first attributes of the plurality of attributes of the data records (502, 504) of at least a first sub-cluster (702) of the one or more -sub-clusters based, at least in part, on one or more differences between the data records of the at least a first sub-cluster; and provide the one or more sub-clusters to the central coordination module, wherein the central coordination module is configured to receive from the plurality of further computing devices, the plurality of sub-clusters independently identified at the plurality of further computing devices; and perform a union-find operation on the plurality of sub-clusters to identify at least one cluster.
+2. The data analytics system (100) of claim 1, wherein the processor (108) of the first computing device is further configured to execute instructions to: identify one or more pairs of data records (502, 504) for which a similarity value need not be determined based on the predetermined set of attributes that are likely to be shared by related data records, or adjust the predetermined set of attributes based on association of data records to clusters (702) from a previous iteration.
+3. The data analytics system (100) of claim 1, wherein the processor (108) of the further computing devices is further configured to execute instructions to determine the similarity value based on a similarity function learned from training data records,
+wherein the similarity function is learned based, at least in part, on: differences between components associated with the particular attribute of the training data records, wherein the training data records are known belong to the same cluster; and the importance of the particular component based on a number of times the particular component appears in the differences.
+4. The data analytics system (100) of claim 3, wherein the similarity function is designed to infer a likelihood of interchanging a first component in a particular attribute of a data record (502) with a second component, wherein the processor (108) is further configured to execute instructions to learn the similarity function by: determining differences between components associated with the particular attribute of the training data records, wherein the training data records are known belong to the same cluster; and determining the likelihood of interchanging the first component with the second component based on a number of times the first component and the second component appears in the differences at the same time.
+5. The data analytics system (100) of claim 3, wherein the similarity function is designed to determine a conditional likelihood that a missing attribute of a data record has a particular component, wherein the processor (108) is further configured to execute instructions to determine the conditional likelihood by: determining a combination of known attributes corresponding to a particular entity; determining all variations of a missing attribute amongst data records of the particular entity having the combination of known attributes; and determining a conditional probability, based on the variations of the missing attribute, that the missing attribute has a particular component given that the data record has the particular combination of known attributes.
+6. The data analytics system (100) of claim 1, wherein the processor (108) of the further computing devices is further configured to execute instructions to: represent the plurality of data records as a plurality of nodes in a graph; represent the similarity value for the at least one pair of data records as at least one edge between nodes, in the graph, corresponding to the at least one pair of data records; and determine the one or more clusters from based on the graph.
+7. The data analytics system (100) of claim 6, wherein the processor (108) of the further computing devices is further configured to execute instructions to: determine the one or more sub-clusters (702) based on the graph using a graph clustering technique, process a clustering directive requiring the one or more modules to associate two data records with the same sub-cluster, or determine the similarity value for the at least one pair of data records by receiving the similarity value for the at least one pair of data records from another computing device.
+8. The data analytics system (100) of claim 1, wherein the processor (108) of the further computing device is further configured to execute instructions to associate at least one of the plurality of data records to one or more sub-clusters (702) using a clustering technique; and
+adjust a parameter for the clustering technique for each of the one or more sub-clusters independently, based on data records in the one or more sub-clusters.
+9. A method (200) for clustering a plurality of data records (502, 504) into at least one cluster (702), the method comprising: at a first computing device of a plurality of computing devices, bucketing data records based on a bucket type, wherein a bucket type includes a predetermined set of attributes that are likely to be shared by related data records and that are unlikely to be stored by unrelated data records, and comparing bucket types in data records using a hashing technique, wherein the step of comparing includes converting values of bucket types into hashes and estimating a similarity between data records based on the hashes; identifying (202), by a processor (108) of the first computing device, a plurality of candidate pairs of data records of the plurality of data records (502, 504) for which to determine a similarity value based on bucketing the data records; dividing the plurality of candidate pairs of data records into a plurality of groups of candidate pairs; and providing each group of candidate pairs to a further one of the plurality of computing devices; and at each further computing device , determining (204) the similarity value for at least one pair of data records of the group based, at least in part, on a plurality of attributes associated with the at least one pair of data records; associating (206) the at least one pair of data records with one or more sub-clusters, each associated with a unique entity, based on the similarity value for the at least one pair of data records; and determining an importance score of one or more first attributes of the plurality of attributes of the data records of at least a first sub-cluster (702) of the one or more sub-clusters based, at least in part, on one or more differences between the data records of the at least a first sub-cluster; receiving, at the first computing device from the plurality of computing devices, the plurality of sub-clusters independently identified at the plurality of further computing devices; and performing, at the first computing device, a union-find operation on the plurality of sub-clusters to identify at least one cluster (702).
+10. The method (200) of claim 9, further comprising identifying one or more pairs of the plurality of data records for which a similarity value need not be determined based on the predetermined set of attributes that are likely to be shared by related data records.
+11. The method (200) of claim 10, further comprising adjusting the predetermined set of attributes based on association of data records to clusters from a previous iteration.
+12. The method (200) of claim 9, further comprising determining, the similarity value based on a similarity function learned from training data records.
+13. The method (200) of claim 12, wherein the similarity function is designed to infer a likelihood of interchanging a first component in a particular attribute of a data record with a second component.
+14. A computer program product, tangibly embodied in a non-transitory computer-readable storage medium, the computer program product including instructions operable to cause a data processing system to perform the method of any of claims 9 - 13.
+</claims>
+</document>

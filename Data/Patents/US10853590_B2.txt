@@ -1,0 +1,70 @@
+<document>
+
+<filing_date>
+2019-11-19
+</filing_date>
+
+<publication_date>
+2020-12-01
+</publication_date>
+
+<priority_date>
+2017-05-19
+</priority_date>
+
+<ipc_classes>
+G06F40/263,G06F40/58,G06N3/04,G06N3/08,G10L25/30
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+KAISER, LUKASZ MIECZYSLAW
+GOMEZ, AIDAN NICHOLAS
+CHOLLET, FRANCOIS
+</inventors>
+
+<docdb_family_id>
+62778984
+</docdb_family_id>
+
+<title>
+Depthwise separable convolutions for neural machine translation
+</title>
+
+<abstract>
+Methods, systems, and apparatus, including computer programs encoded on computer storage media for performing machine translation tasks. One method includes receiving an input text segment in an input language; processing the input text segment using an encoder neural network to generate an encoder neural network output, the encoder neural network comprising multiple depth wise separable convolutional neural network layers; processing the encoder neural network output using an autoregressive decoder neural network to generate a decoder neural network output; and processing the decoder neural network output to generate a predicted output text segment in a target natural language.
+</abstract>
+
+<claims>
+1. A computer implemented method for translating an input text segment in an input natural language to a corresponding output text segment in a target natural language, the method comprising: receiving an input text segment in the input language; processing the input text segment using an encoder neural network to generate an encoder neural network output, the encoder neural network comprising multiple depth wise separable convolutional neural network layers; and processing the encoder neural network output using an autoregressive decoder neural network to generate a decoder neural network output, the generated decoder neural network output representing a predicted output text segment in the target natural language.
+2. The method of claim 1, wherein processing the input text segment using an encoder neural network to generate an encoder neural network output comprises: preprocessing the input text segment using an input embedding neural network layer to generate an embedded input text segment, the input embedding neural network layer configured to receive input text segments in the input language and to embed the received input text segments into a predetermined feature depth; and processing the embedded input text segment using the encoder neural network to generate an encoder neural network output.
+3. The method of claim 1, wherein each convolutional neural network layer comprises (i) a rectified linear unit non linearity component, (ii) a depthwise separable convolution component, and (iii) a neural network layer normalization component.
+4. The method of claim 3, wherein the encoder neural network further comprises one or more residual connections.
+5. The method of claim 4, wherein the encoder neural network comprises four depth wise separable convolutional neural network layers with two-skip connections between an input to a first depth wise separable convolutional neural network layer and outputs of a second and fourth depth wise separable convolutional neural network layer.
+6. The method of claim 1, wherein the encoder neural network comprises an input encoder sub neural network and an input-output mixer sub neural network.
+7. The method of claim 6, wherein the input encoder sub neural network is configured to process a received input text segment and generate as output an encoded input text segment.
+8. The method of claim 7, wherein the input-output mixer neural network is configured to process (i) the encoded input text segment, and (ii) a previous decoder output to generate an encoded input-output mixer neural network output.
+9. The method of claim 8, wherein the autoregressive decoder neural network is configured to receive inputs from the input encoder sub neural network and the input-output mixer neural network.
+10. The method of claim 9, wherein the encoder neural network output comprises a concatenated input encoder sub neural network output and input-output mixer neural network output.
+11. The method of claim 1, wherein the autoregressive decoder neural network comprises one or more convolutional neural network layers.
+12. The method of claim 1, wherein the autoregressive decoder neural network and the encoder neural network comprise an attention mechanism.
+13. The method of claim 12, wherein the attention mechanism comprises an inner-product attention mechanism that receives as input (i) a source tensor of shape [M, depth], and (ii) a target tensor of shape [N, depth].
+14. The method of claim 12, wherein the attention mechanism is given by
+15. The method of claim 1, wherein one or more of the depth wise separable convolutional neural network layers comprise super separable convolutional neural network layers, wherein a super separable convolutional neural network layer is a depth wise separable convolutional neural network layer whose final convolutional operation is factored.
+16. The method of claim 15, wherein a depth wise separable convolutional neural network layer comprises a separable convolution of size k·c+c2, where k represents a receptive field size and c represents a number of convolution channels, and wherein a super separable convolutional neural network layer comprises a separable convolution of size k·c+c2/g, where g represents a number of grouped depth dimensions.
+17. A system comprising one or more computers and one or more storage devices storing instructions that, when executed by the one or more computers, cause the one or more computers to perform operations for translating an input text segment in an input natural language to a corresponding output text segment in a target natural language, the operations comprising: receiving an input text segment in the input language; processing the input text segment using an encoder neural network to generate an encoder neural network output, the encoder neural network comprising multiple depth wise separable convolutional neural network layers; and processing the encoder neural network output using an autoregressive decoder neural network to generate a decoder neural network output, the generated decoder neural network output representing a predicted output text segment in the target natural language.
+18. One or more non-transitory computer-readable storage media storing instructions that when executed by one or more computers cause the one or more computers to perform operations for translating an input text segment in an input natural language to a corresponding output text segment in a target natural language, the operations comprising: receiving an input text segment in the input language; processing the input text segment using an encoder neural network to generate an encoder neural network output, the encoder neural network comprising multiple depth wise separable convolutional neural network layers; and processing the encoder neural network output using an autoregressive decoder neural network to generate a decoder neural network output, the generated decoder neural network output representing a predicted output text segment in the target natural language.
+19. The system of claim 17, wherein the operations for processing the input text segment using an encoder neural network to generate an encoder neural network output comprise: preprocessing the input text segment using an input embedding neural network layer to generate an embedded input text segment, the input embedding neural network layer configured to receive input text segments in the input language and to embed the received input text segments into a predetermined feature depth; and processing the embedded input text segment using the encoder neural network to generate an encoder neural network output.
+20. The system of claim 17, wherein each convolutional neural network layer comprises (i) a rectified linear unit non linearity component, (ii) a depthwise separable convolution component, and (iii) a neural network layer normalization component.
+21. The system of claim 17, wherein the encoder neural network comprises four depth wise separable convolutional neural network layers with two-skip connections between an input to a first depth wise separable convolutional neural network layer and outputs of a second and fourth depth wise separable convolutional neural network layer.
+22. The system of claim 17, wherein the encoder neural network comprises an input encoder sub neural network and an input-output mixer sub neural network, wherein the input encoder sub neural network is configured to process a received input text segment and generate as output an encoded input text segment, and wherein the input-output mixer neural network is configured to process (i) the encoded input text segment, and (ii) a previous decoder output to generate an encoded input-output mixer neural network output.
+23. The system of claim 17, wherein the autoregressive decoder neural network and the encoder neural network comprise an attention mechanism.
+24. The system of claim 23, wherein the attention mechanism comprises an inner-product attention mechanism that receives as input (i) a source tensor of shape [M, depth], and (ii) a target tensor of shape [N, depth].
+25. The system of claim 23, wherein the attention mechanism is given by
+26. The system of claim 17, wherein one or more of the depth wise separable convolutional neural network layers comprise super separable convolutional neural network layers, wherein a super separable convolutional neural network layer is a depth wise separable convolutional neural network layer whose final convolutional operation is factored.
+27. The system of claim 26, wherein a depth wise separable convolutional neural network layer comprises a separable convolution of size k·c+c2, where k represents a receptive field size and c represents a number of convolution channels, and wherein a super separable convolutional neural network layer comprises a separable convolution of size k·c+c2/g, where g represents a number of grouped depth dimensions.
+</claims>
+</document>

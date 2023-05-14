@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2018-07-23
+</filing_date>
+
+<publication_date>
+2020-01-02
+</publication_date>
+
+<priority_date>
+2018-06-29
+</priority_date>
+
+<ipc_classes>
+G06F17/18,G06K9/62,G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+CRIMINISI, ANTONIO
+NORI, ADITYA VITHAL
+TANNO, RYUTARO
+</inventors>
+
+<docdb_family_id>
+63143625
+</docdb_family_id>
+
+<title>
+NEURAL TREES
+</title>
+
+<abstract>
+A predictor has a memory which stores at least one example for which an associated outcome is not known. The memory stores at least one decision tree comprising a plurality of nodes connected by edges, the nodes comprising a root node, internal nodes and leaf nodes. Individual ones of the nodes and individual ones of the edges each have an assigned module, comprising parameterized, differentiable operations, such that for each of the internal nodes the module computes a binary outcome for selecting a child node of the internal node. The predictor has a processor configured to compute the prediction by processing the example using a plurality of the differentiable operations selected according to a path through the tree from the root node to a leaf node.
+</abstract>
+
+<claims>
+1. A predictor for predicting an outcome y given an example x, comprising: a memory which stores at least one example x for which an outcome y is not known; the memory storing at least one decision tree comprising a plurality of nodes connected by edges, the nodes comprising a root node, internal nodes and leaf nodes; wherein, individual ones of the nodes and individual ones of the edges each have an assigned module, comprising parameterized, differentiable operations, such that for each of the internal nodes the module computes a binary outcome for selecting a child node of the internal node; a processor configured to compute the prediction y by processing the example x using a plurality of the differentiable operations selected according to a path through the tree from the root node to a leaf node.
+2. The predictor of claim 1 wherein the assigned modules along the path form a neural network, and wherein the example x is any of: an image, image feature map derived from an image, video, audio signal, text segment, phonemes from a speech recognition pre-processing system, skeletal data produced by a system which estimates skeletal positions of humans or animals from images, sensor data, data derived from sensor data.
+3. The predictor of claim 1 wherein the assigned modules which are assigned to internal nodes of the decision tree are routers configured to compute a binary decision in a stochastic manner according to characteristics of the processed example, and wherein the example x is any of: an image, image feature map derived from an image, video, audio signal, text segment, phonemes from a speech recognition pre-processing system, skeletal data produced by a system which estimates skeletal positions of humans or animals from images, sensor data, data derived from sensor data.
+4. The predictor of claim 3 wherein at least one of the routers comprises a processor for computing the binary decision according to samples from a probability distribution with a mean corresponding to a current input to the decision tree.
+5. The predictor of claim 1 wherein the assigned modules which are assigned to leaf nodes of the decision tree are solvers configured to operate on transformed input data received at the solver and to output an estimate of a conditional distribution expressing the probability of the outcome y given the example x, wherein the example x is any of: an image, image feature map derived from an image, video, audio signal, text segment, phonemes from a speech recognition pre-processing system, skeletal data produced by a system which estimates skeletal positions of humans or animals from images, sensor data, data derived from sensor data.
+6. The predictor of claim 1 wherein the assigned modules which are assigned to edges of the decision tree are transformers, each transformer configured to compute a non-linear function of an example or a processed example reaching the edge from a parent node, and wherein the example is any of: an image, image feature map derived from an image, video, audio signal, text segment, phonemes from a speech recognition pre-processing system, skeletal data produced by a system which estimates skeletal positions of humans or animals from images, sensor data, data derived from sensor data.
+7. The predictor of claim 6 wherein at least one of the transformers is a single convolutional layer of a neural network followed by a rectified linear unit.
+8. The predictor of claim 1 having been formed using a growing process which is dependent on a set of training data used to train the predictor, and wherein the training data comprises any of: an image, image feature map derived from an image, video, audio signal, text segment, phonemes from a speech recognition pre-processing system, skeletal data produced by a system which estimates skeletal positions of humans or animals from images, sensor data, data derived from sensor data.
+9. The predictor of claim 1 wherein the outcome is a class label and the example is a voxel of a medical image, and wherein the predictor is used for medical image analysis.
+10. The predictor of claim 9 wherein the assigned modules which are assigned to edges of the decision tree are transformers, each transformer configured to compute a non-linear function which acts to filter the medical image, and where a plurality of different transformers are used.
+11. A computer-implemented method of training a predictor to predict an outcome y given an example x, the method comprising: storing in a memory a plurality of training examples comprising examples x for which outcomes y are known; accessing from the memory at least one decision tree comprising a plurality of nodes connected by edges, the nodes comprising a root node, internal nodes and leaf nodes; wherein individual ones of the nodes and individual ones of the edges each have an assigned module comprising parameterized, differentiable operations, such that for each of the internal nodes the module computes a binary outcome for selecting a child node of the internal node; a processor configured to grow the decision tree by, for a current node in a layer of the tree furthest from the root node, deciding whether to: add another module to the incoming edge of the current node, add another node to the current node, or terminate growing for the current node; wherein the decision is made by using a validation set of the training examples.
+12. The method of claim 11 wherein making the decision comprises constructing a first model by simulating splitting of the current node by adding a router module, and constructing a second model by simulating increasing the depth of an incoming edge of the current node by adding a transformer module, and wherein the training examples comprise any of: an image, image feature map derived from an image, video, audio signal, text segment, phonemes from a speech recognition pre-processing system, skeletal data produced by a system which estimates skeletal positions of humans or animals from images, sensor data, data derived from sensor data.
+13. The method of claim 12 comprising making the decision by, fixing the parameters of the decision tree in the first and second models, except for the parameters of modules added in the simulation, and computing a local optimization using the training data to adjust the non-fixed parameters.
+14. The method of claim 13 comprising making the decision by assessing the performance of: the first model, the second model, and the decision tree before any changes, using the validation training examples and selecting according to a most accurate one of these options.
+15. The method of claim 11 further comprising refining the decision tree by computing a global optimization over parameters of the modules using the training examples, and wherein the training examples comprise any of: an image, image feature map derived from an image, video, audio signal, text segment, phonemes from a speech recognition pre-processing system, skeletal data produced by a system which estimates skeletal positions of humans or animals from images, sensor data, data derived from sensor data.
+16. The method of claim 15 wherein the global optimization jointly optimizes a hierarchical grouping of data to paths on the decision tree and neural networks associated with those paths.
+17. A predictor, comprising: a memory which stores at least one example x for which an outcome y is not known; the memory storing at least one decision tree comprising a plurality of nodes connected by edges, the nodes comprising a root node, internal nodes and leaf nodes; wherein, individual ones of the nodes and individual ones of the edges each have an assigned module, comprising parameterized, differentiable operations, such that for each of the internal nodes the module computes a binary outcome for selecting a child node of the internal node; a processor configured to compute the prediction y by processing the example x using a plurality of the differentiable operations selected according to a path through the tree from the root node to a leaf node; and wherein the decision tree has been formed using a growing process which is dependent on a set of training data comprising examples x for which outcomes y are known.
+18. The predictor of claim 17 wherein the examples comprise medical image data and the outcomes are class labels.
+19. The predictor of claim 18 wherein the assigned modules on the individual ones of the edges are non-linear filters which act to filter the medical image.
+20. The predictor of claim 19 wherein there are a plurality of different non-linear filters on individual ones of the edges.
+</claims>
+</document>

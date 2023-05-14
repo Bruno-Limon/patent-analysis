@@ -1,0 +1,58 @@
+<document>
+
+<filing_date>
+2020-01-06
+</filing_date>
+
+<publication_date>
+2020-05-07
+</publication_date>
+
+<priority_date>
+2016-05-23
+</priority_date>
+
+<ipc_classes>
+G06T3/40,H04N19/105,H04N19/117,H04N19/124,H04N19/15,H04N19/159,H04N19/172,H04N19/176,H04N19/182,H04N19/184,H04N19/46,H04N19/513,H04N19/61,H04N19/70,H04N19/86
+</ipc_classes>
+
+<assignee>
+MIT (MASSACHUSETTS INSTITUTE OF TECHNOLOGY)
+</assignee>
+
+<inventors>
+SZE, VIVIENNE
+ZHANG, ZHENGDONG
+</inventors>
+
+<docdb_family_id>
+60329161
+</docdb_family_id>
+
+<title>
+System and method for real-time processing of compressed videos
+</title>
+
+<abstract>
+A real-time system and method for displaying video on a display are disclosed. Received compressed video data is decoded to produce an uncompressed first video frame, a first frame syntax element, an uncompressed second video frame, and a second frame syntax element. A computationally intensive process is applied to the uncompressed first video frame to produce an enhanced first video frame. A block having a portion of the enhanced first video frame from the enhanced first video frame is adaptively transferred to the uncompressed second video frame to produce an enhanced second video frame without applying the computationally intensive process to the uncompressed second video frame. The transferring is guided by the first frame syntax element and the second frame syntax element. The enhanced first video frame and the enhanced second video frame are displayed.
+</abstract>
+
+<claims>
+1. A method for displaying video on a display by a real-time video processing device comprising a processor and a memory containing non-transient instructions that, when executed by the processor, comprise the steps of: receiving compressed video data; decoding the compressed video data to produce an uncompressed first video frame, a first frame syntax element, an uncompressed second video frame adjacent to the first video frame in a video sequence, and a second frame syntax element; applying a first video enhancement process to the uncompressed first video frame to produce an enhanced first video frame having a higher resolution than the uncompressed first video frame; applying an adaptive deblocking filter to the enhanced first video frame; applying a second process to the uncompressed second video frame to produce an enhanced second video frame, further comprising the steps of: adaptively transferring a block comprising a portion of the enhanced first video frame from the enhanced first video frame to the uncompressed second video frame according to the first frame syntax element and the second frame syntax element to produce the enhanced second video frame having a higher resolution than the uncompressed second video frame; and displaying the enhanced first video frame and the enhanced second video frame with the display; wherein the first video enhancement process is more computationally intensive than the second video enhancement process, and the second video enhancement process leverages an inter-frame similarity between adjacent frames in the video sequence and transfers an enhancement result from the first enhanced video frame to the second enhanced video frame.
+2. The method of claim 1, wherein the first frame syntax element further comprises a size of the block and a source position of the block, and the second frame syntax element further comprises the size of the block, and a target position of the block.
+3. The method of claim 1, wherein the compressed video data comprises a compressed video bit stream.
+4. The method of claim 2, further comprising the step of determining a spatial relationship between pixels in the uncompressed first video frame and pixels in the uncompressed second video frame based upon the first frame syntax element and/or the second frame syntax element.
+5. A method of claim 4, further comprising the step of avoiding processing to speed up a rendering of the enhanced second video frame based at least in part on the spatial relationship between pixels in the uncompressed first video frame and pixels in the uncompressed second video frame.
+6. The method of claim 4, further comprising the step of combining a first pixel from the uncompressed first video frame with a related second pixel from the uncompressed second video frame for improving an image quality in the enhanced second video frame.
+7. The method of claim 6, wherein the improving the image quality in the enhanced second video frame comprises super resolution enhancement, dynamic range expansion, object recognition and/or detection, optical flow estimation, time-to-contact estimation, tracking in videos, video stabilization, video segmentation, frame interpolation, scene understanding, visual style editing, deblurring, high dynamic range enhancement, and reducing a level of noise in the enhanced second video frame.
+8. A method of claim 1, wherein the first frame syntax element and/or the second frame syntax element comprises one or more of the group consisting of a motion vector, a block structure, a residual and/or prediction error, a transform coefficient, an inter prediction mode, an intra prediction mode, an intra prediction mode direction, a skip flag, a merge flag, a coded block flag, a loop filter parameter, a quantization parameter, and a reference index.
+9. The method of claim 1, further comprising the steps of: decompressing the compressed video data to produce an uncompressed third video frame, and a third frame syntax element; and transferring a block comprising a portion of the enhanced second video frame from the enhanced second video frame to the uncompressed third video frame according to the second frame syntax element and the third frame syntax element to produce an enhanced third video frame having a higher resolution than the uncompressed third video frame without applying the first video enhancement process to the uncompressed third video frame.
+10. The method of claim 9, wherein the third frame syntax element further comprises the size of the block, and a second target position of the block.
+11. The method of claim 1, wherein applying the first video enhancement process to the uncompressed first video frame to produce the enhanced first video frame further comprises dividing the enhanced first video frame into a plurality of non-overlapping blocks so that each pixel is included by exactly one block of the plurality of non-overlapping blocks.
+12. The method of claim 11, wherein a first block of the plurality of non-overlapping blocks comprises a larger number of pixels than a second block of the plurality of non-overlapping blocks, wherein the pixels of the first block correspond to a simpler structure and/or better-predicted content than the pixels of the second block.
+13. The method of claim 1, further comprising the step of for blocks with zero motion vector and/or zero residual, directly copying the same pixels from the enhanced first video frame to the uncompressed second video frame without interpolation.
+14. A method for displaying video on a display by a real-time video processing device comprising a processor and a memory containing non-transient instructions that, when executed by the processor, comprise the steps of: receiving compressed video data; decoding the compressed video data to produce an uncompressed first video frame, a first frame syntax element, an uncompressed second video frame adjacent to the first video frame in a video sequence, and a second frame syntax element; applying a first video enhancement process to the uncompressed first video frame to produce an enhanced first video frame having a higher resolution than the uncompressed first video frame; applying a second process to the uncompressed second video frame to produce an enhanced second video frame, further comprising the steps of: adaptively transferring a block comprising a portion of the enhanced first video frame from the enhanced first video frame to the uncompressed second video frame according to the first frame syntax element and the second frame syntax element to produce the enhanced second video frame having a higher resolution than the uncompressed second video frame; and displaying the enhanced first video frame and the enhanced second video frame with the display; accumulating a metric for a parameter indicating a computation cost change and/or a quality change between the enhanced first video frame and the enhanced second video frame; determining an accumulated metric threshold value; and comparing the accumulated metric to the accumulated metric threshold, wherein the first video enhancement process is more computationally intensive than the second video enhancement process, and the second video enhancement process leverages an inter-frame similarity between adjacent frames in the video sequence and transfers an enhancement result from the first enhanced video frame to the second enhanced video frame.
+15. The method of claim 14, further comprising the steps of: for an enhanced first video frame and an enhanced second video frame where the accumulated metric is below the accumulated metric threshold value, adaptively transferring a block comprising a portion of the enhanced second video frame from the enhanced second video frame to a uncompressed third video frame to produce an enhanced third video frame without applying the first video enhancement process to the uncompressed third video frame for an enhanced first video frame and an enhanced second video frame where the accumulated metric meets or exceeds the accumulated metric threshold value, producing an enhanced third video frame using the computationally intensive process.
+16. The method of claim 14, wherein the accumulated metric comprises an indication of accumulated error, and the accumulated metric threshold comprises an accumulated error threshold.
+</claims>
+</document>

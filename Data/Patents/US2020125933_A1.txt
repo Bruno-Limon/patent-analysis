@@ -1,0 +1,54 @@
+<document>
+
+<filing_date>
+2019-10-11
+</filing_date>
+
+<publication_date>
+2020-04-23
+</publication_date>
+
+<priority_date>
+2018-10-19
+</priority_date>
+
+<ipc_classes>
+G06F9/50,G06N20/00,G06N3/063,G06N3/08,G06N5/04,G06T1/20
+</ipc_classes>
+
+<assignee>
+FUJITSU
+</assignee>
+
+<inventors>
+ALDEA LOPEZ, SERGIO
+</inventors>
+
+<docdb_family_id>
+63965097
+</docdb_family_id>
+
+<title>
+METHOD, APPARATUS AND COMPUTER PROGRAM TO CARRY OUT A TRAINING PROCEDURE IN A CONVOLUTIONAL NEURAL NETWORK
+</title>
+
+<abstract>
+A computer-implemented method in a computing network of a number of processing nodes 1 to X, in the computing network neurons of a Convolutional Neural Network (CNN) are divided between the number of nodes. The method including allocating a mini-batch of input data from among mini-batches of input data to a node of the nodes; splitting the mini-batch into a number of mini-batch sections X corresponding and equal to the number of nodes; at the node retaining a mini-batch section which has a same number as the node and sending other mini-batch sections of the split mini-batch sections to corresponding other nodes according to a number of the split mini-batch sections; collating at the node the split mini-batch sections at the node into a single matrix and multiplying the collated matrix by the neurons to provide output data sections having one section of output data per each mini-batch. At the node sending the output data sections corresponding to the other corresponding nodes to the corresponding nodes and combining the output data sections in the node so that the node has output data for entire of the split mini-batch sections.
+</abstract>
+
+<claims>
+1. A computer-implemented method comprising: in a computing network comprising a number of nodes 1 to X having processors and memory, dividing neurons of a Convolutional Neural Network (CNN) between the number of nodes; allocating a mini-batch of input data from among mini-batches of input data to a node of the number of nodes; splitting for the node, from among the number of nodes, the mini-batch into a number of mini-batch sections X corresponding and equal to the number of nodes; at the node retaining a mini-batch section from among the split mini-batch sections which has a same number as the node and sending other mini-batch sections of the split mini-batch sections to corresponding other nodes according to a number of the split mini-batch sections; collating at the node the split mini-batch sections at the node into a single matrix and multiplying the collated matrix by the neurons to provide output data sections having one section of output data per each mini-batch section of the split mini-batch sections; at the node sending the output data sections corresponding to the other corresponding nodes to the corresponding nodes and combining the output data sections in the node so that the node has output data for entire of the split mini-batch sections.
+2. The method according to claim 1, wherein the method is used in a forward propagation phase in a fully connected layer of the CNN, for training the CNN.
+3. The method according to claim 1, wherein each node includes a memory and processing capability, including processing capability as an accelerator in a graphics processing unit (GPU).
+4. The method according to claim 1, further comprising: adding a bias term to the combined output data sections.
+5. The method according to claim 1, further comprising, in a forward propagation of a test phase at a fully connected layer: creating new threads from a root solver thread at a main node, from among the number of nodes, executing a test iteration, each created new thread assigned to a different node, from among the number of nodes, the created new threads accessing memory addresses of neuron parameters held at the different nodes.
+6. The method according to claim 5, further comprising: the main node broadcasting input data for the test phase to the created new threads, and the created new threads computing an output of the a fully connected layer before all the created new threads are joined.
+7. The method according to claim 5, wherein, in a backward propagation phase at a convolutional layer, each node receives input data gradients for the allocated mini-batch and sends the input data gradients to each node where a mini-batch section of the allocated mini-batch was processed; and each node multiplies the input data gradients at each node with the collated split mini-batch sections from the forward propagation phase to produce parameter gradients at each node from all the split mini-batch sections.
+8. The method according to claim 7, wherein the input data gradients are stored at each node in a memory space used for the output data for the entire split mini-batch sections.
+9. The method according to claim 7, further comprising using backward propagation to calculate data gradients, wherein each node multiples the output data for the entire split mini-batch sections by the parameter gradients to provide output data gradients; and the output data gradients corresponding to the other corresponding nodes are sent to the corresponding nodes so that each node holds the output data gradients for the entire mini-split batch sections.
+10. The method according to claim 9, wherein the bias term is only synchronized at the fully connected layer before the neuron parameters are updated.
+11. The method according to claim 1, wherein the CNN is a Deep Neural Network, DNN.
+12. An apparatus to communicationally couple to a number of processing nodes 1 to X to carry out a training procedure of a Convolutional Neural Network (CNN), the apparatus comprising: a processor; and a memory having instructions stored thereon, the instructions when executed by the apparatus implementing a node among the number of nodes, causing the node to control operations including, dividing neurons of the CNN between the number of nodes; allocating a mini-batch of input data from among mini-batches of input data to a node of the number of nodes; splitting from among the number of nodes, the mini-batch into a number of mini-batch sections X corresponding and equal to the number of nodes; retaining a mini-batch section from among the split mini-batch sections which has a same number as the node and sending other mini-batch sections of the split mini-batch sections to corresponding other nodes according to a number of the split mini-batch sections; collating the split mini-batch sections at the node into a single matrix and multiplying the collated matrix by the neurons to provide output data sections having one section of output data per each mini-batch section of the split mini-batch sections; and sending the output data sections corresponding to the other corresponding nodes to the corresponding nodes and combining the output data sections in the node so that the node has output data for entire of the split mini-batch sections.
+13. A non-transitory computer-readable storage means storing a computer program which when executed by a number of processing nodes 1 to X, causes the number of processing nodes to perform operations comprising: dividing neurons of a Convolutional Neural Network (CNN) between processing nodes; allocating a mini-batch of input data from among mini-batches of input data to a node of the number of nodes; splitting for the node, from among the number of nodes, the mini-batch into a number of mini-batch sections X corresponding and equal to the number of nodes; at the node retaining a mini-batch section from among the split mini-batch sections which has a same number as the node and sending other mini-batch sections of the split mini-batch sections to corresponding other nodes according to a number of the split mini-batch sections; collating at the node the split mini-batch sections at the node into a single matrix and multiplying the collated matrix by the neurons to provide output data sections having one section of output data per each mini-batch section of the split mini-batch sections; at the node sending the output data sections corresponding to the other corresponding nodes to the corresponding nodes and combining the output data sections in the node so that the node has output data for entire of the split mini-batch sections.
+</claims>
+</document>

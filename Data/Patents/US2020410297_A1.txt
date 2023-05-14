@@ -1,0 +1,58 @@
+<document>
+
+<filing_date>
+2020-06-22
+</filing_date>
+
+<publication_date>
+2020-12-31
+</publication_date>
+
+<priority_date>
+2019-06-27
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/46,G06K9/62,G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+ROBERT BOSCH
+</assignee>
+
+<inventors>
+WILLERS, OLIVER
+Abrecht, Stephanie
+Raafatnia, Shervin
+Sudholt, Sebastian
+</inventors>
+
+<docdb_family_id>
+73747204
+</docdb_family_id>
+
+<title>
+METHOD FOR DETERMINING A CONFIDENCE VALUE OF A DETECTED OBJECT
+</title>
+
+<abstract>
+A method is indicated for determining a confidence value of an object of a class detected in an input image with the aid of a trained neural network, including: producing an activation signature for the class of the detected object using a plurality of output images of a layer of the neural network, the input image being provided to the input of the neural network; scaling the activation signature to the dimension of the input image; comparing an object portion of the scaled activation signature with an activation signature distribution of all objects of the same class of a training data set of the neural network in order to determine the confidence value.
+</abstract>
+
+<claims>
+1. A method for determining a confidence value of an object of a class detected in an input image using a trained neural network, comprising the following steps: producing, using the neural network, an activation signature for the class of the detected object using a plurality of output images of a layer of the neural network, the input image being provided to an input of the neural network; scaling the activation signature to a dimension of the input image; comparing an object portion of the scaled activation signature with an activation signature distribution of all objects of the same class of a training data set of the neural network; and determining the confidence value based on the comparing.
+2. The method as recited in claim 1, wherein the object portion of the scaled activation signature includes a portion of the input image in which at least portions of the object of the same class were detected.
+3. The method as recited in claim 1, wherein the object portion of the scaled activation signature includes a rectangular portion of the input image, which is constructed around the detected object of the class.
+4. The method as recited in claim 1, wherein the activation signature of the detected object of a class is determined using the following steps: calculating a respective relevance of each individual output image of the plurality of the output images of the layer of the neural network for classifying the detected object using a gradient method; weighting each of the output images with its respective relevance; combining the plurality of the weighted output images; and applying an activation function to the combined plurality of the weighted output images to amplify features that have a positive influence on the classification to determine the activation signature.
+5. The method as recited in claim 1, wherein the activation signature of detected object of the class is determined using the following steps: calculating the relevance of each individual output image of the plurality of the output images of the layer of the neural network, for classifying the detected object, by determining a gradient of a class output value of the neural network with respect to the output images of the plurality of output images; averaging the gradient of the class output value across all pixels of the respective output image for determining a respective relevance of each individual output image of the plurality of the output images of the layer of the neural network; weighting each of the output images with its respective relevance; summing up all pixel values of the weighted output images that are situated in the weighted output images in corresponding positions; and amplifying the summed up pixel values that have a positive influence on the classification by setting all negative values of the summed up pixel values to zero in to determine an activation signature.
+6. A method for determining an activation signature distribution for a class of detected objects in a plurality of input images of a training data set having associated classes of the objects in the respective input images, comprising the following steps: calculating a plurality of activation signatures for all detected objects of a class in the plurality of input images, the calculating including, for each detect object of the detected objects, the following steps: calculating the relevance of each individual output image of the plurality of the output images of the layer of the neural network, for classifying the detected object, by determining a gradient of a class output value of the neural network with respect to the output images of the plurality of output images; averaging the gradient of the class output value across all pixels of the respective output image for determining a respective relevance of each individual output image of the plurality of the output images of the layer of the neural network; weighting each of the output images with its respective relevance; summing up all pixel values of the weighted output images that are situated in the weighted output images in corresponding positions; and amplifying the summed up pixel values that have a positive influence on the classification by setting all negative values of the summed up pixel values to zero in to determine an activation signature; scaling each of the activation signatures to a dimension of the input image; scaling each object portion of the object detected in the scaled activation signature to a uniform dimension; calculating a probability distribution for each pixel of the scaled object portion of the scaled activation signatures using all detected objects of the same class of the training data set, an average value and a variance being determined for each pixel of the scaled activation signatures for determining the activation signature distribution.
+7. A method for determining an activation signature distribution for a class of detected objects in a plurality of input images of a training data set having associated classes of the objects in the respective input images, comprising the following steps: calculating a plurality of activation signatures for all detected objects of a class in the plurality of input images, the calculating including, for each detect object of the detected objects, the following steps: calculating a respective relevance of each individual output image of the plurality of the output images of the layer of the neural network for classifying the detected object using a gradient method; weighting each of the output images with its respective relevance; combining the plurality of the weighted output images; and applying an activation function to the combined plurality of the weighted output images to amplify features that have a positive influence on the classification to determine the activation signature; scaling each of the activation signatures to a dimension of the input image; scaling each object portion of the object detected in the scaled activation signature to a uniform dimension; calculating a probability distribution for each pixel of the scaled object portion of the scaled activation signatures using all detected objects of the same class of the training data set, an average value and a variance being determined for each pixel of the scaled activation signatures for determining the activation signature distribution.
+8. The method as recited in claim 1, wherein each pixel of the object portion of the scaled activation signature is compared with every corresponding pixel of the activation signature distribution to determine a probability that a pixel of the object portion stems from a distribution of the same pixel of the activation signature distribution, and wherein the method further comprises calculating an average value of the probabilities for all pixels of the object portion, for determining the confidence value.
+9. The method as recited in claim 1, wherein the comparison for determining the confidence value is determined using a log-likelihood function of the object portion of the scaled activation signature in comparison with the activation signature distribution of the class of the detected object.
+10. The method as recited in claim 1, wherein a signal is generated when the confidence value is smaller than a threshold value for the confidence value, the threshold value having been ascertained using training data or test data.
+11. The method as recited in claim 1, wherein the confidence value is provided as a weighting factor for a situation analysis method.
+12. The method as recited in claim 1, wherein a control signal for controlling an at least partially automated vehicle and/or a warning signal for warning a vehicle occupant is emitted as a function of a magnitude of the confidence value.
+13. A device configured to determine a confidence value of an object of a class detected in an input image using a trained neural network, the device configured to: produce, using the neural network, an activation signature for the class of the detected object using a plurality of output images of a layer of the neural network, the input image being provided to an input of the neural network; scale the activation signature to a dimension of the input image; compare an object portion of the scaled activation signature with an activation signature distribution of all objects of the same class of a training data set of the neural network; and determine the confidence value based on the comparing.
+14. A non-transitory machine-readable storage medium on which is stored a computer program for determining a confidence value of an object of a class detected in an input image using a trained neural network, the computer program, when executed by a computer, causing the computer to perform the following steps: producing, using the neural network, an activation signature for the class of the detected object using a plurality of output images of a layer of the neural network, the input image being provided to an input of the neural network; scaling the activation signature to a dimension of the input image; comparing an object portion of the scaled activation signature with an activation signature distribution of all objects of the same class of a training data set of the neural network; and determining the confidence value based on the comparing.
+</claims>
+</document>

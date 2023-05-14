@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2019-11-07
+</filing_date>
+
+<publication_date>
+2020-05-14
+</publication_date>
+
+<priority_date>
+2018-11-08
+</priority_date>
+
+<ipc_classes>
+G06F17/15,G06F17/16,G06N3/04
+</ipc_classes>
+
+<assignee>
+ARM
+</assignee>
+
+<inventors>
+BRATT, IAN RUDOLF
+CHALFIN, ALEXANDER EUGENE
+LI, TIANMU
+LOH, DANNY DAYSANG
+MENG, LINGCHUAN
+</inventors>
+
+<docdb_family_id>
+70550642
+</docdb_family_id>
+
+<title>
+Efficient Convolutional Neural Networks
+</title>
+
+<abstract>
+The present disclosure advantageously provides a system and a method for convolving data in a quantized convolutional neural network (CNN). The method includes selecting a set of complex interpolation points, generating a set of complex transform matrices based, at least in part, on the set of complex interpolation points, receiving an input volume from a preceding layer of the quantized CNN, performing a complex Winograd convolution on the input volume and at least one filter, using the set of complex transform matrices, to generate an output volume, and sending the output volume to a subsequent layer of the quantized CNN.
+</abstract>
+
+<claims>
+1. A system, comprising: a memory configured to store input data; a processor, coupled to the memory, configured to: select a set of complex interpolation points, and generate a set of complex transform matrices based, at least in part, on the set of complex interpolation points; a hardware accelerator, coupled to the processor and the memory, configured to: receive an input volume from a preceding layer of a quantized convolutional neural network (CNN), the input volume including an input width, an input height, an input depth and a plurality of quantized values, the input depth being equal to a number of input channels; perform a complex Winograd convolution on the input volume and one or more filters, using the set of complex transform matrices, to generate an output volume, each of the one or more filters including a filter width, a filter height, a filter depth and a plurality of filter values, the output volume including an output width, an output height, an output depth and a plurality of quantized values, the output depth being equal to a number of the one or more filters; and send the output volume to a subsequent layer of the quantized CNN.
+2. The system of claim 1, where the filter width equals r, the filter height equals r, and said perform the complex Winograd convolution includes: divide each input channel into a plurality of input tiles, each input tile having a tile width equal to m+r−1, and a tile height equal to m+r−1; for each input channel, apply the respective filter to each input tile based on a function F(m×m,r×r) to generate an output matrix, where each output matrix has m×m elements; and sum the respective output matrices for each channel to generate the output volume.
+3. The system of claim 2, where the function F(m×m,r×r) is given by Y=AT[(GgGT)⊙(BTdB)]A, where Y is the output matrix, g is the filter, d is an input tile, BT, G and AT form the set of complex transform matrices, and ⊙ is an element-by-element multiplication.
+4. The system of claim 3, where the set of complex interpolation points is symmetric and includes at least one of 0, 1 or −1, and at least one of i or −i.
+5. The system of claim 4, where m equals 4, r equals 3, and the set of complex interpolation points includes [0, 1, −1, i, −i].
+6. The system of claim 5, where:
+7. The system of claim 3, where the function F(m×m,r×r) is given by Y=AT[W⊙D]A, where W is GgGT, D is BTdB, and W and D include real elements and complex conjugate pairs.
+8. The system of claim 7, where:
+9. The system of claim 8, where the hardware accelerator is further configured to compute each complex conjugate pair using a Karatsuba multiplication given by:
+description="In-line Formulae" end="lead"?(x0+x1i)(y0+y1i)=(x0y0−x1y1)+((x1+x0)(y1+y0)−x1y1−x0y0)·i. description="In-line Formulae" end="tail"?
+10. The system of claim 9, where the quantized values include integer values, reduced precision floating point values, or fixed point values, and the hardware accelerator is further configured to: select a first complex conjugate of a complex conjugate pair; and generate a second complex conjugate of the complex conjugate pair by changing a sign of an imaginary portion of the first complex conjugate to an opposite sign.
+11. A method for convolving data in a quantized convolutional neural network (CNN), comprising: selecting a set of complex interpolation points; generating a set of complex transform matrices based, at least in part, on the set of complex interpolation points; receiving an input volume from a preceding layer of the quantized CNN, the input volume including an input width, an input height, an input depth and a plurality of quantized values, the input depth being equal to a number of input channels; performing a complex Winograd convolution on the input volume and at least one filter, using the set of complex transform matrices, to generate an output volume, each filter including a filter width, a filter height, a filter depth and a plurality of filter values, the output volume including an output width, an output height, an output depth and a plurality of quantized values, the output depth being equal to a number of filters; and sending the output volume to a subsequent layer of the quantized CNN.
+12. The method of claim 11, where the filter width equals r, the filter height equals r, and performing the complex Winograd convolution includes: dividing each input channel into a plurality of input tiles, each input tile having a tile width equal to m+r−1, and a tile height equal to m+r−1; for each input channel, applying the respective filter to each input tile based on a function F(m×m, r×r) to generate an output matrix, where each output matrix has m×m elements; and summing the respective output matrices for each channel to generate the output volume.
+13. The method of claim 12, where the function F(m×m,r×r) is given by Y=AT[(GgGT)⊙(BTdB)]A, where Y is the output matrix, g is the filter, d is an input tile, BT, G and AT form the set of complex transform matrices, and ⊙ is an element-by-element multiplication.
+14. The method of claim 13, where the set of complex interpolation points is symmetric and includes at least one of 0, 1 or −1, and at least one of i or −i.
+15. The method of claim 14, where m equals 4, r equals 3, and the set of complex interpolation points includes [0, 1, −1, i, −i].
+16. The method of claim 15, where:
+17. The method of claim 13, where the function F(m×m,r×r) is given by Y=AT[W⊙D]A, where W is GgGT, D is BTdB, and Wand D include real elements and complex conjugate pairs.
+18. The method of claim 17, where:
+19. The method of claim 18, where the quantized values include integer values, reduced precision floating point values, or fixed point values, the method further comprising: computing each complex conjugate pair using a Karatsuba multiplication given by (x0+x1i)(y0+y1i)=(x0y0−x1 y1)+((x1+x0)(y1+y0)−x1y1−x0y0)·i.; selecting a first complex conjugate of a complex conjugate pair; and generating a second complex conjugate of the complex conjugate pair by changing a sign of an imaginary portion of the first complex conjugate to an opposite sign.
+20. A system, comprising: a hardware accelerator configured to: receive an input volume from a preceding layer of a quantized convolutional neural network (CNN), the input volume including an input width, an input height, an input depth and a plurality of quantized values, the input depth being equal to a number of input channels; perform a complex Winograd convolution on the input volume and at least one filter, using a set of complex transform matrices, to generate an output volume, each filter including a filter width, a filter height, a filter depth and a plurality of filter values, the output volume including an output width, an output height, an output depth and a plurality of quantized values, the output depth being equal to a number of filters; and send the output volume to a subsequent layer of the quantized CNN.
+</claims>
+</document>

@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2019-05-01
+</filing_date>
+
+<publication_date>
+2020-11-05
+</publication_date>
+
+<priority_date>
+2019-05-01
+</priority_date>
+
+<ipc_classes>
+G06N20/10,G06N3/04,G06N3/063,G06N3/08
+</ipc_classes>
+
+<assignee>
+IBM (INTERNATIONAL BUSINESS MACHINES CORPORATION)
+</assignee>
+
+<inventors>
+GOKMEN, TAYFUN
+</inventors>
+
+<docdb_family_id>
+73016099
+</docdb_family_id>
+
+<title>
+DNN Training with Asymmetric RPU Devices
+</title>
+
+<abstract>
+In one aspect, a method of training a DNN includes: providing a weight matrix (W) as a linear combination of matrices/arrays A and C; in a forward cycle, transmitting an input vector x through arrays A and C and reading output vector y; in a backward cycle, transmitting an error signal S through arrays A and C and reading output vector z; updating array A by transmitting input vector x and error signal S through array A; in a forward cycle, transmitting an input vector ei through array A and reading output vector y′; calculating ƒ(y′) using y′; and updating array C by transmitting input vector ei and ƒ(y′) through array C. A DNN is also provided.
+</abstract>
+
+<claims>
+1. A method of training a deep neural network (DNN), the method comprising the steps of: providing a weight matrix (W) as a linear combination of a matrix A and a matrix C, wherein the matrix A and the matrix C are formed by stored conductance values in separate cross-point arrays A and C of resistive processing unit (RPU) devices, each having conductive row wires orthogonal to conductive column wires, and the RPU devices separating intersections between the conductive row wires and the conductive column wires, whereby the RPU devices function as weighted connections between neurons in the DNN; transmitting, in a forward cycle, an input vector x as voltage pulses through the conductive column wires of the cross-point array A and the cross-point array C and reading a resulting output vector y as current output from the conductive row wires of the cross-point array A and the cross-point array C; transmitting, in a backward cycle, an error signal S calculated from the output vector y as voltage pulses through the conductive row wires of the cross-point array A and the cross-point array C and reading a resulting output vector z as current output from the conductive column wires of the cross-point array A and the cross-point array C; transmitting, in an update of the cross-point array A, the input vector x as voltage pulses through the conductive column wires of the cross-point array A simultaneously with the error signal S as voltage pulses through the conductive row wires of the cross-point array A; transmitting, in a forward cycle, an input vector ei as voltage pulses through the conductive column wires of the cross-point array A and reading a resulting output vector y′ as current output from the conductive row wires of the cross-point array A; calculating ƒ(y′) using y′; and transmitting, in an update of the cross-point array C, the input vector ei as voltage pulses through the conductive column wires of the cross-point array C simultaneously with ƒ(y′) as voltage pulses through the conductive row wires of the cross-point array C.
+2. The method of claim 1, wherein ƒ(y′)=y′ only if |y′|>a threshold T, otherwise ƒ(y′)=0.
+3. The method of claim 1, further comprising the step of: repeating the steps of the method until a convergence criterion is met.
+4. The method of claim 1, further comprising the step of: converting the output vector y from the cross-point array A and the cross-point array C to digital signals.
+5. The method of claim 4, further comprising the step of: calculating a linear combination of the output vector y from the cross-point array A and the cross-point array C;
+6. The method of claim 1, further comprising the step of: converting the output vector z from the cross-point array A and the cross-point array C to digital signals.
+7. The method of claim 6, further comprising the step of: calculating a linear combination of the output vector z from the cross-point array A and the cross-point array C.
+8. The method of claim 1, further comprising the steps of: applying repeated voltage pulses to the RPU devices in the cross-point array A until all of the RPU devices in the cross-point array A converge to their own symmetry point; and copying zero-weight conductance values for the RPU devices in the cross-point array A to a reference array.
+9. The method of claim 8, further comprising the step of: zero-shifting outputs of the cross-point array A by the zero-weight conductance values from the reference array.
+10. The method of claim 8, wherein the repeated voltage pulses applied to the RPU devices in cross-point array A comprise up and down voltage pulses.
+11. The method of claim 10, wherein the up and down voltage pulses are applied randomly to the RPU devices in cross-point array A.
+12. The method of claim 10, wherein the up and down voltage pulses are applied to the RPU devices in cross-point array A in an alternating manner.
+13. The method of claim 1, wherein the input vector ei comprises a one hot encoded vector.
+14. The method of claim 1, wherein the input vector ei is chosen from a Hadamard matrix.
+15. A method of training a DNN, the method comprising the steps of: providing a weight matrix (W) as a linear combination of a matrix A and a matrix C, wherein the matrix A and the matrix C are formed by stored conductance values in separate cross-point arrays A and C of RPU devices, each having conductive row wires orthogonal to conductive column wires, and the RPU devices separating intersections between the conductive row wires and the conductive column wires, whereby the RPU devices function as weighted connections between neurons in the DNN; applying repeated voltage pulses to the RPU devices in the cross-point array A until all of the RPU devices in the cross-point array A converge to their own symmetry point; copying zero-weight conductance values for the RPU devices in the cross-point array A to a reference array; transmitting, in a forward cycle, an input vector x as voltage pulses through the conductive column wires of the cross-point array A and the cross-point array C and reading a resulting output vector y as current output from the conductive row wires of the cross-point array A and the cross-point array C; transmitting, in a backward cycle, an error signal δ calculated from the output vector y as voltage pulses through the conductive row wires of the cross-point array A and the cross-point array C and reading a resulting output vector z as current output from the conductive column wires of the cross-point array A and the cross-point array C; transmitting, in an update of the cross-point array A, the input vector x as voltage pulses through the conductive column wires of the cross-point array A simultaneously with the error signal δ as voltage pulses through the conductive row wires of the cross-point array A; transmitting, in a forward cycle, an input vector ei as voltage pulses through the conductive column wires of the cross-point array A and reading a resulting output vector y′ as current output from the conductive row wires of the cross-point array A; calculating ƒ(y′) using y′; and transmitting, in an update of the cross-point array C, the input vector ei as voltage pulses through the conductive column wires of the cross-point array C simultaneously with ƒ(y′) as voltage pulses through the conductive row wires of the cross-point array C, wherein ƒ(y′)=y′ only if |y′|>a threshold T, otherwise ƒ(y′)=0.
+16. The method of claim 15, further comprising the step of: repeating the steps of the method until a convergence criterion is met.
+17. The method of claim 15, further comprising the step of: converting the output vector y from the cross-point array A and the cross-point array C to digital signals.
+18. The method of claim 17, further comprising the step of: calculating a linear combination of the output vector y from the cross-point array A and the cross-point array C;
+19. The method of claim 15, further comprising the step of: converting the output vector z from the cross-point array A and the cross-point array C to digital signals.
+20. The method of claim 19, further comprising the step of: calculating a linear combination of the output vector z from the cross-point array A and the cross-point array C.
+21. The method of claim 15, further comprising the step of: zero-shifting outputs of the cross-point array A by the zero-weight conductance values from the reference array.
+22. A method of training a DNN, the method comprising the steps of: providing a weight matrix (W) as a linear combination of a matrix A and a matrix C, wherein the matrix A and the matrix C are formed by stored conductance values in separate cross-point arrays A and C of RPU devices, each having conductive row wires orthogonal to conductive column wires, and the RPU devices separating intersections between the conductive row wires and the conductive column wires, whereby the RPU devices function as weighted connections between neurons in the DNN; applying repeated voltage pulses to the RPU devices in the cross-point array A until all of the RPU devices in the cross-point array A converge to their own symmetry point; copying zero-weight conductance values for the RPU devices in the cross-point array A to a reference array; transmitting, in a forward cycle, an input vector x as voltage pulses through the conductive column wires of the cross-point array A and the cross-point array C and reading a resulting output vector y as current output from the conductive row wires of the cross-point array A and the cross-point array C; calculating a linear combination of the output vector y from the cross-point array A and the cross-point array C; transmitting, in a backward cycle, an error signal S calculated from the output vector y as voltage pulses through the conductive row wires of the cross-point array A and the cross-point array C and reading a resulting output vector z as current output from the conductive column wires of the cross-point array A and the cross-point array C; calculating a linear combination of the output vector z from the cross-point array A and the cross-point array C; transmitting, in an update of the cross-point array A, the input vector x as voltage pulses through the conductive column wires of the cross-point array A simultaneously with the error signal δ as voltage pulses through the conductive row wires of the cross-point array A; transmitting, in a forward cycle, an input vector ei as voltage pulses through the conductive column wires of the cross-point array A and reading a resulting output vector y′ as current output from the conductive row wires of the cross-point array A; calculating ƒ(y′) using y′; transmitting, in an update of the cross-point array C, the input vector ei as voltage pulses through the conductive column wires of the cross-point array C simultaneously with ƒ(y′) as voltage pulses through the conductive row wires of the cross-point array C, wherein ƒ(y′)=y′ only if |y′|>a threshold T, otherwise ƒ(y′)=0; and repeating the steps of the method until a convergence criterion is met.
+23. The method of claim 22, further comprising the step of: converting the output vector y from the cross-point array A and the cross-point array C to digital signals; and converting the output vector z from the cross-point array A and the cross-point array C to digital signals.
+24. The method of claim 22, further comprising the step of: zero-shifting outputs of the cross-point array A by the zero-weight conductance values from the reference array.
+25. A DNN, comprising: a weight matrix (W) comprising a linear combination of a matrix A and a matrix C, wherein the matrix A and the matrix C store conductance values in separate cross-point arrays A and C of RPU devices, each having conductive row wires orthogonal to conductive column wires, and the RPU devices separating intersections between the conductive row wires and the conductive column wires, whereby the RPU devices comprise weighted connections between neurons in the DNN; and a reference array, interconnected with the cross-point array A, that stores zero-weight conductance values for the RPU devices in the cross-point array A.
+</claims>
+</document>

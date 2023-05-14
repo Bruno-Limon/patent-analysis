@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2019-06-28
+</filing_date>
+
+<publication_date>
+2020-01-30
+</publication_date>
+
+<priority_date>
+2018-07-27
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/08,G16H15/00
+</ipc_classes>
+
+<assignee>
+DRCHRONO
+</assignee>
+
+<inventors>
+NUSIMOW, MICHAEL
+BORGT, MARTIN
+KIVATINOS, DANIEL
+WAYCHAL, SOHAM
+</inventors>
+
+<docdb_family_id>
+69178475
+</docdb_family_id>
+
+<title>
+Neural Network Encoders and Decoders for Claim Adjustment
+</title>
+
+<abstract>
+A machine learning system may be trained to assist physicians with claims by automatically adjusting the claims to make them more likely to be accepted by a payer or by outputting a predicted probability that the claim will be accepted. The machine learning system may use one or more encoders that encode codes, clinical notes, and claims into separate vector spaces, where the vector spaces relate similar entities. The encoded codes, clinical notes, and claims may be decoded by a decoder to predict codes comprising an adjusted claim. Alternatively, the decoder may output a predicted probability that the claim will be accepted for payment. The encoders and the decoder may be machine learning models that are trained using ground-truth training examples.
+</abstract>
+
+<claims>
+1. A computer-implemented method for using a plurality of neural network encoders to recommend adjustments to a claim, the method comprising: training a first neural network encoder to encode codes into a first vector representation, the first vector representation relating codes that are similar; training a second neural network encoder to encode clinical notes into a second vector representation, the second vector representation relating clinical notes that are similar; training a third neural network encoder to encode claims into a third vector representation, the third vector representation relating claims that are similar, wherein the claims comprise one or more codes; training a neural network decoder to accept as input an encoded clinical note and an encoded claim to output one or more predicted codes; generating an adjusted claim by: providing a claim; providing a clinical note; inputting the clinical note to the second neural network encoder to output an encoded clinical note; inputting the claim to the third neural network encoder to output an encoded claim; inputting the encoded clinical note and the encoded claim into the neural network decoder to output the adjusted claim, the adjusted claim comprising one or more codes.
+2. The computer-implemented method of claim 1, wherein the first neural network encoder creates word embeddings of codes by using a skip-gram model.
+3. The computer-implemented method of claim 1, wherein the second neural network encoder is a long short-term memory neural network (LSTM), and the second vector representation is created based on the internal state of the second neural network encoder.
+4. The computer-implemented method of claim 1, wherein the second neural network encoder is trained by: removing a portion of content from a ground-truth clinical note; inputting the ground-truth clinical note with the portion of content removed into the second neural network encoder; and training the second neural network encoder to output the removed portion of content.
+5. The computer-implemented method of claim 1, wherein the third neural network encoder is a long short-term memory (LSTM) neural network, and the third vector representation is created based on the internal state of the third neural network encoder.
+6. The computer-implemented method of claim 1, wherein the third neural network encoder is trained by: removing one or more codes from a ground-truth claim; inputting the ground-truth claim with the one or more codes removed into the third neural network encoder; and training the third neural network encoder to output the one or more removed codes.
+7. The computer-implemented method of claim 1, wherein the neural network decoder is trained by: providing a ground-truth claim; providing a ground-truth clinical note associated with the ground-truth claim; inputting the ground-truth clinical note into the second neural network encoder to output an encoded ground-truth clinical note; removing one or more codes from the ground-truth claim; inputting the ground-truth claim with the one or more codes removed into the third neural network encoder to output an encoded ground-truth claim with the one or more codes removed; inputting the encoded ground-truth clinical note and the encoded ground-truth claim with the one or more codes removed in the neural network decoder, and training the neural network decoder to output the one or more removed codes.
+8. A computer-implemented method for recommending adjustments to a claim, the method comprising: training a first encoder to encode codes into a first vector representation, the first vector representation relating codes that are similar; training a second encoder to encode clinical notes into a second vector representation, the second vector representation relating clinical notes that are similar; training a third encoder to encode claims into a third vector representation, the third vector representation relating claims that are similar, wherein the claims comprise one or more codes; training a decoder to accept as input an encoded clinical note and an encoded claim to output one or more predicted codes; generating an adjusted claim by: providing a claim; providing a clinical note; inputting the clinical note to the second encoder to output an encoded clinical note; inputting the claim to the third encoder to output an encoded claim; inputting the encoded clinical note and the encoded claim into the decoder to output the adjusted claim, the adjusted claim comprising one or more codes.
+9. The computer-implemented method of claim 8, wherein the first encoder creates word embeddings of codes by using a skip-gram model.
+10. The computer-implemented method of claim 8, wherein the second encoder is a long short-term memory neural network (LSTM), and the second vector representation is created based on the internal state of the second encoder.
+11. The computer-implemented method of claim 8, wherein the second encoder is trained by: removing a portion of content from a ground-truth clinical note; inputting the ground-truth clinical note with the portion of content removed into the second encoder; and training the second encoder to output the removed portion of content.
+12. The computer-implemented method of claim 8, wherein the third encoder is a long short-term memory (LSTM) neural network, and the third vector representation is created based on the internal state of the third encoder.
+13. The computer-implemented method of claim 8, wherein the third encoder is trained by: removing one or more codes from a ground-truth claim; inputting the ground-truth claim with the one or more codes removed into the third encoder; and training the third encoder to output the one or more removed codes.
+14. The computer-implemented method of claim 8, wherein the decoder is trained by: providing a ground-truth claim; providing a ground-truth clinical note associated with the claim; inputting the ground-truth clinical note into the second encoder to output an encoded ground-truth clinical note; removing one or more codes from the ground-truth claim; inputting the ground-truth claim with the one or more codes removed into the third encoder to output an encoded ground-truth claim with the one or more codes removed; inputting the encoded ground-truth clinical note and the encoded ground-truth claim with the one or more codes removed into the decoder, and training the decoder to output the one or more removed codes.
+15. A computer-implemented method for recommending adjustments to a claim, the method comprising: training a first encoder to encode codes into a first vector representation; training a second encoder to encode clinical notes into a second vector representation; training a third encoder to encode claims into a third vector representation, wherein the claims comprise one or more codes; training a decoder to accept as input an encoded clinical note and an encoded claim to output one or more predicted codes; generating an adjusted claim by: providing a claim; providing a clinical note; inputting the clinical note to the second encoder to output an encoded clinical note; inputting the claim to the third encoder to output an encoded claim; inputting the encoded clinical note and the encoded claim into the decoder to output the adjusted claim, the adjusted claim comprising one or more codes.
+16. The computer-implemented method of claim 15, wherein the first encoder creates word embeddings of codes by using a skip-gram model.
+17. The computer-implemented method of claim 15, wherein the second encoder is a long short-term memory neural network (LSTM), and the second vector representation is created based on the internal state of the second encoder.
+18. The computer-implemented method of claim 15, wherein the second encoder is trained by: removing a portion of content from a ground-truth clinical note; inputting the ground-truth clinical note with the portion of content removed into the second encoder; and training the second encoder to output the removed portion of content.
+19. The computer-implemented method of claim 15, wherein the third encoder is a long short-term memory (LSTM) neural network, and the third vector representation is created based on the internal state of the third encoder.
+20. The computer-implemented method of claim 15, wherein the third encoder is trained by: removing one or more codes from a ground-truth claim; inputting the ground-truth claim with the one or more codes removed into the third encoder; and training the third encoder to output the one or more removed codes.
+</claims>
+</document>

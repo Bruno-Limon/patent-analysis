@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2019-12-19
+</filing_date>
+
+<publication_date>
+2020-07-23
+</publication_date>
+
+<priority_date>
+2017-12-14
+</priority_date>
+
+<ipc_classes>
+G06F17/15,G06F17/16,G06F7/483,G06N3/04,G06N3/063,G06N3/08
+</ipc_classes>
+
+<assignee>
+CAMBRICON TECHNOLOGIES COMPANY
+</assignee>
+
+<inventors>
+HU SHUAI
+LIU SHAOLI
+SONG, XINKAI
+WANG BINGRUI
+ZHANG YAO
+</inventors>
+
+<docdb_family_id>
+66818979
+</docdb_family_id>
+
+<title>
+INTEGRATED CIRCUIT CHIP APPARATUS
+</title>
+
+<abstract>
+Provided are an integrated circuit chip apparatus and a related product, the integrated circuit chip apparatus being used for executing a multiplication operation, a convolution operation or a training operation of a neural network. The present technical solution has the advantages of a small amount of calculation and low power consumption.
+</abstract>
+
+<claims>
+1. A method for performing a neural network computation using an integrated circuit chip apparatus, wherein the method comprises: receiving an operation instruction; parsing the operation instruction to obtain input data and weight data for a first computation; determining a first complexity of the first computation according to the input data, the weight data, and characteristics of the first computation; determining a first data type for the input data and the weight data in which the first computation is to be performed according to the first complexity, wherein the first data type is a floating point data type or a fixed point data type; and performing the first computation on the input data and the weight data. in the first data type.
+2. The method of claim 1, wherein the determining the first data type further comprises: comparing the first complexity with a preset threshold; if the first complexity is greater than the preset threshold, determining the first data type to be the fixed point data type; and if the first complexity is less than or equal to the preset threshold, determining the first data type to be the floating point data type.
+3. The method of claim 1, the method further comprises: determining that the input data or the weight data are in a second data type different from the first data type; and converting the input data or the weight data from the second data type into the first data type.
+4. The method of claim 3, wherein the first data type is the fixed point data type and the second data type is the floating point data.
+5. The method of claim 1, wherein the first computation is a convolution computation, wherein the input data is convolution input data and the weight data is a convolution kernel, wherein the first complexity=α*MH*kW*M*N*W*C*H, wherein a is a convolution coefficient greater than 1, C, kH, kW, and M are values of four dimensions of the convolution kernel, and N, W, C, and H are values of four dimensions of the convolution input data.
+6. The method of claim 5, further comprising: determining that the first complexity is greater than a preset threshold; determining that the convolution input data or the convolution kernel are in the floating point data type; converting the convolution input data or the convolution kernel into the fixed point data type; and performing the convolution computation on the convolution input data and the convolution kernel in the fixed point data type.
+7. The method of claim 1, wherein the first computation is a matrix-multiply-matrix computation, wherein the input data is a first matrix in the matrix-multiply-matrix computation and the weight data is a second matrix in the matrix-multiply-matrix computation, wherein the first complexity=β*F*G**E*F, wherein β is a matrix coefficient greater than or equal to 1, F and G are row and column values of the first matrix, and E and F are row and column values of the second matrix.
+8. The method of claim 7, the method further comprises: determining that the first complexity is greater than a preset threshold; determining that the first matrix or the second matrix are in the floating point data type; converting the first matrix or the second matrix into the fixed point data type; and performing the matrix-multiply-matrix computation on the first matrix and the second matrix in the fixed point data type.
+9. The method of claim 1, wherein the first computation is a matrix-multiply-vector computation, wherein the input data is a matrix in the matrix-multiply-vector computation, and. the weight data is a vector in the matrix-multiply-vector computation, wherein the first complexity=β*F*G*F, wherein β is a matrix coefficient greater than or equal to 1, F and G are row and column values of the matrix, and F is a column value of the vector.
+10. The method of claim 9, the method further comprises: determining that the first complexity is greater than a preset threshold; determining that the matrix or the vector are in the floating point data type; converting the matrix or the vector into floating point data; and performing the matrix-multiply-vector computation on the matrix and the vector in the fixed point data type.
+11. The method of claim 1, wherein the first computation is one of a bias computation, a fully connected computation, a GEMM computation, a GEMV computation, or an activation computation.
+12. An integrated circuit chip apparatus configured to perform a neural network computation, comprising: an external interface configured to receive a first operation instruction; and a processing circuit configured to: parse the first operation instruction to obtain a first computation to be performed at a layer of the neural network and corresponding input data and weight data for performing the first computation; determine a first complexity of the first computation according to the input data, the weight data, and characteristics of the first computation; determine a first data type for the input data and the weight data in which the first computation is to be performed according to the first complexity, wherein the first data type is a floating point datatype or a fixed point data type; and perform the first computation on the input data and the weight data in the first data type.
+13. The integrated circuit chip apparatus of claim 12, wherein the processing circuit is configured to: compare the first complexity with a preset threshold; if the first complexity is greater than the preset threshold, determine the first data type to be the fixed point data type; and if the first complexity is less than or equal to the preset threshold, determine the first data type to he the floating point data type.
+14. The integrated circuit chip apparatus of claim 12, further comprising a data type conversion circuit, wherein the processing circuit is further configured to determine that the input data or the weight data is in a second data type different from the first data type, and the data type conversion circuit is configured to convert the input data or the weight data from the second data type to the first data type.
+15. The integrated circuit chip apparatus of claim 14, wherein the first data type is the fixed point data type and the second data type is the floating point data.
+16. The integrated circuit chip apparatus of claim 12, wherein the first computation is a convolution computation, wherein the input data is convolution input data, and the weight data is a convolution kernel. wherein the processing circuit is configured to compute the first complexity asα*C*kW*kH*M*N*W*C*H, wherein a is a convolution coefficient greater than 1, C, kH, kW, and M are values of four dimensions of the convolution kernel, and, N, W, C, and H are values of four dimensions of the convolution input data.
+17. The integrated circuit chip apparatus of claim 12, wherein the first computation is a matrix-multiply-matrix computation, wherein the input data is a first matrix in the matrix-multiply-matrix computation, and the weight data is a second matrix in the matrix-multiply-matrix computation, wherein the processing circuit is configured to compute the first complexity as β*F*G*E*F, wherein β is a matrix coefficient greater than or equal to 1, F and G are row and column values of the first matrix, and E and F are row and column values of the second matrix.
+18. The integrated circuit chip apparatus of claim 12, wherein the first computation is a matrix-multiply-vector computation, wherein the input data is a matrix in the matrix-multiply-vector computation, and the weight data is a vector in the matrix-multiply-vector computation, wherein the processing circuit is configured to compute the first complexity as β*F*G*F, wherein β is a matrix coefficient greater than or equal to 1, F and G are row and column values of the matrix, and F is a column value of the vector.
+19. The integrated chip circuit apparatus of claim 12. wherein the first computation includes one or more of a bias computation, a fully connected computation, a GEMM computation, a GEMV computation, or an activation computation.
+20. A processing apparatus, comprising: a neural network computing apparatus configured to perform a neural network computation of a neural network; a general interconnection interface; and a general-purpose processing apparatus connected to the neural network computing apparatus via the general interconnection interface, wherein the neural network computation apparatus is configured to: receive input data and weight data for performing a first computation; determine a first complexity of the first computation according to the input data, the weight data, and characteristics of the first computation; determine a first data type for the input data and the weight data in which the first computation is to be performed according to the first complexity, wherein the first data type is a floating point data type or a fixed point data type; and perform the first computation on the input data and the weight data in the first data type.
+</claims>
+</document>

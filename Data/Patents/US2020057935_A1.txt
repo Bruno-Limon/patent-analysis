@@ -1,0 +1,56 @@
+<document>
+
+<filing_date>
+2017-08-16
+</filing_date>
+
+<publication_date>
+2020-02-20
+</publication_date>
+
+<priority_date>
+2017-03-23
+</priority_date>
+
+<ipc_classes>
+G06F17/15,G06F17/18,G06K9/62,G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+PEKING UNIVERSITY
+</assignee>
+
+<inventors>
+ZHAO HUI
+LI YING
+GAO WEN
+WANG, RONGGANG
+WANG ZHENYU
+DONG, SHENGFU
+WANG, WENMIN
+LI, GE
+LI, ZHIHAO
+</inventors>
+
+<docdb_family_id>
+59193099
+</docdb_family_id>
+
+<title>
+Video action detection method based on convolutional neural network
+</title>
+
+<abstract>
+A video action detection method based on a convolutional neural network (CNN) is disclosed in the field of computer vision recognition technologies. A temporal-spatial pyramid pooling layer is added to a network structure, which eliminates limitations on input by a network, speeds up training and detection, and improves performance of video action classification and time location. The disclosed convolutional neural network includes a convolutional layer, a common pooling layer, a temporal-spatial pyramid pooling layer and a full connection layer. The outputs of the convolutional neural network include a category classification output layer and a time localization calculation result output layer. The disclosed method does not require down-sampling to obtain video clips of different durations, but instead utilizes direct input of the whole video at once, improving efficiency. Moreover, the network is trained by using video clips of the same frequency without increasing differences within a category, thus reducing the learning burden of the network, achieving faster model convergence and better detection.
+</abstract>
+
+<claims>
+1. A video action detection method based on a convolutional neural network (CNN), wherein the convolutional neural network comprises a convolutional layer, a common pooling layer, a temporal-spatial pyramid pooling layer and a full connection layer, wherein the outputs of the convolutional neural network comprise a category classification output layer and a time localization calculation result output layer, the video motion detection method comprising: Step 1: in a training phase, performing the following steps: Step 11) inputting a training video in a CNN model to obtain a feature map; Step 12) acquiring segments of different lengths in the training video, and selecting positive samples and negative samples from the actual video action segments (ground truth) as training samples; Step 13) inputting the corresponding feature region of the training samples in the feature map into the temporal-spatial pyramid pooling layer to obtain a feature expression of uniform size; Step 14) inputting the features of the uniform size into the full connection layer, defining a Loss Function, obtaining a loss value; performing backpropagation, adjusting the parameters in the model, and performing training; and Step 15) gradually reducing the learning rate of training; obtaining the trained model when the training loss is no longer falling; and Step 2: in a detection phase, performing the following steps: Step 21) inputting an entire video to be detected into the trained model obtained in Step 15); Step 22) extracting segments of different lengths in the video to-be-detected, acquiring the feature regions of the corresponding segments in the feature layer of the network, and inputting into the temporal-spatial pyramid pooling layer to obtain a feature expression of uniform size; and Step 23) discriminating the features of uniform size, and obtaining a classification confidence based on the category classification output layer; selecting the classification with the highest confidence, and obtaining the category of the action occurring in the video; obtaining a start time and an end time of the action according to time location output from the output layer, thereby fulfilling video action detection.
+2. A video action detection method according to claim 1, wherein the convolutional neural network model employs a 3D convolutional neural network.
+3. A video action detection method according to claim 1, wherein a temporal-spatial pyramid pooling layer is added to the convolutional neural network, wherein the temporal-spatial pyramid pooling layer is divided into n levels, wherein the size of the last layer of feature map is set as W*H*T, wherein the regions of each level are divided as follows: a first level that includes the entire feature map, having an area size of W*H*T; a k-th level, wherein the entire feature map is divided into 2k-1*2k-1*2k-1 regions, starting from the upper left upper corner, wherein the size of the (2k-1−1)*(2k-1−1)*(2k-1−1) regions in the front left upper corner is └W/2k-1┘*└H/2k-1┘*└T/2k-1┘, wherein the sizes of the remaining areas are obtained from a remainder: (W−└W/2k-1┘*(2k-1−1))*(H−└H/2k-1┘*(2k-1−1))*(T−└T/2k-1┘*(2k-1−1)), where 1<k≤n.
+4. A video action detection method according to claim 1, wherein the positive samples and the negative samples are divided by Intersection-over-Union (IoU) method.
+5. A video action detection method according to claim 1, wherein the Loss Function is defined as:
+description="In-line Formulae" end="lead"?L(p,u,tu,v)=Lcls(p,u)+λ[u≥1]Lloc(tu,v) (1)description="In-line Formulae" end="tail"? where Lcls(p, u)=−log pu; p is the probability distribution of samples over K+1 categories, p=(p0 . . . , pk); tu∩v is the intersection of tu and v, and tu∪v is the union of tu and v; u is the real category; v is the real position of the sample on the time axis, i.e. start time and end time, v=(vb, ve); tu is the calculated position, tu=(tbu, teu); [u≥1] is equal to 1 when the class represented by u is an action, and 0 otherwise, λ is the parameter that controls the balance between the loss values of two tasks, with value ranging from 0 to positive infinity.
+6. A video action detection method according to claim 1, wherein in the training phase, Stochastic Gradient Descent is used in the training phase to train the parameters until convergence.
+</claims>
+</document>

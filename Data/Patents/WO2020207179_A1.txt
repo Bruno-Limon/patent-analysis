@@ -1,0 +1,70 @@
+<document>
+
+<filing_date>
+2020-03-12
+</filing_date>
+
+<publication_date>
+2020-10-15
+</publication_date>
+
+<priority_date>
+2019-04-09
+</priority_date>
+
+<ipc_classes>
+G06F16/483,G06F40/20
+</ipc_classes>
+
+<assignee>
+SHANDONG UNIVERSITY OF SCIENCE AND TECHNOLOGY
+</assignee>
+
+<inventors>
+ZHAO, ZHONGYING
+ZHOU, HUI
+LI CHAO
+YANG, Yonghao
+</inventors>
+
+<docdb_family_id>
+67689504
+</docdb_family_id>
+
+<title>
+METHOD FOR EXTRACTING CONCEPT WORD FROM VIDEO CAPTION
+</title>
+
+<abstract>
+Disclosed is a method for extracting a concept word from a video caption, the method comprising the following steps: carrying out word segmentation processing on a caption text, and deleting punctuation; carrying out stop word and part-of-speech tagging on the caption text subjected to word segmentation; calculating a co-occurrence feature of a target word and an adjacent word; calculating the semantic similarity between the target word and the adjacent word; carrying out concept word marking on a small amount of caption texts subjected to word segmentation, and taking same as a training set; and training, according to the training set, a pre-established semi-supervised learning framework based on a conditional random field to obtain a concept word prediction model, and obtaining a concept word prediction result corresponding to a caption text output by the concept word prediction model. Based on the method for extracting a caption word, the workload of manually tagging corpora is reduced, the accuracy of extracting a concept word from a MOOC video caption scenario is improved, and the actual requirements are satisfied.
+</abstract>
+
+<claims>
+权利要求书
+[权利要求 1] 一种从视频字幕中提取概念词的方法, 其特征在于, 包括如下步骤:
+S l. 对字幕文本进行分词处理, 并删除标点符号; s2. 对分词后的字幕文本进行处理, 获得基于条件随机场的半监督学 习框架所需的若干个特征, 将各个特征的组合转变成特征向量; 其中, 对分词后的字幕文本进行处理的过程如下: s2. 1. 对分词后的字幕文本进行停止词和词性标注;
+s2. 2. 根据分词后的字幕文本计算目标单词和相邻词的共现特征; s2. 3. 根据分词后的字幕文本计算目标单词和相邻词的语义相似度; s2. 4. 对分词后的部分字幕文本进行概念词标记; 其中, 有概念词标 记的字幕文本加入已标记样本集作为训练集, 没有概念词标记的字幕 文本加入未标记样本集;
+s3. 根据训练集对基于条件随机场的半监督学习框架进行训练, 得到 概念词预测模型, 并获取所述概念词预测模型输出的字幕文本对应的 概念词预测结果;
+其中, 基于条件随机场的半监督学习框架进行训练的具体过程如下: s3. 1. 使用训练集对条件随机场模型进行训练, 得到初始的概念词预 测模型;
+s3. 2. 计算未标记样本集中的未标记样本和训练集的相似度; 选取和训练集最相似的一组未标记样本, 然后将该组未标记样本通过 概念词预测模型转变为已标记样本后, 添加到训练集中, 作为更新后 的训练集;
+s3. 3. 利用更新后的训练集对条件随机场算法进行训练, 得到更新后 的概念词预测模型;
+s3. 4. 重复执行步骤 s3. 2和步骤 s3. 3, 对模型进行迭代训练, 直到所 有字幕文本均被标记, 并得到最终的概念词预测模型。
+[权利要求 2] 根据权利要求 1所述的从视频字幕中提取概念词的方法, 其特征在于 所述步骤 si中, 使用开源的 NLTK分词包对字幕文本进行分词处理, 并 删除标点符号。
+[权利要求 3] 根据权利要求 1所述的从视频字幕中提取概念词的方法, 其特征在于 所述步骤 s2. 1具体为:
+s2. 1. 1. 使用开源的 NLTK分词包来指示目标单词是否是停用词, 目标 单词的前一个词是否是停用词, 目标单词的后一个词是否是停用词, 作为目标单词的停止词特征;
+s2. 1. 2. 使用开源的斯坦福词性标记器来标记每个目标单词的词性, 标记目标单词的前一个单词的词性, 标记目标单词的后一个单词的词 性, 作为目标单词的词性特征。
+[权利要求 4] 根据权利要求 1所述的从视频字幕中提取概念词的方法, 其特征在于 所述步骤 s2. 2具体为:
+s2. 2. 1. 计算目标单词与前一个词的共现特征, 即目标单词和前一个 词的共现频率除以目标单词的频率和前一个词的频率的乘积, 并对结 果取以 10为底的对数;
+52. 2. 2. 计算目标单词与后一个词的共现特征, 即目标单词和后一个 词的共现频率除以目标单词的频率和后一个词的频率的乘积, 并对结 果取以 10为底的对数;
+52. 2. 3. 计算目标单词与前、 后两个词的共现特征, 即:
+目标单词和前、 后两个词的共现频率除以目标单词和前一个词的共现 频率以及目标单词和后一个词的共现频率的乘积, 并对结果取以 10为 底的对数。
+[权利要求 5] 根据权利要求 1所述的从视频字幕中提取概念词的方法, 其特征在于 所述步骤 s2. 3具体为:
+s2. 3. 1. 使用预训练的 Word2vec模型获得目标单词的词向量; s2. 3. 2. 使用余弦距离根据所述词向量计算目标单词与前一个单词的 语义相似度;
+s2. 3. 3. 使用余弦距离根据所述词向量计算目标单词与后一个单词的 语义相似度。
+[权利要求 6] 根据权利要求 1所述的从视频字幕中提取概念词的方法, 其特征在于 所述步骤 s2. 4具体为:
+选取分词后的 10%-20%的字幕文本作为训练集, 由两位相关领域的专 家标注者对训练集中的概念进行标注, 只有当两位专家取得一致意见 时, 一个短语才会被标注成概念。
+[权利要求 7] 根据权利要求 1所述的从视频字幕中提取概念词的方法, 其特征在于 所述步骤 s3. 2中, 未标记样本和训练集的相似度计算过程如下: s3. 2. 1. 使用预训练的 Word2vec模型获得目标单词的词向量;
+S3. 2. 2. 使用超参数 a除以 a和句子中的所述目标单词词频估计的和, 作为句子中每个单词的词向量的权重; 将句子内所有单词的词向量的 加权算数平均值作为句子的向量表示;
+使用句子向量之间的余弦距离作为未标记样本和训练集的相似度距离 , 其中, 未标记样本和训练集的相似度距离越小, 则表明未标记样本 与训练集的相似度越高。
+</claims>
+</document>

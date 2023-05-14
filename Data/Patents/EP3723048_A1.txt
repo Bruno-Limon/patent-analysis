@@ -1,0 +1,58 @@
+<document>
+
+<filing_date>
+2020-01-10
+</filing_date>
+
+<publication_date>
+2020-10-14
+</publication_date>
+
+<priority_date>
+2019-04-11
+</priority_date>
+
+<ipc_classes>
+G06T9/00
+</ipc_classes>
+
+<assignee>
+FUJITSU
+</assignee>
+
+<inventors>
+TAN, Zhiming
+WEN, Sihan
+ZHOU, Jing
+</inventors>
+
+<docdb_family_id>
+69157690
+</docdb_family_id>
+
+<title>
+METHOD AND APPARATUS FOR CODING AND DECODING USING A CONVOLUTIONAL NEURAL NETWORK
+</title>
+
+<abstract>
+Embodiments of this disclosure provide an image encoding method and apparatus and image decoding method and apparatus. The image encoding method includes: performing convolutional neural network encoding on image data to be processed to generate feature vectors or feature maps; quantizing the feature vectors or feature maps to generate discrete symbols to be encoded; estimating probabilities of the symbols to be encoded by using a multi-scale context model, wherein the probability estimator comprises multiple mask convolution layers of different scales; and performing entropy encoding according to the probabilities of the symbols to be encoded.
+</abstract>
+
+<claims>
+1. An image encoding apparatus, characterized in that the apparatus comprises: a convolutional neural network encoder configured to encode image data to be processed by using a convolutional neural network to generate feature vectors or feature maps of the image data; a quantizer configured to quantize the feature vectors or feature maps to generate discrete symbols to be encoded; a probability estimator configured to estimate probabilities of the symbols to be encoded by using a multi-scale context model; wherein the probability estimator comprises multiple mask convolution layers of different scales; and an entropy encoder configured to perform entropy encoding according to the probabilities of the symbols to be encoded.
+2. The image encoding apparatus according to claim 1, wherein the multiple mask convolution layers of different scales respectively perform convolutional operations on multiple symbols with a symbol to be encoded as a center;
+and the probability estimator further comprises: a probability model calculating unit configured to calculate a probability model of the symbols to be encoded by using a probability network according to calculation results of the multiple mask convolution layers of different scales; and a first calculating unit configured to calculate the probabilities of the symbols to be encoded according to the probability model.
+3. The image encoding apparatus according to claim 1, wherein the multiple mask convolution layers of different scales respectively perform convolutional operations on multiple symbols with a symbol to be encoded as a center;
+and the probability estimator further comprises: a side information calculating unit configured to calculate side information; a probability model calculating unit configured to calculate a probability model of the symbols to be encoded by using a probability network according to calculation results of the multiple mask convolution layers of different scales and the side information; and a first calculating unit configured to calculate the probabilities of the symbols to be encoded according to the probability model.
+4. The image encoding apparatus according to claim 3, wherein the side information calculating unit comprises: an intermediate data extracting unit configured to extract multiple sets of intermediate data from the convolutional neural network encoder; a multi-scale convolution unit configured to perform convolution operations of different scales on the multiple sets of intermediate data respectively to obtain multiple sets of convolution operation results; and a second calculating unit configured to calculate the side information according to the feature vectors or the feature maps and the multiple sets of convolution operation results.
+5. The image encoding apparatus according to claim 4, wherein the intermediate data are of three sets, and scales of the multi-scale convolution unit are 5×5, 7×7, and 9×9, respectively.
+6. The image encoding apparatus according to any preceding claim, wherein,
+the mask convolution layer is configured to perform convolution operation on the multiple symbols with a symbol to be encoded as a center; wherein a weight of an encoded symbol preceding the symbol to be encoded is set to be 1, and a weight of an unencoded symbol after the symbol to be encoded is set to be 0.
+7. The image encoding apparatus according to any preceding claim, wherein the number of the mask convolution layers is 3, and sizes of the mask convolution layers are 3×3, 5×5, 7×7, respectively.
+8. An image decoding apparatus, characterized in that the apparatus comprises: a probability estimator configured to estimate probabilities of symbols to be decoded currently by using a multi-scale context model; wherein the probability estimator comprises multiple mask convolution layers of different scales; an entropy decoder configured to perform entropy decoding on the symbols to be decoded according to the probabilities to obtain feature vectors or feature maps; and a convolutional neural network decoder configured to decode the feature vectors or the feature maps to generate image data.
+9. The image decoding apparatus according to claim 8, wherein the multiple mask convolution layers of different scales respectively perform convolutional operations on multiple symbols with a symbol to be decoded as a center;
+and the probability estimator further comprises: a probability model calculating unit configured to calculate a probability model of the probabilities of symbols to be decoded by using a probability network according to calculation results of the mask convolution layers; and a third calculating unit configured to calculate the probabilities of the symbols to be decoded according to the probability model.
+10. The image decoding apparatus according to claim 8, wherein the multiple mask convolution layers of different scales respectively perform convolutional operations on multiple symbols with a symbol to be decoded as a center;
+and the probability estimator further comprises: a side information calculating unit configured to calculate side information; a probability model calculating unit configured to calculate a probability model of the symbols to be decoded by using a probability network according to calculation results of the mask convolution layers and the side information; and a third calculating unit configured to calculate the probabilities of the symbols to be decoded according to the probability model.
+</claims>
+</document>

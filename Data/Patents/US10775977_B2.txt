@@ -1,0 +1,58 @@
+<document>
+
+<filing_date>
+2019-01-25
+</filing_date>
+
+<publication_date>
+2020-09-15
+</publication_date>
+
+<priority_date>
+2019-01-25
+</priority_date>
+
+<ipc_classes>
+G06F3/0484,G06F9/30,G06N3/08,H04N5/232
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+SOWDEN, PAUL
+IKEMOTO, LESLIE
+</inventors>
+
+<docdb_family_id>
+68296684
+</docdb_family_id>
+
+<title>
+Image display with selective depiction of motion
+</title>
+
+<abstract>
+Implementations described herein relate to methods, devices, and computer-readable media to display a motion image that includes a plurality of frames. In some implementations, a computer-implemented method includes determining a motion score for the motion image based on the plurality of frames. The method further includes determining whether the motion score meets a display threshold. If the motion score meets the display threshold, the method further includes causing the motion image to be displayed with subject motion by displaying the plurality of frames of the motion image in succession. If the motion score does not meet the display threshold, the method further includes causing the motion image to be displayed without subject motion by displaying a particular frame of the motion image.
+</abstract>
+
+<claims>
+1. A computer-implemented method to display a motion image that includes a plurality of frames, the method comprising: determining a motion score for the motion image based on the plurality of frames of the motion image, wherein the determining comprises: determining, based on respective pixel values of the plurality of frames, a level of stability of a background portion of the motion image, a type of a subject of the motion image, and a level of movement of the subject in the motion image; and calculating the motion score based on the level of stability, the type of the subject, and the level of movement of the subject; determining whether the motion score meets a display threshold; if the motion score meets the display threshold, causing the motion image to be displayed with subject motion by displaying the plurality of frames of the motion image in succession; and if the motion score does not meet the display threshold, causing the motion image to be displayed without subject motion by displaying a particular frame of the plurality of frames of the motion image.
+2. The computer-implemented method of claim 1, wherein the motion image is displayed in a user interface that includes one or more other images, and wherein if the motion score meets the display threshold, a size of the motion image in the user interface is larger than at least one of the one or more other images.
+3. The computer-implemented method of claim 1, wherein the motion image is displayed as part of a user interface that includes one or more other images, the method further comprising: determining a respective motion score of the one or more other images; and selecting the display threshold based on the respective motion scores, wherein the selecting comprises: determining a number of the one or more other images that are associated with respective motion scores higher than the motion score of the motion image; if the number is equal to or higher than a threshold number, setting the display threshold higher than the motion score of the motion image; and if the number is lower than the threshold number, setting the display threshold lower than the motion score of the motion image.
+4. The computer-implemented method of claim 3, further comprising determining the threshold number based at least in part on a number of execution threads of a software application that displays the motion image.
+5. The computer-implemented method of claim 1, wherein the type of subject is landscape or inanimate object, and wherein calculating the motion score comprises setting the motion score to a value less than the display threshold.
+6. The computer-implemented method of claim 1, wherein calculating the motion score comprises: determining whether the level of movement of the subject meets a threshold level of movement; if it is determined that the level of movement of the subject meets the threshold level of movement, setting the motion score to a value that meets the display threshold; and if it is determined that the level of movement of the subject does not meet the threshold level of movement, setting the motion score to a value that does not meet the display threshold.
+7. The computer-implemented method of claim 6, wherein a first type of subject is face and a second type of subject is body, and wherein a first threshold level of movement associated with the face is lower than a second threshold level of movement associated with the body.
+8. The computer-implemented method of claim 1, wherein determining the motion score for the motion image further comprises setting the motion score to a value that meets the display threshold if a count of views of the motion image meets a viewership threshold or if at least one motion artifact was created based on the motion image.
+9. The computer-implemented method of claim 1, wherein determining the motion score for the motion image comprises applying a trained machine-learning model that comprises a neural network that includes a plurality of nodes organized in a plurality of layers and that is configured to determine motion scores, wherein the motion image is provided as an input to the trained machine-learning model.
+10. The computer-implemented method of claim 1, wherein the motion image is captured by a client device and stored in a volatile memory of the client device, the method further comprising: determining that the motion score meets a storage threshold; if the motion score meets the storage threshold, storing the motion image in a non-volatile memory of the client device; and if the motion score does not meet the storage threshold, automatically changing the motion image to a static image, wherein the static image includes only a particular frame of the plurality of frames and has a smaller file-size than the motion image, wherein the changing comprises removing other frames of the plurality of frames; and storing the static image in the non-volatile memory of the client device.
+11. A device to display a motion image that comprises a plurality of frames, the device comprising: a processor; and a non-transitory computer readable medium with instructions stored thereon that, when executed by the processor cause the processor to perform operations comprising: determining a level of stability of a background portion of the motion image; determining a type of a subject of the motion image and a level of movement of the subject in the motion image; determining a motion score for the motion image based on the plurality of frames, by applying a trained machine-learning model that comprises a neural network that includes a plurality of nodes organized in a plurality of layers, the trained machine-learning model stored on the device and configured to determine motion scores, wherein the motion image is provided as an input to the trained machine-learning model and the level of stability of the background portion, the type of the subject, and the level of movement of the subject are provided to the trained machine-learning model as further inputs; determining whether the motion score meets a display threshold; if the motion score meets the display threshold, causing the motion image to be displayed with subject motion by displaying the plurality of frames of the motion image in succession; and if the motion score does not meet the display threshold, causing the motion image to be displayed without subject motion by displaying a particular frame of the plurality of frames of the motion image.
+12. The device of claim 11, wherein the operations further comprise: determining that a count of views of the motion image meets a viewership threshold or that a motion artifact was created from the motion image; and in response to the determination, updating the trained machine-learning model, wherein updating the trained machine-learning model comprises at least one of: adjusting a weight of at least one of the plurality of nodes; and updating a connection between at least one pair of nodes of the plurality of nodes.
+13. The device of claim 11, wherein the operations further comprise: receiving user input to display the motion image as a static image by displaying only a particular frame of the plurality of frames; and in response to the user input, updating the trained machine-learning model, wherein updating the trained machine-learning model comprises at least one of: adjusting a weight of one of the plurality of nodes; and updating a connection between a pair of nodes of the plurality of nodes.
+14. The device of claim 11, further comprising a camera, wherein the motion image is captured with the camera and stored in volatile memory of the device, and wherein the operations further comprise: determining whether the motion score meets a storage threshold; if the motion score meets the storage threshold, storing the motion image in a non-volatile memory of the device; and if the motion score does not meet the storage threshold, automatically changing the motion image to a static image, wherein the static image includes only a particular frame of the plurality of frames and has a smaller file-size than the motion image, wherein the changing comprises: removing other frames of the plurality of frames; and storing the static image in the non-volatile memory of the device.
+15. A non-transitory computer readable medium with instructions stored thereon that, when executed by a processor, cause the processor to perform operations comprising: determining a level of stability of a background portion of a motion image; determining a type of a subject of the motion image and a level of movement of the subject in the motion image; determining a motion score for a motion image based on the level of stability, the type of the subject, and the level of movement of the subject; determining whether the motion score meets a display threshold; if the motion score meets the display threshold, causing the motion image to be displayed with subject motion by displaying the plurality of frames of the motion image in succession; and if the motion score does not meet the display threshold, causing the motion image to be displayed without subject motion by displaying a particular frame of the plurality of frames of the motion image.
+16. The non-transitory computer readable medium of claim 15, with further instructions stored thereon that, when executed by the processor, cause the processor to perform operations comprising: determining a respective motion score of one or more other images; and selecting the display threshold based on the respective motion scores, wherein the selecting comprises: determining a number of the one or more other images that are associated with respective motion scores higher than the motion score of the motion image; if the number is equal to or higher than a threshold number, setting the display threshold higher than the motion score of the motion image; and if the number is lower than the threshold number, setting the display threshold lower than the motion score of the motion image.
+</claims>
+</document>

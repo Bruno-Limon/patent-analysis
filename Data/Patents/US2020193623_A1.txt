@@ -1,0 +1,78 @@
+<document>
+
+<filing_date>
+2019-12-16
+</filing_date>
+
+<publication_date>
+2020-06-18
+</publication_date>
+
+<priority_date>
+2018-12-18
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06T7/50,G06T7/73
+</ipc_classes>
+
+<assignee>
+SAMSUNG ELECTRONICS COMPANY
+</assignee>
+
+<inventors>
+WANG QIANG
+MA LIN
+KIM, YUN TAE
+LIU ZHIHUA
+LEE, HYONG EUK
+MAO, YAMIN
+GAO, TIANHAO
+</inventors>
+
+<docdb_family_id>
+71073625
+</docdb_family_id>
+
+<title>
+METHOD AND APPARATUS FOR CALCULATING DEPTH MAP
+</title>
+
+<abstract>
+Disclosed is a depth map calculation method and apparatus. The depth map calculation method includes calculating a global sparse depth map corresponding to a current frame using frames including the current frame, calculating a local dense depth map corresponding to the current frame using the current frame, extracting a non-static object region from the current frame by masking a static object region, removing the non-static object region from the global sparse depth map, and generating a global dense depth map corresponding to the current frame by merging the non-static object region-removed global sparse depth map and the local dense depth map.
+</abstract>
+
+<claims>
+1. A depth map calculating method, comprising: calculating a global sparse depth map corresponding to a current frame using frames including the current frame; calculating a local dense depth map corresponding to the current frame using the current frame; extracting a non-static object region from the current frame by masking a static object region; removing the non-static object region from the global sparse depth map; and generating a global dense depth map corresponding to the current frame by merging the non-static object region-removed global sparse depth map and the local dense depth map.
+2. The depth map calculating method of claim 1, wherein the calculating of the global sparse depth map comprises: calculating depth information corresponding to one or more pixel points in the current frame; estimating pose information of a camera corresponding to the current frame; and calculating three-dimensional (3D) coordinates of the one or more pixel points based on the depth information and the pose information of the camera.
+3. The depth map calculating method of claim 1, further comprising: updating pose information of a camera corresponding to the current frame based on the global dense depth map.
+4. The depth map calculating method of claim 3, further comprising: updating the global sparse depth map based on the updated pose information of the camera.
+5. The depth map calculating method of claim 1, wherein the calculating of the global sparse depth map comprises: calculating first depth information corresponding to a key frame of a timepoint previous to the current frame, from among the frames; calculating second depth information corresponding to the current frame; estimating pose information of a camera corresponding to the current frame based on the first depth information and the second depth information; and calculating the global sparse depth map based on the second depth information and the pose information of the camera.
+6. The depth map calculating method of claim 5, wherein the calculating of the second depth information comprises performing stereo matching of a right image and a left image in the current frame.
+7. The depth map calculating method of claim 5, wherein the pose information of the camera comprises any one or any combination one of rotation information and translation information changing, in response to the camera moving from a first location to a second location.
+8. The depth map calculating method of claim 1, wherein the calculating of the local dense depth map comprises: obtaining outputs of an artificial neural network corresponding to depth information of pixel points by inputting the current frame including the pixel points into the artificial neural network; and calculating the local dense depth map based on the outputs.
+9. The depth map calculating method of claim 1, wherein the extracting comprises: obtaining outputs of an artificial neural network classified into a static object region and a non-static object region by inputting the current frame into the artificial neural network; and extracting the non-static object region based on the outputs.
+10. The depth map calculating method of claim 1, wherein the generating comprises: dividing the local dense depth map into a grid of cells; updating depth information of pixel points corresponding to corner points of the grid cells based on the non-static object region-removed global sparse depth map; and updating depth information of pixel points in inner regions of the grid cells based on the non-static object region-removed global sparse depth map and the updated depth information of the pixel points corresponding to the corner points.
+11. The depth map calculating method of claim 1, wherein the calculating of the local dense depth map comprises: calculating a right feature map corresponding to a right image and a left feature map corresponding to a left image by inputting the right image and the left image in the current frame into a feature extractor; obtaining initial matching cost data of matching pixels between the left image and the right image based on the right feature map and the left feature map; predicting matching cost data by inputting the initial matching cost data into an artificial neural network; calculating respective depth information of the matching pixels based on the matching cost data; and calculating the local dense depth map based on the respective depth information.
+12. The depth map calculating method of claim 11, wherein the feature extracting module comprises a left convolutional neural network (CNN) into which the left image is input and a right CNN into which the right image is input, and the left CNN and the right CNN share a weight.
+13. The depth map calculating method of claim 11, wherein the obtaining of the initial matching cost data comprises obtaining the initial matching cost data by connecting the right feature map and the left feature map.
+14. The depth map calculating method of claim 11, wherein the predicting of the matching cost data comprises predicting the matching cost data based on an hourglass artificial neural network and the initial matching cost data.
+15. The depth map calculating method of claim 11, wherein the calculating of the depth information comprises: performing a spatial convolution operation with respect to the matching cost data using a CNN; estimating a disparity of matching pixels between the left image and the right image based on a result of performing the spatial convolution operation; and calculating the depth information based on the disparity.
+16. The depth map calculating method of claim 15, wherein the performing of the spatial convolution operation comprises: obtaining matching cost layers by performing a division with respect to the matching cost data based on a direction set for the matching cost data; and performing a convolution operation sequentially with respect to the matching cost layers based on the direction.
+17. The depth map calculating method of claim 16, wherein the performing of the convolution operation sequentially comprises performing the convolution operation after accumulating a convolution result of a matching cost layer previous to a matching cost layer, when performing the convolution operation with respect to the matching cost layer.
+18. The depth map calculating method of claim 15, wherein the estimating of the disparity of the matching pixels comprises: obtaining a disparity probability distribution of matching pixels between the left image and the right image based on the result of performing the spatial convolution operation and a softmax function; and estimating the disparity based on the disparity probability distribution.
+19. The depth map calculating method of claim 1, wherein the extracting comprises: calculating a feature map corresponding to the current frame by inputting the current frame into a feature extracting module; obtaining category attribute information of objects in the current frame based on the feature map; and obtaining state information of the objects included in the current frame based on the category attribute information.
+20. The depth map calculating method of claim 19, wherein the obtaining of the state information comprises: determining optical flow information between the current frame and a frame previous to the current frame; and obtaining the state information based on the optical flow information and the category attribute information.
+21. A non-transitory computer-readable storage medium storing instructions that, when executed by a processor, cause the processor to perform the depth map calculating method of claim 1.
+22. A depth map calculating apparatus, comprising: a camera configured to acquire frames including a current frame; and a processor configured to calculate a global sparse depth map corresponding to the current frame using the frames, calculate a local dense depth map corresponding to the current frame using the current frame, extract a non-static object region from the current frame by masking a static object region, remove the non-static object region from the global sparse depth map, and generate a global dense depth map corresponding to the current frame by merging the non-static object region-removed global sparse depth map and the local dense depth map.
+23. The depth map calculating apparatus of claim 22, wherein the processor is further configured to calculate depth information corresponding to one or more pixel points included in the current frame, and to calculate three-dimensional (3D) coordinates of the one or more pixel points based on the depth information.
+24. The depth map calculating apparatus of claim 23, wherein the processor is further configured to update pose information of a camera corresponding to the current frame based on the global dense depth map.
+25. The depth map calculating apparatus of claim 24, wherein the processor is further configured to update the global sparse depth map based on the updated pose information of the camera.
+26. The depth map calculating apparatus of claim 22, wherein the processor is further configured to: calculate first depth information corresponding to a key frame from among the frames, calculate second depth information corresponding to the current frame, estimate pose information of a camera corresponding to the current frame based on the first depth information and the second depth information, and calculate the global sparse depth map based on the second depth information and the pose information of the camera.
+27. The depth map calculating apparatus of claim 25, wherein the processor is further configured to perform stereo matching of a right image and a left image in the current frame.
+28. The depth map calculating apparatus of claim 22, wherein the processor is further configured to obtain outputs of an artificial neural network corresponding to depth information of pixel points by inputting the current frame including the pixel points into the artificial neural network, and to calculate the local dense depth map based on the outputs.
+29. The depth map calculating apparatus of claim 22, wherein the processor is further configured to obtain outputs of an artificial neural network classified into a static object region and a non-static object region by inputting the current frame into the artificial neural network, and to extract the non-static object region based on the outputs.
+30. The depth map calculating apparatus of claim 22, wherein the processor is further configured to: divide the local dense depth map into a grid of cells, update depth information of pixel points corresponding to corner points of the grid cells based on the non-static object region-removed global sparse depth map, and update depth information of pixel points in inner regions of the grid cells based on the non-static object region-removed global sparse depth map and the updated depth information of the pixel points corresponding to the corner points.
+31. The depth map calculating apparatus of claim 22, wherein the processor is further configured to calculate a right feature map corresponding to a right image and a left feature map corresponding to a left image by inputting the right image and the left image in the current frame into a feature extractor, obtain initial matching cost data of matching pixels between the left image and the right image based on the right feature map and the left feature map, predict matching cost data by inputting the initial matching cost data into an artificial neural network, calculate respective depth information of the matching pixels based on the matching cost data, and calculate the local dense depth map based on the respective depth information.
+</claims>
+</document>

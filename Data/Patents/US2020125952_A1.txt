@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2019-12-20
+</filing_date>
+
+<publication_date>
+2020-04-23
+</publication_date>
+
+<priority_date>
+2017-02-10
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+SYNAPTICS
+</assignee>
+
+<inventors>
+MOSAYYEBPOUR, SAEED
+THORMUNDSSON, TRAUSTI
+</inventors>
+
+<docdb_family_id>
+70280778
+</docdb_family_id>
+
+<title>
+RECURRENT NEURAL NETWORK BASED ACOUSTIC EVENT CLASSIFICATION USING COMPLEMENT RULE
+</title>
+
+<abstract>
+An acoustic event detection and classification system includes a start-end point detector and multi-class acoustic event classification. A classification training system comprises a neural network configured to perform classification of input data, a training dataset including pre-segmented, labeled training samples, and a classification training module configured to train the neural network using the training dataset. The classification training module includes a forward pass processing module, and a backward pass processing module. The backward pass processing module is configured to determine whether a current frame is in a region of target (ROT), determine ROT information such as beginning and length of the ROT and update weights and biases using a cross-entropy cost function and a many-or-one detection (MOOD) cost function. The backward pass module further computes a soft target value using ROT information and computes a signal output error using the soft target value and network output value.
+</abstract>
+
+<claims>
+1. A method for training a neural network for acoustic event classification comprising: receiving a stream of training data including a plurality of input samples having segmented labeled data; computing a network output for each input sample in a forward pass through the training data; and updating weights and biases through a backward pass through the neural network, including determining whether an input frame is in a Region of Target (ROT), estimating the update of the weights and the biases of the neural network based on a cross-entropy cost function for non-ROT frames and a many-or-one detection (MOOD) cost function for ROT frames; wherein the network is trained using the MOOD cost function to cause the neural network to spike at least one time during a duration of the acoustic event.
+2. The method of claim 1, wherein the neural network is trained for phenome recognition using a multi-class classification.
+3. The method of claim 2, wherein updating weights and biases through the backward pass through the neural network further comprises computing a signal error for all output nodes using the cross-entropy cost function for non-ROT regions.
+4. The method of claim 2, further comprising computing a soft target for all the frames of the ROT.
+5. The method of claim 1, further comprising finding ROT information, including a beginning and length of the ROT.
+6. The method of claim 1, wherein adaptively learning to improve a convergence rate comprises determining a momentum for the weights and biases of an output layer, and computing root mean square of gradients for weights and biases not in the output layer.
+7. The method of claim 1, wherein the neural network is trained for acoustic event detection, and wherein the neural network is trained to generate a spike when the acoustic event is detected.
+8. The method of claim 7, further comprising: calculating a signal output error for each network output based on the determination of whether the input frame is in the ROT; and updating the weights and biases during a backward pass based on the calculated signal output error.
+9. The method of claim 8, wherein updating the weights and biases during the backward pass further comprises applying a cross-entropy cost function if the input frame is not in the ROT.
+10. The method of claim 9, wherein calculating the signal output error for each output comprises: obtaining ROT information for the input frame, including a length and beginning of the ROT; computing a soft target value using the ROT information; and computing the signal output error using the computed soft target value and network output value.
+11. A classification training system comprising: a neural network configured to classify audio input data; a training dataset providing segmented labeled audio training examples; and a classification training module configured to train the neural network using the segmented labeled training data, the classification training module comprising a forward pass processing module, and a backward pass processing module; wherein the forward pass processing module is configured to train the neural network by generating neural network outputs for the training data using a current value of weights and biases for the neural network; and wherein the backward pass processing module is configured to train the neural network by updating the weights and biases by passing backward through generated neural network outputs, determining whether an input frame is in a Region of Target (ROT), applying a many-or-one detection (MOOD) cost function for ROT frames, and adaptively learning to improve a convergence rate of the neural network.
+12. The training system of claim 11, wherein the weights and biases are updated by computing signal error for all out nodes using a cross-entropy cost function for non-ROT regions.
+13. The training system of claim 12, wherein the neural network is a recurrent neural network; and wherein the weights and biases are updated by improving the convergence rate of the recurrent neural network using an adaptive learning rate algorithm.
+14. The training system of claim 13, further comprising a memory storing an ROT table; and wherein the backward pass module comprises an ROT information module configured to find a beginning and a length of the ROT using a ROT table.
+15. The training system of claim 14, wherein the backward pass module comprises a soft target module configured to compute a soft target for all the frames of the ROT.
+16. The training system of claim 15, wherein the soft target module is further configured to compute the signal output error using the computed soft target value and network output value.
+17. The training system of claim 11, wherein the classification training module is configured to train for audio event recognition using a multi-class classification.
+18. The training system of claim 11, wherein the classification training module is configured to train for keyword spotting.
+19. The training system of claim 11, wherein two cost functions are used to compute a signal error, wherein the two cost functions comprise a cross-entropy cost function for non-ROT frames, and the MOOD cost function for ROT frames.
+20. The training system of claim 11, wherein adaptively learning to improve a convergence rate of the neural network comprises determining a momentum for the weights and biases of an output layer and computing a root mean square of gradients for the weights and biases.
+</claims>
+</document>

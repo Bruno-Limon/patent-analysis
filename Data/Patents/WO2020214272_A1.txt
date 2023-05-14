@@ -1,0 +1,105 @@
+<document>
+
+<filing_date>
+2020-03-06
+</filing_date>
+
+<publication_date>
+2020-10-22
+</publication_date>
+
+<priority_date>
+2019-04-15
+</priority_date>
+
+<ipc_classes>
+G02B27/01,G06F3/16,G06T19/00
+</ipc_classes>
+
+<assignee>
+MAGIC LEAP
+</assignee>
+
+<inventors>
+WOODS, MICHAEL JANUSZ
+WAN, SHENG
+</inventors>
+
+<docdb_family_id>
+72747377
+</docdb_family_id>
+
+<title>
+SENSOR FUSION FOR ELECTROMAGNETIC TRACKING
+</title>
+
+<abstract>
+Head-mounted augmented reality (AR) devices can track pose of a wearer's head or pose of a hand-held user input device to enable wearer interaction in a three-dimensional AR environment. A pose sensor (e.g., an inertial measurement unit) in the user input device can provide data on pose (e.g., position or orientation) of the user input device. An electromagnetic (EM) tracking system can also provide pose data. For example, the handheld user input device can include an EM emitter that generates an EM field, and the head-mounted AR device can include an EM sensor that senses the EM field. The AR device can combine the output of the pose sensor and the EM tracking system to reduce drift in the estimated pose of the user input device or to transform the pose into a world coordinate system used by the AR device. The AR device can utilize a Kalman filter to combine the output of the pose sensor and the EM tracking system.
+</abstract>
+
+<claims>
+1. A wearable system comprising:
+a head-mounted display;
+a handheld user input device comprising an inertial measurement unit (IMU); an electromagnetic (EM) tracking system comprising:
+an EM emitter disposed in or on the handheld user input device, the EM emitter configured to generate an EM field; and
+an EM sensor disposed in or on the head-mounted display, the EM sensor configured to sense the EM field,
+wherein the EM tracking system is configured to output an EM field matrix associated with an estimated pose of the EM sensor relative to the EM emitter; and
+a hardware processor programmed to:
+access IMU data from the IMU, the IMU data representative of an estimated pose of the handheld user input device in a reference frame associated with the handheld user input device;
+access the EM field matrix from the EM tracking system;
+calculate a predicted EM field matrix representative of a predicted pose of the handheld user input device in a world reference frame associated with an environment of the wearable system;
+generate an error state based at least partly on the EM field matrix and the predicted EM field matrix, the error state representing at least one of: bias or noise in the IMU, or an offset between the reference frame of the handheld user input device and the world reference frame;
+apply a Kalman filter to the IMU data based on the error state; and determine, using the Kalman filter, a pose of the handheld user input device in the world reference frame.
+2. The wearable system of claim 1, wherein the IMU comprises at least one of an accelerometer or a gyroscope.
+3. The wearable system of claim 1 or claim 2, wherein to calculate the predicted EM field matrix, the hardware processor is programmed to: calculate an estimate for the EM emitter pose in the world reference frame; and
+calculate an estimate for the EM sensor pose in the world reference frame; and calculate a relative pose between the EM emitter pose in the world reference frame and the EM sensor pose in the world reference frame.
+4. The wearable system of claim 3, wherein to calculate the estimate for the EM emitter pose in the world reference frame, the hardware processor is programmed to:
+access a pose of the handheld user input device in the world reference frame; and
+apply EM transmitter extrinsics configured to adjust for position of the EM emitter relative to a fiducial position of the handheld user input device.
+5. The wearable system of claim 4, wherein the EM transmitter extrinsics comprise a displacement between the position of the EM emitter and the fiducial position of the handheld user input device.
+6. The wearable system of any one of claims 3 to 5, wherein to calculate the estimate for the EM sensor in the world reference frame, the hardware processor is programmed to:
+access an estimate for a pose for the head-mounted display; and apply EM receiver extrinsics configured to adjust for position of the EM sensor relative to a fiducial position of the head-mounted display.
+7. The wearable system of claim 6, wherein the EM receiver extrinsics comprise a displacement between the position of the EM sensor and the fiducial position of the headmounted display.
+8. The wearable system of any one of claims 1 to 7, wherein the hardware processor is further programmed to perform an initialization procedure comprising one or more of:
+calculate the predicted pose of the handheld user input device based on a pose determined from the EM tracking system; or
+resolve an ambiguity in orientation of the handheld user input device.
+9. The wearable system of claim 8, wherein to resolve the ambiguity in orientation of the handheld user input device, the hardware processor is programmed to: execute a first thread in which an initial orientation of the handheld user input device is located in a first hemisphere, the first thread determining a first estimate of the pose of the handheld user input device in the world reference frame; and
+execute a second thread in which the initial orientation of the handheld user input device is located in a second hemisphere opposite from the first hemisphere, the second thread determining a second estimate of the pose of the handheld user input device in the world reference frame.
+10. The wearable system of claim 9, wherein the hardware processor is programmed to terminate execution of either the first thread or the second thread when the first estimate or the second estimate, respectively, diverges from a true pose of the handheld user input device.
+11. The wearable system of any one of claims 1 to 10, wherein the hardware processor is programmed to perform an error detection routine, wherein in response to determination of an error, the system performs a corrective action.
+12. The wearable system of claim 11, wherein the error detection routine comprises determining that a distance between the EM emitter and the EM sensor exceeds a threshold distance.
+13. The wearable system of claim 11 or claim 12, wherein the corrective action comprises re-initializing the system.
+14. The wearable system of any one of claims 1 to 13, wherein the hardware processor is further programmed to:
+present, via the head-mounted display, virtual content to a user of the wearable system; or
+enable interaction with an environment of the wearable system based at least partly on movement or rotation of the handheld user input device.
+15. A wearable system comprising:
+a head-mounted display;
+a handheld user input device comprising an inertial measurement unit (IMU); an electromagnetic (EM) tracking system comprising:
+one or more EM emitter configured to generate an EM field; and one or more EM sensor configured to sense the EM field, wherein the EM tracking system is configured to output an EM field matrix associated with an estimated pose of the one or more EM sensor relative to the one or more EM emitter; and
+an inertial navigation system (INS) configured to:
+access IMU data from the IMU;
+access the EM field matrix from the EM tracking system; and apply a data fusion algorithm to the IMU data and the EM field matrix to generate a predicted pose of the handheld user input device in a world frame associated with the wearable system.
+16. The wearable system of claim 15, wherein the one or more EM emitter is disposed in or on the handheld user input device and the one or more EM sensor is disposed in or on the head-mounted display.
+17. The wearable system of claim 15 or claim 16, wherein the one or more EM sensors comprise a first EM sensor positioned on a left side of the head-mounted display and a second EM sensor positioned on the right side of the head-mounted display.
+18. The wearable system of any of claims 17, wherein the EM field matrix is determined based on a first weighting associated with the first EM sensor and a second weighting associated with the second EM sensor.
+19. The wearable system of claim 18, wherein the weightings are determined based on respective distances between the sensors and the handheld user input device.
+20. The wearable system of claim 15 or claim 16, wherein the data fusion algorithm comprises a Kalman filter.
+21. The wearable system of any one of claims 15 to 19, wherein the INS is configured to generate an error state based on a comparison of the EM field matrix and a predicted EM field matrix representative of the predicted pose of the handheld user input device.
+22. The wearable system of any one of claims 15 to 18, wherein the predicted pose comprises a six degree of freedom pose.
+23. A method of calculating a pose of a handheld user input device for a wearable system, the method comprising: under control of an inertial navigation system (INS) comprising computer hardware:
+accessing pose data from a pose sensor associated with the handheld user input device;
+accessing electromagnetic (EM) tracking data associated with an EM tracking system associated with the handheld user input device;
+applying a data fusion technique to combine the pose data and the EM tracking data; and
+determining a pose of the handheld user input device in a reference frame associated with an environment of the wearable system.
+24. The method of claim 23, wherein the pose sensor comprises an inertial measurement unit.
+25. The method of claim 23 or claim 24, wherein the pose sensor comprises an accelerometer, a gyroscope, a magnetometer, or an optical sensor.
+26. The method of any one of claims 23 to 25, wherein the EM tracking system comprises an EM emitter and an EM sensor.
+27. The method of claim 26, wherein the EM emitter is disposed in or on the user input device.
+28. The method of any one of claims 23 to 27, wherein the data fusion technique comprises a Kalman filter.
+29. An INS configured to perform the method of any one of claims 20 to 25.
+30. A wearable system comprising:
+the handheld user input device;
+the EM tracking system; and
+the INS of claim 26.
+</claims>
+</document>

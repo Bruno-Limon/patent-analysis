@@ -1,0 +1,61 @@
+<document>
+
+<filing_date>
+2017-09-21
+</filing_date>
+
+<publication_date>
+2020-04-28
+</publication_date>
+
+<priority_date>
+2017-09-21
+</priority_date>
+
+<ipc_classes>
+G06F11/07,G06F11/34,G06F9/50,G06F9/52,G06N20/00,G06N20/20,G06N99/00,H04L12/24,H04L12/26
+</ipc_classes>
+
+<assignee>
+SAP
+</assignee>
+
+<inventors>
+ADIBOWO, SASMITO
+</inventors>
+
+<docdb_family_id>
+65720281
+</docdb_family_id>
+
+<title>
+Scalable, multi-tenant machine learning architecture for cloud deployment
+</title>
+
+<abstract>
+Implementations of the present disclosure include methods, systems, and computer-readable storage mediums for training ML models in aPaaS architectures including actions of receiving, at a training master provided using a first VM, a training request to train a ML model, the training request being received from a first tenant in a multi-tenant, aPaaS architecture, initiating, by the training master, training of the ML model by a training worker provided using a second VM, during training of the ML model, periodically updating training storage metadata based on metadata describing progress of the training of the ML model, and in response to completion of the training of the ML model, storing a trained ML model in a model storage of the aPaaS architecture.
+</abstract>
+
+<claims>
+1. A computer-implemented method executed by one or more processors for training and using machine learning (ML) models in application platform-as-a-service (aPaaS) architectures, the method comprising: receiving, at a training master provided using a virtual machine (VM), a training request to train a ML model, the training request being received from a first tenant in a multi-tenant, aPaaS architecture; in response to the training request, training the ML model using a first training worker provided using a first VM, the first VM being stateless; and during training of the ML model, determining that a universally unique identifier (UUID) event has occurred, the UUID event comprising one of clearing a UUID of the first training worker and changing training workers for training the ML model, and in response: assigning a UUID to a second training worker, retrieving training storage metadata that indicates a training status of the ML model from a plurality of training statuses, initiating, by the training master, training of the ML model by the second training worker provided using a second VM, the training being executed based on the training status, and the second VM being stateless, during training of the ML model, periodically updating the training storage metadata based on metadata describing progress of the training of the ML model and monitoring for occurrence of one or more UUID events, and in response to completion of the training of the ML model, storing a trained ML model in a model storage of the aPaaS architecture.
+2. The method of claim 1, wherein initiating training of the ML model is performed in response to determining that the ML model is able to be trained based on one or more of a status of the ML model, and a timestamp associated with the ML model.
+3. The method of claim 1, further comprising, during training of the ML model, scaling, by a training instance provisioner, a number of instances of training workers based on one or more of a number of pending training requests, and a number of completed trainings.
+4. The method of claim 1, further comprising determining that training of the ML model by the second training worker provided using the second VM was incomplete, and in response continuing training of the ML model by a third training worker provided using a third VM.
+5. The method of claim 4, wherein training of the ML model is continued based on the metadata describing progress of the training of the ML model stored in the training storage metadata.
+6. The method of claim 1, further comprising: receiving, by an inference worker provided using a third VM, an inference request to provide an inference result using the trained ML model; and processing the inference request to return the inference result.
+7. The method of claim 1, wherein the second VM comprises more computing resources than the first VM.
+8. A non-transitory computer-readable storage medium coupled to one or more processors and having instructions stored thereon which, when executed by the one or more processors, cause the one or more processors to perform operations for training machine learning (ML) models in application platform-as-a-service (aPaaS) architectures, the operations comprising: receiving, at a training master provided using a virtual machine (VM), a training request to train a ML model, the training request being received from a first tenant in a multi-tenant, aPaaS architecture; in response to the training request, training the ML model using a first training worker provided using a first VM, the first VM being stateless; and during training of the ML model, determining that a universally unique identifier (UUID) event has occurred, the UUID event comprising one of clearing a UUID of the first training worker and changing training workers for training the ML model, and in response: assigning a UUID to a second training worker, retrieving training storage metadata that indicates a training status of the ML model from a plurality of training statuses, initiating, by the training master, training of the ML model by the second training worker provided using a second VM, the training being executed based on the training status, and the second VM being stateless, during training of the ML model, periodically updating the training storage metadata based on metadata describing progress of the training of the ML model and monitoring for occurrence of one or more UUID events, and in response to completion of the training of the ML model, storing a trained ML model in a model storage of the aPaaS architecture.
+9. The computer-readable storage medium of claim 8, wherein initiating training of the ML model is performed in response to determining that the ML model is able to be trained based on one or more of a status of the ML model, and a timestamp associated with the ML model.
+10. The computer-readable storage medium of claim 8, wherein operations further comprise, during training of the ML model, scaling, by a training instance provisioner, a number of instances of training workers based on one or more of a number of pending training requests, and a number of completed trainings.
+11. The computer-readable storage medium of claim 8, wherein operations further comprise determining that training of the ML model by the second training worker provided using the second VM was incomplete, and in response continuing training of the ML model by a third training worker provided using a third VM.
+12. The computer-readable storage medium of claim 11, wherein training of the ML model is continued based on the metadata describing progress of the training of the ML model stored in the training storage metadata.
+13. The computer-readable storage medium of claim 8, wherein operations further comprise: receiving, by an inference worker provided using a third VM, an inference request to provide an inference result using the trained ML model; and processing the inference request to return the inference result.
+14. The computer-readable storage medium of claim 8, wherein the second VM comprises more computing resources than the first VM.
+15. A system, comprising: a computing device; and a computer-readable storage device coupled to the computing device and having instructions stored thereon which, when executed by the computing device, cause the computing device to perform operations for training machine learning (ML) models in application platform-as-a-service (aPaaS) architectures, the operations comprising: receiving, at a training master provided using a virtual machine (VM), a training request to train a ML model, the training request being received from a first tenant in a multi-tenant, aPaaS architecture; in response to the training request, training the ML model using a first training worker provided using a first VM, the first VM being stateless; and during training of the ML model, determining that a universally unique identifier (UUID) event has occurred, the UUID event comprising one of clearing a UUID of the first training worker and changing training workers for training the ML model, and in response: assigning a UUID to a second training worker, retrieving training storage metadata that indicates a training status of the ML model from a plurality of training statuses, initiating, by the training master, training of the ML model by the second training worker provided using a second VM, the training being executed based on the training status, and the second VM being stateless, during training of the ML model, periodically updating the training storage metadata based on metadata describing progress of the training of the ML model and monitoring for occurrence of one or more UUID events, and in response to completion of the training of the ML model, storing a trained ML model in a model storage of the aPaaS architecture.
+16. The system of claim 15, wherein initiating training of the ML model is performed in response to determining that the ML model is able to be trained based on one or more of a status of the ML model, and a timestamp associated with the ML model.
+17. The system of claim 15, wherein operations further comprise, during training of the ML model, scaling, by a training instance provisioner, a number of instances of training workers based on one or more of a number of pending training requests, and a number of completed trainings.
+18. The system of claim 15, wherein operations further comprise determining that training of the ML model by the second training worker provided using the second VM was incomplete, and in response continuing training of the ML model by a third training worker provided using a third VM.
+19. The system of claim 18, wherein training of the ML model is continued based on the metadata describing progress of the training of the ML model stored in the training storage metadata.
+20. The system of claim 15, wherein operations further comprise: receiving, by an inference worker provided using a third VM, an inference request to provide an inference result using the trained ML model; and processing the inference request to return the inference result.
+</claims>
+</document>

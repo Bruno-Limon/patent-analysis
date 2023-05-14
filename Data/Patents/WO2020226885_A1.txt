@@ -1,0 +1,108 @@
+<document>
+
+<filing_date>
+2020-04-20
+</filing_date>
+
+<publication_date>
+2020-11-12
+</publication_date>
+
+<priority_date>
+2019-05-06
+</priority_date>
+
+<ipc_classes>
+A61B5/00,A61B5/0456,A61B5/046
+</ipc_classes>
+
+<assignee>
+MEDTRONIC
+</assignee>
+
+<inventors>
+CHAKRAVARTHY, NIRANJAN
+DANI, SIDDHARTH
+HADDAD, TAREK D.
+MUSGROVE, DONALD R.
+RADTKE, ANDREW
+RODOLPHE, Katra
+PEDALTY, Lindsay A.
+</inventors>
+
+<docdb_family_id>
+73046490
+</docdb_family_id>
+
+<title>
+DATA PREPARATION FOR ARTIFICIAL INTELLIGENCE-BASED CARDIAC ARRHYTHMIA DETECTION
+</title>
+
+<abstract>
+Techniques are disclosed for preparing data for use in artificial intelligence (AI)-based cardiac arrhythmia detection. In accordance with the techniques of this disclosure, a computing system may obtain a cardiac electrogram (EGM) strip that represents a waveform of a cardiac rhythm of a same patient. Additionally, the computing system may preprocess the cardiac EGM strip. The computing system may then apply a deep learning model to the preprocessed cardiac EGM strip to generate arrhythmia data indicating whether the cardiac EGM strip represents one or more occurrences of one or more cardiac arrhythmias.
+</abstract>
+
+<claims>
+1. A method composing:
+obtaining, by a computing system, one or more cardiac electrogram (EGM) strips that represent a waveform of a cardiac rhythm of a patient;
+preprocessing, by the computing system, the one or more cardiac EGM strips; and applying, by the computing system, a deep learning model to the one or more
+preprocessed cardiac EGM strips to generate arrhythmia data indicating whether the one or more cardiac EGM strips represent one or more occurrences of one or more cardiac arrhythmias.
+2. The method of claim 1, wherein preprocessing the one or more cardiac EGM strips comprises:
+generating, by the computing system, one or more temporally-modified cardiac EGM strips by modifying a temporal resolution of the one or more cardiac EGM strips to match an expected temporal resolution of a deep learning model; and
+generating, by the computing system, one or more preprocessed cardiac EGM strips by subtracting a mean of samples of the one or more temporally-modified cardiac EGM strips from the samples of the one or more temporally-modified cardiac EGM strips.
+3. The method of claim 1, wherein preprocessing the one or more cardiac EGM strips comprises:
+generating, by the computing system, one or more temporally-modified cardiac EGM strips by modifying a temporal resolution of the one or more cardiac EGM strips to match an expected temporal resolution of the deep learning model;
+generating, by the computing system, one or more mean-subtracted cardiac EGM strips by subtracting a mean of samples of the one or more temporally-modified cardiac EGM strips from the samples of the one or more temporally-modified cardiac EGM strips;
+computing, by the computing system, a moving signal envelope over a sliding window of the one or more mean-subtracted cardiac EGM strips; and
+normalizing, by the computing system, the one or more mean-subtracted cardiac EGM strips based on the moving signal envelope.
+4. The method of any of claims 1 -3, wherein:
+the arrhythmia data is first arrhythmia data;
+the method further comprises:
+obtaining, by the computing system, a marker channel;
+preprocessing, by the computing system, the marker channel;
+applying, by the computing system, a marker channel-based deep learning model to the preprocessed marker channel to generate second arrhythmia data indicating a second set of occurrences of the one or more cardiac arrhythmias;
+determining, by the computing system, whether the first arrhythmia data and the second arrhythmia data are consistent; and
+at least one of:
+adjusting, by the computing system, a confidence level of an occurrence of one of the cardiac arrhythmias based on whether the occurrence of the cardiac arrhythmia is in both the first set of occurrences and the second set of occurrences or only in one of the first set of occurrences and the second set of occurrences, or extending, by the computing system, based on the occurrence of the cardiac arrhythmia being in both the first set of occurrences and the second set of occurrences, a duration of a monitoring session of a medical device that generates the one or more cardiac EGM strips.
+5. The method of claim 4, wherein the marker channel indicates detected QRS complexes.
+6. The method of any of claims 1-5, wherein:
+preprocessing the one or more cardiac EGM strips comprises:
+scaling, by the computing system, the waveform represented by the one or more cardiac EGM strips; and
+decomposing, by the computing system, the waveform represented by the one or more cardiac EGM strips into a plurality of channels corresponding to different frequency bands, and applying the deep learning model to the one or more preprocessed cardiac EGM strips comprises applying, by the computing system, the deep learning model to the channels to generate the arrhythmia data.
+7. The method of any of claims 1-6, wherein:
+preprocessing the one or more cardiac EGM strips comprises:
+scaling, by the computing system, the waveform represented by the one or more cardiac EGM strips; and
+generating, by the computing system, a transformed waveform by transforming the scaled waveform into a 2-dimensional time-frequency domain, and
+applying the deep learning model to the one or more preprocessed cardiac EGM strips comprises applying the deep learning model to the transformed waveform.
+8. The method of any of claims 1-7, wherein:
+preprocessing the one or more cardiac EGM strips comprises applying, by the computing system, a learned scaling factor to the waveform represented by the one or more cardiac EGM strips, and
+applying the deep learning model comprises:
+determining, by the computing system, QRS probability values corresponding to a plurality of time points, each of the QRS probability values indicating a respective probability that a peak of a QRS complex occurs during the time point corresponding to the QRS probability value; and
+detecting, by the computing system, the set of occurrences of the one or more cardiac arrhythmias by providing the QRS probability values and the one or more preprocessed cardiac EGM strips as input to a neural network that generates the arrhythmia data.
+9. The method of any of claims 1-8, wherein preprocessing the one or more cardiac EGM strips comprises:
+determining, by the computing system, a polarity of the one or more cardiac EGM strips; and based on the polarity of the one or more cardiac EGM strips not being an expected polarity for the deep learning model, reversing, by the computing system, the polarity of the one or more cardiac EGM strips.
+10. The method of claim 9, wherein:
+the deep learning model is a first deep learning model, and
+determining the polarity of the one or more cardiac EGM strips comprises applying, by the computing system, a second deep learning model to the one or more cardiac EGM strips to determine the polarity of the one or more cardiac EGM strips.
+11. The method of any of claims 1-10, wherein the method further comprises:
+obtaining, by the computing system, training input vectors, wherein each of the training input vectors comprises a segment of a training cardiac EGM strip and device classification data that indicate one or more cardiac arrhythmias detected in the training cardiac EGM strip;
+training, by the computing system, an autoencoder based on the training input vectors to reconstruct training cardiac EGM strips of the training input vectors;
+obtaining, by the computing system, additional device classification data;
+providing, by the computing system, the one or more preprocessed cardiac EGM strips and the additional device classification data to an input layer of the autoencoder; and
+determining, by the computing system, based on probability values generated by an intermediate layer of the autoencoder, whether the classification data correctly identifies cardiac arrhythmias, if any, in the preprocessed cardiac EGM strip,
+wherein each of the probability values corresponds to a different cardiac arrhythmia and indicates a level of confidence that the one or more preprocessed cardiac EGM strips contain the cardiac arrhythmia.
+12. The method of any of claims 1 -11, wherein preprocessing the one or more cardiac EGM strips comprises one or more of:
+scaling samples of a signal of the one or more cardiac EGM strips such that the samples of the signal of the one or more cardiac EGM strips are distributed in an expected range of sample values for the deep learning model, or increasing or decreasing a sample rate of the signal of the one or more cardiac EGM strips to match an expected sample rate of the deep learning model.
+13. A computing system comprising:
+a storage device configured to store one or more cardiac electrogram (EGM) strips that represent a waveform of a cardiac rhythm of a patient;
+one or more processing circuits configured to:
+preprocess the one or more cardiac EGM strips; and
+apply a deep learning model to the one or more preprocessed cardiac EGM strips to generate arrhythmia data indicating whether the one or more cardiac EGM strips represent one or more occurrences of one or more cardiac arrhythmias.
+14. The computing system of claim 13, wherein the one or more processing circuits are configured to perform the methods of any of claims 2-12
+15. A computer-readable storage medium having instructions stored thereon that, when executed, cause a computing system to:
+obtain one or more cardiac electrogram (EGM) strips that represent a waveform of a cardiac rhythm of a patient;
+preprocess the one or more cardiac EGM strips; and
+apply a deep learning model to the one or more preprocessed cardiac EGM strips to generate arrhythmia data indicating whether the one or more cardiac EGM strips represent one or more occurrences of one or more cardiac arrhythmias.
+16. The computer-readable storage medium of claim 15, wherein the instructions, when executed, cause the computing system to perform the methods of any of claims 2-12.
+</claims>
+</document>

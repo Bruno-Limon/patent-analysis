@@ -1,0 +1,81 @@
+<document>
+
+<filing_date>
+2018-11-05
+</filing_date>
+
+<publication_date>
+2020-08-27
+</publication_date>
+
+<priority_date>
+2017-11-14
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/62
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+NGUYEN, PHUC XUAN
+LIU, TING
+PRASAD, GAUTAM
+HAN, BOHYUNG
+</inventors>
+
+<docdb_family_id>
+64402290
+</docdb_family_id>
+
+<title>
+Weakly-Supervised Action Localization by Sparse Temporal Pooling Network
+</title>
+
+<abstract>
+Systems and methods for a weakly supervised action localization model are provided. Example models according to example aspects of the present disclosure can localize and/or classify actions in untrimmed videos using machine-learned models, such as convolutional neural networks. The example models can predict temporal intervals of human actions given video-level class labels with no requirement of temporal localization information of actions. The example models can recognize actions and identify a sparse set of keyframes associated with actions through adaptive temporal pooling of video frames, wherein the loss function of the model is composed of a classification error and a sparsity of frame selection. Following action recognition with sparse keyframe attention, temporal proposals for action can be extracted using temporal class activation mappings, and final time intervals can be estimated corresponding to target actions.
+</abstract>
+
+<claims>
+1. A computer-implemented method for temporally localizing a target action in a video, comprising: inputting a video into a machine-learned model comprising one or more weakly supervised temporal action localization models; analyzing the video by the one or more weakly-supervised temporal action localization models to determine one or more weighted temporal class activation maps; each temporal class activation map comprising a one dimensional class-specific activation map in a temporal domain; and determining a temporal location of a target action in the video based at least in part on the one or more weighted temporal class activation maps.
+2. The computer-implemented method of claim 1, wherein the machine-learned model comprises a sparse temporal pooling network comprising a first weakly supervised temporal action localization model and a second weakly supervised temporal action localization model.
+3. The computer-implemented method of claim 1 or 2, wherein the video comprises a RGB stream.
+4. The computer-implemented method of claim 2, further comprising: generating an optical flow stream based at least in part on the video; and wherein inputting the video into the machine-learned model comprising one or more weakly supervised temporal action localization models comprises: inputting the video into the first weakly supervised temporal action localization model, and; inputting the optical flow stream into the second weakly supervised temporal action localization model.
+5. The computer-implemented method of claim 4, wherein analyzing the video by the one or more weakly-supervised temporal action localization models to determine the one or more weighted temporal class activation maps comprises: analyzing the video by the first weakly-supervised temporal action localization model to determine a first weighted temporal class activation map comprising a first one dimensional class-specific activation map in the temporal domain; and analyzing the optical flow stream by the second weakly-supervised temporal action localization model to determine a second weighted temporal class activation map comprising a second one dimensional class-specific activation map in the temporal domain.
+6. The computer-implemented method of claim 5, wherein determining the temporal location of the target action in the video based at least in part on the one or more weighted temporal class activation maps comprises: determining the temporal location of the target action in the video based at least in part on the first weighted temporal class activation map and the second weighted temporal class activation map.
+7. The computer-implemented method of 6, wherein determining the temporal location of the target action in the video based at least in part on the one or more weighted temporal class activation maps comprises: generating one or more class-specific temporal proposals for each of the video and the optical flow stream, each class-specific temporal proposal comprising one-dimensional connected components extracted from the video or the optical flow stream.
+8. The computer-implemented method of claim 7, wherein generating the one or more class-specific temporal proposals for each of the video and the optical flow stream comprises thresholding the first weighted temporal class activation map to segment the video into a first set of one or more class-specific proposals and thresholding the second weighted temporal class activation map to segment the optical flow stream into a second set of one or more class-specific temporal proposals.
+9. The computer-implemented method of claim 7, wherein generating the one or more class-specific temporal proposals comprises linearly interpolating one or more of the first weighted temporal class activation map and the second weighted temporal class activation map.
+10. The computer-implemented method of claim 7, wherein determining the temporal location of the target action in the video based at least in part on the first weighted temporal class activation map and the second weighted temporal class activation map comprises: selecting a first class-specific temporal proposal for a particular time interval from either the video or the optical flow stream; and determining whether a second class-specific temporal proposal for a corresponding time interval from the other of the video or the optical flow stream exists.
+11. The computer-implemented method of claim 10, wherein when a second class-specific temporal proposal for the corresponding time interval from the other of the video or the optical flow stream does not exist, determining the temporal location of the target action in the video based at least in part on the first weighted temporal class activation map and the second weighted temporal class activation map comprises detecting the target action at the particular time interval based at least in part on the first class-specific temporal proposal.
+12. The computer-implemented method of claim 10, wherein when a second class-specific temporal proposal for the corresponding time interval from the other of the video or the optical flow stream does exist, determining the temporal location of the target action in the video based at least in part on the first weighted temporal class activation map and the second weighted temporal class activation map comprises comparing the first class-specific temporal proposal and the second class-specific temporal proposal.
+13. The computer-implemented method of claim 12, wherein comparing, by the sparse temporal pooling network, the first class-specific temporal proposal and the second class-specific temporal proposal comprises determining a respective score for the target action for each of the first class-specific temporal proposal and the second class-specific temporal proposal based at least in part on a weighted average temporal class activation map of all one dimensional connected components within the respective class-specific temporal proposal.
+14. The computer-implemented method of claim 13, wherein the temporal location of the target action in the video is determined based at least in part on the respective scores.
+15. The computer-implemented method of claim 13, wherein the respective scores for the target action are determined based at least in part on a modality parameter to control a magnitude of the first weighted temporal class activation map and the second weighted temporal class activation map.
+16. The computer-implemented method of claim 1, wherein determining, by the sparse temporal pooling network, the temporal location of the target action in the video based at least in part on the one or more weighted temporal class activation maps comprises performing non-maximum suppression among a plurality of class-specific temporal proposals of the target classification to remove overlapped detections.
+17. The computer-implemented method of claim 1, further comprising: determining one or more relevant target action class labels for the video based at least in part on a video-level classification score.
+18. The computer-implemented method of claim 1, wherein the one or more weakly supervised temporal action localization models have been trained using a training dataset comprising untrimmed videos labelled with video-level class labels of target actions.
+19. The computer-implemented method of claim 1, wherein the one or more weakly supervised temporal action localization models have been trained using a loss function comprising a classification loss and a sparsity loss.
+20. The computer-implemented method of claim 19, wherein the classification loss is determined based at least in part on a comparison of a video-level classification score and a groundtruth classification.
+21. The computer-implemented method of claim 19, wherein the sparsity loss is determined based at least in part on a L1 norm of an attention weight parameter.
+22. A computer-implemented method of training a weakly supervised temporal action localization model, comprising: inputting an untrimmed video into the weakly supervised temporal action localization model; analyzing the untrimmed video by the weakly supervised temporal action localization model to determine a predicted score for an action classification; determining a loss function based at least in part on the predicted score, the loss function comprising a sparsity loss and a classification loss; and training the weakly supervised temporal action localization model based at least in part on the loss function.
+23. The computer-implemented method of claim 22, wherein analyzing the untrimmed video by the weakly supervised temporal action localization model to determine a predicted score for an action classification comprises: sampling a plurality of segments from the untrimmed video; and analyzing each of the plurality of segments with one or more pretrained convolutional neural networks to determine a respective feature representation.
+24. The computer-implemented method of claim 23, wherein analyzing the untrimmed video by the weakly supervised temporal action localization model to determine a predicted score for an action classification comprises: inputting each respective feature representation into an attention module to determine a respective attention weight.
+25. The computer-implemented method of claim 24, wherein the attention module comprises a first fully connected layer, a rectified linear unit layer, a second fully connected layer, and a sigmoid layer.
+26. The computer-implemented method of claim 25, wherein analyzing the untrimmed video by the weakly supervised temporal action localization model to determine a predicted score for an action classification comprises: determining an attention weighted temporal average pooling comprising a weighted sum of the feature representations multiplied by the respective attention weights; and wherein the predicted score for the action classification is determined based at least in part on the attention weighted temporal average pooling.
+27. The computer-implemented method of claim 26, wherein analyzing the untrimmed video by the weakly supervised temporal action localization model to determine a predicted score for an action classification comprises: inputting the attention weighted temporal average pooling into a weighting parameter fully connected layer; inputting an output of the weighting parameter fully connected layer into a sigmoid layer; and receiving the predicted score for the action classification from the sigmoid layer.
+28. The computer-implemented method of claim 22, wherein determining the loss function based at least in part on the predicted score comprises: determining the classification loss based at least in part on a comparison of the predicted score for the action classification and a groundtruth video-level action classification.
+29. The computer-implemented method of claim 28, wherein determining the classification loss comprises determining a multi-label cross-entropy loss between the groundtruth video-level action classification and the predicted score for the action classification.
+30. The computer-implemented method of claim 22, wherein determining the sparsity loss comprises determining the sparsity loss based at least in part on a L1 norm of one or more attention weights received from an attention module of the temporal action localization model.
+31. The computer-implemented method of claim 22, wherein training the weakly supervised temporal action localization model based at least in part on the loss function comprises training a weighting parameter fully connected layer of the weakly supervised temporal action localization model based at least in part on the classification loss.
+32. The computer-implemented method of any of claim 22, wherein training the weakly supervised temporal action localization model based at least in part on the loss function comprises training an attention module of the weakly supervised temporal action localization model based at least in part on the sparsity loss.
+33. A computing system, comprising: at least one processor; a sparse temporal pooling network comprising: a first weakly supervised temporal action localization model, wherein the first weakly supervised temporal action localization model is trained to receive a video comprising a RGB stream and, in response to receipt of the RGB stream, output a RGB weighted temporal class activation map comprising a one dimensional class-specific activation map in a temporal domain; and a second weakly supervised temporal action localization model, wherein the second weakly supervised temporal action localization model is trained to receive an optical flow stream of the video and in response to receipt of the optical flow stream, output a flow weighted temporal class activation map comprising a one dimensional class-specific activation map in a temporal domain; and at least one tangible, non-transitory computer-readable medium that stores instructions that, when executed by the at least one processor, cause the at least one processor to perform operations, the operations comprising: obtaining the video; generating the optical flow stream based at least in part on the RGB stream; inputting the RGB stream into the first weakly supervised temporal action localization model; receiving, as an output of the first weakly supervised temporal action localization model, the RGB weighted temporal class activation map; inputting the optical flow stream into the second weakly supervised temporal action localization model; receiving, as an output of the second weakly supervised temporal action localization model, the flow weighted temporal class activation map; and determining a temporal location of a target action in the video based at least in part on the RGB weighted temporal class activation map or the flow weighted temporal class activation map.
+34. The computing system of claim 33, wherein the first weakly-supervised temporal action localization network and the second weakly-supervised temporal action localization network have been trained using a training dataset comprising untrimmed videos labelled with video-level class labels of target actions.
+35. The computing system of any of claim 33, wherein the first weakly-supervised temporal action localization network and the second weakly-supervised temporal action localization network have been trained using a loss function comprising a classification loss parameter and a sparsity loss parameter.
+36. Apparatus configured to carry out the method of any one of the preceding claims.
+37. Computer-readable instructions, which when executed by a computing apparatus, cause the method of any one of the preceding claims to be performed.
+</claims>
+</document>

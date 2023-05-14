@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2016-05-19
+</filing_date>
+
+<publication_date>
+2020-07-14
+</publication_date>
+
+<priority_date>
+2016-05-19
+</priority_date>
+
+<ipc_classes>
+H04L12/26
+</ipc_classes>
+
+<assignee>
+QUEST SOFTWARE
+</assignee>
+
+<inventors>
+HU, GUANGNING
+SITU, XUEJUN
+</inventors>
+
+<docdb_family_id>
+60330555
+</docdb_family_id>
+
+<title>
+Dispatcher for adaptive data collection
+</title>
+
+<abstract>
+This disclosure describes systems, methods, and computer-readable media for optimizing data collection in a distributed environment by leveraging real-time and historical data collection performance statistics and server performance data. In some configurations, a computing device can be initially configured for data collection. In such configurations, the initial configuration can include preferred target servers for a particular task. The computing device can request batches of data from the preferred target servers, and process the information through a buffer. Techniques and technologies described herein collect the batches of data from servers as well as corresponding data collection statistics (e.g., server performance per task, server historical performance, etc.) and server performance data (e.g. server status).
+</abstract>
+
+<claims>
+1. A computer-implemented method, comprising: receiving a data collection task; identifying a group of data collection endpoints associated with the data collection task; receiving, by a computing device, data collection statistics related to a server associated with the group of data collection endpoints; generating a forecast performance of the server; determining a real-time performance of the server by collecting metadata of real-time data retrieval and calculating a weight factor with a timestamp for the data collection task, wherein the weight factor is associated with a first performance of the server during the data collection task; determining that one or more of the forecast performance or the real-time performance of the server satisfy a threshold level of performance; sending a data request associated with the data collection task to the server associated with the group of data collection endpoints; continuing to receive data collection statistics related to the server associated with the group of data collection endpoints; determining an updated forecast performance of the server including calculating a second weight factor for a second data collection task, wherein the second weight factor is associated with a second performance of the server during the second data collection task, wherein the updated forecast performance of the server is calculated using a series of historical weight factors correlated to historical server performance, wherein the series of historical weight factors include the first weight factor and the second weight factor, wherein the historical server performance includes the first performance of the server and the second performance of the server; determining, in view of the second weight factor, that the updated forecast performance of the server does not satisfy the threshold level of performance; and refraining from sending a future data request to the server.
+2. The computer-implemented method of claim 1, wherein the forecast performance of the server is based at least in part on one or more of: a status of the server; or a historical performance of the server.
+3. The computer-implemented method of claim 1, wherein the group of data collection endpoints are grouped based at least in part on a shared characteristic of each data collection endpoint of the group of data collection endpoints.
+4. The computer-implemented method of claim 3, wherein the shared characteristic comprises one or more of: the server storing the group of data collection endpoints; a region in which the group of data collection endpoints is stored; or a sub-section of a company to which the data collection endpoints are associated.
+5. The computer-implemented method of claim 1, wherein the forecast performance and the real-time performance of the server are based at least in part on data collection statistics related to the server.
+6. The computer-implemented method of claim 1, wherein the server is a first server of a plurality of servers in a distributed computing resource.
+7. A device comprising: an adaptive dispatcher configured to: receive a data collection task; identify a group of data collection endpoints associated with the data collection task; request data from a server associated with the group of data collection endpoints based on data collection task; an historical collection analyzer module configured to: receive data collection statistics; receive a server status; generate a forecast performance of the server; and send the forecast performance of the server to the adaptive dispatcher; and a real-time collection analyzer module configured to: receive the data collection statistics; determine a real-time performance of the server by collecting metadata of real-time data retrieval and calculating a weight factor with a timestamp for the data collection task, wherein the weight factor is associated with a first performance of the server during the data collection task; send the real-time performance of the server to the adaptive dispatcher, wherein the adaptive dispatcher is configured to send a data request associated with the data collection task to the server associated with the group of data collection endpoints based at least in part on one or more of the forecast performance of the server or the real-time performance of the server; continue to receive data collection statistics related to the server associated with the group of data collection endpoints; and send the real-time performance of the server to the adaptive dispatcher, wherein the adaptive dispatcher is configured to: determine an updated forecast performance of the server by calculating a second weight factor for a second data collection task, wherein the second weight factor is associated with a second performance of the server during the second data collection task, wherein the updated forecast performance of the server is calculated using a series of historical weight factors correlated to historical server performance, wherein the series of historical weight factors include the first weight factor and the second weight factor, wherein the historical server performance includes the first performance of the server and the second performance of the server; determine, in view of the second weight factor, that the updated forecast performance of the server does not satisfy the threshold level of performance; and refrain from sending a future data request to the server.
+8. The device of claim 7, further comprising: a configuring module configured to: identify the server associated with a data collection task; group two or more data collection endpoints based on the data collection task; and establish initial settings for the adaptive dispatcher.
+9. The device of claim 7, further comprising: a buffer configured to: receive batches of data and corresponding data collection statistics; send the batches of data to a data processing module; and send the data collection statistics to the historical collection analyzer module and the real-time collection analyzer module.
+10. The device of claim 7, further comprising: a server status analyzer module configured to receive the server status from the server and send the server status to one or more of the historical collection analyzer module or the adaptive dispatcher.
+11. The device of claim 10, wherein the server status comprises one or more of: server performance status; CPU usage; memory usage of the server; network traffic related to the server; software restraints on the server; or hardware restraints on the server.
+12. The device of claim 7, further comprising a data collection module configured to receive batches of data and corresponding data collection statistics from the server and store the batches of data and the corresponding data collection statistics.
+13. A data collection system, comprising: a processor; and a non-transitory computer-readable medium coupled to the processor and having instructions stored thereon that, when executed by the processor, cause the processor to perform operations comprising: receive a data collection task; identify a group of data collection endpoints associated with the data collection task; receive data collection statistics from a server associated with the group of data collection endpoints; generate a forecast performance of the server based at least in part on the data collection statistics; determine a real-time performance of the server based at least in part on the data collection statistics by collecting metadata of real-time data retrieval and calculating a weight factor with a timestamp for the data collection task, wherein the weight factor is associated with a first performance of the server during the data collection task; determine that at least one of the forecast performance or the real-time performance of the server meet a threshold performance level; send a data request associated with the data collection task to the server associated with the group of data collection endpoints based at least in part on the forecast performance of the server or the real-time performance of the server; continue to receive data collection statistics related to the server associated with the group of data collection endpoints; determine an updated forecast performance of the server by calculating a second weight factor for a second data collection task, wherein the second weight factor is associated with a second performance of the server during the second data collection task, wherein the updated forecast performance of the server is calculated using a series of historical weight factors correlated to historical server performance, wherein the series of historical weight factors include the first weight factor and the second weight factor, wherein the historical server performance includes the first performance of the server and the second performance of the server; determine, in view of the second weight factor, that the updated forecast performance of the server does not satisfy the threshold level of performance; and refrain from sending a future data request to the server.
+14. The data collection system of claim 13, wherein the forecast performance of the server is further based at least in part on one or more of: a status of the server; or a historical performance of the server.
+15. The data collection system of claim 13, wherein the group of data collection endpoints are grouped based at least in part on a shared characteristic of each data collection endpoint of the group of data collection endpoints.
+16. The data collection system of claim 15, wherein the shared characteristic comprises one or more of: the server storing the group of data collection endpoints; a region in which the group of data collection endpoints is stored; or a sub-section of a company to which the data collection endpoints are associated.
+17. The data collection system of claim 13, wherein the forecast performance and the real-time performance of the server are based at least in part on data collection statistics related to the server.
+18. The data collection system of claim 13, wherein the data request is sent to a second server based at least in part on the forecast performance and the real-time performance of the server not meeting the threshold performance level.
+19. The computer-implemented method of claim 1, wherein the weight factor is associated with a timestamp.
+20. The device of claim 7, wherein the weight factor is associated with a timestamp.
+</claims>
+</document>

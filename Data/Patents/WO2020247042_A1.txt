@@ -1,0 +1,95 @@
+<document>
+
+<filing_date>
+2020-03-20
+</filing_date>
+
+<publication_date>
+2020-12-10
+</publication_date>
+
+<priority_date>
+2019-06-07
+</priority_date>
+
+<ipc_classes>
+G06F12/1081,G06F13/28,H04L12/747,H04L12/773,H04L12/861
+</ipc_classes>
+
+<assignee>
+INTEL CORPORATION
+</assignee>
+
+<inventors>
+JANI, NRUPAL
+MAROLIA, PRATIK M.
+RAJ ASHOK
+SANKARAN, RAJESH M.
+SARANGAM, PARTHASARATHY
+SHARP, ROBERT O.
+</inventors>
+
+<docdb_family_id>
+67983249
+</docdb_family_id>
+
+<title>
+NETWORK INTERFACE FOR DATA TRANSPORT IN HETEROGENEOUS COMPUTING ENVIRONMENTS
+</title>
+
+<abstract>
+A network interface controller can be programmed to direct write received data to a memory buffer via either a host-to-device fabric or an accelerator fabric. For packets received that are to be written to a memory buffer associated with an accelerator device, the network interface controller can determine an address translation of a destination memory address of the received packet and determine whether to use a secondary head. If a translated address is available and a secondary head is to be used, a direct memory access engine is used to copy a portion of the received packet via the accelerator fabric to a destination memory buffer associated with the address translation. Accordingly, copying a portion of the received packet through the host-to-device fabric and to a destination memory can be avoided and utilization of the host-to-device fabric can be reduced for accelerator bound traffic.
+</abstract>
+
+<claims>
+What is claimed is:
+1. A network interface for comprising:
+an interface to a host-to-device fabric;
+an interface to an accelerator fabric; and
+at least one processor to:
+process a received packet to determine a destination memory location;
+request address translation of the destination memory location;
+request a decode of the address translation to determine a head to use from among a primary or one or more secondary heads; and
+based on availability of an address translation of the destination memory location and the determined head indicating a secondary head, permit copy of a portion of the received packet to a memory locally attached to the accelerator via the accelerator fabric.
+2. The network interface of claim 1, further comprising:
+at least one port to receive or send packets and
+a direct memory access (DMA) engine to copy a received packet to a memory buffer via the host-to-device fabric or to copy, via the accelerator fabric, a portion of a received packet to a memory locally attached to an accelerator.
+3. The network interface of claim 1, comprising an address cache and wherein the at least one processor is to:
+determine if the address cache stores the destination memory location and address translation and
+based on the address cache not storing an address translation for the destination memory location, cause transmission of a request for address translation to an address translation service.
+4. The network interface of claim 3, wherein the address translation service comprises input-output memory management unit (IOMMU).
+5. The network interface of claim 4, wherein the at least one processor is to:
+based on the address translation service indicating no address translation for the destination memory location, discard the received packet. 6 The network interface of claim 4, comprising a direct memory access (DMA) engine to copy a received packet to a memory buffer via the host-to-device fabric or to copy, via the accelerator fabric, a portion of a received packet to a memory locally attached to an accelerator, wherein the at least one processor is to:
+based on the address translation service providing an address translation for the destination memory location and the determined head identifying a head to use, cause use of the DMA engine to copy a portion of the received packet to a memory buffer associated with the address translation.
+7. The network interface of claim 1, comprising an accelerator fabric coupled to the network interface, an accelerator coupled to the accelerator fabric, and memory locally attached to the accelerator, the memory locally attached to the accelerator to receive the portion of the received packet.
+8. The network interface of claim 1, comprising a host-to-device fabric coupled to the network interface, a central processing unit (CPU) coupled to the host-to-device fabric, and an accelerator coupled to the host-to-device fabric.
+9. The network interface of claim 1, comprising an interface to a data center network, the interface to a data center network to receive packets from a remote entity for copying to a memory buffer.
+10. The network interface of claim 1, wherein an accelerator comprises one or more of: general purpose graphics processing units (GPGPUs), graphics processing unit (GPU), compression, cryptography, hash/authentication, decryption, image recognition, speech recognition, or neural network-based inferences.
+11. The network interface of claim 1, comprising a rack, server, data center, or sled.
+12. A computer-implemented method comprising:
+configuring a network interface to determine whether to direct copy a portion of a received packet from a remote entity to a memory buffer associated with an accelerator via an accelerator fabric, wherein the accelerator fabric provides communicative coupling among one or more accelerators; receiving a packet from the remote entity at the network interface, the packet including a destination memory address;
+determining if an address translation for a destination memory address of the packet is available;
+determining a head to use to transfer a portion of the packet;
+based on the address translation being available and a determined head, performing a direct memory access (DMA) copy operation of a portion of the packet to a memory buffer associated with the address translation via the accelerator fabric; and based on the address translation not being available, discarding the packet.
+13. The method of claim 12, wherein configuring a network interface to determine whether to direct copy a portion of a received packet from a remote entity to a memory buffer via an accelerator fabric comprises using a control plane software.
+14. The method of claim 12, wherein determining if an address translation for a destination memory address of the packet is available comprises checking if a cached copy of an address translation of a destination memory address is available at the network interface and based on a cached copy of an address translation of a destination memory address not being available at the network interface, requesting an address translation service for an address translation of the destination memory address via a host-to-device fabric.
+15. The method of claim 14, wherein the address translation service comprises an inputoutput memory management unit (IOMMU).
+16. The method of claim 12, wherein the accelerator fabric is coupled to at least one memory and at least one accelerator device and wherein a memory is locally attached to an accelerator device.
+17. The method of claim 12, comprising:
+based on the received packet not being associated with a memory buffer associated with an accelerator, using a direct memory access (DMA) to copy a portion of the received packet to a memory buffer associated with a core via a host-to-device fabric, wherein the host-to-device fabric couples cores to accelerators.
+18. A system comprising:
+a network interface controller;
+a host-to-device fabric coupled to the network interface controller, the host-todevice fabric to provide communicative coupling between a central processing unit and an accelerator;
+an accelerator fabric coupled to the network interface controller, the accelerator fabric to provide communicative coupling between a multiple accelerators;
+a memory coupled to an accelerator device, wherein the network interface controller comprises at least one direct memory access (DMA) engine and the network interface is configured to:
+determine whether to direct copy a portion of a received packet from a remote entity to a memory buffer associated with an accelerator via an accelerator fabric, wherein the accelerator fabric provides communicative coupling among one or more accelerators,
+process a received packet to determine an associated destination memory location,
+request address translation of the destination memory location, determine a head to use to transfer a portion of the received packet from among a primary head and a secondary head, and
+based on availability of an address translation of the destination memory location and a determined head being a secondary head, permit direct copy of a portion of the received packet to a memory buffer associated with the address translation using a DMA engine via an accelerator fabric.
+19. The system of claim 18, wherein determine whether to direct copy a portion of a received packet from a remote entity to a memory buffer associated with an accelerator via an accelerator fabric comprises a determination if a cached copy of an address translation of a destination memory address is available at the network interface and based on a cached copy of an address translation of a destination memory address not being available at the network interface, request an address translation service for an address translation of the destination memory address via the host-to-device fabric.
+20. The system of claim 18, wherein the address translation comprises an input-output memory management unit (IOMMU).
+21. The system of claim 18, wherein the network interface is configured to: based on the received packet not being associated with a memory buffer associated with an accelerator, use a DMA engine to copy a portion of the received packet to a memory buffer associated with a core via a host-to-device fabric.
+22. The system of claim 18, wherein to process a received packet to determine an associated destination memory location, the network interface is to access a descriptor that specifies a destination address and wherein if the network interface determines to use a secondary head, the network interface is to use a direct memory access (DMA) engine to copy a portion of the received packet to a memory buffer associated with the address translation via an accelerator fabric using the secondary head.
+23. The system of claim 18, wherein to process a received packet to determine an associated destination memory location, the network interface is to access a descriptor that specifies a destination address and whether to use a secondary head, and the network interface is to use a direct memory access (DMA) engine to copy a portion of the received packet to a memory buffer associated with the address translation via an accelerator fabric using the secondary head based on the descriptor specifying to use the secondary head. 24. The system of claim 18, wherein the memory buffer is in a memory that is locally attached to an accelerator device.
+</claims>
+</document>

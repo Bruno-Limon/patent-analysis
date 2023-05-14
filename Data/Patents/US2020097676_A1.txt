@@ -1,0 +1,74 @@
+<document>
+
+<filing_date>
+2019-04-17
+</filing_date>
+
+<publication_date>
+2020-03-26
+</publication_date>
+
+<priority_date>
+2018-09-25
+</priority_date>
+
+<ipc_classes>
+G06F21/31,G06F21/55,G06F21/60,G06F21/62,G06F21/64
+</ipc_classes>
+
+<assignee>
+IMPERVA
+</assignee>
+
+<inventors>
+MANTIN, ITSIK
+SHULMAN, AMICHAI
+MARGEL, SHIRI
+GOIHMAN-SHUSTER, DANIELLA
+</inventors>
+
+<docdb_family_id>
+69884901
+</docdb_family_id>
+
+<title>
+DATA BASED WEB APPLICATION FIREWALL
+</title>
+
+<abstract>
+A method for protecting information from databases includes a web application firewall and a database activity monitor. According to one aspect, a web gateway receives a request from a client device and provides the request to an application server to query a database. The web gateway receives sensitive data information describing requested data output by the database. The sensitive data information may include, for example, hints for detecting a type or structure of sensitive data output by the database. Additionally, the web gateway receives response data from the application server. The web gateway identifies sensitive data within the response data based on the sensitive data information. The web gateway protects the sensitive data to be provided to the client device using one or more data protection operations, which may include alerts, blocking policies, masking, or anomaly detection using machine learning algorithms
+</abstract>
+
+<claims>
+1. A method for protecting information, the method comprising: receiving, at a web application firewall (WAF) from a client device, a request for data; providing, by the WAF, the request for data to an application server coupled between the WAF and the database, the application server configured to query the database for the requested data; in response to the requested data being output by the database, identifying, by a database activity monitor (DAM) coupled between the database and the WAF, a portion of the requested data as sensitive, wherein the WAF and DAM are implemented by one or more computing devices; providing, by the DAM to the WAF, sensitive data information describing the portion of the requested data identified as sensitive; after receiving the sensitive data information, receiving, by the WAF, response data from the application server; identifying, by the WAF, sensitive data within the response data based on the sensitive data information; performing, by the WAF, one or more security operations based the identifying of sensitive data.
+2. The method of claim 1, further comprising: tracking, by the WAF, activity of a user of the client device including previous requests for data; and selecting, by the WAF, the one or more security operations based on the tracked activity of the user of the client device.
+3. The method of claim 2, further comprising: determining, by the WAF, a likelihood that the received request is malicious based on the tracked activity of the user of the client device; and responsive to determining that the likelihood is greater than a pre-determined threshold, selecting, by the WAF, a security operation that filters personally identifiable information from the identified sensitive data.
+4. The method of claim 1, wherein the portion of the requested data is identified as sensitive based on one or more of: metadata of the requested data, information associated with a column or row of the database, a database table of the database in which requested data resides, a format of the requested data, or a user-specified sensitive data parameter.
+5. The method of claim 1, wherein the portion of the requested data is identified as sensitive based on one or more of: database metadata found in the query, information that may be associated with the query, and/or pattern matching on the query result.
+6. The method of claim 1, further comprising: determining, by the DAM, a subset of a plaintext representation of the portion of the requested data; determining, by the DAM, a length of the portion; determining, by the DAM, a first checksum of the portion; and determining, by the DAM, a first hash of the portion; wherein the sensitive data information includes at least the subset of the plaintext representation, the length, the first checksum, and the first hash.
+7. The method of claim 6, further comprising: determining, by the WAF, if the subset of the plaintext representation of the portion of the requested data matches a subset of a portion of the response data; in response to the subset of the plaintext representation of the portion of the requested data matching the subset of the portion of the response data, determining, by the WAF, a second checksum of the portion of the response data according to the length; in response to the first checksum matching the second checksum, generating, by the WAF, a second hash of the portion of the response data according to the length of the requested data; and in response to the first hash matching the second hash, identifying, by the WAF, the portion of the response data as the sensitive data within the response data.
+8. The method of claim 1, wherein the requested data output by the database is structured data, the method further comprising: parsing, by the WAF, unstructured markup language data of the response data from the application server to identify the sensitive data.
+9. The method of claim 1, wherein the DAM, WAF, and application server comprise distinct, different computing devices.
+10. The method of claim 1, wherein the performing includes: performing one or more security operations on the identified sensitive data to produce protected data; and providing the protected data to the client device.
+11. The method of claim 1, wherein the one or more security operations comprises flagging the identified sensitive data for review by personnel associated with the WAF.
+12. The method of claim 1, wherein the one or more security operations are configurable by an entity associated with the WAF.
+13. A method for protecting information, the method comprising: receiving, at a WAF from a client device, a request for data; providing, by the WAF, the request for data to an application server coupled between the WAF and the database, the application server configured to query the database for the requested data; receiving, at the WAF, sensitive data information from a DAM, the DAM coupled between the database and the WAF, the sensitive data information describing a portion of the requested data identified as sensitive by the DAM, wherein the WAF and DAM are implemented by one or more computing devices; after receiving the sensitive data information, receiving, by the WAF, response data from the application server; identifying, by the WAF, sensitive data within the response data based on the sensitive data information; performing, by the WAF, one or more security operations based on the identified sensitive data.
+14. The method of claim 13, further comprising: tracking, by the WAF, activity of a user of the client device including previous requests for data; and selecting, by the WAF, the one or more security operations based on the tracked activity of the user of the client device.
+15. The method of claim 14, further comprising: determining, by the WAF, a likelihood that the received request is malicious based on the tracked activity of the user of the client device; and responsive to determining that the likelihood is greater than a pre-determined threshold, selecting, by the WAF, a security operation that filters personally identifiable information from the identified sensitive data.
+16. The method of claim 13, wherein the sensitive data information includes at least (i) a subset of a plaintext representation of the portion of the requested data, (ii) a length of the portion of the requested data, and one or both of (iii) a first checksum of the portion of the requested data, and (iv) a first hash of the portion of the requested data.
+17. The method of claim 16, further comprising: determining, by the WAF, if the subset of the plaintext representation of the portion of the requested data matches a subset of a portion of the response data; in response to the subset of the plaintext representation of the portion of the requested data matching the subset of the portion of the response data, determining, by the WAF, a second checksum of the portion of the response data according to the length; in response to the first checksum matching the second checksum, generating, by the WAF, a second hash of the portion of the response data according to the length; and in response to the first hash matching the second hash, identifying, by the WAF, the portion of the response data as the sensitive data within the response data.
+18. The method of claim 13, wherein the requested data is structured data, the method further comprising: parsing, by the WAF, unstructured markup language data of the response data from the application server to identify the sensitive data.
+19. The method of claim 13, wherein the DAM, WAF, and application server comprise distinct, different computing devices.
+20. A computer program product comprising a non-transitory computer readable storage medium having instructions encoded thereon that, when executed by a processor, cause a WAF to: provide a request for data received from a client device to an application server coupled between the WAF and a database, the application server configured to query the database responsive to the request; identify whether sensitive data is within response data received from the application server based on sensitive data information received from a DAM, wherein the DAM is coupled between the database and the WAF, wherein the sensitive data information describes data that is sent to the application server responsive to the request and that is identified as sensitive by the DAM, wherein the WAF and DAM are implemented by one or more computing devices; perform one or more security operations when sensitive data is identified within the response data.
+21. The computer program product of claim 20, wherein the non-transitory computer readable storage medium further has instructions encoded thereon that, when executed by the processor, cause the WAF to: track activity of a user of the client device including previous requests for data; and select the one or more security operations based on the tracked activity of the user of the client device.
+22. The computer program product of claim 20, wherein the non-transitory computer readable storage medium further has instructions encoded thereon that, when executed by the processor, cause the WAF to: determine a likelihood that the received request is malicious based on the tracked activity of the user of the client device; and responsive to determining that the likelihood is greater than a pre-determined threshold, select a security operation that filters personally identifiable information from the identified sensitive data.
+23. The computer program product of claim 20, wherein the sensitive data information includes at least (i) a subset of a plaintext representation of a portion of data sent from the database to the application server, (ii) a length of the portion, one or both of (iii) a first checksum of the portion and (iv) a first hash of the portion, and wherein the non-transitory computer readable storage medium further has instructions encoded thereon that, when executed by the processor, cause the WAF to: determine if the subset of the plaintext representation of the portion of the data matches a subset of a portion of the response data; in response to the subset of the plaintext representation of the portion of the requested data matching the portion of the response data, determine a second checksum or a second hash of the portion of the response data according to the length; and in response to the first hash matching the second hash or the first checksum matching the second checksum, identify the portion of the response data as the sensitive data within the response data.
+24. The computer program product of claim 20, wherein the DAM, WAF, and application server comprise distinct, different computing devices.
+25. A method for protecting information from databases, the method comprising: identifying, by a DAM coupled between a database and a WAF, requested data output by the database responsive to a request from a client device, the request provided from the WAF to an application server, wherein the WAF and DAM are implemented by one or more computing devices; identifying, by the DAM, a portion of the requested data as sensitive; determining, by the DAM, sensitive data information describing the portion of the requested data identified as sensitive; and providing, by the DAM to the WAF, the sensitive data information, to cause the WAF to identify sensitive data within response data from the application server based on the sensitive data information and to perform one or more security operations selected based on the identified sensitive data.
+26. The method of claim 25, further comprising: determining, by the DAM, a subset of a plaintext representation of the portion of the requested data; determining, by the DAM, a length of the portion of the requested data; determining, by the DAM, a checksum and/or a hash of the portion of the requested data; and wherein the sensitive data information includes at least the subset of the plaintext representation, the length, and one or both of the checksum and the hash.
+27. The method of claim 25, wherein the portion of the requested data is identified as sensitive based on one or more of: metadata of the requested data, information associated with a column or row of the database, a database table of the database in which requested data resides, a format of the requested data, or a user-specified sensitive data parameter.
+28. The method of claim 1, wherein the portion of the requested data is identified as sensitive based on one or more of: database metadata found in the query, information that may be associated with the query, and/or pattern matching on the query result.
+29. The method of claim 25, wherein the WAF tracks activity of a user of the client device including previous requests for data, and the one or more security operations are selected based on the tracked activity of the user of the client device.
+30. The method of claim 25, wherein the DAM, WAF, and application server comprise distinct, different computing devices.
+</claims>
+</document>

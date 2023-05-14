@@ -1,0 +1,59 @@
+<document>
+
+<filing_date>
+2019-03-07
+</filing_date>
+
+<publication_date>
+2020-09-10
+</publication_date>
+
+<priority_date>
+2019-03-07
+</priority_date>
+
+<ipc_classes>
+G06F16/2458,G06F21/57,G06F9/54,H04L29/06,H04L29/08
+</ipc_classes>
+
+<assignee>
+FORTINET
+</assignee>
+
+<inventors>
+MANDRYCHENKO, OLEKSII
+</inventors>
+
+<docdb_family_id>
+72335557
+</docdb_family_id>
+
+<title>
+ENDPOINT NETWORK TRAFFIC ANALYSIS
+</title>
+
+<abstract>
+Systems and methods for an agent-based approach that facilitates endpoint network traffic analysis are provided. According to an embodiment, an agent running on an endpoint device associated with an enterprise network collects network communication metadata from the endpoint device responsive to receiving callbacks from a kernel-level tracing facility implemented within an OS of the endpoint device and locally stores the collected network communication metadata. Further, the agent performs time-based aggregation of the collected metadata to reduce transmission bandwidth and local storage requirements. The aggregated metadata from the endpoint device is submitted to an anomaly detection service when the endpoint device is connected to the enterprise network. The anomaly detection service uses a machine-learning based approach for detection of anomalous behavior.
+</abstract>
+
+<claims>
+1. A method comprising: collecting, by an agent running on an endpoint device associated with an enterprise network, network communication metadata from the endpoint device by receiving a plurality of callbacks from a kernel-level tracing facility implemented within an operating system of the endpoint device, wherein the plurality of callbacks are responsive to system calls relating to network events including receipt or transmission of one or more packets by the endpoint device via a network to which the endpoint device is coupled; storing, by the agent, the collected network communication metadata in a database; reducing transmission bandwidth and local storage requirements for the collected network communication metadata, by the agent, performing a time-based data aggregation on the collected network metadata; determining whether the endpoint device is connected to the enterprise network; responsive to said determining being affirmative, causing, by the agent, the aggregated network metadata to be analyzed for anomalous behavior by transmitting the aggregated network communication metadata to an anomaly detection service via a gateway device of the enterprise network; and responsive to said determining being negative, locally storing, by the agent, the aggregated network communication metadata for subsequent transmission to the anomaly detection service at a time when said determining is affirmative.
+2. The method of claim 1, wherein the collected network communication metadata comprises any or a combination of: a process identifier associated with an active process running on the endpoint device that initiated a network event associated with the collected network communication metadata; a date and time associated with the network event; information indicative of an aggregation time interval over which the collected network communication metadata was aggregated; information regarding a number of bytes sent or received for the network event; a source Internet Protocol (IP) address associated with the network event; a source port associated with the network event; a source hostname associated with the network event; a destination IP address associated with the network event; a destination port associated with the network event; a destination hostname associated with the network event; information regarding a protocol used for packet transfer associated with the network event; a user name of a user of the enterprise that initiated the network event; information regarding an application that initiated the network event; an application hash of the application; and information regarding a type of activity associated with the network event.
+3. The method of claim 1, wherein said performing a time-based data aggregation comprises running a variant of Structured Query Language (SQL) query with a predefined time interval on the database and saving results of the SQL query in a new row of a separate database table.
+4. The method of claim 1, further comprising after the aggregated network communication metadata has been transmitted to the anomaly detection service, deleting the aggregated network communication metadata from the database.
+5. The method of claim 1, wherein the agent executes within user address space of a virtual memory provided by the operating system.
+6. The method of claim 1, wherein said collecting further comprises subscribing, by the agent, to network-related internal application programming interface (API) calls directly or indirectly via the kernel-level tracing facility.
+7. The method of claim 6, wherein the agent indirectly interacts with the kernel-level tracing facility via Event Tracing for Windows (ETW).
+8. The method of claim 1, wherein said determining whether the endpoint device is connected to the enterprise network comprises detecting, by an event dispatcher implemented within the agent, a network connection between the endpoint device and the gateway device.
+9. The method of claim 1, wherein the anomaly detection service determines existence of the anomalous behavior based on the aggregated network communication metadata by: sanitizing the aggregated network communication metadata to remove any illegal or malformed data by using a set of filters; extracting feature vectors from the sanitized data; and detecting whether the sanitized data is indicative of existence of the anomalous behavior or is representative of normal traffic using a trained anomaly detection model.
+10. A non-transitory computer-readable storage medium embodying a set of instructions, which when executed by one or more processors of an endpoint device associated with an enterprise network, causes the one or more processors to perform a method comprising: collecting, by an agent running on the endpoint device, network communication metadata from the endpoint device by receiving a plurality of callbacks from a kernel-level tracing facility implemented within an operating system of the endpoint device, wherein the plurality of callbacks are responsive to system calls relating to network events including receipt or transmission of one or more packets by the endpoint device via a network to which the endpoint device is coupled; storing, by the agent, the collected network communication metadata in a database; reducing transmission bandwidth and local storage requirements for the collected network communication metadata, by the agent, performing a time-based data aggregation on the collected network metadata; determining whether the endpoint device is connected to the enterprise network; responsive to said determining being affirmative, causing, by the agent, the aggregated network metadata to be analyzed for anomalous behavior by transmitting the aggregated network communication metadata to an anomaly detection service via a gateway device of the enterprise network; and responsive to said determining being negative, locally storing, by the agent, the aggregated network communication metadata for subsequent transmission to the anomaly detection service at a time when said determining is affirmative.
+11. The non-transitory computer-readable storage medium of claim 10, wherein the network communication metadata comprises any or a combination of: a process identifier associated with an active process running on the endpoint device that initiated a network event associated with the collected network communication metadata; a date and time associated with the network event; information indicative of an aggregation time interval over which the collected network communication metadata was aggregated; information regarding a number of bytes sent or received for the network event; a source Internet Protocol (IP) address associated with the network event; a source port associated with the network event; a source hostname associated with the network event; a destination IP address associated with the network event; a destination port associated with the network event; a destination hostname associated with the network event; information regarding a protocol used for packet transfer associated with the network event; a user name of a user of the enterprise that initiated the network event; information regarding an application that initiated the network event; an application hash of the application; and information regarding a type of activity associated with the network event.
+12. The non-transitory computer-readable storage medium of claim 10, wherein said performing a time-based data aggregation comprises running a variant of Structured Query Language (SQL) query with a predefined time interval on the database and saving results of the SQL query in a new row of a separate database table.
+13. The non-transitory computer-readable storage medium of claim 10, wherein after the aggregated network communication metadata has been transmitted to the anomaly detection service, the method further comprises deleting the aggregated network communication metadata from the database.
+14. The non-transitory computer-readable storage medium of claim 10, wherein the agent executes within user address space of a virtual memory provided by the operating system.
+15. The non-transitory computer-readable storage medium of claim 10, wherein said collecting further comprises subscribing, by the agent, to network-related internal application programming interface (API) calls directly or indirectly via the kernel-level tracing facility.
+16. The non-transitory computer-readable storage medium of claim 15, wherein the agent indirectly interacts with the kernel-level tracing facility via Event Tracing for Windows (ETW).
+17. The non-transitory computer-readable storage medium of claim 10, wherein said determining whether the endpoint device is connected to the enterprise network comprises detecting, by an event dispatcher implemented within the agent, a network connection between the endpoint device and the gateway device.
+18. The non-transitory computer-readable storage medium of claim 10, wherein the anomaly detection service determines existence of the anomalous behavior based on the aggregated network communication metadata by: sanitizing the aggregated network communication metadata to remove any illegal or malformed data by using a set of filters; extracting feature vectors from the sanitized data; and detecting whether the sanitized data is indicative of existence of the anomalous behavior or is representative of normal traffic using a trained anomaly detection model.
+</claims>
+</document>

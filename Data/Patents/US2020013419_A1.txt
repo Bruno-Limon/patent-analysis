@@ -1,0 +1,71 @@
+<document>
+
+<filing_date>
+2019-09-20
+</filing_date>
+
+<publication_date>
+2020-01-09
+</publication_date>
+
+<priority_date>
+2014-07-17
+</priority_date>
+
+<ipc_classes>
+G10L19/008,G10L19/02,G10L25/21
+</ipc_classes>
+
+<assignee>
+DOLBY LABORATORIES LICENSING CORPORATION
+</assignee>
+
+<inventors>
+LU, LIE
+WANG JUN
+</inventors>
+
+<docdb_family_id>
+55078993
+</docdb_family_id>
+
+<title>
+Decomposing audio signals
+</title>
+
+<abstract>
+Example embodiments disclosed herein relate to signal processing. A method for decomposing a plurality of audio signals from at least two different channels is disclosed. The method comprises obtaining a set of components that are weakly correlated, the set of components generated based on the plurality of audio signals. The method comprises extracting a feature from the set of components, and determining a set of gains associated with the set of components at least in part based on the extracted feature, each of the gains indicating a proportion of a diffuse part in the associated component. The method further comprises decomposing the plurality of audio signals by applying the set of gains to the set of components. Corresponding system and computer program product are also disclosed.
+</abstract>
+
+<claims>
+1. A method for decomposing a plurality of audio signals from at least two different channels, the method comprising: obtaining a set of components C that are weakly correlated, the set of components generated based on the plurality of audio signals X by transforming one or more combinations of said plurality of audio signals extracting a feature from the set of components; determining a set of gains associated with the set of components at least in part based on the extracted feature, each of the gains indicating a proportion of a diffuse part in the associated component, wherein each of the gains is determined by multiplying and scaling the extracted feature as a factor; and decomposing the plurality of audio signals by applying the set of gains to the set of components, wherein extracting the feature comprises at least the following: extracting a global feature related to the set of components, and wherein extracting the global feature comprises extracting the global feature based on power distributions of the components, characterized by obtaining the set of components further comprising obtaining a first set of components that are weakly correlated and a second set of components that are weakly correlated, the first set of components generated in a sub-band and the second set of components generated in a full band or in a time domain, and wherein extracting the global feature based on power distributions of the components comprises at least one of the following: determining a difference between a first power, λC1,f, and a second power, λC1,f, the first power of a first component, C1,f, having the largest power among the first set of components in a sub-band f and the second power of a second component, C1, having the largest power among the second set of components, wherein the difference between the first power, λC1,f, and the second power, λC1, is determined according to:
+description="In-line Formulae" end="lead"?Δλ=|Σf=1FλC1,f−λC1|,description="In-line Formulae" end="tail"? wherein f denotes a sub-band index and F denotes the total number of sub-bands; and determining a difference ΔD between a unit vector, αj, representing the position of the component, C1, having the largest power among the second set of components and a second unit vector, αj, representing the position of the first component, C1,f, having the largest power among the first set of components in the sub-band f
+description="In-line Formulae" end="lead"?bydescription="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?ΔD=1−Σj=1MΣi=1M(αj)i*(αj)i description="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?ordescription="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?ΔD=Σj=1MΣi=1M((αj)i−(αj)i)2,description="In-line Formulae" end="tail"? wherein M denotes the number of channels.
+2. The method according to claim 1, wherein extracting the feature further comprises at least the following: extracting a local feature specific to one of the components.
+3. The method according to claim 2, wherein extracting the local feature comprises at least one of the following: determining position statistics of the one of the components in the at least two different channels; and extracting an audio texture feature of the one of the components.
+4. The method according to claim 1, wherein extracting the global feature based on power distributions of the components further comprises at least the following: calculating entropy based on normalized powers of the components.
+5. The method according to claim 1, further comprising: determining complexity of the plurality of audio signals, the complexity indicating the number of direct signals in the plurality of audio signals, wherein a complexity score is obtained based on a linear combination of the sum of the power differences of the components, a global feature indicating how even the power distribution is across components, and a power difference between a local dominant component in a sub-band and a global dominant component in a full band or in a time domain; and adjusting the set of gains based on the determined complexity score.
+6. The method according to claim 5, wherein determining the set of gains comprises: determining the set of gains based on the extracted feature and a preference of whether to preserve directionality or diffusion of the plurality of audio signals.
+7. The method according to claim 1, wherein determining the set of gains comprises: predicting the set of gains based on the extracted global feature and optionally an extracted local feature specific to one of the components and a set of reference gains determined for a reference feature by means of a least squares support vector machine, wherein the set of gains are predicted using learned least squares support vector machine models.
+8. The method according to claim 7, further comprising: obtaining a set of reference components that are weakly correlated, the set of reference components generated based on a plurality of known audio signals from the at least two different channels, the plurality of known audio signals having the reference feature; and determining the set of reference gains associated with the set of reference components such that a difference between first characteristic of directionality and diffusion of the plurality of the known audio signals and second characteristic of directionality and diffusion is minimized, the second characteristic obtained by decomposing the plurality of the known audio signals by applying the set of reference gains to the set of reference components.
+9. The method according to claim 8, wherein determining the set of reference gains further comprises: determining the set of reference gains based on a preference of whether to preserve directionality or diffusion of the plurality of known audio signals.
+10. A system for decomposing a plurality of audio signals from at least two different channels, the system comprising: a component obtaining unit configured to obtain a set of components C that are weakly correlated, the set of components generated based on the plurality of audio signals X by transforming one or more combinations of said plurality of audio signals a feature extracting unit configured to extract a feature from the set of components; a gain determining unit configured to determine a set of gains associated with the set of components at least in part based on the extracted feature, each of the gains indicating a proportion of a diffuse part in the associated component, wherein each of the gains is determined by multiplying and scaling the extracted feature as a factor; and a decomposing unit configured to decompose the plurality of audio signals by applying the set of gains to the set of components, wherein the feature extracting unit is further configured to do at least the following: extract a global feature related to the set of components, and wherein the feature extracting unit is further configured to extract the global feature based on power distributions of the components, characterized in that the component obtaining unit is further configured to: obtain a first set of components that are weakly correlated and a second set of components that are weakly correlated, the first set of components generated in a sub-band and the second set of components generated in a full band or in a time domain, and wherein the feature extracting unit is further configured to do at least one of the following: determine a difference between a first power, λC1,f, and a second power, λC1, the first power of a first component, C1,f, having the largest power among the first set of components in a sub-band f and the second power of a second component, C1, having the largest power among the second set of components, wherein the difference between the first power, λC1,f, and the second power, λC1, is determined according to:
+description="In-line Formulae" end="lead"?Δλ=|Σf=1FλC1,f−λC1|,description="In-line Formulae" end="tail"? wherein f denotes a sub-band index and F denotes the total number of sub-bands; and determine a difference ΔD between a unit vector, αj, representing the position of the component, C1, having the largest power among the second set of components and a second unit vector, αj, representing the position of the first component, C1,f, having the largest power among the first set of components in the sub-band f
+description="In-line Formulae" end="lead"?bydescription="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?ΔD=1−Σj=1MΣi=1M(αj)i*(αj)i description="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?ordescription="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?ΔD=Σj=1MΣi=1M((αj)i−(αj)i)2,description="In-line Formulae" end="tail"? wherein M denotes the number of channels.
+11. The system according to claim 10, wherein the feature extracting unit is further configured to do at least the following: extract a local feature specific to one of the components.
+12. The system according to claim 11, wherein the feature extracting unit is further configured to do at least one of the following: determine position statistics of the one of the components in the at least two different channels; and extract an audio texture feature of the one of the components.
+13. The system according to claim 10, wherein the feature extracting unit is further configured to do at least the following: calculate entropy based on normalized powers of the components.
+14. The system according to claim 10, further comprising: a complexity determining unit configured to determine complexity of the plurality of audio signals, the complexity indicating the number of direct signals in the plurality of audio signals, wherein a complexity score is obtained based on a linear combination of the sum of the power differences of the components, a global feature indicating how even the power distribution is across components, and a power difference between a local dominant component in a sub-band and a global dominant component in a full band or in a time domain; and a gain adjusting unit configured to adjust the set of gains based on the determined complexity score.
+15. The system according to claim 14, wherein the gain determining unit is further configured to: determine the set of gains based on the extracted feature and a preference of whether to preserve directionality or diffusion of the plurality of audio signals.
+16. The system according to claim 10, wherein the gain determining unit is further configured to: predict the set of gains based on the extracted global feature and optionally an extracted local feature specific to one of the components a set of reference gains determined for a reference feature by means of a least squares support vector machine, wherein the set of gains are predicted using learned least squares support vector machine models.
+17. The system according to claim 16, wherein the component obtaining unit is further configured to: obtain a set of reference components that are weakly correlated, the set of reference components generated based on a plurality of known audio signals from the at least two different channels, the plurality of known audio signals having the reference feature; and the system further comprises: a reference gain determining unit configured to determine the set of reference gains associated with the set of reference components such that a difference between first characteristic of directionality and diffusion of the plurality of the known audio signals and second characteristic of directionality and diffusion is minimized, the second characteristic obtained by decomposing the plurality of the known audio signals by applying the set of reference gains to the set of reference components.
+18. The system according to claim 17, wherein the reference gain determining unit is further configured to: determine the set of reference gains based on a preference of whether to preserve directionality or diffusion of the plurality of known audio signals.
+19. A computer program product for decomposing a plurality of audio signals from at least two different channels, the computer program product being tangibly stored on a non-transient computer-readable medium and comprising machine executable instructions which, when executed, cause the machine to perform steps of the method according to claim 1.
+</claims>
+</document>

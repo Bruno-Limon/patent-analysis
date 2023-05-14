@@ -1,0 +1,70 @@
+<document>
+
+<filing_date>
+2019-09-20
+</filing_date>
+
+<publication_date>
+2020-12-10
+</publication_date>
+
+<priority_date>
+2019-06-06
+</priority_date>
+
+<ipc_classes>
+G06F8/60,G06F9/50,G06F9/54,G06K9/62,G06N20/00
+</ipc_classes>
+
+<assignee>
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+SUBRAMANIAN, KARTHIKEYAN
+XU YONG
+LIN QINGWEI
+MILLER, JOHN LAWRENCE
+ZHOU, SHANDAN
+CORTEZ, ELI
+MOSCIBRODA, THOMAS
+QIN, Si
+COWDERY, Christopher
+KEMBURU, Shanti
+</inventors>
+
+<docdb_family_id>
+73650066
+</docdb_family_id>
+
+<title>
+ALLOCATING CLOUD RESOURCES IN ACCORDANCE WITH PREDICTED DEPLOYMENT GROWTH
+</title>
+
+<abstract>
+The present disclosure relates to systems, methods, and computer readable media for predicting deployment growth on one or more node clusters and selectively permitting deployment requests on a per cluster basis. For example, systems disclosed herein may apply tenant growth prediction system trained to output a deployment growth classification indicative of a predicted growth of deployments on a node cluster. The system disclosed herein may further utilize the deployment growth classification to determine whether a deployment request may be permitted while maintaining a sufficiently sized capacity buffer to avoid deployment failures for existing deployments previously implemented on the node cluster. By selectively permitting or denying deployments based on a variety of factors, the systems described herein can more efficiently utilize cluster resources on a per-cluster basis without causing a significant increase in deployment failures for existing customers.
+</abstract>
+
+<claims>
+1. A method, comprising: identifying a plurality of cluster features for a node cluster based on utilization data for the node cluster, wherein the node cluster comprises a grouping of server nodes on a cloud computing system; determining a deployment growth classification for the node cluster based on the identified plurality of cluster features, the deployment growth classification comprising a classification for predicted growth of an existing set of deployments on the node cluster; and providing the deployment growth classification to a server device on the node cluster for use in determining whether to permit or deny a received deployment request based on the deployment growth classification and a cluster configuration for the node cluster, wherein the cluster configuration includes one or more policies associated with whether to permit or deny incoming deployment requests on the node cluster.
+2. The method of claim 1, wherein determining the deployment growth classification for the node cluster comprises providing the plurality of cluster features as input signals to a deployment growth prediction model trained to generate an output including a predicted growth of existing deployments on a given node cluster.
+3. The method of claim 2, wherein the deployment growth prediction model comprises a machine learning model trained to generate the output based on historical utilization data for a plurality of node clusters and associated deployment growth for the plurality of node clusters.
+4. The method of claim 1, wherein the utilization data comprises one or more of: a number or percentage of compute cores occupied by the existing set of deployments; a number or percentage of empty nodes from the node cluster; or a fragmentation metric for the node cluster based on a number of total available cores on the node cluster and a number of available cores on empty nodes from the node cluster.
+5. The method of claim 1, wherein the utilization data comprises: intra-day utilization data for the existing set of deployments on the node cluster; and cross-day utilization data for the existing set of deployments on the node cluster.
+6. The method of claim 1, wherein identifying the plurality of cluster features is further based on cluster properties of the node cluster.
+7. The method of claim 6, wherein the cluster properties comprise one or more of: hardware types of nodes on the node cluster; types of cloud computing resources supported by the node cluster; a geographic region associated with the node cluster; one or more account types associated with the existing set of deployments; or one or more offer types associated with the existing set of deployments.
+8. The method of claim 1, wherein identifying the plurality of cluster features comprises: collecting historical utilization data for the node cluster; and constructing the plurality of cluster features based on the historical utilization data for the node cluster, the plurality of cluster features comprising feature signals from a collection of feature signals known to correlate with growth of deployments on a given node cluster.
+9. The method of claim 8, wherein identifying the plurality of cluster features comprises: collecting raw utilization data for the node cluster; and extrapolating the historical utilization data based on observed patterns of the raw utilization data over previous periods of time.
+10. The method of claim 1, wherein the deployment growth classification comprises a classification for predicted growth based on one or more of: predicted utilization growth of the existing set of deployments on the node cluster over a predetermined period of time; or predicted fluctuations of utilization growth of the existing set of deployments on the node cluster over the predetermined period of time.
+11. A method, comprising: receiving utilization data for a node cluster on a cloud computing system, wherein the node cluster comprises a plurality of associated server nodes on the cloud computing system; receiving a deployment growth classification for the node cluster, the deployment growth classification comprising a classification for predicted growth of an existing set of deployments on the node cluster; identifying a cluster configuration associated with determining whether to permit or deny incoming deployment requests on the node cluster; and permitting a received deployment request based on the received utilization data, the cluster configuration, and the deployment growth classification.
+12. The method of claim 11, further comprising: updating the utilization data for the node cluster based on a new deployment for the received deployment request in addition to the existing set of deployments on the node cluster; denying an additional received deployment request based on the updated utilization data and the received deployment growth classification.
+13. The method of claim 11, wherein the cluster configuration comprises instructions associated with permitting or denying incoming deployment requests based on whether the utilization data for the node cluster exceeds a threshold utilization state for the node cluster, the threshold utilization state including one or more of: a maximum number or percentage of compute cores occupied by the existing set of deployments on the node cluster; or a minimum number or percentage of empty nodes on the node cluster;
+14. The method of claim 11, wherein the cluster configuration comprises a capacity buffer threshold associated with a minimum capacity of compute cores on the node cluster, and wherein identifying the cluster configuration comprises modifying the capacity buffer threshold based on the received deployment growth classification.
+15. The method of claim 14, wherein modifying the capacity buffer threshold comprises: decreasing the capacity buffer threshold based on a deployment growth classification associated with a prediction of low growth of the existing set of deployments on the node cluster; or increasing the capacity buffer threshold based on a deployment growth classification associated with a prediction of high growth of the existing set of deployments on the node cluster.
+16. A system, comprising: one or more processors; memory in electronic communication with the one or more processors; and instructions stored in the memory, the instructions being executable by the one or more processors to: identify utilization data for a node cluster on a cloud computing system, the node cluster comprising a grouping of associated server nodes; identify a plurality of cluster features for the node cluster based on the identified utilization data; determine a deployment growth classification for the node cluster based on the plurality of cluster features, the deployment growth classification comprising a classification for predicted growth of an existing set of deployments on the node cluster; and permit or deny a received deployment request based on the utilization data and the deployment growth classification.
+17. The system of claim 16, wherein determining the deployment growth classification for the node cluster comprises: providing the plurality of cluster features as input signals to a deployment growth prediction model trained to generate an output including a predicted growth of existing deployments on a given node cluster; and receiving, from the deployment growth prediction model, the deployment growth classification for the node cluster.
+18. The system of claim 16, wherein the utilization data comprises one or more of: a number or percentage of compute cores occupied by the existing set of deployments; a number or percentage of empty nodes from the node cluster; or a fragmentation metric for the node cluster based on a number of total available cores on the node cluster and a number of available cores on empty nodes from the node cluster.
+19. The system of claim 16, wherein identifying the plurality of cluster features is further based on cluster properties of the node cluster, and wherein the cluster properties comprise one or more of: hardware types of nodes on the node cluster; types of cloud computing resources supported by the node cluster; a geographic region associated with the node cluster; one or more account types associated with the existing set of deployments; or one or more offer types associated with the existing set of deployments.
+20. The system of claim 16, further comprising instructions being executable by the one or more processors to: identify a cluster configuration including a capacity buffer threshold associated with a minimum capacity of compute cores on the node cluster; and determining a modified cluster configuration based on the deployment growth classification, wherein determining whether to permit or deny the received deployment request is further based on the modified cluster configuration.
+</claims>
+</document>

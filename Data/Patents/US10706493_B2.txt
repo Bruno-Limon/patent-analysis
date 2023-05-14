@@ -1,0 +1,78 @@
+<document>
+
+<filing_date>
+2017-12-29
+</filing_date>
+
+<publication_date>
+2020-07-07
+</publication_date>
+
+<priority_date>
+2017-12-29
+</priority_date>
+
+<ipc_classes>
+G06F3/14,G06F9/451,G06T1/20,G06T1/60,G09G5/00,G09G5/36
+</ipc_classes>
+
+<assignee>
+INTEL CORPORATION
+</assignee>
+
+<inventors>
+PUFFER, DAVID
+VEMBU, BALAJI
+LIN, YUNBIAO
+COWPERTHWAITE DAVID J.
+WANG CHANGLIANG
+MUSUNURI, SATYANANTHA RAMAGOPAL
+WHITE, BRYAN R
+</inventors>
+
+<docdb_family_id>
+67058888
+</docdb_family_id>
+
+<title>
+Apparatus and method for display virtualization using mapping between virtual and physical display planes
+</title>
+
+<abstract>
+An apparatus and method for managing pipes and planes within a virtual graphics processing engine. For example, one embodiment of a graphics processing apparatus comprises: a graphics processor comprising one or more display pipes to render one or more display planes, each of the one or more display pipes comprising a set of graphics processing hardware resources for executing graphics commands and rendering graphics images in the one or more display planes; and pipe and plane management hardware logic to manage pipe and plane assignment, the pipe and plane management hardware logic to associate a first virtual machine (VM) with one or more virtual display planes and to maintain a mapping between the one or more virtual display planes and at least one physical display plane.
+</abstract>
+
+<claims>
+1. A graphics processing apparatus comprising: a graphics processor comprising one or more display pipes to render one or more display planes, each of the one or more display pipes comprising a set of graphics processing hardware resources for executing graphics commands and rendering graphics images in the one or more display planes; and pipe and plane management hardware logic to manage pipe and plane assignment, the pipe and plane management hardware logic to associate a first virtual machine (VM) with one or more virtual display planes and to maintain a mapping between the one or more virtual display planes and at least one physical display plane, wherein maintaining the mapping comprises a page walk using a requestor identifier (RID), and wherein the pipe and plane management hardware logic is to generate an index value from a plane identifier index data structure by performing a lookup using a plane identifier (ID) and to a generate the requestor identifier (RID) from a walker information data structure responsive to the index value.
+2. The graphics processing apparatus of claim 1 wherein the pipe and plane management hardware logic is further configurable to assign one or more virtual display pipes to the first virtual machine and to map the one or more virtual display pipes to one or more physical display pipes.
+3. The graphics processing apparatus of claim 2 wherein the virtual display pipes and planes are associated with a function number.
+4. The graphics processing apparatus of claim 1 further comprising: a plane virtualization control register (PVCR) coupled to the pipe and plane management hardware logic, the PVCR to store data to identify a virtual machine.
+5. The graphics processing apparatus of claim 4 wherein the PVCR is configured to store the requester identifier (RID).
+6. The graphics processing apparatus of claim 5 wherein the RID comprises the virtual function number (VF #) or a process address space identifier (PASID).
+7. The graphics processing apparatus of claim 1 further comprising: a plane virtualization window position register (PVWPR) usable to configure plane virtualization, the PVWPR to store an indication of current coordinates within a host window.
+8. The graphics processing apparatus of claim 7 further comprising: a plane virtualization window size register (PVWSR) also usable by the pipe and plane virtualization hardware logic to configure plane virtualization, the PVWPR to store an indication of a height and width of a host display.
+9. The graphics processing apparatus of claim 1 further comprising: memory management circuitry to receive the RID and responsively perform the page walk utilizing a per-walker memory-mapped Input/Output (MMIO) page table.
+10. The graphics processing apparatus of claim 9 wherein one or more regions of graphics memory address space are associated with ownership by a given RID.
+11. The graphics processing apparatus of claim 10 further comprising: a circuit to verify a correspondence between a plane and a given RID.
+12. A method comprising: rendering one or more graphics images on a set of graphics processing resources for executing graphics commands and rendering graphics images; and storing data related to a current set of virtual display planes and virtual display pipes within one or more registers, the virtual display pipes to process images to render on the one of the one or more virtual display planes; and assigning a first virtual machine (VM) to one or more of the virtual display planes and to maintain a mapping between the one or more virtual display planes and at least one physical display plane, wherein maintaining the mapping comprises a page walk using a requestor identifier (RID), and wherein the page walk comprises generating an index value from a plane identifier index data structure by performing a lookup using a plane identifier (ID) and generating the requestor identifier (RID) from a walker information data structure responsive to the index value.
+13. The method of claim 12 wherein the virtual display pipes and virtual display planes may be independently assigned to different VMs at different times and wherein a first one or more virtual display pipes are assigned to the first virtual machine, the first one or more virtual display pipes to process graphics data for display on the one or more virtual display planes, the graphics data to be physically rendered on the at least one physical display plane.
+14. The method of claim 13 wherein the virtual display pipes and virtual display planes are associated with the requestor identifier (RID).
+15. The method of claim 12 further comprising: executing a virtual machine monitor (VMM), the VMM coordinating access by a plurality of VMs to the physical display planes.
+16. The method of claim 15 wherein the VMM or other logic is to update a plane virtualization control register (PVCR) to associate a current VM with a physical display plane.
+17. The method of claim 16 wherein the PVCR is configured to store the requestor identifier (RID) to uniquely identify the current VM.
+18. The method of claim 17 wherein the RID comprises the virtual function number (VF #) or the process address space identifier (PASID).
+19. The method of claim 18 further comprising: setting current coordinates within a host window by storing a first value in a plane virtualization window position register (PVWPR).
+20. The method of claim 18 further comprising: setting a height and width of a host display by storing a second value in a plane virtualization window size register (PVWSR).
+21. The method of claim 12 further comprising: performing the page walk utilizing a per-walker memory-mapped Input/Output (MMIO) page table responsive to the RID.
+22. A non-transitory machine-readable medium having program code stored thereon which, when executed by a machine, causes the machine to perform: rendering one or more graphics images on a set of graphics processing resources for executing graphics commands and rendering graphics images to memory allocated to a specific RID; and storing data related to a current set of virtual display planes and virtual display pipes within one or more registers, the virtual display pipes to process images to render on the one of the one or more virtual display planes; and assigning a first virtual machine (VM) to one or more of the virtual display planes and to maintain a mapping between the one or more virtual display planes and at least one physical display plane, wherein maintaining the mapping comprises a page walk using a requestor identifier (RID), and wherein the page walk comprises generating an index value from a plane identifier index data structure by performing a lookup using a plane identifier (ID) and generating the requestor identifier (RID) from a walker information data structure responsive to the index value.
+23. The non-transitory machine-readable medium of claim 22 wherein the virtual display pipes and virtual display planes may be independently assigned to different VMs at different times and wherein a first one or more virtual display pipes are assigned to the first virtual machine, the first one or more virtual display pipes to process graphics data for display on the one or more virtual display planes, the graphics data to be physically rendered on the at least one physical display plane.
+24. The non-transitory machine-readable medium of claim 23 wherein the virtual display pipes and virtual display planes are associated with the requestor identifier (RID).
+25. The non-transitory machine-readable medium of claim 22 further comprising program code to cause the machine to perform: executing a virtual machine monitor (VMM), the VMM coordinating access by a plurality of VMs to the physical display planes.
+26. The non-transitory machine-readable medium of claim 25 wherein the VMM or other logic is to update a plane virtualization control register (PVCR) to associate a current VM with a physical display plane.
+27. The non-transitory machine-readable medium of claim 26 wherein the PVCR is configured to store a requestor identifier (RID) to uniquely identify the current VM.
+28. The non-transitory machine-readable medium of claim 25 further comprising: setting current coordinates within a host window by storing a first value in a plane virtualization window position register (PVWPR).
+29. The non-transitory machine-readable medium of claim 27 further comprising program code to cause the machine to perform: setting a height and width of a host display by storing a second value in a plane virtualization window size register (PVWSR).
+30. The non-transitory machine-readable medium of claim 22 further comprising program code to cause the machine to perform: performing the page walk utilizing a per-walker memory-mapped IO (MMIO) page table responsive to the RID to access a memory.
+31. The non-transitory machine-readable medium of claim 30 further comprising: validating that the memory being accessed matches ownership according to the RID.
+</claims>
+</document>

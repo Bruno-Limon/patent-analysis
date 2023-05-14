@@ -1,0 +1,85 @@
+<document>
+
+<filing_date>
+2020-01-23
+</filing_date>
+
+<publication_date>
+2020-07-30
+</publication_date>
+
+<priority_date>
+2019-01-23
+</priority_date>
+
+<ipc_classes>
+G06N3/08
+</ipc_classes>
+
+<assignee>
+DEEPMIND TECHNOLOGIES
+ELSEN, ERICH KONRAD
+SCHAUL, TOM
+</assignee>
+
+<inventors>
+ELSEN, ERICH KONRAD
+LENC, KAREL
+SCHAUL, TOM
+SIMONYAN, KAREN
+</inventors>
+
+<docdb_family_id>
+69190797
+</docdb_family_id>
+
+<title>
+LEARNING NON-DIFFERENTIABLE WEIGHTS OF NEURAL NETWORKS USING EVOLUTIONARY STRATEGIES
+</title>
+
+<abstract>
+Methods, systems, and apparatus, including computer programs encoded on computer storage media, for training a neural network. The neural network has a plurality of differentiable weights and a plurality of non-differentiable weights. One of the methods includes determining trained values of the plurality of differentiable weights and the non-differentiable weights by repeatedly performing operations that include determining an update to the current values of the plurality of differentiable weights using a machine learning gradient-based training technique and determining, using an evolution strategies (ES) technique, an update to the current values of a plurality of distribution parameters.
+</abstract>
+
+<claims>
+1. A method of training a neural network having a plurality of differentiable weights and a plurality of non-differentiable weights to determine trained values of the plurality of differentiable weights and the non-differentiable weights, the method comprising:
+maintaining (i) current values of the plurality of differentiable weights and (ii) current values of a plurality of distribution parameters;
+repeatedly performing the following operations:
+generating a plurality of non-differentiable weight value samples in accordance with the current values of the plurality of distribution parameters, wherein each nondifferentiable weight sample defines a respective value for each of the non-differentiable weights;
+for each non-differentiable weight value sample:
+determining a fitness of the neural network when the values of the plurality of differentiable weights are set to the current values and the values of the plurality of non-differentiable weights are set to the values defined by the non-differentiable weight value sample, and
+determining, while the values of the plurality of differentiable weights are set to the current values and the values of the plurality of non-differentiable weights are set to the values defined by the non-differentiable weight value sample, an update to the current values of the plurality of differentiable weights using a machine learning gradientbased training technique;
+updating the current values of the differentiable weights using the updates determined for each of the non-differentiable weight value samples;
+determining, using an evolution strategies (ES) technique, an update to the current values of the plurality of distribution parameters using the fitness determined for each non-differentiable weight value sample; and
+updating the current values of the plurality of distribution parameters using the update to the current values of the plurality of distribution parameters.
+2. The method of claim 1, wherein determining a fitness of the neural network when the values of the plurality of differentiable weights are set to the current values and the values of the plurality of non-differentiable weights are set to the values defined by the non-differentiable weight value sample comprises:
+obtaining a plurality of training inputs;
+processing each training input using the neural network with the values of the plurality of differentiable weights set to the current values and the values of the plurality of non-differentiable weights set to the values defined by the non-differentiable weight value sample to generate a respective network output for each training input; and
+evaluating, for each training input, an objective function that measures a quality of the network output.
+3. The method of claim 2, wherein determining, while the values of the plurality of differentiable weights are set to the current values and the values of the plurality of nondifferentiable weights are set to the values defined by the non-differentiable weight value sample, an update to the current values of the plurality of differentiable weights using a machine learning gradient-based training technique comprises:
+determining, for each of the training inputs, a gradient with respect to the differentiable weights of the objective function through backpropagation; and
+determining, from the gradients for each of the training inputs, the update to the current values of the differentiable weights in accordance with the gradient-based training technique.
+4. The method of any preceding claim, wherein updating the current values of the differentiable weights using the updates determined for each of the non-differentiable weight value samples comprises:
+determining, for each differentiable weight, an average of the update for the weight in the updates determined for each of the non-differentiable weight value samples; and
+adding the averages to the current values.
+5. The method of any preceding claim, wherein generating a plurality of nondifferentiable weight value samples in accordance with the current values of the plurality of distribution parameters comprises:
+generating, from the current values of the plurality of distribution parameters and for each non-differentiable weight, a respective probability distribution over possible values for the non-differentiable weight; and sampling the plurality of non-differentiable weight value samples from the probability distributions.
+6. The method of claim 5, wherein determining, using an evolution strategies (ES) technique, an update to the current values of the plurality of distribution parameters using the fitness determined for each non-differentiable weight value sample comprises:
+determining a utility for each non-differentiable weight value sample;
+determining, for each non-differentiable weight value sample, an approximate gradient with respect to each distribution parameter from the probability distributions and the utility for the non-differentiable weight value sample; and
+determining the update from the approximate gradients for the non-differentiable weight value samples.
+7. The method of any preceding claim, wherein the training is performed by a distributed training system comprising a plurality of worker computing devices.
+8. The method of claim 7, wherein each non-differentiable weight value sample is assigned to a respective worker computing device and wherein each worker computing device determines the fitness and the updates to the current values of the differentiable weight values for the non-differentiable weight value samples assigned to the worker in parallel with each other worker computing device.
+9. The method of claim 8, wherein each worker computing device receives the current distribution parameters and generates the non-differentiable weight value samples that are assigned to the worker computing device using the current distribution parameters.
+10. The method of claim 9 when also dependent on claim 6, wherein each worker determines the utility for each non-differentiable weight value sample assigned to the worker only from the fitnesses for the non-differentiable weight value samples assigned to the worker and not from any fitness for any non-differentiable weight values sample assigned to other workers.
+11. The method of any preceding claim,
+wherein the non-differentiable weight values comprise respective sparsity mask values for each of a plurality of the differentiable weights that define whether the differentiable weight is set to a zero value or a non-zero value after the neural network is trained,
+wherein determining a fitness of the neural network when the values of the plurality of differentiable weights are set to the current values and the values of the plurality of non-differentiable weights are set to the values defined by the nondifferentiable weight value sample comprises:
+determining a fitness when the differentiable weights are masked such that each differentiable weight (i) has a zero value if the weight is set to a zero value according to the non-differentiable weight value sample and (ii) has the current value for the weight if the weight is set to a non-zero value according to the non-differentiable weight value sample, and
+wherein determining, while the values of the plurality of differentiable weights are set to the current values and the values of the plurality of non-differentiable weights are set to the values defined by the non-differentiable weight value sample, an update to the current values of the plurality of differentiable weights using a machine learning gradientbased training technique comprises:
+determining updates to the differentiable weights that are set to non-zero values according to the non-differentiable weight value sample while the differentiable weights are masked.
+12. The method of claim 11, wherein the distribution parameters define a categorical distribution over the plurality of differentiable weights.
+13. One or more computer-readable storage media storing instructions that when executed by one or more computers cause the one or more computers to perform the respective operations of any one of the methods of any of the preceding claims.
+14. A system comprising one or more computers and one or more storage devices storing instructions that when executed by one or more computers cause the one or more computers to perform the respective operations of any one of claims 1 to 12.
+</claims>
+</document>

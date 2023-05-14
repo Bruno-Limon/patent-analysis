@@ -1,0 +1,61 @@
+<document>
+
+<filing_date>
+2018-09-28
+</filing_date>
+
+<publication_date>
+2020-10-06
+</publication_date>
+
+<priority_date>
+2017-09-28
+</priority_date>
+
+<ipc_classes>
+G06F17/27,G06F40/205,G06F40/253,G06F40/295,G06F40/30,G10L15/18
+</ipc_classes>
+
+<assignee>
+ORACLE INTERNATIONAL CORPORATION
+</assignee>
+
+<inventors>
+GALITSKY, BORIS
+VISHNOI, VISHAL
+XU, ANFERNEE
+</inventors>
+
+<docdb_family_id>
+63858216
+</docdb_family_id>
+
+<title>
+Enabling autonomous agents to discriminate between questions and requests
+</title>
+
+<abstract>
+Systems, devices, and methods of the present invention relate to text classification. A text classification system accesses an utterance of text. The utterance includes at least one word. The text classification system generates a parse tree for the utterance. The parse tree includes at least one terminal node with a word type. The terminal node represents a word of the utterance. The text classification system applies one or more rules to the text. The text classification system then classifies the utterance as a question or a request for an autonomous agent to perform an action.
+</abstract>
+
+<claims>
+1. A system for classifying text as a question or a request, comprising: a linguistic engine configured to: access an utterance comprising at least one word; generate a parse tree for the utterance, wherein the parse tree comprises at least one terminal node comprising a word type, wherein each terminal node represents a word or phrase of the utterance and wherein the parse tree identifies syntactic information of the utterance; and apply, to the parse tree, one or more linguistic templates comprising one or more word types; and a rule engine configured to generate one or more match results obtained from the linguistic engine and determine a classification of the text by applying rules comprising: (i) responsive to determining, from the parse tree, that the utterance comprises a first person pronoun followed by a noun, classifying the utterance as a request; (ii) responsive to determining, from the parse tree, that the utterance comprises an imperative verb as a first word of the utterance by identifying a verb that is (a) in a present tense or in an active voice and (b) neither modal, mental, or a form of the verb "to be," classifying the utterance as a request; (iii) responsive to identifying, in the utterance, one or more predefined request keywords, classifying the utterance as a request; (iv) responsive to identifying, in the utterance, a mental verb, classifying the utterance as a question; and (v) responsive to determining that the utterance comprises a question intent prefix in a first word position, classifying the utterance as a question, wherein the system is further configured, based on the classification as the question or the request, to send a message to a user device or adjust a configuration of an external device.
+2. The system of claim 1, wherein the rules further comprise (vi) responsive to failing to identify the utterance as a question or a request, classifying the utterance as unknown.
+3. The system of claim 1, wherein the rules further comprise (vi) responsive to determining that the utterance comprises a request suffix at in a last word position of the utterance, classifying the utterance as a request.
+4. The system of claim 1, wherein the rules further comprise (vi) responsive to determining that the utterance comprises a transaction verb, classifying the utterance as a request.
+5. The system of claim 1, wherein the linguistic engine is configured to, prior to determining the parse tree, removing one or more stop words from the utterance.
+6. A method of using a classification model to classify utterances as questions or requests, the method comprising: accessing an utterance, wherein the utterance comprises words; generating a parse tree for the utterance, wherein the parse tree comprises at least one terminal node comprising a word type representing a word or phrase of the utterance, and wherein the parse tree identifies syntactic information of the utterance; applying, to the parse tree, a classification model, that is trained to apply rules comprising: (i) responsive to determining, from the parse tree, that the utterance comprises a first person pronoun followed by a noun, classifying the utterance as a request; (ii) responsive to determining, from the parse tree, that the utterance comprises an imperative verb as a first word of the utterance by identifying a verb that is (a) in a present tense or in an active voice and (b) neither modal, mental, or a form of the verb "to be," classifying the utterance as a request; (iii) responsive to identifying, in the utterance, one or more predefined request keywords, classifying the utterance as a request; (iv) responsive to identifying, in the utterance, a mental verb, classifying the utterance as a question; and (v) responsive to determining that the utterance comprises a question intent prefix in a first word position, classifying the utterance as a question; and receiving, from the classification model, a classification of the utterance, wherein the classification of the utterance identifies the utterance as (i) a question, (ii) a request, or (iii) unknown.
+7. The method of claim 6, further comprising: accessing a set of training data comprising a set of training data pairs, wherein each training data pair comprises text and an expected classification, and wherein the set of training data includes both (i) a first training data pair that comprises a question and (ii) a second training data pair comprises a request; and training the classification model by iteratively: providing one of the training data pairs to the classification model; receiving, from the classification model, a determined classification; calculating a loss function by calculating a difference between the determined classification and the expected classification; and adjusting internal parameters of the classification model to minimize the loss function.
+8. A method for classifying text as a question or a request, the method comprising: accessing an utterance comprising at least one word; generating a parse tree for the utterance, wherein the parse tree comprises at least one terminal node comprising a word type, wherein each terminal node represents a word or phrase of the utterance and wherein the parse tree identifies syntactic information of the utterance; and applying, to the parse tree, one or more linguistic templates comprising one or more word types; and applying rules comprising: (i) responsive to determining, from the parse tree, that the utterance comprises a first person pronoun followed by a noun, classifying the utterance as a request; (ii) responsive to determining, from the parse tree, that the utterance comprises an imperative verb as a first word of the utterance, classifying the utterance as a request; (iii) responsive to identifying, in the utterance, one or more predefined request keywords, classifying the utterance as a request; (iv) responsive to identifying, in the utterance, a mental verb, classifying the utterance as a question; (v) responsive to determining that the utterance comprises a question intent prefix in a first word position, classifying the utterance as a question; and (vi) responsive to determining, from the parse tree, that the utterance comprises a first person pronoun and a mental verb, classifying the utterance as a request; and sending, based on the classification as the question or the request, a message to a user device or adjust a configuration of an external device.
+9. The method of claim 8, wherein the rules further comprise: (vii) responsive to determining, a linguistic template match, classifying the utterance as a request.
+10. The method of claim 8, wherein the rules further comprise (vii) responsive to failing to classify the utterance as the question or the request, classifying the utterance as unknown.
+11. The method of claim 8, wherein the rules further comprise (vii) responsive to identifying, in the utterance, a transaction suffix or a transaction verb, classifying the utterance as a request.
+12. The method of claim 8, wherein the rules further comprise (vii) responsive to determining that the utterance comprises a question prefix, classifying the utterance as a question.
+13. The method of claim 8 further comprising removing one or more stop words from the utterance.
+14. The method of claim 9, wherein the classification model is a tree kernel or a support vector machine.
+15. The system of claim 1, wherein the rules further comprise (vi) responsive to determining, from the parse tree, that the utterance comprises a first person pronoun and a mental verb, classifying the utterance as a request.
+16. The method of claim 8, wherein determining that the utterance comprises an imperative verb comprises determining that the utterance comprises a verb that is (a) in a present tense or in an active voice and (b) neither modal, mental or a form of the verb "to be."
+17. The system of claim 1, wherein the rule engine is implemented by a classification model.
+18. The method of claim 8, wherein applying the rules comprises inputting the parse tree to a classification model.
+</claims>
+</document>

@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2019-09-27
+</filing_date>
+
+<publication_date>
+2020-01-23
+</publication_date>
+
+<priority_date>
+2019-09-27
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/46,G06N3/08
+</ipc_classes>
+
+<assignee>
+INTEL CORPORATION
+</assignee>
+
+<inventors>
+GOEL, MANAN
+RHODES, ANTHONY
+</inventors>
+
+<docdb_family_id>
+69163095
+</docdb_family_id>
+
+<title>
+VIDEO TRACKING WITH DEEP SIAMESE NETWORKS AND BAYESIAN OPTIMIZATION
+</title>
+
+<abstract>
+An apparatus, method, system and computer readable medium for video tracking. An exemplar crop is selected to be tracked in an initial frame of a video. Bayesian optimization is applied with each subsequent frame of the video by building a surrogate model of an objective function using Gaussian Process Regression (GPR) based on similarity scores of candidate crops collected from a search space in a current frame of the video. A next candidate crop in the search space is determined using an acquisition function. The next candidate crop is compared to the exemplar crop using a Siamese neural network. Comparisons of new candidate crops to the exemplar crop are made using the Siamese neural network until the exemplar crop has been found in the current frame. The new candidate crops are selected based on an updated surrogate model.
+</abstract>
+
+<claims>
+1. At least one computer readable medium, comprising a set of instructions, which when executed by one or more computing devices, cause the one or more computing devices to: select an exemplar crop to be tracked in an initial frame of a video; apply Bayesian optimization with each subsequent frame of the video to: build a surrogate model of an objective function using Gaussian Process Regression (GPR) based on similarity scores of candidate crops collected from a search space in a current frame of the video; and determine where to proficiently obtain a next candidate crop in the search space using an acquisition function; compare the next candidate crop to the exemplar crop using a Siamese neural network; and continue comparison of a new candidate crop to the exemplar crop using the Siamese neural network until the exemplar crop has been found in the current frame, wherein the new candidate crop is selected based on an updated surrogate model.
+2. The at least one computer readable medium of claim 1, wherein instructions to build a surrogate model of the objective function further comprises instructions, which when executed by the one or more computing devices, cause the one or more computing devices to: obtain candidate crops of an image in the search space of the current frame of the video; obtain a similarity score for each of the candidate crops by passing each of the candidate crops through the Siamese neural network; and draw a graph over the image using each similarity score from each of the candidate crops to interpolate similarity scores of locations in the frame that have not yet been sampled.
+3. The at least one computer readable medium of claim 1, wherein instructions to determine where to proficiently obtain the next candidate crop in the search space using the acquisition function further comprises instructions, which when executed by the one or more computing devices, cause the one or more computing devices to: apply the acquisition function to each of the candidate crops in the search space to obtain an approximation of a similarity score for the candidate crops as if each of the candidate crops had been passed through a Siamese network without passing the candidate crops through the Siamese network; and select a candidate crop from the search space that has a maximum acquisition function result as the next candidate crop.
+4. The at least one computer readable medium of claim 1, wherein the acquisition function comprises a memory-score expected-improvement (MS-EI) acquisition function.
+5. The at least one computer readable medium of claim 1, wherein instructions to compare the next candidate crop to the exemplar object further comprises instructions, which when executed by the one or more computing devices, cause the one or more computing devices to: pass the next candidate crop through the Siamese network to obtain a similarity score; update the surrogate model with the new similarity score; and find a maximum point on the updated surrogate model to use as the new candidate crop.
+6. The at least one computer readable medium of claim 1, wherein the surrogate model formulates a graph of hills and valleys representative of a location of a tracked object in each frame of the video.
+7. The at least one computer readable medium of claim 1, wherein the Siamese neural network is trained as a general object similarity function.
+8. The at least one computer readable medium of claim 1, wherein the search space comprises a d×d grid, and wherein the surrogate model is rendered over the d×d grid.
+9. The at least one computer readable medium of claim 1, wherein instructions to continue comparison of the new candidate crop to the exemplar crop using the Siamese neural network until the exemplar crop has been found in the current frame further comprises instructions, which when executed by the one or more computing devices, cause the one or more computing devices to compare N new candidate crops to the exemplar crop using the Siamese neural network and select the new candidate crop with the highest similarity score as the exemplar crop in the frame.
+10. The at least one computer readable medium of claim 1, wherein instructions to continue comparison of the new candidate crop to the exemplar crop using the Siamese neural network until the exemplar crop has been found in the current frame further comprises instructions, which when executed by the one or more computing devices, cause the one or more computing devices to continue comparison of the new candidate crop to the exemplar crop using the Siamese neural network until a confidence level in the similarity score of a current new candidate crop is sufficiently high to indicate that the exemplar crop has been found.
+11. A semiconductor package apparatus comprising: one or more substrates; and logic coupled to the one or more substrates, wherein the logic includes one or more of configurable logic or fixed-functionality hardware logic, the logic coupled to the one or more substrates to: select an exemplar crop to be tracked in an initial frame of a video; apply Bayesian optimization with each subsequent frame of the video to: build a surrogate model of an objective function using Gaussian Process Regression (GPR) based on similarity scores of candidate crops collected from a search space in a current frame of the video; and determine where to proficiently obtain a next candidate crop in the search space using an acquisition function; compare the next candidate crop to the exemplar crop using a Siamese neural network; and continue comparison of a new candidate crop to the exemplar crop using the Siamese neural network until the exemplar crop has been found in the current frame, wherein the new candidate crop is selected based on an updated surrogate model.
+12. The semiconductor package apparatus of claim 11, wherein logic to build a surrogate model of the objective function further includes logic coupled to the substrate to: obtain candidate crops of an image in the search space of the current frame of the video; obtain a similarity score for each of the candidate crops by passing each of the candidate crops through the Siamese neural network; and draw a graph over the image using each similarity score from each of the candidate crops to interpolate similarity scores of locations in the frame that have not yet been sampled.
+13. The semiconductor package apparatus of claim 11, wherein logic to determine where to proficiently obtain the next candidate crop in the search space using the acquisition function further includes logic coupled to the substrate to: apply the acquisition function to each of the candidate crops in the search space to obtain an approximation of a similarity score for the candidate crops as if each of the candidate crops had been passed through a Siamese network without passing the candidate crops through the Siamese network; and select a candidate crop from the search space that has a maximum acquisition function result as the next candidate crop.
+14. The semiconductor package apparatus of claim 11, wherein the acquisition function comprises a memory-score expected-improvement (MS-EI) acquisition function.
+15. The semiconductor package apparatus of claim 11, wherein logic to compare the next candidate crop to the exemplar object further includes logic coupled to the substrate to: pass the next candidate crop through the Siamese network to obtain a similarity score; update the surrogate model with the new similarity score; and find a maximum point on the updated surrogate model to use as the new candidate crop.
+16. The semiconductor package apparatus of claim 11, wherein the surrogate model formulates a graph of hills and valleys representative of a location of a tracked object in each frame of the video.
+17. The semiconductor package apparatus of claim 11, wherein the Siamese neural network is trained as a general object similarity function.
+18. The semiconductor package apparatus of claim 11, wherein the search space comprises a d×d grid, and wherein the surrogate model is rendered over the d×d grid.
+19. A method of video tracking comprising: selecting an exemplar crop to be tracked in an initial frame of a video; applying Bayesian optimization with each subsequent frame of the video by: building a surrogate model of an objective function using Gaussian Process Regression (GPR) based on similarity scores of candidate crops collected from a search space in a current frame of the video; and determining where to proficiently obtain a next candidate crop in the search space using an acquisition function; comparing the next candidate crop to the exemplar crop using a Siamese neural network; and continuing comparison of a new candidate crop to the exemplar crop using the Siamese neural network until the exemplar crop has been found in the current frame, wherein the new candidate crop is selected based on an updated surrogate model.
+20. The method of claim 19, wherein building a surrogate model of the objective function comprises: obtaining candidate crops of an image in the search space of the current frame of the video; obtaining a similarity score for each of the candidate crops by passing each of the candidate crops through the Siamese neural network; and drawing a graph over the image using each similarity score from each of the candidate crops to interpolate similarity scores of locations in the frame that have not yet been sampled.
+21. The method of claim 19, wherein determining where to proficiently obtain the next candidate crop in the search space using the acquisition function comprises: applying the acquisition function to each of the candidate crops in the search space to obtain an approximation of a similarity score for the candidate crops as if each of the candidate crops had been passed through a Siamese network without passing the candidate crops through the Siamese network; and selecting a candidate crop from the search space that has a maximum acquisition function result as the next candidate crop.
+22. The method of claim 19, wherein the acquisition function comprises a memory-score expected-improvement (MS-EI) acquisition function.
+23. The method of claim 19, wherein comparing the next candidate crop to the exemplar object comprises: passing the next candidate crop through the Siamese network to obtain a similarity score; updating the surrogate model with the new similarity score; and finding a maximum point on the updated surrogate model to use as the new candidate crop.
+24. The method of claim 19, wherein the surrogate model formulates a graph of hills and valleys representative of a location of a tracked object in each frame of the video.
+25. The method of claim 19, wherein the Siamese neural network is trained as a general object similarity function.
+</claims>
+</document>

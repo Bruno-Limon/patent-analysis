@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2020-07-08
+</filing_date>
+
+<publication_date>
+2020-10-29
+</publication_date>
+
+<priority_date>
+2018-06-08
+</priority_date>
+
+<ipc_classes>
+G06F17/18,G06K9/62,G06N20/10,G06T11/60,G06T3/60
+</ipc_classes>
+
+<assignee>
+TENCENT TECHNOLOGY (SHENZHEN) COMPANY
+</assignee>
+
+<inventors>
+LIU WEI
+CHEN, Wei Dong
+WU, Baoyuan
+</inventors>
+
+<docdb_family_id>
+67644895
+</docdb_family_id>
+
+<title>
+IMAGE PROCESSING METHOD AND APPARATUS, AND COMPUTER-READABLE MEDIUM, AND ELECTRONIC DEVICE
+</title>
+
+<abstract>
+An image processing method includes: obtaining a target image; performing feature extraction on the target image based on a residual network, to obtain image feature information; and performing recognition processing on the target image according to the image feature information. The residual network includes a plurality of residual blocks that are successively connected, each of the residual blocks including a convolution branch and a residual branch, a size of a convolution kernel of a first convolutional layer in the convolution branch being less than a size of a convolution kernel of a second convolutional layer located after the first convolutional layer, and a convolution stride of the second convolutional layer being greater than a convolution stride of the first convolutional layer and less than a width of the convolution kernel of the second convolutional layer.
+</abstract>
+
+<claims>
+1. An image processing method, performed by an electronic device, the method comprising: obtaining a target image; performing feature extraction on the target image based on a residual network, to obtain image feature information, the residual network comprising a plurality of residual blocks that are successively connected, each of the plurality of residual blocks comprising a convolution branch and a residual branch, a size of a convolution kernel of a first convolutional layer in the convolution branch being less than a size of a convolution kernel of a second convolutional layer located after the first convolutional layer, and a convolution stride of the second convolutional layer being greater than a convolution stride of the first convolutional layer and less than a width of the convolution kernel of the second convolutional layer; and performing recognition processing on the target image based on the image feature information.
+2. The image processing method according to claim 1, wherein the residual network further comprises an initial convolutional layer located before the plurality of residual blocks, and an output of the initial convolutional layer is used as an input of a first residual block in the plurality of residual blocks.
+3. The image processing method according to claim 1, wherein the plurality of residual blocks form a plurality of convolution stages, and the residual branch included in a first residual block in each of the plurality of convolution stages comprises a batch normalization processing layer and a target convolutional layer that are successively connected.
+4. The image processing method according to claim 1, wherein the convolution branch further comprises a third convolutional layer, wherein the first convolutional layer, the second convolutional layer, and the third convolutional layer are successively connected, and wherein the size of the convolution kernel of the first convolutional layer and a size of a convolution kernel of the third convolutional layer are 1×1 pixel, the convolution stride of the first convolutional layer and a convolution stride of the third convolutional layer are 1 pixel, the size of the convolution kernel of the second convolutional layer is 3×3 pixels, and the convolution stride of the second convolutional layer is 2 pixels.
+5. The image processing method according to claim 4, wherein a batch normalization processing layer is set before each of the first convolutional layer, the second convolutional layer, and the third convolutional layer.
+6. The image processing method according to claim 1, further comprising, prior to the performing the feature extraction: initializing the residual network; and inputting a training image sample into the residual network to perform iterative training until a loss function of the residual network satisfies a convergence condition.
+7. The image processing method according to claim 6, further comprising: obtaining learning parameters included in a batch normalization processing layer in the residual network; generating a regular term of the loss function through the learning parameters; and adding the regular term to the loss function.
+8. The image processing method according to claim 7, wherein the adding comprises: determining a coefficient of the regular term, an order of a magnitude of the coefficient of the regular term being less than an order of a magnitude of a weight of convolutional layers included in the residual network; and adding the regular term to the loss function based on the coefficient of the regular term.
+9. The image processing method according to claim 7, wherein the generating comprises: calculating a quadratic sum of the learning parameters; and generating the regular term of the loss function based on an arithmetic average value of the quadratic sum.
+10. The image processing method according to claim 6, further comprising, prior to the inputting the training image sample comprises: obtaining a sample image used for training the residual network; capturing, from the sample image, an image region that occupies a preset proportion of the sample image and whose aspect ratio is a preset ratio; adjusting the image region to an image of a set size; and performing random perturbation processing on the image of the set size, to obtain the training image sample.
+11. The image processing method according to claim 10, wherein at least one of the preset proportion and the preset ratio has a value that is randomly selected from a preset range.
+12. The image processing method according to claim 10, wherein the performing the random perturbation processing on the image of the set size comprises at least one of: horizontally flipping the image of the set size with a first processing probability; rotating the image of the set size by a random angle with a second processing probability, the random angle being a value randomly selected from a preset angle range; and adjusting attributes of the image of the set size with a third processing probability.
+13. An image processing apparatus, comprising: at least one memory configured to store program code; and at least one processor configured to read the program code and operate as instructed by the program code, the program code comprising: first obtaining code configured to cause at least one of the at least one processor to obtain a target image; first processing code configured to cause at least one of the at least one processor to perform feature extraction on the target image based on a residual network, to obtain image feature information, the residual network comprising a plurality of residual blocks that are successively connected, each of the plurality of residual blocks comprising a convolution branch and a residual branch, a size of a convolution kernel of a first convolutional layer in the convolution branch being less than a size of a convolution kernel of a second convolutional layer located after the first convolutional layer, and a convolution stride of the second convolutional layer being greater than a convolution stride of the first convolutional layer and less than a width of the convolution kernel of the second convolutional layer; and second processing code configured to cause at least one of the at least one processor to perform recognition processing on the target image based on the image feature information.
+14. The image processing apparatus according to claim 13, wherein the residual network further comprises an initial convolutional layer located before the plurality of residual blocks, and an output of the initial convolutional layer is used as an input of a first residual block in the plurality of residual blocks.
+15. The image processing apparatus according to claim 13, wherein the plurality of residual blocks form a plurality of convolution stages, and the residual branch included in a first residual block in each of the plurality of convolution stages comprises a batch normalization processing layer and a target convolutional layer that are successively connected.
+16. The image processing apparatus according to claim 13, wherein the convolution branch further comprises a third convolutional layer, wherein the first convolutional layer, the second convolutional layer, and the third convolutional layer are successively connected, and wherein the size of the convolution kernel of the first convolutional layer and a size of a convolution kernel of the third convolutional layer are 1×1 pixel, the convolution stride of the first convolutional layer and a convolution stride of the third convolutional layer are 1 pixel, the size of the convolution kernel of the second convolutional layer is 3×3 pixels, and the convolution stride of the second convolutional layer is 2 pixels.
+17. The image processing apparatus according to claim 16, wherein a batch normalization processing layer is set before each of the first convolutional layer, the second convolutional layer, and the third convolutional layer.
+18. The image processing apparatus according to claim 13, wherein the residual network performs iterative training by using a training image sample input to the residual network until a loss function of the residual network satisfies a convergence condition.
+19. A non-transitory computer-readable medium, storing a computer program, the computer program, when executed by at least one processor, causing the at least one processor to perform: obtaining a target image; performing feature extraction on the target image based on a residual network, to obtain image feature information, the residual network comprising a plurality of residual blocks that are successively connected, each of the plurality of residual blocks comprising a convolution branch and a residual branch, a size of a convolution kernel of a first convolutional layer in the convolution branch being less than a size of a convolution kernel of a second convolutional layer located after the first convolutional layer, and a convolution stride of the second convolutional layer being greater than a convolution stride of the first convolutional layer and less than a width of the convolution kernel of the second convolutional layer; and performing recognition processing on the target image based on the image feature information.
+20. An electronic device, comprising: one or more processors; and a storage apparatus, configured to store one or more programs, the one or more programs, when executed by the one or more processors, causing the one or more processors to perform the method according to claim 1.
+</claims>
+</document>

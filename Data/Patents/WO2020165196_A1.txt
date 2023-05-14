@@ -1,0 +1,160 @@
+<document>
+
+<filing_date>
+2020-02-12
+</filing_date>
+
+<publication_date>
+2020-08-20
+</publication_date>
+
+<priority_date>
+2019-02-14
+</priority_date>
+
+<ipc_classes>
+G06T5/00
+</ipc_classes>
+
+<assignee>
+CARL ZEISS MEDITEC
+CARL ZEISS MEDITEC
+</assignee>
+
+<inventors>
+LEWIS, WARREN
+DURBIN, MARY
+BHATTACHARYA, ARINDAM
+KUBACH, SOPHIE
+OMLOR, LARS
+</inventors>
+
+<docdb_family_id>
+69570686
+</docdb_family_id>
+
+<title>
+SYSTEM FOR OCT IMAGE TRANSLATION, OPHTHALMIC IMAGE DENOISING, AND NEURAL NETWORK THEREFOR
+</title>
+
+<abstract>
+An OCT system includes a machine learning (ML) model trained to receive a single OCT scan/image and provide an image translation and/or denoise function. The ML model may be based on a neural network (NN) architecture including a series of encoding modules in a contracting path followed by a series of decoding modules in an expanding path leading to an output convolution module. An intermediate error module determines a deep error measure, e.g., between a training output image and at least one encoding module and/or decoding module, and an error from the output convolution module is combined with the deep error measure. The NN may be trained using true averaged images as ground truth, training outputs. Alternatively, the NN may be trained using randomly selected, individual OCT images/scans as training outputs.
+</abstract>
+
+<claims>
+1. An optical coherence tomography (OCT) system comprising:
+a light source for generating a beam of light;
+a beam splitter having a beam-splitting surface for directing a first portion of the light into a reference arm and a second portion of the light into a sample arm;
+optics for directing the light in the sample arm to one or more locations on a sample; a detector for receiving light returning from the sample and reference arms and generating signals in response thereto;
+a processor for converting the signals into a first image and submitting the first image to an image translation module that translates the first image to a second image characterized by one or more of decreased jitter and minimized creation of fictional structures as compared to the first image; and
+an output display for displaying an output image based on the second image;
+wherein the image translation module includes a machine learning module trained using a set of training input images and a target set of training output images, the training input images being generated independent of the training output images.
+2. The system of claim 1, wherein the processor further combines a current second image with one or more previously obtained second images to generate said output image.
+3. The system of claim 2, wherein the current second image is combined with the one or more previously obtained second images by one of direct averaging or weighted averaging with second images of higher image quality being weighted more heavily.
+4. The system of claim 1, wherein:
+the processor defines a plurality of said first images, submits the plurality first images to the image translation module to produce a corresponding plurality of second images, and calculates motion contrast information from the plurality of second images using an OCT angiography (OCTA) processing technique; and
+the output image displays the motion contrast information.
+5. The system of claim 1, wherein the processor:
+defines a plurality of said first images;
+submits the plurality of first images to the image translation module to produce a corresponding plurality of second images;
+applies an image registration technique to the plurality of second images to produce image alignment settings; and
+aligns the plurality of first images based at least in part on the image alignment settings of the plurality of second images.
+6. The system of claim 1, wherein:
+the first image is divided into a plurality of first image segments; and
+the image translation module individually translates each first image segment into a corresponding second image segment, and combines the second image segments to construct said second image.
+7. The system of claim 1, wherein:
+at least one of the training output images is defined as the averaging of a set of OCT test images of the same region of a test sample; and
+at least a fraction of the training input images is included in said set of OCT test images.
+8. The system of claim 1, wherein:
+the first image is of a first region of the sample; and
+the second image has characteristics defined as the averaging of multiple hypothetical OCT scans of the first region with the first image.
+9. The system of claim 1, wherein the machine learning module is a trained neural network, and training of the neural network includes: collecting a plurality of OCT test images of a target ophthalmic region; averaging the plurality of OCT test images to define a corresponding averaged-image of the target ophthalmic region;
+separately and individually inputting the OCT test images of the target ophthalmic region as training input images to the neural network, and providing their corresponding averaged-image as their individually corresponding training output image for the neural network.
+10. The system of claim 9, wherein training of the neural network further includes:
+dividing each OCT test image into a plurality of test segments;
+dividing their corresponding averaged-image into a plurality of corresponding ground truth segments;
+correlating test segments to corresponding ground truth segments;
+separately and individually submitting the correlated test segments to the neural network as training input images and providing their correlated ground truth segments as training output images for the neural network.
+11. The system of claim 9, further including combining a currently inputted OCT test image with a corresponding current output of the neural network to define a combination network output, and comparing the combination network output with the corresponding training output image.
+12. The system of claim 1, wherein the training input images and training output images include a mixture of images of healthy eyes and images of diseased eyes.
+13. The system of claim 1, wherein:
+the first image is of a first imaging modality; and
+the second image simulates a second imaging modality different than the first imaging modality.
+14. The system of claim 13, wherein the first and second modalities are a mixture including one or more of time domain OCT, spectral domain OCT, swept source OCT, and adaptive optics OCT (AO-OCT).
+15. The system of claim 1 , wherein:
+the OCT system is of a first modality;
+the machine learning module is trained using third images taken with a first OCT device of the first modality as the set of training input images and fourth images taken with a second OCT device of a second modality as the target set of training output images, the second modality being different than the first modality; and
+the second image has features characteristic of an image generated by an OCT system of the second modality.
+16. The system of claim 15, wherein:
+the first OCT device of the first modality is of a non-adaptive optics OCT type;
+the second OCT device of the second modality is of an adaptive optics OCT type; the third images obtained by the first OCT device are bigger than the fourth images obtained by the second OCT device, the third images are divided into third image segments of similar size as the fourth images and each third image segment is correlated to a corresponding fourth image; and
+the correlated third segments are separately and individually submitted to the neural network as training input images and their correspondingly correlated fourth images are provided as training output images for the neural network.
+17. The system of claim 1, wherein the machine learning module is a neural network including:
+a) an input module for receiving the first image; b) a contracting path following the input module, the contracting path including a plurality of encoding modules, each encoding module having a convolution stage, an activation function, and a max pooling operation;
+c) an expanding path following the contracting path, the expanding path having a plurality of decoding modules, each decoding module concatenates its current value with that of a corresponding encoding module;
+d) an output convolution module excluding a pooling layer and a sigmoid layer activation function, the output convolution module receiving the output from the last decoding module in the expanding path and producing a preliminary output error; and
+e) an intermediate error module that determines an error measure for at least one encoding module and/or one decoding module; and
+during training of the neural network, the preliminary output error from the output convolution module is combined with the error measure from the intermediate error module.
+18. The system of claim 17, wherein the output convolution module further receives the first image, and the produced preliminary output error is at least partially based on input image received by the output convolution module.
+19. The system of claim 17, wherein during training of the neural network:
+the intermediate error module determines the error measure as an error between a current training output image and the current value of the intermediate error module's corresponding encoding module and/or decoding module; and
+the preliminary output error from the output convolution module is based on the current training output image and the current value of the output convolution module.
+20. An ophthalmic imaging system comprising:
+a processor for acquiring a first image, and submitting the first image to an image modification module that defines a second image based on the first image; and
+an output display for displaying an output image based on the second image;
+wherein the image modification module includes a neural network having:
+a) an input module receiving the input image; b) a contracting path following the input module, the contracting path including a plurality of encoding modules, each encoding module having a convolution stage, an activation function, and a max pooling operation;
+c) an expanding path following the contracting path, the expanding path having a plurality of decoding modules, each decoding module concatenating its current value with that of a corresponding encoding module;
+d) an output convolution module excluding a pooling layer and an activation function, the output convolution module receiving the output from the last decoding module in the expanding path and producing a preliminary output error; and
+e) an intermediate error module that determines an error measure for at least one encoding module and/or one decoding module; and
+during training of the neural network, the preliminary output error of the output convolution module is combined with the output error of the intermediate error module.
+21. The system of claim 20, wherein the activation function is a rectifier linear unit or sigmoid layer.
+22. The system of claim 20, wherein the error measure is based on a target output for the neural network module.
+23. The system of claim 22, wherein:
+the target output is a current training output image during a training cycle of the neural network; the preliminary output error of the output convolution module is based on the current training output image; and
+a training cycle error for a current training cycle is based on the combined errors from the output convolution module and the intermediate error module.
+24. The system of claim 23, wherein the output convolution module receives the first image, and the preliminary output error is further based on the input image received by the output convolution module.
+25. The system of claim 20, wherein the error measure is a based on a square loss function.
+26. The system of claim 20, wherein training of the neural network includes:
+collecting a plurality of training image sets of different target ophthalmic regions, each training image set including a plurality of third images of the same target ophthalmic region; for each training image set:
+a) defining a ground truth fourth image as an average of a plurality of third images; b) selecting a third image as a training input image to the neural network and providing its corresponding fourth image as its target training output image for the neural network.
+27. The system of claim 20, wherein the ophthalmic imaging system is an optical coherence tomography (OCT) angiography system, and the first image is a vasculature image.
+28. The system of claim 20, wherein the ophthalmic imaging system is an optical coherence tomography (OCT) system of a first modality, and training of the neural network includes: collecting one or more of third images of different target ophthalmic regions using a first OCT system of the first modality;
+collecting one or more of fourth images of the same target ophthalmic regions using a second OCT system of a second modality different than the first modality;
+i) defining one or more training output images from the one or more second image; ii) defining one or more training input images from the one or more first images, wherein each input training image has a corresponding training output image; iii) separately submitting each first training image to the neural network and providing its corresponding training output image as the target output for the neural network.
+29. The system of claim 28, wherein:
+the first OCT system of a non-adaptive optics OCT type; and
+the second OCT system is of an adaptive optics OCT type.
+30. The system of claim 20, wherein the ophthalmic imaging system is an optical coherence tomography (OCT) system a fimdus imaging system.
+31. An ophthalmic imaging system comprising:
+an electronic processor for:
+acquiring a first ophthalmic image, submitting the first ophthalmic image to an image modification module that creates a second ophthalmic image based on the first ophthalmic image and having reduced noise artifacts; and
+displaying on an electronic display an output image based on the second ophthalmic image;
+wherein the image modification module includes a neural network whose training includes:
+collecting a plurality of test ophthalmic images of at least one eye, the collected test ophthalmic images being noisy images;
+randomly selecting one of the test ophthalmic images as a training output image;
+randomly selecting one or more of the remaining test ophthalmic images as a training set of training input images; and
+separately and individually submitting each training input image to the neural network and providing the training output image as a target output for the neural network.
+32. The system of claim 31 , wherein the test ophthalmic images are collected using said ophthalmic imaging system.
+33. The system of claim 31, wherein the ophthalmic imaging system is an optical coherence tomography system or a fundus imaging system.
+34. The system of claim 31 , wherein the training of the neural network further includes registering the training set of training input images to the training output image.
+35. The system of claim 31 , wherein the test ophthalmic images are of the same region of the at least one eye.
+36. The system of claim 31 , wherein the training of the neural network further includes: collecting sample images from multiple eyes; submitting the sample images to an image clustering module that sorts the sample images into multiple groups by similarity; and
+the plurality of test ophthalmic images are selected from one of said multiple groups.
+37. The system of claim 36, wherein the clustering module:
+a) identifies a group of working images from among the sample images;
+b) randomly selects one sample image from within the group of working images as a reference image and identifies corresponding similar images from among the remaining sample images within the group of working images, the identified similar images having a similarity measure within a predefine threshold; and
+c) removes from the sample images the reference image and its corresponding similar images into a collection of said test ophthalmic images.
+38. The system of claim 31 , wherein the neural network includes:
+a) an input module receiving the first ophthalmic image;
+b) a contracting path following the input module, the contracting path including a plurality of encoding modules, each encoding module having a convolution stage, an activation function, and a max pooling operation;
+c) an expanding path following the contracting path, the expanding path having a plurality of decoding modules, each decoding module concatenating its current value with that of a corresponding encoding module;
+d) an output convolution module excluding a pooling layer and an activation
+function, the output convolution module receiving the output from the last decoding module in the expanding path and producing a preliminary output error determined from a current training output image; and
+e) an intermediate error module that determines an error measure for at least one encoding module and/or one decoding module; and
+during training of the neural network, the preliminary output error of the output convolution module is combined with the error measure from the intermediate error module.
+39. The system of claim 38, wherein during training of the neural network: the error measure of the intermediate error module is based on the current training output image; and
+a training cycle error for a current training cycle is based on the combined error of the output convolution module and the error measure of the intermediate error module.
+40. The system of claim 38, wherein the output convolution module receives the first image, and the preliminary output error is further determined from the input image received by the output convolution module.
+</claims>
+</document>

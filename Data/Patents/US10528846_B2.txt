@@ -1,0 +1,69 @@
+<document>
+
+<filing_date>
+2017-10-27
+</filing_date>
+
+<publication_date>
+2020-01-07
+</publication_date>
+
+<priority_date>
+2016-11-14
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/62,G06K9/66
+</ipc_classes>
+
+<assignee>
+SAMSUNG ELECTRONICS COMPANY
+</assignee>
+
+<inventors>
+CHOI, CHANG KYU
+GUO, TIANCHU
+HAN, JAE-JOON
+KIM, YOUNGSUNG
+QIAN, DEHENG
+XU, JINGTAO
+YOO, BYUNGIN
+ZHANG HUI
+ZHENG, HE
+</inventors>
+
+<docdb_family_id>
+62108592
+</docdb_family_id>
+
+<title>
+Method and apparatus for analyzing facial image
+</title>
+
+<abstract>
+A method to analyze a facial image includes: inputting a facial image to a residual network including residual blocks that are sequentially combined and arranged in a direction from an input to an output; processing the facial image using the residual network; and acquiring an analysis map from an output of an N-th residual block among the residual blocks using a residual deconvolution network, wherein the residual network transfers the output of the N-th residual block to the residual deconvolution network, and N is a natural number that is less than a number of all of the residual blocks, and wherein the residual deconvolution network includes residual deconvolution blocks that are sequentially combined, and the residual deconvolution blocks correspond to respective residual blocks from a first residual block among the residual blocks to the N-th residual block.
+</abstract>
+
+<claims>
+1. A method to analyze a facial image, comprising: inputting a facial image to a residual network comprising residual blocks that are sequentially combined and arranged in a direction from an input to an output; processing the facial image using the residual network; and acquiring an analysis map from an output of an N-th residual block among the residual blocks using a residual deconvolution network, wherein the residual network transfers the output of the N-th residual block to the residual deconvolution network, and N is a natural number that is less than a number of all of the residual blocks, and wherein the residual deconvolution network comprises residual deconvolution blocks that are sequentially combined, and the residual deconvolution blocks correspond to respective residual blocks from a first residual block among the residual blocks to the N-th residual block.
+2. The method of claim 1, further comprising: acquiring prior information of the facial image using a prior information acquiring network; and acquiring an analysis result by combining the prior information and an output of the residual deconvolution network.
+3. The method of claim 2, wherein the acquiring of the prior information of the facial image comprises: selecting facial image analysis training data comprising a face most similar to a face included in the facial image by comparing the face included in the facial image to each of faces included in the facial image analysis training data, and acquiring an average value of calibration information acquired from the face most similar the face included in the facial image as the prior information of the facial image.
+4. The method of claim 2, wherein the acquiring of the analysis result comprises: acquiring a combination map by combining the prior information and the analysis map output from the residual deconvolution network, acquiring a contribution plot of the prior information by performing a convolution process on the combination map using a convolution kernel, and acquiring the analysis result by adding the contribution plot and the analysis map at an element level.
+5. The method of claim 2, further comprising: enhancing the analysis result using a dense condition random field method.
+6. The method of claim 5, wherein the enhancing of the analysis result comprises enhancing the analysis result by setting the analysis result as a unary term of a dense condition random field.
+7. The method of claim 1, wherein the residual network further comprises a convolution block positioned before the first residual block, and the residual deconvolution network further comprises a deconvolution block positioned after a last residual deconvolution block among the residual deconvolution blocks.
+8. The method of claim 1, wherein a max pooling operation is performed on an output of the first residual block, a result of the performing of the max pooling operation is input to a next level of a residual block of the first residual block, a max anti-pooling operation is performed on an output of a first residual deconvolution block among the residual deconvolution blocks, and a result of the performing of the max anti-pooling operation is input to a next level of a residual deconvolution block of the first residual deconvolution block.
+9. The method of claim 1, wherein each of the residual deconvolution blocks comprises a denser, a detail trainer, and a dimension reducer.
+10. The method of claim 9, wherein the detail trainer comprises a residual branch and a deconvolution branch.
+11. The method of claim 1, wherein the residual network comprises four or five residual blocks, and a number of the residual deconvolution blocks is one less than a number of the residual blocks.
+12. The method of claim 1, wherein each convolution layer among convolution layers of a convolution block included in the residual network comprises 64 convolution kernels, and each deconvolution layer among deconvolution layers of a deconvolution block included in the residual deconvolution network comprises 64 deconvolution kernels.
+13. The method of claim 1, wherein the residual blocks increase a number of input data channels by two times, and the residual deconvolution blocks decrease the number of the input data channels by half.
+14. The method of claim 1, wherein the N-th residual block comprises a next-to-last residual block or a second-from-last residual block among the residual blocks.
+15. A facial image analyzing apparatus, comprising: a processor configured to input a facial image to a residual network configured to process the facial image and comprising residual blocks that are sequentially combined and arranged in a direction from an input to an output; and a residual deconvolution network configured to acquire an analysis map from an output of an N-th residual block among the residual blocks, wherein the residual network is configured to transfer the output of the N-th residual block to the residual deconvolution network, and N is a natural number that is less than a number of all residual blocks of the residual network, and wherein the residual deconvolution network comprises residual deconvolution blocks that are sequentially combined, and the residual deconvolution blocks correspond to respective residual blocks from a first residual block among the residual blocks to the N-th residual block.
+16. The facial image analyzing apparatus of claim 15, further comprising: a prior information acquiring network configured to acquire prior information of the facial image, and to acquire an analysis result by combining the prior information and an output of the residual deconvolution network.
+17. The facial image analyzing apparatus of claim 16, wherein the processor is further configured to enhance the analysis result based on a dense condition random field method.
+18. A training method of a facial image analyzing apparatus comprising a residual network and a residual deconvolution network, the training method comprising: training, in a pre-training operation, the residual network by adjusting a weight parameter of the residual network using face identification training data; and training, in a combined training operation, the residual network and the residual deconvolution network by adjusting a weight parameter of the residual deconvolution network and additionally adjusting the weight parameter of the residual network using facial image analysis training data, wherein the residual network comprises residual blocks that are sequentially combined and arranged in a direction from an input to an output, processes a facial image, and transfers an output of an N-th residual block among the residual blocks to the residual deconvolution network, wherein N is a natural number that is less than a number of all residual blocks of the residual network, and wherein the residual deconvolution network acquires an analysis map from the output of the N-th residual block comprises residual deconvolution blocks that are sequentially combined, and the residual deconvolution blocks correspond to respective residual blocks from a first residual block among the residual blocks to the N-th residual block.
+19. The training method of claim 18, wherein the training in the pre-training operation comprises: pre-training the residual network by inputting the face identification training data to the residual network, performing a face identifying operation, performing an average pooling operation on an output of a last residual block among the residual blocks, performing a full join operation on the residual network, and adjusting a weight parameter of the residual network.
+20. The training method of claim 18, wherein the training in the combined training operation comprises: adjusting the weight parameter of the residual network and the weight parameter of the residual deconvolution network by initializing the weight parameter of the residual network to be a weight parameter acquired from the pre-training operation, randomly initializing the weight parameter of the residual deconvolution network, inputting the output of the N-th residual block to the residual deconvolution network, inputting the facial image analysis training data to the residual network, and performing a facial image analyzing operation using the residual network and the residual deconvolution network.
+</claims>
+</document>

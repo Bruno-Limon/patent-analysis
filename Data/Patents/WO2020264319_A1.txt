@@ -1,0 +1,504 @@
+<document>
+
+<filing_date>
+2020-06-26
+</filing_date>
+
+<publication_date>
+2020-12-30
+</publication_date>
+
+<priority_date>
+2019-06-27
+</priority_date>
+
+<ipc_classes>
+G06F16/903,G06F9/38,G06F9/445,G06F9/54,G06N20/00
+</ipc_classes>
+
+<assignee>
+CAPITAL ONE SERVICES
+</assignee>
+
+<inventors>
+WATSON, DAVID
+DALLEN, Julie
+BALASUBRAMANIAN, Muralidharan
+BARNUM, Eric K.
+</inventors>
+
+<docdb_family_id>
+74061920
+</docdb_family_id>
+
+<title>
+DETERMINING PROBLEM DEPENDENCIES IN APPLICATION DEPENDENCY DISCOVERY, REPORTING, AND MANAGEMENT TOOL
+</title>
+
+<abstract>
+Techniques for monitoring operating statuses of an application and its dependencies are provided. A monitoring application may collect and report the operating status of the monitored application and each dependency. Through use of existing monitoring interfaces, the monitoring application can collect operating status without requiring modification of the underlying monitored application or dependencies. The monitoring application may determine a problem service that is a root cause of an unhealthy state of the monitored application. Dependency analyzer and discovery crawler techniques may automatically configure and update the monitoring application. Machine learning techniques may be used to determine patterns of performance based on system state information associated with performance events and provide health reports relative to a baseline status of the monitored application. Also provided are techniques for testing a response of the monitored application through modifications to API calls. Such tests may be used to train the machine learning model.
+</abstract>
+
+<claims>
+What is claimed is:
+1. A computer-implemented method comprising:
+determining a plurality of services associated with a fi rst application and organized as a dependency tree, wherein the plurality of sendees comprises:
+one or more first services corresponding to one or more immediate dependencies associated with the first application; and
+one or more second services corresponding to one or more sub-dependencies associated with the first application, wherein each of the second services corresponds to a respective dependency of a corresponding immediate dependency or sub dependency associated with the first application;
+configuring a monitoring application to monitor the plurality of sendees using a plurality of monitoring interfaces;
+automatically identifying, by the monitoring application, a problem sendee of the plurality of sendees through a tree traversal process, wherein the tree traversal process begins at a first layer of the dependency tree corresponding to the one or more immediate dependencies and comprises:
+determining, based on the plurality of monitoring interfaces, an operating status of each service included in a current layer of the dependency tree; and
+based on whether a first service of the current layer is identified as having an unhealthy status, and based on whether each service of the current layer is identified as having a healthy status:
+when the first sendee is identified as having an unhealthy status, continuing to traverse the dependency tree to identify the problem service by advancing to a next layer of the dependency tree, wherein the next layer of the dependency tree comprises sendees corresponding to a plurality of dependencies of the first service; and
+when each service of the current layer is identified as having a healthy status, identifying a parent dependency service, of an immediately prior layer of the dependency tree, that has an unheal thy status as the problem sendee; and generating, by the monitoring application, a notification indicating that the parent se dee is the problem service.
+2. The method of claim 1 , wherein at least one service of the plurality of sendees corresponds to an Application Programming Interface (API) associated with a resource utilized by the first application.
+3. The method of claim 1, wherein at least one sendee of the plurality of sendees corresponds to a network utilized by the first application to communicate with another dependency.
+4. The method of claim 1 , wherein die first application comprises an Application Programming Interface (API).
+5. The method of claim 1, wherein determining the operating status of a given service comprises determining one or more of:
+whether a resource associated with the corresponding dependency is accessible; a response latency associated with requests to the corresponding dependency;
+an eixor rate associated with requests to the corresponding dependency; or an error state or error message provided by the corresponding dependency.
+6. The method of claim 1, wherein a given service is determined to have an unhealthy status based on whether one or more metrics associated with the corresponding dependency satisfy one or more operating status thresholds.
+7. The method of claim 6, wherein configuring the monitoring application to monitor the plurality of services comprises:
+configuring the monitoring application to associate the one or more operating status thresholds with the corresponding dependencies.
+8. The method of claim 1, wherein determining the operating status of a given service is based on a predetermined time period prior to a current time .
+9. The method of claim 1, wherein the plurality of monitoring interfaces comprises a first monitoring interface configured to enable monitoring of a second service utilized by the first application,
+wherein the first monitoring interface is generated by a first monitoring interface application and is configured to determine at least one metric associated with the service.
+10. The method of claim 9, wherein configuring the monitoring application to monitor the plurality of services using the plurality of monitoring interfaces comprises:
+configuring the monitoring application to utilize the first monitoring interface through at least one monitoring query associated with the first monitoring interface application.
+11. The method of claim 9, wherein tire plurality of monitoring interfaces comprises a second monitoring interface configured to enable monitoring of a third service utilized by the first application,
+wherein the second monitoring interface is generated by a second monitoring interface application and is configured to determine at least one metric associated with the third service,
+wherein the second monitoring interface application is different from the first monitoring interface application and utilizes a different quer protocol.
+12. The method of claim 1 wherein determining the operating status of each service included in the current layer of the dependency tree comprises:
+determining whether the operating status of a given service, of tire services in the current layer, has previously been determined by the monitoring application during the tree traversal process; and
+based on determining that that operating status has already been determined, using the previously determined operating status for tire given service.
+13. The method of claim 1, further comprising:
+generating, by the monitoring application, a health report for the first application by traversing the dependency tree to determine an operating status of each service of the plurality of sendees,
+wherein the monitoring application is configured to periodically generate the health report for the first application.
+14. The method of claim 13, wherein determining, as part of the tree traversal process, the operating status of each sendee included in a current layer of the dependency tree is based on operating statuses determined during generating the health report
+15. An apparatus comprising :
+one or more processors; and
+memory storing instructions that, when executed, cause the apparatus to:
+determine a plurality of services associated with a first application, wherein the plurality of sendees comprises:
+one or more first level services corresponding to one or more first level dependencies of the first application;
+one or more second level sendees corresponding to one or more second level dependenc ies of the fi rst application, wherei n each second level dependency is a dependency of a corresponding first level dependency; and one or more third level services corresponding to one or more third level dependencies of the first application, wherein each third level dependency is a dependency of a corresponding second level dependency; configure a monitoring application to monitor the plurality of services using a plurality of monitoring interfaces;
+generate, based on the plurality' of monitoring interfaces, a health report for the first application, wherein the instructions cause the apparatus to generate the health report by causing the apparatus to:
+determine an operating status of the first application;
+determine, based on the plurality of monitoring interfaces, an operating status of each of the first level dependencies;
+identify a first sendee of the first level sendees as having an unhealthy operating status;
+detennine, based on the plurality of monitoring interfaces, an operating status of each of the second level dependencies that are dependencies of a first level dependency corresponding to the first service;
+identify' a second sendee, of the second level sendees that correspond to dependencies of the first level dependency, as having an unhealthy operating status; determine, based on the plurality of monitoring interfaces, an operating status of each of the third level dependencies that are dependencies of a second level dependency corresponding to the second sendee;
+determine that each third level sendee has a healthy operating status; and
+identify· the second sendee having the unhealthy operating status as a problem service based on determining that each third level sendee has a healthy operating status; and
+generate a notification indicating that the second sendee is a problem sendee based on the health report.
+16. The apparatus of claim 15, wherein the first level dependencies correspond to immediate dependencies of the first application.
+17. The apparatus of claim 15, wherein the first level dependencies correspond to sub dependencies associated with the first application,
+wherein each sub-dependency of the first level dependencies is a dependency of a respective dependency of a prior level associated with the first application.
+18. The apparatus of claim 17, wherein the instructions cause the apparatus to generate the health report by further causing the apparatus to:
+determine an operating status of a prior level dependency of the prior level; and identify the prior level dependency as having an unhealthy operating status, wherein each first dependency of the first level dependencies is a dependency of the prior level dependency identified as having an unhealthy operating status.
+19. One or more non-transitory computer readable media storing instructions that, when executed by one or more processors, cause a computing device to perform steps comprising: determining a plurality of dependency nodes associated wi th a first application and organized as a dependency tree, wherein the plurality of dependency nodes comprises:
+one or more first nodes corresponding to one or more immediate dependencies associated with the first application; and
+one or more second nodes corresponding to one or more sub-dependencies associated with the first application, wherein each of the second nodes corresponds to a respective dependency of a corresponding immediate dependency or sub dependency associated with the first application,
+wherein at least one dependency node of the plurality of dependency nodes corresponds to an Application Programming Interface (API) associated with a resource utilized by the first application;
+identifying a plurality of monitoring interfaces associated with a monitoring interface application and configured to enable monitoring of a plurality of resources utilized by the first application, wherein each monitoring interface of the plurality of monitoring interfaces is configured to determine at least one metric associated with a respective resource of the plurality of resources;
+configuring the monitoring application to utilize the plurality of monitoring interfaces to monitor the plurality of dependency nodes through at least one monitoring query associated with the monitoring interface application;
+automatically identifying, by the monitoring application, a problem node of the plurality of dependency nodes through a tree traversal process, wherein the tree traversal process begins at a first layer of the dependency tree corresponding to the one or more immediate dependencies and comprises:
+determining, based on the plurali ty of monitoring interfaces, an operating status of each dependency node included in a current layer of the dependency tree; and
+based on whether a given dependency node of the current layer is identified as having an unhealthy sta tus, and based on whether each dependency node of the current layer is identified as having a healthy status:
+when the given dependency node is identified as having an unhealthy status, continuing to traverse the dependency tree to identify the problem node by advancing to a next layer of the dependency tree, wherein the next layer of the dependency tree comprises nodes corresponding to a plurality of subdependencies of the dependency corresponding to the given dependency node; and
+when each dependency node of the current layer is identified as having a healthy status, identifying a parent dependency node, of an immediately prior layer of the dependency tree, that has an unhealthy status as the problem node; and generating, by the monitoring application, a notification indicating that the parent dependency node is the problem node.
+20 The computer readable media of claim 19, wherein the given dependency node is determined to have an unhealthy status based on whether one or more metrics associated with the corresponding dependency satisfy one or more operating status thresholds, wherein configuring the monitoring application to monitor the plurality of dependency nodes further comprises:
+configuring the monitoring application to associate the one or more operating status thresholds with the corresponding dependencies.
+21. A computer-implemented method comprising:
+configuring a monitoring application to monitor a first application and a plurality of dependencies of the first application using a plurality of monitoring interfaces;
+detecting, by the monitoring application and based on the plurality of monitoring interfaces, that the first application has an unhealthy operating status;
+collecting, by one or more data collecting agents and based on detecting that the first application has the unhealthy operating status, system state information corresponding to the first application and each of the plurality of dependencies;
+storing the collected system state information in a database as a first incident record corresponding to a first incident event and comprising incident attribute information for the first application and each of the plurality of dependencies;
+training a machine learning model based on a plurality of incident records including the first incident record, wherein training the machine learning model comprises:
+clustering incident events corresponding to each of the plurality of incident records for the first application, wherein clustering the incident events is based on attributes of the system state information corresponding to each of the plurality of dependencies;
+determining one or more patterns of performance based on the clustered incident events, wherein a first pattern of performance of the one or more patterns of performance indicates a potential correlation between a first attribute of the system state information corresponding to a first dependency and the first application having the unhealthy operating status; and updating the machine learning model based on the determined patterns of performance;
+detecting, by the monitoring application and based on the plurality of monitoring interfaces, a current operating status of the first application and the plurality of dependencies; and
+generating, using the machine learning model and based on the first pattern of performance and the current operating status, a recommendation regard ing operation of the first application or the first dependency.
+22. The method of claim 21 , wherein generating the recommendation regarding the operation of the first application or the first dependency comprises:
+determining, using the machine learning model, a suggested action based on incident records corresponding to the first pattern of performance.
+23. The method of claim 22, wherein the first incident record further comprises information indicating a corrective action taken in response to the first incident event, and wherein determining the suggested action based on incident records corresponding to the first pattern of performance comprises:
+determining, using the machine learning model, tire suggested action based on the corrective action taken in response to the first incident event.
+24. The method of claim 22, wherein generating the recommendation regarding the operation of the first application or the first dependency further comprises:
+generating a user notification regarding the suggested action.
+25. The method of claim 22, wherein generating the recommendation regarding tire operation of tire first application or the first dependency further comprises:
+automatically implementing, by the monitoring application, the suggested action.
+26. The method of claim 22, wherein generating the recommendation regarding the operation of the first application or the first dependency further comprises:
+generating a user notification regarding a first portion of the suggested action; and automatically implementing, by the monitoring application, a second portion of the suggested action.
+27. The method of claim 22, wherein the suggested action comprises bypassing the first dependency.
+28. The method of claim 21, wherein the first dependency corresponds to an Application Programming Interface (API) associated with a resource utilized by tire first application.
+29. The method of claim 21, wherein the first dependency corresponds to a network utilized by the first application to communicate with another dependency.
+30. The method of claim 21 , wherein the first application is determined to have an unhealthy status based on whether one or more metrics associated with the first application satisfy one or more operating status thresholds.
+31 . The method of claim 21, wherein the incident atribute infomiation of the first incident record and corresponding to the first dependency comprises information indicating one or more of:
+whether a resource associated with the first dependency is accessible;
+a response latency associated with requests to the first dependency;
+an error rate associated with requests to the first dependency; or
+an error state or error message provided by the first dependency.
+32. The method of claim 21, wherein the plurality of monitoring interfaces comprises a first monitoring interface configured to enable monitoring of the first dependency,
+wherein the first monitoring interface is generated by a monitoring interface application and is configured to determine at least one metric associated with the first dependency, and
+wherein configuring the monitoring application to monitor the first application and the plurality of dependencies comprises configuring the monitoring application to utilize the first monitoring interface through at least one monitoring query associated with the monitoring interface application.
+33. The method of claim 21, wherein the first pattern of performance is a pattern of failure and indicates a potential correlation between the first attribute of the system state information corresponding to the first dependency and the first application entering the unhealthy operating status.
+34 The method of claim 21 , wherein the first pattern of performance is a pattern of risk and indicates a potential correlation between the first attribute of the system state information corresponding to the first dependency and a level of security risk to the first application.
+35. The method of claim 21, wherein the first pattern of performance is a pattern of latency and indicates a potential correlation between the first attribute of the system state information corresponding to the first dependency and a latency associated with requests to the first application.
+36. The method of claim 21, wherein the first incident record further comprises timing information associated with the first incident event, and wherein determining the first pattern of performance is based on the timing information associated with the first incident event and timing information associated with other incident events.
+37 A system comprising:
+a first application having a plurality of dependencies, wherein a first dependency of the plurality of dependencies comprises an Application Programming Interface (API) utilized by the first application;
+a monitoring interface application providing a plurality of monitoring interfaces, wherein a first monitoring interface of the plurality of monitoring interfaces is configured to retrieve operating status information for the first application and a second monitoring interface of the plurality of monitoring interfaces is configured to retrieve operating status information for the first dependency;
+a database configured to store a plurality of incident records associated with the first application; and
+a monitoring device implementing a monitoring application and comprising one or more processors and memor ' storing instructions that, when executed by the one or more processors, cause the monitoring device to:
+configure the monitoring application to monitor the first application and the plurality' of dependencies of the first application using the plurality of monitoring interfaces; detect, based on the plurality of monitoring interfaces, that the first application has an unhealthy operating status;
+collect, by one or more data collecting agents and based on detecting that the first application has the unhealthy operating status, system state information corresponding to the first application and each of the plurality of dependencies;
+store the collected system state information in a database as a first incident record corresponding to a fi rst incident event and comprising incident attribute information for the first application and each of the plurality of dependencies;
+train a machine learning model based on a plurality of incident records including the fi rst incident record, wherein the instructions cause the monitoring device to train the machine learning model by causing the monitoring device to:
+cluster incident events corresponding to each of the plurality of incident records for the first application based on attributes of the system state information corresponding to each of the plurality of dependencies;
+determine one or more patterns of performance based on the clustered incident events, wherein a first pattern of performance of the one or more paterns of performance indicates a potential correlation between a first attribute of the system state information corresponding to a first dependency and the first application having the unhealthy operating status; and update the machine learning model based on the determined patterns of performance;
+detect, based on the plurality of monitoring interfaces, a curren t operating status of the first application and the plurality of dependencies; and
+generate, using the machine learning model and based on the first pattern of performance and the current operating status, a recommendation regarding operation of the first application or the first dependency.
+38. The system of claim 37, wherein the first incident record further comprises information indicating a corrective action taken in response to the first incident event, andwherein the instructions cause the monitoring device to generate the recommendation regarding the operation of the first application or the first dependency by causing the monitoring device to:
+determine, using the machine learning model, a suggested action based on incident records corresponding to the first pattern of performance.
+39. The system of claim 37, wherein the instructions cause the monitoring device to configure the monitoring application to monitor the first application and the plurality of dependencies by causing the monitoring device to:
+configure the monitoring application to utilize the first monitoring interface through at least one monitoring query associated with the monitoring interface application.
+40. One or more non-transitory computer readable media storing instructions that, when executed by one or more processors, cause a monitoring device to perform steps comprising: configuring a monitoring application to monitor a first application and a plurality of dependencies of the first application using a plurality of monitoring interfaces, wherein the plurality of monitoring interfaces comprises:
+a first monitoring interface configured to determine incident attribute information associated with the first application; and
+a second monitoring interface configured to determine incident attributed information associated with a first dependency of the plurality of dependencies; detecting, by the monitoring application and based on the plurality of monitoring interfaces, that the first application has an unhealthy operating status;
+collecting, by one or more data collecting agents and based on detecting that the first application has the unhealthy operating status, system state information corresponding to the first application and each of the plurality of dependencies;
+storing the collected system state information in a database as a first incident record corresponding to a first incident event and comprising incident attribute information for the first application and each of the plurality of dependencies;
+updating the first incident record to indicate a corrective action taken in response to the first application having the unhealthy state;
+training a machine learning model based on a plurality of incident records including the first incident record, wherein training the machine learning model comprises:
+clustering incident events corresponding to each of the plurality of incident records for the first application, wherein clustering the incident events is based on attributes of the system state information corresponding to each of the plurality of dependencies;
+determining one or more patterns of performance based on the clustered incident e v ents, wherein a first pattern of performance of the one or more patterns of performance indicates a potential correlation between a first attribute of the system state information corresponding to the first dependency and the first application having the unhealthy operating status; and
+updating the machine learning model based on the determined patterns of performance;
+detecting, by the monitoring application and based on the plurality of monitoring interfaces, a current operating status of the first application and the plurality of dependencies; and
+determining, using the machine learning model and based on the first pattern of performance and the current operating status, a suggested action based on the corrective action taken in response to the first incident event.
+41. A computer-implemented method comprising :
+configuring a monitoring application to monitor a first application and a plurality of dependencies of the first application using a plurality of monitoring interfaces;
+collecting, by one or more data collecting agents and at a first time, first system state information corresponding to the first appli cation and each of the plurality of dependencies, wherein the first application has a healthy status at the first time;
+detecting, by the monitoring application and based on the plurality of monitoring interfaces, that the first application has an unhealthy operating status at a second time;
+collecting, by the one or more data collecting agents and based on detecting that the first application has the unhealthy operating status, second system state information corresponding to the first application and each of the plurality of dependencies;
+storing the collected first system state information and second system state information in a database as a first status record and a second status record, respectively; training a machine learning model based on a plurality of status records including the first status record and the second status record, wherein training the machine learning model comprises:
+clustering incident events corresponding to status records associated with the first application having an unhealthy status, wherein clustering the incident events is based on attributes of system state information, of a corresponding status record, corresponding to each of the plurality of dependencies;
+determining one or more patterns of performance based on the clustered incident events and the first system state information, wherein a first pattern of performance of the one or more patterns of performance indicates a potential correlation between a first attribute of the system state information corresponding to a first dependency and the first application having the unhealthy operating status; and updating the machine learning model based on the detennined patterns of performance;
+generating, using the machine learning model and based on the first pattern of performance, a health report for the first application and the plurality of dependencies, wherein the health report indicates a likelihood that the first application will enter an unhealthy status.
+42. The method of claim 41 , further comprising:
+detecting, by the monitoring application and based on the plurality of monitoring interfaces, a current operating status of the first application and the plurality of dependencies, wherein generating the health report for the first application and the plurality of dependencies is further based on the current operating status of the first application and the plurality of dependencies.
+43. The method of claim 41 , wherein the health report indicates at least one metric associated with the first dependency.
+44. The method of claim 41, wherein the health report comprises a visualization of the plurality of dependencies.
+45. The method of claim 41, wherein the health report indicates a likelihood that a current condition of the first dependency will cause the first application to enter an unhealthy state.
+46. The method of claim 41, further comprising:
+determining a likelihood that a current condition of each dependency of the plurality of dependencies will cause the first application to enter an unhealthy state,
+wherein the health report indicates that a second dependency, of the plurality of dependencies, is a most critical dependency based on the second dependency having a highest likelihood of causing the first application to enter an unhealthy state.
+47. The method of claim 41, further comprising: determining, using die machine learning model, a second dependency of the plurality of dependencies that corresponds to a source of risk for the first application; and
+generating, using the machine learning model, a suggested action to mitigate a risk associated with the second dependency.
+48. The method of claim 41, wherein the first dependency corresponds to an Application Programming Interface (API) associated with a resource utilized by the first application, and wherein a second dependency corresponds to a network utilized by the first application to communicate with tire first dependency.
+49. The method of claim 41 , wherein the first application is determined to have an unhealthy status based on whether one or more metrics associated with the first application satisfy one or more operating status thresholds.
+50. The method of claim 41, wherein the first system state information corresponding to the first dependency comprises information indicating one or more of:
+whether a resource associated with the fi rst dependency is accessible;
+a response latency associated with requests to the first dependency;
+an eixor rate associated with requests to the first dependency; or
+an error state or error message provided by the first dependency.
+51. The method of claim 41, wherein the plurality of monitoring interfaces comprises a first monitoring interface configured to enable monitoring of the first dependency,
+wherem the first monitoring interface is generated by a monitoring interface application and is configured to determine at least one metric associated with the first dependency.
+52. The method of claim 51, wherein configuring the monitoring application to monitor the first application and the plurality of dependencies comprises:
+configuring the monitoring application to utilize the first monitoring interface through at least one monitoring query associated with the monitoring interface application.
+53. The method of claim 41, wherein the first pattern of performance is a pattern of failure and indicates a potential correlation between the first attribute of the system state information corresponding to the first dependency and the first application entering the unhealthy operating status.
+54. The method of claim 41 , wherein the first pattern of performance is a pattern of risk and indicates a potential correlation between the first attribute of the system state information corresponding to the first dependency and a level of security risk to the first application.
+55. The method of claim 41, wherein the first pattern of performance is a pattern of latency and indicates a potential correlation between the first attribute of the system state information corresponding to the first dependency and a latency associated with requests to the first application.
+56. The method of claim 41, further comprising:
+determining, using the machine learning model and based on the status records, at least one attribute of a second dependency of the plurality of dependencies that is correlated with performance of the first application;
+generating, using the machine learning model, at least one recommended new monitoring interface to monitor the at least one attribute of the second dependency; and configuring the monitoring application to monitor the at least one recommended new monitoring interface.
+57. A system comprising:
+a first application having a plurality of dependencies, wherein a first dependency of the plurality of dependencies comprises an Application Programming Interface (API) utilized by the first application;
+a monitoring interface application providing a plurality of monitoring interfaces, wherein a first monitoring interface of the plurality of monitoring interfaces is configured to retrieve operating status information for the first application and a second monitoring interface of the plurality of monitoring in terfaces is configured to re trieve operating status information for the first dependency;
+a database configured to store a plurality of status records associated with the first application; and a monitoring device implementing a monitoring application and comprising one or more processors and memory storing instructions that, when executed by the one or more processors, cause the monitoring device to:
+configure a monitoring application to monitor the first application and the plurality' of dependencies of the first application using the plurality of monitoring interfaces;
+collect, by one or more data collecting agents and at a first time, first system state information corresponding to the first application and each of the plurality of dependencies, wherein the first application has a healthy status at the first time;
+detect, by the monitoring application and based on the plurality of monitoring interfaces, that the first application has an unhealthy operating status at a second time; collect, by the one or more data collecting agents and based on detecting that the first application has the unhealthy operating status, second system state information corresponding to the first application and each of the plurality of dependencies;
+storing the collected first system state information and second system state information in a database as a first status record and a second status record, respectively;
+training a machine learning model based on the plurality of status records including the first status record and the second status record, wherein the instructions cause the monitoring device to train the machine learning model by causing the monitoring device to:
+cluster incident events corresponding to status records associated with the first application having an unhealthy status, wherein clustering the incident events is based on attributes of system state information, of a corresponding status record, corresponding to each of the plurality of dependencies;
+determine one or more patterns of performance based on the clustered incident events and the first system state information, wherein a first pattern of performance of the one or more patterns of perfonnance indicates a potential correlation between a first attribute of the system state information corresponding to a first dependency and the first application having the unhealthy operating status; and
+update the machine learning model based on the determined patterns of performance; generate, using the machine learning model and based on the first pattern of performance and the status records, a health report for the first application and the plurality of dependencies, wherein the health report indicates a likelihood that the first application will enter an unhealthy status.
+58. The system of claim 57, wherein the instructions further cause the monitoring device to:
+detect, by the monitoring application and based on the plurality of monitoring interfaces, a current operating status of the first application and the plurality of dependencies, wherein generating the health report for the first application and the plurality of dependencies is further based on the current operating status of the first application and the plurality of dependencies.
+59. The system of claim 58, wherein the health report indicates a likelihood that the current operating status of the first dependency will cause the first application to enter an unhealthy state.
+60. One or more non-transitory computer readable media storing instructions that, when executed by one or more processors, cause a monitoring device to perform steps comprising: configuring a monitoring application to monitor a first application and a plurality of dependencies of the first application using a plurality of monitoring interfaces, wherein:
+each monitoring interface of the plurality of monitoring interfaces is associated with a monitoring interface application, and
+the monitoring application is configured to use the plurality of monitoring interfaces through a plurality of queries based on a query protocol associated with the monitoring interface application;
+collecting, by one or more data collecting agents and at a first time, first system state information corresponding to the first application and each of the plurality of dependencies, wherein the first application has a healthy status at the first time;
+detecting, by the monitoring application and based on die plurality of monitoring interfaces, that the first application has an unhealthy operating status at a second time;
+collecting, by the one or more data collecting agents and based on detecting that the first application has the unhealthy operating status, second system state information corresponding to the first application and each of the plurality of dependencies; storing die collected first system state information and second system state information in a database as a first status record and a second status record, respectively; training a machine learning model based on a plurality of status records including the first status record and the second status record, wherein training the machine learning model comprises:
+clustering incident e vents corresponding to status records associated with the first application having an unhealthy status, wherein clustering the incident events is based on attributes of system state information, of a corresponding status record, corresponding to each of the plurality of dependencies;
+determining one or more patterns of performance based on the clustered incident events and the first system state information, wherein a first pattern of performance of the one or more patterns of performance indicates a potential correlation betw een a first attribute of the system state information corresponding to a first dependency and the first application having the unhealthy operating status; and updating the machine learning model based on the determined patterns of performance;
+detecting, by the monitoring application and based on the plurality of monitoring interfaces, a current operating status of the first application and the plurality of dependencies; and
+generating, using the machine learning model and based on the first pattern of performance and the current operating status, a health report for the first application and the plurality of dependencies, wherein the health report indicates a likelihood that the first application will enter an unhealthy status and comprises a visualization of each of tire plurality of dependencies.
+61. A computer-implemented method comprising:
+configuring a monitoring application to monitor a first application and a plurality of dependencies of the first application using a plurality of monitoring interfaces;
+collecting, by one or more data collecting agents and at a first time, first system state information corresponding to the first application and each of the plurality of dependencies, w'herein the first application has a healthy status at the first time;
+receiving a user command indicating a start of a testing period; intercepting, by a testing agent, a first call in a computing system from a first application to a first Application Programming Interface (API) during the testing period and at a second time;
+modifying, by the testing agent, the first call by mutating at least one attribute of the first call, wherein the mutation to the at least one attribute causes the first call to fail;
+causing the computing system to process the modified first call and return a result to the first application based on the mutation to the at least one attribute;
+detecting, by the monitoring application and based on tire plurality of monitoring interfaces, that the first application has an unhealthy operating status as a result of the modified first call;
+collecting, by the one or more data collecting agents and based on detecting that the first application has the unhealthy operating status, second system state information corresponding to the first application and each of the plurality of dependencies;
+storing the collected first system state information and second system state information in a database as a first status record and a second status record, respectively; training a machine learning model based on a plurality of status records including the first status record and the second status record, wherein training the machine learning model comprises:
+clustering incident events corresponding to status records associated with the first application having an unhealthy status, wherein clustering the incident events is based on atributes of system state information, of a corresponding status record, corresponding to each of the pluralit ' of dependencies;
+determining one or more patterns of performance based on the clustered incident events and the first system state information, wherein a first pattern of performance of the one or more patterns of performance indicates a potential correlation between a first attribute of the system state information corresponding to the first API and the first application having the unhealthy operating status; and updating the machine learning model based on the determined paterns of performance; and
+generating, using the machine learning model and based on the first pattern of performance, a health report for the first application and the plurality of dependencies, wherein the health report indicates a likelihood that the first application will enter an unhealthy status. 62 The method of claim 61, wherein a second call to the first API is unaffected by mutating the at least one attribute of the first call.
+63 The method of claim 61 , wherein the mutation to the at least one attribute comprises at least one of:
+a change to a function name associated with the first API;
+a change to a parameter included in the first call; or
+a change to a destination, container, or scope associated with the first API.
+64 The method of claim 61 , further comprising:
+caching, by the testing agent, the unmodified first call;
+determining, by the monitoring application, whether the first application was able to recover from the modified first call returning a failed result; and
+based on determining that the first application was not able to recover, causing the computing system to process the cached unmodified first call and return a result to the first application based on the at least one atribute
+65 The method of claim 64, wherein the first application is determined to have been able to recover when the monitoring application determines that the first application was able to retrieve information associated with the first API from another source.
+66 The method of claim 61, wherein intercepting the first call to the first API is based on determining that the first API is a dependency of the first application
+67 The method of claim 61 , wherein the testing agent is part of the monitoring application configured to monitor the first application using the plurality of monitoring interfaces,
+wherein intercepting the first call to the first API is based on determining that the monitoring application is configured to monitor the first API.
+68 The method of claim 61, further comprising:
+detecting, by the monitoring application and based on the plurality of monitoring interfaces, a current operating status of the first application and the plurality of dependencies, wherein generating the health report for the first application and the plurality of dependencies is further based on the current operating status of the first application and the plurality of dependencies
+69 The method of claim 61, wherein the health report indicates a likelihood that a current condition of the first API will cause the first application to enter an unhealthy state
+70 The method of claim 61, wherein the first application is determined to have an unhealthy status based on whether one or more metrics associated with the first application satisfy one or more operating status thresholds.
+71 The method of claim 61 , wherein the first system state information corresponding to the first API comprises information indicating one or more of:
+whether a resource associated with the first API is accessible;
+a response latency associated with requests to the first APT;
+an error rate associated with requests to the first API; or
+an error state or error message provided by the first API.
+72 The method of claim 61, wherein the plurality of monitoring interfaces comprises a first monitoring interface configured to enable monitoring of the first dependency,
+wherein the first monitoring interface is generated by a monitoring interface application and is configured to determine at least one metric associated with the first dependency, and
+wherein configuring the monitoring application to monitor the first application and the plurality of dependencies comprises:
+configuring the monitoring application to utilize the first monitoring interface through at least one monitoring query associated with tire monitoring interface application.
+73 The method of claim 61, wherein the first pattern of performance is a pattern of failure and indicates a potential correlation between the first attribute of the system state information corresponding to the first dependency and the first application entering the unhealthy operating status.
+74. The method of claim 61, wherein the first pattern of performance is a pattern of risk and indicates a potential correlation between the first attribute of the system state information corresponding to the first dependency and a level of security risk to the first application.
+75. The method of claim 61, wherein the first pattern of performance is a pattern of latency and indicates a potential correlation between the first atribute of the system state information corresponding to the first dependency and a latency associated with requests to the first application.
+76. A monitoring device comprising:
+one or more processors; and
+memory storing instructions that, wlien executed by the one or more processors, cause the monitoring device to:
+configure a monitoring application to monitor a first application and a plurality of dependencies of the first application using a plurality of monitoring interfaces;
+collect, by one or more data collecting agents and at a first time, first system state information corresponding to the first application and each of the plurality of dependencies, wherein the first application has a healthy status at the first time; receive a user command indicating a start of a testing period; intercept, by a testing agent, a first call in a computing system from a first application to a first Application Programming Interface (API) during the testing period and at a second time;
+modify , by tire testing agent, the first call by mutating at least one atribute of the first call, wherein the mutation to the at least one attribute causes the first call to fail;
+cause the computing system to process the modified first call and return a result to the first application based on the mutation to the at least one attribute;
+detect, by the monitoring application and based on the plurality of monitoring interfaces, that the first application has an unhealthy operating status as a result of the modified first call;
+collect, by the one or more data collecting agents and based on detecting that the first application has the unhealthy operating status, second system state information corresponding to the first application and each of the plurality of dependencies;
+store the collected first system state information and second system state information in a database as a first status record and a second status record, respectively;
+train a machine learning model based on a plurality of status records including the first status record and the second status record, wherein the instructions cause the monitoring device to train the machine learning model by causing the monitoring device to:
+cluster incident events corresponding to status records associated with the first application having an unhealthy status, wherein clustering the incident events is based on attributes of system state information, of a corresponding status record, corresponding to each of the plurality of dependencies;
+determine one or more patterns of performance based on the clustered incident events and the first system state information, wherein a first pattern of performance of the one or more patterns of performance indicates a potential correlation between a first atribute of the system state information corresponding to the first API and the first application having the unhealthy operating status; and
+update the machine learning model based on the determined patterns of performance; and
+generate, using the machine learning model and based on the first pattern of performance, a health report for tire first application and the plurality of dependencies, wherein the health report indicates a likelihood that the first application will enter an unhealthy status.
+77. The monitoring device of claim 76, wherein a second call to tire first API is unaffected by mutating the at least one atribute of the first call.
+78. The monitoring device of claim 76, wherein the mutation to the at least one attribute comprises at least one of:
+a change to a function name associated with the first API;
+a change to a parameter included in the first call; or
+a change to a destination, container, or scope associated with the first API.
+79. The monitoring device of claim 76, wherein the instructions further cause the monitoring device to:
+cache, by the testing agent, the unmodified first call;
+determine, by tire monitoring application, wiiether the first application was able to recover from the modified first call returning a failed result; and
+based on determining that the first application was not able to recover, cause the computing system to process the cached unmodified first call and return a result to the first application based on the at least one atribute.
+80 A computer-implemented method comprising:
+configuring a monitoring application to monitor a first application and a plurality of dependencies of the first application using a plurality of monitoring interfaces:
+collecting, by one or more data collecting agents and at a first time, first system state information corresponding to the first application and each of the plurality of dependencies, wherein the first application has a healthy status at the first time;
+receiving a user command indicating a start of a testing period;
+intercepting, by a testing agent, a first call in a computing system from a first application to a first Application Programming Interface (API) during the testing period and at a second time;
+caching, by the testing agent, the unmodified first call;
+modifying, by the testing agent, the first call by mutating at least one attribute of the first call, wherein the mutation to the at least one attribute causes the first call to fail;
+causing the computing system to process the modified first call and return a result to the first application based on the mutation to the at least one attribute;
+detecting, by the monitoring application and based on the plurality of monitoring interfaces, that the first application has an unhealthy operating status as a result of the modified fi rst call;
+collecting, by the one or more data collecting agents and based on detecting that the first application has the unhealthy operating status, second system state information corresponding to the first application and each of the plurality of dependencies;
+storing the collected first system state information and second system state information in a database as a first status record and a second status record, respectively; training a machine learning model based on a plurality of status records including the first status record and the second status record, wherein training the machine learning model comprises:
+clustering incident events corresponding to status records associated with the first application having an unhealthy status, wherein clustering the incident events is based on attributes of system state information, of a corresponding status record, corresponding to each of the plurality of dependencies;
+determining one or more patterns of performance based on the clustered incident events and the first system state information, wherein a first pattern of performance of the one or more patterns of performance indicates a potential con-elation between a first atribute of the system state information corresponding to the first API and the first application having the unhealthy operating status; and updating the machine learning model based on the determined patterns of performance;
+generating, using the machine learning model and based on the first pattern of performance, a health report for the first application and the plurality of dependencies, wherein the health report indicates a likelihood that the first application will enter an unhealthy status;
+determining, by the monitoring application, whether the first application was able to recover from the modified first call returning a failed result; and
+based on determining that the first application was not able to recover, causing the computing system to process the cached unmodified first call and return a result to the first application based on the at least one atribute,
+wherein a second call to the first API is unaffected by mutating the at least one attribute of the first call .
+81. A computer-implemented method comprising:
+determining a plurality of dependencies associated with a first application;
+configuring a monitoring application to monitor the plurality of dependencies using a plurality of monitoring interfaces, wherein configuring the monitoring application to monitor a first dependency of the plurality of dependencies comprises:
+querying a monitoring interface application to determine a set of monitoring interfaces associated with the first dependency; and configuring die monitoring application to monitor the first dependency using one or more first monitoring interfaces of the set of monitoring interfaces;
+monitoring, by the monitoring application, an operating status of the first dependency; and
+generating an alert, based on detecting that the operating status of the first dependency satisfies at least one unhealthy operating status threshold, that the first dependency has an unhealthy operating status.
+82. The method of claim 81, wherein configuring the monitoring application to monitor the first dependency further comprises:
+querying the monitoring interface application to determine the at least one unhealthy operating status threshold; and
+configuring the monitoring application to monitor the first dependency based on die at least one unhealthy operating status threshold.
+83. The method of claim 81, wherein configuring the monitoring application to monitor the first dependency further comprises:
+prompting a user to provide the at least one unhealthy operating status threshold; and configuring the monitoring application to monitor the first dependency based on die at least one unhealthy operating status threshold.
+84. The method of claim 81, wherein configuring the monitoring application to monitor the first dependency further comprises:
+generating a recommended value for the at least one unhealthy operating status threshold based on a machine learning model trained to identify correlations between the first dependency and the first application having an unhealthy operating status; and
+configuring the monitoring application to monitor the first dependency based on die recommended value for the at least one unhealthy operating status threshold.
+85. The method of claim 81, wherein the plurality of dependencies comprises:
+one or more immediate dependencies associated with the first application; and one or more sub-dependencies associated with the first application, wherein each subdependency of die one or more sub-dependencies corresponds to a dependency of a respective immediate dependency or sub-dependency associated with the first application.
+86. The method of claim 81, wherein the first dependency is an Application Programming Interface (API) associated with a resource utilized by the first application.
+87. The method of claim 81, wherein the first dependency is a platform utilized by the first application.
+88. The method of claim 81, wherein the first dependency is a network utilized by the first application to communicate with another dependency.
+89. The method of claim 81 , further comprising:
+determining the operating status of a given dependency based on determining one or more of:
+whether a resource associated with the given dependency is accessible;
+a response latency associated with requests to the given dependency;
+an error rate associated with requests to the given dependency; or an error state or error message provided by the given dependency.
+90. The method of claim 89, wherein determining the operating status of a given dependency is based on a predetermined time period prior to a current time.
+91 . The method of claim 81, wherein configuring the monitoring application to monitor the first dependency using the one or more first monitoring interfaces comprises:
+configuring the monitoring application to utilize the one or more first monitoring interfaces through at least one monitoring query' associated with the monitoring interface application.
+92. The method of claim 81, further comprising:
+re-configuring the monitoring application to monitor the first dependency at a second time, after originally configuring the monitoring application to monitor the first dependency, byquerying the monitoring interface application to determine an updated set of monitoring interfaces associated with the first dependency at the second time; determining that at least one new monitoring interface is present in the updated set of monitoring interfaces: and
+configuring the monitoring application to monitor the first dependency using the at least one new monitoring interface.
+93. The method of claim 81, further comprising:
+re-configuring the monitoring application to monitor the first dependency at a second time, after originally configuring the monitoring application to monitor the first dependency, by:
+querying the monitoring interface application to determine an updated set of monitoring interfaces associated with the first dependency at the second time;
+determining that at least one monitoring interface in the updated set of monitoring interfaces is an updated version of a corresponding monitoring interface in the set of monitoring interfaces; and
+configuring the monitoring application to monitor the first dependency using the updated version of the monitoring interface.
+94. The method of claim 81 further comprising:
+re-configuring the monitoring application to monitor the first dependency at a second time, after originally configuring the monitoring application to monitor the first dependency, by:
+quer ing the monitoring interface application to determine an updated set of monitoring interfaces associated with the first dependency at die second time;
+determining that at least one old monitoring interface of the set of monitoring interfaces is not present in the updated set of monitoring interfaces; and
+configuring the monitoring application to no longer monitor die first dependency using the old monitoring interface.
+95. A monitoring device comprising:
+one or more processors; and
+memory storing instructions that, when executed by the one or more processors, causes the monitoring device to perform steps comprising:
+determine a plurality of dependencies associated with a first application; configure a monitoring application to monitor the plurality of dependencies using a plurality of monitoring interfaces, wherein configuring the monitoring application to monitor a first dependency of the plurality of dependencies comprises:
+quer' a monitoring interface application to determine a set of monitoring interfaces associated with the first dependency;
+determine at least one unhealthy operating status threshold associated with the first dependency and one or more first monitoring interfaces of the set of monitoring interfaces; and
+configure the monitoring application to monitor the first dependency using the one or more fi rst monitoring interfaces of the set of monitoring interfaces and the at least one unhealthy operating status threshold;
+monitor, by the monitoring application, an operating status of the first dependency; and
+generate an alert, based on detecting that the operating status of the first dependency satisfies the at least one unhealthy operating status threshold, that the first dependency has an unhealthy operating status.
+96. The monitoring device of claim 95, wherein the instructions cause the monitoring device to determine the at least one unhealthy operating status threshold by causing the monitoring device to:
+query the monitoring interface application to determine the at least one unhealthy operating status threshold.
+97. The monitoring device of claim 95, wherein the instructions cause the monitoring device to determine the at least one unhealthy operating status threshold by causing the monitoring device to:
+prompt a user to provide the at least one unhealthy operating status threshold.
+98. The monitoring device of claim 95, wherein the instructions further cause the monitoring device to:
+re-configure the monitoring application to monitor the first dependency at a second time, after originally configuring the monitoring application to monitor the first dependency, wherein the instructions cause the monitoring device to re-configure the monitoring application by causing the monitoring device to: query a monitoring interface application to determine an updated set of monitoring interfaces associated with the first dependency at the second time;
+determine that at least one new monitoring interface is present in the updated set of monitoring interfaces; and
+configure the monitoring application to monitor the first dependency using the at least one new monitoring interface.
+99. One or more non-transitory computer readable media storing instructions that, when executed by one or more processors, cause a monitoring device to perform steps comprising: determining a plurality of dependencies associated with a first application ;
+configuring a monitoring application to monitor the plurality of dependencies using a plurality of monitoring interfaces, wherein configuring the monitoring application to monitor a first dependency of the plurality of dependencies comprises:
+querying a monitoring interface application to determine a set of monitoring interfaces associated with the first dependency; and
+configuring die monitoring application to monitor the first dependency using one or more first monitoring interfaces of the set of monitoring interfaces;
+re -configuring the monitoring application to monitor the first dependency at a second time, after originally configuring the monitoring application to monitor the first dependency, by:
+querying the monitoring interface application to determine an updated set of monitoring interfaces associated with the first dependency at the second time;
+determining that at least one monitoring interface in the updated set of monitoring interfaces is an updated monitoring interface relative to the set of monitoring interfaces; and
+configuring the monitoring application to monitor the first dependency using the updated monitoring interface.
+monitoring, by the monitoring application, an operating status of the first dependency; and
+generating an alert, based on detecting that the operating status of the first dependency, as determined based on the updated monitoring interface, satisfies at least one unhealthy operating status threshold, that the first dependency has an unhealthy operating status.
+100. The computer readable media of claim 99, wherein die instructions further cause the monitoring device to perform steps comprising:
+querying the monitoring interface application to determine the at least one unhealthy operating status threshold; and
+configuring the monitoring application to monitor the first dependency based on die at least one unhealthy operating status threshold.
+101. A computer-implemented method compri sing :
+receiving a user command indicating a start of a testing period:
+intercepting, by a testing agent, a first call in a computing system from a first application to a first Application Programming Interface (API) during the testing period; modifying, by the testing agent, the first call by mutating at least one attribute of the first call, wherein the mutation to the at least one attribute causes the first call to fail;
+causing the computing system to process the modified first call and return a result to the first application based on the mutation to the at least one attribute; and
+determining an impact of the modified first call on the operating status of the first application,
+wherein a second call to the first API is unaffected by mutating the at least one attribute of the first call.
+102. The method of claim 101, wherein the mutation to the at least one attribute comprises a change to a function name associated with the first API.
+103. The mediod of claim 101, wherein the mutation to the at least one attribute comprises a change to a parameter included in the first call.
+104. The method of claim 101, wherein the mutation to the at least one attribute comprises a change to a destination, container, or scope associated with the first API.
+105. The method of claim 101, wherein determining the impact of the modified first call on the operating status of the first application comprises:
+determining, by a monitoring application, the operating status of the first application using one or more monitoring interfaces; and determining that the first application has an unhealthy operating status based on at least one metric provided by a first monitoring interface associated with the first application satisfying at least one unhealthy operating status threshold.
+106. The method of claim 101, further comprising:
+caching, by the testing agent, the unmodified first call;
+determining, by a monitoring application, whether the first application was able to recover from the modified first call returning a failed result; and
+based on determining that the first application was not able to recover, causing the computing system to process the cached unmodified first call and return a result to the fi rst application based on the at least one attribute.
+107. The method of claim 106, wherein the first application is determined to have been able to recover when the monitoring application determines that the first application was able to retrieve information associated with the first API from another source.
+108. The method of claim 106, wherein the first application is determined to have been able to recover when the monitoring application determines that the first application was able to partially complete processing despite not receiving the information requested from the first API.
+109. The method of claim 101, wherein intercepting the first call to the first API is based on determining that the first API is a dependency of the first application.
+110. The method of claim 101, wherein the testing agent is part of a monitoring application configured to monitor the first application using a plurality of monitoring interfaces,
+wherein intercepting the first call to the first API is based on determining that the monitoring application is configured to monitor the first API.
+11 1. A computer-implemented method comprising:
+receiving a user command indicating a start of a testing period:
+intercepting, by a testing agent, a first call in a computing system from a first application to a first Application Programming Interface (API) during the testing period; causing the computing system to process the intercepted first call and return a modified result to the first application, wherein the modified result simulates an unhealthy operating status of the first API; and
+determining an impact of the modified result to the first call on the operating status of the first application,
+wherein a second call to the first API is unaffected by modifying the result of the first call.
+112. The method of claim i l l, wherein the modified result simulates an unhealthy operating status of the first API by simulating a result with an artificially high response latency.
+113. The method of claim 111, wherein the modified result simulates an unhealthy operating status of the first API by simulating a result with an artificially high error rate.
+114. The method of claim 111, wherein the modified result simulates an unhealthy operating status of the first API by simulating a result w ith an artificially high likelihood of non-response.
+115. The method of claim I l l, wherein determining the impact of the modified result on the operating status of the first application comprises:
+determining, by a monitoring application, the operating status of the first application using one or more monitoring interfaces; and
+determining that the first application has an unhealthy operating status based on at least one metric provided by a first monitoring interface associated with the first application satisfying at least one unhealthy operating status threshold.
+116. The method of claim 111, further comprising:
+caching, by the testing agent, the first call ;
+determining, by a monitoring application, whether the first application was able to recover from the modified result to the first call; and
+based on determining that the first application was not able to recover, causing the computing system to process the cached first call and return an unmodified result to the first application.
+117. The method of claim 116, wherein the first application is determined to have been able to recover when the monitoring application determines that the first application was able to retrieve information associated with the first API from another source.
+118. The method of claim 116, wherein the first application is determined to have been able to recover when the monitoring application determines that the first application was able to partially complete processing despite not receiving the information requested from the first
+API.
+119. A computer-implemented method comprising;
+receiving a user command indicating a start of a testing period;
+intercepting, by a testing agent, a first call in a computing sy stem from a first application to a first Application Programming Interface (API) during the testing period; caching, by the testing agent, the unmodified first call;
+modifying, by the testing agent, the first call by mutating at least one attribute of the first call, wherein the mutation to the at least one attribute causes the first call to fail;
+causing the computing system to process the modified first call and return a result to the first application based on the mutation to the at least one attribute; and
+determining, by a monitoring application and using one or more monitoring interfaces, whether the first application was able to recover from the modified first call returning a failed result; and
+based on determining that the first application was not able to recover, causing the computing system to process the cached unmodified first call and return a result to the first application based on the at least one attribute,
+wherein a second call to the first API is unaffected by mutating the at least one attribute of the first call.
+120. The method of claim 119, wherein the mutation to the at least one attribute comprises at least one of:
+a change to a function name associated with the first API;
+a change to a parameter included in the first call; or
+a change to a destination, container, or scope associated with the first API.
+121. A computer-implemented method compri sing :
+identifying one or more first Application Programming Interfaces (APIs) that are dependencies of a first application;
+determining one or more second APIs that are dependencies of each respective first
+API;
+building a dependency map for the first application based on at least the one or more first APIs and the one or more second APIs;
+identifying data resources associated with each respective API in the dependency map;
+determining, by a monitoring application and using a monitoring interface configured to provide one or more metrics regarding a third API in the dependency map for the first application, that the third API has an unhealthy operating status based on the one or more metrics satisfying one or more unhealthy operating status thresholds; and
+generating a notification, by the monitoring application, identifying a particular data resource provided by the third API and indicating that the unhealthy operating status of the third API is impacting performance of the first application.
+122. The method of claim 121, further comprising:
+determining, by the monitoring application, that the particular data resource is available from a fourth API; and
+generating, by the monitoring application, a notification that the first application can be reconfigured to obtain the particular data resource from the fourth API.
+123. The method of claim 121, further comprising:
+determining, by the monitoring application, that the particular data resource is available from a fourth API; and
+automatically reconfiguring the first application to obtain the particular data resource from the fourth API.
+124. The method of claim 121, further comprising:
+determining an error status message provided by the third API or the particular data resource,
+wherein the notification identifying the particular data resource provided by the third API comprises the error status message.
+125. The method of claim 121, wherein identifying the one or more first APIs is based on data lineage documentation associated with the first application, and
+wherein determining the one or more second APIs is based on data lineage documentation associated with each respective first API.
+126. The method of claim 121, wherein determining the one or more second APIs is based on an API call log associated with an API call made by the first application.
+127. The m ethod of claim 126, wherein the API call log indicates a message ID of the API call made by the first application and comprises a record of each API involved in processing the API call.
+128. The method of claim 121, wherein identifying the one or more first APIs that are dependencies of the first application is based on determining APIs that are associated with a first plurality of monitoring interfaces configured to monitor the first application.
+129. The method of claim 128, wherein determining the one or more second APIs that are dependencies of each respective first API is based on determining APIs that are associated with respective second pluralities of monitoring interfaces configured to monitor the respective first APIs.
+130. The method of claim 121, wherein identifying the one or more first APIs or determining the one or more second APIs is based on a pattern of performance indicating that the first application relies on a sen ee of a given API, wherein the pattern of performance is determined using a machine learning model trained based on clustering system status information associated with past events where the first application had an unhealthy operating status.
+131. The method of claim 121, wherein identifying the one or more first APIs or determining the one or more second APIs is based on:
+causing a given API to simulate an unhealthy operating status; and
+determining that the first application develops an unhealthy operating status based on the simulated unhealthy operating status of the given API.
+132. The method of claim 121, wherein building the dependency map for the first application comprises:
+adding the one or more first APIs to the dependency map as dependencies of the first application;
+adding the one or more second APIs to the dependency map as dependencies of a corresponding first API; and
+adding one or more other APIs to the dependency map as further dependencies of the one or more second APIs.
+133. The method of claim 132, wherein adding the one or more second APIs or one or more other APIs comprises:
+determining, for a fourth API of the one or more second APIs or one or more other APIs, that a same API is already present in the dependency map; and
+omitting the fourth API from the dependency map based on the same API being present in the dependency map.
+134. The method of claim 121, further comprising:
+based on determining the one or more second APIs that are dependencies of each respective first API, automatically7 configuring the monitoring application to utilize a plurality of monitoring interfaces configured to report one or more metrics corresponding to the one or more second APIs.
+135. A monitoring device comprising:
+one or more processors; and
+memory storing instructions that, when executed by the one or more processors, cause the monitoring device to:
+identify one or more first Application Programming Interfaces (APIs) that are dependencies of a first application;
+determine one or more second APIs that are dependencies of each respective first API;
+build a dependency map for the first application based on at least the one or more first APIs and the one or more second APIs; identify data resources associated with each respective API in the dependency map;
+determine, by a monitoring application and using a monitoring interface configured to provide one or more metrics regarding a third API included in the dependency map, that the third API has an unhealthy operating status based on the one or more metrics satisfying one or more unhealthy operating status thresholds: determine, by the monitoring application, that a particular data resource provided by the third API is available from a fourth API; and
+generate, by the monitoring application, a notification that the first application can be reconfigured to obtain the particular data resource from the fourth API.
+136. The monitoring device of claim 135, wherein the instructions further cause the monitoring device to:
+automatically reconfigure the first application to obtain the particular data resource from the fourth API.
+137. The monitoring device of claim 135, wherein the instructions further cause the monitoring device to:
+determine tin error status message provided by die third API or the particular data resource,
+wherein the notification identifying the particular data resource provided by the third API comprises the error status message.
+138. The monitoring device of claim 135, wherein the instructions cause the monitoring device to:
+identify the one or more first APIs based on data lineage documentation associated with the first application; and
+determine the one or more second APIs based on data lineage documentation associated with each respective first API.
+139. One or more non-transitory computer readable media storing instructions that, when executed by one or more processors, cause a monitoring device to perform steps comprising: identifying one or more first Application Programming Interfaces (APIs) that are dependencies of a first application;
+- I 10 - determining one or more second APIs that are dependencies of each respective first
+API;
+building a dependency map for the first application based on at least the one or more first APIs and the one or more second APIs;
+identifying data resources associated with each respective API in the dependency map;
+determining, by a monitoring application and using a monitoring interface configured to provide one or more metrics regarding a third API included in the dependency map for the first application, that the third API has an unhealthy operating status based on the one or more metrics satisfying one or more unhealthy operating status thresholds;
+determining an error status message that is assoc ated with the third API or a particular data resource provided by the third API;
+generating a first notification, by the monitoring application, identifying the particular data resource and indicating that the unhealthy operating status of the third API is impacting performance of the first application, wherein the notification comprises the error status message;
+determining, by the monitoring application, that the particular data resource is available from a fourth API; and
+generating a second notification, by the monitoring application, that the first application can be reconfigured to obtain the particular data resource from the fourth API.
+140. The computer readable media of claim 139, wherein the instructions cause the monitoring device to perform a further step comprising:
+automatically reconfiguring the first application to obtain the particular data resource from the fourth API.
+- i ll -
+</claims>
+</document>

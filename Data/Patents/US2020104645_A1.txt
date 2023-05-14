@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2019-09-27
+</filing_date>
+
+<publication_date>
+2020-04-02
+</publication_date>
+
+<priority_date>
+2018-09-27
+</priority_date>
+
+<ipc_classes>
+G06F16/56,G06K9/62,G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+DEEPMIND TECHNOLOGIES
+</assignee>
+
+<inventors>
+IONESCU, CATALIN-DUMITRU
+KULKARNI, TEJAS DATTATRAYA
+</inventors>
+
+<docdb_family_id>
+68136366
+</docdb_family_id>
+
+<title>
+Reinforcement learning neural networks grounded in learned visual entities
+</title>
+
+<abstract>
+A reinforcement learning neural network system in which internal representations and policies are grounded in visual entities derived from image pixels comprises a visual entity identifying neural network subsystem configured to process image data to determine a set of spatial maps representing respective discrete visual entities. A reinforcement learning neural network subsystem processes data from the set of spatial maps and environmental reward data to provide action data for selecting actions to perform a task.
+</abstract>
+
+<claims>
+1. A reinforcement learning neural network system comprising: an input to receive observation data defining an observation of an environment, wherein the observation comprises one or more images; an input to receive environmental reward data from the environment defining an extrinsic reward received in response to performing an action; an output to provide action data for selecting an action to be performed by an agent acting in the environment; a visual entity identifying neural network subsystem configured to process the observation data to determine a set of spatial maps for the one or more images, each spatial map representing one of a set of learned discrete visual entities, each spatial map comprising map pixels, wherein each map pixel identifies whether a corresponding region of the one or more images is associated with the discrete visual entity for the spatial map; and a reinforcement learning neural network subsystem configured to process data from the set of spatial maps and the environmental reward data to provide the action data.
+2. The reinforcement learning neural network system as claimed in claim 1 wherein the visual entity identifying neural network subsystem comprises an entity encoding neural network configured to encode the observation data into an activation for each map pixel, and a vector quantizer configured to assign the activation for each map pixel to an embedding vector representing one of the discrete visual entities to categorize the map pixel into the one of the set of discrete visual entities.
+3. The reinforcement learning neural network system as claimed in claim 2 further comprising an image appearance encoding neural network configured to encode image appearance data from the observation data into encoded image appearance data corresponding to the map pixels, and a visual entity identifying subsystem trainer configured to train the visual entity identifying neural network subsystem with a loss function dependent on a difference between distributions of the encoded image appearance data and the activation for each map pixel.
+4. The reinforcement learning neural network system as claimed in claim 2 further comprising a frame encoding neural network configured to encode the set of spatial maps into frame embedding data for a current frame, and a visual entity identifying subsystem trainer configured to train the visual entity identifying neural network subsystem to distinguish frames inside and outside a motion time window number of frames distant from the current frame.
+5. The reinforcement learning neural network system as claimed in claim 2 further comprising a frame encoding neural network configured to encode the set of spatial maps into frame embedding data for a current frame, an action encoding neural network configured to encode the action data into encoded action data representing one or more actions taken within an action time window, and a visual entity identifying subsystem trainer configured to train the visual entity identifying neural network subsystem with a loss function dependent on the encoded action data.
+6. The reinforcement learning neural network system as claimed in claim 1 further comprising an intrinsic reward generation subsystem configured to process the data from the set of spatial maps to generate internal reward data for one or more intrinsic rewards, wherein the one or more intrinsic rewards depend upon one or more geometrical properties of contents of the spatial maps, and wherein the reinforcement learning neural network subsystem is configured to process the internal reward data to provide the action data.
+7. The reinforcement learning neural network system as claimed in claim 6 wherein the intrinsic reward generation subsystem is configured to generate the internal reward data for each spatial map, and wherein the one or more intrinsic rewards comprise measures of one or more of an area, a position, and a centroid, of map pixel values of the spatial map.
+8. The reinforcement learning neural network system as claimed in claim 6 wherein the reinforcement learning neural network subsystem is configured to determine an option Q-value for each of the geometric properties of each spatial map; and to select an option defined by a combination of one of spatial maps and one of the geometric properties and provide action data for a series of actions in response to a series of observations, wherein the actions of the series of actions are selected using the option Q-values for the selected option.
+9. The reinforcement learning neural network system as claimed in claim 8 wherein the reinforcement learning neural network subsystem is configured to, every N action selection steps, evaluate a meta Q-value dependent upon a predicted return from the extrinsic reward for each of the options and for an individual action, and to determine from the meta Q-value whether to select one of the options for a series of actions or a series of individual actions.
+10. The reinforcement learning neural network system as claimed in claim 8 wherein the reinforcement learning neural network subsystem comprising one or more convolutional neural network layers in combination with one or more a recurrent neural network layers, a set of neural network heads to provide the Q-values, and a buffer to store experience data representing the internal reward data, the environmental reward data, the observation data, and the action data for training the reinforcement learning neural network subsystem.
+11. The reinforcement learning neural network system as claimed in claim 1 configured to output one or more of the spatial maps for human interpretation.
+12. A method comprising: receiving observation data defining an observation of an environment, wherein the observation comprises one or more images; processing the observation data using a visual entity identifying neural network subsystem configured to determine a set of spatial maps for the one or more images, each spatial map representing one of a set of learned discrete visual entities, each spatial map comprising map pixels, wherein each map pixel identifies whether a corresponding region of the one or more images is associated with the discrete visual entity for the spatial map; receiving environmental reward data from the environment defining an extrinsic reward received in response to performing an action; and processing data from the set of spatial maps and the environmental reward data using a reinforcement learning neural network subsystem configured to process data from the set of spatial maps and the environmental reward data to provide action data for selecting actions to be performed by an agent.
+13. The method as claimed in claim 11 wherein the visual entity identifying neural network subsystem comprises an entity encoding neural network configured to encode the observation data into an activation for each map pixel, and a vector quantizer configured to assign the activation for each map pixel to an embedding vector representing one of the discrete visual entities to categorize the map pixel into the one of the set of discrete visual entities.
+14. One or more non-transitory computer-readable storage media storing instructions that when executed by one or more computers cause the one or more computers to implement a reinforcement learning neural network system comprising: an input to receive observation data defining an observation of an environment, wherein the observation comprises one or more images; an input to receive environmental reward data from the environment defining an extrinsic reward received in response to performing an action; an output to provide action data for selecting an action to be performed by an agent acting in the environment; a visual entity identifying neural network subsystem configured to process the observation data to determine a set of spatial maps for the one or more images, each spatial map representing one of a set of learned discrete visual entities, each spatial map comprising map pixels, wherein each map pixel identifies whether a corresponding region of the one or more images is associated with the discrete visual entity for the spatial map; and a reinforcement learning neural network subsystem configured to process data from the set of spatial maps and the environmental reward data to provide the action data.
+15. The computer-readable storage media as claimed in claim 14 wherein the visual entity identifying neural network subsystem comprises an entity encoding neural network configured to encode the observation data into an activation for each map pixel, and a vector quantizer configured to assign the activation for each map pixel to an embedding vector representing one of the discrete visual entities to categorize the map pixel into the one of the set of discrete visual entities.
+16. The computer-readable storage media as claimed in claim 15, the reinforcement learning neural network system further comprising an image appearance encoding neural network configured to encode image appearance data from the observation data into encoded image appearance data corresponding to the map pixels, and a visual entity identifying subsystem trainer configured to train the visual entity identifying neural network subsystem with a loss function dependent on a difference between distributions of the encoded image appearance data and the activation for each map pixel.
+17. The computer-readable storage media as claimed in claim 15 the reinforcement learning neural network system further comprising a frame encoding neural network configured to encode the set of spatial maps into frame embedding data for a current frame, and a visual entity identifying subsystem trainer configured to train the visual entity identifying neural network subsystem to distinguish frames inside and outside a motion time window number of frames distant from the current frame.
+18. The computer-readable storage media as claimed in claim 15 the reinforcement learning neural network system further comprising a frame encoding neural network configured to encode the set of spatial maps into frame embedding data for a current frame, an action encoding neural network configured to encode the action data into encoded action data representing one or more actions taken within an action time window, and a visual entity identifying subsystem trainer configured to train the visual entity identifying neural network subsystem with a loss function dependent on the encoded action data.
+19. The computer-readable storage media as claimed in claim 14 the reinforcement learning neural network system further comprising an intrinsic reward generation subsystem configured to process the data from the set of spatial maps to generate internal reward data for one or more intrinsic rewards, wherein the one or more intrinsic rewards depend upon one or more geometrical properties of contents of the spatial maps, and wherein the reinforcement learning neural network subsystem is configured to process the internal reward data to provide the action data.
+20. The computer-readable storage media as claimed in claim 19 wherein the intrinsic reward generation subsystem is configured to generate the internal reward data for each spatial map, and wherein the one or more intrinsic rewards comprise measures of one or more of an area, a position, and a centroid, of map pixel values of the spatial map.
+</claims>
+</document>

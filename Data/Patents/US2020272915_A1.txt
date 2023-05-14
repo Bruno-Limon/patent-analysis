@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2019-02-27
+</filing_date>
+
+<publication_date>
+2020-08-27
+</publication_date>
+
+<priority_date>
+2019-02-27
+</priority_date>
+
+<ipc_classes>
+G06F16/35,G06F16/36,G06N20/00,G06N5/04
+</ipc_classes>
+
+<assignee>
+ACCENTURE GLOBAL SOLUTIONS
+</assignee>
+
+<inventors>
+GUNJAN, ABHISHEK
+SHIVARAM, MADHURA
+TATA, SWATI
+SAMANTA, PRATIP
+TONY LEWIS, ARNEST
+CHOUKSEY, ANKIT
+</inventors>
+
+<docdb_family_id>
+72140549
+</docdb_family_id>
+
+<title>
+ARTIFICIAL INTELLIGENCE (AI) BASED DATA PROCESSING
+</title>
+
+<abstract>
+An Artificial Intelligence (AI)-based data processing system employs a trained AI model for extracting features of products from various product classes and building a product ontology from the features. The product ontology is used to respond to user queries with product recommendations and customizations. Training data for the generation of the AI model for feature extraction is initially accessed and verified to determine of the training data meets a data density requirement. If the training data does not meet the data density requirement, data from one of a historic source or external sources is added to the training data. One of the plurality of AI models is selected for training based on the degree of overlap and the inter-class distance between the datasets of the various product classes within the training data.
+</abstract>
+
+<claims>
+1. An Artificial Intelligence (AI) based data processing system comprising: at least one processor; a non-transitory processor readable medium storing machine-readable instructions that cause the at least one processor to: access training data pertaining to a plurality of product classes for training an AI model in extraction of product features, the training data including information regarding a plurality of products belonging to a plurality of product classes and features of the plurality of products; determine if the training data meets a per-class density requirement for training the AI model, the determination regarding the data density requirement being based on a distance variation metric; select one of a plurality of AI models for training on the training data if it is determined that the training data meets the data density requirement; if the training data does not meet the data density requirement, determine if additional data points from one of historical data or external sources can be added the training data; include the additional data points from one of the historical data or the external sources to the training data; train the AI model selected from the plurality of AI models on the training data; extract product features automatically by employing the trained AI model on received product information of one or more other products belonging to the plurality of product classes; build a product ontology via establishing relationships between the one or more other products based on the extracted features; and provide product recommendations to end users based on the product ontology.
+2. The system of claim 1, wherein the instructions for determining if the training data meets the data density requirement based on the distance variation metric comprise further machine-readable instructions that cause the processor to: apply Euclidean distance methodology for determining distances between data points in datasets of the training data, wherein the datasets correspond to each of the plurality of product classes; and determine that at least one of the datasets do not meet the data density requirement if a mean of distances of data points from corresponding nearest neighbors in each of the at least one dataset is greater than a distance threshold; compute a centroid for each of the datasets; determine inter-class distances between the datasets corresponding to the plurality of product classes based on distances between the centroids of the datasets.
+3. The system of claim 2, wherein the instructions for selecting one of a plurality of AI models for training comprise further machine-readable instructions that cause the processor to: select the AI model from the plurality of AI models based on interclass distances and degree of overlap between datasets in the training data corresponding to the plurality of product classes.
+4. The system of claim 1, wherein the plurality of AI models include random forest and support vector machines (SVMs).
+5. The system of claim 1, wherein the instructions for determining if data points from one of historical data or external sources can be added the training data comprise further machine-readable instructions that cause the processor to: determine accuracy of the historical data for use in the training data; and use the external sources for obtaining additional data points for the training data if the historical data is inaccurate.
+6. The system of claim 5, wherein the external sources include the internet and the instructions for obtaining additional data points from the external sources include: using a domain-specific crawler for gathering data from the internet.
+7. The system of claim 1, wherein the instructions for scoring the data with the data points comprise further machine-readable instructions that cause the processor to: implementing one or more of mixture density injection and exponential descent scoring method for adding the data.
+8. The system of claim 7, wherein the instructions for employing the mixture density injection and the exponential descent scoring comprise further machine-readable instructions that cause the processor to: employing the mixture density injection for determining a number of data points to be added to the training data; and employing the exponential descent scoring method for determining a score for the training data including the data points.
+9. The system of claim 1, wherein non-transitory processor readable medium stores further machine-readable instructions that cause the processor to: receive product information regarding the one or more products; categorize the one or more products using the product features extracted from the product information; and update the product ontology with the one or more products.
+10. The system of claim 9, wherein the instructions for providing product recommendations comprise instructions that cause the processor to: receive a natural language based request for product recommendations.
+11. The system of claim 10, wherein the instructions for providing product recommendations comprise instructions that cause the processor to: parsing and tokenizing the natural language based request; tagging the tokens with parts of speech (POS) information; and matching the tokens tagged as nouns and adjectives around the nouns with product features in the product ontology using similarity techniques.
+12. An artificial intelligence (AI) based data processing method comprising: accessing training data including data regarding products belonging to a plurality of product classes; determining that the training data meets a per-class data density requirement for training the model; adding data from one of historical data sources or external sources to the training data if it is determined that the training data does not meet the data density requirement; selecting an AI model from a plurality of AI models based on interclass distances and degree of overlap between datasets in the training data corresponding to the plurality of product classes; training the AI model on the training data for extracting product features; receiving information regarding additional products; extracting, by the AI model, product features of each of the additional products; removing boundary words of the extracted features; identifying atomic words from the extracted features that are cleaned up, wherein the atomic words commonly occur within the training data and the atomic words are selected as root features in a hierarchy of features; clustering each of the root features based on the plurality of product classes; building a product ontology by scoring relationships between each feature of the extracted features with other features of the extracted features; and providing product recommendations to a natural language user query using the product ontology and via analyzing at least the user query with the AI model.
+13. The method of claim 12, wherein building the product ontology further comprises: determine scores attached to each of the root features and sub-features combination with each of other root feature and sub-features across the plurality of product classes.
+14. The method of claim 13, wherein the scores are determined based on parameters including support associated with occurrence of the features, a degree of confidence on the occurrence of the features, individual support of the features within the training data and a confidence level associated with occurrence of the features individually.
+15. The method of claim 12, wherein analyzing at least the user query with the AI model further comprises: extracting one or more product features from the user query via the AI model.
+16. The method of claim 15, wherein analyzing at least the user query with the AI model further comprises: identifying products from the product ontology for the product recommendations using similarity techniques.
+17. The method of claim 16, wherein identifying products from the product ontology using similarity techniques further comprises: creating a multi-variant graphical representations of feature clusters associated with the plurality of product classes; and determining closest distances between nuclei of the clusters.
+18. A non-transitory processor-readable storage medium comprising machine-readable instructions that cause a processor to: access training data pertaining to a plurality of product classes for training an AI model in extraction of product features, the training data including information regarding a plurality of products belonging to a plurality of product classes and features of the plurality of products; determine if the training data meets a per-class density requirement for training the AI model, the determination regarding the data density requirement being based on a distance variation metric; select one of a plurality of AI models for training on the training data if it is determined that the training data meets the data density requirement; if the training data does not meet the data density requirement, determine if data points from one of historical data or external sources can be added the training data; add the data points from one of the historical data or the external sources to the training data; train the AI model selected from the plurality of AI models on the training data; extract product features automatically by employing the trained AI model on received product information of one or more other products belonging to the plurality of product classes; build a product ontology via establishing relationships between the one or more other products based on the extracted features; and provide product recommendations to end users based on the product ontology.
+19. The non-transitory processor-readable storage medium of claim 18, wherein the instructions for building the product ontology further comprising instructions that cause the processor to: remove boundary words of the extracted product features; and identify atomic words from the extracted features that are cleaned up, wherein the atomic words commonly occur within the training data and the atomic words are selected as root features in a hierarchy of features.
+20. The non-transitory processor-readable storage medium of claim 19, wherein the instructions for building the product ontology further comprising instructions that cause the processor to: cluster each of the root features based on the plurality of product classes; build the product ontology by scoring relationships between each feature of the extracted features with other features of the extracted features.
+</claims>
+</document>

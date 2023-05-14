@@ -1,0 +1,72 @@
+<document>
+
+<filing_date>
+2017-04-13
+</filing_date>
+
+<publication_date>
+2020-04-21
+</publication_date>
+
+<priority_date>
+2016-04-14
+</priority_date>
+
+<ipc_classes>
+G06F16/00,G06F16/22,G06F16/26,G06F16/28,G06F17/30
+</ipc_classes>
+
+<assignee>
+QLIKTECH INTERNATIONAL
+</assignee>
+
+<inventors>
+NILSSON, JOHAN
+LÓPEZ, JOSÉ DIAZ
+PERDOMO GALLIPOLI, YOLANDA
+</inventors>
+
+<docdb_family_id>
+58692302
+</docdb_family_id>
+
+<title>
+Methods and systems for bidirectional indexing
+</title>
+
+<abstract>
+In an aspect, provided is a method comprising receiving a data model, generating a bidirectional table index (BTI) based on the data model, generating a bidirectional association index (BAI) based on the data model and the bidirectional table index, and loading a portion of the data model, the BAI, and the BTI in-memory.
+</abstract>
+
+<claims>
+1. A method comprising: receiving a data model; generating, based on the data model, a first bidirectional table index (BTI), a second BTI, and a third BTI; generating a bidirectional association index (BAI) based on the data model, the second BTI, and the third BTI, wherein a number identifying a given position of the BAI corresponds to a row number of the second BTI, and wherein a value at the given position of the BAI corresponds to a row number of the third BTI; and loading a portion of the data model, the BAI, and at least one of the first BTI, the second BTI, or the third BTI in-memory.
+2. The method of claim 1, wherein one or more of the first BTI, the second BTI, or the third BTI comprises a hash index.
+3. The method of claim 1, wherein the data model comprises a plurality of tables, wherein each table of the plurality of tables comprises at least one row and at least one column.
+4. The method of claim 3, wherein generating the first BTI, the second BTI, and the third BTI comprises: scanning a first table of the plurality of tables to determine a first attribute in a first column of the first table; determining a presence or absence of the first attribute in each row of the first table; assigning the first attribute a first BTI position in the first BTI; storing the first attribute at the first BTI position in the first BTI; and for each row of the first table, storing, at the first BTI position in the first BTI, an indication that the first attribute is present or absent.
+5. The method of claim 4, further comprising: scanning the first table of the plurality of tables to determine a second attribute in the first column of the first table; determining a presence or absence of the second attribute in each row of the first table; assigning the second attribute a second BTI position in the first BTI; storing the second attribute at the second BTI position in the first BTI; and for each row of the first table, storing, at the second BTI position in the first BTI, an indication that the second attribute is present or absent.
+6. The method of claim 5, further comprising generating an inverted index.
+7. The method of claim 6, wherein generating the inverted index comprises: assigning an inverted index position in the inverted index to each row of the first table, wherein each assigned inverted index position corresponds to a number of a row of the first table; and storing in each of the inverted index positions, the first BTI position of the first BTI when the first attribute is present in the row of the first table or the second BTI position of the first BTI when the second attribute is present in the row of the first table.
+8. The method of claim 3, further comprising generating a plurality of BTIs, wherein a BTI is generated for each column of each of the plurality of tables.
+9. The method of claim 5, further comprising: scanning the first table of the plurality of tables to determine a third attribute in a second column of the first table; determining a presence or absence of the third attribute in each row of the first table; assigning the third attribute a first BTI position in the second BTI; storing the third attribute at the first BTI position in the second BTI; and for each row of the first table, storing, at the first BTI position in the second BTI, an indication that the third attribute is present or absent.
+10. The method of claim 9, further comprising: scanning the first table of the plurality of tables to determine a fourth attribute in the second column of the first table; determining a presence or absence of the fourth attribute in each row of the first table; assigning the fourth attribute a second BTI position in the second BTI; storing the fourth attribute at the second BTI position in the second BTI; and for each row of the first table, storing, at the second BTI position in the second BTI, an indication that the fourth attribute is present or absent.
+11. The method of claim 10, further comprising: scanning a second table of the plurality of tables to determine the third attribute in a first column of the second table; determining a presence or absence of the third attribute in each row of the second table; assigning the third attribute a first BTI position in the third BTI; storing the third attribute at the first BTI position in the third BTI; and for each row of of the second table, storing, at the first BTI position in the third BTI, an indication that the third attribute is present or absent.
+12. The method of claim 11, wherein generating the BAI based on the data model, the second BTI, and the third BTI comprises: assigning the third attribute a first BAI position in the BAI; assigning the fourth attribute a second BAI position in the BAI; storing in the first BAI position the first BTI position of the third BTI; and storing in the second BAI position an indication that the fourth attribute is not found in the third BTI.
+13. The method of claim 11, wherein the first attribute comprises a reference to the first attribute, the second attribute comprises a reference to the second attribute, the third attribute comprises a reference to the third attribute, and the fourth attribute comprises a reference to the fourth attribute.
+14. The method of claim 1, further comprising: determining an update to the data model; regenerating one or more of the first BTI, the second BTI, or the third BTI based on the updated data model; and regenerating the BAI based on the updated data model and the regenerated one or more of the first BTI, the second BTI, or the third BTI.
+15. The method of claim 1, wherein loading the portion of the data model in-memory comprises sequentially loading the portion of the data model in-memory.
+16. The method of claim 1, further comprising: providing a first graphical object of loaded data based on the data model, wherein the first graphical object represents a plurality of data sets; executing a first procedure in an inference engine based on a user selection in the plurality of data sets to generate a data subset, wherein the first procedure accesses one or more of the first BTI, the second BTI, or the third BTI and the BAI; executing a second procedure in a calculation engine to generate a first multidimensional data cube based on the data subset to generate a second graphical object; and providing the second graphical object.
+17. A method comprising: determining a binary state of each field and of each data table of a data source, resulting in a state space, wherein determining the binary state comprises generating a first bidirectional table index (BTI), a second BTI, a third BTI, and a bidirectional association index (BAI), wherein a number identifying a given position of the BAI corresponds to a row number of the second BTI, and wherein a value at the given position of the BAI corresponds to a row number of the third BTI; providing a user interface comprising one or more objects representing data in the state space; receiving a user selection in the user interface; recalculating the state space based on the user selection, one or more of the first BTI, the second BTI, or the third BTI, and the BAI; and providing the user interface comprising the one or more objects updated according to the state space based on the user selection.
+18. The method of claim 17, wherein recalculating the state space based on the user selection comprises querying the state space to gather all combinations of dimensions and values to perform the recalculation.
+19. The method of claim 17, wherein the user selection comprises a first attribute and recalculating the state space based on the user selection, one or more of the first BTI, the second BTI, or the third BTI, and the BAI comprises: accessing the first BTI to determine which of a plurality of rows of a first table comprise the first attribute, wherein the first BTI is associated with the first table; generating a row state indicating which of the plurality of rows of the first table comprise the first attribute; comparing the row state to an inverted index of the second BTI to determine a second attribute, wherein the second BTI is associated with the first table; and identifying the second attribute as associated with the first attribute.
+20. The method of claim 19, wherein comparing the row state to the inverted index of the second BTI of the first table to determine the second attribute comprises: identifying a value that indicates a presence of the second attribute in a row of the first table in a position of the row state that corresponds to the row of the first table; determining a value in the inverted index of the second BTI in a position of the inverted index of the second BTI that corresponds to the position of the row state that corresponds to the row of the first table; and identifying the second attribute based on the value in the inverted index of the second BTI.
+21. The method of claim 19, further comprising accessing the BAI to determine which of a plurality of attributes of the third BTI are associated with the second attribute, wherein the third BTI is associated with a second table.
+22. The method of claim 21, wherein accessing the BAI to determine which of a plurality of attributes of a third BTI of a second table are associated with the second attribute comprises: identifying a value in a position of the BAI that corresponds to a position of the second attribute in the second BTI; and identifying an attribute of the plurality of attributes in the third BTI with a position in the third BTI that corresponds to the value.
+23. The method of claim 21, further comprising updating an inferred state for the second attribute in the second BTI and updating an inferred state for each of the plurality of attributes in the third BTI of the second table that are determined to be associated with the second attribute.
+24. A method comprising: receiving a user selection of data, wherein the data comprises one or more tables; determining distinct values in all related tables that are relevant to the user selection based on a bidirectional association index (BAI) and one or more of a first bidirectional table index (BTI), a second BTI, or a third BTI, wherein a number identifying a given position of the BAI corresponds to a row number of the second BTI, and wherein a value at the given position of the BAI corresponds to a row number of the third BTI; performing a first calculation on the distinct values to create a first hypercube; and generating a graphical object based on the first hypercube.
+25. The method of claim 24, wherein the user selection comprises a first attribute and determining distinct values in all related tables that are relevant to the user selection based on one or more of the first BTI, the second BTI, or the third BTI, and the BAI comprises: accessing the first BTI to determine which of a plurality of rows of a first table comprise the first attribute, wherein the first BTI is associated with the first table; generating a row state indicating which of the plurality of rows of the first table comprise the first attribute; comparing the row state to an inverted index of the second BTI to determine a second attribute, wherein the second BTI is associated with the first table; and identifying the second attribute as associated with the first attribute.
+26. The method of claim 25, wherein comparing the row state to the inverted index of the second BTI to determine the second attribute comprises: identifying a value that indicates a presence of the second attribute in a row of the first table in a position of the row state that corresponds to the row of the first table; determining a value in the inverted index of the second BTI in a position of the inverted index of the second BTI that corresponds to the position of the row state that corresponds to the row of the first table; and identifying the second attribute based on the value in the inverted index of the second BTI.
+27. The method of claim 25, further comprising accessing the BAI to determine which of a plurality of attributes of a third BTI are associated with the second attribute, wherein the third BTI is associated with a second table.
+28. The method of claim 27, wherein accessing the BAI to determine which of a plurality of attributes of a third BTI are associated with the second attribute comprises: identifying a value in a position of the BAI that corresponds to a position of the second attribute in the second BTI; and identifying an attribute of the plurality of attributes in the third BTI with a position in the third BTI that corresponds to the value.
+29. The method of claim 27, further comprising updating an inferred state for the second attribute in the second BTI and updating an inferred state for each of the plurality of attributes in the third BTI that are determined to be associated with the second attribute.
+</claims>
+</document>

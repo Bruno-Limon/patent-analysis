@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2018-12-10
+</filing_date>
+
+<publication_date>
+2020-06-11
+</publication_date>
+
+<priority_date>
+2018-12-10
+</priority_date>
+
+<ipc_classes>
+G06K9/46,G06N3/08,G06T11/00
+</ipc_classes>
+
+<assignee>
+IBM (INTERNATIONAL BUSINESS MACHINES CORPORATION)
+</assignee>
+
+<inventors>
+SYEDA-MAHMOOD TANVEER F.
+KARARGYRIS, ALEXANDROS
+</inventors>
+
+<docdb_family_id>
+70970525
+</docdb_family_id>
+
+<title>
+Deep Learning Network for Salient Region Identification in Images
+</title>
+
+<abstract>
+Mechanisms are provided to implement a hybrid deep learning network. The hybrid deep learning network receives, from a imaging system, first input data specifying a non-annotated image. The hybrid deep learning network pre-processes the non-annotated image to generate second input data specifying a hint image and corresponding annotation data specifying salient regions of the hint image. The hybrid deep learning network processes the first input data and second input data to perform training of the hybrid deep learning network by targeting feature detection in the non-annotated image in the salient regions identified in the hint image. The trained hybrid deep learning network is used to process third input data specifying a new non-annotated image to thereby identify an object or structure in the new non-annotated image.
+</abstract>
+
+<claims>
+1. A method, in a data processing system comprising at least one processor and at least one memory, wherein the at least one memory comprises instructions that are executed by the at least one processor to cause the at least one processor to implement a hybrid deep learning network, and wherein the method comprises: receiving, by the hybrid deep learning network, from an imaging system, first input data specifying a non-annotated image; pre-processing, by the hybrid deep learning network, the non-annotated image to generate second input data specifying a hint image and corresponding annotation data specifying salient regions of the hint image; processing, by the hybrid deep learning network, the first input data and second input data to perform training of the hybrid deep learning network by targeting feature detection in the non-annotated image in the salient regions identified in the hint image; and processing, using the trained hybrid deep learning network, third input data specifying a new non-annotated image to thereby identify an object or structure in the new non-annotated image.
+2. The method of claim 1, wherein processing the first input data and second input data to perform training of the hybrid deep learning network by targeting feature detection in the non-annotated image in the salient regions identified in the hint image comprises filtering out regions of the non-annotated image that are not specified in the hint image as being salient regions.
+3. The method of claim 1, wherein the pre-processing of the non-annotated image comprises generating the hint image at least by performing, on the non-annotated image, a multi-level thresholding operation with region grouping based on one or more saliency operators.
+4. The method of claim 3, wherein the plurality of saliency operations comprise at least one image characteristic, and wherein the at least one image characteristic comprises at least one of a region size, a region location, color value, or an intensity value.
+5. The method of claim 1, wherein the pre-processing of the non-annotated image comprises applying a region size filter on regions of the non-annotated image having different tissue densities to thereby identify salient regions within the non-annotated image.
+6. The method of claim 5, wherein the pre-processing of the non-annotated image further comprises performing a color connected component grouping that identifies salient regions within the non-annotated image, where anatomical structures in the non-annotated image that have similar characteristics have similar coloring in the non-annotated image.
+7. The method of claim 6, further comprising: performing task specific filtering of salient regions in the pre-processed non-annotated image to identify salient regions of interest to the particular task being performed; and generating the hint image based on the filtered salient regions, wherein the task specific filtering comprises applying task specific saliency measures indicating either positive or negative saliency for the particular task.
+8. The method of claim 1, wherein the annotation data specifies one or more contours in the non-annotated image, and one or more corresponding labels, identifying anatomical structures present in the non-annotated image.
+9. The method of claim 1, wherein processing the first input data and second input data to perform training of the hybrid deep learning network comprises at least one of: performing an outer fusion operation to combine the first input data with the second input data to generate a combined image input, prior to inputting the combined image input into the deep learning network, wherein the deep learning network utilizes a single set of one or more convolutional filter layers to process the combined image input; performing an inner fusion operation to submit the first input data to a first set of one or more convolutional filter layers of the deep learning network, and to submit the second input data to a second set of one or more convolutional filter layers of the deep learning network, and wherein outputs of the first set of one or more convolutional filter layers and the second set of one or more convolutional filter layers are merged to form a combined feature input to a de-convolution portion of the deep learning network; or performing a substitution operation to substitute the second input data for the first input data as input to the deep learning network to perform training of the hybrid deep learning network.
+10. The method of claim 1, wherein the imaging system is at least one of a x-ray imaging system, a sonogram imaging system, a computed tomography (CT) scan imaging system, a positron emission tomography (PET) scan imaging system, magnetic resonance image (MM) imaging system, or an echocardiography imaging system.
+11. A computer program product comprising a computer readable storage medium having a computer readable program stored therein, wherein the computer readable program, when executed on a data processing system, causes the data processing system to implement a hybrid deep learning network that operates to: receive, from an imaging system, first input data specifying a non-annotated image; pre-process the non-annotated image to generate second input data specifying a hint image and corresponding annotation data specifying salient regions of the hint image; and process the first input data and second input data to perform training of the hybrid deep learning network by targeting feature detection in the non-annotated image in the salient regions identified in the hint image, and wherein the data processing system further processes, using the trained hybrid deep learning network, third input data specifying a new non-annotated image to thereby identify an object or structure in the new non-annotated image.
+12. The computer program product of claim 11, wherein the computer readable program further causes the hybrid deep learning network to process the first input data and second input data to perform training of the hybrid deep learning network by targeting feature detection in the non-annotated image in the salient regions identified in the hint image at least by filtering out regions of the non-annotated image that are not specified in the hint image as being salient regions.
+13. The computer program product of claim 11, wherein the computer readable program further causes the hybrid deep learning network to pre-process the non-annotated image at least by generating the hint image at least by performing, on the non-annotated image, a multi-level thresholding operation with region grouping based on one or more saliency operators.
+14. The computer program product of claim 13, wherein the plurality of saliency operations comprise at least one image characteristic, and wherein the at least one image characteristic comprises at least one of a region size, a region location, color value, or an intensity value.
+15. The computer program product of claim 11, wherein the computer readable program further causes the hybrid deep learning network to pre-process the non-annotated image at least by applying a region size filter on regions of the non-annotated image having different tissue densities to thereby identify salient regions within the non-annotated image.
+16. The computer program product of claim 15, wherein the computer readable program further causes the hybrid deep learning network to pre-process the non-annotated image further at least by performing a color connected component grouping that identifies salient regions within the non-annotated image, where anatomical structures in the non-annotated image that have similar characteristics have similar coloring in the non-annotated image.
+17. The computer program product of claim 16, wherein the computer readable program further causes the hybrid deep learning network to: perform task specific filtering of salient regions in the pre-processed non-annotated image to identify salient regions of interest to the particular task being performed; and generate the hint image based on the filtered salient regions, wherein the task specific filtering comprises applying task specific saliency measures indicating either positive or negative saliency for the particular task.
+18. The computer program product of claim 11, wherein the annotation data specifies one or more contours in the non-annotated image, and one or more corresponding labels, identifying anatomical structures present in the non-annotated image.
+19. The computer program product of claim 11, wherein the computer readable program further causes the hybrid deep learning network to process the first input data and second input data to perform training of the hybrid deep learning network comprises at least one of: performing an outer fusion operation to combine the first input data with the second input data to generate a combined image input, prior to inputting the combined image input into the deep learning network, wherein the deep learning network utilizes a single set of one or more convolutional filter layers to process the combined image input; performing an inner fusion operation to submit the first input data to a first set of one or more convolutional filter layers of the deep learning network, and to submit the second input data to a second set of one or more convolutional filter layers of the deep learning network, and wherein outputs of the first set of one or more convolutional filter layers and the second set of one or more convolutional filter layers are merged to form a combined feature input to a de-convolution portion of the deep learning network; or performing a substitution operation to substitute the second input data for the first input data as input to the deep learning network to perform training of the hybrid deep learning network.
+20. A data processing system comprising: at least one processor; and at least one memory coupled to the at least one processor, wherein the at least one memory comprises instructions which, when executed by the at least one processor, cause the at least one processor to implement a hybrid deep learning network that operates to: receive, from an imaging system, first input data specifying a non-annotated image; pre-process the non-annotated image to generate second input data specifying a hint image and corresponding annotation data specifying salient regions of the hint image; and process the first input data and second input data to perform training of the hybrid deep learning network by targeting feature detection in the non-annotated image in the salient regions identified in the hint image, and wherein the data processing system further processes, using the trained hybrid deep learning network, third input data specifying a new non-annotated image to thereby identify an object or structure in the new non-annotated image.
+</claims>
+</document>

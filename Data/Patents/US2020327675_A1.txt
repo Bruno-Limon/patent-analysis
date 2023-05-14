@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2019-04-15
+</filing_date>
+
+<publication_date>
+2020-10-15
+</publication_date>
+
+<priority_date>
+2019-04-15
+</priority_date>
+
+<ipc_classes>
+G06T5/00,G06T7/13,G06T7/149,G06T7/194
+</ipc_classes>
+
+<assignee>
+ADOBE
+</assignee>
+
+<inventors>
+LIN ZHE
+YANG, JIMEI
+BARNES, CONNELLY
+Xiong, Wei
+Lu, Xin
+</inventors>
+
+<docdb_family_id>
+72749373
+</docdb_family_id>
+
+<title>
+Foreground-aware image inpainting
+</title>
+
+<abstract>
+In some embodiments, an image manipulation application receives an incomplete image that includes a hole area lacking image content. The image manipulation application applies a contour detection operation to the incomplete image to detect an incomplete contour of a foreground object in the incomplete image. The hole area prevents the contour detection operation from detecting a completed contour of the foreground object. The image manipulation application further applies a contour completion model to the incomplete contour and the incomplete image to generate the completed contour for the foreground object. Based on the completed contour and the incomplete image, the image manipulation application generates image content for the hole area to generate a completed image.
+</abstract>
+
+<claims>
+1. A non-transitory computer-readable medium having program code that is stored thereon, the program code executable by one or more processing devices for performing operations comprising: applying, to an incomplete image comprising a hole area lacking image content, a contour detection operation that detects an incomplete contour of a foreground object in the incomplete image, wherein a placement of the hole area prevents the contour detection operation from detecting a completed contour of the foreground object; applying, to the incomplete contour and the incomplete image, a contour completion model that is trained to generate the completed contour for the foreground object; and generating image content for the hole area based on the completed contour and the incomplete image to generate a completed image.
+2. The non-transitory computer-readable medium of claim 1, wherein the contour completion model comprises a generative adversarial network (GAN) that comprises a coarse contour generative model, a refined contour generative model and a discriminative model.
+3. The non-transitory computer-readable medium of claim 2, the operations further comprising training the contour completion model that comprises applying a loss function that comprises a first loss term associated with content loss of the coarse contour generative model and the refined contour generative model and a second loss term associated with adversarial loss of the discriminative model, wherein one or more weights applied to the first loss term and the second loss term change over time.
+4. The non-transitory computer-readable medium of claim 3, wherein the weights comprise a first weight applied to the first loss term of the loss function and a second weight applied to the second loss term of the loss function, and wherein a first ratio between the first weight and the second weight at a first stage of the training is higher than a second ratio between the first weight and the second weight at a second stage of the training.
+5. The non-transitory computer-readable medium of claim 1, wherein generating the image content for the hole area comprises applying an image completion model to the incomplete image and the completed contour, the image completion model comprising a generative adversarial network that comprises a generative model and a discriminative model.
+6. The non-transitory computer-readable medium of claim 5, the operations further comprising training the image completion model that comprises applying a loss function that comprises a first loss term associated with content loss of the generative model and a second loss term associated with adversarial loss of the discriminative model, wherein a first ratio between a first weight applied to the first loss term and a second weight applied to the second loss term at a first stage of the training is higher than a second ratio between the first weight and the second weight at a second stage of the training.
+7. The non-transitory computer-readable medium of claim 6, wherein the generative model comprises a coarse image generative model and a refined image generative model, and wherein the first loss term defines content loss of the coarse image generative model and content loss of the refined image generative model.
+8. The non-transitory computer-readable medium of claim 1, wherein the contour detection operation comprises: detecting the foreground object to generate a foreground map, wherein detecting the foreground object comprises applying a contour model to the incomplete image; and generating the incomplete contour of the foreground object, wherein generating the incomplete contour comprises applying an edge detector to the foreground map.
+9. A computer-implemented method in which one or more processing devices perform operations comprising: a step for generating image content for a hole area contained in an incomplete image based on a contour of a foreground object in the incomplete image to generate a completed image; and providing the completed image for display.
+10. The computer-implemented method of claim 9, the operations further comprising training a contour completion model that comprises a generative adversarial network (GAN), the GAN comprising a coarse contour generative model, a refined contour generative model and a discriminative model, wherein the step for generating image content for the hole area comprises generating the contour of the foreground object based on the trained contour completion model.
+11. The computer-implemented method of claim 10, wherein training the GAN comprises applying a loss function that comprises a first loss term associated with content loss of the coarse contour generative model and the refined contour generative model and a second loss term associated with adversarial loss of the discriminative model, wherein one or more weights applied to the first loss term and the second loss term change over time.
+12. The computer-implemented method of claim 11, wherein the weights comprise a first weight applied to the first loss term of the loss function and a second weight applied to the second loss term of the loss function, and wherein a first ratio between the first weight and the second weight at a first stage of the training is higher than a second ratio between the first weight and the second weight at a second stage of the training.
+13. The computer-implemented method of claim 9, the operations further comprising training an image completion model that comprises a generative model and a discriminative model, wherein the step for generating image content for the hole area comprises applying the trained image completion model to the incomplete image to generate the completed image.
+14. The computer-implemented method of claim 13, wherein the training comprises applying a loss function that comprises a first loss term associated with content loss of the generative model and a second loss term associated with adversarial loss of the discriminative model, wherein a first ratio between a first weight applied to the first loss term and a second weight applied to the second loss term at a first stage of the training is higher than a second ratio between the first weight and the second weight at a second stage of the training.
+15. The computer-implemented method of claim 14, wherein the generative model comprises a coarse image generative model and a refined image generative model, and wherein the first loss term defines content loss of the coarse image generative model and content loss of the refined image generative model.
+16. A system comprising: a processing device; and a non-transitory computer-readable medium communicatively coupled to the processing device, wherein the processing device is configured to execute program code stored in the non-transitory computer-readable medium and thereby perform operations comprising: detecting a foreground object in an incomplete image that comprises a hole area lacking image content; detecting an incomplete segmentation map of the foreground object based on a location of the hole area, wherein the location of the hole area prevents a completed segmentation map of the foreground object from being detected; generating a completed segmentation map for the foreground object based on the incomplete segmentation map and the incomplete image; and generating a completed image comprising generating image content for the hole area based on the completed segmentation map and the incomplete image.
+17. The system of claim 16, wherein generating the completed segmentation map comprises applying a segmentation map completion model to the incomplete segmentation map and the incomplete image, the segmentation map completion model comprising a generative adversarial network (GAN) that comprises a coarse segmentation map generative model, a refined segmentation map generative model and a discriminative model.
+18. The system of claim 17, wherein generating the image content for the hole area comprises applying an image completion model to the incomplete image and the completed segmentation map, the image completion model comprising a generative adversarial network that comprises a generative model and a discriminative model.
+19. The system of claim 18, wherein the image completion model and the segmentation map completion model are jointly training to minimize a joint loss function defined based on a first loss function for the image completion model and a second loss function for the segmentation map completion model.
+20. The system of claim 18, wherein the operations further comprise training the image completion model that comprises applying a loss function that comprises a first loss term associated with content loss of the generative model and a second loss term associated with adversarial loss of the discriminative model, wherein a first ratio between a first weight applied to the first loss term and a second weight applied to the second loss term at a first stage of the training is higher than a second ratio between the first weight and the second weight at a second stage of the training.
+</claims>
+</document>

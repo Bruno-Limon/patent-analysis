@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2018-09-20
+</filing_date>
+
+<publication_date>
+2020-09-03
+</publication_date>
+
+<priority_date>
+2017-09-20
+</priority_date>
+
+<ipc_classes>
+B25J9/16,G05B13/02,G06N20/00,G06N3/08
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+CHEBOTAR, YEVGEN
+LYNCH, HARRISON
+SERMANET, PIERRE
+</inventors>
+
+<docdb_family_id>
+63794721
+</docdb_family_id>
+
+<title>
+OPTIMIZING POLICY CONTROLLERS FOR ROBOTIC AGENTS USING IMAGE EMBEDDINGS
+</title>
+
+<abstract>
+There are provided systems, methods, and apparatus, for optimizing a policy controller to control a robotic agent that interacts with an environment to perform a robotic task. One of the methods includes optimizing the policy controller using a neural network that generates numeric embeddings of images of the environment and a demonstration sequence of demonstration images of another agent performing a version of the robotic task.
+</abstract>
+
+<claims>
+1. A method of optimizing a policy controller used to select actions to be performed by a robotic agent interacting with an environment to perform a specified task, the method comprising: obtaining a demonstration sequence of demonstration images of another agent performing a version of the specified task; processing each demonstration image in the demonstration sequence using a time contrastive neural network to generate a respective demonstration embedding of each of the demonstration images, wherein the time contrastive neural network has been trained to receive an input image of the environment and to process the input image to generate a numeric embedding of the input image that characterizes a state of the environment as depicted in the input image; obtaining a robot sequence of robot images of the robotic agent performing the specified task by performing actions selected using a current policy controller, wherein each robot image in the robot sequence corresponds to a respective demonstration image in the demonstration sequence; processing each robot image in the robot sequence using the time contrastive neural network to generate a respective robot embedding for each of the robot images; and updating the current policy controller by performing an iteration of a reinforcement learning technique to optimize a reward function that depends on, for each demonstration image, a distance between the demonstration embedding of the demonstration image and the robot embedding of the corresponding robot image.
+2. The method of claim 1, wherein the other agent is a human demonstrator.
+3. The method of claim 1, wherein the other agent is a different robotic agent.
+4. The method of claim 1, wherein the policy controller is a trajectory-centric controller.
+5. The method of claim 4, wherein the policy controller is a time-varying Gaussian controller.
+6. The method of claim 1, wherein the reinforcement learning technique is a PILQR technique.
+7. The method of claim 1, wherein the reward function includes a Euclidean distance term that is a square of the Euclidean distance between the demonstration embedding of the demonstration image and the robot embedding of the corresponding robot image.
+8. The method of claim 1, wherein the reward function includes a Huber-style loss term that is a square root of a sum between a constant value and a square of the Euclidean distance between the demonstration embedding of the demonstration image and the robot embedding of the corresponding robot image.
+9. The method of claim 1, wherein the reward function satisfies:
+description="In-line Formulae" end="lead"?R(vt,wt)=−α∥wt−vt∥22−β√{square root over (γ+∥wt−vt∥22)},description="In-line Formulae" end="tail"? wherein vt is the demonstration embedding of the demonstration image in a t-th position in the demonstration sequence, wt is the robot embedding of the robot image in a t-th position in the robot sequence, α and β are fixed weighting parameters, and γ is a small positive constant value.
+10. The method of claim 1, wherein the images in the demonstration sequence are captured from a different viewpoint than the images in the robot sequence.
+11. The method of claim 10, wherein images in the demonstration sequence are captured from a third-party view relative to the other agent and the images in the robot sequence are captured from a first-party view relative to the robotic agent.
+12. The method of claim 1, wherein the corresponding robot image is the robot image that is in the same position in the robot sequence as the demonstration image is in the demonstration sequence.
+13. The method of claim 1, wherein the time contrastive neural network has a plurality of network parameters and wherein the method further comprises: training the time contrastive neural network to generate the numeric embeddings, comprising: obtaining a first image of the environment captured by a first modality; obtaining a second image that is co-occurring with the first image and that is captured by a second, different modality; obtaining a third image captured by the first modality that is not co-occurring with the first image; determining a gradient of a triplet loss that uses the first image as an anchor example, the second image as a positive example, and the third image as a negative example; and updating current values of the network parameters using the gradient of the triplet loss.
+14. The method of claim 13, wherein the first modality is a camera at a first viewpoint, and wherein the second modality is a camera at a second, different viewpoint.
+15. The method of claim 13, wherein the third image is within a temporal neighborhood of the first image.
+16. The method of claim 15, wherein obtaining the third image comprises: selecting the third image randomly from the images captured by the first modality that are within the temporal neighborhood of the first image.
+17. The method of claim 15, wherein obtaining the third image comprises: selecting an image that is a hard negative relative to the first image from the images captured by the first modality that are within the temporal neighborhood of the first image.
+18. The method of claim 13, wherein determining the gradient of the triplet loss comprises: processing the first image using the time contrastive neural network in accordance with the current values of the network parameters to generate a first embedding; processing the second image using the time contrastive neural network in accordance with the current values of the network parameters to generate a second embedding; processing the third image using the time contrastive neural network in accordance with the current values of the network parameters to generate a third embedding; and determining the triplet loss from (i) a first distance between the first embedding and the second embedding and (ii) a second distance between the first embedding and the third embedding.
+19. The method of claim 13, wherein the first image, the second image, and the third image are of the other agent interacting with the environment.
+20. The method of claim 13, wherein the first image, the second image, and the third image are of the robotic agent interacting with the environment.
+21. The method of claim 1, further comprising controlling the robotic agent using the optimized policy controller.
+22. A system comprising one or more computers and one or more storage devices storing instructions that when executed by the one or more computers cause the one or more computers to perform operations for optimizing a policy controller used to select actions to be performed by a robotic agent interacting with an environment to perform a specified task, the operations comprising: obtaining a demonstration sequence of demonstration images of another agent performing a version of the specified task; processing each demonstration image in the demonstration sequence using a time contrastive neural network to generate a respective demonstration embedding of each of the demonstration images, wherein the time contrastive neural network has been trained to receive an input image of the environment and to process the input image to generate a numeric embedding of the input image that characterizes a state of the environment as depicted in the input image; obtaining a robot sequence of robot images of the robotic agent performing the specified task by performing actions selected using a current policy controller, wherein each robot image in the robot sequence corresponds to a respective demonstration image in the demonstration sequence; processing each robot image in the robot sequence using the time contrastive neural network to generate a respective robot embedding for each of the robot images; and updating the current policy controller by performing an iteration of a reinforcement learning technique to optimize a reward function that depends on, for each demonstration image, a distance between the demonstration embedding of the demonstration image and the robot embedding of the corresponding robot image.
+23. One or more non-transitory computer storage media storing instructions that when executed by one or more computers cause the one or more computers to perform operations for optimizing a policy controller used to select actions to be performed by a robotic agent interacting with an environment to perform a specified task, the operations comprising: obtaining a demonstration sequence of demonstration images of another agent performing a version of the specified task; processing each demonstration image in the demonstration sequence using a time contrastive neural network to generate a respective demonstration embedding of each of the demonstration images, wherein the time contrastive neural network has been trained to receive an input image of the environment and to process the input image to generate a numeric embedding of the input image that characterizes a state of the environment as depicted in the input image; obtaining a robot sequence of robot images of the robotic agent performing the specified task by performing actions selected using a current policy controller, wherein each robot image in the robot sequence corresponds to a respective demonstration image in the demonstration sequence; processing each robot image in the robot sequence using the time contrastive neural network to generate a respective robot embedding for each of the robot images; and updating the current policy controller by performing an iteration of a reinforcement learning technique to optimize a reward function that depends on, for each demonstration image, a distance between the demonstration embedding of the demonstration image and the robot embedding of the corresponding robot image.
+</claims>
+</document>

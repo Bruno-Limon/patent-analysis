@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2019-06-25
+</filing_date>
+
+<publication_date>
+2020-12-31
+</publication_date>
+
+<priority_date>
+2019-06-25
+</priority_date>
+
+<ipc_classes>
+G06F17/16,G06N3/04,G06T13/80
+</ipc_classes>
+
+<assignee>
+ADOBE
+</assignee>
+
+<inventors>
+YANG, JIMEI
+LU, JINGWAN
+BARNES, CONNELLY
+Zhou, Yi
+</inventors>
+
+<docdb_family_id>
+74044121
+</docdb_family_id>
+
+<title>
+GENERATING REALISTIC ANIMATIONS FOR DIGITAL ANIMATION CHARACTERS UTILIZING A GENERATIVE ADVERSARIAL NETWORK AND A HIP MOTION PREDICTION NETWORK
+</title>
+
+<abstract>
+The present disclosure relates to systems, methods, and non-transitory computer readable media for generating a digital animation of a digital animation character by utilizing a generative adversarial network and a hip motion prediction network. For example, the disclosed systems can utilize an unconditional generative adversarial network to generate a sequence of local poses of a digital animation character based on an input of a random code vector. The disclosed systems can also utilize a conditional generative adversarial network to generate a sequence of local poses based on an input of a set of keyframes. Based on the sequence of local poses, the disclosed systems can utilize a hip motion prediction network to generate a sequence of global poses based on hip velocities. In addition, the disclosed systems can generate an animation of a digital animation character based on the sequence of global poses.
+</abstract>
+
+<claims>
+1. A non-transitory computer readable medium comprising instructions that, when executed by at least one processor, cause a computer device to: identify a code vector for generating an animation sequence of a digital animation character; generate a sequence of local poses indicating positions of joints relative to a root joint of the digital animation character by processing the code vector using a generative adversarial network; utilize a root joint motion prediction network to determine a sequence of global poses of the digital animation character from the sequence of local poses; and generate an animation of the digital animation character reflecting the sequence of global poses.
+2. The non-transitory computer readable medium of claim 1, further comprising instructions that, when executed by the at least one processor, cause the computer device to identify the code vector by one or more of: identifying a random code vector for generating a random animation sequence of the digital animation character; or generating the code vector based on a set of keyframes that define particular global poses for the digital animation character at particular frames during the animation sequence.
+3. The non-transitory computer readable medium of claim 1, wherein: the generative adversarial network comprises a fully-convolutional neural network; and the root joint motion prediction network comprises a convolutional neural network.
+4. The non-transitory computer readable medium of claim 1, further comprising instructions that, when executed by the at least one processor, cause the computer device to utilize the generative adversarial network to generate the sequence of local poses by analyzing the code vector to determine a sequence of three-dimensional joint positions relative to root joint positions of the digital animation character.
+5. The non-transitory computer readable medium of claim 4, further comprising instructions that, when executed by the at least one processor, cause the computer device to determine the sequence of global poses by utilizing the root joint motion prediction network to determine a sequence of hip velocities of the digital animation character based on the sequence of three-dimensional joint positions.
+6. The non-transitory computer readable medium of claim 5, wherein a hip velocity comprises a displacement of a hip position between two frames of the digital animation.
+7. The non-transitory computer readable medium of claim 1, further comprising instructions that, when executed by the at least one processor, cause the computer device to train the generative adversarial network to generate predicted sequences of local poses based on a repository of training animation sequences.
+8. A system comprising: at least one processor; and a non-transitory computer readable medium comprising instructions that, when executed by the at least one processor, cause the system to: identify a set of keyframes for generating an animation sequence of a digital animation character, wherein the set of keyframes defines particular global poses for the digital animation character at particular frames during the animation sequence; generate a sequence of local poses indicating joint positions relative to root joint positions of the digital animation character by processing the set of keyframes using a generative adversarial network; utilize a root joint motion prediction network to determine a sequence of global poses of the digital animation character from the sequence of local poses, wherein the sequence of global poses align with the set of keyframes; and generate an animation of the digital animation character reflecting the sequence of global poses.
+9. The system of claim 8, further comprising instructions that, when executed by the at least one processor, cause the system to utilize an encoder neural network to encode the set of keyframes into a code vector for input into the generative adversarial network.
+10. The system of claim 9, further comprising instructions that, when executed by the at least one processor, cause the system to: generate a modified code vector by applying a noise vector to the code vector; utilize the generative adversarial network to generate a modified sequence of local poses of the digital animation character based on the modified code vector; determine, by utilizing a hip motion prediction network, a modified sequence of global poses of the digital animation character based on the modified sequence of local poses; and generate a modified animation of the digital animation character reflecting the modified sequence of global poses.
+11. The system of claim 8, further comprising instructions that, when executed by the at least one processor, cause the system to determine the sequence of global poses by utilizing the hip motion prediction network to determine a sequence of hip velocities of the digital animation character based on the sequence of local poses.
+12. The system of claim 8, wherein the generative adversarial network comprises a generator neural network and a discriminator neural network, and further comprising instructions that, when executed by the at least one processor, cause the system to train the generative adversarial network by: utilizing a generator neural network to analyze a training code vector corresponding to a training set of keyframes to generate a predicted sequence of local poses; and comparing the predicted sequence of local poses with the training set of keyframes to determine a first measure of loss associated with the generator neural network.
+13. The system of claim 12, further comprising instructions that, when executed by the at least one processor, cause the system to train the generative adversarial network by: identifying a training sequence of local poses from a repository of training animation sequences; utilizing the discriminator neural network to determine a difference between the predicted sequence of local poses and the training sequence of local poses; and modifying parameters associated with the generator neural network and the discriminator neural network based on the determined difference.
+14. The system of claim 8, further comprising instructions that, when executed by the at least one processor, cause the system to train the hip motion prediction network by: utilizing the hip motion prediction network to generate a predicted sequence of global poses based on a training sequence of local poses; comparing the predicted sequence of global poses with a ground truth sequence of global poses to determine a measure of loss associated with the hip motion prediction network; and modifying one or more parameters of the hip motion prediction network based on the measure of loss.
+15. The system of claim 14, further comprising instructions that, when executed by the at least one processor, cause the system to compare the predicted sequence of global poses with the training sequence of global poses by: determining a first displacement between a first frame and a second frame in the ground truth sequence of global poses; determining a second displacement between a corresponding first frame and a corresponding second frame in the predicted sequence of global poses; and comparing the first displacement and the second displacement to determine a first measure of loss.
+16. The system of claim 15, further comprising instructions that, when executed by the at least one processor, cause the system to compare the predicted sequence of global poses with the training sequence of global poses by further: determining a third displacement between the first frame and a third frame in the ground truth sequence of global poses; determining a fourth displacement between the corresponding first frame and a corresponding third frame in the predicted sequence of global poses; and comparing the third displacement and the fourth displacement to determine a second measure of loss.
+17. In a digital medium environment for generating animations for three-dimensional digital character representations, a computer-implemented method for utilizing generative adversarial networks to generate animated sequences, the computer-implemented method comprising: identifying an input for generating an animation sequence of a digital animation character, the input comprising at least one of a random code vector or a set of keyframes; and a step for utilizing a generative adversarial network to generate a sequence of global poses of the digital animation character based on the input; and generating an animation having a sequence of frames reflecting the sequence of global poses.
+18. The computer-implemented method of claim 17, wherein: the input comprises the random code vector, and the sequence of global poses comprises a random sequence of global poses for animating the digital animation character.
+19. The computer-implemented method of claim 17, wherein: the input comprises the set of keyframes, and the sequence of global poses aligns with the set of keyframes such that, at frames within the sequence of global poses that correspond to keyframes within the set of keyframes, the digital animation character reflects global poses depicted by the keyframes.
+20. The computer-implemented method of claim 17, further comprising: training the generative adversarial network to generate predicted sequences of local poses based on a repository of training animation sequences; and training a hip motion prediction network to generate predicted sequences of global poses based on one or more training animation sequences.
+</claims>
+</document>

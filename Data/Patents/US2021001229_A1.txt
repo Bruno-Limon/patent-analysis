@@ -1,0 +1,69 @@
+<document>
+
+<filing_date>
+2019-07-02
+</filing_date>
+
+<publication_date>
+2021-01-07
+</publication_date>
+
+<priority_date>
+2019-07-02
+</priority_date>
+
+<ipc_classes>
+A63F13/56,A63F13/67,G06N20/00
+</ipc_classes>
+
+<assignee>
+ELECTRONIC ARTS
+</assignee>
+
+<inventors>
+RUPERT, JASON
+BOROVIKOV, IGOR
+AGHDAIE, NAVID
+ZAMAN, KAZI ATIF-UZ
+SARDARI, MOHSEN
+SOMERS, CAEDMON
+CHAPUT, HAROLD HENRY
+Beirami, Ahmad
+Zhao, Yunqi
+</inventors>
+
+<docdb_family_id>
+73918839
+</docdb_family_id>
+
+<title>
+CUSTOMIZED MODELS FOR IMITATING PLAYER GAMEPLAY IN A VIDEO GAME
+</title>
+
+<abstract>
+Systems and methods are disclosed for training a machine learning model to control an in-game character or other entity in a video game in a manner that aims to imitate how a particular player would control the character or entity. A generic behavior model that is trained without respect to the particular player may be obtained and then customized based on observed gameplay of the particular player. The customization training process may include freezing at least a subset of layers or levels in the generic model, then generating one or more additional layers or levels that are trained using gameplay data for the particular player.
+</abstract>
+
+<claims>
+1. A system comprising: a data store that stores a generic player behavior model associated with one or more video games, wherein the generic player behavior model is configured to provide an indication of an in-game action to be performed in each of a plurality of gameplay situations; and a computing system in electronic communication with the data store and configured to execute computer-readable instructions that configure the computing system to: retrieve the generic player behavior model from the data store, wherein the generic player behavior model has been trained prior to retrieval based on gameplay data of one or more players without reference to gameplay data of a first player, wherein the generic player behavior model is a machine learning model comprising a plurality of layers; obtain gameplay data for the first player, wherein the gameplay data identifies in-game actions performed by the first player in each of a plurality of game states in a video game; designate at least a subset of the plurality of layers in the generic player behavior model as frozen layers to be used in a custom model associated with the first player; generate one or more custom layers for the custom model based on the gameplay data for the first player, wherein the one or more custom layers rely at least in part on the frozen layers of the generic player behavior model in order to predict in-game actions that would be performed by the first player in at least one or more game states; and store a trained custom model associated with the first player, wherein the trained custom model includes the one or more custom layers and further includes or relies on the frozen layers of the generic player behavior model, wherein the trained custom model is configured to receive data regarding a game state of the video game as input and to output an automated action to be performed in the video game.
+2. The system of claim 1, wherein the computing system is one of a video game console system, a mobile phone, a tablet device, or a personal computer.
+3. The system of claim 2, wherein the computing system has sufficient processing capabilities to train the one or more custom layers but insufficient processing capabilities to fully train a model having a level of complexity of the generic player behavior model.
+4. The system of claim 1, wherein use of the frozen layers in the trained custom model enables the trained custom model to determine an automated action to output when provided with an input game state that does not appear in the gameplay data for the first player.
+5. The system of claim 1, wherein the generic player behavior model is a first deep neural network, wherein the trained custom model is a second deep neural network that includes more layers than the first deep neural network.
+6. The system of claim 5, wherein a majority of layers in the second deep neural network are frozen layers from the first deep neural network, and wherein the one or more custom layers include a new output layer that differs from an original output layer of the first deep neural network.
+7. The system of claim 1, wherein the computing system is further configured to provide at least the one or more custom layers of the custom model associated with the first player to a second computing system of a second player in order for a game application operating on the second computing system to imitate gameplay of the first player.
+8. A computer-implemented method comprising: under the control of a computer system comprising computer hardware, the computer system configured with computer executable instructions: obtaining a generic player behavior model, wherein the generic player behavior model is trained based on gameplay data of a plurality of players of a video game, wherein the generic player behavior model is configured to provide an indication of an in-game action to be performed in each of a plurality of gameplay situations; obtaining gameplay data for a first player, wherein the gameplay data identifies in-game actions performed by the first player in each of a plurality of game states in the video game, wherein the first player is not one of the plurality of players associated with training of the generic player behavior model; incorporating a plurality of portions of the generic player behavior model into a custom model associated with the first player, wherein the plurality of portions each comprise a layer or a level in the generic player behavior model; generating one or more custom portions for the custom model based on the gameplay data for the first player, wherein generating the one or more custom potions includes training the custom model to predict in-game actions that would be performed by the first player in particular game states, wherein the training includes repeatedly updating the one or more custom portions without changing the plurality of portions of the generic player behavior model incorporated into the custom model; and storing the custom model after the training as a trained custom model associated with the first player, wherein the trained custom model includes the one or more custom portions and further includes or relies on the plurality of portions of the generic player behavior model, wherein the trained custom model is configured to receive data regarding a game state of the video game as input and to output an automated action to be performed in the video game.
+9. The computer-implemented method of claim 8, wherein the generic player behavior model comprises a deep neural network, and wherein each of the plurality of portions of the generic player behavior model is a different layer in the deep neural network.
+10. The computer-implemented method of claim 8, wherein the generic player behavior model is a stackable model, wherein each of the plurality of portions of the generic player behavior model is a different level in the stackable model.
+11. The computer-implemented method of claim 10, wherein the trained custom model is configured to, in a given instance of the trained custom model being provided a first game state as input: determine whether a level in the one or more custom portions is able to predict a first automated action associated with the first game state with at least a threshold confidence; and based on the level in the one or more custom portions predicting the first automated action with the least a threshold confidence, causing the first automated action to be performed in the video game without considering any portions of the generic player behavior model in the given instance.
+12. The computer-implemented method of claim 8 further comprising updating the one or more custom portions for the custom model based on a discriminator trained using generative adversarial imitation learning to reward output of the custom model that appears to the discriminator to be an action of the first player.
+13. The computer-implemented method of claim 8 further comprising: receiving a selection by a second player of a first character in the video game to behave in an instance of the video game as though the first character is under control of the first player; and based at least in part on the selection: executing the instance of the video game, wherein executing the instance of the video game comprising creating a virtual environment in which two or more characters of the video game interact; causing a second character to perform actions within the instance of the video game responsive to control input provided by the second player; and causing the first character to perform actions within the instance of the video game that are determined by the custom model associated with the first player.
+14. A non-transitory computer-readable storage medium having stored thereon computer-readable instructions that, when executed, configure a computing system to perform operations comprising: obtaining a generic player behavior model, wherein the generic player behavior model is configured to provide an indication of an in-game action to be performed in each of a plurality of gameplay situations in a video game; obtaining gameplay data for a first player, wherein the gameplay data identifies in-game actions performed by the first player in each of a plurality of game states in the video game; incorporating a plurality of portions of the generic player behavior model into a custom model associated with the first player, wherein the plurality of portions each comprise a layer or a level in the generic player behavior model; generating one or more custom portions for the custom model based on the gameplay data for the first player, wherein generating the one or more custom potions includes training the custom model to predict in-game actions that would be performed by the first player in particular game states, wherein the training does not alter at least a subset of the plurality of portions of the generic player behavior model incorporated into the custom model; and storing the custom model after the training as a trained custom model associated with the first player, wherein the trained custom model includes the one or more custom portions and further includes or relies on the plurality of portions of the generic player behavior model, wherein the trained custom model is configured to receive data regarding a game state of the video game as input and to output an automated action to be performed in the video game.
+15. The non-transitory computer-readable storage medium of claim 14, wherein the operations further comprise generating a plurality of custom models each configured to imitate gameplay of a different player, wherein each of the plurality of custom models include the same portions of the generic player behavior model as each other.
+16. The non-transitory computer-readable storage medium of claim 15, wherein the operations further comprise tracking character success in the video game of characters controlled by each of the plurality of custom models in gameplay against actual player competitors.
+17. The non-transitory computer-readable storage medium of claim 16, wherein the operations further comprise generating a ranking of models among the plurality of custom models, wherein the ranking indicates relative in-game success of each of at least a subset of the models in actual gameplay.
+18. The non-transitory computer-readable storage medium of claim 14, wherein the operations further comprise executing a training environment within the video game, wherein the training environment presents simplified game states for player interaction, and wherein training data for generating the one or more custom portions for the custom model is collected based on control input received from the first player with the training environment.
+19. The non-transitory computer-readable storage medium of claim 18, wherein the complexity of game states presented within the training environment increases over time.
+20. The non-transitory computer-readable storage medium of claim 14, wherein the trained custom model comprises at least one of a decision tree, a Markov model, or a deep neural network.
+</claims>
+</document>

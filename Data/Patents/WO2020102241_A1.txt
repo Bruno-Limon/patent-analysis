@@ -1,0 +1,128 @@
+<document>
+
+<filing_date>
+2019-11-12
+</filing_date>
+
+<publication_date>
+2020-05-22
+</publication_date>
+
+<priority_date>
+2018-11-13
+</priority_date>
+
+<ipc_classes>
+G06F21/55,G06N20/00,H04L12/24,H04L12/26,H04L29/06
+</ipc_classes>
+
+<assignee>
+CAPITAL ONE SERVICES
+</assignee>
+
+<inventors>
+GENNETTEN, DONALD J.
+WATERS, MING
+</inventors>
+
+<docdb_family_id>
+68164909
+</docdb_family_id>
+
+<title>
+DETECTING A TRANSACTION VOLUME ANOMALY
+</title>
+
+<abstract>
+A server device obtains historical transaction data regarding transactions involving a network service, obtains historical calendar data regarding static date information for a historical time period that corresponds with the historical transaction data, and processes the historical transaction data and historical calendar data to train a machine learning model using a gradient boosting machine learning technique to predict a normal transaction volume for a period of time and confidence bands associated with the normal transaction volume. The server device generates the normal transaction volume for the period of time and confidence bands using the machine learning model, obtains real-time data concerning a transaction volume during the period of time, detects a transaction volume anomaly based on comparing the real-time data and normal transaction volume and confidence bands, and sends an alert, based on the transaction volume anomaly, to cause a remote device to display the alert and perform an action.
+</abstract>
+
+<claims>
+1. A server device, comprising:
+one or more memories; and
+one or more processors, communicatively coupled to the one or more memories, to:
+obtain historical transaction data regarding a plurality of transactions involving a network service;
+obtain historical calendar data regarding static date information for a historical time period that corresponds with the historical transaction data;
+process the historical transaction data and the historical calendar data to train a machine learning model using a gradient boosting machine learning technique to predict a normal transaction volume for a period of time and one or more confidence bands associated with the normal transaction volume;
+generate the normal transaction volume for the period of time and the one or more confidence bands using the machine learning model;
+obtain real-time data concerning a transaction volume during the period of time;
+detect a transaction volume anomaly based on comparing the real-time data and the normal transaction volume and the one or more confidence bands;
+generate an alert based on the transaction volume anomaly; and
+send the alert to a remote device to cause the remote device to display the alert and perform an action.
+2. The server device of claim 1, wherein the one or more processors, when generating the normal transaction volume for the period of time and the one or more confidence bands using the machine learning model, are to:
+determine the normal transaction volume using the machine learning model;
+determine an upper confidence band using the machine learning model,
+wherein the upper confidence band indicates a first transaction volume threshold that is greater than the normal transaction volume; and
+determine a lower confidence band using the machine learning model,
+wherein the lower confidence band indicates a second transaction volume threshold that is less than the normal transaction volume.
+3. The server device of claim 2, wherein the one or more processors, when detecting the transaction volume anomaly based on comparing the real-time data and the normal transaction volume and the one or more confidence bands, are to:
+determine that the real-time data satisfies the first transaction volume threshold; or
+determine that the real-time data satisfies the second transaction volume threshold.
+4. The server device of claim 1, wherein the one or more processors, when detecting the transaction volume anomaly based on comparing the real-time data and the normal transaction volume, and the one or more confidence bands, are to:
+determine that a difference between the transaction volume and the normal transaction volume satisfies a threshold associated with the one or more confidence bands.
+5. The server device of claim 1, wherein the one or more processors are further to:
+process the real-time data and the transaction volume anomaly to retrain the machine learning model.
+6. The server device of claim 1, wherein the one or more processors are further to:
+send the real-time data and the transaction volume anomaly to one or more servers for storage; and
+retrain the machine learning model based on information stored by the one or more servers.
+7. The server device of claim 1, wherein the action includes:
+a code rollback action;
+a server reset action;
+a server optimization action;
+a server recovery action; or
+a server logging action.
+8. The server device of claim 1, wherein the one or more processors are further to:
+cause the remote device to display the real-time data, the normal transaction volume, and the one or more confidence bands.
+9. The server device of claim 1, wherein the one or more processors are further to: determine, after detecting the transaction volume anomaly, that the transaction volume is normal based on the real-time data, the normal transaction volume, and the one or more confidence bands;
+determine a first time associated with detecting the transaction volume anomaly;
+determine a second time associated with determining that the transaction volume is normal; discard the real-time data associated with a time period between the first time and the second time; and
+update the machine learning model based on the real-time data that was not discarded.
+10. A non-transitory computer-readable medium storing instructions, the instructions comprising: one or more instructions that, when executed by one or more processors of a server device, cause the one or more processors to:
+obtain historical transaction data regarding a plurality of transactions involving a network service;
+obtain historical calendar data regarding static date information for a historical time period that corresponds with the historical transaction data;
+process the historical transaction data and the historical calendar data using a gradient boosting machine learning technique to train a machine learning model to forecast a normal transaction volume for a period of time and a confidence band associated with the normal transaction volume;
+generate the normal transaction volume for the period of time and the confidence band using the machine learning model;
+obtain real-time data concerning a transaction volume for the period of time;
+detect a transaction volume anomaly based on comparing the real-time data and the confidence band;
+generate an alert based on the transaction volume anomaly;
+send the real-time data, the normal transaction volume, the confidence band, and the alert to a storage device; and
+cause an action to be performed to respond to the transaction volume anomaly.
+11. The non-transitory computer-readable medium of claim 10, wherein the one or more instructions, when executed by the one or more processors, further cause the one or more processors to:
+process the real-time data and the transaction volume anomaly using the gradient boosting machine learning technique to retrain the machine learning model.
+12. The non-transitory computer-readable medium of claim 10, wherein the one or more instructions, that cause the one or more processors to obtain the real-time data concerning the transaction volume, cause the one or more processors to:
+obtain real-time information from a plurality of server devices; and
+process the real-time information to determine the real-time data for the period of time.
+13. The non-transitory computer-readable medium of claim 10, wherein the one or more instructions, that cause the one or more processors to detect the transaction volume anomaly based on comparing the real-time data and the confidence band, cause the one or more processors to:
+determine that the real-time data is outside of the confidence band for the period of time.
+14. The non-transitory computer-readable medium of claim 10, wherein the alert indicates the transaction volume anomaly, a type of the transaction volume anomaly, a date of the transaction volume anomaly, and the period of time.
+15. The non-transitory computer-readable medium of claim 10, wherein the one or more instructions, that cause the one or more processors to cause the action to be performed to respond to the transaction volume anomaly, cause the one or more processors to:
+perform a code rollback action;
+perform a server reset action;
+perform a server optimization action;
+perform a server recovery action; or
+perform a server logging action.
+16. A method, comprising:
+obtaining, by a server device, historical transaction data regarding a plurality of transactions involving a network service,
+wherein the historical transaction data concerns a plurality of transaction types;
+obtaining, by the server device, historical calendar data regarding static date information for a historical time period that corresponds with the historical transaction data;
+processing, by the server device, the historical transaction data and the historical calendar data using a gradient boosting machine learning technique to train a machine learning model to determine a normal transaction volume range for each transaction type of the plurality of transaction types; generating, by the server device, the normal transaction volume range for each transaction type of the plurality of transaction types using the machine learning model;
+obtaining, by the server device, real-time data concerning a transaction volume for each transaction type of the plurality of transaction types;
+detecting, by the server device, a transaction volume anomaly concerning a transaction type of the plurality of transaction types based on comparing the real-time data and the normal transaction volume range;
+generating, by the server device, an alert based on the transaction volume anomaly;
+sending, by the server device, the real-time data, the normal transaction volume range, and the alert to a storage device; and
+causing, by the server device, an action to be performed to respond to the transaction volume anomaly.
+17. The method of claim 16, wherein the historical calendar data comprises a plurality of day elements,
+wherein a day element, of the plurality of day elements, includes:
+a plurality of time segments;
+date information;
+holiday information; or
+special event information.
+18. The method of claim 16, further comprising:
+receiving a signal,
+wherein the signal indicates that the transaction volume anomaly was incorrect; and retraining the machine learning model based on information stored by the storage device.
+19. The method of claim 16, further comprising:
+causing, for each transaction type of the plurality of transaction types, display of the real-time data and the normal transaction volume range.
+20. The method of claim 16, wherein causing the action to be performed to respond to the transaction volume anomaly comprises:
+sending the alert to a remote device, wherein sending the alert to the remote device causes the remote device to display an indicator that indicates that the transaction volume anomaly has occurred.
+</claims>
+</document>

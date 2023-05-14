@@ -1,0 +1,94 @@
+<document>
+
+<filing_date>
+2020-06-11
+</filing_date>
+
+<publication_date>
+2020-12-24
+</publication_date>
+
+<priority_date>
+2019-06-16
+</priority_date>
+
+<ipc_classes>
+G06K15/00,G06K9/18
+</ipc_classes>
+
+<assignee>
+WAY2VAT
+</assignee>
+
+<inventors>
+SHILKROT, ROY
+SIMANTOV, AMOS
+GAL, RINON
+</inventors>
+
+<docdb_family_id>
+74040148
+</docdb_family_id>
+
+<title>
+SYSTEMS AND METHODS FOR DOCUMENT IMAGE ANALYSIS WITH CARDINAL GRAPH CONVOLUTIONAL NETWORKS
+</title>
+
+<abstract>
+Systems and methods for processing documents based on a cardinal graph convolution network by generating cardinal graph representations representing words as single nodes with edges connected between neighbouring nodes in four cardinal directions. Features tensors are generated for nodes of the cardinal graph representation and the cardinal directions are encoded to generate an adjacency tensor having node neighbour indices. Entries of the adjacency tensor are transformed into a one-hot encoding of the node neighbour indices. Neighbourhood feature tensors are created over node indices and the features in each block may be scaled, convolved and reduced into new feature tensors.
+</abstract>
+
+<claims>
+1. A document analysis system operable to process a document (102) based on a cardinal graph convolution network (CGCN), the document analysis system comprising:
+an automatic document analyzer operable to generate a cardinal graph representation (202) of the document, wherein in the cardinal graph representation each word in the document is represented as a single node on a graph and edges are connected between neighbouring nodes in four cardinal directions;
+a feature-harvesting agent operable to generate a features tensor (F.T) (204) for each node of the cardinal graph representation, the features tensor having a dimension of n x m, where n is the number of nodes in the cardinal graph representation and m is the features vector size;
+a neighbourhood analyzer operable to:
+encode the cardinal directions in a 3 x 3 neighborhood to generate an adjacency tensor (A.T) (206) having node neighbour indices, the adjacency tensor (A.T) having a dimension of ni x 3 x 3, where / is the number of layers in the (A.T) ni is the number of nodes in the layer;
+transform the entries of the adjacency tensor (A.T) into a one-hot encoding AT of the node neighbour indices;
+create a neighbourhood feature tensor (NFT) (208) through an Einstein-summation over the node indices of the AT's (206) one-hot encoding and the node indices of the features tensor (F.T) (204) using the equation:
+wherein neighbourhood feature tensor (NFT) having a dimension of nl x 3 x 3 x m where each 3 x 3x m block is a local patch of features in the neighbourhood of each node;
+a feature-tensor generation agent operable to:
+scale the features in each block by multiplying them with a connectivity weight tensor (C.W.T), wherein the connectivity weight tensor (C.W.T) encodes a weighting over the adjacency tensor (A.T) edges;
+convolve (210) the scaled features in each block with K learnable kernels of dimension 3 x 3 x m in W(1) resulting in a convolved tensor of nl x 3 x 3 x K dimension; and
+reduce (212) the convolved tensor into a new feature tensor of dimension nl x K by selecting a center cell of the convolved tensor, wherein the center cell corresponds to a node's self-link in the adjacency tensor (A.T).
+2. The document analysis system of claim 1, wherein the automatic document
+analyzer is operable to generate a cardinal graph representation of the document using Optical character recognition (OCR) module.
+3. The document analysis system of claim 1, further comprising a pooling agent operable to use a pooling operation to change the size of a graph by reusing a cardinal convolution operation to learn mapping from layer / to /+ 1 of the adjacency tensor (A.T) (206) using the node features:
+4. The document analysis system of claim 3, wherein map is similar to conv using a Softmax activation.
+5. The document analysis system of claim 3, wherein the pooling agent is further operable to learn filters using the cardinal convolution.
+6. The document analysis system of claim 3 wherein the pooling agent further
+comprises a memory module and is further operable to generate a set of pooled graph adjacency tensors (308), by executed code stored upon the memory
+module, said code directed to executing the steps:
+transforming the one-hot encoding AT of the node neighbour indices into their position in the pooled graph using the equation: where is the partially transformed AT of layer / and M is the mapping matrix (306);
+applying the same mapping M to the node indices of AT using the equation:
+wherein the resulting new adjacency tensor is of dimension .
+7. The document analysis system of claim 3, wherein the pooling agent is further operable to generate pooled graph features tensors using the equation;
+8. The document analysis system of claim 7, wherein the pooling agent is further operable to restore the feature tensor (F.T) (204) to the original number of nodes using a unpooling operation by multiplying the feature tensor (F.T) with the mapping matrix M (306) using the equation:
+9. The document analysis system of claim 3, wherein the pooling agent is further operable to generate pooled graph connectivity weight tensor using the equation:
+10. A method for use in a document analysis system operable to process a document (102) in an improved manner based on a cardinal graph convolution network (CGCN), the method comprising the steps of:
+generating a cardinal graph representation (202) of the document, wherein in the cardinal graph representation each word in the document is represented as a single node on a graph and edges are connected between neighbouring nodes in four cardinal directions;
+generating a features tensor (F.T) (204) for each node of the cardinal graph representation, the features tensor having a dimension of n x m, where n is the number of nodes in the cardinal graph representation and m is the features vector size; encoding the cardinal directions in a 3 x 3 neighborhood to generate an adjacency tensor (A.T) (206) having node neighbour indices, the adjacency tensor (A.T) having a dimension of ni x 3 x 3, where / is the number of layers in the (A.T) ni is the number of nodes in the layer;
+transforming the entries of the adjacency tensor (A.T) into a one-hot encoding of the node neighbour indices;
+creating a neighbourhood feature tensor (NFT) (208) through an Einsteinsummation over the node indices of the (206) one-hot encoding and
+the node indices of the features tensor (F.T) (204) using the equation:
+wherein neighbourhood feature tensor (NFT) having a dimension of ni x 3 x 3x m where each 3 x 3x m block is a local patch of features in the neighbourhood of each node;
+scaling the features in each block by multiplying them with a connectivity weight tensor (C.W.T), wherein the connectivity weight tensor (C.W.T) encodes a weighting over the adjacency tensor (A.T) edges;
+convolving (210) the scaled features in each block with K learnable kernels of dimension 3 x 3 x m in W ' resulting in a convolved tensor of n/ x 3 x 3 x K dimension; and
+reducing (212) the convolved tensor into a new feature tensor of dimension ni x K by selecting a center cell of the convolved tensor, wherein the center cell corresponds to a node's self-link in the adjacency tensor (A.T).
+11. The method of claim 10, wherein the cardinal graph representation of the
+document is generated using Optical character recognition (OCR) method.
+12. The method of claim 10 further comprising a pooling operation to change the size of a graph by reusing a cardinal convolution operation to learn mapping from layer / to /+ 1 of the adjacency tensor (A.T) (206) using the node features:
+13. The method of claim 12, wherein map is similar to conv using a Softmax activation.
+14. The method of claim 12, wherein the pooling operation comprises learning K = fij+j filters using the cardinal convolution.
+15. The method of claim 12 further comprising generating a set of pooled graph adjacency tensors (308), the method comprising the steps of:
+transforming the one-hot encoding of the node neighbour indices into their
+position in the pooled graph using the equation:
+where is the partially transformed of layer / and M is the mapping
+matrix (306);
+applying the same mapping M to the node indices of using the equation:
+wherein the resulting new adjacency tensor is of dimension
+16. The method of claim 12 further comprising generating pooled graph features tensors using the equation;
+17. The method of claim 12 further comprising generating pooled graph connectivity weight tensor using the equation:
+18. The method of claim 17, wherein the feature tensor (F.T) (204) is restored to the original number of nodes using a unpooling operation by multiplying the feature tensor (F.T) with the mapping matrix M (306) using the equation:
+</claims>
+</document>

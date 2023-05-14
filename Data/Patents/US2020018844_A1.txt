@@ -1,0 +1,59 @@
+<document>
+
+<filing_date>
+2017-11-08
+</filing_date>
+
+<publication_date>
+2020-01-16
+</publication_date>
+
+<priority_date>
+2016-11-10
+</priority_date>
+
+<ipc_classes>
+G01S13/72,G01S13/89,G01S13/91,G08G3/02
+</ipc_classes>
+
+<assignee>
+IMAGESAT ISRAEL
+</assignee>
+
+<inventors>
+AMIR, DORON
+FRIDMAN, NATALIE
+SCHVARTZMAN, LLAN
+SEGAL, NOAM
+</inventors>
+
+<docdb_family_id>
+62109567
+</docdb_family_id>
+
+<title>
+MULTI SATELLITE DETECTION AND TRACKING OF MOVING OBJECTS
+</title>
+
+<claims>
+1. A computer implemented method of tracking a travelling vessel, comprising: obtaining a list of plurality of satellites capable of detecting a travelling vessel using predicted paths of said vessel and identifying at least one of said plurality of satellites capable of detecting said vessel in at least one of a plurality of locations along said predicted paths, for said at least one location the following is performed: predicting a plurality of possible future locations of said vessel according to a plurality of estimated movement vectors derived from a movement graph of said vessel generated based on at least one historical movement path, a recent movement path and a current location of said vessel; estimating a plurality of observation windows of said plurality of satellites to identify a plurality of candidate observation windows in which at least one of said plurality of satellites has a visual coverage of said each possible future location; calculating a detection probability score for each of said plurality of candidate observation windows according to a location probability score assigned to each of said plurality of possible future locations and a view probability score assigned to each of said plurality of candidate observation windows; selecting a preferred one of said plurality of candidate observation windows presenting a highest said detection probability score; and repeating said predicting, said estimating, said calculating and said selecting in case said vessel is not detected during said preferred candidate observation window.
+2. The computer implemented method of claim 1, wherein at least some of said plurality of satellites are low earth orbiting satellites having a radial velocity higher than a self-rotation velocity of earth thus each of said at least some satellites completes a respective orbit faster than a complete self-rotation of earth.
+3. The computer implemented method of claim 1, wherein said recent movement path is determined according to a movement information of said vessel extracted from a plurality of periodic Automatic Identification system (AIS) transmissions received from said vessel.
+4. The computer implemented method of claim 3, wherein each of said plurality of periodic AIS transmission includes at least some dynamic parameters of said vessel, said at least some dynamic parameters are members of a group consisting of: a current location, a speed over ground (SOG) and a course over ground (COG).
+5. The computer implemented method of claim 3, further comprising adjusting said movement information based on past movement information of said vessel during past trips presenting at least some similarity to said recent movement path.
+6. The computer implemented method of claim 1, wherein said current location is derived from said movement graph by fitting an interpolated said recent movement path to said movement graph.
+7. The computer implemented method of claim 1, wherein said movement graph comprises a plurality of nodes connected by a plurality of weighted edges, each of said plurality of nodes represents a geographical location of said vessel and each of said plurality of weighted edges represents a transition between a pair of said plurality of nodes, wherein a weight of each of said plurality of weighted edges indicates a probability of said transition represented by said each weighted edge.
+8. The computer implemented method of claim 7, wherein said movement graph is generated using a second order Markov chain model in which each of said plurality of nodes is calculated based on a preceding node and a succeeding node of said plurality of nodes according to said probability of at least one of said plurality of weighted edges connecting said each node to each of said two other nodes, said two other nodes comprise a source node and a destination node.
+9. The computer implemented method of claim 7, further comprising dividing at least one of said plurality of weighted edges to a plurality of velocity segments, during each one of said plurality of velocity segments said vessel travels at a velocity that is different from said velocity of a preceding segment of said plurality of velocity segments and a succeeding segment of said plurality of velocity segments.
+10. The computer implemented method of claim 1, wherein each of said plurality of estimated movement vectors comprises an estimated direction of said vessel and an estimated velocity of said vessel for calculating each of said plurality of possible future locations at each of a plurality of times to match each of said candidate observation windows.
+11. The computer implemented method of claim 1, wherein at least one of said plurality of estimated movement vectors is calculated based on a Min-Max Walk model applied to a plurality of velocity segments of at least one edge representing said at least one estimated movement vector in said movement graph, wherein said Min-Max Walk model extracts a polygon representing said at least one estimated movement vector by estimating said at least one movement vector while said vessel travels at a minimum velocity extracted from said plurality of velocity segments, estimating said at least one movement vector while said vessel travels at a maximum velocity extracted from said plurality of velocity segments and applying each of the estimations with a respective probability assigned to said at least one edge.
+12. The computer implemented method of claim 1, wherein at least one of said plurality of estimated movement vectors is estimated by simulating a plurality of simulation agents according to a Uniform Walk model, wherein each of said plurality of agents is assigned with a different one of a plurality of velocities extracted from a plurality of velocity segments of at least one edge representing at least one of said plurality of estimated movement vector in said movement graph, and wherein said different velocity is calculated using a uniform distribution.
+13. The computer implemented method of claim 1, wherein at least one of said plurality of estimated movement vectors is estimated by simulating a plurality of simulation agents according to a Normal Walk model, wherein each of said plurality of agents is assigned with a different on of a plurality of velocities extracted from a plurality of velocity segments of at least one edge representing at least one of said plurality of estimated movement vector in said movement graph, and wherein said different velocity is calculated using a Gaussian distribution.
+14. The computer implemented method of claim 1, wherein estimating each of said plurality of observation windows is done by applying a multi-satellite simulation to identify a location of each of said plurality of satellites in order to determine whether said each satellite has a visual coverage of a respective one of said plurality of possible future locations at a time in which said vessel is located at said respective possible future location.
+15. The computer implemented method of claim 14, wherein said multi-satellite simulation is based on at least one of a plurality of orbiting parameters of each of said plurality of satellites, said at least one orbiting parameter is a member of a group consisting of: an orbit, an orbit schedule, an elevation angle indicating an angle between said each satellite and surface and a sun-ground elevation angle indicating an angle between sun and surface.
+16. The computer implemented method of claim 1, wherein said location probability score indicates a probability of said vessel being located at a respective one of said plurality of possible future locations at a time of a respective one of said candidate observation windows.
+17. The computer implemented method of claim 1, wherein said view probability score indicates a probability of said at least one satellite having said visual coverage during a respective one of said candidate observation windows.
+18. The computer implemented method of claim 1, wherein said location probability score of each of said plurality observation windows is calculated by applying a normalized sum over a subset of said plurality of possible future location observable by said at least one satellite during said each observation window.
+19. A system for tracking a travelling vessel, comprising: at least one processor adapted to execute a code, said code comprising code instructions to obtain a list of plurality of satellites capable of detecting a travelling vessel using predicted paths of said vessel and identifying at least one of said plurality of satellites capable of detecting said vessel in at least one of a plurality of locations along said predicted paths, for said at least one location said code comprises: code instructions to predict a plurality of possible future locations of said vessel according to a plurality of estimated movement vectors derived from a movement graph of said vessel, generated based on at least one historical movement path, a recent movement path and a current location of said vessel; code instructions to estimate a plurality of observation windows of said plurality of satellites to identify a plurality of candidate observation windows in which at least one of said plurality of satellites has a visual coverage of each of said each possible future location; code instructions to calculate a detection probability score for each of said plurality of candidate observation windows according to a location probability score assigned to each of said plurality of possible future locations and a view probability score assigned to each of said plurality of candidate observation windows; code instructions to select a preferred one of said plurality of candidate observation windows presenting a highest said detection probability score; and code instructions to repeat said predict, said estimate, said calculate and said select in case said vessel is not detected during said preferred candidate observation window.
+</claims>
+</document>

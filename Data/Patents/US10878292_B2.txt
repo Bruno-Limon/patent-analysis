@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2018-12-07
+</filing_date>
+
+<publication_date>
+2020-12-29
+</publication_date>
+
+<priority_date>
+2018-12-07
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/62,G06N3/08
+</ipc_classes>
+
+<assignee>
+GOODRICH CORPORATION
+</assignee>
+
+<inventors>
+SAQUIB, SUHAIL SHABBIR
+SUTTON, ALEXANDER CHARLES
+</inventors>
+
+<docdb_family_id>
+68840964
+</docdb_family_id>
+
+<title>
+Automatic generation of a new class in a classification system
+</title>
+
+<abstract>
+A system and computer-implemented method for automatically recognizing a new class in a classification system. The method includes accessing components of a trained convolutional neural network (CNN) that has been trained with available classes. The components are provided in a kernel space and include at least one of a plurality of kernels and a plurality of neurons of one or more layers of the CNN. Furthermore, the components are assigned to a class in accordance with the training. The method further includes applying a covariance matrix to map the components in the kernel space to eigenspace; determining, for each of the available classes, an eigen-distance between a sample and the components mapped to eigenspace; based on the eigen-distance, determining whether the sample is an outlier that does not belong to one of the classes; and creating a new class that includes the sample if determined that the sample is an outlier.
+</abstract>
+
+<claims>
+1. A computer-implemented method for automatically recognizing a new class in a classification system, the method comprising: accessing components of a trained convolutional neural network (CNN) that has been trained by a training with available classes, the components being provided in a kernel space and including at least one of a plurality of kernels and a plurality of neurons of one or more layers of the CNN, the components being assigned to a class of the available classes in accordance with the training; applying a covariance matrix to map the components in the kernel space to eigenspace; determining, for each of the available classes, an eigen-distance between a sample and the components mapped to eigenspace; based on the eigen-distance, determining whether the sample is an outlier that does not belong to one of the classes; and creating new class that includes the sample if determined that the sample is an outlier.
+2. The method of claim 1, further comprising retraining the CNN using the new class and include the new class with the available classes.
+3. The method of claim 1, further comprising: clustering points in the eigenspace into a plurality of clusters; determining a hierarchical closeness of the plurality of clusters in Euclidean space; and creating a taxonomy based on the hierarchical closeness of the plurality of clusters.
+4. The method of claim 1, wherein determining, for each of the available classes, the eigen-distance comprises determining a singular value decomposition (SVD)-based eigen-distance from the sample to each of the individual available classes.
+5. The method of claim 1, wherein determining, for each of the available classes, the eigen-distance is a function of the mean for each class.
+6. The method of claim 1, further comprising: determining a class of the available classes having the shortest eigen-distance to the sample; sorting components that are members of the class based on their eigen-distance to a reference point of a mapping of the class in the eigenspace; determining loosely associated components of the class based on the sorting of the components and a threshold; and comparing an eigen-distance of the sample to the reference point to the eigen-distance to the reference of the loosely associated components, wherein determining whether the sample is an outlier is based on a result of the comparing.
+7. The method of claim 6, further comprising determining the reference point for the mapping of the class of the available classes in the eigenspace.
+8. The method of claim 6, wherein the class having the shortest eigen-distance to the sample is determined as a function of a distance of the sample to the reference point of the mapping of the class.
+9. The method of claim 1, wherein the kernel space includes a kernel matrix for one or more of layers of at least one layer, or a final dense neuron output layer.
+10. A classification system for automatically generating a new class in a classification system, classification system comprising: a memory configured to store instructions; a processor disposed in communication with the memory, wherein the processor upon execution of the instructions is configured to: access components of a trained convolutional neural network (CNN) that has been trained by a training with available classes, the components being provided in a kernel space and including at least one of a plurality of kernels and a plurality of neurons of one or more layers of the CNN, the components being assigned to a class of the available classes in accordance with the training; apply a covariance matrix to map the components in the kernel space to eigenspace; determine, for each of the available classes, an eigen-distance between a sample and the components mapped to eigenspace; based on the eigen-distance, determine whether the sample is an outlier that does not belong to one of the classes; and create new class that includes the sample if determined that the sample is an outlier.
+11. The classification system of claim 10, wherein the processor, upon execution of the instructions, is further configured to retrain the CNN using the new class and include the new class with the available classes.
+12. The classification system of claim 10, wherein the processor, upon execution of the instructions, is further configured to: cluster points in the eigenspace into a plurality of clusters; determine a hierarchical closeness of the plurality of clusters in Euclidean space; and create a taxonomy based on the hierarchical closeness of the plurality of clusters.
+13. The classification system of claim 10, wherein the processor, upon execution of the instructions, is further configured to: determine a class of the available classes having the shortest eigen-distance to the sample; sort components that are members of the class based on their eigen-distance to a reference point of a mapping of the class in the eigenspace; determine loosely associated components of the class based on the sorting of the components and a threshold; and compare an eigen-distance of the sample to the reference point to the eigen-distance to the reference of the loosely associated components, wherein determining whether the sample is an outlier is based on a result of the comparison.
+14. The classification system of claim 10, wherein the processor, upon execution of the instructions, is further configured to determine the reference point for the mapping of the class of the available classes in the eigenspace.
+15. The classification system of claim 13, wherein the processor, wherein the class having the shortest eigen-distance to the sample is determined as a function of a distance of the sample to the reference point of the mapping of the class.
+16. The classification system of claim 10, wherein the kernel space includes a kernel matrix for one or more of layers of at least one layer, or a final dense neuron output layer.
+17. A non-transitory computer readable storage medium and one or more computer programs stored therein, the computer programs comprising instructions, which when executed by a computer system, cause the computer system to: access components of a trained convolutional neural network (CNN) that has been trained by a training with available classes, the components being provided in a kernel space and including at least one of a plurality of kernels and a plurality of neurons of one or more layers of the CNN, the components being assigned to a class of the available classes in accordance with the training; apply a covariance matrix to map the components in the kernel space to eigenspace; determine, for each of the available classes, an eigen-distance between a sample and the components mapped to eigenspace; based on the eigen-distance, determine whether the sample is an outlier that does not belong to one of the classes; and create new class that includes the sample if determined that the sample is an outlier.
+18. The non-transitory computer readable storage medium of claim 17, wherein the computer system, upon execution of the instructions, is further caused to retrain the CNN using the new class and include the new class with the available classes.
+19. The non-transitory computer readable storage medium of claim 17, wherein the computer system, upon execution of the instructions, is further caused to: cluster points in the eigenspace into a plurality of clusters; determine a hierarchical closeness of the plurality of clusters in Euclidean space; and create a taxonomy based on the hierarchical closeness of the plurality of clusters.
+20. The non-transitory computer readable storage medium of claim 17, wherein the computer system, upon execution of the instructions, is further caused to: determine a class of the available classes having the shortest eigen-distance to the sample; sort components that are members of the class based on their eigen-distance to a reference point of a mapping of the class in the eigenspace; determine loosely associated components of the class based on the sorting of the components and a threshold; and compare an eigen-distance of the sample to the reference point to the eigen-distance to the reference of the loosely associated components, wherein determining whether the sample is an outlier is based on a result of the comparison.
+</claims>
+</document>

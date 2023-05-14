@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2017-11-29
+</filing_date>
+
+<publication_date>
+2020-11-10
+</publication_date>
+
+<priority_date>
+2017-11-29
+</priority_date>
+
+<ipc_classes>
+G06F3/06
+</ipc_classes>
+
+<assignee>
+IBM (INTERNATIONAL BUSINESS MACHINES CORPORATION)
+</assignee>
+
+<inventors>
+CORSETTI, GIORGIO
+TORTOSA, ANDREA
+CARTERI, FRANCESCO M.
+BOTTAN, PIER F.
+</inventors>
+
+<docdb_family_id>
+66633977
+</docdb_family_id>
+
+<title>
+Prevent disk hardware failure for cloud applications
+</title>
+
+<abstract>
+An interruption of services for a multi-tier application is avoided based on a probability of a disk failure. A criticality factor value is assigned to a component of the multi-tier application. A disk failure probability value is predicted for a disk drive of a disk volume accessed by the component. If the disk failure probability value is above a predefined probability value and the assigned criticality factor value of the component is below a predefined criticality threshold value for the disk drive, the disk drive is marked to be exchanged during a next maintenance window. Alternatively, if the disk failure probability value is above the predefined probability value and the assigned criticality factor value of the component is equal to or above the predefined criticality threshold value, an immediate full copy of data of the disk drive is performed to a newly instantiated disk volume on another disk drive.
+</abstract>
+
+<claims>
+1. A method for avoiding an interruption of services for a multi-tier application based on a probability of a disk failure, the method comprising: by at least one processor: directly linking a disk drive to the multi-tier application or a component of the multi-tier application; assigning a criticality factor value to the component of the multi-tier application, the criticality factor denoting a measure of a requirement for continuous availability of the multi-tier application; predicting a disk failure probability value for the disk drive of a disk volume accessed by the component using a trained cognitive engine cooperating with a prediction analyzer to forecast hardware failures of the disk drive based on disk drive parameters comprising Reallocated Sector Count (RSC), Read Error Rate (RER), Seek Error Rate (SKE), Spin Retry Count (SRC) and Age of Disk Drive (ADD); in response to the disk failure probability value being above a predefined probability value for the disk drive of the disk volume accessed by the component and the assigned criticality factor value of the component being below a predefined criticality threshold value, marking the disk drive of the disk volume accessed by the component to be exchanged with another disk volume on another disk drive during a future maintenance cycle; and in response to the disk failure probability value being above the predefined probability value for the disk drive of the disk volume accessed by the component and the assigned criticality factor value of the component being equal to or above the predefined criticality threshold value, performing an immediate full copy of data of the disk volume relating to the disk drive with the disk failure probability value above the predefined probability value to a newly instantiated disk volume on another disk drive.
+2. The method of claim 1, where the criticality factor value is selected from a set of values consisting of "non-critical" and "critical."
+3. The method of claim 1, where the assignment of the criticality factor value is dependent on at least one condition selected from a group of conditions consisting of: whether the component persists data; whether a resource queue managed by the multi-tier application is recoverable from other components of the multi-tier application; and an availability importance factor of the multi-tier application in case of a data loss.
+4. The method of claim 1, where the multi-tier application is composed of several services and/or micro-services that are deployed using a hypervisor that accesses a plurality of physical computing systems and/or a plurality of physical disk drives.
+5. The method of claim 1, where performing the immediate full copy of the data of the disk volume further comprises the at least one processor: creating a new virtual disk on a different logical array of physical disks than a logical array of physical disks associated with the disk drive of the disk volume accessed by the component.
+6. The method of claim 1, further comprising the at least one processor determining an initial risk factor for predicting a failure of the disk drive of the disk volume accessed by the component according to:
+description="In-line Formulae" end="lead"?risk_factorint=f1(RSC)+f2(RSE)+f3(SKE)+f4(SRC)+f5(ADD);description="In-line Formulae" end="tail"? where: RSC comprises a Reallocated Sector Count value of the disk drive; RSE comprises a Read Error Rate value of the disk drive; SKE comprises a Seek Error Rate value of the disk drive; SRC comprises a Spin Retry Count value of the disk drive; and ADD comprises an Age of Disk Drive value of the disk drive; and where f1, f2, f3, f4, and f5 are scaling factors.
+7. The method of claim 6, where predicting the disk failure probability value for the disk drive of the disk volume comprises the at least one processor determining the disk failure probability value according to:
+description="In-line Formulae" end="lead"?Pdisk_failure=Fcognitive(risk_factorint), wheredescription="In-line Formulae" end="tail"? Fcognitive comprises a function of a cognitive computing system.
+8. The method of claim 1, where marking the disk drive further comprises the at least one processor: performing the full copy of the data of the disk volume to the newly instantiated disk volume; and invoking a virtualization manager to configure a virtual machine relating to the component to use the newly instantiated disk volume.
+9. The method of claim 1, where performing the immediate full copy of the data of the disk volume further comprises the at least one processor: invoking a virtualization manager to configure a virtual machine relating to the component to use the newly instantiated disk volume, thereby reflecting effects of ongoing transactions and potential roll-back requirements.
+10. A system for avoiding an interruption of services for a multi-tier application based on a probability of a disk failure, the system comprising: a memory a disk drive; and at least one processor programmed to: directly link the disk drive to the multi-tier application or a component of the multi-tier application; assign a criticality factor value to the component of the multi-tier application, the criticality factor denoting a measure of a requirement for continuous availability of the multi-tier application; predict a disk failure probability value for the disk drive of a disk volume accessed by the component using a trained cognitive engine cooperating with a prediction analyzer to forecast hardware failures of the disk drive based on disk drive parameters comprising Reallocated Sector Count (RSC), Read Error Rate (RER), Seek Error Rate (SKE), Spin Retry Count (SRC) and Age of Disk Drive (ADD); in response to the disk failure probability value being above a predefined probability value for the disk drive of the disk volume accessed by the component and the assigned criticality factor value of the component being below a predefined criticality threshold value, mark the disk drive of the disk volume accessed by the component to be exchanged with another disk volume on another disk drive during a future maintenance cycle; and in response to the disk failure probability value being above the predefined probability value for the disk drive of the disk volume accessed by the component and the assigned criticality factor value of the component being equal to or above the predefined criticality threshold value, perform an immediate full copy of data of the disk volume relating to the disk drive with the disk failure probability value above the predefined probability value to a newly instantiated disk volume on another disk drive.
+11. The system of claim 10, where the criticality factor value is selected from a set of values consisting of "non-critical" and "critical."
+12. The system of claim 10, where the assignment of the criticality factor value is dependent on at least one condition selected from a group of conditions consisting of: whether the component persists data; whether a resource queue managed by the multi-tier application is recoverable from other components of the multi-tier application; and an availability importance factor of the multi-tier application in case of a data loss.
+13. The system of claim 10, where the multi-tier application is composed of several services and/or micro-services that are deployed using a hypervisor that accesses a plurality of physical computing systems and/or a plurality of physical disk drives.
+14. The system of claim 10, where, in being programmed to perform the immediate full copy of the data of the disk volume, the at least one processor is further programmed to: create a new virtual disk on a different logical array of physical disks than a logical array of physical disks associated with the disk drive of the disk volume accessed by the component.
+15. The system of claim 10, where the at least one processor is further programmed to determine an initial risk factor for predicting a failure of the disk drive of the disk volume accessed by the component according to:
+description="In-line Formulae" end="lead"?risk_factorint=f1(RSC)+f2(RSE)+f3(SKE)+f4(SRC)+f5(ADD);description="In-line Formulae" end="tail"? where: RSC comprises a Reallocated Sector Count value of the disk drive; RSE comprises a Read Error Rate value of the disk drive; SKE comprises a Seek Error Rate value of the disk drive; SRC comprises a Spin Retry Count value of the disk drive; and ADD comprises an Age of Disk Drive value of the disk drive; and where f1, f2, f3, f4, and f5 are scaling factors.
+16. The system of claim 15, where, in being programmed to predict the disk failure probability value for the disk drive of the disk volume, the at least one processor is programmed to determine the disk failure probability value according to:
+description="In-line Formulae" end="lead"?Pdisk_failure=Fcognitive(risk_factorint), wheredescription="In-line Formulae" end="tail"? Fcognitive comprises a function of a cognitive computing system.
+17. The system of claim 10, where, in being programmed to mark the disk drive, the at least one processor is further programmed to: perform the full copy of the data of the disk volume to the newly instantiated disk volume; and invoke a virtualization manager to configure a virtual machine relating to the component to use the newly instantiated disk volume.
+18. The system of claim 10, where, in being programmed to perform the immediate full copy of the data of the disk volume, the at least one processor is further programmed to: invoke a virtualization manager to configure a virtual machine relating to the component to use the newly instantiated disk volume, thereby reflecting effects of ongoing transactions and potential roll-back requirements.
+19. A computer program product for avoiding an interruption of services for a multi-tier application based on a probability of a disk failure, the computer program product comprising a computer readable storage medium having program instructions embodied therewith, where the computer readable storage medium is not a transitory signal per se and where the program instructions when executed by one or more computing systems to cause the one or more computing systems to: directly link a disk drive to the multi-tier application or a component of the multi-tier application; assign a criticality factor value to the component of the multi-tier application, the criticality factor denoting a measure of a requirement for continuous availability of the multi-tier application; predict a disk failure probability value for the disk drive of a disk volume accessed by the component using a trained cognitive engine cooperating with a prediction analyzer to forecast hardware failures of the disk drive based on disk drive parameters comprising Reallocated Sector Count (RSC), Read Error Rate (RER), Seek Error Rate (SKE), Spin Retry Count (SRC) and Age of Disk Drive (ADD); in response to the disk failure probability value being above a predefined probability value for the disk drive of the disk volume accessed by the component and the assigned criticality factor value of the component being below a predefined criticality threshold value, mark the disk drive of the disk volume accessed by the component to be exchanged with another disk volume on another disk drive during a future maintenance cycle; and in response to the disk failure probability value being above the predefined probability value for the disk drive of the disk volume accessed by the component and the assigned criticality factor value of the component being equal to or above the predefined criticality threshold value, perform an immediate full copy of data of the disk volume relating to the disk drive with the disk failure probability value above the predefined probability value to a newly instantiated disk volume on another disk drive.
+</claims>
+</document>

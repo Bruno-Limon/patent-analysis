@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-11-25
+</filing_date>
+
+<publication_date>
+2020-03-19
+</publication_date>
+
+<priority_date>
+2017-08-21
+</priority_date>
+
+<ipc_classes>
+G06F9/50,G06N5/00
+</ipc_classes>
+
+<assignee>
+SHANGHAI CAMBRICON INFORMATION TECHNOLOGY COMPANY
+</assignee>
+
+<inventors>
+CHEN, TIANSHI
+LIU, SHAOLI
+ZHOU, SHENGYUAN
+</inventors>
+
+<docdb_family_id>
+65497399
+</docdb_family_id>
+
+<title>
+DATA SHARING SYSTEM AND DATA SHARING METHOD THEREFOR
+</title>
+
+<abstract>
+The disclosure provides a task segmentation device and method, a task processing device and method, a multi-core processor. The task segmentation device includes a granularity task segmentation unit configured to segment a task by adopting at least one granularity to form subtasks, and a task segmentation granularity selection unit configured to select the granularity to be adopted.
+</abstract>
+
+<claims>
+1. A task segmentation device for a neural network, comprising: a granularity task segmentation unit configured to segment a task into one or more subtasks in accordance with at least one granularity; and a task segmentation granularity selection unit configured to determine the granularity for segmenting the task.
+2. The task segmentation device of claim 1, wherein the granularity task segmentation unit includes at least one of a first granularity task segmentation unit configured to identify the task as one of the one or more subtask, a second granularity task segmentation unit configured to: divide sample data associated with the task into one more subset of sample data, and identify a computation of each subset of sample data as one of the one or more subtask, a third granularity task segmentation unit configured to segment the task according to layer types of the neural network, wherein computation for layers of the same layer type is identified as one of the one or more subtask, a fourth granularity task segmentation unit configured to segment the task according to an interlayer structure of the neural network, wherein computation for multiple adjacent layers is identified as one of the one or more subtask, and a fifth granularity task segmentation unit configured to segment the task according to intra-layer structures of the neural network to segment computation types in each of the layers of the neural network into subtasks.
+3. The task segmentation device of claim 2, wherein the task segmentation granularity selection unit is configured to select at least one of the first to fifth granularity task segmentation units for task segmentation on the basis of at least one of the count of samples to be processed of the neural network, a topological structure of the neural network, and a computation amount of each layer.
+4. The task segmentation device of claim 2, wherein the fifth granularity task segmentation unit is further configured to segment the task based on computation types including convolutional layer computation, fully connected layer computation, pooling layer computation, or active layer computation of the neural network.
+5. The task segmentation device of claim 4, wherein the fifth granularity task segmentation unit is configured to identify the convolutional layer computation as one of the subtasks by performing segmentation on the output neurons according to a block size of (Bfout, Bxout, Byout), and simultaneously performing segmentation on the weights according to a block size of (Bfout, Bfin, Bx, By), where all of Bfout, Bxout, Byout, Bfout, Bfin, Bx and By are positive integers, and 0<Bfout≤Nfout, 0<Bxout≤Nxout, 0<Byout≤Nyout, 0<Bfin≤Nfin, 0<Bx≤K and 0<By≤Ky; when input neurons of a convolutional layer of the neural network form a three-dimensional matrix (Nfin, Nxin, Nyin), weights form a four-dimensional matrix (Nfout, Nfout, Kx, Ky), output neurons form a three-dimensional matrix (Nfout, Nxout, Nyout), where Nfin represents the count of input feature image, (Nxin, Nyin) represents a size of input feature image, Nfout represents the count of output feature image, (Kx, Ky) represents a size of convolution kernel, (Nxout, Nyout) represents an output feature image size, and all of Nfin, Nxin, Nyin, Kx, Ky, Nfout, Nxout, and Nyout are positive integers.
+6. A task processing device, comprising: a task segmentation device; and a task scheduling device that includes: a task queue unit configured to cache unscheduled tasks; a monitoring unit configured to monitor a working state of each core of a multi-core processor in real time; and a task scheduling unit configured to: select a task to be scheduled from the unscheduled tasks, and allocate and schedule the task to be scheduled to a target core according to the working state of each core.
+7. The task processing device of claim 6, wherein the task scheduling unit is configured to count a number of tasks in a private task queue of each core and selecting the core with the fewest tasks in the private task queue as the target core.
+8. The task processing device of claim 6, wherein the task scheduling unit is configured to track time for completion of all the tasks in the private task queue of each core and selecting the core of which the task completion time is shortest as the target core.
+9. The task processing device of claim 6, wherein the task scheduling unit is configured to monitor a distribution condition of resources required by the task to be scheduled in all the cores and selecting the core with the most resources as the target core.
+10. The task processing device of claim 6, wherein the task scheduling unit is configured to allocate the task to be scheduled to the target core by adopting a heuristic algorithm.
+11. The task processing device of claim 6, wherein the task scheduling unit is configured to perform task scheduling at a time interval, and select the task to be scheduled in at least one of the following manners: randomly selecting an unscheduled task, selecting the unscheduled task of which estimated execution time is longest, selecting the unscheduled task of which the estimated execution time is shortest, selecting the unscheduled task occupying most resources, and selecting the unscheduled task occupying fewest resources.
+12. The task processing device of claim 6, wherein the working state of each core includes at least one of a utilization rate, a workload, a working frequency, a count of the tasks in the private task queue in the core, and the task completion time in the core.
+13. A task segmentation method for a neural network, comprising: segmenting, by a granularity task segmentation unit, a task into one or more subtasks in accordance with at least one granularity; and determining, by a task segmentation granularity selection unit, the granularity for segmenting the task.
+14. The task segmentation method of claim 13, further comprising: dividing, by a second granularity task segmentation unit of the granularity task segmentation unit, sample data associated with the task into one more subset of sample data; and identifying, by the second granularity task segmentation unit of the granularity task segmentation unit, a computation of each subset of sample data as a subtask.
+15. The task segmentation method of claim 13, further comprising: segmenting, by a third granularity task segmentation unit of the granularity task segmentation unit, the task according to layer types of the neural network, where computation for layers of the same layer type is identified as a subtask.
+16. The task segmentation method of claim 13, further comprising: segmenting, by a fourth granularity task segmentation unit of the granularity task segmentation unit, the task according to an interlayer structure of the neural network, where computation for multiple adjacent layers is identified as a subtask.
+17. The task segmentation method of claim 13, further comprising: segmenting, by a fifth granularity task segmentation unit of the granularity task segmentation unit, the task according to intra-layer structures of the neural network to segment computation types in each of the layers of the neural network into subtasks.
+18. The task segmentation method of claim 13, wherein the task segmentation is performed by selecting at least one unit in a task segmentation device for task segmentation on the basis of at least one of the count of samples to be processed of the neural network, a topological structure of the neural network, and a computation amount of each layer.
+19. The task segmentation method of claim 13, wherein performing task segmentation according to the intra-layer structures of the neural network includes: performing task segmentation on convolutional layer computation, fully connected layer computation, pooling layer computation or active layer computation of the neural network.
+20. The task segmentation method of claim 19, wherein performing segmentation on convolutional layer computation of the neural network includes: performing segmentation on the output neurons according to a block size of (Bfout, Bxout, Byout), and simultaneously performing segmentation on the weights according to a block size of (Bfout, Bfin, Bx, By), where all of Bfout, Bxout, Byout, Bfout, Bfin, Bx and By are positive integers, 0<Bfout≤Nfout, 0<Bxout≤Nxout, 0<Byout≤Nyout, 0<Bfin≤Nfin, 0<Bx≤K and 0<By≤Ky, when input neurons of a convolutional layer of the neural network form a three-dimensional matrix (Nfin, Nxin, Nyin), weights form a four-dimensional matrix (Nfout, Nfout, Kx, Ky) and output neurons form a three-dimensional matrix (Nfout, Nxout, Nyout), where Nfin represents the count of input feature image, (Nxin, Nyin) is a size of input feature image, Nfout represents the count of output feature image, (Kx, Ky) represents a convolution kernel size, (Nxout, Nyout) represents a size of output feature image and all of Nfin, Nxin, Nyin, Kx, Ky, Nfout, Nxout, Nyout are positive integers.
+</claims>
+</document>

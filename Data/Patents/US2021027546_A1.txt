@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-07-22
+</filing_date>
+
+<publication_date>
+2021-01-28
+</publication_date>
+
+<priority_date>
+2019-07-22
+</priority_date>
+
+<ipc_classes>
+G06T19/20
+</ipc_classes>
+
+<assignee>
+Scale AI, Inc.
+</assignee>
+
+<inventors>
+BRASWELL, Leigh Marie
+Hao, Steven
+Moss, Evan
+</inventors>
+
+<docdb_family_id>
+74189979
+</docdb_family_id>
+
+<title>
+TECHNIQUES FOR LABELING CUBOIDS IN POINT CLOUD DATA
+</title>
+
+<abstract>
+Techniques are disclosed for facilitating the labeling of cuboid annotations in point cloud data. User-drawn annotations of cuboids in point cloud data can be automatically adjusted to remove outlier points, add relevant points, and fit the cuboids to points representative of an object. Interpolation and object tracking techniques are also disclosed for propagating cuboids from frames designated as key frames to other frames. In addition, techniques are disclosed for, in response to user adjustment of the size of a cuboid in one frame, automatically adjusting the sizes of cuboids in other frames while anchoring a set of non-occluded faces of the cuboids. The non-occluded faces may be determined as the faces that are closest to a LIDAR (light detection and ranging) sensor in the other frames.
+</abstract>
+
+<claims>
+1. A computer-implemented method for facilitating data labeling, the method comprising: receiving a user-specified cuboid annotation associated with a first point cloud in a first frame, wherein the user-specified cuboid annotation comprises a three-dimension cuboid annotation; and subsequent to receiving the user-specified cuboid annotation, automatically: identifying, based on the user-specified cuboid annotation, one or more points in the first point cloud representing an object included in the first frame, wherein the one or more points (i) include at least one point of the first point cloud that is outside the user-specified cuboid annotation, and/or (ii) do not include at least one point of the first point cloud that is within the user-specified cuboid annotation, and determining a first adjusted cuboid annotation based on a fit of the first adjusted cuboid annotation to the one or more points representing the object.
+2. The computer-implemented method of claim 1, wherein determining the first adjusted cuboid annotation includes optimizing a loss function.
+3. The computer-implemented method of claim 2, wherein optimizing the loss function includes determining distances between points representing non-occluded faces of the object and corresponding faces of the first adjusted cuboid annotation.
+4. The computer-implemented method of claim 3, wherein the non-occluded faces of the object are determined based on distances between the non-occluded faces and a LIDAR (light detection and ranging) sensor.
+5. The computer-implemented method of claim 3, wherein optimizing the loss function further includes determining a difference between the first adjusted cuboid annotation and the user-specified cuboid annotation.
+6. The computer-implemented method of claim 2, wherein optimizing the loss function includes up-sampling the first point cloud.
+7. The computer-implemented method of claim 1, wherein identifying the one or more points representing the object comprises: identifying a set of points of the first point cloud that are within the user-specified cuboid annotation; removing, from the set of points, one or more points below a ground mesh separating points of the first point cloud that represent ground from points of the first point cloud that represent objects; removing, from the set of points, one or more outlier points above a predefined percentile of a height coordinate compared to other points of the first point cloud that are within the user-specified cuboid; and adding, to the set of points, one or more points of the first point cloud outside the user-specified cuboid annotation based on points of the first point cloud that are within the user-specified cuboid annotation and a nearest-neighbor technique.
+8. The computer-implemented method of claim 1, further comprising: receiving a user-specified cuboid annotation associated with a second point cloud in a second frame; identifying one or more points in the second point cloud that represent the object; determining a second adjusted cuboid annotation based on a fit of the second adjusted cuboid annotation to the one or more points in the second point cloud representing the object; and determining a cuboid annotation associated with a third point cloud in a third frame based on the first and second adjusted cuboid annotations.
+9. The computer-implemented method of claim 8, wherein determining the cuboid annotation associated with the third point cloud includes interpolating the first and second adjusted cuboid annotations.
+10. The computer-implemented method of claim 8, wherein determining the cuboid annotation associated with the third point cloud further includes determining, using a computer vision technique, points representing the object in the third point cloud.
+11. A non-transitory computer-readable storage medium including instructions that, when executed by a processing unit, cause the processing unit to perform operations for facilitating data labeling, the operations comprising: receiving a user-specified cuboid annotation associated with a first point cloud in a first frame, wherein the user-specified cuboid annotation comprises a three-dimension cuboid annotation; and subsequent to receiving the user-specified cuboid annotation, automatically: identifying, based on the user-specified cuboid annotation, one or more points in the first point cloud representing an object included in the first frame, wherein the one or more points (i) include at least one point of the first point cloud that is outside the user-specified cuboid annotation, and/or (ii) do not include at least one point of the first point cloud that is within the user-specified cuboid annotation, and determining a first adjusted cuboid annotation based on a fit of the first adjusted cuboid annotation to the one or more points representing the object.
+12. The computer-readable storage medium of claim 11, wherein determining the first adjusted cuboid annotation includes optimizing a loss function.
+13. The computer-readable storage medium of claim 12, wherein optimizing the loss function includes determining distances between points representing non-occluded faces of the object and corresponding faces of the first adjusted cuboid annotation.
+14. The computer-readable storage medium of claim 13, wherein the non-occluded faces of the object are determined based on distances between the non-occluded faces and a LIDAR (light detection and ranging) sensor.
+15. The computer-readable storage medium of claim 13, wherein optimizing the loss function further includes determining a difference between the first adjusted cuboid annotation and the user-specified cuboid annotation.
+16. The computer-readable storage medium of claim 11, wherein identifying the one or more points representing the object comprises: identifying a set of points of the first point cloud that are within the user-specified cuboid annotation; removing, from the set of points, one or more points below a ground mesh separating points of the first point cloud that represent ground from points of the first point cloud that represent objects; removing, from the set of points, one or more outlier points above a predefined percentile of a height coordinate compared to other points of the first point cloud that are within the user-specified cuboid; and adding, to the set of points, one or more points of the first point cloud outside the user-specified cuboid annotation based on points of the first point cloud that are within the user-specified cuboid annotation and a nearest-neighbor technique.
+17. The computer-readable storage medium of claim 11, the operations further comprising: receiving a user-specified cuboid annotation associated with a second point cloud in a second frame; identifying one or more points in the second point cloud that represent the object; determining a second adjusted cuboid annotation based on a fit of the second adjusted cuboid annotation to the one or more points in the second point cloud representing the object; and determining a cuboid annotation associated with a third point cloud in a third frame based on the first and second adjusted cuboid annotations.
+18. The computer-readable storage medium of claim 17, wherein determining the cuboid annotation associated with the third point cloud includes either interpolating the first and second adjusted cuboid annotations or determining, using computer vision, points representing the object in the third point cloud.
+19. A computer-implemented method for propagating adjustments to a cuboid annotation size, the method comprising: receiving a user-specified first cuboid annotation around an object in a first point cloud in a first frame of a plurality of frames; generating, based on the first cuboid annotation, a second cuboid annotation around the object in a second point cloud in a second frame of the plurality of frames, wherein a first set of faces of the object that are not occluded from view correspond to a second set of faces of the second cuboid annotation; subsequent to generating the second cuboid annotation, receiving a user-specified adjustment to a size of the first cuboid annotation in the first frame; and automatically adjusting a size of the second cuboid annotation included in the second frame based on the user-specified adjustment to the size of the first cuboid annotation included in the first frame without modifying one or more planes associated with the second set of faces.
+20. The computer-implemented method of claim 19, wherein the faces of the object that are not occluded are determined based on distances of faces of the object to a LIDAR (light detection and ranging) sensor.
+</claims>
+</document>

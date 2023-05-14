@@ -1,0 +1,99 @@
+<document>
+
+<filing_date>
+2020-03-21
+</filing_date>
+
+<publication_date>
+2020-09-24
+</publication_date>
+
+<priority_date>
+2019-03-21
+</priority_date>
+
+<ipc_classes>
+C12Q1/6869,G06T7/10,G16B30/00,G16B40/10
+</ipc_classes>
+
+<assignee>
+ILLUMINA
+</assignee>
+
+<inventors>
+JAGANATHAN, KISHORE
+KIA, AMIRALI
+GOBBEL, John Randall
+</inventors>
+
+<docdb_family_id>
+72519388
+</docdb_family_id>
+
+<title>
+ARTIFICIAL INTELLIGENCE-BASED QUALITY SCORING
+</title>
+
+<abstract>
+The technology disclosed assigns quality scores to bases called by a neural network-based base caller by (i) quantizing classification scores of predicted base calls produced by the neural network-based base caller in response to processing training data during training, (ii) selecting a set of quantized classification scores, (iii) for each quantized classification score in the set, determining a base calling error rate by comparing its predicted base calls to corresponding ground truth base calls, (iv) determining a fit between the quantized classification scores and their base calling error rates, and (v) correlating the quality scores to the quantized classification scores based on the fit.
+</abstract>
+
+<claims>
+1. A computer-implemented method of determining quality scores of base calls, including:
+processing input data for one or more clusters through a neural network-based base caller and producing an alternative representation of the input data;
+processing the alternative representation through an output layer to produce an output, wherein the output identifies likelihoods of a base incorporated in a particular one of the clusters being A, C, T, and G;
+calling bases for one or more of the clusters based on the output; and
+determining quality scores of the called bases based on the likelihoods identified by the output based on a quantization scheme calibrated against training of the neural network-based base caller,
+wherein the quantization scheme includes
+quantizing classification scores of called bases produced by the neural network-based base caller during the training in response to processing training data;
+selecting a set of quantized classification scores;
+for each quantized classification score in the set, determining a base calling error rate by comparing its predicted base calls to corresponding ground truth base calls;
+determining a fit between the quantized classification scores and their base calling error rates; and
+correlating the quality scores to the quantized classification scores based on the fit.
+2. The computer-implemented method of claim 1, wherein the fit demonstrates correspondence between the quantized classification scores and the quality scores.
+3. The computer-implemented method of any of claims 1-2, wherein the set of quantized classification scores includes a subset of the classification scores of predicted base calls produced by the neural network-based base caller in response to processing the training data during the training, and
+wherein the classification scores are real numbers.
+4. The computer-implemented method of any of claims 1-3, wherein the set of quantized classification scores includes all the classification scores of predicted base calls produced by the neural network-based base caller in response to processing the training data during the training, and
+wherein the classification scores are real numbers.
+5. The computer-implemented method of any of claims 1-4, wherein the classification scores are exponentially normalized softmax scores that sum to unity and are produced by a softmax output layer of the neural network-based base caller.
+6. The computer-implemented method of any of claims 1-5, wherein the set of quantized classification n
+scores is selected based on a selection formula defined as 0.9 and applied to the softmax scores.
+7. The computer-implemented method of any of claims 1-6, wherein the set of quantized classification
+« =10
+V 0.1/
+scores is selected based on a selection formula defined as , =1 and applied to the softmax scores.
+8. The computer-implemented method of any of claims 1-7, further including:
+based on the correlation, assigning the quality scores to bases called by the neural network-based base caller during inference.
+9. The computer-implemented method of claim 8, further including:
+assigning the quality scores based on applying a quality score correspondence scheme to the bases called by the neural network-based base caller during the inference; and
+wherein the scheme maps ranges of classification scores, produced by the neural network-based base caller in response to processing inference data during the inference, to corresponding quantized classification scores in the set.
+10. The computer-implemented method of any of claims 8-9, further including:
+during the inference, stopping base calling an analyte whose quality score is below a set threshold for a current base calling cycle.
+11. The computer-implemented method of any of claims 8-10, further including:
+during the inference, stopping base calling an analyte whose average quality score is below a set threshold after successive base calling cycles.
+12. The computer-implemented method of any of claims 8-11, wherein a sample size used for comparing the predicted base calls to the corresponding ground truth base calls is specific to each quantized classification score.
+13. The computer-implemented method of any of claims 8-12, wherein the fit is determined using a regression model.
+14. The computer-implemented method of any of claims 8-13, further including:
+for each quantized classification score, determining a base calling accuracy rate by comparing its predicted base calls to corresponding ground truth base calls; and
+determining the fit between the quantized classification scores and their base calling accuracy rates.
+15. The computer-implemented method of any of claims 8-14, wherein the corresponding ground truth base calls are derived from well-characterized human and non-human samples sequenced on a number of sequencing instruments, sequencing chemistries, and sequencing protocols.
+16. A neural network-based quality scorer, comprising:
+numerous processors operating in parallel and coupled to memory;
+a neural network running on the numerous processors, trained on training examples comprising data from sequencing images and labeled with base call quality ground truths using a backpropagation-based gradient update technique that progressively matches base call quality predictions of the neural network with the base call quality ground truths that identify known correct base calls;
+an input module of the neural network which runs on at least one of the numerous processors and feeds data from sequencing images captured at one or more sequencing cycles to the neural network for determining quality of one or more bases called for one or more analytes; and
+an output module of the neural network which runs on at least one of the numerous processors and translates analysis by the neural network into an output that identifies the quality of the one or more bases called for the one or more analytes.
+17. The neural network-based quality scorer of claim 16, wherein the neural network is a convolutional neural network.
+18. The neural network-based quality scorer of claim 16, wherein the output module further comprises a softmax classification layer that produces likelihoods for the quality being high-quality, medium -quality, and low-quality, further comprising:
+based on the likelihoods, classifying the quality as high-quality, medium-quality, or low-quality.
+19. The neural network-based quality scorer of claim 16, wherein the softmax classification layer produces likelihoods for the quality being assigned a plurality of quality scores, further comprising: based on the likelihoods, assigning the quality a quality score from one of the plurality of quality scores.
+20. The neural network-based quality scorer of any of claims 16-19, wherein the quality scores are logarithmically based on base calling error probabilities, and
+wherein the plurality of quality scores includes Q6, Q10, Q15, Q20, Q22, Q27, Q30, Q33, Q37,
+Q40, and Q50.
+21. The neural network-based quality scorer of any of claims 16-20, wherein the output module further comprises a regression layer that produces continuous values which identify the quality.
+22. The neural network-based quality scorer of any of claims 16-21, further comprising:
+a supplemental input module that supplements the data from the sequencing images with quality predictor values for the bases called, and
+feeds the quality predictor values to the convolutional neural network along with the data from the sequencing images.
+23. The neural network-based quality scorer of claim 22, wherein the quality predictor values include online overlap, purity, phasing, start5, hexamer score, motif accumulation, endiness, approximate homopolymer, intensity decay, penultimate chastity, signal overlap with background (SOWB), and/or shifted purity G adjustment.
+24. The neural network-based quality scorer of claim 22, wherein the quality predictor values include peak height, peak width, peak location, relative peak locations, peak height ration, peak spacing ration, and/or peak correspondence.
+</claims>
+</document>

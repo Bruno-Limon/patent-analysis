@@ -1,0 +1,68 @@
+<document>
+
+<filing_date>
+2016-11-23
+</filing_date>
+
+<publication_date>
+2020-03-17
+</publication_date>
+
+<priority_date>
+2016-11-23
+</priority_date>
+
+<ipc_classes>
+G06F9/46,G06F9/48,G06F9/50
+</ipc_classes>
+
+<assignee>
+AMAZON TECHNOLOGIES
+</assignee>
+
+<inventors>
+BALLANTYNE, DOUGAL STUART
+CHUNG, KIUK
+DAMODAR, ASWIN
+HOSMANI, CHETAN
+JOSEPH, REJITH GEORGE
+KINNEY, JR., JAMES EDWARD
+RAMSEY, CHRIS WILLIAM
+RUPARD, JASON ROY
+</inventors>
+
+<docdb_family_id>
+60629822
+</docdb_family_id>
+
+<title>
+Resource allocation and scheduling for batch jobs
+</title>
+
+<abstract>
+A scheduler of a batch job management service determines that a set of resources a client is insufficient to execute one or more jobs. The scheduler prepares a multi-dimensional statistical representation of resource requirements of the jobs, and transmits it to a resource controller. The resource controller uses the multi-dimensional representation and resource usage state information to make resource allocation change decisions.
+</abstract>
+
+<claims>
+1. A system, comprising: a job scheduler executing on one or more computing devices of a batch job service; and a resource controller of the batch job service executing on the one or more computing devices; wherein the job scheduler includes instructions that upon execution by a processor cause the one or more computing devices to: in response to an event notification, determine that a first set of resources allocated to a client is insufficient to execute one or more pending jobs; prepare a multi-dimensional statistical representation of resource requirements corresponding to at least a subset of the one or more pending jobs, wherein a first dimension of the statistical representation corresponds to a distribution of processing requirements of the one or more pending jobs, and wherein a second dimension of the statistical representation corresponds to memory requirements of the one or more pending jobs; and transmit, to the resource controller, (a) the multi-dimensional statistical representation and (b) utilization information pertaining to the first set of resources; and wherein the resource controller includes instructions that upon execution by a processor cause the one or more computing devices to: determine, based at least in part on (a) a constraint indicated by the client, (b) the multi-dimensional statistical representation and (c) the representation of utilization information, that a first additional resource is to be allocated for at least one pending job of the one or more pending jobs; and cause an allocation of one or more additional resources including the first additional resource.
+2. The system as recited in claim 1, wherein the event notification indicates one or more of: (a) a reception of a new job scheduling request, (b) a completion of a job, (c) a termination of a job, (d) a cancellation of a job, or (e) a completion of a time interval.
+3. The system as recited in claim 1, wherein the job scheduler further includes instructions that upon execution cause the one or more computing devices to: determine processing requirements of individual ones of a first job of the one or more pending jobs based at least in part on a job descriptor provided by the client via a programmatic interface.
+4. The system as recited in claim 1, wherein a first job of the one or more pending jobs is associated with a first job queue of one or more job queues established on behalf of the client, wherein the resource controller further includes instructions that upon execution cause the one or more computing devices to: receive a representation of one or more compute environments of the client, and an indication of a mapping between the first job queue and a first compute environment of the one or more compute environments, wherein the constraint represents a maximum number of resources to be activated in the first compute environment.
+5. The system as recited in claim 1, wherein the one or more additional resources comprise one of: (a) a guest virtual machine instantiated at a virtualized computing service, (b) a host, (c) a storage device, (d) an instance of a database, or (e) a graphics processing device.
+6. A method, comprising: performing, at one or more computing devices: preparing, by a job scheduler, a multi-dimensional statistical representation of resource requirements corresponding to one or more pending jobs, wherein respective dimensions of the statistical representation correspond to respective resource attributes; determining, at a resource controller, based at least in part on a constraint indicated by a client, and based at least in part on the multi-dimensional statistical representation, that one or more resources are to be activated for the one or more pending jobs; and causing, by the resource controller, an activation of the one or more resources.
+7. The method as recited in claim 6, further comprising performing, at the one or more computing devices: receiving, at the job scheduler, an event notification, wherein said preparing the multi-dimensional statistical representation is responsive to said event notification.
+8. The method as recited in claim 7, wherein the event notification indicates one or more of: (a) a reception of a new job scheduling request, (b) a completion of a job that was scheduled earlier, (c) a termination of a job, (d) a cancellation of a job, or (e) a completion of a time interval.
+9. The method as recited in claim 6, wherein said preparing the multi-dimensional statistical representation comprises: subdividing a range of requirements for a first attribute of a resource into a first plurality of buckets; mapping resource requirements of individual ones of the one or more pending jobs to respective buckets of the first plurality of buckets; and computing a population count corresponding to individual ones of the first plurality of buckets.
+10. The method as recited in claim 9, wherein said preparing the multi-dimensional statistical representation comprises: setting an aggregate required value of the first attribute corresponding to a particular bucket of the plurality of buckets, wherein the aggregate required value is set to one of: (a) an average of the resource requirements mapped to the particular bucket, or (b) a maximum of the resource requirements mapped to the particular bucket.
+11. The method as recited in claim 9, wherein said preparing the multi-dimensional statistical representation comprises: subdividing a range of requirements of a second attribute of a second resource into a second plurality of buckets; mapping resource requirements of a particular group of pending jobs which are mapped to a particular bucket of the first plurality of buckets, into the second plurality of buckets; and computing a population count corresponding to individual ones of the second plurality of buckets.
+12. The method as recited in claim 6, further comprising performing, at the one or more computing devices: determining, by the job scheduler, resource requirements of individual ones of the one or more pending jobs based at least in part on a job descriptor provided by the client via a programmatic interface.
+13. The method as recited in claim 6, wherein said preparing the multi-dimensional representation comprises executing a clustering algorithm.
+14. The method as recited in claim 6, wherein a particular job of the one or more pending jobs is associated with a first job queue of one or more job queues established on behalf of the client, further comprising performing, by the one or more computing devices: receiving, by the resource controller, a representation of one or more compute environments requested by the client, and an indication of a mapping between the first job queue and a first compute environment of the one or more compute environments, wherein the constraint represents a maximum number of resources to be activated in the first compute environment.
+15. The method as recited in claim 6, wherein the one or more resources comprise one of: (a) a guest virtual machine instantiated at a virtualized computing service, (b) a host, (c) a storage device, (d) an instance of a database, or (e) a graphics processing device.
+16. A non-transitory computer-accessible storage medium storing program instructions that when executed on one or more processors implement a scheduler of a batch job management service, wherein the scheduler is configured to: determine that a set of resources activated on behalf of a client is insufficient to execute one or more pending jobs of the client; prepare a multi-dimensional statistical representation of resource requirements corresponding to at least a subset of the one or more pending jobs, wherein respective dimensions of the statistical representation correspond to respective resource attributes; and transmit, to a resource controller of the batch job management service, a resource report comprising the multi-dimensional statistical representation.
+17. The non-transitory computer-accessible storage medium as recited in claim 16, wherein the scheduler is configured to determine that the set of resources activated on behalf of the client is insufficient to execute the one or more pending jobs in response to an event notification.
+18. The non-transitory computer-accessible storage medium as recited in claim 17, wherein the event notification indicates one or more of: (a) a reception of a new job scheduling request, (b) a completion of a job that was scheduled earlier, (c) a termination of a job, (d) a cancellation of a job, or (e) a completion of a time interval.
+19. A non-transitory computer-accessible storage medium storing program instructions that when executed on one or more processors implement a resource controller of a batch job management service, wherein the resource controller is configured to: determine one or more resource constraints of a compute environment indicated via a programmatic interface by a client; receive a multi-dimensional statistical representation of resource requirements corresponding to at least a subset of one or more pending jobs of the client, wherein respective dimensions of the statistical representation correspond to respective resource attributes; based at least in part on the one or more resource constraints, and based at least in part on the multi-dimensional statistical representation, determine that one or more resources are to be activated for the one or more pending jobs; and cause an activation of the one or more resources.
+20. The non-transitory computer-accessible storage medium as recited in claim 19, wherein the one or more resources comprise one of: (a) a guest virtual machine instantiated at a virtualized computing service, (b) a host, (c) a storage device, (d) an instance of a database, or (e) a graphics processing device.
+</claims>
+</document>

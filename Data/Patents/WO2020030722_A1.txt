@@ -1,0 +1,70 @@
+<document>
+
+<filing_date>
+2019-08-08
+</filing_date>
+
+<publication_date>
+2020-02-13
+</publication_date>
+
+<priority_date>
+2018-08-09
+</priority_date>
+
+<ipc_classes>
+G06F17/18,G06K9/62,G06N20/00
+</ipc_classes>
+
+<assignee>
+IEE INTERNATIONAL ELECTRONICS & ENGINEERING
+</assignee>
+
+<inventors>
+BEISE, HANS-PETER
+SCHRÖDER, UDO
+DIAS DA CRUZ, STEVE
+</inventors>
+
+<docdb_family_id>
+63490651
+</docdb_family_id>
+
+<title>
+SENSOR SYSTEM INCLUDING ARTIFICIAL NEURAL NETWORK CONFIGURED TO PERFORM A CONFIDENCE MEASURE-BASED CLASSIFICATION OR REGRESSION TASK
+</title>
+
+<abstract>
+A sensor system includes at least one sensor and an evaluation device that is configured for receiving input data x from the at least one sensor, and that comprises at least one trained artificial neural network that is configured to perform a classification or regression task on input data x, wherein the at least one trained artificial neural network comprises an MΘ-module as an implementation of a machine learning based method for the classification or regression task with trainable parameters Θ. The sensor system further comprises a confidence measure module arrangement that includes a Dp- module as implementation of a machine learning based method that is configured to learn a representation of the training dataset with trainable parameters, and an E-module as implementation of a measure to determine how far the input data x are from the training dataset using the information of DΦ. The confidence measure module arrangement is configured to utilize said output being combined with the output of MΘ to decide whether the module is allowed to perform an action (classification or regression task based on the input data x).
+</abstract>
+
+<claims>
+1. A sensor system (10) including at least one sensor (12) and an evaluation device (14) that is configured for receiving input data (x) from the at least one sensor (12), and that comprises at least one trained artificial neural network (16) that is configured to perform a classification or regression task on input data (x) received from the at least one sensor (12), wherein the at least one trained artificial neural network (16) comprises an Mg -module as an implementation of a machine learning based method for the classification or regression task with trainable parameters Q, characterized in that
+the sensor system (10) further comprises a confidence measure module arrangement used in combination with the at least one trained artificial neural network (16) to decide when to perform a decision or regression on the input data (x) of the at least one sensor (12) and when not, wherein the confidence measure module arrangement includes:
+- a ΰf -module as implementation of a machine learning based method that is configured to learn a representation of the training dataset with trainable parameters f, wherein the representation of the training dataset is lowerdimensional than the training dataset, and
+- an E-module as implementation of a measure to determine how far the input data (x) are from the training dataset using the information of wherein
+the ΰf -module is configured to provide for a (x)-output of a module which learned the representation of the training dataset, said output being used by the E-module to determine how different the input data (x) are from what has been seen during training,
+the E-module is configured to provide for an E(Ef (c),c)- output of a module which determines how far the input data (x) are from the training dataset using ΰy (x), said output being combined with Mg to decide whether the module is allowed to perform an action (classification or regression task), and the Mq -module is configured to provide for an Mq (x)-output of a classification or regression model using the input data (x),
+wherein the confidence measure module arrangement is configured to utilize said E(Rf (c), c)- output and said Mq (x)- output in combination to decide to perform an action, upon which the output will be the classification or regression Mg(x) based on the input data (x), and
+wherein the evaluation device (14) is configured to generate an output signal (20) representing a result of the classification or regression task.
+2. The sensor system (10) according to claim 1 , wherein the at least one sensor (12) is formed as a radar sensor or as an optical camera.
+3. The sensor system (10) of claim 1 or 2, wherein the machine learning based method implementation ΰf comprises a variational autoencoder.
+4. The sensor system (10) according to claim 3, wherein the E-module is configured to calculate an /2-error, l2 between an
+output of the autoencoder, denoted by Y, and the input data (x) as the measure to detect whether the input data (x) is close to the training dataset (module E(ΰf (c), c)).
+5. The sensor system (10) according to one of claims 1 to 4, wherein in case that a value of the measure describing how far the input data (x) are from the training dataset Y is lower than a predefined threshold value, the M^-module is configured to perform a classification or regression based on the input data (x), otherwise, the M^-module is configured to generate a signal indicating that it is hindered to perform such action.
+6. The sensor system (10) according to one of claims 1 to 5, wherein the ΰfmodule and the M^-module are trained together/or in parallel and are configured to interact with each other.
+7. The sensor system (10) according to claim6, wherein in case the module and the M^-module are trained together, the M^-module is configured to use the input data (x) as well as the lower-dimensional representation Z of the input data (x) in order to perform a classification or regression task.
+8. The sensor system (10) according to one of claims 1 to7, wherein the ΰfmodule and the M^-module are trained independently from one another and are combined in the sensor system (10) after training.
+9. The sensor system (10) according to claim 8, wherein the module comprises a region of interest algorithm that is configured for proposing only predefined interesting regions in an image.
+10. The sensor system (10) according to claim 9, wherein the region of interest algorithm is configured to be background-independent.
+11. The sensor system (10) according to claim 10, wherein the M^-module is configured to perform a classification for each of the predefined interesting regions.
+12. Method of operating a sensor system (10), the sensor system (10) including at least one sensor (12) and an evaluation device (14) that is configured for receiving input data (x) from the at least one sensor (12), and that comprises at least one trained artificial neural network (16) with trained parameters Q that is configured to perform a classification or regression task on data received from the at least one sensor (12), the method comprising at least the following steps:
+- providing (30) input data (x) of the at least one sensor (12) to the evaluation device (14),
+- applying (32) a machine learning based method implementation ΰf that has learned a representation of a training dataset with trainable parameters f, wherein the representation of the training dataset is lower-dimensional than the training dataset, to the input data (x) of the at least one sensor (12) for providing a Wf (x)-output,
+- by using the information of Wf (x), applying (34) a measure implementation E for determining how far the input data (x) are from the training dataset and obtaining a measure output E(rf (c), c),
+- comparing (36) the obtained measure output E(rf (c), c) with at least one predefined threshold value for the measure, - performing (38) a classification or regression task on the input data (x) received from the at least one sensor (12), if a result of the comparison fulfills a predefined condition, and
+- generating (42) an output signal (20) representing a result of the classification or regression task, if a classification or regression task has been performed.
+13. The method of claim 12, wherein the step of applying (34) a measure implementation E for determining how far the input data (x) are from the training dataset includes calculating an l2-err or as a measure according to
+14. The method of claim 12 or 13, further comprising the step (40) that, if the result of the comparison fails to fulfill the predefined condition, a signal is generated that indicates that the step (38) of performing a classification or regression on the input data (x) has been hindered.
+</claims>
+</document>

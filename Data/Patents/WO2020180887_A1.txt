@@ -1,0 +1,109 @@
+<document>
+
+<filing_date>
+2020-03-03
+</filing_date>
+
+<publication_date>
+2020-09-10
+</publication_date>
+
+<priority_date>
+2019-03-04
+</priority_date>
+
+<ipc_classes>
+G06F11/07,G06F11/30,G06N20/00,G06N7/00
+</ipc_classes>
+
+<assignee>
+FRIEDMAN, SAMUEL
+KING, COSMO
+IOCURRENTS
+BHATTACHARYYA, BHASKAR
+HENDERSON, KIERSTEN
+</assignee>
+
+<inventors>
+FRIEDMAN, SAMUEL
+KING, COSMO
+BHATTACHARYYA, BHASKAR
+HENDERSON, KIERSTEN
+</inventors>
+
+<docdb_family_id>
+72334646
+</docdb_family_id>
+
+<title>
+NEAR REAL-TIME DETECTION AND CLASSIFICATION OF MACHINE ANOMALIES USING MACHINE LEARNING AND ARTIFICIAL INTELLIGENCE
+</title>
+
+<abstract>
+A method of determining anomalous operation of a system includes: capturing a stream of data representing sensed (or determined) operating parameters of the system over a range of operating states, with a stability indicator representing whether the system was operating in a stable state when the operating parameters were sensed; determining statistical properties of the stream of data, including an amplitude-dependent parameter and a variance thereof over time parameter for an operating regime representing stable operation; determining a statistical norm for the statistical properties that distinguish between normal operation and anomalous operation of the system; responsive to detecting that normal and anomalous operation of the system can no longer be reliably distinguished, determining new statistical properties to distinguish between normal and anomalous system operation; and outputting a signal based on whether a concurrent stream of data representing sensed operating parameters of the system represent anomalous operation of the system.
+</abstract>
+
+<claims>
+1. A method of determining anomalous operation of a system, comprising: capturing a plurality of streams of training data representing sensor readings over a range of states of the system during a training phase, the range of states including at least a normal state of the system;
+determining joint statistical properties of the plurality of streams of data representing sensor readings over the range of states of the system during the training phase, comprising determining (a) a plurality of quantitative standardized errors between a predicted value of a respective training datum, and a measured value of the respective training datum, and (b) a variance of the respective plurality of quantitative standardized errors over time;
+determining a statistical norm for the characterized joint statistical properties that distinguishes between the normal state of the system and an anomalous state of the system; and
+storing the determined statistical norm in a non-volatile memory.
+2. The method according to claim 1, wherein at least one stream of training data is aggregated and/or filtered prior to characterizing the joint statistical properties of the plurality of streams of data representing the sensor readings over the range of states of the system during the training phase.
+3. The method according to claim 1, further comprising:
+communicating the captured plurality of streams of training data representing sensor readings over a range of states of the system during a training phase from an edge device to a cloud device prior to the cloud device characterizing the joint statistical property of the plurality of streams of operational data;
+communicating the determined statistical norm from the cloud device to the edge device; and
+wherein the non-volatile memory is provided within the edge device.
+4. The method according to claim 3, further comprising: capturing a plurality of streams of operational data representing sensor readings during an operational phase;
+determining a plurality of quantitative standardized errors between a predicted value of a respective operational datum, and a measured value of the respective training datum, and a variance of the respective plurality of quantitative standardized errors over time in the edge device; and
+comparing the plurality of quantitative standardized errors and the variance of the respective plurality of quantitative standardized errors with the determined statistical norm, to determine whether the plurality of streams of operational data representing the sensor readings during the operational phase represent an anomalous state of system operation.
+5. The method according to claim 1, further comprising determining an anomalous state of operation based on a statistical difference between sensor data obtained during operation of the system subsequent to the training phase and the statistical norm.
+6. The method according to claim 5, further comprising performing an analysis on the sensor data obtained during the anomalous state, defining a signature of the sensor data obtained leading to the anomalous state, and communicating the defined signature of the sensor data obtained leading to the anomalous state to a second system.
+7. The method according to claim 6, further comprising receiving a defined signature of sensor data obtained leading to an anomalous state of a second system from the second system and performing a signature analysis of a stream of sensor data after the training phase.
+8. The method according to claim 6, further comprising receiving a defined signature of sensor data obtained leading to an anomalous state of a second system from the second system, and integrating the defined signature with the determined statistical norm, such that the statistical norm is updated to distinguish a pattern of sensor data preceding the anomalous state from a normal state of operation.
+9. The method according to claim 1, further comprising determining a zscore for the plurality of quantitative standardized errors.
+10. The method according to claim 1, further comprising at least one of: transmitting the plurality of streams of training data to a remote server;
+transmitting the characterized joint statistical properties to the remote server; transmitting the statistical norm to the remote server;
+transmitting a signal representing a determination whether the system is operating anomalously to the remote server based on the statistical norm;
+receiving the characterized joint statistical properties from the remote server; receiving the statistical norm from the remote server;
+receiving a signal representing a determination whether the system is operating anomalously from the remote server based on the statistical norm; and
+receiving a signal from the remote server representing a predicted statistical norm for operation of the system, representing a type of operation of the system outside the range of states during the training phase, based on respective statistical norms for other systems.
+11. The method according to claim 1, further comprising:
+receiving a stream of sensor data received after the training phase;
+determining an anomalous state of operation of the system based on differences between the received stream of sensor data received after the training phase;
+and tagging a log of sensor data received after the training phase with an annotation of anomalous state of operation.
+12. The method according to claim 11, further comprising classifying the anomalous state of operation.
+13. The method according to claim 1, further comprising classifying a stream of sensor data received after the training phase by at least performing a k-nearest neighbors analysis.
+14. The method according to claim 1, further comprising determining whether a stream of sensor data received after the training phase is in a stable operating state and tagging a log of the stream of sensor data with a characterization of the stability.
+15. The method according to claim 1, wherein the joint statistical properties are first joint statistical properties, the training phase is first training phase, and the statistical norm is first statistical norm, the method further comprising:
+in response to detecting a threshold number of false positive cases of anomalous state of the system based, at least in part, on the first statistical norm:
+determining second joint statistical properties of a plurality of streams of data representing sensor readings over the range of states of the system during second training phase;
+determining second statistical norm for the second joint statistical properties that distinguishes between the normal state of the system and the anomalous state of the system; and
+storing the determined second statistical norm in a non-volatile memory.
+16. The method according to claim 15, wherein the first joint statistical properties are determined in accordance with a first statistical model and the second joint statistical properties are determined in accordance with a second statistical model.
+17. The method according to claim 16, further comprising generating a plurality of statistical models for a plurality of streams of data representing sensor readings over the range of states of the system that are obtained during a time window overlapping with one or more anomalous states predicted based, at least in part, on the first statistic norm.
+18. The method according to claim 17, further comprising selecting the second statistical model from the plurality of models based on at least one of false positive rate, true positive rate, or lead time.
+19. A system for determining anomalous operational state, comprising: an input port configured to receive a plurality of streams of training data representing sensor readings over a range of states of the system during a training phase;
+at least one automated processor, configured to:
+characterize joint statistical properties of plurality of streams of data representing sensor readings over the range of states of the system during the training phase, based on a plurality of quantitative standardized errors between a predicted value of a respective training datum, and a measured value of the respective training datum, and a variance of the respective plurality of quantitative standardized errors over time; and
+determine a statistical norm for the characterized joint statistical properties that reliably distinguishes between a normal state of the system and an anomalous state of the system; and
+a non-volatile memory configured to store the determined statistical norm.
+20. The system according to claim 19, wherein the at least one automated processor is further configured to:
+capture a plurality of streams of operational data representing sensor readings during an operational phase;
+characterize a joint statistical property of the plurality of streams of operational data, comprising determining a plurality of quantitative standardized errors between a predicted value of a respective operational datum, and a measured value of the respective training datum, and a variance of the respective plurality of quantitative standardized errors over time; and
+compare the characterized joint statistical property of the plurality of streams of operational data with the determined statistical norm to determine whether the plurality of streams of operational data representing the sensor readings during the operational phase represent an anomalous state of system operation.
+21. The system according to claim 19, wherein the at least one automated processor is further configured to:
+capture a plurality of streams of operational data representing sensor readings during an operational phase; and determine at least one of a Mahalanobis distance, a Bhattacharyya distance, Chemoff distance, a Matusita distance, a KL divergence, a Symmetric KL divergence, a Patrick-Fisher distance, a Lissack-Fu distance, a Kolmogorov distance, or a
+Mahalanobis angle of the captured plurality of streams of operational data with respect to the determined statistical norm.
+22. The system according to claim 19, wherein the at least one automated processor is further configured to determine a Mahalanobis distance between the plurality of streams of training data representing sensor readings over the range of states of the system during the training phase and a captured plurality of streams of operational data representing sensor readings during an operational phase of the system.
+23. The system according to claim 19, wherein the at least one automated processor is further configured to determine a Bhattacharyya distance between the plurality of streams of training data representing sensor readings over the range of states of the system during the training phase and a captured plurality of streams of operational data representing sensor readings during an operational phase of the system.
+24. The system according to claim 19, wherein the at least one automated processor is further configured to determine a z-score for a stream of sensor data received after the training phase.
+25. The system according to claim 19, wherein the at least one automated processor is further configured to decimate a stream of sensor data received after the training phase.
+26. The system according to claim 19, wherein the at least one automated processor is further configured to decimate and determine a z-score for a stream of sensor data received after the training phase.
+27. The system according to claim 19, wherein the plurality of streams of training data representing the sensor readings over the range of states of the system comprise data from a plurality of different types of sensors.
+28. The system according to claim 19, wherein the plurality of streams of training data representing the sensor readings over the range of states of the system comprise data from a plurality of different sensors of the same type.
+29. A method of determining a statistical norm for non-anomalous operation of a system, comprising:
+receiving a plurality of captured streams of training data at a remote server, the captured plurality of streams of training data representing sensor readings over a range of states of a system during a training phase;
+processing the received a plurality of captured streams of training data to determine a statistical norm for characterized joint statistical properties that reliably distinguishes between a normal state of the system and an anomalous state of the system, the characterized joint statistical properties being based on a plurality of streams of data representing sensor readings over the range of states of the system during the training phase, comprising quantitative standardized errors between a predicted value of a respective training datum, and a measured value of the respective training datum, and a variance of the respective plurality of quantitative standardized errors over time; and transmitting the determined statistical norm to the system.
+30. The method according to claim 29, further comprising, at the system, capturing a stream of data representing sensor readings over states of the system during an operational phase, and producing a signal selectively dependent on whether the stream of data representing sensor readings over states of the system during the operational phase are within the statistical norm.
+</claims>
+</document>

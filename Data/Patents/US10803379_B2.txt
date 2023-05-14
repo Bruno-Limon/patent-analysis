@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2017-12-12
+</filing_date>
+
+<publication_date>
+2020-10-13
+</publication_date>
+
+<priority_date>
+2017-12-12
+</priority_date>
+
+<ipc_classes>
+G06F13/28,G06F13/40,G06F15/80,G06F3/06,G06N3/04
+</ipc_classes>
+
+<assignee>
+AMAZON TECHNOLOGIES
+</assignee>
+
+<inventors>
+DIAMANT, RON
+HUANG, RANDY
+</inventors>
+
+<docdb_family_id>
+66696969
+</docdb_family_id>
+
+<title>
+Multi-memory on-chip computational network
+</title>
+
+<abstract>
+Provided are systems, methods, and integrated circuits for a neural network processing system. In various implementations, the system can include a first array of processing engines coupled to a first set of memory banks and a second array of processing engines coupled to a second set of memory banks. The first and second set of memory banks be storing all the weight values for a neural network, where the weight values are stored before any input data is received. Upon receiving input data, the system performs a task defined for the neural network. Performing the task can include computing an intermediate result using the first array of processing engines, copying the intermediate result to the second set of memory banks, and computing a final result using the second array of processing engines, where the final result corresponds to an outcome of performing the task.
+</abstract>
+
+<claims>
+1. A neural network processing system, comprising: a first array of processing engines, each processing engine including a multiplier-accumulator circuit; a first set of memory banks storing a first set of weight values, wherein the first set of weight values were previously determined using input data with a known result, wherein each bank from the first set of memory banks is independently accessible, and wherein the first array of processing engines and the first set of memory banks are on a same first die; a second array of processing engines, each processing engine including a multiplier-accumulator circuit; and a second set of memory banks storing a second set of weight values, wherein the second set of weight values were previously determined using the input data with the known result, wherein each bank from the second set of memory banks is independently accessible, wherein the second array of processing engines and the second set of memory banks are on a same second die, wherein the first set of weight values and the second set of weight values comprise all weight values of a neural network, and wherein the first set of weight values and the second set of weight values are stored prior to input data being received by the neural network processing system; wherein, upon receiving input data, the neural network processing system is configured to perform a task the neural network was trained to perform, wherein the task is defined by the input data with the known result, and wherein performing the task includes: computing, using the first array of processing engines, an intermediate result, wherein each processing engine in the first array of processing engines computes a weighted sum using a weight value from the first set of weight values and an input value from the input data; copying the intermediate result and a state from the first set of memory banks to the second set of memory banks, wherein the state describes a stage of the task completed by the first array of processing engines; and computing, using the second array of processing engines, a final result, wherein the second array of processing engines uses the state to determine the state of the task, wherein each processing engine in the second array of processing engines computes a weighted sum using a weight value from the second set of weight values and a value from the intermediate result, and wherein the final result corresponds to an outcome of performing the task.
+2. The neural network processing system of claim 1, wherein the first die and the second die are portions of a same die, wherein the die includes a communication fabric and a direct memory access controller, and wherein the direct memory access controller copies the intermediate result and the state over the communication fabric.
+3. The neural network processing system of claim 1, wherein the first die is in a first package and the second die is in a second package, and further comprising: a bus coupled to the first die and the second die, wherein the intermediate result and the state are copied over the bus.
+4. A neural network processing system, comprising: a first array of processing engines; a first set of memory banks storing a first set of weight values, wherein the first array of processing engines and the first set of memory banks are on a same first die; a second array of processing engines; and a second set of memory banks storing a second set of weight values, wherein the second array of processing engines and the second set of memory banks are on a same second die, wherein the first set of weight values and the second set of weight values comprise all weight values of a neural network, and wherein the first set of weight values and the second set of weight values are stored prior to input data being received by the neural network processing system; wherein, upon receiving input data, the neural network processing system is configured to perform a task defined for the neural network, and wherein performing the task includes: computing, using the first array of processing engines, an intermediate result, wherein the first array of processing engines uses the first set of weight values and the input data to compute the intermediate result; copying the intermediate result and a state from the first set of memory banks to the second set of memory banks, wherein the state describes a stage of the task completed by the first array of processing engines; and computing, using the second array of processing engines, a final result, wherein the second array of processing engines uses the second set of weight values, the intermediate result, and the state to compute the final result, and wherein the final result corresponds to an outcome of performing the task.
+5. The neural network processing system of claim 4, wherein the first die and the second die are portions of a same die.
+6. The neural network processing system of claim 4, wherein the first die and the second die are different dies.
+7. The neural network processing system of claim 6, further comprising: a bus, wherein the first die and the second die are each coupled to the bus, and wherein the intermediate result and the state are copied over the bus.
+8. The neural network processing system of claim 4, wherein performing the task further includes: simultaneously reading two or more values from different memory banks from the first set of memory banks or the second set of memory banks.
+9. The neural network processing system of claim 8, wherein the two or more values include a weight value, an input value, or an intermediate result.
+10. The neural network processing system of claim 4, wherein performing the task further includes: writing a first value to a first memory bank from the first set of memory banks or the second set of memory banks; and reading a second value from a second memory bank from the first set of memory banks or the second set of memory banks, wherein the first value is written at a same time that the second value is read.
+11. The neural network processing system of claim 10, wherein the first value or the second value include a weight value, an input value, or an intermediate result.
+12. The neural network processing system of claim 4, wherein, during performance of the task, no weight values are read from a processor memory, wherein the processor memory is on a different die than either the first die or the second die.
+13. The neural network processing system of claim 4, wherein each processing engine from the first array of processing engines and the second array of processing engines includes a multiplier-accumulator circuit.
+14. The neural network processing system of claim 4, wherein the neural network includes a plurality of weight values derived from a directed weighted graph and a set of instructions for a computation to be executed for each node in the directed weighted graph, and wherein the plurality of weight values were previously determined by performing the task using known input data.
+15. A method for neural network processing, comprising: storing a first set of weight values in a first set of memory banks of a neural network processing system; storing a second set of weight values in a second set of memory banks of the neural network processing system, wherein the first set of weight values and the second set of weight values comprise all weight values of a neural network, and wherein the first set of weight values and the second set of weight values are stored prior to input data being received by the neural network processing system; receiving input data; performing a task defined for the neural network, wherein performing the task includes: computing, using a first array of processing engines, an intermediate result, wherein the first array of processing engines is on a same first die as the first set of memory banks, and wherein the first array of processing engines uses the first set of weight values and the input data to compute the intermediate result; copying the intermediate result and a state from the first set of memory banks to the second set of memory banks, wherein the state describes a stage of the task completed by the first array of processing engines; and computing, using a second array of processing engines, a final result, wherein the second array of processing engines is on a same second die as the second set of memory banks, wherein the second array of processing engines uses the second set of weight values, the intermediate result, and the state to compute the final result, and wherein the final result corresponds to an outcome of performing the task.
+16. The method of claim 15, wherein the first die and the second die are portions of a same die.
+17. The method of claim 15, wherein the first die and the second die are in different packages.
+18. The method of claim 15, wherein no weight values are read from a processor memory, wherein the processor memory is in a different package than either the first die or the second die.
+19. The method of claim 15, further comprising: simultaneously reading two or more values from the first set of memory banks; and simultaneously reading two or more values from the second set of memory banks.
+20. The method of claim 15, further comprising: reading a first value from the first set of memory banks while simultaneously writing a second value to the first set of memory banks; and reading a third value from the second set of memory banks while simultaneously writing a fourth value to the second set of memory banks.
+</claims>
+</document>

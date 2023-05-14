@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2019-04-18
+</filing_date>
+
+<publication_date>
+2020-03-05
+</publication_date>
+
+<priority_date>
+2018-08-28
+</priority_date>
+
+<ipc_classes>
+G06T7/11,G06T7/246,G06T7/73
+</ipc_classes>
+
+<assignee>
+BEIJING JINGDONG SHANGKE INFORMATION TECHNOLOGY COMPANY
+JD.COM AMERICAN TECHNOLOGIES CORPORATION
+</assignee>
+
+<inventors>
+ZHANG, CHI
+LIU, PING
+FAN, XIAOCHUAN
+NING, GUANGHAN
+</inventors>
+
+<docdb_family_id>
+69639119
+</docdb_family_id>
+
+<title>
+DEVICE AND METHOD OF TRACKING POSES OF MULTIPLE OBJECTS BASED ON SINGLE-OBJECT POSE ESTIMATOR
+</title>
+
+<abstract>
+A method, a device and a non-transitory computer readable medium for tracking poses of multiple objects. The method includes detecting, by a processor, objects from each of a plurality of consecutive frames in a video sequence; estimating, by the processor, a pose of each of the objects within each of the plurality of consecutive frames; and tracking, by the processor, the poses of each of the objects across the plurality of consecutive frames.
+</abstract>
+
+<claims>
+I/We claim:
+1. A method of tracking poses of multiple objects, comprising: detecting, by one or more processors, objects from each of a plurality of consecutive frames in a video sequence; estimating, by the one or more processors, a pose of each of the objects within each of the plurality of consecutive frames; and tracking, by the one or more processors, the poses of each of the objects across the plurality of consecutive frames.
+2. The method of claim 1, wherein the step of detecting the objects from each of the plurality of consecutive frames in the video sequence comprises: determining, by the one or more processors, a bounding box for each of the objects from each of the plurality of consecutive frames; and determining, by the one or more processors, a confidence score of the bounding box for the one of the objects within the one of the plurality of consecutive frames.
+3. The method of claim 2, wherein the step of estimating the pose of each of the objects within each of the plurality of consecutive frames comprises: determining, by the one or more processors, from a region defined by the bounding box for the one of the objects within the one of the plurality of consecutive frames, keypoints of the one of the objects within the one of the plurality of consecutive frames; and determining, by the one or more processors, confidence scores of the keypoints of the one of the objects within the one of the plurality of consecutive frames.
+4. The method of claim 3, wherein the step of estimating the pose of each of the objects within each of the plurality of consecutive frames comprises: applying, by the one or more processors, a model ensemble mode combing two or more pose estimation models to determine the keypoints of the one of the objects within the one of the plurality of consecutive frames, wherein the two or more pose estimation models comprise at least a first model and a second model.
+5. The method of claim 4, wherein the model ensemble mode comprises an expert mode in which, for each of the keypoints of each of the objects within each of the plurality of consecutive frames, a weight of one is assigned to one of pose estimation result for the first model and pose estimation result for the second model that has a higher average precision (AP) for the one of the keypoints, and a weight of zero is assigned to the other of the pose estimation result for the first model and the pose estimation result for the second model.
+6. The method of claim 4, wherein the model ensemble mode comprises an average mode in which, for all of the keypoints of each of the objects within each of the plurality of consecutive frames, a weight of 0.5 is assigned to pose estimation result for the first model and a weight of 0.5 is assigned to pose estimation result for the second model.
+7. The method of claim 4, wherein one of the first model and the second model is epoch 291, and the other of the first model and the second model is epoch 293.
+8. The method of claim 3, wherein the step of tracking the poses of each of the objects across the plurality of consecutive frames comprises: assigning, by the one or more processors, a same identifier to the bounding boxes indicating a same one of the objects across the plurality of consecutive frames; and associating, by the one or more processors, the keypoints within the bounding boxes having the same identifier across the plurality of consecutive frames, so as to build a pose flow for each of the objects across the plurality of consecutive frames.
+9. The method of claim 3, wherein the step of tracking the poses of each of the objects across the plurality of consecutive frames further comprises: performing, by the one or more processors, adaptive keypoint pruning on the keypoints of each of the objects within each of the plurality of consecutive frames with an adaptive keypoint pruner.
+10. The method of claim 9, wherein the step of performing the adaptive keypoint pruning on the keypoints of each of the objects within each of the plurality of consecutive frames with the adaptive keypoint pruner comprises: determining, by the one or more processors, a keypoint drop threshold for each of predefined categories of keypoint, wherein each of the keypoints of each of the objects within each of the plurality of consecutive frames belongs to one of the predefined categories of keypoint; dropping, by the one or more processors, a keypoint having a confidence score lower than a keypoint drop threshold for one of the predefined categories of keypoint to which the keypoint belongs; and retaining, by the one or more processors, a keypoint having a confidence score greater than or equal to a keypoint drop threshold for one of the predefined categories of keypoint to which the keypoint belongs.
+11. The method of claim 2, wherein the step of estimating the pose of each of the objects within each of the plurality of consecutive frames comprises: regressing, by the one or more processors, a region defined by the bounding box for the one of the objects within the one of the plurality of consecutive frames into heatmaps of the one of the objects within the one of the plurality of consecutive frames; suppressing, by the one or more processors, the heatmaps of the one of the objects within the one of the plurality of consecutive frames into keypoints of the one of the objects within the one of the plurality of consecutive frames with cross-heatmap pose non-maximum suppression (NMS); and determining, by the one or more processors, confidence scores of the keypoints of the one of the objects within the one of the plurality of consecutive frames.
+12. The method of claim 1, wherein the step of detecting the objects from each of the plurality of consecutive frames in a video sequence is implemented by a deformable feature pyramid network (FPN) that is determined based on an object detector selecting mechanism.
+13. The method of claim 1, wherein the step of detecting the objects from each of the plurality of consecutive frames in a video sequence further comprises: converting, by the one or more processors, the result of the detection for each of the objects within each of the plurality of consecutive frames into an openSVAI standardized data format, so as to generate a standardized detection result.
+14. The method of claim 1, wherein the step of estimating the pose of each of the objects within each of the plurality of consecutive frames further comprises: converting, by the one or more processors, the result of the estimation for each of the objects within each of the plurality of consecutive frames into an openSVAI standardized data format, so as to generate a standardized estimation result.
+15. A device for tracking poses of multiple objects, comprising: a processor; and a memory storing instructions which, when executed by the processor, cause the processor to: detect objects from each of a plurality of consecutive frames in a video sequence; estimate a pose of each of the objects within each of the plurality of consecutive frames; and track the poses of each of the objects across the plurality of consecutive frames.
+16. The device of claim 15, wherein the instructions which, when executed by the processor, further cause the processor to: determine a bounding box for each of the objects from each of the plurality of consecutive frames; and determine a confidence score of the bounding box for the one of the objects within the one of the plurality of consecutive frames.
+17. The device of claim 16, wherein the instructions which, when executed by the processor, further cause the processor to: determine from a region defined by the bounding box for the one of the objects within the one of the plurality of consecutive frames, keypoints of the one of the objects within the one of the plurality of consecutive frames; and determine confidence scores of the keypoints of the one of the objects within the one of the plurality of consecutive frames.
+18. The device of claim 17, wherein the instructions which, when executed by the processor, further cause the processor to: assign a same identifier to the bounding boxes indicating a same one of the objects across the plurality of consecutive frames; and associate the keypoints within the bounding boxes having the same identifier across the plurality of consecutive frames, so as to build a pose flow for each of the objects across the plurality of consecutive frames.
+19. The device of claim 15, wherein the instructions which, when executed by the processor, further cause the processor to: convert the result of the detection for each of the objects within each of the plurality of consecutive frames into an openSVAI standardized data format, so as to generate a standardized detection result; and convert the result of the estimation for each of the objects within each of the plurality of consecutive frames into an openSVAI standardized data format, so as to generate a standardized estimation result.
+20. A non-transitory computer readable medium storing computer executable instructions which, when executed by a processor of a computing device, causes the processor to: detect objects from each of a plurality of consecutive frames in a video sequence; estimate a pose of each of the objects within each of the plurality of consecutive frames; and track the poses of each of the objects across the plurality of consecutive frames.
+</claims>
+</document>

@@ -1,0 +1,109 @@
+<document>
+
+<filing_date>
+2020-05-05
+</filing_date>
+
+<publication_date>
+2020-11-12
+</publication_date>
+
+<priority_date>
+2019-05-06
+</priority_date>
+
+<ipc_classes>
+G06K9/46,G06K9/62
+</ipc_classes>
+
+<assignee>
+DEEPMIND TECHNOLOGIES
+</assignee>
+
+<inventors>
+KULKARNI, TEJAS DATTATRAYA
+GUPTA, Ankush
+</inventors>
+
+<docdb_family_id>
+70680478
+</docdb_family_id>
+
+<title>
+UNSUPERVISED LEARNING OF OBJECT KEYPOINT LOCATIONS IN IMAGES THROUGH TEMPORAL TRANSPORT OR SPATIO-TEMPORAL TRANSPORT
+</title>
+
+<abstract>
+Methods, systems, and apparatus, including computer programs encoded on computer storage media, for unsupervised learning of object keypoint locations in images. In particular, a keypoint extraction machine learning model having a plurality of keypoint model parameters is trained to receive an input image and to process the input image in accordance with the keypoint model parameters to generate a plurality of keypoint locations in the input image. The machine learning model is trained using either temporal transport or spatio-temporal transport.
+</abstract>
+
+<claims>
+1. A method of training a keypoint extraction machine learning model having a plurality of keypoint model parameters, wherein the keypoint extraction machine learning model is configured to receive an input image and to process the input image in accordance with the keypoint model parameters to generate a plurality of keypoint locations in the input image, the method comprising:
+obtaining a source image of an environment;
+obtaining a target image of the environment that was captured at a different time than the source image;
+generating a reconstruction of the target image, the generating comprising:
+processing the source image using a feature extraction neural network having a plurality of feature extraction network parameters and in accordance with current values of the feature extraction network parameters to generate a source feature map that includes respective source feature vectors for each of a plurality of locations;
+processing the source image using the keypoint extraction machine learning model in accordance with current values of the keypoint model parameters to generate a plurality of source keypoint locations, wherein each source keypoint location is a respective one of the plurality of locations;
+processing the target image using the feature extraction neural network in accordance with the current values of the feature extraction network parameters to generate a target feature map that includes respective target feature vectors for each of the plurality of locations;
+processing the target image using the keypoint extraction machine learning model in accordance with current values of the keypoint model parameters to generate a plurality of target keypoint locations, wherein each target keypoint location is a respective one of the plurality of locations;
+generating, from the source feature map, a transported feature map by augmenting the source feature map with data from the target feature vectors for the target keypoint locations;
+generating the reconstruction of the target image from the transported feature map; and determining an update to the current values of the keypoint model parameters by determining gradients with respect to the keypoint model parameters of an objective function that measures an error between the target image and the reconstruction of the target image.
+2. The method of any preceding claim, wherein generating the reconstruction of the target image from the transported feature map comprises:
+processing the transported feature map using a refinement neural network to generate the reconstruction.
+3. The method of claim 2, wherein the refinement neural network is a convolutional neural network that maps the feature map to an image having the same resolution as the source and target images.
+4. The method of any preceding claim, wherein obtaining the target image comprises: randomly sampling a time delta from a set of possible time deltas; and
+selecting, as the target image, the image that was captured at the sampled time delta from the source image.
+5. The method of any preceding claim, wherein the objective function is an error between the reconstruction and the target image in a pixel space of the reconstruction and the target image.
+6. The method of any preceding claim, further comprising:
+determining an update to the current values of the feature extraction network parameters by determining gradients with respect to the feature extraction network parameters of the objective function that measures the error between the target image and the reconstruction of the target image.
+7. The method of any preceding claim, wherein the feature extraction neural network is a convolutional neural network that maps an image having the resolution of the source and target images to a feature map that includes respective vectors for each of the plurality of locations.
+8. The method of any preceding claim, wherein generating, from the source feature map, a transported feature map comprises:
+generating a source suppressed feature map that suppresses source feature vectors that are at any of the source and target keypoint locations;
+generating a target suppressed feature map that suppresses target feature vectors that are at locations other than the target keypoint locations; and
+combining the source suppressed feature map and the target suppressed feature map to generate the transported feature map.
+9. The method of claim 8 wherein generating the source suppressed feature map comprises:
+generating a source heatmap representation of the plurality of locations having Gaussian peaks at each of the source keypoint locations;
+generating a target heatmap representation of the plurality of locations having
+Gaussian peaks at each of the target keypoint locations; and
+generating, using the source and target heatmaps, the source suppressed feature map.
+10. The method of claim 9, wherein the source suppressed feature map satisfies:
+wherein F(¾) i .s the source feature map, the source heatmap representation, and the target heatmap representation.
+11. The method of any one of claims 9 or 10, wherein generating the target suppressed feature map comprises multiplying the target heatmap representation by the target feature map.
+12. A method of training a keypoint extraction machine learning model having a plurality of keypoint model parameters, wherein the keypoint extraction machine learning model is configured to receive an input image and to process the input image in accordance with the keypoint model parameters to generate a plurality of keypoint locations in the input image, the method comprising:
+obtaining a source image of an environment;
+obtaining a target image of the environment that was captured at a different time than he source image;
+generating a reconstruction of the target image, the generating comprising:
+processing the source image using a feature extraction neural network having a plurality of feature extraction network parameters and in accordance with current values of the feature extraction network parameters to generate a source feature map that includes respective source feature vectors for each of a plurality of locations;
+processing the source image using the keypoint extraction machine learning model in accordance with current values of the keypoint model parameters to generate a plurality of source keypoint locations, wherein each source keypoint location is a respective one of the plurality of locations;
+processing the target image using the keypoint extraction machine learning model in accordance with current values of the keypoint model parameters to generate a plurality of target keypoint locations, wherein each target keypoint location is a respective one of the plurality of locations;
+generating, from the source feature map, a transported feature map by modifying the source feature map based on the target keypoint locations;
+generating the reconstruction of the target image from the transported feature map; and
+determining an update to the current values of the keypoint model parameters by determining gradients with respect to the keypoint model parameters of an objective function that measures an error between the target image and the reconstruction of the target image.
+13. The method of claim 12, wherein generating the reconstruction of the target image from the transported feature map comprises:
+processing the transported feature map using a refinement neural network to generate the reconstruction.
+14. The method of claim 13, wherein the refinement neural network is a convolutional neural network that maps the feature map to an image having the same resolution as the source and target images.
+15. The method of any one of claims 12-14, wherein obtaining the target image comprises:
+randomly sampling a time delta from a set of possible time deltas; and
+selecting, as the target image, the image that was captured at the sampled time delta from the source image.
+16. The method of any one of claims 12-15, wherein the objective function is an error between the reconstruction and the target image in a pixel space of the reconstruction and the target image.
+17. The method of any one of claims 12-16, further comprising:
+determining an update to the current values of the feature extraction network parameters by determining gradients with respect to the feature extraction network parameters of the objective function that measures the error between the target image and the reconstruction of the target image.
+18. The method of any one of claims 12-17, wherein the feature extraction neural network is a convolutional neural network that maps an image having the resolution of the source and target images to a feature map that includes respective vectors for each of the plurality of locations.
+19. The method of any one of claims 12-18, wherein generating, from the source feature map, a transported feature map comprises:
+generating a source suppressed feature map that suppresses source feature vectors that are at any of the source and target keypoint locations;
+generating a source shifted feature map that shifts data from source feature vectors that are at source keypoint locations to source feature vectors that are at target keypoint locations; and
+combining the source suppressed feature map and the source shifted feature map to generate the transported feature map.
+20. The method of claim 19 wherein generating the source suppressed feature map comprises:
+generating a source heatmap representation of the plurality of locations having Gaussian peaks at each of the source keypoint locations;
+generating a target heatmap representation of the plurality of locations having Gaussian peaks at each of the target keypoint locations; and
+generating, using the source and target heatmaps, the source suppressed feature map.
+21. The method of claim 20, wherein the source suppressed feature map satisfies:
+<§(¾) ¾
+wherein is the source feature map, w (xt ) js t^e source heatmap representation, and ) js t^e target heatmap representation.
+22. The method of any one of claims 20 or 21, wherein the source shifted feature map satisfies:
+(* )
+where K is the total number of target keypoint locations, and " is a Haddamard product.
+23. One or more computer-readable storage media storing instructions that when executed by one or more computers cause the one or more computers to perform the respective operations of any one of the methods of any of the preceding claims.
+24. A system comprising one or more computers and one or more storage devices storing instructions that when executed by one or more computers cause the one or more computers to perform the respective operations of any one of the methods of any of the preceding claims.
+</claims>
+</document>

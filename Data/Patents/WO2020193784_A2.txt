@@ -1,0 +1,185 @@
+<document>
+
+<filing_date>
+2020-03-27
+</filing_date>
+
+<publication_date>
+2020-10-01
+</publication_date>
+
+<priority_date>
+2019-03-28
+</priority_date>
+
+<ipc_classes>
+G06F9/451,G06K9/00,G06K9/32,G06T7/194,H04N21/488
+</ipc_classes>
+
+<assignee>
+PIK-SEL
+</assignee>
+
+<inventors>
+CHAO, GERALD
+</inventors>
+
+<docdb_family_id>
+70057143
+</docdb_family_id>
+
+<title>
+A METHOD AND SYSTEM FOR MATCHING CLIPS WITH VIDEOS VIA MEDIA ANALYSIS
+</title>
+
+<abstract>
+There is disclosed a method of processing a video file and a textless video file comprising a plurality of textless video clips, wherein the textless video clips are derived from the video file, the method comprising: comparing each textless video clip to a plurality of portions of the video file, the plurality of portions corresponding to the full length of the video file; determining each textless video clip being similar to only one portion of the video file as being a matched pair; for each matched pair identifying if their text content is different, wherein identification of a different text content dictates that the textless video clip corresponds to a portion of the video file having overlaid text; training a classifier to predict whether an area of text detected in the full length video is overlaid text in dependence on this identification; determining the probability of each portion of the full-length video having overlaid text via the trained classifier; determining each textless video clip being similar to more than one portion of the video file as being a potential matched pair; and resolving the potential matched pairs with the determined probability.
+</abstract>
+
+<claims>
+CLAIMS :
+1. A method of processing a video file and a textless video file comprising a plurality of textless video clips, wherein the textless video clips are derived from the video file, the method comprising:
+comparing each textless video clip to a plurality of portions of the video file, the plurality of portions corresponding to the full length of the video file;
+determining each textless video clip being similar to only one portion of the video file as being a matched pair;
+for each matched video portion pair identifying if their text content is different, wherein identification of a different text content dictates that the textless video clip corresponds to a portion of the video file having overlaid text;
+training a classifier to predict whether an area of text detected in the full length video is overlaid text in dependence on this identification;
+determining the probability of each portion of the full-length video having overlaid text via the trained classifier;
+determining each textless video clip being similar to more than one portion of the video file as being a potential matched pair; and
+resolving the potential matched pairs with the determined probability. 2. The method of claim 1, further comprising the step of decompressing the video file and decompressing the plurality of textless video clips prior to the comparing step .
+3. The method of claim 1 or claim 2 further comprising the step of decoding the video file and the plurality of textless videos into individual frames prior to the comparing step.
+4. The method of claim 3 further comprising extracting individual textless clips, by identifying the start and end points of individual clips, such that the textless video is a collection of short video frames and the fulllength video is one long collection of video frames. 5. The method of any one of claims 1 to 4 further comprising grouping the video frames into shots and grouping the video clips into shots, each shot comprising a series of frames that are considered to contain the same amount of visual information.
+6. The method of claim 5, further comprising converting each shot into a low dimension representation.
+7. The method of claim 6, wherein converting each shot into a low dimension representation comprises selecting one frame of the shot to represent all frames of the shot .
+8. The method of any one of claims 2 to 7 further comprising discarding information not needed for a matching process to provide a more compact representation . 9. The method of claim 8 further comprising taking the low-dimensional representation per shot from each textless clip, and searching for matches within the lowdimensional representation per shot from the full-length video .
+10. The method of claim 9 wherein the searching comprises allocating a distance metric to each comparison, with the lowest metric indicating the most likely match.
+11. The method of claim 10 further comprising applying a threshold to assess the distance information.
+12. The method of claim 11 wherein there is determined a set of matched textless clips, corresponding to textless clips which are determined to match only one portion of the video file, and there is determined a set of unmatched textless clips which are determined not to match only one portion of the video file.
+13. The method of any one of claims 1 to 12 wherein the step of determining the textless video clips having an image being similar to only one portion of the video file is unambiguous matching.
+14. The method of any one of claims 1 to 13, wherein the pair of matched textless video clip and similar only one portion are represented in their original frames for the identifying step.
+15. The method of any one of claims 1 to 14 further comprising performing text-in-image detection of the image frames per shot of both videos.
+16. The method of any one of claims 1 to 15 wherein there is provided a set of text boxes, and an identification of the video frames in which they appear.
+17. The method of claim 16 further comprising comparing each text box per shot from the full-length video with the ones from the textless clips.
+18. The method of claim 17 wherein any difference indicates that overlaid text is present in the full length video, and the absence of a difference indicates that the text is background text.
+19. The method of any one of claims 14 to 18, further comprising training a classifier based on this comparison, which receives as inputs pairs comprising overlaid text and background text, the classifier defining a model.
+20. The method of any one of claims 5 to 19 further computing the probability that each shot of the fulllength video includes overlaid text in dependence on the classifier model.
+21. The method of any one of claims 18 to 20 further comprising allocating a probability of overlaid text to each portion of the video having text.
+22. The method of claim 21 further comprising identifying those portions of the video file having text.
+23. The method of claim 22 further comprising applying a probability to those identified portions.
+24. The method of any one of claims 20 to 23 further comprising determining each textless video clip having an image being similar to more than one image of more than one portion of the video file, and selecting one portion of the video file for that textless video clip in dependence on the one having the highest probability of overlaid text.
+25. The method of any one of claims 20 to 24 further comprising taking the low-dimensional representation per shot from each textless clip, and searching for matches within the low-dimensional representation per shot from the full-length video.
+26. The method of any one of claims 21 to 25 further comprising increasing the likelihood of matching proportional to the probability of the shot including overlaid text.
+27. The method of claim 25 or claim 26 further comprising taking the frame from each textless clip, and searching for per-frame matches within the frames from its unambiguously matched portion of the full-length video, to find the frame offset that results in the overall minimum distance.
+28. The method of any preceding claim wherein the portions of the video which are unambiguously matched to a textless clip are output as final matches.
+29. The method of claim 28 further comprising aligning the output unambiguous matches.
+30. A method of identifying portions of a video which comprise overlaid text, comprising:
+in a first phase:
+receiving the video;
+receiving textless clips/video;
+comparing each textless clip to portions of the video ;
+identifying those textless clips which match only one portion of the video;
+based on said identification, processing the textless clips and the matched portions of the video by :
+detecting the text images in each, and comparing the text images in each matched pair;
+identifying those matched pairs as each having a text box as background text;
+identifying these matched pairs in which only one has a text box as being overlaid text; training a model in dependence on said two identifications,
+in a probability step:
+receiving the video;
+detecting portions of the video having text; applying the model to said portions to compute a probability that the portion having text has overlaid text;
+thereby providing a probability of overlaid text for each portion having text,
+in a matching step:
+receiving the video;
+receiving the textless clips;
+identifying those textless clips of the video which match more than one portion of the video;
+selecting only one portion for that textless clip based on the portion having the highest probability of overlaid text;
+wherein all textless clips for which a match is found are uniquely matched to one portion of the video, in a second phase:
+receiving the video;
+receiving textless clips;
+comparing each textless clip to portions of the video .
+31. The method of claim 30 wherein the step of detecting the text images comprises detecting text-in-images, and the step of comparing the text images in each comprises comparing the detected text boxes in each.
+32. The method of claim 30 or claim 31 wherein the step of comparing each textless clip to portions of the video comprises comparing the video frames of each textless clip to the video frames of the matched portions of the video .
+33. A method of automatically identifying portions of a video which comprises overlaid text, comprising:
+receiving the video;
+receiving textless clips;
+comparing each textless clip to portions of the video ;
+identifying those textless clips which match only one portion of the video;
+matching those textless clips which match only one portion of the video to that portion;
+identifying those textless clips which match more than one portion of the video;
+selecting one portion of the video for that textless clip based on the portion of the video determined to have the highest probability of containing overlaid text;
+match that textless clip to the selected portion of the video;
+wherein all textless clips are matched to one portion of the video.
+34. A method of automatically identifying portions of a full-length video as being associated with overlaid text, comprising :
+receiving the full-length video;
+receiving textless clips of the full-length video; receiving a model for identifying portions of the full-length video as comprising overlaid text;
+identifying text in portions of the received fulllength video, and in dependence on the model apportioning a probability value to such portion, the probability value indicating the probability of the text being overlaid text;
+identifying the textless clips which match any portion of the full-length video to provide matched pairs ;
+if a textless clip matches only one portion of the full-length video, matching that textless clip to that portion of the full-length video;
+if a textless clip matches multiple portions of the full-length video, matching that textless clip to the one of the portions having the highest probability; and
+identifying each portion of the full-length video uniquely matched to a textless clip as containing overlaid text.
+35. The method of claim 34 wherein the highest probability is of overlaid text.
+36. A method of training a classifier, which classifier is used to process a full-length video to identify portions of the video which contain overlaid text, the method comprising:
+receiving the full-length video;
+receiving textless clips of the full-length video; identifying textless clips which match to only one portion of the full-length video to provide matched pairs; and
+detecting in each textless clip and portion of fulllength video of each matched pair whether text is present ;
+wherein if text is only present in the portion of the full-length video of a pair, that portion of the full-length video is identified as comprising overlaid text, and if text is present in the portion of the fulllength video and the matched textless clip of a pair, that portion of the full-length video is identified as comprising background text;
+the method further comprising training a classifier for the full-length video in dependence on whether each matched pair is identified as being associated with overlaid text or background text.
+37. The method of claim 36 wherein the full length video contains overlaid text.
+38. A device for processing a video file and a textless video file comprising a plurality of textless video clips, wherein the textless video clips are derived from the video file, the device comprising:
+a comparison module for comparing each textless video clip to a plurality of portions of the video file, the plurality of portions corresponding to the full length of the video file;
+a comparison module for determining each textless video clip having an image being similar to only an image of only one portion of the video file as being a matched pair;
+a comparison module for identifying, for each image matched pair, if their text content is different, wherein identification of a different text content dictates that the textless video clip corresponds to a portion of the video file having overlaid text; and
+a training module for training a classifier to predict whether an area of text detected in the full length video is overlaid text in dependence on this identification;
+a processing module configured to:
+determine the probability of each portion of the full-length video having overlaid text via the trained classifier;
+determine each textless video clip being similar to more than one portion of the video file as being a potential matched pair; and
+resolve the potential matched pairs with the determined probability.
+39. The method of claim 38 wherein the full length video contains overlaid text.
+40. A device for identifying portions of a video which comprise overlaid text, the device comprising:
+an input for receiving the video;
+an input for receiving textless clips/video;
+a comparison module configured to compare each textless clip to portions of the video and identify those textless clips which match only one portion of the video ;
+a processor for processing, based on said identification, the textless clips and the matched portions of the video, the processor being configured to:
+detect the text images in each, and
+compare the text images in each matched pair; identify those matched pairs as each having a text box as background text;
+identify these matched pairs in which only one has a text box as being overlaid text; train a model in dependence on said two identifications,
+receive the video;
+detect portions of the video having text;
+apply the model to said portions to compute a probability that the portion having text has overlaid text;
+thereby providing a probability of overlaid text for each portion having text,
+in a matching step:
+the processor being further configured to:
+receive the video;
+receive the textless clips;
+identify those textless clips of the video which match more than one portion of the video;
+select only one portion for that textless clip based on the portion having the highest probability;
+wherein all textless clips for which a match is found are uniquely matched to one portion of the video, wherein the processor is further configured to:
+receive the video;
+receive textless clips;
+compare each textless clip to portions of the video .
+41. The method of claim 40 wherein the probability is a probability of overlaid text.
+42. The method of claim 40 or claim 41 wherein the processor is configured to compare each textless clip to portions of the video by comparing the video frames of each textless clip to the video frames of the matched portions of the video.
+43. A device for automatically identifying portions of a video which comprises overlaid text, the device comprising :
+a first input for receiving the video;
+a second input for receiving textless clips;
+a comparison module for comparing each textless clip to portions of the video;
+a processor configured to identify those textless clips which match only one portion of the video;
+matching those textless clips which match only one portion of the video to that portion;
+identify those textless clips which match more than one portion of the video;
+selecting one portion of the video for that textless clip based on the portion of the video determined to have the highest probability of containing overlaid text;
+match that textless clip to the selected portion of the video;
+wherein all textless clips are matched to one portion of the video.
+44. A device for automatically identifying portions of a full-length video as being associated with overlaid text, the device comprising:
+an input for receiving the full-length video;
+an input for receiving textless clips of the fulllength video; an input for receiving a model for identifying portions of the full-length video as comprising overlaid text ;
+a processor configured to:
+identify text in portions of the received fulllength video, and in dependence on the model apportioning a probability value to such portion, the probability value indicating the probability of the text being overlaid text;
+identify the textless clips which match any portion of the full-length video to provide matched pairs ;
+if a textless clip matches only one portion of the full-length video, match that textless clip to that portion of the full-length video;
+if a textless clip matches multiple portions of the full-length video, match that textless clip to the one of the portions having the highest probability; and
+identify each portion of the full-length video uniquely matched to a textless clip as containing overlaid text.
+45. A device for training a classifier, which classifier is used to process a full-length video to identify portions of the video which contain overlaid text, the device comprising:
+an input for receiving the full-length video;
+an input for receiving textless clips of the fulllength video;
+a processor configured to: identify textless clips which match to only one portion of the full-length video to provide matched pairs; and
+detect in each textless clip and portion of full-length video of each matched pair whether text is present;
+wherein if text is only present in the portion of the full-length video of a pair, that portion of the full-length video is identified as comprising overlaid text, and if text is present in the portion of the full-length video and the matched textless clip of a pair, that portion of the full-length video is identified as comprising background text; train a classifier for the full-length video in dependence on whether each matched pair is identified as being associated with overlaid text or background text.
+</claims>
+</document>

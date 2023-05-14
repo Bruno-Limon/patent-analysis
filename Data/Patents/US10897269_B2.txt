@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2018-09-17
+</filing_date>
+
+<publication_date>
+2021-01-19
+</publication_date>
+
+<priority_date>
+2017-09-14
+</priority_date>
+
+<ipc_classes>
+H03M7/30,H04N19/436,H04N19/597,H04N19/60,H04N19/96
+</ipc_classes>
+
+<assignee>
+APPLE
+</assignee>
+
+<inventors>
+SU, YEPING
+MAMMOU, KHALED
+TOURAPIS, ALEXANDROS
+ROBINET, FABRICE A.
+</inventors>
+
+<docdb_family_id>
+65631726
+</docdb_family_id>
+
+<title>
+Hierarchical point cloud compression
+</title>
+
+<abstract>
+A system comprises an encoder configured to compress attribute information for a point cloud and/or a decoder configured to decompress compressed attribute information for the point cloud. Attribute values for at least one starting point are included in a compressed attribute information file and attribute correction values used to correct predicted attribute values are included in the compressed attribute information file. Attribute values are predicted based, at least in part, on attribute values of neighboring points and distances between a particular point for whom an attribute value is being predicted and the neighboring points. The predicted attribute values are compared to attribute values of a point cloud prior to compression to determine attribute correction values. A decoder follows a similar prediction process as an encoder and corrects predicted values using attribute correction values included in a compressed attribute information file.
+</abstract>
+
+<claims>
+1. A system comprising: one or more sensors configured to capture a plurality of points that make up a point cloud, wherein respective ones of the points comprise spatial information for the point and attribute information for the point; and an encoder configured to: determine a first level of detail for the attribute information of the point cloud; and determine one or more additional levels of detail for the attribute information of the point cloud, wherein to determine the first level of detail or the one or more additional levels of detail, the encoder is configured to: assign an attribute value to at least one point of the point cloud based on the attribute information included in the captured point cloud for the point; and for a sub-set of respective ones of the points of the point cloud not included in a previously determined level of detail: identify a set of neighboring points greater than a first distance from the point; determine a predicted attribute value for the respective point based on predicted or assigned attributes values for the neighboring points; and determine, based on comparing the predicted attribute value for the respective point to the attribute information for the point included in the captured point cloud, an attribute correction value for the point; and encode the assigned attribute value and the determined attribute correction values for first level of detail and the one or more additional levels of detail.
+2. The system of claim 1, wherein the encoder is configured to: sequentially provide the first level of detail and the one or more additional levels of detail to a recipient device.
+3. The system of claim 2, wherein the encoder further encodes the spatial information for the point cloud as a K-D tree.
+4. The system of claim 2, wherein the encoder is configured to include spatial information for respective sub-sets of points in the respective levels of detail corresponding to the respective sub-sets of points.
+5. The system of claim 1, wherein the encoder is further figured to encode: information indicating a number of levels of detail encoded for the point cloud.
+6. The system of claim 1, wherein the encoder is further configured to encode: an initial sampling distance for identifying points included in the first level of detail; and a sampling distance update factor for determining additional sampling distances for the one or more additional levels of detail, wherein the additional sampling distances are for identifying points included in the one or more additional levels of detail, wherein the initial sampling distance and the sampling distance update factor are provided to a decoder in addition to the encoded assigned attribute value and the encoded determined attribute correction values for first level of detail and the one or more additional levels of detail.
+7. The system of claim 1, wherein, to determine the predicted attribute value for the respective point based on predicted or assigned attributes values for the neighboring points, the encoder is configured to: determine respective distances between the respective point and respective ones of the neighboring points of a set of neighboring points, wherein the attribute value for the respective point is determined based on an inverse distance interpolation method, wherein attribute values of neighboring points closer to the respective point are weighted more heavily than attribute values of neighboring points that are further away from the respective point.
+8. A decoder configured to: receive compressed attribute information for a point cloud comprising at least one assigned attribute value for at least one point of the point cloud and data indicating attribute correction values for attributes of other points of the point cloud, wherein the attribute correction values are ordered in a plurality of levels of detail for a plurality of sub-sets of the other points of the point cloud; and provide attribute information for a decompressed point cloud having a first level of detail; and update the decompressed point cloud to include attribute information for additional sub-sets of points at one or more other ones of the plurality of levels of detail.
+9. The decoder of claim 8, wherein to update the decompressed point cloud, the decoder is configured to assign attribute information to the additional sub-sets of points, wherein the assigned attribute information is in addition to attribute information previously assigned for sub-sets of points included in other ones of the levels of detail.
+10. The decoder of claim 8, wherein to determine attribute information for a sub-set of the points included in the first level of detail or the additional sub-sets of points included in the one or more other ones of the levels of detail, the decoder is configured to: for each of the points of a given sub-set of points corresponding to a given level of detail: identify a set of neighboring points to a point being evaluated; determine a predicted attribute value for the point being evaluated based on predicted or assigned attribute values for the neighboring points; and adjust the predicted attribute value for the point being evaluated based on an attribute correction value for the point included in the compressed attribute information.
+11. The decoder of claim 8, wherein the predicted attribute values are determined based on inverse distance relationships between the point being evaluated and the neighboring points.
+12. The decoder of claim 8, wherein the decoder is configured to determine a number of levels of detail to decode based, at least in part, on a data budget allocated for the decompressed point cloud.
+13. The decoder of claim 8, wherein the decoder is configured to determine a number of levels of detail to decode based, at least in part, on a viewing mode used to view the decompressed point cloud.
+14. A method comprising: receiving compressed attribute information for a point cloud comprising at least one assigned attribute value for at least one point of the point cloud and data indicating attribute correction values for attributes of the other points of the point cloud, wherein the attribute correction values are ordered in a plurality of levels of detail for a plurality of sub-sets of the other points of the point cloud; and providing attribute information for a decompressed point cloud having a first level of detail; and updating the decompressed point cloud to include attribute information for additional sub-sets of points at one or more other ones of the plurality of levels of detail.
+15. The method of claim 14, wherein providing the attribute information for the first level of detail and updating the decompressed point cloud to include attribute information for additional sub-sets of points at one or more other ones of the plurality of levels of detail respectively comprises: for each of the points of a given sub-set of points corresponding to a given level of detail: identifying a set of neighboring points to a point being evaluated; determining a predicted attribute value for the point being evaluated based on predicted or assigned attribute values for the neighboring points; and adjusting the predicted attribute value for the point being evaluated based on an attribute correction value for the point included in the compressed attribute information.
+16. The method of claim 15, further comprising: receiving spatial information for points of the first level of detail; and separately receiving spatial information for points of a second level of detail.
+17. The method of claim 15, further comprising: receiving encoded spatial information for points of more than one level of detail of the point cloud; and decoding the encoded spatial information prior to said providing attribute information for the first level of detail.
+18. The method of claim 15, wherein said updating the decompressed point cloud comprises: assigning attribute information to the additional sub-sets of points, wherein the assigned attribute information is in addition to attribute information previously assigned for sub-sets of points included in other ones of the levels of detail.
+19. The method of claim 15, further comprising: determining a number of levels of detail to decode based, at least in part, on a data budget allocated for the decompressed point cloud.
+20. The method of claim 15, further comprising: determining a number of levels of detail to decode based, at least in part, on a viewing mode used to view the decompressed point cloud.
+</claims>
+</document>

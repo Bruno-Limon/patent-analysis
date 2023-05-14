@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2018-11-30
+</filing_date>
+
+<publication_date>
+2020-06-04
+</publication_date>
+
+<priority_date>
+2018-11-30
+</priority_date>
+
+<ipc_classes>
+G06F8/30,G06F8/53
+</ipc_classes>
+
+<assignee>
+GRAMMATECH
+</assignee>
+
+<inventors>
+FLORES MONTOYA, ANTONIO ENRIQUE
+SCHULTE, ERIC MICHAEL
+</inventors>
+
+<docdb_family_id>
+70850830
+</docdb_family_id>
+
+<title>
+Systems and/or methods for generating reassemblable disassemblies of binaries using declarative logic
+</title>
+
+<abstract>
+Certain example embodiments relate to techniques for generating reassemblable disassemblies of binaries using declarative logic. A declarative logic programming language (e.g., Datalog) is used to compile reverse engineering, binary analysis, and disassembly rules into a format applicable to an executable program, yielding disassembly of that program. Datalog, for example, can be used as a query language for deductive databases, to facilitate this approach. Certain example embodiments thus involve (1) preparation of an executable for Datalog analysis, (2) inference rules and the application of Datalog for program analysis, including the application of Datalog to the domain of binary reverse engineering and analysis, and (3) the collection of assembly code from the results of the Datalog analysis. These rules can include both "hard rules" and "soft rules" or heuristics, even though standard Datalog does not support the latter.
+</abstract>
+
+<claims>
+1. A method of disassembling an executable, the method comprising: parsing the executable, and decoding possible instructions in the executable in connection with the parsing; generating an initial fact database comprising the possible instructions; generating an enhanced fact database by executing a plurality of inference modules on the initial fact database, at least some of the inference modules being expressed in a declarative query language and including (a) a code inference module structured to compute valid instructions organized in blocks of code, (b) a symbolization module structured to disambiguate between symbols and memory addresses, and (c) a function inference module structured to identify functions; and organizing content from the enhanced fact database into a format of valid assembler code.
+2. The method of claim 1, wherein the declarative query language is Datalog.
+3. The method of claim 1, wherein one or more of the inference modules implement(s) a soft heuristic in addition to hard rules for fact generation.
+4. The method of claim 3, wherein all hard rules and soft heuristics are encoded into Datalog rules.
+5. The method of claim 4, wherein execution of a Datalog engine on the Datalog rules results in a consistent fact universe for the initial fact database and the enhanced fact database.
+6. The method of claim 3, wherein new hard rules and/or new soft heuristics are definable and suitable for use in generating facts for the initial fact database and/or enhanced fact database, independent of existing hard rules and/or soft heuristics.
+7. The method of claim 1, wherein one or more of the inference modules implement(s) a heuristic by: generating a problem/solution space for the issue for which evidence is to be built and/or for which a conflict is to be resolved; subjecting at least some of the members in the problem/solution space to rules that assign points to different outcomes related to the issue for which the evidence is to be built and/or for which the conflict is to be resolved; determining which one or more members of the problem/solution space has/have the most points; and admitting to the enhanced fact database the one or more members of the problem/solution space determined to have the most points.
+8. The method of claim 7, wherein the heuristic is implemented for code block detection in the code inference module.
+9. The method of claim 1, wherein the symbolization module implements heuristics for determining that an array likely is present based on the presence of a plurality of evenly-spaced symbols, determining that an accessed address likely is a valid pointer based on a size of the associated access being pointer-sized, determining that a pointer candidate in what appears to be a string is less likely to be a valid pointer, and/or determining that a pointer candidate that is aligned is more likely to be a valid pointer.
+10. The method of claim 1, wherein the symbolization module includes definition to use chain analysis, value analysis, and/or data access analysis.
+11. The method of claim 1, wherein the function inference module uses symbol information and heuristics to identify a first set of functions, and attempts to add a second set of functions by finding blocks of code that are contiguous to, but not reachable from, a complete function in the first set of functions.
+12. The method of claim 1, wherein the valid assembler code is assembleable into a valid executable.
+13. The method of claim 1, wherein one or more of the inference modules are configured to receive additional rules from a user and/or from additional programmatic analysis.
+14. A system for disassembling an executable, comprising: a non-transitory computer readable storage medium; and processing resources including at least one memory and a hardware processor, the processing resources being configured to: receive the executable; parse the executable, and decode possible instructions in the executable in connection with the parsing; generate an initial fact database comprising the possible instructions, the initial fact database being stored to the non-transitory computer readable storage medium; generate an enhanced fact database by executing a plurality of inference modules on the initial fact database, at least some of the inference modules being expressed in a declarative query language and including (a) a code inference module structured to compute valid instructions organized in blocks of code, (b) a symbolization module structured to disambiguate between symbols and memory addresses, and (c) a function inference module structured to identify functions, the enhanced fact database being stored to the non-transitory computer readable storage medium; and organize content from the enhanced fact database into a format of valid assembler code.
+15. The system of claim 14, wherein the declarative query language is Datalog.
+16. The system of claim 14, wherein one or more of the inference modules implement(s) a soft heuristic in addition to hard rules for fact generation.
+17. The system of claim 14, wherein all hard rules and soft heuristics are encoded into Datalog rules, and wherein execution of a Datalog engine on the Datalog rules results in a consistent fact universe for the initial fact database and the enhanced fact database.
+18. The system of claim 14, wherein one or more of the inference modules implement(s) a heuristic by: generating a problem/solution space for the issue for which evidence is to be built and/or for which a conflict is to be resolved; subjecting at least some of the members in the problem/solution space to rules that assign points to different outcomes related to the issue for which the evidence is to be built and/or for which the conflict is to be resolved; determining which one or more members of the problem/solution space has/have the most points; and admitting to the enhanced fact database the one or more members of the problem/solution space determined to have the most points.
+19. The system of claim 14, wherein the symbolization module implements heuristics for determining that an array likely is present based on the presence of a plurality of evenly-spaced symbols, determining that an accessed address likely is a valid pointer based on a size of the associated access being pointer-sized, determining that a pointer candidate in what appears to be a string is less likely to be a valid pointer, and/or determining that a pointer candidate that is aligned is more likely to be a valid pointer.
+20. The system of claim 14, wherein the symbolization module includes definition to use chain analysis, value analysis, and/or data access analysis.
+21. The system of claim 14, wherein the function inference module uses symbol information and heuristics to identify a first set of functions, and attempts to add a second set of functions by finding blocks of code that are contiguous to, but not reachable from, a complete function in the first set of functions.
+22. The system of claim 14, wherein the valid assembler code is assembleable into a valid executable.
+23. The system of claim 14, wherein one or more of the inference modules are configured to receive additional rules from a user and/or from additional programmatic analysis.
+24. A non-transitory computer readable storage medium tangibly storing a program that, when executed by a computing system including at least one processor, is configured to disassemble an executable, by performing functionality comprising: parsing the executable, and decoding possible instructions in the executable in connection with the parsing; generating an initial fact database comprising the possible instructions; generating an enhanced fact database by executing a plurality of inference modules on the initial fact database, at least some of the inference modules being expressed in a declarative query language and including (a) a code inference module structured to compute valid instructions organized in blocks of code, (b) a symbolization module structured to disambiguate between symbols and memory addresses, and (c) a function inference module structured to identify functions; and organizing content from the enhanced fact database into a format of valid assembler code.
+</claims>
+</document>

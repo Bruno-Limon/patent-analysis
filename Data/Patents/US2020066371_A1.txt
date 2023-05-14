@@ -1,0 +1,58 @@
+<document>
+
+<filing_date>
+2019-02-28
+</filing_date>
+
+<publication_date>
+2020-02-27
+</publication_date>
+
+<priority_date>
+2015-10-13
+</priority_date>
+
+<ipc_classes>
+G16B15/00
+</ipc_classes>
+
+<assignee>
+UNIVERSITY OF TORONTO
+</assignee>
+
+<inventors>
+BRUBAKER, MARCUS ANTHONY
+FLEET, DAVID JAMES
+PUNJANI, ALI
+</inventors>
+
+<docdb_family_id>
+58498681
+</docdb_family_id>
+
+<title>
+METHODS AND SYSTEMS FOR 3D STRUCTURE ESTIMATION
+</title>
+
+<abstract>
+Disclosed herein are systems and methods for efficient 3D structure estimation from images of a transmissive object, including cryo-EM images. The method generally comprises, receiving a set of 2D images of a target specimen from an electron microscope, carrying out a reconstruction technique to determine a likely molecular structure, and outputting the estimated 3D structure of the specimen. The described reconstruction technique comprises: establishing a probabilistic model of the target structure; optimizing using stochastic optimization to determine which structure is most likely; and, optionally utilizing importance sampling to minimize computational burden.
+</abstract>
+
+<claims>
+1. A system for producing a 3D molecular structure reconstruction from a set of 2D Cryo-electron microscope particle images of at least one target to determine estimated 3D structures for the at least one target, the system comprising: a storage unit for storing the set of 2D Cryo-electron microscope particles images of the at least one target; and a processing unit to: determine a probabilistic generative model of a density distribution of the at least one target from the stored set of 2D Cryo-electron microscope particles images, the probabilistic generative model comprising: a modulation by a contrast transfer function of the particle images; a phase shift induced by particle image translation; and a 3D spectrum of a 3D density for each respective target, the 3D density discretized on a 3D grid for each respective target, the 3D spectrum having coefficients in the Fourier domain; determine a marginalized likelihood function over the coefficients in the Fourier domain for the probabilistic generative model; perform a maximum-a-posteriori (MAP) density estimation of structure on the probabilistic generative model optimize the probabilistic generative model utilizing Stochastic Average Gradient Descent (SAGD) to determine a most likely 3D structure of each target; and output the optimized probabilistic generative model representing the estimated 3D structure of each target.
+2. The system of claim 1, wherein the most likely 3D structure comprises an estimate of the 3D density of each target.
+3. The system of claim 1, wherein the 3D pose and 2D position of each target in the respective particle images are treated as unknown latent variables.
+4. The system of claim 1, wherein the probabilistic model comprises a likelihood function marginalized over 3D orientations and 2D shifts of the at least one target in the particle images, the marginalization being effected on a generative model of the 3D density of the at least one target.
+5. The system of claim 1, wherein utilizing Stochastic Average Gradient Descent comprises, iteratively, selecting a mini batch of particle images, computing a gradient of the log of the likelihood function with respect to 3D density for the mini batch of particle images, and adding the gradient to a running total.
+6. The system of claim 5, wherein after a predetermined number of iterations have elapsed a line search is computed for tuning the optimization.
+7. The system of claim 1, wherein optimizing the probabilistic model utilizing Stochastic Gradient Descent further comprises applying importance sampling to efficiently marginalize over the unknown pose and position of each particle image.
+8. The system of claim 7, wherein importance sampling comprises applying two-component mixture models as importance distributions.
+9. The system of claim 8, wherein importance sampling comprises selecting particle images according to the importance distributions.
+10. The system of claim 1, wherein the size of the at least one target is as small as 100 Angstroms in diameter.
+11. The system of claim 1, wherein at least one target comprises a protein or virus.
+12. The system of claim 1, wherein the at least one target comprises two or more targets, and the set of 2D Cryo-electron microscope particles images is heterogeneous, whereby each image provides an image of the 3D structure of one of the two or more targets.
+13. The system of claim 1, wherein optimizing the probabilistic generative model by the processing unit comprises: initializing the density distribution; initializing a gradient of the likelihood function; initializing a gradient of the density; and iteratively, for each data point in a set of data points on the particle images, determining the gradient of the likelihood function with respect to density.
+14. The system of claim 13, wherein determining the gradient of the likelihood function with respect to density comprises updating a sum with previously determined gradients of the likelihood function for other data points.
+15. The system of claim 13, wherein optimizing the probabilistic generative model further comprises determining a Lipschitz constant using a line search algorithm.
+</claims>
+</document>

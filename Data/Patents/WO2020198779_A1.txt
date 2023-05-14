@@ -1,0 +1,90 @@
+<document>
+
+<filing_date>
+2020-04-02
+</filing_date>
+
+<publication_date>
+2020-10-08
+</publication_date>
+
+<priority_date>
+2019-04-04
+</priority_date>
+
+<ipc_classes>
+G06N20/00,G06T7/00
+</ipc_classes>
+
+<assignee>
+PRESAGEN PTY LTD
+</assignee>
+
+<inventors>
+HALL, Jonathan
+PERUGINI, Donato
+PERUGINI, Michelle
+</inventors>
+
+<docdb_family_id>
+72664320
+</docdb_family_id>
+
+<title>
+METHOD AND SYSTEM FOR SELECTING EMBRYOS
+</title>
+
+<abstract>
+An Artificial Intelligence (AI) computational system for generating an embryo viability score from a single image of an embryo to aid selection of an embryo for implantation in an In-Vitro Fertilisation (IVF) procedure is described. The AI model uses a deep learning method applied to images in which the Zona Pellucida region in the image is identified using segmentation, and ground truth labels such as detection of a heartbeat at a six week ultrasound scan.
+</abstract>
+
+<claims>
+1. A method for computational ly generating an Artificial Intel l igence (Al) model configured to estimate an embryo viabi l ity score from an image, the method comprising:
+receiving a plural ity of images and associated metadata, wherein each image is captured during a pre-determined time window after In-Vitro Ferti l isation (IVF) and the pre-determined time window is 24 hours or less, and the metadata associated with the image comprises at least a pregnancy outcome label; pre-processing each image comprising at least segmenting the image to identify a Zona Pel lucida region;
+generating an Artificial Intel l igence (Al) model configured to generate an embryo viabi l ity score from an input image by training at least one Zona Deep Learning Model using a deep learning method, comprising training a deep learning model on a set of Zona Pel lucida images in which the Zona Pel lucida regions are identified, and the associated pregnancy outcome labels are at least used to assess the accuracy of a trained model; and
+deploying the Al model .
+2. The method as claimed in claim 1 wherein the set of Zona Pel lucida images comprising images in which regions bounded by the Zona Pel lucida region are masked.
+3. The method as claimed in claim 1 or 2, wherein generating the Al model further comprises training one or more additional Al models wherein each additional Al model is either a computer vision model trained using a machine learning method that uses a combination of one or more computer vision descriptors extracted from an image to estimate an embryo viabi lity score, a deep learning model trained on images local ised to the embryo comprising both Zona Pel lucida and IZC regions, and a deep learning model trained on a set of IntraZonal Cavity (IZC) images in which all regions apart from the IZC are masked, and either using an ensemble method to combine at least two of the at least one Zona deep learning model and the one or more additional Al models to generate the Al model embryo viabi l ity score from an input image or using a disti llation method to train an Al model to generate the Al model embryo viabi lity score using the at least one Zona deep learning model and the one or more additional Al models to generate the Al model .
+4. The method as claims in claim 3, wherein the Al model is generated using an ensemble model comprising selecting at least two contrasting Al models from the at least one Zona deep learning model and the one or more additional Al models, and selection of Al models is performed to generate a set of contrasting Al models and applying a voting strategy to the at least two contrasting Al models that defines how the selected at least two contrasting Al models are combined to generate an outcome score for an image.
+5. The method as claimed in claim 3, wherein selecting at least two contrasting Al models comprises:
+generating a distribution of embryo viabi l ity scores from a set of images for each of the at least one Zona deep learning model and the one or more additional Al models; and
+comparing the distributions and discarding a model if the associated distributions is too simi lar to another distribution to select Al models with contrasting distributions.
+6. The method as claimed in any preceding claim wherein the pre-determined time window is a 24 hour timer period beginning 5 days after fertil isation.
+7. The method as claimed in any preceding claim, wherein the pregnancy outcome label is a groundtruth pregnancy outcome measurement performed within 12 weeks after embryo transfer.
+8. The method as claimed claim 7 wherein the ground-truth pregnancy outcome measurement is whether a foetal heartbeat is detected.
+9. The method as claimed in any preceding claim further comprising cleaning the plurality of image comprising identifying images with l i kely incorrect pregnancy outcome labels, and excluding or re label l ing the identified images.
+10. The method as claimed in claim 9 wherein cleaning the plural ity of images comprises estimating the l i kel ihood that a pregnancy outcome label associated with an image is incorrect and comparing against a threshold value, and then excluding or relabel ling images with a li kel ihood exceeding the threshold value.
+11. The method as claimed in claim 10 wherein estimating the l i kel ihood a pregnancy outcome label associated with an image is incorrect is be performed by using a plurality of Al classification models and a k-fold cross val idation method in which the plurality of images are split into k mutual ly exclusive val idation datasets, and each of the plurality of Al classifications model is trained on k-1 validation datasets in combination and then used to classify images in the remaining val idation dataset, and the l ikelihood is determined based on the number of Al classification models which misclassify the pregnancy outcome label of an image.
+12. The method as claimed in any preceding claim wherein training each Al model or generating the ensemble model comprises assessing the performance of an Al model using a plural ity of metrics comprising at least one accuracy metric and at least one confidence metric, or a metric combining accuracy and confidence.
+13. The method claimed in any preceding claim wherein pre-processing the image further comprises cropping the image by localising an embryo in the image using a deep learning or computer vision method.
+14. The method claimed in any preceding claim wherein pre-processing the image further comprises one or more of padding the image, normal ising the colour balance, normal ising the brightness, and scaling the image to a predefined resolution.
+15. The method as claimed in any preceding claim, further comprises generating one or more augmented images for use in training an Al model .
+16. The method as claimed in the preceding claim wherein an augmented image is generated by applying one or more rotations, reflections, resizing, blurring, contrast variation, j itter, or random compression noise to an image.
+17. The method as claimed in claim 15 or 16, wherein during training of an Al model one or more augmented images are generated for each image in the training set, and during assessment of the val idation set, the results for the one or more augmented images are combined to generate a single result for the image.
+18. The method as claimed in any preceding claim, where pre-processing the image further comprises annotating the image using one or more feature descriptor models, and masking al l areas of the image except those within a given radius of the descriptor key point.
+19. The method as claimed in any preceding claim, wherein each Al model generates an outcome score wherein the outcome is a n-ary outcome having n states, and training an Al model comprises a plural ity of training-val idation cycles further comprises randomly al locating the plurality of images to one of a training set, a val idation set or a blind validation set, such that the training dataset comprises at least 60% of the images, the val idation dataset comprises at least 10% of the images, and the blind val idation dataset comprises at least 10% of the images, and after al locating the images to the training set, val idation set and bl ind val idation set, calculating the frequency of each of the n-ary outcome states in each of the training set, val idation set and blind validation set, and testing that the frequencies are simi lar, and if the frequencies are not simi lar then discarding the al location and repeating the randomisation until a randomisation is obtained in which the frequencies are simi lar.
+20. The method as claimed in claim 3 wherein training a computer vision model comprising performing a plurality of a training-val idation cycles, and during each cycle the images are clustered based on the computer vision descriptors using an unsupervised clustering algorithm to generate a set of clusters, and each image is assigned to a cluster using a distance measure based on the values of the computer vision descriptors of the image, and a supervised learning method is use to determine whether a particular combination of these features corresponds to an outcome measure, and frequency information of the presence of each computer vision descriptor in the plural ity of images.
+21. The method as claimed in any preceding claim, wherein each deep learning model is a convolutional neural network (CN N) and for an input image each deep learning model generates an outcome probabil ity.
+22. The method as claimed in any preceding claim, wherein the deep learning method uses a loss function configured to modify an optimization surface is to emphasise global minima.
+23. The method as claimed in the preceding claim, wherein the loss function includes a residual term defined in terms of the network weights, which encodes the col lective difference in the predicted value from the model and the target outcome for each image, and includes it as an additional contribution to the normal cross entropy loss function.
+24. The method as claimed in any preceding claim, wherein the method is performed on a cloud based computing system using a Webserver, a database, and a plural ity of training servers, wherein the Webserver receives one or more model training parameters from a user, and the Webserver initiates a training process on one or more of the plurality of training servers, comprising uploading training code to one of the plural ity the training server, and the training server requests the plurality of images and associated metadata from a data repository, and performs the steps of preparing each image, generating a plurality of computer vision models and generating a plurality of deep learning models, and each training server is configured to periodical ly save the models to a storage service, and accuracy information to one or more log files to allow a training process to be restarted.
+25. The method as claimed in any preceding claim, wherein the ensemble model is trained to bias residual inaccuracies to minimize false negatives.
+26. The method as claimed in any preceding claim wherein the embryo viabi l ity score is a binary outcome of either viable or non-viable.
+27. The method as claimed in any preceding claim, wherein each image is a phase contrast image.
+28. A method for computational ly generating an embryo viability score from an image, the method comprising: generating, in a computational system, an Artificial Intel ligence (Al) model configured to generate an embryo viabi lity score from an image according to the method of any one of claims 1 to 27; receiving, from a user via a user interface of the computational system, an image captured during a pre-determined time window after In-Vitro Ferti l isation (IVF);
+pre-processing the image according to the pre-processing steps used to generate the Al model; providing the pre-processed image to the Al model to obtain an estimate of the embryo viabi l ity score; and
+sending the embryo viabi lity score to the user via the user interface.
+29. A method for obtaining an embryo viabi lity score from an image, comprising:
+uploading, via a user interface, an image captured during a pre-determined time window after InVitro Ferti l isation (IVF) to a cloud based Artificial Intel l igence (Al) model configured to generate an embryo viabi l ity score from an image wherein the Al model is generated according to the method of any one of claims 1 to 27;
+receiving an embryo viabi l ity score from the cloud based Al model via the user interface.
+30. A cloud based computational system configured to computationally generate an Artificial Intel l igence (Al) model configured to estimate an embryo viabi l ity score from an image according to the method of any one of claims 1 to 27.
+31. A cloud based computational system configured to computationally generate an embryo viabi l ity score from an image, wherein the computational system comprises:
+an Artificial Intel l igence (Al) model configured to generate an embryo viabi l ity score from an image wherein the Al model is generated according to the method of any one of claims 1 to 27;
+receiving, from a user via a user interface of the computational system, an image captured during a pre-determined time window after In-Vitro Ferti l isation (IVF);
+providing the image to the Al model to obtain an embryo viabi l ity score; and
+sending the embryo viabi lity score to the user via the user interface.
+32. A computational system configured to generate an embryo viabi lity score from an image, wherein the computational system comprises at least one processor, and at least one memory comprising instructions to configure the at least one processor to:
+receive an image captured during a pre-determined time window after In-Vitro Ferti l isation ( IVF) upload, via a user interface, the image captured during a pre-determined time window after InVitro Ferti l isation (IVF) to a cloud based Artificial Intel l igence (Al) model configured to generate an embryo viabi l ity score from an image wherein the Al model is generated according to the method of any one of claims 1 to 27;
+receive an embryo viabi lity score from the cloud based Al model; and display the embryo viability score via the user interface.
+</claims>
+</document>

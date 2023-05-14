@@ -1,0 +1,232 @@
+<document>
+
+<filing_date>
+2020-06-17
+</filing_date>
+
+<publication_date>
+2020-12-24
+</publication_date>
+
+<priority_date>
+2019-06-17
+</priority_date>
+
+<ipc_classes>
+B60W30/12,G05D1/00
+</ipc_classes>
+
+<assignee>
+DEEPMAP
+</assignee>
+
+<inventors>
+WAN, MARLENE
+ZHANG, RONGHUA
+YAO, Yinghui
+</inventors>
+
+<docdb_family_id>
+73745906
+</docdb_family_id>
+
+<title>
+UPDATING HIGH DEFINITION MAPS BASED ON LANE CLOSURE AND LANE OPENING
+</title>
+
+<abstract>
+A computer-implemented method may comprise: receiving sensor data from a sensor of an autonomous vehicle; determining a presence of a lane closure object located on a lane element; determining a change of the lane closure object, selected from the presence of the lane closure object or absence of the lane closure object on the lane element; generating a change candidate based on the change in the lane closure object; obtaining a plurality of the change candidates during a time period or the autonomous vehicle being on a preceding lane element on the route; analyzing the plurality of change candidates for the change being the presence of the lane closure object or the absence of the lane closure object on the lane element; generating a final change candidate based on the change; and providing the final change candidate for updating a high definition map of the route having the lane element.
+</abstract>
+
+<claims>
+1. A computer-implemented method, comprising:
+receiving sensor data from at least one sensor of an autonomous vehicle that is travelling on a route;
+analyzing the sensor data to determine a presence of at least one lane closure object located on at least one lane element associated with the route;
+determining a change of the at least one lane closure object, wherein the change is selected from the presence of the at least one lane closure object or absence of the at least one lane closure object on the at least one lane element;
+generating a change candidate based on the change in the at least one lane closure object, wherein the change candidate is selected from a lane closure change candidate or a lane opening change candidate;
+obtaining a plurality of the change candidates based on the sensor data obtained during a time period or while the autonomous vehicle is on a preceding lane element on the route;
+analyzing the plurality of change candidates for the change being one of the presence of the at least one lane closure object or the absence of the at least one lane closure object on the at least one lane element;
+generating a final change candidate based on the change; and
+providing the final change candidate for updating a high definition map of the route having the lane element.
+2. The method of claim 1, further comprising:
+identifying the presence of the at least one lane closure object on the at least one lane element;
+analyzing a plurality of lane closure change candidates based on the presence of the at least one lane closure object on the at least one lane element;
+generating a final lane closure change candidate based on the plurality of lane closure change candidates; and
+providing the final lane closure change candidate for updating the high definition map to identify the at least one lane element having the presence of the at least one lane closure object as being closed.
+3. The method of claim 1, further comprising: identifying the absence of the at least one lane closure object on the at least one lane element;
+analyzing a plurality of lane opening change candidates based on the absence of the at least one lane closure object on the at least one lane element;
+generating a final lane opening change candidate based on the plurality of lane opening change candidates; and
+providing the final lane opening change candidate for updating the high definition map to identify the at least one lane element having the absence of the at least one lane closure object as being opened.
+4. The method of claim 3, further comprising:
+obtaining closed lane element data for the at least one lane element from a closed lane element database;
+identifying the at least one lane element as being labeled as a closed lane element in the closed lane element database;
+determining the absence of the at least one lane closure object on the at least one lane element labeled as the closed lane element;
+determining the at least one lane element that is labeled as the closed lane element to be a candidate for being updated to an opened lane element based on the absence of the at least one lane closure object; and
+relabeling the at least one lane element as an at least one opened lane element based on the absence of the at least one lane closure object.
+5. The method of claims 1, further comprising:
+identifying the presence of the at least one lane closure object on the at least one lane element;
+classifying a location of each identified lane closure object on the at least one lane element as one of:
+on a left boundary of a respective lane element;
+on a right boundary of the respective lane element; or
+within the respective lane element.
+6 The method of claim 5, further comprising: determining a lane closure score by aggregating the plurality of change candidates, each change candidate being weighted by the classified location of each identified lane closure object of the respective change candidate, wherein each identified lane closure object within the respective lane element is weighted higher than each identified lane closure object on the left boundary or right boundary of the respective lane element; and generating the final change candidate based on the lane closure score.
+7. The method of claim 6, further comprising:
+determining a confidence level based on the lane closure score; and
+generating the final change candidate based on the confidence level.
+8. The method of claim 7, further comprising one of:
+increasing the confidence level that a first lane element is an opened lane element when a moving vehicle is detected on the first lane element; or
+decreasing the confidence level that the first lane element is a closed lane element when the moving vehicle is detected on the first lane element.
+9. The method of claim 6, further comprising:
+labeling each respective lane element as one of:
+a closed lane element when the lane closure score is above a lane closure threshold; or
+an opened lane element when the lane closure score is below a lane opening threshold.
+10. The method of claim 1, further comprising:
+identifying the presence of the at least one lane closure object or the absence of the at least one lane closure object on the at least one lane element by:
+obtaining a point cloud based on a LIDAR scan;
+detecting an object in a camera image of the sensor data;
+mapping points from the point cloud on the camera image to identify points that map to the detected object;
+clustering the mapped points;
+identifying the largest cluster determined by the clustering; and determining the identified largest cluster to indicate the detected object to be a detected lane closure object, and thereby identifying the presence of the at least one lane closure object; or
+marking a camera image as omitting a lane closure object and thereby identifying the absence of the at least one lane closure object.
+11. The method of claim 1, further comprising:
+performing localization to determine a location of the autonomous vehicle;
+identifying a set of lane elements within a threshold distance of the location of the autonomous vehicle; and
+mapping each lane closure object to a lane element from the set of the at least one lane elements.
+12. The method of claim 1, further comprising:
+providing at least one final change candidate to an online high definition map system;
+determining the at least one final change candidate to satisfy map update criteria; and
+updating at least one high definition map that includes the at least one lane element with the final change candidate, wherein the update is selected from:
+labeling a previously closed lane element to be labeled as currently opened; or
+labeling a previously opened lane element to be labeled as currently closed.
+13. The method of claim 12, further comprising:
+receiving a request for a high definition map for the route from at least one requesting autonomous vehicle; and
+transmitting the at least one updated high definition map to the at least one requesting autonomous vehicle.
+14. One or more non-transitory computer readable media storing instructions that in response to being executed by one or more processors, cause a computer system to perform operations, the operations comprising: receiving sensor data from at least one sensor of an autonomous vehicle that is travelling on a route;
+analyzing the sensor data to determine a presence of at least one lane closure object located on at least one lane element associated with the route;
+determine a change of the at least one lane closure object, wherein the change is selected from the presence of the at least one lane closure object or absence of the at least one lane closure object on the at least one lane element;
+generating a change candidate based on the change in the at least one lane closure object, wherein the change candidate is selected from a lane closure change candidate or a lane opening change candidate;
+obtaining a plurality of the change candidates based on the sensor data obtained during a time period or the autonomous vehicle being on a preceding lane element on the route;
+analyzing the plurality of change candidates for the change being one of the presence of the at least one lane closure object or the absence of the at least one lane closure object on the at least one lane element;
+generating a final change candidate based on the change; and
+providing the final change candidate for updating a high definition map of the route having the lane element.
+15. The one or more non-transitory computer-readable storage media of claim 14, further comprising:
+identifying the presence of the at least one lane closure object on the at least one lane element;
+analyzing a plurality of lane closure change candidates based on the presence of the at least one lane closure object on the at least one lane element;
+generating a final lane closure change candidate based on the plurality of lane closure change candidates; and
+providing the final lane closure change candidate for updating the high definition map to identify the at least one lane element having the presence of the at least one lane closure object as being closed.
+16. The one or more non-transitory computer-readable storage media of claim 14, further comprising: identifying the absence of the at least one lane closure object on the at least one lane element;
+analyzing a plurality of lane opening change candidates based on the absence of the at least one lane closure object on the at least one lane element;
+generating a final lane opening change candidate based on the plurality of lane opening change candidates; and
+providing the final lane opening change candidate for updating the high definition map to identify the at least one lane element having the absence of the at least one lane closure object as being opened.
+17. The one or more non-transitory computer-readable storage media of claim 16, further comprising:
+obtaining closed lane element data for the at least one lane element from a closed lane element database;
+identifying the at least one lane element as being labeled as a closed lane element in the closed lane element database;
+determining the absence of the at least one lane closure object on the at least one lane element labeled as the closed lane element;
+determining the at least one lane element that is labeled as the closed lane element to be a candidate for being updated to an opened lane element based on the absence of the at least one lane closure object; and
+relabeling the at least one lane element as an at least one opened lane element based on the absence of the at least one lane closure object.
+18. The one or more non-transitory computer-readable storage media of claim 14, further comprising:
+identifying the presence of the at least one lane closure object on the at least one lane element;
+classifying a location of each identified lane closure object on the at least one lane element as one of:
+on a left boundary of a respective lane element;
+on a right boundary of the respective lane element; or
+within the respective lane element.
+19. The one or more non-transitory computer-readable storage media of claim
+18, further comprising:
+determining a lane closure score by aggregating the plurality of change candidates, each change candidate being weighted by the classified location of each identified lane closure object of the respective change candidate, wherein each identified lane closure object within the respective lane element is weighted higher than each identified lane closure object on the left boundary or right boundary of the respective lane element; and generating the final change candidate based on the lane closure score.
+20. The one or more non-transitory computer-readable storage media of claim
+19, further comprising:
+determining a confidence level based on the lane closure score; and
+generating the final change candidate based on the confidence level.
+21. The one or more non-transitory computer-readable storage media of claim
+20, further comprising one of:
+increasing the confidence level that a first lane element is an opened lane element when a moving vehicle is detected on the first lane element; or
+decreasing the confidence level that the first lane element is a closed lane element when the moving vehicle is detected on the first lane element.
+22. The one or more non-transitory computer-readable storage media of claim 19, further comprising:
+labeling each respective lane element as one of:
+a closed lane element when the lane closure score is above a lane closure threshold; or
+an opened lane element when the lane closure score is below a lane opening threshold.
+23. The one or more non-transitory computer-readable storage media of claim 14, further comprising:
+identifying the presence of the at least one lane closure object or the absence of the at least one lane closure object on the at least one lane element by:
+obtaining a point cloud based on a LIDAR scan; detecting an object in a camera image of the sensor data;
+mapping points from the point cloud on the camera image to identify points that map to the detected object;
+clustering the mapped points;
+identifying the largest cluster determined by the clustering; and
+determining the identified largest cluster to indicate the detected object to be a detected lane closure object, and thereby identifying the presence of the at least one lane closure object; or
+marking a camera image as omitting a lane closure object and thereby identifying the absence of the at least one lane closure object.
+24. The one or more non-transitory computer-readable storage media of claim 14, further comprising:
+performing localization to determine a location of the autonomous vehicle;
+identifying a set of lane elements within a threshold distance of the location of the autonomous vehicle; and
+mapping each lane closure object to a lane element from the set of the at least one lane elements.
+25. The one or more non-transitory computer-readable storage media of claim 14, further comprising:
+providing at least one final change candidate to an online high definition map system;
+determining the at least one final change candidate to satisfy map update criteria; and
+updating at least one high definition map that includes the at least one lane element with the final change candidate, wherein the update is selected from:
+labeling a previously closed lane element to be labeled as currently opened; or
+labeling a previously opened lane element to be labeled as currently closed.
+26. The one or more non-transitory computer-readable storage media of claim 25, further comprising: receiving a request for a high definition map for the route from at least one requesting autonomous vehicle; and
+transmitting the at least one updated high definition map to the at least one requesting autonomous vehicle.
+27. A computer system comprising:
+one or more processors; and
+one or more non-transitory computer readable media storing instructions that in response to being executed by the one or more processors, cause the computer system to perform operations, the operations comprising:
+receiving sensor data from at least one sensor of an autonomous vehicle that is travelling on a route;
+analyzing the sensor data to determine a presence of at least one lane closure object located on at least one lane element associated with the route;
+determine a change of the at least one lane closure object, wherein the change is selected from the presence of the at least one lane closure object or absence of the at least one lane closure object on the at least one lane element; generating a change candidate based on the change in the at least one lane closure object, wherein the change candidate is selected from a lane closure change candidate or a lane opening change candidate;
+obtaining a plurality of the change candidates based on the sensor data obtained during a time period or the autonomous vehicle being on a preceding lane element on the route;
+analyzing the plurality of change candidates for the change being one of the presence of the at least one lane closure object or the absence of the at least one lane closure object on the at least one lane element;
+generating a final change candidate based on the change; and providing the final change candidate for updating a high definition map of the route having the lane element.
+28. The computer system of claim 27, further comprising:
+identifying the presence of the at least one lane closure object on the at least one lane element; analyzing a plurality of lane closure change candidates based on the presence of the at least one lane closure object on the at least one lane element;
+generating a final lane closure change candidate based on the plurality of lane closure change candidates; and
+providing the final lane closure change candidate for updating the high definition map to identify the at least one lane element having the presence of the at least one lane closure object as being closed.
+29. The computer system of claim 27, further comprising:
+identifying the absence of the at least one lane closure object on the at least one lane element;
+analyzing a plurality of lane opening change candidates based on the absence of the at least one lane closure object on the at least one lane element;
+generating a final lane opening change candidate based on the plurality of lane opening change candidates; and
+providing the final lane opening change candidate for updating the high definition map to identify the at least one lane element having the absence of the at least one lane closure object as being opened.
+30. The computer system of claim 29, further comprising:
+obtaining closed lane element data for the at least one lane element from a closed lane element database;
+identifying the at least one lane element as being labeled as a closed lane element in the closed lane element database;
+determining the absence of the at least one lane closure object on the at least one lane element labeled as the closed lane element;
+determining the at least one lane element that is labeled as the closed lane element to be a candidate for being updated to an opened lane element based on the absence of the at least one lane closure object; and
+relabeling the at least one lane element as an at least one opened lane element based on the absence of the at least one lane closure object.
+31. The computer system of claim 27, further comprising: identifying the presence of the at least one lane closure object on the at least one lane element;
+classifying a location of each identified lane closure object on the at least one lane element as one of:
+on a left boundary of a respective lane element;
+on a right boundary of the respective lane element; or
+within the respective lane element.
+32. The computer system of claim 31, further comprising:
+determining a lane closure score by aggregating the plurality of change candidates, each change candidate being weighted by the classified location of each identified lane closure object of the respective change candidate, wherein each identified lane closure object within the respective lane element is weighted higher than each identified lane closure object on the left boundary or right boundary of the respective lane element; and generating the final change candidate based on the lane closure score.
+33. The computer system of claim 32, further comprising:
+determining a confidence level based on the lane closure score; and
+generating the final change candidate based on the confidence level.
+34. The computer system of claim 33, further comprising one of:
+increasing the confidence level that a first lane element is an opened lane element when a moving vehicle is detected on the first lane element; or
+decreasing the confidence level that the first lane element is a closed lane element when the moving vehicle is detected on the first lane element.
+35. The method of claim 32, further comprising:
+labeling each respective lane element as one of:
+a closed lane element when the lane closure score is above a lane closure threshold; or
+an opened lane element when the lane closure score is below a lane opening threshold.
+36. The computer system of claim 27, further comprising:
+identifying the presence of the at least one lane closure object or the absence of the at least one lane closure object on the at least one lane element by:
+obtaining a point cloud based on a LIDAR scan;
+detecting an object in a camera image of the sensor data;
+mapping points from the point cloud on the camera image to identify points that map to the detected object;
+clustering the mapped points;
+identifying the largest cluster determined by the clustering; and
+determining the identified largest cluster to indicate the detected object to be a detected lane closure object, and thereby identifying the presence of the at least one lane closure object; or
+marking a camera image as omitting a lane closure object and thereby identifying the absence of the at least one lane closure object.
+37. The computer system of claim 27, further comprising:
+performing localization to determine a location of the autonomous vehicle;
+identifying a set of lane elements within a threshold distance of the location of the autonomous vehicle; and
+mapping each lane closure object to a lane element from the set of the at least one lane elements.
+38. The computer system of claim 27, further comprising:
+providing at least one final change candidate to an online high definition map system;
+determining the at least one final change candidate to satisfy map update criteria; and
+updating at least one high definition map that includes the at least one lane element with the final change candidate, wherein the update is selected from:
+labeling a previously closed lane element to be labeled as currently opened; or
+labeling a previously opened lane element to be labeled as currently closed.
+39. The computer system of claim 38, further comprising:
+receiving a request for a high definition map for the route from at least one requesting autonomous vehicle; and
+transmitting the at least one updated high definition map to the at least one requesting autonomous vehicle.
+</claims>
+</document>

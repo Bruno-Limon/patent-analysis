@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2020-02-19
+</filing_date>
+
+<publication_date>
+2020-10-15
+</publication_date>
+
+<priority_date>
+2019-03-13
+</priority_date>
+
+<ipc_classes>
+G06F11/14,G06N20/00,G06Q20/42
+</ipc_classes>
+
+<assignee>
+STRIPE
+</assignee>
+
+<inventors>
+Seshan, Tara
+Eagle, Adam
+</inventors>
+
+<docdb_family_id>
+72749206
+</docdb_family_id>
+
+<title>
+OPTIMIZED DUNNING USING MACHINE-LEARNED MODEL
+</title>
+
+<abstract>
+In an example embodiment, information about one or more failed payment attempts via an electronic payment processing system is obtained. One or more features are extracted from the information. Then, for each of a plurality of potential candidate retry time points, the one or more features and the potential candidate retry time point are fed into a dunning model, the dunning model trained via a machine-learning algorithm to produce a dunning score indicative of a likelihood that a retry attempt at an input retry time point will result in a successful payment processing. The dunning scores for the plurality of potential candidate retry time points are used to select a desired retry time point. Then the electronic payment processing system is caused to attempt to reprocess a payment associated with one of the failed payment attempts at a time matching the desired retry time point.
+</abstract>
+
+<claims>
+1. A method, for reprocessing a payment after a first failed payment attempt via an electronic payment processing system, the method comprising: obtaining information about one or more failed payment attempts via the electronic payment processing system; extracting one or more features from the information about the one or more failed payment attempts; for each of a plurality of potential candidate retry time points, feeding the one or more features and the potential candidate retry time point into a dunning model, the dunning model trained via a machine-learning algorithm to produce a dunning score indicative of a likelihood that a retry attempt at an input retry time point will result in a successful payment processing; using the dunning scores for the plurality of potential candidate retry time points to select a desired retry time point; and causing the electronic payment processing system to attempt to reprocess a payment associated with one of the failed payment attempts at a time matching the desired retry time point.
+2. The method of claim 1, wherein the one or more failed payment attempts include at least two failed payment attempts and the features are extracted from information about all of the at least two failed payment attempts.
+3. The method of claim 1, wherein the using the dunning scores for the plurality of potential candidate retry time points to select the desired retry time point comprises: submitting the dunning scores for the plurality of potential candidate retry time points to an optimization function, the optimization function designed to identify a potential candidate retry time point having a maximum dunning score while minimizing a distance between the potential candidate retry time point and a predetermined time point selected based on a predetermined interval.
+4. The method of claim 3, wherein the predetermined time point is determined by calculating a time difference between a predetermined last retry time point and a time for the first failed payment attempt, dividing the time difference by a predetermined number of remaining retry attempts, the dividing producing the predetermined interval, and then adding the predetermined interval to the time for the first failed payment attempt.
+5. The method of claim 1, further comprising: obtaining training data, the training data comprising information about historical payment failures and retries via the electronic payment processing system, the training data further including a label for each retry attempt indicating whether the retry attempt was successful; extracting one or more features from the training data; and passing the one or more features and the labels to the machine-learning algorithm, the machine-learning algorithm designed to cause a machine to train weights of the dunning model based on the training data.
+6. The method of claim 5, further comprising preprocessing the training data prior to the extracting the one or more features from the training data, the preprocessing comprising performing a map reduce operation on the training data.
+7. The method of claim 5, wherein the machine-learning algorithm is a regression algorithm.
+8. A system for handling a first failed payment attempt in an electronic payment processing system, the system comprising: a network; one or more hardware processors; and a memory storing instructions that, when executed by at least one processor among the processors, cause the system to perform operations comprising, at least: obtaining information about one or more failed payment attempts via the electronic payment processing system; extracting one or more features from the information about the one or more failed payment attempts; for each of a plurality of potential candidate retry time points, feeding the one or more features and the potential candidate retry time point into a dunning model, the dunning model trained via a machine-learning algorithm to produce a dunning score indicative of a likelihood that a retry attempt at an input retry time point will result in a successful payment processing; using the dunning scores for the plurality of potential candidate retry time points to select a desired retry time point; and causing the electronic payment processing system to attempt to reprocess a payment associated with one of the failed payment attempts at a time matching the desired retry time point.
+9. The system of claim 8, wherein the one or more failed payment attempts include at least two failed payment attempts and the features are extracted from information about all of the at least two failed payment attempts.
+10. The system of claim 8, wherein the using the dunning scores for the plurality of potential candidate retry time points to select the desired retry time point comprises: submitting the dunning scores for the plurality of potential candidate retry time points to an optimization function, the optimization function designed to identify a potential candidate retry time point having a maximum dunning score while minimizing a distance between the potential candidate retry time point and a predetermined time point selected based on a predetermined interval.
+11. The system of claim 10, wherein the predetermined time point is determined by calculating a time difference between a predetermined last retry time point and a time for the first failed payment attempt, dividing the time difference by a predetermined number of remaining retry attempts, the dividing producing the predetermined interval, and then adding the predetermined interval to the time for the first failed payment attempt.
+12. The system of claim 8, wherein the operations further comprise: obtaining training data, the training data comprising information about historical payment failures and retries via the electronic payment processing system, the training data further including a label for each retry attempt indicating whether the retry attempt was successful; extracting one or more features from the training data; and passing the one or more features and the labels to the machine-learning algorithm, the machine-learning algorithm designed to cause a machine to train weights of the dunning model based on the training data.
+13. The system of claim 12, wherein the operations further comprise preprocessing the training data prior to the extracting the one or more features from the training data, the preprocessing comprising performing a map reduce operation on the training data.
+14. The system of claim 12, wherein the machine-learning algorithm is a regression algorithm.
+15. A non-transitory machine-readable medium comprising instructions which, when read by a machine, cause the machine to perform operations for handling a first failed payment attempt in an electronic payment processing system, the operations comprising: obtaining information about one or more failed payment attempts via the electronic payment processing system; extracting one or more features from the information about the one or more failed payment attempts; for each of a plurality of potential candidate retry time points, feeding the one or more features and the potential candidate retry time point into a dunning model, the dunning model trained via a machine-learning algorithm to produce a dunning score indicative of a likelihood that a retry attempt at an input retry time point will result in a successful payment processing; using the dunning scores for the plurality of potential candidate retry time points to select a desired retry time point; and causing the electronic payment processing system to attempt to reprocess a payment associated with one of the failed payment attempts at a time matching the desired retry time point.
+16. The non-transitory machine-readable medium of claim 15, wherein the one or more failed payment attempts include at least two failed payment attempts and the features are extracted from information about all of the at least two failed payment attempts.
+17. The non-transitory machine-readable medium of claim 15, wherein the using the dunning scores for the plurality of potential candidate retry time points to select the desired retry time point comprises: submitting the dunning scores for the plurality of potential candidate retry time points to an optimization function, the optimization function designed to identify a potential candidate retry time point having a maximum dunning score while minimizing a distance between the potential candidate retry time point and a predetermined time point selected based on a predetermined interval.
+18. The non-transitory machine-readable medium of claim 17, wherein the predetermined time point is determined by calculating a time difference between a predetermined last retry time point and a time for the first failed payment attempt, dividing the time difference by a predetermined number of remaining retry attempts, the dividing producing the predetermined interval, and then adding the predetermined interval to the time for the first failed payment attempt.
+19. The non-transitory machine-readable medium of claim 15, wherein the operations further comprise: obtaining training data, the training data comprising information about historical payment failures and retries via the electronic payment processing system, the training data further including a label for each retry attempt indicating whether the retry attempt was successful; extracting one or more features from the training data; and passing the one or more features and the labels to the machine-learning algorithm, the machine-learning algorithm designed to cause a machine to train weights of the dunning model based on the training data.
+20. The non-transitory machine-readable medium of claim 19, wherein the operations further comprise preprocessing the training data prior to the extracting the one or more features from the training data, the preprocessing comprising performing a map reduce operation on the training data.
+</claims>
+</document>

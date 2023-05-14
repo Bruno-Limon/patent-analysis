@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2016-11-16
+</filing_date>
+
+<publication_date>
+2020-09-29
+</publication_date>
+
+<priority_date>
+2016-11-16
+</priority_date>
+
+<ipc_classes>
+G06F16/00,G06F16/33,G06F16/36,G06F16/9032,G06F17/30
+</ipc_classes>
+
+<assignee>
+IBM (INTERNATIONAL BUSINESS MACHINES CORPORATION)
+</assignee>
+
+<inventors>
+WANG PENG
+SHI, QIN
+LIU WEN
+QIN YONG
+ZHANG SHILEI
+JIN FENG
+</inventors>
+
+<docdb_family_id>
+62107848
+</docdb_family_id>
+
+<title>
+Specialist keywords recommendations in semantic space
+</title>
+
+<abstract>
+Techniques are provided for generating recommended query terms that are specialized to a topic of desired information based on a query associated with a user. In one example, a computer-implemented method comprising selecting, by a system operatively coupled to a processor, a coarse cluster of corpus terms having a defined relatedness to a query associated with a user from a plurality of coarse clusters of corpus terms; and determining, by the system, a plurality of candidate terms from search results associated with the query. The computer-implemented method can also comprise determining, by the system, at least one recommended query term based on refined clusters of the coarse cluster, the candidate terms, and the query; and displaying, by the system, the at least one recommended query term on a display device associated with the query.
+</abstract>
+
+<claims>
+1. A system, comprising: a memory that stores computer executable components; a processor, operably coupled to the memory, and that executes computer executable components stored in the memory, wherein the computer executable components comprise: a cluster selection component that, in response to receiving a query, selects a coarse cluster of corpus terms, having a defined relatedness to the query, from a plurality of coarse clusters of corpus terms associated with a text corpus; a refined clustering component that places respective corpus terms of the coarse cluster into refined clusters based on a first clustering model; a candidate component that determines a plurality of candidate terms from search results associated with the query; and a recommendation component that: determines at least one recommended query term based on a subset of the refined clusters selected based on the plurality of candidate terms from the search results, and the query, wherein the determination of the at least one recommended query term comprises: in response to a determination that a candidate term of the plurality of candidate terms matches a corpus term in a refined cluster of the refined clusters: make the candidate term a recommended query term of the at least one recommended query term, and make a corpus term closest to a center of the refined cluster another recommended query term of the at least one recommended query term; and communicates one or more recommended query terms of the at least one recommended query term to a device associated with the query.
+2. The system of claim 1, wherein selection of the coarse cluster by the cluster selection component comprises: determination of a first vector based on the query and a word embedding model; determination of respective second vectors associated with centers of the coarse clusters of corpus terms based on the word embedding model; determination of respective distances between the second vectors and the first vector; and selection of the coarse cluster of corpus terms associated with a second vector of the second vectors having a least distance to the first vector.
+3. The system of claim 1, wherein the plurality of candidate terms are selected from a defined number of top results of the search results.
+4. The system of claim 1, wherein the recommendation component determines whether a candidate term of the plurality of candidate terms matches a corpus term of the corpus terms based on a distance between a first vector associated with the candidate term and a second vector associated with the corpus term satisfying a distance threshold.
+5. The system of claim 1, wherein the determination of the at least one recommended query term further comprises: in response to a determination that none of the plurality of candidate terms match any corpus terms in the refined clusters: determine a first vector based on the query and a word embedding model, determine respective second vectors associated with centers of the refined clusters of corpus terms based on the word embedding model, determine respective distances between the second vectors and the first vector, select another refined cluster of corpus terms associated with a second vector having a least distance to the first vector, and make another corpus term closest to a center of the other refined cluster an additional recommended query term of the at least one recommended query term.
+6. The system of claim 1, further comprising a corpus component that determines the corpus terms associated with the plurality of coarse clusters of corpus terms from the text corpus based on a word embedding model.
+7. The system of claim 6, wherein the corpus component determines respective vectors associated with the corpus terms from the text corpus based on the word embedding model.
+8. The system of claim 7, further comprising a coarse clustering component that places the corpus terms from the text corpus in the plurality of coarse clusters of corpus terms based on the respective vectors associated with the corpus terms and a second clustering model.
+9. The system of claim 1, wherein the recommendation component generates a display of the at least one recommended query term and thereby reduces processing by reducing inaccurate queries.
+10. A computer-implemented method, comprising: in response to receiving a query, selecting, by a system operatively coupled to a processor, a coarse cluster of corpus terms, having a defined relatedness to the query, from a plurality of coarse clusters of corpus terms associated with a text corpus; determining, by the system, a plurality of candidate terms from search results associated with the query; placing, by the system, respective corpus terms of the coarse cluster into refined clusters based on a first clustering model; determining, by the system, at least one recommended query term based on a subset of the refined clusters selected based on the plurality of candidate terms from the search results, and the query, wherein the determining the at least one recommended query term comprises: in response to determining that a candidate term matches a corpus term in a refined cluster of the refined clusters: selecting the candidate term as a recommended query term of the at least one recommended query term; and selecting a corpus term closest to a center of the refined cluster as another recommended query term of the at least one recommended query term; and communicating, by the system, one or more recommended query terms of the at least one recommended query term to a device associated with the query.
+11. The computer-implemented method of claim 10, further comprising communicating multiple recommended query terms as a sorted list based on a sorting criterion.
+12. The computer-implemented method of claim 10, further comprising: obtaining, by the system, the text corpus associated with one or more topics; and generating, by the system, corpus term vectors in a semantic space from corpus terms of the text corpus using a word embedding model.
+13. The computer-implemented method of claim 12, further comprising: generating, by the system, coarse clusters of the corpus terms of the text corpus based on a second clustering model; and selecting, by the system, a coarse cluster that is most related to the query.
+14. The computer-implemented method of claim 13, wherein the selecting the coarse cluster comprises: determining, by the system, a query vector based on the query and a word embedding model; determining, by the system, respective center vectors associated with centers of the coarse clusters of the corpus terms; determining, by the system, respective distances between the center vectors and the query vector; selecting, by the system, the coarse cluster of the coarse clusters associated with a center vector having a least distance to the query vector.
+15. The computer-implemented method of claim 10, wherein the determining the at least one recommended query term further comprises: in response to determining that no candidate terms match any corpus terms in the refined clusters: determining a first vector based on the query and a word embedding model; determining respective second vectors associated with centers of the refined clusters of corpus terms; determining respective distances between the second vectors and the first vector; selecting another refined cluster of corpus terms associated with a second vector having a least distance to the first vector, and selecting another corpus term closest to a center of the other refined cluster as an additional recommended query term of the at least one recommended query term.
+16. A computer program product for generating recommended query terms, the computer program product comprising a computer readable storage medium having program instructions embodied therewith, the program instructions executable by a processing component to cause the processing component to: select, in response to receiving a query, a coarse cluster of corpus terms having a defined relatedness to a query associated with a user from a plurality of coarse clusters of corpus terms; place respective corpus terms of the coarse cluster into refined clusters based on a first clustering model; determine a plurality of candidate terms from search results associated with the query; for respective candidate terms that match corpus terms in the refined clusters according to a defined matching criterion: add a candidate term of the plurality of candidate terms from the search results to a list of recommended query terms; and add, to the list of recommended query terms, a corpus term closest to a center of a refined cluster having a matching corpus term to the candidate term; and communicate at least one recommended query term from the list of recommended query terms to a device associated with the query.
+17. The computer program product of claim 16, wherein the program instructions executable by the processing component further cause the processing component to: in response to a determination that no candidate terms match any corpus terms in the refined clusters: determine a first vector based on the query and a word embedding model; determine respective second vectors associated with centers of the refined clusters of corpus terms; determine respective distances between the second vectors and the first vector; select another refined cluster of corpus terms associated with a second vector having a least distance to the first vector; and select another corpus term closest to a center of the other refined cluster as a recommended query term of recommended query terms.
+18. The computer program product of claim 16, wherein the program instructions executable by the processing component further cause the processing component to: assign weights to respective recommended query terms of the list of recommended query terms based on a function that factors a distance of a recommended query term to the query and a term frequency-inverse document frequency of the recommended query term; and sort the recommended query terms of the list of recommended query terms based on the assigned weights.
+19. The computer program product of claim 16, wherein the program instructions executable by the processing component further cause the processing component to determine the corpus terms associated with the plurality of coarse clusters of corpus terms from a text corpus based on a word embedding model.
+20. The computer program product of claim 19, wherein the program instructions executable by the processing component further cause the processing component to: determines respective vectors associated with the corpus terms from the text corpus based on the word embedding model; and place the corpus terms from the text corpus in the plurality of coarse clusters of corpus terms based on the respective vectors associated with the corpus terms and a second clustering model.
+</claims>
+</document>

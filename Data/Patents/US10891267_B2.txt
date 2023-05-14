@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2017-01-30
+</filing_date>
+
+<publication_date>
+2021-01-12
+</publication_date>
+
+<priority_date>
+2008-03-31
+</priority_date>
+
+<ipc_classes>
+G06F16/17,G06F16/18,G06F16/27,G06F17/30,G06F3/06
+</ipc_classes>
+
+<assignee>
+AMAZON TECHNOLOGIES
+</assignee>
+
+<inventors>
+MCALISTER, GRANT ALEXANDER MACDONALD
+SHETH, RAJESH, SUDHAKAR
+SIVASUBRAMANIAN, SWAMINATHAN
+</inventors>
+
+<docdb_family_id>
+47749140
+</docdb_family_id>
+
+<title>
+Versioning of database partition maps
+</title>
+
+<abstract>
+System and methods for managing versions of partition maps in a distributed data store are disclosed. A relational database may use partition maps to indicate the location of data in a particular partition, or in a replica thereof. These partition maps may be versioned using a two-stage mechanism in which partition map updates are communicated to all nodes, or to affected nodes only, and in which operation may continue without waiting for acknowledgment of their application to each node. The system may handle minor partition changes differently than major partition changes. For example, if a replica of a partition is promoted to be a primary copy due to hardware or network failures, partition map changes may only be propagated to nodes in the same replica group. For major partition changes (e.g., splits, moves, mergers, added partitions, or size change), a new partition map may be made available to all nodes.
+</abstract>
+
+<claims>
+1. A system, comprising: a memory to store program instructions which, if performed by at least one processor, cause the at least one processor to perform a method to at least: monitor a plurality of computing nodes that respectively store different partitions of a database as indicated in a partition map for the database to route queries to the plurality of computing nodes; based, at least in part, on the monitoring of the computing nodes, determine a change to perform to partitioning of the database at one or more of the computing nodes and perform the determined change to partitioning of the database at the one or more computing nodes; and create a new partition map for the database that includes the change to the partitioning of the database and that is sent to one of the plurality computing nodes; and allow performance of queries to the database without waiting to receive an acknowledgement from the one computing node that a local partition map at the one computing node is updated to the new partition map.
+2. The system of claim 1, wherein to perform the change, the method at least: splits data of at least one of the partitions into two or more new partitions, merges data of two or more of the partitions into a new partition, or moves data from at least one of the partitions into a new partition; and stores each new partition of the data in a respective one of the plurality of computing nodes or a different computing node.
+3. The system of claim 1, wherein the method further comprises detect a change to a Service Level Agreement (SLA) associated with the database, wherein the identification of the change to partitioning the database is based, at least in part, on the change to the SLA.
+4. The system of claim 1, wherein the method further comprises: classify the change to the partitioning of the database; identify the one computing node to send the new partition map based, at least in part, on the classification of the change; and send the new partition map to the identified computing node.
+5. The system of claim 1, wherein the method further comprises determine that the performance of the change to the partitioning of the database is complete; and wherein the creation of the new partition map for the database is performed in response to the determination that the performance of the change to the partitioning of the database is complete.
+6. The system of claim 1, wherein the method further comprises reject writes to repartitioned data of the database during the performance of the change to the partitioning of the database.
+7. The system of claim 1, wherein the at least one processor is implemented as part of an administrative tier of a database service, wherein the database is a virtual relational database hosted on behalf of a user of the database service, and wherein the monitoring of the computing nodes monitors the performance of the computing nodes to process accesses to the partitions of the virtual relational database.
+8. A method, comprising: monitoring a plurality of computing nodes that respectively store different partitions of a database as indicated in partition map for the database to route queries to the plurality of computing nodes; based, at least in part, on the monitoring of the computing nodes, determining a change to perform to partitioning of the database at one or more affected computing nodes and performing the determined change to partitioning of the database at the one or more affected computing nodes; creating a new partition map for the database that includes the change to the partitioning of the database and is sent to one of the plurality of computing nodes; and allowing performance of queries to the database without receiving acknowledgement from the one computing node that a local partition map at the one computing node is updated to the new partition map.
+9. The method of claim 8, wherein performing the change comprises: splitting data of at least one of the partitions into two or more new partitions, merging data of two or more of the partitions into a new partition, or moving data from at least one of the partitions into a new partition; and storing each new partition of the data in a respective one of the plurality of computing nodes or a different computing node.
+10. The method of claim 8, further comprising detecting a change to a Service Level Agreement (SLA) associated with the database, wherein the identification of the change to partitioning the database is based, at least in part, on the change to the SLA.
+11. The method of claim 8, wherein the method further comprises: classifying the change to the partitioning of the database; identifying the one or more of the computing nodes to send the new partition map based, at least in part, on the classification of the change; and sending the new partition map to the identified computing nodes.
+12. The method of claim 8, wherein the method further comprises determining that the performance of the change to the partitioning of the database is complete; and wherein the creating of the new partition map for the database is performed in response to the determining that the performance of the change to the partitioning of the database is complete.
+13. The method of claim 8, wherein the method further comprises rejecting writes to repartitioned data of the database during the performance of the change to the partitioning of the database.
+14. The method of claim 8, wherein the at least one processor is implemented as part of an administrative tier of a database service, wherein the database is a virtual relational database hosted on behalf of a user of the database service, and wherein the monitoring of the computing nodes monitors the performance of the computing nodes to process accesses to the partitions of the virtual relational database.
+15. A non-transitory, computer-readable storage medium, storing program instructions that when executed by a computing system, cause the computing system to implement: monitoring a plurality of computing nodes that respectively store different partitions of a database as indicated in partition map for the database to route queries to the plurality of computing nodes; based, at least in part, on the monitoring of the computing nodes, determining a change to perform to partitioning of the database at one or more affected computing nodes and performing the determined change to partitioning of the database at the one or more affected computing nodes; creating a new partition map for the database that includes the change to the partitioning of the database and is sent to one of the plurality of computing nodes; and allowing performance of queries to the database without receiving acknowledgement from the one computing node that a local partition map at the one computing node is updated to the new partition map.
+16. The non-transitory, computer-readable storage medium of claim 15, wherein in performing the change, the program instructions cause the computing system to implement: splitting data of at least one of the partitions into two or more new partitions, merging data of two or more of the partitions into a new partition, or moving data from at least one of the partitions into a new partition; and storing each new partition of the data in a respective one of the plurality of computing nodes or a different computing node.
+17. The non-transitory, computer-readable storage medium of claim 15, wherein the program instructions cause the computing system to further implement detecting a change to a Service Level Agreement (SLA) associated with the database, wherein the identification of the change to partitioning the database is based, at least in part, on the change to the SLA.
+18. The non-transitory, computer-readable storage medium of claim 15, wherein the program instructions cause the computing system to further implement: classifying the change to the partitioning of the database; identifying the one computing node to send the new partition map based, at least in part, on the classification of the change; and sending the new partition map to the identified computing nodes.
+19. The non-transitory, computer-readable storage medium of claim 15, wherein the program instructions cause the computing system to further implement determining that the performance of the change to the partitioning of the database is complete; and wherein the creating of the new partition map for the database is performed in response to the determining that the performance of the change to the partitioning of the database is complete.
+20. The non-transitory, computer-readable storage medium of claim 15, wherein the program instructions cause the computing system to further implement rejecting writes to repartitioned data of the database during the performance of the change to the partitioning of the database.
+</claims>
+</document>

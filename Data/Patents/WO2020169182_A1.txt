@@ -1,0 +1,101 @@
+<document>
+
+<filing_date>
+2019-02-19
+</filing_date>
+
+<publication_date>
+2020-08-27
+</publication_date>
+
+<priority_date>
+2019-02-19
+</priority_date>
+
+<ipc_classes>
+G06F9/50,G06N3/00,G06N3/04,G06N3/08,G06N7/00
+</ipc_classes>
+
+<assignee>
+NOKIA NETWORKS
+</assignee>
+
+<inventors>
+AIT AOUDIA, FAYCAL
+ENRICI, ANDREA
+</inventors>
+
+<docdb_family_id>
+65516607
+</docdb_family_id>
+
+<title>
+METHOD AND APPARATUS FOR ALLOCATING TASKS
+</title>
+
+<abstract>
+An apparatus (100) and method (500) for allocating tasks (v) in a program to hardware units (u) in a target platform is described. A state (st) is input into a system (110) that includes an algorithm (120) having at least some trainable weights. The state (st) comprises a representation of the program (G) and hardware resource data (H) indicating an amount of resource types available to each hardware unit on the target platform (P). Performance value estimates (qi) for allocations (ai) of tasks (vi) to hardware units (ui) are determined by the algorithm (120) having at least some trainable weights from the state (st). A task is allocated to a hardware unit according to the determined performance value estimates.
+</abstract>
+
+<claims>
+1. An apparatus (100) comprising means configured to perform:
+inputting a state (s, st) into a system (110), the system including an algorithm (120) having at least some trainable weights, the state comprising a representation of a program (G) and hardware resource data (H) for a target platform (P) including a plurality of hardware units (ul ...u9), the representation of a program comprising a plurality of tasks (vl ...v9) and for each task a task-type indicator, the hardware resource data comprising, for each hardware unit of the target platform, resource data indicating an amount of each of a plurality of resource types available to that hardware unit;
+determining a plurality of performance value estimates (qi) from the algorithm (120) having at least some trainable weights;
+allocating (at), using the system (110), a task (vt) to a hardware unit (ut) according to the determined performance value estimates (qi).
+2. The apparatus of claim 1, wherein:
+the algorithm (120) having at least some trainable weights is configured to provide performance value estimates (qi) for a plurality of allocations (a;) of a task (v;) to a hardware unit (¾), and
+allocating (at), using the system (110), a task (vt) to a hardware unit (ut) according to the determined performance value estimates (qi) comprises allocating (at) a task (vt) to a hardware unit (ut) according to which allocation of the plurality of allocations (a;) has the greatest performance value estimate (¾).
+3. The apparatus of claim 1, wherein:
+the algorithm (120) having at least some trainable weights is configured to receive the state (s, st) and a predetermined allocation (a;) of a task (v;) to a hardware unit (Ui) and to provide a performance value estimate (qi) for the predetermined allocation; and
+allocating (at), using the system (110), a task (vt) to a hardware unit (ut) comprises: sending, in turn, each of a plurality of predetermined allocations (a;) determined from a plurality of possible allocations to the algorithm, each predetermined allocation being sent to the algorithm together with the state;
+receiving a performance value estimate (qi) for the sent predetermined allocation (a;) from the algorithm (120); and
+allocating (at) a task (vt) to a hardware unit (ut) corresponding to the predetermined allocation (a;) having the greatest performance value estimate (qi) received from the algorithm (120).
+4. The apparatus of claim 3, wherein:
+the plurality of predetermined allocations (a;) is determined from the plurality of possible allocations according to the task-type indicator for each task (v) to be allocated and an available amount of at least one of the plurality of resource types available to each hardware unit (u).
+5. The apparatus of claim 4, wherein the means are further configured to perform:
+determining a new state (st+i) by updating the hardware resource data (Ht) according to the allocation (at);
+inputting the new state (st+i) into the system (110); and
+repeating until all tasks (v) have been allocated by the system (110).
+6. The apparatus of any preceding claim, wherein the means (160) are further configured to perform:
+training of the system (110), comprising:
+providing representations of a plurality of programs (170);
+selecting a representation of a program from the plurality of programs (170);
+determining a plurality of performance value estimates (qi) from the algorithm (120) having at least some trainable weights;
+allocating (at), using the system (110), a task (vt) to a hardware unit (ut) according to the determined performance value estimates ( q);
+repeating the previous two steps until all tasks (v) have been allocated to hardware units (u); and
+adjusting the trainable weights (Q) of the algorithm (120) using a loss function pertaining to the performance metric.
+7. The apparatus of claim 6, wherein:
+the trainable weights (Q) of the algorithm (120) are adjusted using stochastic gradient descent or a variant thereof
+8. The apparatus of any preceding claim, wherein the means comprises:
+at least one processor (410); and
+at least one memory (420) including computer program code (430), the at least one memory (420) and computer program code (430) configured to, with the at least one processor (410), cause the performance of the apparatus (100).
+9. A method (500) comprising:
+inputting (502) a state into a system including an algorithm having at least some trainable weights, the state comprising a representation of a program and hardware resource data for a target platform including a plurality of hardware units, the representation of a program comprising a plurality of tasks and for each task a task-type indicator, the hardware resource data comprising, for each hardware unit of the target platform, resource data indicating an amount of each of a plurality of resource types available to that hardware unit; and
+determining (504) a plurality of performance value estimates from the algorithm having at least some trainable weights;
+allocating (506), using the system, a task to one of the hardware units according to the determined performance value estimates.
+10. The method of claim 9, further comprising:
+determining (504), using the system, performance value estimates for a plurality of allocations of a task to a hardware unit, and
+allocating (506) a task to one of the hardware units according to which allocation of the plurality of possible allocations has the greatest performance value estimate.
+11. The method of claim 9, further comprising:
+allocating (506), using the system, a task to a hardware unit by:
+sending, in turn, each of a plurality of predetermined allocations to the algorithm, each predetermined allocation being sent to the algorithm together with the state; and
+receiving a determined (504) performance value estimate for the sent predetermined allocation from the algorithm; and
+allocating a task to one of the hardware units corresponding to the predetermined allocation having the greatest performance value estimate received from the algorithm.
+12. The method of claim 11, further comprising:
+determining the plurality of predetermined allocations from a plurality of possible allocations according to the task-type indicator for each task to be allocated and an available amount of at least one of the plurality of resource types available to each hardware unit.
+13. The method of any preceding claim, further comprising:
+training (512) the system, comprising:
+providing (520) representations of a plurality of programs;
+selecting (522) a representation of a program from the plurality of programs;
+determining (524) a plurality of performance value estimates from the algorithm having at least some trainable weights;
+allocating (526), using the system, a task to a hardware unit according to the determined performance value estimates;
+repeating (528) the previous two steps until all tasks have been allocated to hardware units; and
+adjusting (530) the trainable weights of the algorithm using a loss function pertaining to the performance metric.
+14. The method of claim 13, wherein:
+the trainable weights of the algorithm are adjusted using stochastic gradient descent or a variant thereof
+15. A computer readable storage medium storing instructions which, when executed by a computer, cause the computer to perform a method, the method comprising:
+inputting (502) a state into a system including an algorithm having at least some trainable weights, the state comprising a representation of a program and hardware resource data for a target platform including a plurality of hardware units, the representation of a program comprising a plurality of tasks and for each task a task-type indicator, the hardware resource data comprising, for each hardware unit of the target platform, resource data indicating an amount of each of a plurality of resource types available to that hardware unit; and
+determining (504) a plurality of performance value estimates from the algorithm having at least some trainable weights;
+allocating (506), using the system, a task to a hardware unit according to the determined performance value estimates.
+</claims>
+</document>

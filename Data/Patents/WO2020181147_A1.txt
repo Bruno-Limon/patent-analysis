@@ -1,0 +1,104 @@
+<document>
+
+<filing_date>
+2020-03-05
+</filing_date>
+
+<publication_date>
+2020-09-10
+</publication_date>
+
+<priority_date>
+2019-03-06
+</priority_date>
+
+<ipc_classes>
+G01S13/86,G01S17/86,G01S7/497
+</ipc_classes>
+
+<assignee>
+QUALCOMM
+</assignee>
+
+<inventors>
+NIESEN, URS
+UNNIKRISHNAN, JAYAKRISHNAN
+</inventors>
+
+<docdb_family_id>
+72335391
+</docdb_family_id>
+
+<title>
+RADAR-AIDED SINGLE IMAGE THREE-DIMENSIONAL DEPTH RECONSTRUCTION
+</title>
+
+<abstract>
+Disclosed are techniques for radar-aided single-image three-dimensional (3D) depth reconstruction. In an aspect, at least one processor of an on-board computer of an ego vehicle receives, from a radar sensor of the ego vehicle, at least one radar image of an environment of the ego vehicle, receives, from a camera sensor of the ego vehicle, at least one camera image of the environment of the ego vehicle, and generates, using a convolutional neural network (CNN), a depth image of the environment of the ego vehicle based on the at least one radar image and the at least one camera image.
+</abstract>
+
+<claims>
+WHAT IS CLAIMED IS:
+1. A method of radar-aided single-image three-dimensional (3D) depth reconstruction performed by at least one processor of an on-board computer of an ego vehicle, comprising:
+receiving, from a radar sensor of the ego vehicle, at least one radar image of an environment of the ego vehicle;
+receiving, from a camera sensor of the ego vehicle, at least one camera image of the environment of the ego vehicle; and
+generating, using a convolutional neural network (CNN) executed by the at least one processor, a depth image of the environment of the ego vehicle based on the at least one radar image and the at least one camera image.
+2. The method of claim 1, wherein the CNN uses an encoder-decoder network architecture, wherein the encoder-decoder network architecture comprises a camera branch, a radar branch, a fusion encoder branch, and a decoder branch.
+3. The method of claim 2, wherein:
+the camera branch generates at least one feature map representing the at least one camera image by down-sampling the at least one camera image until dimensions of the at least one feature map match dimensions of the depth image,
+the radar branch generates at least one feature map representing the at least one radar image by down-sampling the at least one radar image until dimensions of the at least one feature map match dimensions of the depth image, and
+the fusion encoder branch combines the at least one feature map representing the at least one camera image and the at least one feature map representing the at least one radar image into at least one fused feature map.
+4. The method of claim 3, wherein the decoder branch generates the depth image from the at least one fused feature map based on up-sampling the at least one fused feature map.
+5. The method of claim 1, wherein the camera sensor and the radar sensor are collocated on the ego vehicle.
+6. The method of claim 1, wherein the camera sensor and the radar sensor are not collocated on the ego vehicle.
+7. The method of claim 1, wherein the camera sensor and the radar sensor capture images at different frequencies, and wherein the at least one camera image is a nearest camera image in time to the at least one radar image.
+8. The method of claim 1, further comprising:
+receiving, from a light detection and ranging (LiDAR) sensor of the ego vehicle, at least one LiDAR image of the environment of the ego vehicle, wherein the at least one LiDAR image represents range measurements of laser signals emitted by the LiDAR sensor; and
+using the at least one LiDAR image to train the CNN.
+9. The method of claim 8, wherein:
+an azimuth axis of the at least one LiDAR image is quantized into uniformly spaced azimuth angle bins; and
+at least one depth value is calculated for each of the uniformly spaced azimuth angle bins.
+10. The method of claim 9, wherein:
+an elevation axis of the at least one LiDAR image is quantized into uniformly spaced elevation steps, and
+a depth value is calculated for each pair of azimuth angle bins and elevation steps.
+11. The method of claim 9, wherein the at least one depth value calculated for each of the uniformly spaced azimuth angle bins is computed as an average range measurement of all range measurements falling in that azimuth angle bin.
+12. The method of claim 1, further comprising:
+causing the ego vehicle to perform an autonomous driving operation based on the depth image of the environment of the ego vehicle.
+13. The method of claim 12, wherein the autonomous driving operation is one or more of displaying the depth image, detecting drivable space, path planning, braking, accelerating, steering, adjusting a cruise control setting, or signaling.
+14. The method of claim 1, wherein the radar sensor comprises a commercially available electronically scanning radar (ESR), a short-range radar (SRR), a long-range radar, or a medium-range radar.
+15. An on-board computer of an ego vehicle, comprising:
+a memory; and
+at least one processor communicatively coupled to the memory, the at least one processor configured to:
+receive, from a radar sensor of the ego vehicle, at least one radar image of an environment of the ego vehicle;
+receive, from a camera sensor of the ego vehicle, at least one camera image of the environment of the ego vehicle; and
+generate, using a convolutional neural network (CNN) executed by the at least one processor, a depth image of the environment of the ego vehicle based on the at least one radar image and the at least one camera image.
+16. The on-board computer of claim 15, wherein the CNN uses an encoder-decoder network architecture, wherein the encoder-decoder network architecture comprises a camera branch, a radar branch, a fusion encoder branch, and a decoder branch.
+17. The on-board computer of claim 16, wherein:
+the camera branch generates at least one feature map representing the at least one camera image by down-sampling the at least one camera image until dimensions of the at least one feature map match dimensions of the depth image, the radar branch generates at least one feature map representing the at least one radar image by down-sampling the at least one radar image until dimensions of the at least one feature map match dimensions of the depth image, and
+the fusion encoder branch combines the at least one feature map representing the at least one camera image and the at least one feature map representing the at least one radar image into at least one fused feature map.
+18. The on-board computer of claim 17, wherein the decoder branch generates the depth image from the at least one fused feature map based on up-sampling the at least one fused feature map.
+19. The on-board computer of claim 15, wherein the camera sensor and the radar sensor are collocated on the ego vehicle.
+20. The on-board computer of claim 15, wherein the camera sensor and the radar sensor are not collocated on the ego vehicle.
+21. The on-board computer of claim 15, wherein the camera sensor and the radar sensor capture images at different frequencies, and wherein the at least one camera image is a nearest camera image in time to the at least one radar image.
+22. The on-board computer of claim 15, wherein the at least one processor is further configured to:
+receive, from a light detection and ranging (LiDAR) sensor of the ego vehicle, at least one LiDAR image of the environment of the ego vehicle, wherein the at least one LiDAR image represents range measurements of laser signals emitted by the LiDAR sensor, and
+wherein the at least one LiDAR image is used to train the CNN.
+23. The on-board computer of claim 22, wherein:
+an azimuth axis of the at least one LiDAR image is quantized into uniformly spaced azimuth angle bins; and at least one depth value is calculated for each of the uniformly spaced azimuth angle bins.
+24. The on-board computer of claim 23, wherein:
+an elevation axis of the at least one LiDAR image is quantized into uniformly spaced elevation steps, and
+a depth value is calculated for each pair of azimuth angle bins and elevation steps.
+25. The on-board computer of claim 23, wherein the at least one depth value calculated for each of the uniformly spaced azimuth angle bins is computed as an average range measurement of all range measurements falling in that azimuth angle bin.
+26. The on-board computer of claim 15, wherein the at least one processor is further configured to:
+cause the ego vehicle to perform an autonomous driving operation based on the depth image of the environment of the ego vehicle.
+27. The on-board computer of claim 26, wherein the autonomous driving operation is one or more of displaying the depth image, detecting drivable space, path planning, braking, accelerating, steering, adjusting a cruise control setting, or signaling.
+28. The on-board computer of claim 15, wherein the radar sensor comprises a commercially available electronically scanning radar (ESR), a short-range radar (SRR), a long-range radar, or a medium-range radar.
+29. An on-board computer of an ego vehicle, comprising:
+means for receiving at least one radar image of an environment of an ego vehicle;
+means for receiving at least one camera image of the environment of the ego vehicle; and means for generating, using a convolutional neural network (CNN) executed by the at least one processor, a depth image of the environment of the ego vehicle based on the at least one radar image and the at least one camera image.
+30. A non-transitory computer-readable medium storing computer-executable instructions for radar-aided single-image three-dimensional (3D) depth reconstruction, the computer-executable instructions comprising:
+at least one instruction instructing at least one processor of an on-board computer of an ego vehicle to receive, from a radar sensor of the ego vehicle, at least one radar image of an environment of the ego vehicle;
+at least one instruction instructing the at least one processor to receive, from a camera sensor of the ego vehicle, at least one camera image of the environment of the ego vehicle; and
+at least one instruction instructing the at least one processor to generate, using a convolutional neural network (CNN) executed by the at least one processor, a depth image of the environment of the ego vehicle based on the at least one radar image and the at least one camera image.
+</claims>
+</document>

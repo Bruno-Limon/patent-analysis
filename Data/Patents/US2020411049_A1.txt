@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2020-09-14
+</filing_date>
+
+<publication_date>
+2020-12-31
+</publication_date>
+
+<priority_date>
+2018-09-20
+</priority_date>
+
+<ipc_classes>
+G06F16/23,G06F9/52,G11B20/10,G11C16/26
+</ipc_classes>
+
+<assignee>
+ORACLE INTERNATIONAL CORPORATION
+</assignee>
+
+<inventors>
+DICE, DAVID
+KOGAN, ALEX
+</inventors>
+
+<docdb_family_id>
+69141177
+</docdb_family_id>
+
+<title>
+Reader Bias Based Locking Technique Enabling High Read Concurrency For Read-Mostly Workloads
+</title>
+
+<abstract>
+A data object has a lock and a condition indicator associated with it. Based at least partly on detecting a first setting of the condition indicator, a reader stores an indication that the reader has obtained read access to the data object in an element of a readers structure and reads the data object without acquiring the lock. A writer detects the first setting and replaces it with a second setting, indicating that the lock is to be acquired by readers before reading the data object. Prior to performing a write on the data object, the writer verifies that one or more elements of the readers structure have been cleared.
+</abstract>
+
+<claims>
+1. 1.-20. (canceled)
+21. A method, comprising: performing, at one or more computing devices: detecting, by a first reader of a plurality of data accessors, a first setting of a condition indicator, wherein the condition indicator is associated with at least a first data object, and wherein a first lock is associated with the first data object; storing, by the first reader after said detecting, and without acquiring the first lock, an indication in a readers structure that the first reader has obtained read access to the first data object; and verifying, by a first writer of the plurality of data accessors, prior to implementing a write operation of the first data object, that at least a portion of the readers structure has been cleared.
+22. The method as recited in claim 21, further comprising performing, at the one or more computing devices: in response to verifying, by the first reader after storing the indication in the readers structure, that the first setting of the condition indicator has not been replaced by a second setting, performing one or more reads of the first data object by the first reader without acquiring the first lock.
+23. The method as recited in claim 21, further comprising performing, at the one or more computing devices: in response to detecting, by the first reader after storing the indication in the readers structure, that the first setting of the condition indicator has been replaced by a second setting, clearing the indication in the readers structure by the first reader without performing a read operation on the first data object.
+24. The method as recited in claim 21, further comprising performing, at the one or more computing devices: replacing, by the first writer in response to detecting the first setting of the condition indicator, the first setting to a second setting prior to said verifying that at least the portion of the readers structure has been cleared; and determining, by a second reader of the plurality of data accessors in response to the detecting the second setting, that the first lock is to be acquired by the second reader prior to performing a read operation on the first data object.
+25. The method as recited in claim 21, further comprising performing, by the one or more computing devices: determining, by the first writer, one or more metrics associated with the readers structure; and selecting, by the first writer, based at least in part on the one or more metrics, a time interval during which a particular setting of the condition indicator is to remain in effect.
+26. The method as recited in claim 21, further comprising performing, by the one or more computing devices: initiating, by the first writer, a parallel read operation on the readers structure to verify that at least the portion of the readers structure has been cleared.
+27. The method as recited in claim 21, wherein storing the indication in the readers structure comprises performing a compare-and-swap operation.
+28. A system, comprising: one or more computing devices; wherein the one or more computing devices include instructions that upon execution on or across one or more processors: cause a first reader of a plurality of data accessors to: detect a first setting of a condition indicator, wherein the condition indicator is associated with at least a first data object, and wherein a first lock is associated with the first data object; store, after detection of the first setting, without acquiring the first lock, an indication in a readers structure that the first reader has obtained read access to the first data object; and cause a first writer of the plurality of data accessors to verify, prior to implementing a write operation of the first data object, that at least a portion of the readers structure has been cleared.
+29. The system as recited in claim 28, wherein the one or more computing devices include further instructions that upon execution on or across the one or more processors: cause the first reader to, in response to a verification that the first setting of the condition indicator has not changed after the indication in the readers structure is stored, perform one or more reads of the first data object without acquiring the first lock.
+30. The system as recited in claim 28, wherein the one or more computing devices include further instructions that upon execution on or across the one or more processors: cause the first reader to, in response to a detection that the first setting of the condition indicator has been changed after the indication in the readers structure is stored, clear the indication in the readers structure without performing a read operation on the first data object.
+31. The system as recited in claim 28, wherein the one or more computing devices include further instructions that upon execution on or across the one or more processors: cause the first writer to, in response to detecting the first setting of the condition indicator, replace the first setting to a second setting prior to verifying that at least the portion of the readers structure has been cleared; and cause a second reader of the plurality of data accessors to determine, in response to the detecting the second setting, that the first lock is to be acquired by the second reader prior to performing a read operation on the first data object.
+32. The system as recited in claim 28, wherein the one or more computing devices include further instructions that upon execution on or across the one or more processors cause the first writer to: obtain one or more metrics associated with the readers structure; and determine, based at least in part on the one or more metrics, a time interval during which a particular setting of the condition indicator is to remain in effect.
+33. The system as recited in claim 28, wherein the one or more computing devices include further instructions that upon execution on or across the one or more processors: cause the first writer to initiate a parallel read operation on the readers structure to verify that at least the portion of the readers structure has been cleared.
+34. The system as recited in claim 28, wherein to store the indication in the readers structure, the one or more computing devices include further instructions that upon execution on or across the one or more processors cause the first reader to perform an atomic modification operation.
+35. One or more non-transitory computer-accessible storage media storing program instructions that when executed on or across one or more processors: cause a first reader of a plurality of data accessors to: detect a first setting of a condition indicator, wherein the condition indicator is associated with at least a first data object, and wherein a first lock is associated with the first data object; and store, after detection of the first setting, without acquiring the first lock, an indication in a readers structure that the first reader has obtained read access to the first data object; and cause a first writer of the plurality of data accessors to verify, prior to implementing a write operation of the first data object, that at least a portion of the readers structure has been cleared.
+36. The one or more non-transitory computer-accessible storage media as recited in claim 35, storing further program instructions that when executed on or across the one or more processors: cause the first reader to, in response to a verification that the first setting of the condition indicator has not changed after the indication in the readers structure is stored, perform one or more reads of the first data object without acquiring the first lock.
+37. The one or more non-transitory computer-accessible storage media as recited in claim 35, storing further program instructions that when executed on or across the one or more processors: cause the first reader to, in response to a detection that the first setting of the condition indicator has been changed after the indication in the readers structure is stored, clear the indication in the readers structure without performing a read operation on the first data object.
+38. The one or more non-transitory computer-accessible storage media as recited in claim 35, storing further program instructions that when executed on or across the one or more processors: cause the first writer to, in response to detecting the first setting of the condition indicator, replace the first setting to a second setting prior to verifying that at least the portion of the readers structure has been cleared; and cause a second reader of the plurality of data accessors to determine, in response to the detecting the second setting, that the first lock is to be acquired by the second reader prior to performing a read operation on the first data object.
+39. The one or more non-transitory computer-accessible storage media as recited in claim 35, storing further program instructions that when executed on or across the one or more processors cause the first writer to: obtain one or more metrics associated with the readers structure; and determine, based at least in part on the one or more metrics, a time interval during which a particular setting of the condition indicator is to remain in effect.
+40. The one or more non-transitory computer-accessible storage media as recited in claim 35, storing further program instructions that when executed on or across the one or more processors: cause the first writer to initiate a parallel read operation on the readers structure to verify that at least the portion of the readers structure has been cleared.
+</claims>
+</document>

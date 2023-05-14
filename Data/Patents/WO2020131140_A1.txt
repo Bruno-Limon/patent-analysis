@@ -1,0 +1,97 @@
+<document>
+
+<filing_date>
+2019-01-10
+</filing_date>
+
+<publication_date>
+2020-06-25
+</publication_date>
+
+<priority_date>
+2018-12-18
+</priority_date>
+
+<ipc_classes>
+G06F16/783,G06K9/00
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+GORBAN, ALEXANDER
+WU, YANXIANG
+</inventors>
+
+<docdb_family_id>
+65269086
+</docdb_family_id>
+
+<title>
+SYSTEMS AND METHODS FOR GEOLOCATION PREDICTION
+</title>
+
+<abstract>
+In one example embodiment, a computer-implemented method for extracting information from imagery includes obtaining data representing a sequence of images, at least one of the sequence of images depicting an object. The method includes inputting the sequence of images into a machine-learned information extraction model that is trained to extract location information from the sequence of images. The method includes obtaining as an output of the information extraction model in response to inputting the sequence of images, data representing a real -world location associated with the object depicted in the sequence of images.
+</abstract>
+
+<claims>
+1. A computer-implemented method for extracting information from imagery, the method comprising:
+obtaining, at a computing system comprising one or more processors, data
+representing a sequence of images, at least one of the sequence of images depicting an object; inputting, by the computing system, the sequence of images into a machine-learned information extraction model that is trained to extract location information from the sequence of images; and
+obtaining as an output of the information extraction model in response to inputting the sequence of images, by the computing system, data representing a real-world location associated with the object depicted in the sequence of images.
+2. The computer-implemented method of claim 1, wherein obtaining the data
+representing the real-world location associated with the object depicted in the sequence of images comprises:
+determining, by the computing system, data representing a classification associated with the object depicted in the sequence of image frames;
+determining, by the computing system, a temporal attention value and a spatial attention value associated with the sequence of images, based at least in part on data representing a sequence of image features extracted from the sequence of images; and
+predicting, by the computing system, the real-world location associated with the object, based at least in part on the sequence of image features, temporal attention value, and spatial attention value.
+3. The computer-implemented method of claim 2, wherein determining the temporal attention value and the spatial attention value associated with the sequence of images comprises:
+inputting, by the computing system, the sequence of image features into a weakly supervised object classification model, wherein the object classification model comprises at least one long-short term memory block; and
+obtaining as an output of the object classification model in response to inputting the sequence of image features, by the computing system, the temporal attention value and the spatial attention value.
+4. The computer-implemented method of claim 2 or 3, wherein determining the classification associated with the object depicted in the sequence of image frames comprises: inputting, by the computing system, the sequence of image features into a weakly supervised object classification model; and
+obtaining as an output of the object classification model in response to inputting the sequence of image features, by the computing system, the classification associated with the object.
+5. The computer-implemented method of claim 4, wherein the data representing the sequence of image frames includes at least one classification label associated with the sequence of image frames, and the method further comprises:
+determining, by the computing system, a loss associated with the classification output by the object classification model, based at least in part on the at least one classification label associated with the sequence of images; and
+training, by the computing system, the object classification model based at least in part on the determined loss.
+6. The computer-implemented method of claim 2, 3, 4, or 5, wherein predicting the realworld location associated with the object comprises:
+inputting, by the computing system, the sequence of image features, the temporal attention value, and the spatial attention value into a frame-level location-feature extraction model;
+obtaining as an output of the frame-level location-feature extraction model in response to inputting the sequence of image features, the temporal attention value, and the spatial attention value, by the computing system, data representing a sequence of location features including one or more location features associated with the object;
+inputting, by the computing system, the sequence of location features into a framelevel location prediction model;
+obtaining as an output of the frame-level location prediction model in response to inputting the sequence of location features, by the computing system, data representing coordinates in a camera coordinate space associated with the object; and determining, by the computing system, real-world coordinates associated with the object based at least in part on the coordinates in the camera coordinate space and camera pose data associated with the object.
+7. The computer-implemented method of claim 6, further comprising:
+determining, by the computing system, a location consistency loss based at least in part on a variance between coordinates associated with the object across multiple images in the sequence of images depicting the object; and
+training, by the computing system, the frame-level location prediction model based at least in part on the location consistency loss.
+8. The computer-implemented method of claim 6 or 7, further comprising:
+determining, by the computing system, an appearance consistency loss based at least in part on a variance between appearance features determined across multiple images in the sequence of images depicting the object; and
+training, by the computing system, the frame-level location prediction model based at least in part on the appearance consistency loss.
+9. The computer-implemented method of claim 6, 7, or 8, further comprising:
+determining, by the computing system, an aiming loss based at least in part on the coordinates in the camera coordinate space associated with the object and a spatial attention associated with the object across multiple images in the sequence of images depicting the object; and
+training, by the computing system, the frame-level location prediction model based at least in part on the aiming loss.
+10. The computer-implemented method of claim 6, 7, 8, or 9, further comprising:
+determining, by the computing system, a field-of-view loss based at least in part on the real-world coordinates associated with the object and a field-of-view associated with a camera used to capture the sequence of images depicting the object; and
+training, by the computing system, the frame-level location prediction model based at least in part on the field-of-view loss.
+11. The computer-implemented method of any preceding claim, wherein the sequence of images depict a plurality of objects across multiple images in the sequence of images, and the output of the information extraction model includes data representing a real-world location associated with the plurality of objects depicted in the sequence of images.
+12. A computer-implemented method for training an information extraction model to determine data representing a real-world location associated with an object depicted in a sequence of images, the information extraction model comprising:
+an image-feature extraction model;
+a weakly supervised object classification model;
+a geolocation prediction model;
+the method comprising, at a computing system comprising one or more processors: obtaining data representing a sequence of images with noisy classification, at least one of the sequence of images depicting the object;
+outputting, by the image-feature extraction model in response to inputting the sequence of images, a sequence of image features;
+outputting, by the object classification model in response to inputting the sequence of image features, classification data including one or more classification labels associated with the sequence of images, wherein the classification data is determined based at least in part on one or more temporal attention values and one or more spatial attention values associated with the sequence of image features, the one or more temporal attention values and the one or more spatial attention values being determined by the object classification model;
+training the object classification model based at least in part on the
+classification data and the noisy classification associated with the sequence of images;
+outputting, by the geolocation prediction model in response to inputting the sequence of image features, the one or more temporal attention values, and the one or more spatial attention values, a real world location associated with the object depicted in the sequence of images; and
+training the geolocation prediction model using at least the sequence of image features, the temporal attention value and the spatial attention value.
+13. A computer-implemented method for extracting information from imagery, the method comprising:
+obtaining, at a computing system comprising one or more processors, data representing one or more images, at least one of the one or more of images depicting an object;
+inputting, by the computing system, the one or more images into a machine-learned information extraction model that is trained to extract location information from the one or more images; and
+obtaining as an output of the information extraction model in response to inputting the one or more images, by the computing system, data representing a real-world location associated with the object depicted in the one or more images.
+14. A computing system, the system comprising:
+one or more processors;
+one or more machine-learned information extraction models; and
+a computer-readable medium having instructions stored thereon that, when executed by the one or more processors, cause the system to perform the method of claims 1 to 13.
+15. One or more tangible, non-transitory computer-readable media storing one or more machine-learned information extraction models and computer-readable instructions that when executed by one or more processors cause the one or more processors to perform operations according to any one of claims 1 to 13.
+</claims>
+</document>

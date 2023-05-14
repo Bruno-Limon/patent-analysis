@@ -1,0 +1,81 @@
+<document>
+
+<filing_date>
+2019-11-15
+</filing_date>
+
+<publication_date>
+2020-05-28
+</publication_date>
+
+<priority_date>
+2018-11-19
+</priority_date>
+
+<ipc_classes>
+G06F12/02,G06F12/0862,G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+HASHEMI, MILAD OLIA
+SMITH, JAMIE ALEXANDER
+SWERSKY, KEVIN JORDAN
+</inventors>
+
+<docdb_family_id>
+70726431
+</docdb_family_id>
+
+<title>
+MULTI-TASK RECURRENT NEURAL NETWORKS
+</title>
+
+<abstract>
+Methods, systems, and apparatus, including computer programs encoded on computer storage media, relating to multi-task recurrent neural networks. One of the methods includes maintaining data specifying, for a recurrent neural network, a separate internal state for each of a plurality of memory regions; receiving a current input; identifying a particular memory region of the memory access address defined by the current input; selecting, from the internal states specified in the maintained data, the internal state for the particular memory region; processing, in accordance with the selected internal state for the particular memory region, the current input in the sequence of inputs using the recurrent neural network to: generate an output, the output defining a probability distribution of a predicted memory access address, and update the selected internal state of the particular memory region; and associating the updated selected internal state with the particular memory region in the maintained data.
+</abstract>
+
+<claims>
+1. A method comprising:
+maintaining internal state data for a recurrent neural network that is trained to predict memory access addresses of a computer program in a plurality of memory regions, the internal state data specifying a separate internal state for each of the plurality of memory regions;
+receiving a current input in a sequence of inputs, the sequence of inputs defining a sequence of prior memory access addresses of the computer program;
+identifying a particular memory region of the memory access address defined by the current input in the sequence of inputs;
+selecting, from the internal states specified in the maintained data, the internal state for the particular memory region;
+processing, in accordance with the selected internal state for the particular memory region, the current input in the sequence of inputs using the recurrent neural network to:
+generate an output, the output defining a probability distribution of a predicted memory access address, the predicted memory access address being a future memory access address of the computer program in the particular memory region, and update the selected internal state of the particular memory region; and associating the updated selected internal state with the particular memory region in the maintained data.
+2. The method of claim 1, wherein the predicted memory access address is a next memory access address of the computer program in the particular memory region.
+3. The method of any one of claims 1 or 2, wherein the sequence of inputs comprises a sequence of prior program counter addresses of the computer program and
+corresponding delta values, wherein each delta value defines a difference between a respective first memory access address and a respective second memory access address, wherein the first memory access address is an address that was accessed when an instruction pointed to by the corresponding program counter address was executed, and wherein the second memory access address is an address that was accessed prior to the first memory address being accessed.
+4. The method of claim 3, wherein the first memory access address and the second memory access address are in a same memory region of the plurality of memory regions.
+5. The method of any one of claims 1-4, wherein a memory access associated with the predicted memory access address is a read access.
+6. The method of claim 5, further comprising:
+determining that one or more probabilities in the distribution meet a threshold criterion;
+in response, fetching data from the one or more predicted memory access addresses associated with the one or more probabilities that meet the criterion; and
+storing the data in local cache.
+7. The method of claim 5, further comprising:
+determining that one or more probabilities in the distribution meet a threshold criterion; and
+automatically inserting one or more pre-fetch instructions into the computer program, wherein execution of the one or more pre-fetch instructions causes data to be fetched from the one or more predicted memory access addresses associated with the one or more probabilities that meet the criterion, wherein the one or more pre-fetch instructions are inserted into the computer program prior to an instruction that causes the predicted memory access.
+8. A circuit comprising:
+a recurrent neural network cell (RNN cell) configured to perform operations of a recurrent neural network;
+a plurality of state registers, wherein each state register is configured to (i) store internal state data for the recurrent neural network and (ii) corresponds to a respective task of a plurality of tasks that the neural network has been trained to perform; and
+circuitry configured to perform operations comprising:
+receiving a current input in a sequence of inputs and sequence identifying data,
+identifying a task of the plurality of tasks based on the sequence identifying data,
+obtaining internal state data from the state register corresponding to the identified task,
+providing, to the RNN cell, the obtained internal state data and the current input to cause the RNN cell to process the obtained internal state data and the current input to generate a neural network output and updated internal state data for the identified task,
+receiving, from the RNN cell, the neural network output and the updated internal state data for the identified task, and
+writing the updated internal state data to the state register corresponding to the identified task.
+9. The circuit of claim 8, wherein the sequence identifying data is based on a property of the current input.
+10. The circuit of claim 8, wherein the sequence identifying data is based on a user input.
+11. The circuit of claim 8, wherein the respective task comprises predicting memory access addresses by the RNN cell.
+12. The circuit of any one of claims 8-11, wherein the RNN cell is configured to main a set of fixed weights of the recurrent neural network.
+13. The circuit of any one of claims 8-12, wherein the circuitry comprises a multiplexor configured to:
+select, based on the sequence identifying data, the state register corresponding to the identified task; and
+provide, to the RNN cell, the obtained internal state data.
+14. A system comprising one or more computers and one or more storage devices storing instructions that when executed by one or more computers cause the one or more computers to perform the operations of any one of claims 1-7.
+15. One or more computer-readable storage media encoded with instructions that, when executed by one or more computers, cause the one or more computers to perform the operations of any one of claims 1-7.
+</claims>
+</document>

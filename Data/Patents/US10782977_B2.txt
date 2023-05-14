@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2018-08-10
+</filing_date>
+
+<publication_date>
+2020-09-22
+</publication_date>
+
+<priority_date>
+2017-08-10
+</priority_date>
+
+<ipc_classes>
+G06F11/07,G06F9/30,G06F9/38,G06F9/48,G06F9/52
+</ipc_classes>
+
+<assignee>
+MIPS TECH
+</assignee>
+
+<inventors>
+MACE, TIMOTHY CHARLES
+KINTER, RYAN C
+</inventors>
+
+<docdb_family_id>
+59896038
+</docdb_family_id>
+
+<title>
+Fault detecting and fault tolerant multi-threaded processors
+</title>
+
+<abstract>
+Fault tolerant and fault detecting multi-threaded processors are described. Instructions from a program are executed by both a master thread and a slave thread and execution of the master thread is prioritized. If the master thread stalls or reaches a memory write after having executed a sequence of instructions, the slave thread executes a corresponding sequence of instructions, where at least the first and last instructions in the sequence are the same as the sequence executed by the master thread. When the slave thread reaches the point at which execution of the master thread stopped, the contents of register banks for both the threads are compared, and if they are the same, execution by the master thread is allowed to continue, and any buffered speculative writes are committed to the memory system.
+</abstract>
+
+<claims>
+1. A method of operating a multi-threaded processor comprising: fetching a plurality of instructions from a program by a first thread starting at a first program counter, the first thread using a first register bank; fetching a plurality of instructions from the program by a second thread starting at the first program counter, the second thread using a second register bank in response to the first thread stalling at a point in the program or reaching a predefined synchronization point in the program, wherein the predefined synchronization point is a memory write; comparing contents of the first and second register banks in response to the second thread reaching the point in the program where the first thread stalled or reached the predefined synchronization point; and triggering a further plurality of instructions from the program by one of the first and second threads followed by a further plurality of instructions by the other of the first and second threads in response to determining that the contents match.
+2. The method of claim 1 wherein the triggering comprises beginning execution of the further plurality of instructions from the program.
+3. The method of claim 1 wherein the triggering comprises fetching the further plurality of instructions from the program.
+4. The method of claim 1 wherein the comparing of the contents of the first and second register banks comprises comparing a subset of the contents.
+5. The method of claim 1 further comprising allowing the memory write to complete before triggering a further plurality of instructions from the program by one of the first and second threads followed by a further plurality of instructions by the other of the first and second threads in response to determining that the contents match.
+6. The method of claim 1 further comprising comparing write data and write addresses of memory writes of the first and second threads.
+7. The method of claim 6 wherein the triggering a further plurality of instructions from the program by one of the first and second threads followed by a further plurality of instructions by the other of the first and second threads in response to determining that the contents match only occurs when the comparing write data and write addresses of memory writes of the first and second threads produces a match.
+8. The method of claim 1 wherein the predefined synchronization point is a cache miss.
+9. The method of claim 8 further comprising storing data to be written as a result of an output of the first thread as an entry in a write buffer and updating a state associated with the entry in the write buffer to indicate that it has been written by the first thread.
+10. The method of claim 9 further comprising reading data from the entry in the write buffer instead of from a memory location or a cache in response to fetching a subsequent read instruction of the memory location by the first thread.
+11. The method of claim 1 further comprising storing a current value of a program counter of the first thread in response to the first thread stalling at a point in the program or reaching a predefined synchronization point in the program.
+12. The method of claim 11 further comprising determining when the second thread reaches the point in the program where the first thread stalled or reached the predefined synchronization point based on when a program counter of the second thread equals the current value of the program counter that was stored.
+13. The method of claim 1 further comprising incrementing a first instruction counter for each instruction executed by the first thread after the first program counter.
+14. The method of claim 13 further comprising storing a current value of a program counter of the first thread in response to the first thread stalling at a point in the program or reaching a predefined synchronization point in the program.
+15. The method of claim 14 further comprising incrementing a second instruction counter for each instruction executed by the second thread after the first thread has stalled or reached the predefined synchronization point.
+16. The method of claim 15 further comprising determining when the second thread reaches the point in the program where the first thread stalled or reached the predefined synchronization point based on a program counter of the second thread equaling the first program counter and the second instruction counter equaling the first instruction counter.
+17. The method of claim 15 wherein the first and second instruction counters are not incremented upon execution of a speculative instruction.
+18. The method of claim 17 further comprising incrementing a fourth instruction counter for each speculative instruction executed by an executing thread.
+19. The method of claim 18 further comprising adding a value of the fourth instruction counter to the first instruction counter if the first thread is the executing thread or to the second instruction counter if the second thread is the executing thread, based on correct branch prediction.
+20. The method of claim 19 further comprising adding a fifth instruction counter, wherein the fifth instruction counter is incremented for each instruction fetched by the second thread.
+21. The method of claim 20 wherein an exception is raised based on the fifth instruction counter equaling a threshold value.
+22. The method of claim 21 further comprising incrementing the fifth instruction counter for each instruction fetched by the second thread, copying contents of a third register bank to the first and second register banks, triggering refetching of a plurality of instructions from the program by one or the first and second threads starting at the first program counter, and resetting the fifth instruction counter, based on determining that the fifth instruction counter equals a threshold value.
+23. The method of claim 1 further comprising enforcing a minimum time separation of S clock cycles between the first and second thread executing a same instruction from the same program, wherein S is a predefined, positive integer.
+24. A multi-threaded processing apparatus comprising: a first register bank associated with a first thread; a second register bank associated with a second thread; and a multi-stage execution pipeline comprising: a scheduler implemented in hardware logic and arranged to cause a plurality of instructions from a program to be fetched by the first thread starting at a first program counter value and to cause a plurality of instructions from the same program to be fetched by the second thread starting at the first program counter in response to the first thread stalling or reaching a predefined synchronization point in the program, wherein the predefined synchronization point is a memory write; and comparison logic arranged to compare contents of the first and second register banks in response to determining that the second thread has caught up with the first thread, wherein in response to determining that the contents match, to trigger fetching of a next plurality of instructions from the program by one of the first and second threads followed by the other of the first and second threads.
+25. A computer program product embodied in a non-transitory computer readable medium for multi-threaded processor operation, the computer program product comprising code which causes one or more processors to perform operations of: fetching a plurality of instructions from a program by a first thread starting at a first program counter, the first thread using a first register bank; fetching a plurality of instructions from the program by a second thread starting at the first program counter, the second thread using a second register bank in response to the first thread stalling at a point in the program or reaching a predefined synchronization point in the program, wherein the predefined synchronization point is a memory write; comparing contents of the first and second register banks in response to the second thread reaching the point in the program where the first thread stalled or reached the predefined synchronization point; and triggering a further plurality of instructions from the program by one of the first and second threads followed by a further plurality of instructions by the other of the first and second threads in response to determining that the contents match.
+</claims>
+</document>

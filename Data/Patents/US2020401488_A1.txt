@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2020-08-31
+</filing_date>
+
+<publication_date>
+2020-12-24
+</publication_date>
+
+<priority_date>
+2017-02-17
+</priority_date>
+
+<ipc_classes>
+G06F11/14,G06F11/20,G06F12/02
+</ipc_classes>
+
+<assignee>
+SAP
+</assignee>
+
+<inventors>
+GLEBE, THORSTEN
+THESING, WERNER
+ROTERRING, CHRISTOPH
+</inventors>
+
+<docdb_family_id>
+63167852
+</docdb_family_id>
+
+<title>
+Asynchronous Garbage Collection In Database Redo Log Replay
+</title>
+
+<abstract>
+Recovery of a database system by taking the database system offline is initiated. Thereafter, recovery operations specified by a redo log of the database system are replayed. A cleanup log is generated that identifies cleanup operations occurring during the replay of the recovery operations for garbage collection. Concurrent with the startup of the database, garbage collection of the cleanup operations as specified in the database savepoint is initiated. In addition, concurrent with the replay of the recovery operations, garbage collection of the cleanup operations specified by the cleanup log is initiated. The database system is later brought online after all of the recovery operations are replayed.
+</abstract>
+
+<claims>
+1. A system comprising: at least one data processor; and memory storing instructions which, when executed by the at least one data processor, result in operations comprising: initiating recovery of a database system by taking the database system offline; replaying recovery operations specified by a redo log of the database system; generating a cleanup log identifying cleanup operations occurring during the replay of the recovery operations for garbage collection; initiating, concurrent with the startup of the database, garbage collection of the cleanup operations as specified in a last database savepoint; initiating, concurrent with the replay of the recovery operations and the garbage collection specified by the database savepoint, garbage collection of the cleanup operations specified by the cleanup log; and bringing the database system online after all of the recovery operations are replayed.
+2. The system of claim 1, wherein the cleanup log is passed to a history manager after it is generated and the history manager subsequently initiates the garbage collection of the cleanup operations specified by the cleanup log.
+3. The system of claim 1, wherein the garbage collection of the cleanup operations continues subsequent to the database system being brought online.
+4. The system of claim 1, wherein the replay operations are executed by recovery threads and the cleanup operations are executed by garbage collection threads.
+5. The system of claim 4, wherein the database comprises a plurality of programmable processor cores and the threads are striped such that each core executes a maximum of one recovery thread and one garbage collection thread.
+6. The system of claim 5, wherein at least one core prioritizes execution of the corresponding recovery thread over the corresponding garbage collection thread.
+7. The system of claim 1 further comprising: the database system, and wherein the database system comprises an in-memory database storing data in main memory.
+8. A system comprising: at least one data processor; and memory storing instructions which, when executed by the at least one data processor, result in operations comprising: initiating replication of a primary database system by having an associated secondary database system mirroring data stored in the primary database system and sending a most recent savepoint of the primary database system to the secondary database system; replaying, by the secondary database system, recovery operations specified by a redo log of the primary database system and sent to the secondary database system; initiating, concurrent to subsequent recovery operations, garbage collection of cleanup operations which are part of the savepoint sent from the primary database system; generating, by the secondary database system, a cleanup log identifying cleanup operations occurring during the replay of the recovery operations for garbage collection; initiating, by the secondary database system concurrent with the replay of the recovery operations and the garbage collection specified by the database savepoint, garbage collection of the cleanup operations; and redirecting readonly transactions for execution by the primary database system to the secondary database system which are able to block the asynchronous garbage collection in the secondary database system to get a stable view of data replicated on the secondary database system as required by certain transaction isolation levels.
+9. The system of claim 8, wherein the cleanup log is passed to a history manager after it is generated and the history manager subsequently initiates the garbage collection of the cleanup operations specified by the cleanup log.
+10. The system of claim 8, wherein the operations further comprise: determining whether garbage collection can be initiated based on a snapshot timestamp of an oldest reader of the primary database system relative to a commit timestamp of a transaction that generated the cleanup log.
+11. The system of claim 10, wherein the garbage collection is initiated if the commit timestamp of the cleanup log is older than the snapshot timestamp of the oldest reader.
+12. The system of claim 10, wherein the operations further comprise: delaying initiation of the garbage collection of the cleanup operations if the commit timestamp of the cleanup log is more recent than the snapshot timestamp of the oldest reader.
+13. The system of claim 8, wherein the garbage collection of the cleanup operations continues subsequent to the primary database system being brought online.
+14. The system of claim 8, wherein the garbage collection of the cleanup operations continues subsequent to the secondary database system executing the redirected transactions.
+15. The system of claim 8, wherein the replay operations are executed by recovery threads and the cleanup operations are executed by garbage collection threads.
+16. The system of claim 15, wherein at least one of the primary database system or the secondary database system comprises a plurality of programmable processor cores and the threads are striped such that each core executes a maximum of one recovery thread and one garbage collection thread.
+17. The system of claim 16, wherein at least one core prioritizes execution of the corresponding recovery thread over the corresponding garbage collection thread.
+18. The system of claim 8, wherein at least one of the primary database system or the secondary database system comprises an in-memory database storing data in main memory.
+19. A system comprising: means for initiating recovery of a database system by taking the database system offline; means for replaying recovery operations specified by a redo log of the database system; means for generating a cleanup log identifying cleanup operations occurring during the replay of the recovery operations for garbage collection; means for initiating, concurrent with the startup of the database, garbage collection of the cleanup operations as specified in a last database savepoint; means for initiating, concurrent with the replay of the recovery operations and the garbage collection specified by the database savepoint, garbage collection of the cleanup operations specified by the cleanup log; and means for bringing the database system online after all of the recovery operations are replayed.
+20. The system of claim 19, wherein the cleanup operations as specified in a last database savepoint are processed sequentially and the cleanup operations specified by the cleanup log are processed in parallel
+</claims>
+</document>

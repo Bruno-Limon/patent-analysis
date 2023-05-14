@@ -1,0 +1,130 @@
+<document>
+
+<filing_date>
+2019-07-05
+</filing_date>
+
+<publication_date>
+2020-07-16
+</publication_date>
+
+<priority_date>
+2019-01-09
+</priority_date>
+
+<ipc_classes>
+G06N3/063
+</ipc_classes>
+
+<assignee>
+FUTUREWEI TECHNOLOGIES
+</assignee>
+
+<inventors>
+CHEN JIANLE
+SHEN JIE
+WANG WEI
+WEI WEI
+ZHU,JIAFENG
+</inventors>
+
+<docdb_family_id>
+67470681
+</docdb_family_id>
+
+<title>
+MACHINE LEARNING NETWORK MODEL COMPRESSION
+</title>
+
+<abstract>
+A first aspect relates to a computer-implemented method for performing model compression. The method includes compressing a machine learning (ML) network model comprising a multiple layer structure to produce a compressed ML network model. The compressed ML network model maintains the multiple layer structure of the ML network model. The method generates a model file for the compressed ML network model. The model file includes the compressed ML network model and decoding information for enabling the ML network model to be decompressed and executed layer-by-layer.
+</abstract>
+
+<claims>
+What is claimed is:
+1. A computer-implemented method for performing model compression, the method comprising:
+compressing a machine learning (ML) network model comprising a multiple layer structure to produce a compressed ML network model, the compressed ML network model maintaining the multiple layer structure of the ML network model; and
+generating a model fde for the compressed ML network model, the model fde comprising the compressed ML network model and decoding information for enabling the ML network model to be decompressed and executed layer-by-layer.
+2. The method of claim 1, wherein the decoding information is stored in a general header of the model file.
+3. The method of claim 2, wherein the general header is the first eight bytes of the model file.
+4. The method of claim 2, wherein the general header provides a version, total header length, encoding type, framework type, and serialization type.
+5. The method of claim 2, wherein the model file further comprises a serialization header.
+6. The method of claim 2, wherein the decoding information in the header comprises a decode layer indication, wherein the decode layer indication is associated with a decode layer resource allocation of layer weights.
+7. The method of claim 6, wherein the decode layer resource allocation is a buffer allocation of a shared buffer for storing layer weights for the multiple layer structure of the ML network model.
+8. The method of claim 6, wherein the decode layer indication indicates that the layer weights of the multiple layer structure share a dynamically allocated buffer in a decoding order of the ML network model.
+9. The method of claim 6, wherein the decode layer indication indicates that the decoded layer weights of the model will each be allocated with respective buffer resources in a buffer.
+10. The method of claim 6, wherein the decode layer indication is carried in a decode layer shared buffer header field of the general header of the model file.
+11. The method according to any of the preceding claims, further comprising transmitting the model file to a limited resource system.
+12. The method according to any of the preceding claims, wherein the ML network model is a deep neural network (DNN).
+13. A computer-implemented method for executing a machine learning (ML) network model, the method comprising:
+obtaining a model file comprising a compressed ML network model and decoding information for enabling layer-by-layer decompression and execution, the decoding information comprising a layer-by-layer flag;
+determining whether the layer-by-layer flag is set in the model file;
+responsive to the layer-by-layer flag being set in the model file, decompressing an Nth layer of the compressed ML network model to generate a decompressed Nth layer of the ML network model, where N is an integer variable representing a layer sequence of the ML network;
+loading a set of weighting values for the decompressed Nth layer of the ML network model into a buffer;
+installing the set of weighting values from the buffer into the decompressed Nth layer of the ML network model, with each neuron of the decompressed Nth layer of the ML network model receiving a corresponding weighting value; and
+processing a set of data through the neurons of the decompressed Nth layer of the ML network model.
+14. The method of claim 13, wherein the decoding information is stored in a general header of the model file.
+15. The method of claim 14, wherein the general header is the first eight bytes of the model file.
+16. The method of claim 14, wherein the general header provides a version, total header length, encoding type, framework type, and serialization type.
+17. The method of claim 14, wherein the model file further comprises a serialization header.
+18. The method of claim 14, wherein the decoding information in the header comprises a decode layer indication, wherein the decode layer indication is associated with a decode layer resource allocation of layer weights.
+19. The method of claim 18, wherein the decode layer resource allocation is a buffer allocation of a shared buffer for storing layer weights of multiple layers.
+20. The method of claim 18, wherein the decode layer indication indicates that the layer weights of multiple layers share a dynamically allocated buffer in the order of model decoding.
+21. The method of claim 18, wherein the decode layer indication is carried in a decode layer shared buffer field of the general header.
+22. The method of claim 13, further comprising:
+discarding the decompressed Nth layer of the ML network model from memory;
+determining whether there are additional unprocessed layers of the ML network;
+responsive to a determination that there are additional unprocessed layers of the ML network:
+incrementing N and generating a N+1 index value;
+decompressing the N+l layer of the compressed ML network model to generate the decompressed N+l layer of the ML network model;
+loading weighting values for the decompressed N+l layer of the ML network model into the buffer;
+installing the weighting values from the buffer into the decompressed N+l layer of the ML network model; and
+processing a second set of data through the neurons of the decompressed N+l layer of the ML network model.
+23. The method of any of the preceding claims, wherein the ML network is a deep neural network (DNN).
+24. The method of any of the preceding claims, wherein the buffer is a circular buffer or a first-in first-out (FIFO) queue.
+25. The method of any of the preceding claims, wherein the layer-by-layer flag is updated when the ML network model is compressed.
+26. The method of any of the preceding claims, wherein the layer-by-layer flag is decompressed separately from and before the decompression of the Nth layer of the compressed ML network model.
+27. The method of any of the preceding claims, wherein the compressed ML network model is not decompressed if the layer-by-layer flag indicates no layer-by-layer operation is supported.
+28. The method of any of the preceding claims, further comprising storing the compressed ML network model in a non-volatile memory of a device, and storing the decompressed Nth layer of the ML network model in a volatile memory of the device.
+29. The method of any of the preceding claims, further comprising storing both the compressed ML network model and the decompressed Nth layer of the ML network model in the non-volatile memory of the device.
+30. The method of any of the preceding claims, wherein the limited resource system does not include enough non-volatile memory storage space to store the entire ML network model in an uncompressed state.
+31. A system for performing model compression, the system comprising at least a processor and a memory, the processor executing instructions in the memory to:
+compress a machine learning (ML) network model comprising a multiple layer structure to produce a compressed ML network model, the compressed ML network model maintaining the multiple layer structure of the ML network model; and generate a model file for the compressed ML network model, the model file comprising the compressed ML network model and decoding information for enabling the ML network model to be decompressed and executed layer-by-layer.
+32. A system for executing a machine learning (ML) network model, the system comprising:
+a memory storage comprising instructions; and
+a processor in communication with the memory, the processor executing the instructions to:
+obtain a model file comprising a compressed ML network model and decoding information for enabling layer-by-layer decompression and execution, the decoding information comprising a layer-by-layer flag;
+determine whether the layer-by-layer flag is set in the model file; responsive to the layer-by-layer flag being set in the model file, decompress an Nth layer of the compressed ML network model to generate a decompressed Nth layer of the ML network model, where N is an integer variable representing a layer sequence of the ML network;
+load a set of weighting values for the decompressed Nth layer of the ML network model into a buffer;
+install the set of weighting values from the buffer into the decompressed Nth layer of the ML network model, with each neuron of the decompressed Nth layer of the ML network model receiving a corresponding weighting value; and
+process a set of data through the neurons of the decompressed Nth layer of the
+ML network model.
+33. The system according to claim 32, wherein the processor further executes the instructions to:
+discard the decompressed Nth layer of the ML network model from memory;
+determine whether there are additional unprocessed layers of the ML network;
+responsive to a determination that there are additional unprocessed layers of the ML network:
+increment N to generate a N+1 index value;
+decompress the N+l layer of the compressed ML network model to generate the decompressed N+l layer of the ML network model;
+load weighting values for the decompressed N+l layer of the ML network model into the buffer;
+install the weighting values from the buffer into the decompressed N+l layer of the ML network model; and
+process a second set of data through the neurons of the decompressed N+l layer of the ML network model.
+34. The system according to claim 32, wherein the layer-by-layer flag is updated when the ML network model is compressed.
+35. The system according to claim 32, wherein the layer-by-layer flag is decompressed separately from and before the decompression of the Nth layer of the compressed ML network model.
+36. The system according to claim 32, wherein the compressed ML network model is not decompressed if the layer-by-layer flag indicates no layer-by-layer operation is supported.
+37. The system according to claim 32, wherein the processor further executes the instructions to store the compressed ML network model in a non-volatile memory, and store the decompressed Nth layer of the ML network model in a volatile memory.
+38. The system according to claim 32, wherein the processor further executes the instructions to store both the compressed ML network model and the decompressed Nth layer of the ML network model in the non-volatile memory.
+39. The system according to any of the preceding system claims, wherein the decoding information is stored in a general header of the model file.
+40. The system according to any of the preceding system claims, wherein the general header is the first eight bytes of the model file.
+41. The system according to any of the preceding system claims, wherein the general header provides a version, total header length, encoding type, framework type, and serialization type.
+42. The system according to any of the preceding system claims, wherein the model file further comprises a serialization header.
+43. The system according to any of the preceding system claims, wherein the decoding information in the header comprises a decode layer indication, wherein the decode layer indication is associated with a decode layer resource allocation of layer weights.
+44. The system according to any of the preceding system claims, wherein the ML network model in an uncompressed state exceeds a non-volatile memory storage capacity of the system.
+45. The system according to any of the preceding system claims, wherein the decode layer resource allocation is a buffer allocation of a shared buffer for storing layer weights for the multiple layer structure of the ML network model.
+46. The system according to any of the preceding system claims, wherein the decode layer indication indicates that the layer weights of the multiple layer structure share a dynamically allocated buffer in a decoding order of the ML network model.
+47. The system according to any of the preceding system claims, wherein the decode layer indication indicates that the decoded layer weights of the model will each be allocated with respective buffer resources in a buffer.
+48. The system according to any of the preceding system claims, wherein the decode layer indication is carried in a decode layer shared buffer header field of the general header of the model file.
+49. The system according to any of the preceding system claims, further comprising transmitting the model file to a limited resource system.
+50. The system according to any of the preceding system claims, wherein the ML network model is a deep neural network (DNN).
+51. The system according to any of the preceding system claims, wherein the buffer is a circular buffer or a first-in first-out (FIFO) queue.
+</claims>
+</document>

@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2020-05-07
+</filing_date>
+
+<publication_date>
+2021-01-05
+</publication_date>
+
+<priority_date>
+2020-05-07
+</priority_date>
+
+<ipc_classes>
+G06F40/30,G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+LIU, PETER J.
+Zhang, Jingqing
+Zhao, Yao
+Saleh, Mohammad
+</inventors>
+
+<docdb_family_id>
+74045183
+</docdb_family_id>
+
+<title>
+Training text summarization neural networks with an extracted segments prediction objective
+</title>
+
+<abstract>
+Methods, systems, and apparatus, including computer programs encoded on computer storage media, for training a text summarization neural network. One of the methods includes pre-training the text summarization neural network including learning values of a plurality of network parameters through self-supervised learning using unlabeled data comprising unlabeled first texts, the pre-training including: obtaining an unlabeled first text comprising a plurality of segments; selecting one or more of the plurality of segments; processing a masked first text that excludes the one or more selected segments to generate a prediction of the one or more selected segments; and determining, based on a difference between the prediction and the one or more selected segments, an update to the current values of the plurality of network parameters; adapting the pre-trained text summarization neural network for a specific text summarization task using labeled data comprising second texts and respective summaries of the second texts.
+</abstract>
+
+<claims>
+1. A method comprising: pre-training a text summarization neural network including learning values of a plurality of network parameters through self-supervised learning using unlabeled data comprising unlabeled first texts, the pre-training comprising: obtaining an unlabeled first text comprising a plurality of segments; selecting one or more of the plurality of segments; processing, using the text summarization neural network and in accordance with current values of the plurality of network parameters, a masked first text that excludes the one or more selected segments to generate a prediction of the one or more selected segments; and determining, based on a difference between the prediction and the one or more selected segments, an update to the current values of the plurality of network parameters; and adapting the pre-trained text summarization neural network for a specific text summarization task including adjusting learned values of the plurality of network parameters using labeled data comprising second texts and respective summaries of the second texts.
+2. The method of claim 1, wherein the text summarization neural network comprises an encoder network and a decoder network each comprising a respective plurality of network parameters.
+3. The method of claim 1, wherein the pre-training further comprises: selecting one or more words from unselected segments in the unlabeled first text; processing, using the encoder network and in accordance with current values of the plurality of encoder network parameters, a further masked first text that excludes (i) the one or more selected segments and (ii) the one or more selected words to generate an encoded representation of the further masked first text; processing, using the decoder network and in accordance with current values of the plurality of decoder network parameters, a decoder input that is derived from (i) the one or more selected segments and (ii) the encoded representation of the further masked first text to generate a decoder prediction of the one or more selected segments; determining, based on a first difference between the decoder prediction and the one or more selected segments, an update to the current values of the plurality of decoder network parameters; and determining, based on a second difference between (i) an encoder prediction of the one or more selected words that is derived from the encoded representation and (ii) the one or more selected words, an update to the current values of the plurality of encoder network parameters.
+4. The method of claim 3, wherein determining the update to the current values of the plurality of encoder network parameters further comprises backpropagating a gradient of an objective function that measures the first difference through the decoder network into the encoder network.
+5. The method of claim 1, wherein selecting the one or more of the plurality of segments comprises: selecting the one or more segments from the unlabeled first text with some measure of randomness.
+6. The method of claim 1, wherein selecting the one or more of the plurality of segments comprises: selecting the one or more segments from the unlabeled first text based on respective positions of the segments in the unlabeled first text.
+7. The method of claim 1, wherein selecting the one or more of the plurality of segments comprises: selecting the one or more segments from the unlabeled first text based on respective importance measures of the segments in the unlabeled first text.
+8. The method of claim 7, wherein for each of the plurality of segments in the unlabeled first texts: the importance measure of the segment characterizes a relative importance of the segment with respect to remaining segments in the unlabeled first text.
+9. The method of claim 1, further comprising generating the masked first text that excludes the one or more selected segments by replacing the one or more selected segments in the unlabeled first text with first mask tokens.
+10. The method of claim 3, further comprising generating the further masked first text that excludes (i) the one or more selected segments and (ii) the one or more selected words by replacing the one or more selected words in the unlabeled first text with second mask tokens.
+11. The method of claim 1, wherein the specific text summarization task is an abstractive text summarization task.
+12. The method of claim 1, wherein the unlabeled data comprises millions of unlabeled first texts, and wherein the labeled data comprises thousands of pairs of second texts and respective summaries of the second texts.
+13. A system comprising: one or more computers; and one or more storage devices storing instructions that, when executed by the one or more computers, cause the one or more computers to perform operations comprising: pre-training a text summarization neural network including learning values of a plurality of network parameters through self-supervised learning using unlabeled data comprising unlabeled first texts, the pre-training comprising: obtaining an unlabeled first text comprising a plurality of segments; selecting one or more of the plurality of segments; processing, using the text summarization neural network and in accordance with current values of the plurality of network parameters, a masked first text that excludes the one or more selected segments to generate a prediction of the one or more selected segments; and determining, based on a difference between the prediction and the one or more selected segments, an update to the current values of the plurality of network parameters; and adapting the pre-trained text summarization neural network for a specific text summarization task including adjusting learned values of the plurality of network parameters using labeled data comprising second texts and respective summaries of the second texts.
+14. The system of claim 13, wherein the text summarization neural network comprises an encoder network and a decoder network each comprising a respective plurality of network parameters.
+15. The system of claim 13, wherein the pre-training further comprises: selecting one or more words from unselected segments in the unlabeled first text; processing, using the encoder network and in accordance with current values of the plurality of encoder network parameters, a further masked first text that excludes (i) the one or more selected segments and (ii) the one or more selected words to generate an encoded representation of the further masked first text; processing, using the decoder network and in accordance with current values of the plurality of decoder network parameters, a decoder input that is derived from (i) the one or more selected segments and (ii) the encoded representation of the further masked first text to generate a decoder prediction of the one or more selected segments; determining, based on a first difference between the decoder prediction and the one or more selected segments, an update to the current values of the plurality of decoder network parameters; and determining, based on a second difference between (i) an encoder prediction of the one or more selected words that is derived from the encoded representation and (ii) the one or more selected words, an update to the current values of the plurality of encoder network parameters.
+16. The system of claim 15, wherein determining the update to the current values of the plurality of encoder network parameters further comprises backpropagating a gradient of an objective function that measures the first difference through the decoder network into the encoder network.
+17. The system of claim 13, wherein the operations further comprise generating the masked first text that excludes the one or more selected segments by replacing the one or more selected segments in the unlabeled first text with first mask tokens.
+18. The system of claim 15, wherein the operations further comprise generating the further masked first text that excludes (i) the one or more selected segments and (ii) the one or more selected words by replacing the one or more selected words in the unlabeled first text with second mask tokens.
+19. The system of claim 13, wherein the specific text summarization task is an abstractive text summarization task.
+20. One or more non-transitory computer-readable storage media storing instructions that when executed by one or more computers cause the one or more computers to perform operations comprising: pre-training a text summarization neural network including learning values of a plurality of network parameters through self-supervised learning using unlabeled data comprising unlabeled first texts, the pre-training comprising: obtaining an unlabeled first text comprising a plurality of segments; selecting one or more of the plurality of segments; processing, using the text summarization neural network and in accordance with current values of the plurality of network parameters, a masked first text that excludes the one or more selected segments to generate a prediction of the one or more selected segments; and determining, based on a difference between the prediction and the one or more selected segments, an update to the current values of the plurality of network parameters; and adapting the pre-trained text summarization neural network for a specific text summarization task including adjusting learned values of the plurality of network parameters using labeled data comprising second texts and respective summaries of the second texts.
+</claims>
+</document>

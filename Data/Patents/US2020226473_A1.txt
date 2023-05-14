@@ -1,0 +1,68 @@
+<document>
+
+<filing_date>
+2020-01-15
+</filing_date>
+
+<publication_date>
+2020-07-16
+</publication_date>
+
+<priority_date>
+2019-01-15
+</priority_date>
+
+<ipc_classes>
+G06F5/06,G06N3/08
+</ipc_classes>
+
+<assignee>
+BIGSTREAM SOLUTIONS
+</assignee>
+
+<inventors>
+PARK, JONGSE
+SHARMA, HARDIK
+</inventors>
+
+<docdb_family_id>
+71516690
+</docdb_family_id>
+
+<title>
+SYSTEMS, APPARATUS, METHODS, AND ARCHITECTURES FOR HETEROGENEOUS PRECISION ACCELERATION OF QUANTIZED NEURAL NETWORKS
+</title>
+
+<abstract>
+For one embodiment, a hardware accelerator with a heterogeneous-precision architecture for training quantized neural networks is described. In one example, a hardware accelerator for training quantized neural networks comprises a multilevel memory to store data and a software controllable mixed precision array coupled to the memory. The mixed precision array includes an input buffer, detect logic to detect zero value operands, and a plurality of heterogenous precision compute units to perform computations of mixed precision data types for the forward and backward propagation phase of training quantized neural networks.
+</abstract>
+
+<claims>
+1. A hardware accelerator for training quantized data, comprising: software controllable multilevel memory to store data; and a mixed precision array coupled to the memory, the mixed precision array includes an input buffer, detect logic to detect zero value operands, and a plurality of heterogenous precision compute units to perform computations of mixed precision data types for a backward propagation phase of training quantized data of a neural network.
+2. The hardware accelerator of claim 1, wherein the mixed precision array utilizes low-overhead desynchronized encoding for skipping zero value operands.
+3. The hardware accelerator of claim 1, wherein the detect logic comprises a multi-lane adder logic with desynchronized encoding and uses a desynchronization tag to remove synchronization between rows of the mixed precision array.
+4. The hardware accelerator of claim 3, wherein the detect logic is configured to encode non-zero value operands as value, offset, and desynchronization tag to specify an identification (ID) of a sparse-vector that operates on each row.
+5. The hardware accelerator of claim 4, wherein the multi-lane adder logic uses two tag-lanes within each column, the compute units in each column share tag-lanes, and within each column, compute units forward their results to one of the tag-lanes using the least significant bit (LSB) of the desynchronization tag.
+6. The hardware accelerator of claim 5, wherein each lane includes select logic to determine whether the tag for a current row matches a previous row's tag for either odd or even tag-lanes, the values are added together and forwarded to the next row when the tags match, and results are stored locally when the tags do not match.
+7. The hardware accelerator of claim 6, wherein the detect logic includes zero value operand detector logic and non-zero selector.
+8. The hardware accelerator of claim 7, wherein the zero value operand detector logic includes comparators to generate a bit-vector that corresponds to using a single bit for each bit of a sub-vector.
+9. The hardware accelerator of claim 8, wherein each bit in the bit-vector specifies if a corresponding value in the sub-vector is a zero value or a non-zero value.
+10. The hardware accelerator of claim 9, wherein when all bits in the bit-vector are zero values then the sub-vector is skipped entirely, wherein if at least one bit in the bit-vector is non-zero value then the sub-vector is pushed to a FIFO queue, along with its bit-vector and a desynchronization tag for identifying an input ID.
+11. The hardware accelerator of claim 10, wherein the non-zero selector is configured to cause the FIFO queue to dequeue at least one sub-vector and to read only those sub-vectors that have at least one non-zero value.
+12. A data processing system comprising: a hardware processor; memory; and a hardware accelerator coupled to the memory, the hardware accelerator includes a mixed precision array having an input buffer, detect logic to detect zero value operands, and a plurality of heterogenous precision compute units to perform computations of mixed precision data types for a backward propagation phase of training quantized data of a neural network.
+13. The data processing system of claim 12, wherein the mixed precision array utilizes low-overhead desynchronized encoding for skipping zero value operands.
+14. The data processing system of claim 13, wherein the detect logic comprises a multi-lane adder logic with desynchronized encoding and uses a desynchronization tag to remove synchronization between rows of the mixed precision array.
+15. The data processing system of claim 14, wherein the detect logic is configured to encode non-zero value operands as value, offset, and desynchronization tag to specify an identification (ID) of a sparse-vector that operates on each row.
+16. The data processing system of claim 15, wherein the multi-lane adder logic uses two tag-lanes within each column, the compute units in each column share tag-lanes, and within each column, compute units forward their results to one of the tag-lanes using the least significant bit (LSB) of the desynchronization tag.
+17. The data processing system of claim 16, wherein each lane includes select logic to determine whether the tag for a current row matches a previous row's tag for either odd or even tag-lanes, the values are added together and forwarded to the next row when the tags match, and results are stored locally when the tags do not match.
+18. The data processing system of claim 17, wherein the detect logic includes zero value operand detector logic and non-zero selector.
+19. A computer implemented method for quantized neural network training comprising: storing data in a software controllable multilevel memory; receiving data for training with a mixed precision array; detecting zero value operands with detect logic of the mixed precision array; and performing, with a plurality of heterogenous precision compute units, computations of mixed precision data types for a backward propagation phase of training quantized data of a neural network.
+20. The computer implemented method of claim 19, wherein the mixed precision array utilizes low-overhead desynchronized encoding for skipping zero value operands.
+21. The computer implemented method of claim 19, wherein the detect logic comprises a multi-lane adder logic with desynchronized encoding and uses a desynchronization tag to remove synchronization between rows of the mixed precision array.
+22. The computer implemented method of claim 21, further comprising: encoding, with the detect logic, non-zero value operands as value, offset, and desynchronization tag to specify an identification (ID) of a sparse-vector that operates on each row.
+23. The computer implemented method of claim 22, further comprising: within each column, forwarding, with the compute units, their results to one of the tag-lanes using a least significant bit (LSB) of the desynchronization tag.
+24. The computer implemented method of claim 23, further comprising: determining, with select logic of each lane, whether the tag for a current row matches a previous row's tag for either odd or even tag-lanes; adding values and forwarding to the next row when the tags match; and results are stored locally when the tags do not match.
+25. The computer implemented method of claim 24, wherein the detect logic includes zero value operand detector logic and non-zero selector.
+26. The computer implemented method of claim 5, further comprising: generating, with the zero value operand detector logic, a bit-vector that corresponds to using a single bit for each bit of a sub-vector, wherein each bit in the bit-vector specifies if a corresponding value in the sub-vector is a zero value or a non-zero value.
+</claims>
+</document>

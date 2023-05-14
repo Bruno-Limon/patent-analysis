@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-12-04
+</filing_date>
+
+<publication_date>
+2020-06-11
+</publication_date>
+
+<priority_date>
+2018-12-05
+</priority_date>
+
+<ipc_classes>
+G06F11/34,G06F9/38,G06N20/00
+</ipc_classes>
+
+<assignee>
+UNIVERSITY OF ILLINOIS
+</assignee>
+
+<inventors>
+PARAMESWARAN, ADITYA G
+XIN, DORIS SUIYI
+MACKE, STEPHEN
+</inventors>
+
+<docdb_family_id>
+70971093
+</docdb_family_id>
+
+<title>
+Holistic Optimization for Accelerating Iterative Machine Learning
+</title>
+
+<abstract>
+A great deal of time and computational resources may be used when developing a machine learning or other data processing workflow. This can be related to the need to re-compute the workflow in response to adjustments to the workflow parameters, in order to assess the benefit of such adjustments so as to develop a workflow that satisfies accuracy or other constraints. Embodiments herein provide time and computational savings by selectively storing and re-loading intermediate results of steps of a data processing workflow. For each step of the workflow, during execution, a decision is made whether to store the intermediate results of the step. Thus, these embodiments can offer storage savings as well as processing speedups when repeatedly re-executing machine learning or other data processing workflows during workflow development.
+</abstract>
+
+<claims>
+1. An article of manufacture including a non-transitory computer-readable medium, having stored thereon program instructions that, upon execution by a computing device, cause the computing device to perform operations comprising: obtaining a representation of a machine learning workflow, wherein the machine learning workflow includes a plurality of data processing tasks, and wherein directed data dependencies exist between pairs of the data processing tasks and between portions of target data and instances of the data processing tasks; executing the machine learning workflow, wherein executing the machine learning workflow comprises, for a particular data processing task of the plurality of data processing tasks, storing an output of the particular data processing task to a data storage; receiving an indication of a modification to the machine learning workflow; based on the machine learning workflow and the indication, generating a modified machine learning workflow; and executing the modified machine learning workflow, wherein executing the modified machine learning workflow comprises: (i) loading the output of the particular data processing task, and (ii) using the output to determine an output of a different data processing task of the plurality of data processing tasks.
+2. The article of manufacture of claim 1, wherein executing the machine learning workflow further comprises generating a first performance metric for the machine learning workflow, wherein executing the modified machine learning workflow further comprises generating a second performance metric for the modified machine learning workflow, and wherein the operations further comprise: providing an indication of the first performance metric and the second performance metric.
+3. The article of manufacture of claim 1, wherein at least one data processing task of the plurality of data processing tasks includes data preprocessing.
+4. The article of manufacture of claim 1, wherein at least one data processing task of the plurality of data processing tasks includes training a machine learning model.
+5. The article of manufacture of claim 1, wherein receiving the indication of the modification to the machine learning workflow comprises receiving an indication of at least one change to one or more data processing tasks of the plurality of data processing tasks, and wherein executing the modified machine learning workflow further comprises: determining, for the plurality of data processing tasks, whether to re-compute outputs of the data processing tasks, to load previously stored outputs of the data processing tasks, or to do neither.
+6. The article of manufacture of claim 5, wherein a directed data dependency exists between a first data processing task and a second data processing task, wherein determining, for the plurality of data processing tasks, whether to re-compute the outputs of the data processing tasks, to load previously stored outputs of the data processing tasks, or to do neither comprises: determining to load a previously stored output of the first data processing task; and determining to re-compute the output of a second data processing task based on the previously stored output of the first data processing task.
+7. The article of manufacture of claim 6, wherein determining to re-compute the output of the second data processing task comprises determining that the indication of the modification to the machine learning workflow includes an indication of a modification to the second data processing task.
+8. The article of manufacture of claim 6, wherein determining to load the previously stored output of the first data processing task comprises determining that the machine learning workflow includes the directed data dependency between the first data processing task and the second data processing task.
+9. The article of manufacture of claim 6, wherein determining to re-compute the output of a second data processing task comprises: determining that the machine learning workflow includes a further directed data dependency between the second data processing task and a further data processing task for which an output will be re-computed; and determining that a further previously stored output is not available for the second data processing task.
+10. The article of manufacture of claim 1, wherein executing the machine learning workflow additionally comprises: determining a cost function for the particular data processing task; and determining that the cost function exceeds a threshold value, wherein storing the output of the particular data processing task to the data storage is performed responsive to determining that the cost function satisfies the threshold value.
+11. The article of manufacture of claim 10, wherein determining the cost function for the particular data processing task comprises: determining, based on the directed data dependencies between the data processing tasks and portions of the target data, a set of the data processing tasks on which the particular data processing task has a direct or indirect data dependency; and determining a sum of a computation cost for the particular data processing task and of computation costs for each of the data processing tasks in the set of the data processing tasks.
+12. The article of manufacture of claim 11, further comprising determining the computation cost for the particular data processing task based on an observed cost to compute the particular data processing task prior to executing the machine learning workflow.
+13. The article of manufacture of claim 1, the operations further comprising: obtaining a predicted further modification to the machine learning workflow; based on the machine learning workflow and the predicted further modification, generating a further modified machine learning workflow; executing the further modified machine learning workflow, wherein executing the further modified machine learning workflow comprises generating a performance metric for the further modified machine learning workflow; receiving an actual further modification to the machine learning workflow; determining that the actual further modification is equivalent to the predicted further modification; and responsive to determining that the actual further modification is equivalent to the predicted further modification, providing an indication of the performance metric for the further modified machine learning workflow.
+14. A method comprising: obtaining a representation of a machine learning workflow, wherein the machine learning workflow includes a plurality of data processing tasks, and wherein directed data dependencies exist between pairs of the data processing tasks and between portions of target data and instances of the data processing tasks; executing the machine learning workflow, wherein executing the machine learning workflow comprises, for a particular data processing task of the plurality of data processing tasks, storing an output of the particular data processing task to a data storage; receiving an indication of a modification to the machine learning workflow; based on the machine learning workflow and the indication, generating a modified machine learning workflow; and executing the modified machine learning workflow, wherein executing the modified machine learning workflow comprises: (i) loading the output of the particular data processing task, and (ii) using the output to determine an output of a different data processing task of the plurality of data processing tasks.
+15. The method of claim 14, wherein receiving the indication of the modification to the machine learning workflow comprises receiving an indication of at least one change to one or more data processing tasks of the plurality of data processing tasks, and wherein executing the modified machine learning workflow further comprises: determining, for the plurality of data processing tasks, whether to re-compute outputs of the data processing tasks, to load previously stored outputs of the data processing tasks, or to do neither.
+16. The method of claim 15, wherein a directed data dependency exists between a first data processing task and a second data processing task, wherein determining, for the plurality of data processing tasks, whether to re-compute the outputs of the data processing tasks, to load previously stored outputs of the data processing tasks, or to do neither comprises: determining to load a previously stored output of the first data processing task; and determining to re-compute the output of a second data processing task based on the previously stored output of the first data processing task.
+17. The method of claim 16, wherein determining to load the previously stored output of the first data processing task comprises determining that the machine learning workflow includes the directed data dependency between the first data processing task and the second data processing task.
+18. The method of claim 14, wherein executing the machine learning workflow additionally comprises: determining a cost function for the particular data processing task; and determining that the cost function exceeds a threshold value, wherein storing the output of the particular data processing task to the data storage is performed responsive to determining that the cost function satisfies the threshold value.
+19. The method of claim 18, wherein determining the cost function for the particular data processing task comprises: determining, based on the directed data dependencies between the data processing tasks and portions of the target data, a set of the data processing tasks that have a direct or indirect data dependency on the particular data processing task; and determining a sum of a computation cost for the particular data processing task and of computation costs for each of the data processing tasks in the set of the data processing tasks.
+20. A method comprising: obtaining a representation of a data processing workflow, wherein the data processing workflow includes a plurality of data processing tasks, and wherein directed data dependencies exist between pairs of the data processing tasks and between portions of target data and instances of the data processing tasks; executing the data processing workflow, wherein executing the data processing workflow comprises, for a particular data processing task of the plurality of data processing tasks, storing an output of the particular data processing task to a data storage; receiving an indication of a modification to the data processing workflow; based on the data processing workflow and the indication, generating a modified data processing workflow; and executing the modified data processing workflow, wherein executing the modified data processing workflow comprises: (i) loading the output of the particular data processing task, and (ii) using the output to determine an output of a different data processing task of the plurality of data processing tasks.
+</claims>
+</document>

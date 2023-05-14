@@ -1,0 +1,80 @@
+<document>
+
+<filing_date>
+2019-11-21
+</filing_date>
+
+<publication_date>
+2020-05-28
+</publication_date>
+
+<priority_date>
+2018-11-21
+</priority_date>
+
+<ipc_classes>
+G06N3/00,G06N3/04,G06N3/08,G11B27/00
+</ipc_classes>
+
+<assignee>
+DEEPMIND TECHNOLOGIES
+</assignee>
+
+<inventors>
+ZISSERMAN, ANDREW
+SERMANET, PIERRE
+DWIBEDI, DEBIDATTA
+TOMPSON, JONATHAN
+AYTAR, YUSUF
+</inventors>
+
+<docdb_family_id>
+68848220
+</docdb_family_id>
+
+<title>
+ALIGNING SEQUENCES BY GENERATING ENCODED REPRESENTATIONS OF DATA ITEMS
+</title>
+
+<abstract>
+An encoder neural network is described which can encode a data item, such as a frame of a video, to form a respective encoded data item. Data items of a first data sequence are associated with respective data items of a second sequence, by determining which of the encoded data items of the second sequence is closest to the encoded data item produced from each data item of the first sequence. Thus, the two data sequences are aligned. The encoder neural network is trained automatically using a training set of data sequences, by an iterative process of successively increasing cycle consistency between pairs of the data sequences.
+</abstract>
+
+<claims>
+1. A method of aligning two data sequences of events using a single encoder neural network, a first of the data sequences being a sequence of first data items, and a second of the data sequences being a sequence of second data items, the first data items characterizing respective first events which occur in a first environment at successive first times, and the second data items characterizing respective second events which occur in a second environment at successive second times, the method comprising the steps of:
+encoding the first data sequence with an encoder neural network, to form from each first data item a corresponding first encoded data item;
+encoding the second data sequence with the encoder neural network, to form from each second data item a corresponding second encoded data item; and
+for at least one said first data item:
+(i) for each of a plurality of the second data items, determining a respective distance value indicative of a distance between the corresponding first encoded data item and the corresponding second encoded data item according to a distance measure;
+(ii) determining one of the plurality of second data items for which the corresponding distance value is lowest; and
+(iii) associating the first data item and the determined one of the second data items, to associate the corresponding first event with the corresponding second event.
+2. A method according to claim 1 comprising attributing annotation data attributed to one or more data items of one of the data sequences, to respective associated data items of the other of the data sequences.
+3. A method according to claim 1 or claim 2 in which the steps are performed while the data items of the first data sequence are datasets successively captured by at least one sensor and characterizing a real world environment at successive times.
+4. A method according to claim 3 further comprising, in response to capturing a data item of the first data sequence, and associating the first data item and the determined one of the second data items,
+identifying annotation data associated with the determined one of the second data items,
+using the annotation data to generate control signals, and
+based on the control signals, modifying the real world environment.
+5. A method according to any preceding claim in which each of the data sequences are video sequences, the first and second data items each comprising image data captured by at least one video camera and defining at least one respective frame of the corresponding video sequence.
+6. A method according to any preceding claim further comprising determining whether one or more of the distance values meet an anomaly criterion, and if the criterion is met transmitting a warning message.
+7. A method of training an encoder neural network that has a plurality of network parameters and that is configured to receive an input data item and to process the input data item to generate an encoded data item from the input data item in accordance with the network parameters, the method comprising:
+obtaining a plurality of data sequences comprising a sequence of data items; and more than once performing the steps of:
+using the encoder neural network to obtain a respective encoded data item for each data item of a first of the data sequences, and for each data item of a second of the data sequences;
+forming a cost function which varies inversely with a cycle consistency value, the cycle consistency value being indicative of the likelihood that, for a given data item of the first data sequence, the given data item is the data item of the first data sequence for which the respective encoded data item is closest according to a distance measure to the encoded data item of a specific data item of the second data sequence, the specific data item being the data item of the second data sequence for which the respective encoded data item is closest according to the distance measure to the encoded data item of the given data item; and
+performing an iteration of a neural network training procedure to determine an update to the current values of the network parameters that decreases the cost function.
+8. A method according to claim 7 in which the distance measure is the Euclidean distance between the encoded data items.
+9. A method according to claim 7 or claim 8 in which the cycle consistency value is a differentiable function of the network parameters.
+10. A method according to claim 7 or 8 in which the cycle consistency value is a measure of the likelihood that the given data item is within a range of positions in the first data sequence.
+11. A method according to any of claims 7 to 10 in which the cycle consistency value is obtained by a process comprising deriving, from the given data item, a soft nearest neighbor encoded data item, the soft nearest neighbor encoded data item being a weighted sum of the encoded data items for the second data sequence, where the weight for each encoded data item for the second data sequence is a decreasing smooth function of the distance between the encoded data item for the given data item and the encoded data item for the second data sequence.
+12. A method according to claim any of claims 7 to 11 in which the process of obtaining the cycle consistency value further comprises deriving, for each data item of the first data sequence, a respective similarity value using the corresponding encoded data item and the soft nearest neighbor encoded data item, the similarity value being a decreasing smooth function of the distance between the corresponding encoded data item and the soft nearest neighbor encoded data item.
+13. A method according to claim 12 in which the process of obtaining the cycle consistency value includes using the distribution of similarity values across the first data sequence to obtain a mean position in the first sequence, the cost function comprising a measure of the distance between the position of the given data item in the first data sequence and the mean position.
+14. A method according to claim 13 in which the cost function further comprises a variance value which is a measure of the variance of the distribution of similarity values for different positions in the first data sequence.
+15. A method according to any of claims 7 to 14 in which the data items of at least one of the data sequences are real world data successively captured by sensors.
+16. A method according to any of claim 15 in which the data items of at least one of the data sequences are images successively captured by a camera.
+17. A method according to any of claims 1 to 6, further comprising obtaining the encoder neural network using a method according to any of claims 7 to 16.
+18. A method according to any preceding claim in which the encoder neural network comprises one or more convolutional layers.
+19. A method of training a classification neural network, the method comprising training an encoder neural network by a method according to any of claims 7 to 16, forming the classification network comprising the encoder neural network and an output neural network receiving the output of the encoder neural network, the method comprising training the output neural network using a training set of data items and associated labels, wherein the training comprises varying network parameters of the output neural network to train the output neural network, in response to inputting one of the data items of the training set to the encoder neural network, to output the corresponding associated label.
+20. A system comprising one or more computers and one or more storage devices storing instructions that when executed by the one or more computers cause the one or more computers to perform the operations of the respective method of any one of claims 1-19.
+21. One or more computer storage media storing instructions that when executed by one or more computers cause the one or more computers to perform the operations of the respective method of any one of claims 1-19.
+22. One or more computer storage media storing instructions that when executed by one or more computers cause the one or more computers to implement the system of claim 20.
+</claims>
+</document>

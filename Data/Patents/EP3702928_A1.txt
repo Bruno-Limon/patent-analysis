@@ -1,0 +1,79 @@
+<document>
+
+<filing_date>
+2018-06-28
+</filing_date>
+
+<publication_date>
+2020-09-02
+</publication_date>
+
+<priority_date>
+2017-09-18
+</priority_date>
+
+<ipc_classes>
+G06F16/00
+</ipc_classes>
+
+<assignee>
+BOE TECHNOLOGY GROUP COMPANY
+</assignee>
+
+<inventors>
+LI, YINGJIE
+</inventors>
+
+<docdb_family_id>
+65722401
+</docdb_family_id>
+
+<title>
+METHOD FOR QUESTION ANSWERING SERVICE, QUESTION ANSWERING SYSTEM AND STORAGE MEDIUM
+</title>
+
+<abstract>
+A method for question-and-answer service, a question-and-answer service system and a storage medium are disclosed. The method includes: determining a keyword from a preset question group and a corresponding preset answer, the preset question group including at least one preset question (S10); obtaining an associated word group of the keyword, the associated word group of the keyword including at least one associated word of the keyword (S12); and generating an extended question group including at least one extended question by using the associated word group of the keyword (S14).
+</abstract>
+
+<claims>
+1. A method for question-and-answer service, comprising: determining a keyword from a preset question group and a corresponding preset answer, wherein the preset question group comprises at least one preset question; obtaining an associated word group of the keyword, the associated word group comprising at least one associated word of the keyword; and generating an extended question group comprising at least one extended question by using the associated word group of the keyword.
+2. The method according to claim 1, wherein determining the key word from the preset question group and the corresponding preset answer comprises: obtaining a question word set comprising at least one candidate keyword from the preset question group, and obtaining an answer word set comprising the at least one candidate keyword from the preset answer; and determining the keyword from the at least one candidate keyword comprised in the question word set according to a first word frequency of each of the at least one candidate keyword in the question word set and a second word frequency of the each of the at least one candidate keyword in the answer word set.
+3. The method according to claim 2, wherein determining the keyword from the at least one candidate keyword comprised in the question word set according to a first word frequency of each of the at least one candidate keyword in the question word set and a second word frequency of the each of the at least one candidate keyword in the answer word set comprises:
+if a first word frequency of a candidate keyword is less than or equal to a first word frequency threshold and a second word frequency of the candidate keyword is greater than or equal to a second word frequency threshold, determining that the candidate keyword is the keyword.
+4. The method according to any one of claims 1 to 3, wherein obtaining the associated word group of the keyword comprises: obtaining at least one candidate associated word of the keyword from a network; according to a word frequency of each candidate associated word of the at least one candidate associated word in the question word set and a word frequency of the each candidate associated word in the answer word set, determining a third word frequency of the each candidate associated word; and determining the at least one associated word of the keyword from the at least one candidate associated word according to the third word frequency of the each candidate associated word.
+5. The method according to claim 4, wherein determining the at least one associated word of the keyword from the at least one candidate associated word according to the third word frequency of the each candidate associated word comprises: determining that candidate associated words having third word frequencies being greater than a third word frequency threshold in the at least one candidate associated word are the at least one associated word of the keyword; or determining top P1 candidate associated words with highest third word frequencies in the at least one candidate associated word to be the at least one associated word of the keyword, P1 being a positive integer; or determining top P2 candidate associated words, third word frequencies of which are greater than the third word frequency threshold, in the at least one candidate associated word to be the at least one associated word of the keyword, the top P2 candidate keywords being top P2 candidate keywords with highest third word frequencies among the at least one candidate keyword, and P2 being a positive integer.
+6. The method according to any one of claims 1 to 5, further comprising,
+extracting first training data and second training data from the preset question group, the preset answer and the extended question group, and setting a similarity between the first training data and the second training data as a target similarity; and
+training a question-and-answer prediction model according to the first training data, the second training data and the target similarity.
+7. The method according to claim 6, wherein
+when at least one of the first training data and the second training data comprises an extended question in the extended question group, the target similarity is a first similarity threshold; and
+when the first training data comprises a preset question in the preset question group or the preset answer, and the second training data comprises a preset question in the preset question group or the preset answer, the target similarity is a second similarity threshold;
+the first similarity threshold is less than the second similarity threshold.
+8. The method according to claim 6 or 7, further comprising: receiving a question request; processing the question request by using the question-and-answer prediction model obtained by training, obtaining an answer to the question request; and outputting the answer to the question request.
+9. The method according to any one of claims 1 to 8, wherein the at least one associated word of the keyword comprises a near-synonym of the keyword.
+10. A question-and-answer service system, comprising: a question extension device and an associated word acquisition device, wherein
+the question extension device is configured to:
+determine a keyword from a preset question group and a corresponding preset answer, the preset question group comprising at least one preset question;
+the associated word acquisition device is configured to:
+obtain an associated word group of the keyword, the associated word group comprising at least one associated word of the keyword;
+the question extension device is also configured to generate an extended question group comprising at least one extended question by using the associated word group of the keyword.
+11. The question-and-answer service system according to claim 10, wherein the question extension device is also configured to: obtain a question word set comprising at least one candidate keyword from the preset question group, and obtain an answer word set comprising the at least one candidate keyword from the preset answer; and determine the keyword from the at least one candidate keyword comprised in the question word set according to a first word frequency of each of the at least one candidate keyword in the question word set and a second word frequency of the each of the at least one candidate keyword in the answer word set.
+12. The question-and-answer service system according to claim 11, wherein the question extension device is also configured to determine that a candidate keyword is the keyword in a case where a first word frequency of the candidate keyword is less than or equal to a first word frequency threshold and a second word frequency of the candidate keyword is greater than or equal to a second word frequency threshold.
+13. The question-and-answer service system according to any one of claims 10 to 12, wherein the associated word acquisition device is configured to: obtain at least one candidate associated word of the keyword from a network; according to a word frequency of each candidate associated word of the at least one candidate associated word in the question word set and a word frequency of the each candidate associated word in the answer word set, determine a third word frequency of the each candidate association word; and determine the at least one associated word of the keyword from the at least one candidate associated word according to the third word frequency of the each candidate associated word.
+14. The question-and-answer service system according to claim 13, wherein the associated word acquisition device is configured to: determine that candidate associated words having third word frequencies being greater than a third word frequency threshold in the at least one candidate associated word are the at least one associated word of the keyword; or determine top P1 candidate associated words with highest third word frequencies in the at least one candidate associated word to be the at least one associated word of the keyword, P1 being a positive integer; or determine top P2 candidate associated words, third word frequencies of which are greater than the third word frequency threshold, in the at least one candidate associated word to be the at least one associated word of the keyword, the top P2 candidate keywords being top P2 candidate keywords with highest third word frequencies among the at least one candidate keyword, and P2 being a positive integer.
+15. The question-and-answer service system according to any one of claims 10 to 14, further comprising a model training device,
+wherein the model training device comprises a question-and-answer prediction model, the model training device is configured to: extract first training data and second training data from the preset question group, the preset answer and the extended question group, and set a similarity between the first training data and the second training data as a target similarity; and train the question-and-answer prediction model according to the first training data, the second training data and the target similarity.
+16. The question-and-answer service system according to claim 15, wherein
+when at least one of the first training data and the second training data comprises an extended question in the extended question group, the target similarity is a first similarity threshold;
+when the first training data comprises a preset question in the preset question group or the preset answer, and the second training data comprises a preset question in the preset question group or the preset answer, the target similarity is a second similarity threshold;
+the first similarity threshold is less than the second similarity threshold.
+17. The question-and-answer service system according to claim 15 or 16, further comprising a question-and-answer service device, wherein
+the question-and-answer service device is configured to receive a question request;
+the model training device is configured to process the question request by using the question-and-answer prediction model obtained by training, and obtain an answer to the question request;
+the question-and-answer service device is also configured to output the answer to the question request.
+18. The question-and-answer service system according to any one of claims 10 to 17, wherein the at least one associated word of the keyword comprises a near-synonym of the keyword.
+19. A storage medium, storing computer instructions which are adapted to be executed by a processor,
+wherein when the computer instructions are executed by the processor, the method for question-and-answer service according to any one of claims 1 to 9 be performed.
+</claims>
+</document>

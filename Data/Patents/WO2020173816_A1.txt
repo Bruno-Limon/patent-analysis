@@ -1,0 +1,96 @@
+<document>
+
+<filing_date>
+2020-02-21
+</filing_date>
+
+<publication_date>
+2020-09-03
+</publication_date>
+
+<priority_date>
+2019-02-28
+</priority_date>
+
+<ipc_classes>
+A61B34/10,A61B34/20,A61B34/30,A61B90/00,B25J9/16,G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+PHILIPS ELECTRONICS
+</assignee>
+
+<inventors>
+POPOVIC, ALEKSANDRA
+TOPOREK, GRZEGORZ ANDRZEJ
+</inventors>
+
+<docdb_family_id>
+69645996
+</docdb_family_id>
+
+<title>
+FEEDFORWARD CONTINUOUS POSITIONING CONTROL OF END-EFFECTORS
+</title>
+
+<abstract>
+A positioning controller (50) including a forward predictive model (60) and/or inverse control predictive model (70) for positioning control of an interventional device (30) including a portion (40) of an interventional device. In operation, the controller (50) may apply the forward predictive model (60) to a commanded positioning motion of the interventional device (30) to render a predicted navigated pose of the end-effector (40), and generate positioning data informative of a positioning by the interventional device (30) of said portion of interventional device (40) to a target pose based on the predicted navigated pose of said portion (40). Alternatively, antecedently or subsequently, the controller (50) may apply the control predictive model (70) to the target pose of the portion of interventional device (40) to render a predicted positioning motion of the interventional device (30), and generate positioning commands controlling a positioning by the interventional device (30) of said device portion (40) to the target pose based on the predicted positioning motion of the interventional device (30).
+</abstract>
+
+<claims>
+1. A positioning controller (50) for an interventional device (30) including a device portion (40), the positioning controller (50) comprising:
+a memory including at least one of:
+a forward predictive model (60) configured with embedded kinematics of interventional device to receive commanded positioning motion of the interventional device (30) and to output data related to a prediction of a navigated pose of the device portion (40), and
+a control predictive model (70) configured with kinematics of interventional device to receive a target pose data of the interventional device and to output data related to a prediction of a positioning motion of the interventional device (30); and
+at least one processor in communication with the memory, wherein the at least one processor is configured to at least one of:
+(i) apply the forward predictive model (60) to a commanded positioning motion of the interventional device (30) to render a predicted navigated pose of the device portion (40), and generate positioning data informative of a positioning by the interventional device (30) of the device portion (40) to a target pose based on the predicted navigated pose of the device portion (40); and
+(ii) apply the control predictive model (70) to the target pose of the device portion (40) to render a predicted positioning motion of the interventional device (30), and generate positioning commands controlling a positioning of the interventional device (30) of the device portion (40) to the target pose based on the predicted positioning motion of the interventional device (30).
+2. The positioning controller of claim 1, wherein the imaging predictive model (80) has been or is trained on forward kinematics of the interventional device (30), and/or the control predictive model (70) is an inverse predictive model which has been or is trained on inverse kinematics of the interventional device (30).
+3. The positioning controller of claim 1, wherein the device portion is an end-effector (40) of the interventional device (30).
+4. The positioning controller of claim 1, further configured to generate said positioning data continuously and/or said positioning commands continuously such that the positioning controller is considered as a continuous positioning controller.
+5. The positioning controller (50) of claim 1 or 2, wherein the forward predictive model (60) includes:
+a neural network base having an input layer configured to input joint variables of the interventional robot representative of the commanded positioning motion of the interventional device (30), and an output layer configured to output at least one of a translation, a rotation and a pivoting of the device portion (40) derived from a regression of the joint variables of the interventional robot,
+wherein the at least one of the translation, the rotation and the pivoting of the device portion (40) infers the predicted navigated pose of the device portion (40).
+6. The positioning controller (50) of claim 1 or 2, wherein the control predictive model (70) includes:
+a neural network base having an input layer configured to input at least one of a translation, a rotation and a pivoting of the device portion (40), and an output layer configured to output joint variables of the interventional robot derived from a regression at least one of the translation, the rotation and the pivoting of the device portion (40),
+wherein the joint variables of the interventional robot infer the predicted positioning motion of the interventional device (30).
+7. The positioning controller (50) of claim 1 or 2, wherein the forward predictive model (60) includes:
+a neural network base having an input layer configured to input joint velocities of the interventional device (30) representative of the commanded positioning motion of the interventional device (30), and an output layer configured to output at least one of a linear velocity and an angular velocity of the device portion (40) from a regression of the joint velocities of the interventional device (30),
+wherein at least one of a linear velocity and an angular velocity of the device portion (40) infers the predicted navigated pose of the interventional device (30).
+8. The positioning controller (50) of claim 1 or 2, wherein the control predictive model (70) includes:
+a neural network base having an input layer configured to input at least one of a linear velocity and an angular velocity of the device portion (40) to the target pose and an output layer configured to output joint velocities of the interventional device (30) from a regression at least one of a linear velocity and an angular velocity of the device portion (40) to the target pose,
+wherein the joint velocities of the interventional device (30) infer the predicted positioning motion of the interventional device (30).
+9. The positioning controller (50) of claim 1, wherein the forward predictive model (60) includes:
+a neural network base having an input layer configured to input a preceding sequence of shapes of the interventional device (30) representative of the commanded positioning motion of the interventional device (30), and an output layer configured to output a succeeding sequence of shapes of the interventional device (30) derived from a time series prediction of the preceding sequence of shapes of the interventional device (30),
+wherein the succeeding sequence of shapes of the interventional device (30) infer the predicted navigated pose of the device portion (40).
+10. The positioning controller (50) of claim 1 or 2, wherein the forward predictive model (60) includes:
+a neural network base having an input layer configured to input a preceding sequence of shapes of the interventional device (30) representative of the commanded positioning motion of the interventional device (30), and an output layer configured to output a succeeding shape of the interventional device (30) derived from a time series prediction of the preceding sequence of shapes of the interventional device (30),
+wherein the succeeding shape of the interventional device (30) infers the predicted navigated pose of the device portion (40).
+11. The positioning controller (50) of claim 2,
+wherein at least one of: the forward predictive model (60) is further trained on at least one navigation parameter of the interventional device (30) auxiliary to the forward kinematics of the interventional device (30) predictive of the pose of the device portion (40), and
+the control predictive model (70) is further trained on the at least one navigation parameter of the interventional device (30) auxiliary to the inverse kinematics of the interventional device (30) predictive of the positioning motion of the interventional device (30); and
+wherein the at least one processor is configured to at least one of:
+(i1) apply the forward predictive model (60) to both the commanded positioning motion of the interventional device (30) and the at least one navigation parameter auxiliary to the forward kinematics of the interventional device (30) to render the predicted navigated pose of the device portion (40); and
+(if) apply the control predictive model (70) to both the target pose of the device portion (40) and the at least one navigation parameter auxiliary to the inverse kinematics of the interventional device (30) to render the predicted positioning motion of the interventional device (30).
+12. The positioning controller (50) of claim 1,
+wherein at least one of:
+the forward predictive model (60) is configured to further receive at least one auxiliary navigation parameter of the interventional device (30), and further process it to output the prediction of navigated pose of the device portion (40), and
+the control predictive model (70) is configured to further receive at least one auxiliary navigation parameter of the interventional device (30), and further process it to output the prediction of positioning motion of the interventional device (30); and
+wherein the at least one processor is configured to at least one of:
+(i1) apply the forward predictive model (60) to both the commanded positioning motion of the interventional device (30) and at least one auxiliary navigation parameter to render the predicted navigated pose of the device portion (40); and
+(if) apply the control predictive model (70) to both the target pose of the device portion (40) and at least one auxiliary navigation parameter to render the predicted positioning motion of the interventional device (30).
+13. A machine-readable storage medium, encoded with instructions for execution by at least one processor, to instruct an international device including a device portion, the machine-readable storage medium storing:
+at least one of:
+a forward predictive model (60) configured with kinematics of interventional device, to receive commanded positioning motion of the interventional device (30) and to output data related to a prediction of a navigated pose of the device portion (40), and
+an control predictive model (70) configured with kinematics of interventional device to receive target pose data of the interventional device and to output data related to a prediction of a positioning motion of the interventional device (30); and
+instruction to at least one of:
+(i) apply the forward predictive model (60) to a commanded positioning motion of the interventional device (30) to render a predicted navigated pose of the device portion (40), and generate positioning data informative of a positioning by the interventional device (30) of the device portion (40) to a target pose based on the predicted navigated pose of the device portion (40); and
+(ii) apply the control predictive model (70) to the target pose of the device portion (40) to render a predicted positioning motion of the interventional device (30), and generate positioning commands controlling a positioning of the interventional device (30) of the device portion (40) to the target pose based on the predicted positioning motion of the interventional device (30).
+14. A positioning method executable by a positioning controller (50) for an interventional device (30) including a device portion (40),
+the positioning controller (50) storing at least one of:
+a forward predictive model (60) configured with embedded kinematics of interventional device to receive commanded positioning motion of the interventional device (30) and to output data related to a prediction of a navigated pose of the device portion (40), and
+an control predictive model (70) configured with kinematics of interventional device to receive a target pose data of the interventional device and to output data related to a prediction of a positioning motion of the interventional device (30),
+wherein the positioning method comprising the position controller (50) executing at least one of: (i) applying the forward predictive model (60) to a commanded positioning motion of the interventional device (30) to render a predicted navigated pose of the device portion (40), and generating positioning data informative of a positioning by the interventional device (30) of the device portion (40) to a target pose based on the predicted navigated pose of the device portion (40); and
+(ii) applying the control predictive model (70) to the target pose of the device portion (40) to render a predicted positioning motion of the interventional device (30), and generating positioning commands controlling a positioning of the interventional device (30) of the device portion (40) to the target pose based on the predicted positioning motion of the interventional device (30).
+</claims>
+</document>

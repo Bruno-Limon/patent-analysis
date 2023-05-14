@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-07-31
+</filing_date>
+
+<publication_date>
+2020-07-16
+</publication_date>
+
+<priority_date>
+2019-01-10
+</priority_date>
+
+<ipc_classes>
+G06F3/06,G06N20/00
+</ipc_classes>
+
+<assignee>
+SAMSUNG ELECTRONICS COMPANY
+</assignee>
+
+<inventors>
+BHIMANI, JANKI
+CHOI, CHANG HO
+YANG, JINGPEI
+</inventors>
+
+<docdb_family_id>
+71517675
+</docdb_family_id>
+
+<title>
+PARALLEL KEY VALUE BASED MULTITHREAD MACHINE LEARNING LEVERAGING KV-SSDS
+</title>
+
+<abstract>
+A system for parallel computing leveraging the use of a key value solid state drive. The system including a modified set of compiler directives that enable the use of parallel compute and data threads. The system may further include a concurrency manager to ensure that the parallel data threads are operated in a thread-safe manner.
+</abstract>
+
+<claims>
+1. A key-value based system for parallel computing, comprising: a key value solid state drive; and a processing circuit, the processing circuit being configured: to run a multithreaded application; to run a key value parallel computing system; and to operate a plurality of data threads in parallel with the multithreaded application, the data threads being capable of performing parallel key-value input operations and output operations with the key value solid state drive, each data thread being associated with at least one compute thread of the multithreaded application, the key value parallel computing system including: a multithreading platform, a multithreaded kernel device driver, and a key value concurrency manager, the key value concurrency manager being configured to manage thread-safe asynchronous key-value input operations and output operations with the key value solid state drive.
+2. The key-value based system for parallel computing of claim 1, wherein the key value concurrency manager is further configured to manage a plurality of user queues, each user queue having an associated user queue ID.
+3. The key-value based system for parallel computing of claim 1, wherein the running of the multithreaded application comprises: converting a file based multithread workload into a key-value based multithread workload; creating a first value for a first file data chunk; creating a first key for the first value; generating a first metadata that associates the first key with the first value and that maps the first key back to a first file; and generating a second metadata that associates the first key with a first thread ID and a first user queue ID.
+4. The key-value based system for parallel computing of claim 3, wherein converting a file based multithread workload into a key-value based multithread workload comprises partitioning the first file into at least a data chunk, the data chunk being sized according to the allowable value size parameter of the key value solid state drive.
+5. The key-value based system for parallel computing of claim 1, wherein one of the plurality of data threads is configured to handle input output operations for a plurality of compute threads.
+6. The key-value based system for parallel computing of claim 1, wherein each of the plurality of data threads has an associated thread ID.
+7. The key-value based system for parallel computing of claim 1, wherein the thread-safe asynchronous key-value input operations and output operations with the key value solid state drive are performed using a coherency management protocol.
+8. The key-value based system for parallel computing of claim 7, wherein the coherency management protocol is a modified owned exclusive shared invalid ("MOESI") protocol.
+9. A key-value based system for parallel computing, comprising: an application program interface ("API"); a concurrency manager; and a kernel device driver, the application program interface being configured to: receive a file; partition the file into at least one data chunk; assign a key to the at least one data chunk; and create a first metadata table associating the key to the received file; the concurrency manager being configured to: associate, within a second metadata table, the key corresponding to the at least one data chunk with a first data thread ID and with a submission queue ID; monitor the first data thread ID and the submission queue ID to track the status of a read or write operation being carried out using the key; and update the second metadata table based upon completion of the read or write operation being carried out using the key; and the kernel device driver being configured to carry out key value stores and retrievals in parallel on a key value solid state drive.
+10. The key-value based system for parallel computing of claim 9, wherein the file is stored in a block solid state drive.
+11. The key-value based system for parallel computing of claim 9, wherein the file is stored in the key value solid state drive.
+12. The key-value based system for parallel computing of claim 9, wherein the partitioning of the file into at least a data chunk comprises: calculating the size of the file; and partitioning the file up into at least one data chunk having a size determined by the size and alignment specifications of the key value solid state drive.
+13. The key-value based system for parallel computing of claim 9, wherein the kernel device driver is further configured to carry out read and write operations to the key value solid state drive using a plurality of data threads, each data thread having a thread ID and a user queue ID.
+14. The key-value based system for parallel computing of claim 13, wherein the data threads are operated in parallel with a plurality of compute threads.
+15. The key-value based system for parallel computing of claim 14, wherein the read and write operations are carried out asynchronously by the data threads.
+16. A method for operating a parallelized application, comprising: receiving, by a processing circuit, instructions to process a file stored on a first storage device; retrieving, by the processing circuit, the file from the first storage device; partitioning, by the processing circuit, the file up into a plurality of data chunks; assigning, by the processing circuit, a key for each of the plurality of data chunks; storing; by the processing circuit, the keys and associated data chunks to a key value solid state drive using at least two parallel data threads; and retrieving, by the processing circuit, keys and associated data chunks from the key value solid state drive using at least two parallel data threads.
+17. The method of claim 16, further comprising generating, by the processing circuit, a first metadata table linking the keys to the corresponding data chunks.
+18. The method of claim 16, further comprising generating, by the processing circuit, a second metadata table linking the keys to a data thread, using a thread ID associated with the thread, and to a user queue, using a user queue ID associated with the user queue.
+19. The method of claim 16, further comprising managing, by the processing circuit, a task associated with at least one of the keys allocated to at least one of the data threads by enforcing that the task is completed by the data thread before another task is performed by the same thread.
+20. The method of claim 16, further comprising operating, by the processing circuit, a plurality of compute threads in parallel with at least two data threads.
+</claims>
+</document>

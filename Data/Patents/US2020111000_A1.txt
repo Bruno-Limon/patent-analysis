@@ -1,0 +1,78 @@
+<document>
+
+<filing_date>
+2019-08-15
+</filing_date>
+
+<publication_date>
+2020-04-09
+</publication_date>
+
+<priority_date>
+2015-03-13
+</priority_date>
+
+<ipc_classes>
+G06F7/58,G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+DEEP GENOMICS
+</assignee>
+
+<inventors>
+DELONG, ANDREW
+FREY, BRENDAN
+XIONG, HUI YUAN
+</inventors>
+
+<docdb_family_id>
+56918417
+</docdb_family_id>
+
+<title>
+System and Method for Training Neural Networks
+</title>
+
+<abstract>
+Systems and methods for training a neural network or an ensemble of neural networks are described. A hyper-parameter that controls the variance of the ensemble predictors is used to address overfitting. For larger values of the hyper-parameter, the predictions from the ensemble have more variance, so there is less overfitting. This technique can be applied to ensemble learning with various cost functions, structures and parameter sharing. A cost function is provided and a set of techniques for learning are described.
+</abstract>
+
+<claims>
+1. 1.-20. (canceled)
+21. A system for training a plurality of neural networks, the system comprising one or more computer processors and one or more computer-readable media operatively coupled to the one or more computer processors, wherein the one or more computer-readable media store instructions that, when executed by the one or more computer processors, cause the one or more computer processors to at least: use a plurality of outputs to generate an aggregate output, which plurality of outputs is generated at least in part by applying said plurality of neural networks to a training data item; for a neural network of the plurality of neural networks, compute (i) a difference between the output of the neural network and the aggregate output, (ii) a product of a hyper-parameter and the difference computed in (i), (iii) a sum of the aggregate output and the product computed in (ii) to generate a variance-adjusted output for the neural network, and (iv) a difference between the variance-adjusted output and a pre-determined output for the training data item; and configure the plurality of neural networks to reduce the difference between the variance-adjusted output and the pre-determined output.
+22. The system of claim 21, wherein the plurality of neural networks comprises a linear regression, a logistic regression, a neural network with at least one layer of hidden units, or a combination thereof.
+23. The system of claim 21, wherein the plurality of outputs is combined by combining outputs of a selected subset of the plurality of neural networks, the selected subset being selected randomly, pseudo-randomly, or according to a fixed pattern.
+24. The system of claim 23, wherein the plurality of outputs is combined by averaging the outputs of the selected subset of the plurality of neural networks.
+25. The system of claim 21, wherein the difference between the variance-adjusted output and the desired output is computed using a squared error, an absolute error, a log-likelihood, or a cross-entropy.
+26. The system of claim 21, wherein the instructions, when executed by the one or more processors, further cause the one or more processors to apply an additional neural network to the variance-adjusted output to generate an additional output, compute a difference between the additional output and the pre-determined output, and configure the plurality of neural networks to reduce the difference between the additional output and the pre-determined output.
+27. The system of claim 21, wherein the plurality of neural networks is configured by adjusting one or more parameters of the plurality of neural networks by evaluating a gradient or a Hessian of a log-likelihood function or a squared error function using the pre-determined output and the variance-adjusted output.
+28. The system of claim 27, wherein the gradient for each of the one or more parameters of the plurality of neural networks is computed from an average of the gradients across the plurality of neural networks.
+29. The system of claim 27, wherein the one or more parameters of the plurality of neural networks are adjusted using a gradient descent, a stochastic gradient descent, a momentum, a Nesterov's accelerated momentum, an AdaGrad, an RMSProp, a conjugate gradient, or a combination thereof.
+30. The system of claim 21, wherein the instructions, when executed by the one or more processors, further cause the one or more processors to: obtain a test data item; compute a plurality of test outputs by applying the plurality of neural networks to the test data item; and combine the plurality of test outputs to form an aggregate test output for the test data item.
+31. The system of claim 30, wherein the plurality of test outputs is combined to form an aggregate test output by averaging the plurality of test outputs or using majority voting among the plurality of test outputs.
+32. The system of claim 31, wherein the hyper-parameter is obtained by: for each of a plurality of candidate values, computing further outputs by applying the plurality of neural networks to each of one or more held out validation data items; computing a validation error or a validation log-likelihood for each of the further outputs; and selecting the candidate value from the plurality of candidate values for which the lowest validation error or the highest validation log-likelihood is computed.
+33. The system of claim 32, wherein the hyper-parameter and at least one other candidate value of the plurality of candidate values are obtained by applying a search technique to determine a jointly optimal hyper-parameter setting, the search technique comprising a grid search, a random search, a Bayesian hyper-parameter optimization, or a combination thereof.
+34. The system of claim 32, wherein at least one of the plurality of candidate values is zero.
+35. The system of claim 32, wherein at least one of the plurality of candidate values is one.
+36. The system of claim 32, wherein at least one of the plurality of candidate values is greater than zero and less than one.
+37. The system of claim 32, wherein at least one of the plurality of candidate values is greater than one.
+38. The system of claim 21, wherein the plurality of neural networks is configured by adjusting one or more parameters of the plurality of neural networks.
+39. The system of claim 21, wherein the instructions, when executed by the one or more processors, further cause the one or more processors to select the hyper-parameter by evaluating the accuracy of two or more candidate hyper-parameters, wherein at least one of the two or more candidate hyper-parameters is greater than zero and not equal to one.
+40. The system of claim 39, wherein the instructions, when executed by the one or more processors, further cause the one or more processors to: obtain a data item for which a prediction is to be made; compute a plurality of prediction outputs by applying the plurality of neural networks to the data item for which the prediction is to be made; and combine the plurality of prediction outputs to form an aggregate prediction.
+41. A system for training a neural network, the system comprising one or more processors and one or more computer-readable media storing instructions that, when executed by the one or more processors, cause the one or more processors to: use a plurality of training outputs to generate an aggregate output, which plurality of training outputs is generated at least in part by repeatedly applying the neural network to a training data item, wherein applying the neural network to the training data item comprises disabling at least one hidden unit or input unit of the neural network (i) randomly with a predetermined probability, (ii) pseudo-randomly with the predetermined probability, (iii) using a predetermined set of binary masks with the predetermined probability, wherein the predetermined set of binary masks is used only once, or (iv) according to a fixed pattern with the predetermined probability; for each of the plurality of training outputs, compute (i) a difference between the training output and the aggregate output, (ii) a product of a hyper-parameter and the difference computed in (i), (iii) a sum of the aggregate training output and the product computed in (ii) to generate a variance-adjusted training output for each of the plurality of training outputs, and (iv) a difference between the variance-adjusted training output and a pre-determined output for the training data item; and configure the neural network to reduce the difference between the variance-adjusted training outputs and the pre-determined training output.
+42. The system of claim 41, wherein the instructions, when executed by the one or more processors, further cause the one or more processors to, for at least one input unit or hidden unit of the neural network that is not disabled, scale a value of the at least one input unit or hidden unit of the neural network that is not disabled by a reciprocal of a difference between one and the predetermined probability.
+43. The system of claim 41, wherein the instructions, when executed by the one or more processors, further cause the one or more processors to: scale the one or more parameters by a difference between one and the predetermined probability; obtain a test data item; and compute a test output for the test data item by applying the neural network to the test data item.
+44. The system of claim 41, wherein the instructions, when executed by the one or more processors, further cause the one or more processors to: obtain a test data item; compute a plurality of test outputs by repeatedly applying the neural network to the test data item, wherein applying the neural network to the test data item comprises disabling at least one hidden unit or input unit of the neural network (i) randomly with a predetermined probability, (ii) pseudo-randomly with the predetermined probability, (iii) using a predetermined set of binary masks with the predetermined probability, wherein each of the predetermined set of masks is used only once, or (iv) according to a fixed pattern with the predetermined probability; and combine the plurality of test outputs to form an aggregate test output for the test data item.
+45. The system of claim 41, wherein the plurality of training outputs is combined to form the aggregate training output by averaging the plurality of training outputs or using majority voting among the plurality of training outputs.
+46. The system of claim 41, wherein the instructions, when executed by the one or more processors, further cause the one or more processors to train an additional neural network by: computing a plurality of additional training outputs by applying the additional neural network to the plurality of training outputs; and configuring the additional neural network to reduce a difference between the plurality of additional training outputs and the desired training output.
+47. The system of claim 41, wherein the hyper-parameter is obtained by: for each of a plurality of candidate values, computing further outputs by applying the neural network to each of one or more held out validation data items; computing a sum of squared errors for each of the further outputs; and selecting the candidate value from the plurality of candidate values for which the lowest sum of squared errors is computed.
+48. The system of claim 47, wherein the hyper-parameter and at least one other candidate value of the plurality of candidate values are obtained by applying a search technique to determine a jointly optimal hyper-parameter setting, the search technique comprising a grid search, a random search, a Bayesian hyper-parameter optimization, or a combination thereof.
+49. The system of claim 47, wherein at least one of the plurality of candidate values is zero.
+50. The system of claim 47, wherein at least one of the plurality of candidate values is one.
+51. The system of claim 47, wherein at least one of the plurality of candidate values is greater than zero and less than one.
+52. The system of claim 47, wherein at least one of the plurality of candidate values is greater than one.
+53. The system of claim 41, wherein the neural network is configured by adjusting one or more parameters of the neural network.
+54. The system of claim 41, wherein the instructions, when executed by the one or more processors, further cause the one or more processors to select the hyper-parameter by evaluating the accuracy of two or more candidate hyper-parameters, wherein at least one of the two or more candidate hyper-parameters is greater than zero and not equal to one.
+</claims>
+</document>

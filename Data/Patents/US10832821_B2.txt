@@ -1,0 +1,60 @@
+<document>
+
+<filing_date>
+2013-08-19
+</filing_date>
+
+<publication_date>
+2020-11-10
+</publication_date>
+
+<priority_date>
+2013-02-19
+</priority_date>
+
+<ipc_classes>
+G06F19/12,G06G7/48,G16B20/00,G16H50/50
+</ipc_classes>
+
+<assignee>
+IBM (INTERNATIONAL BUSINESS MACHINES CORPORATION)
+</assignee>
+
+<inventors>
+EBADOLLAHI, SHAHRAM
+HU JIANYING
+SUN, JIMENG
+WANG FEI
+ZHOU, JIAYU
+</inventors>
+
+<docdb_family_id>
+51351876
+</docdb_family_id>
+
+<title>
+Dynamic identification of the biomarkers leveraging the dynamics of the biomarker
+</title>
+
+<abstract>
+A system and method for providing a temporally dynamic model parameter include building a model parameter by minimizing a loss function based on patient measurements taken at a plurality of time points. Temporally related values of the model parameter are identified, using a processor, having a same type of patient measurement taken at different time points. At least one value of the model parameter and temporally related values of the at least one value are selected to provide a temporally dynamic model parameter.
+</abstract>
+
+<claims>
+1. A computer readable storage medium comprising a computer readable program for feature selection with improved learning with structured sparsity, wherein the computer readable program when executed on a computer causes the computer to perform the steps of: generating a temporally dynamic model parameter including: inducing random sparsity on a model parameter built from a vector by minimizing a loss function based on patient measurements taken at a plurality of time points in a longitudinal study; inducing temporal sparsity on the model parameter including a first norm having a fused least absolute shrinkage and selection operator (LASSO) with a fused term encoded in a matrix identifying temporally related values of longitudinal study data having a same type of patient measurement taken at different time points, the temporally related values being identified according to similarity at neighboring points in time for each type of patient measurement, the first norm being weighted by a first coefficient to provide the temporal sparsity; inducing grouped sparsity on the model parameter, including a second norm including a l2,1-norm of the vector, by selecting at least one value relevant to a disease of the longitudinal study data and the temporally related values corresponding to the at least one value, the second norm being weighted with a second coefficient to provide feature selection; and predicting, using a processor to implement the temporally dynamic model parameter, a future condition of a patient according to data corresponding to a current condition of the patient, wherein generating the temporally dynamic model parameter includes applying a third norm to the vector to provide the random sparsity, the third norm being weighted by a third coefficient to provide random sparsity, wherein the loss function, together with the applying the third norm, formulates a l1-norm regularization problem.
+2. The computer readable storage medium as recited in claim 1, wherein the same type of patient measurement includes the same biomarker.
+3. The computer readable storage medium as recited in claim 1, wherein selecting includes selecting all temporally related values of the at least one value.
+4. The computer readable storage medium as recited in claim 1, wherein identifying includes removing terms corresponding to a missing value of the model parameter at a time point.
+5. The computer readable storage medium as recited in claim 1, wherein the different time points include consecutive time points.
+6. The computer readable storage medium as recited in claim 1, further comprising performing l2,1-norm regularization to provide joint feature selection, as part of equation: where L(w, X, y) is a loss function, λ2 is a coefficient determined to provide temporal smoothness, R is a matrix of fused terms, w is the model parameter, λ3 provides grouped sparsity to select relevant model values of a same biomarker at all time points while irrelevant biomarker model values at all time points are not selected, "i" is an index for the different time points, "d" is an index of measurements taken during the longitudinal study, and "t" is the time period over which the longitudinal study was conducted.
+7. A system for providing a temporally dynamic model parameter with improved learning with structured sparsity, comprising: a memory configured to generate a temporally dynamic model parameter, the memory including: a formulation module configured to induce random sparsity on model parameter built from a vector by minimizing a loss function based on patient measurements taken at a plurality of time points in a longitudinal study and stored on a computer readable storage medium; a relation module configured to induce temporal sparsity on the model parameter by applying a first norm including a fused least absolute shrinkage and selection operator (LASSO) with a fused term encoded in a matrix identifying temporally related values of longitudinal study data having a same type of patient measurement taken at different time points, the temporally related values being identified according to similarity at neighboring points in time for each type of patient measurement, the first norm being weighted by a first coefficient to provide the temporal sparsity; a selection module configured to induce grouped sparsity on the model parameter by applying a second norm including an l1,2-norm of the vector, and selecting at least one value relevant to a disease of the longitudinal study data and the temporally related values of the at least one value to provide a temporally dynamic model parameter, the second norm being weighted with a second coefficient to provide feature selection; and a solving module including a processor configured to predict, with the temporally dynamic model parameter, a future condition of a patient according to data corresponding to a current condition of the patient, wherein the formulation module is further configured to formulate a l1-norm regularization problem by combining the minimized loss function with applying a third norm to the vector, the third norm being weighted by a third coefficient to provide random sparsity, wherein the loss function, together with the applying the third norm, formulates a l1-norm regularization problem.
+8. The system as recited in claim 7, wherein the same type of patient measurement includes a same biomarker.
+9. The system as recited in claim 7, wherein the selection module is further configured to select all temporally related values of the at least one value.
+10. The system as recited in claim 7, wherein the relation module is further configured to remove terms corresponding to a missing value of the model parameter at a time point.
+11. The system as recited in claim 7, wherein the different time points include consecutive time points.
+12. The system as recited in claim 7, wherein patient measurements include patient longitudinal data.
+13. The system as recited in claim 7, wherein the selection module is further configured to perform l2,1-norm regularization to provide joint feature selection, as part of equation: where L(w, X, y) is a loss function, λ2 is a coefficient determined to provide temporal smoothness, R is a matrix of fused terms, w is the model parameter, λ3 provides grouped sparsity to select relevant model values of a same biomarker at all time points while irrelevant biomarker model values at all time points are not selected, "i" is an index for the different time points, "d" is an index of measurements taken during the longitudinal study, and "t" is the time period over which the longitudinal study was conducted.
+14. The system as recited in claim 7, wherein; the first norm is weighted by a first coefficient to provide temporal sparsity; the second norm is weighted by a second coefficient to provide feature selection; and the third norm is weighted by a third coefficient to provide random sparsity.
+15. A method for predicting disease progression with a model parameter using feature selection with improved learning with structured sparsity, the method comprising: measuring values for a selected set of biomarkers at multiple time points for each of a plurality of study participants; inducing random sparsity on the model parameter by minimizing a loss function based on the selected set of biomarkers; identifying at each point in time, from the selected set of biomarkers, temporally smooth values similar to values of corresponding biomarkers at neighboring points in time using a first norm including a fused least absolute shrinkage and selection operator (LASSO) with a fused term encoded in a matrix, the first norm being weighted by a first coefficient to provide the temporal sparsity; identifying predictive features from the temporally smooth values that correspond to a target response of a disease by applying a second norm including a l1,2-norm of selected set of biomarkers, the second norm being weighted with a second coefficient to provide feature selection; correlating the predictive features to disease progression for the disease; predicting a future condition of a patient relative to the disease according to patient biomarkers; and displaying the future condition via a display to a user, wherein inducing random sparsity includes applying a third norm to the selected set of biomarkers, the third norm being weighted by a third coefficient to provide random sparsity, wherein the loss function, together with the applying the third norm, formulates a l1-norm regularization problem.
+</claims>
+</document>

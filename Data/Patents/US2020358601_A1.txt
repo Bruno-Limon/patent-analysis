@@ -1,0 +1,70 @@
+<document>
+
+<filing_date>
+2020-07-23
+</filing_date>
+
+<publication_date>
+2020-11-12
+</publication_date>
+
+<priority_date>
+2017-08-30
+</priority_date>
+
+<ipc_classes>
+G06F17/14,G06F17/16,G06N3/04,G06N3/08,H04L9/08
+</ipc_classes>
+
+<assignee>
+Inpher, Inc.
+</assignee>
+
+<inventors>
+Gama, Nicolas
+Jetchev, Dimitar
+Brandt, Jordan
+Peceny, Stanislav
+Petric, Alexander
+</inventors>
+
+<docdb_family_id>
+63678682
+</docdb_family_id>
+
+<title>
+High-Precision Privacy-Preserving Real-Valued Function Evaluation
+</title>
+
+<abstract>
+A method for performing privacy-preserving or secure multi-party computations enables multiple parties to collaborate to produce a shared result while preserving the privacy of input data contributed by individual parties. The method can produce a result with a specified high degree of precision or accuracy in relation to an exactly accurate plaintext (non-privacy-preserving) computation of the result, without unduly burdensome amounts of inter-party communication. The multi-party computations can include a Fourier series approximation of a continuous function or an approximation of a continuous function using trigonometric polynomials, for example, in training a machine learning classifier using secret shared input data. The multi-party computations can include a secret share reduction that transforms an instance of computed secret shared data stored in floating-point representation into an equivalent, equivalently precise, and equivalently secure instance of computed secret shared data having a reduced memory storage requirement.
+</abstract>
+
+<claims>
+1. A method for performing secure multi-party computations to produce a result while preserving privacy of input data contributed by individual parties, the method comprising: a dealer computing system creating a plurality of sets of related numerical masking data components, wherein for each set of related numerical masking data components, each component of the set is one of: a scalar, a vector and a matrix; the dealer computing system secret sharing, among a plurality of party computing systems, each component of each set of the plurality of sets of related numerical masking data components; for each party computing system of the plurality of party computing systems, the party computing system: receiving a respective secret share of each component of each set of the plurality of sets of numerical masking data components from the dealer computing system, and for at least one set of input data, receiving a secret share of the set of input data; executing a set of program instructions that cause the party computing systems to perform one or more multi-party computations to create one or more instances of computed secret shared data, wherein for each instance, each party computing system computes a secret share of the instance based on at least one secret share of a set of input data or at least one secret share of another instance of computed secret shared data, wherein received secret shares of numerical masking data components are used to mask data communicated during the computations, and wherein the computations comprise at least one of (a), (b) and (c) as follows: (a) approximating a value of a continuous function using a Fourier series selected, based on the set of input data or the another instance of computed secret shared data, from a plurality of determined Fourier series, wherein each of the plurality of determined Fourier series is configured to approximate the continuous function on an associated subinterval of a domain of the continuous function, (b) a secret share reduction that transforms an instance of computed secret shared data stored in floating-point representation into an equivalent, equivalently precise, and equivalently secure instance of computed secret shared data, wherein each secret share of the instance has a reduced memory storage requirement, and wherein the transformation is performed by at least: each party computing system of the plurality of party computing systems: selecting a set of highest order digits of a secret share beyond a predetermined cutoff position; and retaining a set of lowest order digits of the secret share up to the cutoff position; determining a sum of values represented by the selected set of highest order digits across the plurality of party computing systems; and distributing the determined sum across the retained sets of lowest order digits of the secret shares of the plurality of party computing systems, and (c) determining secret shares of a Fourier series evaluation on the set of input data or the another instance of computed secret shared data by at least: masking secret shares of the set of input data or the another instance of computed secret shared data with the secret shares of numerical masking data components; determining and revealing a value represented by the masked secret shares; calculating values of Fourier series basis functions based on the determined value represented by the masked secret shares; and calculating the secret shares of the Fourier series evaluation based on the calculated values of the Fourier series basis functions and the secret shares of numerical masking data components; for each party computing system of the plurality of party computing systems, the party computing system, transmitting a secret share of an instance of computed secret shared data to one or more others of the plurality of party computing systems; and for at least one party computing system of the plurality of party computing systems, the party computing system: receiving one or more secret shares of an instance of computed secret shared data from one or more others of the plurality of party computing systems; and combining the received secret shares of the instance of computed secret shared data to produce the result.
+2. The method of claim 1, wherein the computations comprise (a) and (b).
+3. The method of claim 1, wherein the computations comprise (a).
+4. The method of claim 3, further comprising: partitioning a portion of the domain of the continuous function into a plurality of subintervals; and for each subinterval of the plurality of subintervals: determining a Fourier series approximation of the function on the subinterval.
+5. The method of claim 3, wherein the multi-party computations further comprise selecting the associated subinterval using at least one of garbled circuits and oblivious selection.
+6. The method of claim 3, wherein the approximation is a uniform approximation of the continuous function.
+7. The method of claim 3, wherein the continuous function is a machine learning activation function.
+8. The method of claim 7, wherein the machine learning activation function is the sigmoid function.
+9. The method of claim 7, wherein the machine learning activation function is the hyperbolic tangent function.
+10. The method of claim 7, wherein the machine learning activation function is a rectifier activation function for a neural network.
+11. The method of claim 3, wherein the continuous function is the sigmoid function.
+12. The method of claim 1, wherein the computations comprise (b).
+13. The method of claim 12, wherein determining a sum of values represented by the selected set of highest order digits across the plurality of party computing systems comprises: determining a set of numerical masking data components that sum to zero; distributing to each of the party computing systems one member of the determined set; each party computing system receiving a respective member of the determined set; each party computing system adding the received member to its selected set of highest order digits of its secret share to obtain a masked set of highest order digits; and summing the masked sets of highest order digits.
+14. The method of claim 1, wherein the result is a set of coefficients of a logistic regression classification model.
+15. The method of claim 1, wherein the method implements a logistic regression classifier, and wherein the result is a prediction of the logistic regression classifier based on the input data.
+16. The method of claim 1, wherein the dealer computing system is a trusted dealer computing system, and wherein communications between the party computing systems are inaccessible to the trusted dealer computing system.
+17. The method of claim 1, wherein the dealer computing system is an honest-but-curious dealer computing system, and wherein privacy of secret shared input data contributed by one or more of the party computing systems is preserved regardless of whether communications between the party computing systems can be accessed by the honest-but-curious dealer computing system.
+18. The method of claim 1, further comprising: for at least one set of input data, performing a statistical analysis on the set of input data to determine a set of input data statistics; performing a pre-execution of a set of source code instructions using the set of input data statistics to generate statistical type parameters for each of one or more variable types; and compiling the set of source code instructions based on the set of statistical type parameters to generate the set of program instructions.
+19. The method of claim 18, wherein the pre-execution is performed subsequent to: unrolling loops in the set of source code instructions having a determinable number of iterations; and unrolling function calls in the set of source code instructions.
+20. The method of claim 1, wherein at least one set of related numerical masking data components consists of three components having a relationship where one of the components is equal to a multiplicative product of a remaining two of the components.
+21. The method of claim 1, wherein at least one set of related numerical masking data components comprises a number and a set of one or more associated values of Fourier basis functions evaluated on the number.
+22. The method of claim 1, wherein the computations comprise (c).
+23. The method of claim 22, wherein the calculating the secret shares of the Fourier series evaluation is performed on the basis of the formula:
+description="In-line Formulae" end="lead"?eimx=eim(x⊕λ)·eim(−λ)+description="In-line Formulae" end="tail"? where x represents the set of input data or the another instance of computed secret shared data, λ represents the masking data, m represents an integer, the notation n+ denotes additive secret shares of a number n, and the notation ⊕ denotes addition modulo 2π.
+24. The method of claim 1, wherein the computations comprise (a), (b), and (c).
+</claims>
+</document>

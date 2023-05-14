@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2017-04-28
+</filing_date>
+
+<publication_date>
+2020-01-14
+</publication_date>
+
+<priority_date>
+2015-12-18
+</priority_date>
+
+<ipc_classes>
+G06F8/41,G06F9/45
+</ipc_classes>
+
+<assignee>
+IBM (INTERNATIONAL BUSINESS MACHINES CORPORATION)
+</assignee>
+
+<inventors>
+REINWALD, BERTHOLD
+BOEHM, MATTHIAS
+TATIKONDA, SHIRISH
+</inventors>
+
+<docdb_family_id>
+59066109
+</docdb_family_id>
+
+<title>
+Dynamic recompilation techniques for machine learning programs
+</title>
+
+<abstract>
+The embodiments described herein relate to recompiling an execution plan of a machine-learning program during runtime. An execution plan of a machine-learning program is compiled. In response to identifying a directed acyclic graph of high-level operations (HOP DAG) for recompilation during runtime, the execution plan is dynamically recompiled. The dynamic recompilation includes updating statistics and dynamically rewriting one or more operators of the identified HOP DAG, recomputing memory estimates of operators of the rewritten HOP DAG based on the updated statistics and rewritten operators, constructing a directed acyclic graph of low-level operations (LOP DAG) corresponding to the rewritten HOP DAG based in part on the recomputed memory estimates, and generating runtime instructions based on the LOP DAG.
+</abstract>
+
+<claims>
+We claim:
+1. A method comprising: converting a parsed input script into one or more directed acyclic graphs of high-level operators (HOP DAGs); constructing one or more directed acyclic graphs of low-level operators (LOP DAGs) corresponding to respective HOP DAGs; identifying a HOP DAG for recompilation during runtime; updating a statistic and rewriting an operator of the identified HOP DAG; recomputing a memory estimate of operators of the rewritten HOP DAG based on the updated statistic and rewritten operator; upon a determination that the rewritten HOP DAG is associated with a persistent read, the determination including producing a recompilation point identifying the HOP DAG should be dynamically recompiled, constructing a rewritten LOP DAG corresponding to the rewritten HOP DAG, wherein the construction is based in part on the recomputed memory estimate; and generating a runtime instruction based on the rewritten LOP DAG.
+2. The method of claim 1, wherein constructing the one or more LOP DAGs further comprises marking a HOP DAG for recompilation, and wherein the marked HOP DAG is identified for recompilation during runtime.
+3. The method of claim 2, wherein the identified HOP DAG is associated with a function comprising one or more loops, and further comprising marking the function as a recompile-once function.
+4. The method of claim 2, wherein the marked HOP DAG includes one or more nodes and further comprising marking a node for recompilation upon selection of a conservative operator.
+5. The method of claim 1, wherein the recompilation further comprises a dynamic recompilation performing a deep copy of the identified HOP DAG, and wherein the deep copy permits applying non-reversible dynamic rewrites and concurrent recompilation among parallel workers without thread contention.
+6. The method of claim 1, wherein the rewrite comprises a dynamic rewrite modifying one or more operations of the identified HOP DAG based on attributes of intermediate results.
+7. The method of claim 6, wherein the modification is selected from the group consisting of: removing one or more operations producing an empty result, removing one or more unnecessary operations, simplifying a group of operations, converting one or more operations into a sparsity-exploiting operation for selective computation, and combinations thereof.
+8. The method of claim 7, wherein generating the runtime instructions comprises assigning each operator of the rewritten LOP DAG to a job based on one or more constraints, including piggybacking one or more operators of the rewritten LOP DAG into one or more composite jobs.
+9. A computer program product comprising a computer readable hardware storage medium having computer readable program code embodied therewith, the program code being executable by a processor to: parse an input script; convert the parsed script into one or more directed acyclic graphs of high-level operators (HOP DAGs); and construct one or more directed acyclic graphs of low-level operators (LOP DAGs) corresponding to respective HOP DAGs; and identify a HOP DAG for recompilation during runtime; update a statistic and rewrite an operator of the identified HOP DAG; recompute a memory estimate of the rewritten HOP DAG based on the updated statistic and the rewritten operator; upon a determination that the rewritten HOP DAG is associated with persistent reads, the determination including producing a recompilation point identifying the HOP DAG should be dynamically recompiled, construct a rewritten LOP DAG corresponding to the rewritten HOP DAG, wherein the construction is based in part on the recomputed memory estimate; and generate runtime instructions based on the rewritten LOP DAG.
+10. The computer program product of claim 9, wherein constructing the one or more LOP DAGs further comprises program code to mark a HOP DAG for recompilation, and wherein the marked HOP DAG is identified for recompilation during runtime.
+11. The computer program product of claim 9, wherein the recompilation further comprises a dynamic recompilation program code to perform a deep copy of the identified HOP DAG, and wherein the deep copy permits concurrent recompilation among parallel workers without thread contention.
+12. The computer program product of claim 9, wherein the rewrite comprises a dynamic rewrite program code to modify one or more operations of the identified HOP DAG based on attributes of intermediate results, and wherein the modification is selected from the group consisting of: removing one or more operations producing an empty result, removing one or more unnecessary operations, simplifying a group of operations, converting one or more operations into a sparsity-exploiting operation for selective computation, and combinations thereof.
+13. The computer program product of claim 9, wherein generating the runtime instructions comprises program code to assign each operator of the rewritten LOP DAG to a job based on one or more constraints, including program code to piggyback one or more operators of the rewritten LOP DAG into one or more composite jobs.
+14. The computer program product of claim 10, wherein the marked HOP DAG includes one or more nodes and further comprising marking a node for recompilation upon selection of a conservative operator.
+15. A system comprising: a hardware processing unit in communication with memory, the hardware processing unit to: parse an input script associated with a machine-learning program; convert the parsed script into one or more directed acyclic graphs of high-level operators (HOP DAGs); construct one or more directed acyclic graphs of low-level operators (LOP DAGs) corresponding to respective HOP DAGs; and identify a HOP DAG for recompilation during runtime; update a statistic and rewrite an operator of the identified HOP DAG; recompute a memory estimate of the rewritten HOP DAG based on the updated statistic and rewritten operator; upon a determination that the rewritten HOP DAG is associated with persistent reads, the determination including producing a recompilation point identifying the HOP DAG should be dynamically recompiled, construct a rewritten LOP DAG corresponding to the rewritten HOP DAG, wherein the construction is based in part on the recomputed memory estimate; and generate runtime instructions based on the rewritten LOP DAG.
+16. The system of claim 15, wherein constructing the one or more LOP DAGs further comprises the hardware processing unit to mark a HOP DAG for recompilation, and wherein the marked HOP DAG is identified for recompilation during runtime.
+17. The system of claim 15, wherein the recompilation further comprises a dynamic recompilation, the hardware processing unit to perform a deep copy of the identified HOP DAG, and wherein the deep copy permits concurrent recompilation among parallel workers without thread contention.
+18. The system of claim 15, wherein the rewrite comprises a dynamic rewrite, the hardware processing unit to modify one or more operations of the identified HOP DAG based on attributes of intermediate results, and wherein the modification is selected from the group consisting of: removing one or more operations producing an empty result, removing one or more unnecessary operations, simplifying a group of operations, converting one or more operations into a sparsity-exploiting operation for selective computation, and combinations thereof.
+19. The system of claim 15, wherein generating the runtime instructions comprises the hardware processing unit to assign each operator of the rewritten LOP DAG to a job based on one or more constraints, including the hardware processing unit to piggyback one or more operators of the rewritten LOP DAG into one or more composite jobs.
+20. The system of claim 16, wherein the marked HOP DAG includes one or more nodes and further comprising marking a node for recompilation upon selection of a conservative operator.
+</claims>
+</document>

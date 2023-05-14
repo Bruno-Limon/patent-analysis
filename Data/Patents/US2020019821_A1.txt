@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2018-07-10
+</filing_date>
+
+<publication_date>
+2020-01-16
+</publication_date>
+
+<priority_date>
+2018-07-10
+</priority_date>
+
+<ipc_classes>
+G06K9/62,H04L29/06
+</ipc_classes>
+
+<assignee>
+IBM (INTERNATIONAL BUSINESS MACHINES CORPORATION)
+</assignee>
+
+<inventors>
+DUESTERWALD, EVELYN
+LUDWIG, HEIKO H.
+BARACALDO-ANGEL, NATHALIE
+CHEN, BRYANT
+</inventors>
+
+<docdb_family_id>
+69139493
+</docdb_family_id>
+
+<title>
+DETECTING AND MITIGATING POISON ATTACKS USING DATA PROVENANCE
+</title>
+
+<abstract>
+Computer-implemented methods, program products, and systems for provenance-based defense against poison attacks are disclosed. In one approach, a method includes: receiving observations and corresponding provenance data from data sources; determining whether the observations are poisoned based on the corresponding provenance data; and removing the poisoned observation(s) from a final training dataset used to train a final prediction model. Another implementation involves provenance-based defense against poison attacks in a fully untrusted data environment. Untrusted data points are grouped according to provenance signature, and the groups are used to train learning algorithms and generate complete and filtered prediction models. The results of applying the prediction models to an evaluation dataset are compared, and poisoned data points identified where the performance of the filtered prediction model exceeds the performance of the complete prediction model. Poisoned data points are removed from the set to generate a final prediction model.
+</abstract>
+
+<claims>
+1. A computer-implemented method for provenance-based defense against poison attacks, the method comprising: receiving one or more observations from one or more data sources, wherein each observation comprises one or more features for training a final prediction model; receiving provenance data corresponding to each observation; determining whether some or all of the observations are poisoned based at least in part on the corresponding provenance data; and in response to determining some or all of the observations are poisoned, removing the poisoned observation(s) from a final training dataset used to train the final prediction model.
+2. The computer-implemented method as recited in claim 1, wherein determining whether each observation is poisoned comprises: determining a provenance feature for the provenance data corresponding to each of the observations; grouping observations characterized by a same provenance signature of the determined provenance feature; generating a filtered training dataset excluding one or more of the groups of observations from the training dataset; and training a first prediction model corresponding to the final prediction model using the filtered training dataset.
+3. The computer-implemented method as recited in claim 2, further comprising training a second prediction model corresponding to the final prediction model using a complete training dataset comprising all of the observations.
+4. The computer-implemented method as recited in claim 3, further comprising: comparing a performance of the first prediction model against a performance of the second prediction model; and in response to determining the performance of the second prediction model exceeds the performance of the first prediction model, determining the one or more groups of observations excluded from the filtered training dataset are poisoned.
+5. The computer-implemented method as recited in claim 1, wherein the provenance data are trusted data.
+6. The computer-implemented method as recited in claim 1, wherein the provenance data are associated with the observations as metadata.
+7. The computer-implemented method as recited in claim 1, wherein the provenance data identify an origin of the observation with which the provenance data are associated.
+8. The computer-implemented method as recited in claim 1, wherein the one or more observations comprise a trusted dataset of data points and an untrusted dataset of data points.
+9. The computer-implemented method as recited in claim 8, further comprising determining a threshold performance difference indicative of poisoned observations, the determining comprising: randomly removing a subset of the untrusted dataset of data points from the untrusted dataset of data points to generate a first calibration dataset; randomly selecting a subset of the trusted dataset of data points to generate a second calibration dataset; training a prediction model corresponding to the final prediction model using the first calibration dataset; training the prediction model using the first and second calibration datasets; computing a difference in a performance of the prediction model when trained using the first calibration dataset against a performance of the prediction model when trained using the first and second calibration datasets; and setting the threshold performance difference to a value greater than or equal to the difference in the performance of the prediction model when trained using the first calibration dataset versus the performance of the prediction model when trained using the first and second calibration datasets.
+10. The computer-implemented method as recited in claim 1, wherein the prediction model comprises a supervised machine learning algorithm.
+11. A computer-implemented method for provenance-based defense against poison attacks in a fully untrusted data environment, the method comprising: receiving a dataset and associated provenance data, wherein the dataset comprises a plurality of untrusted data points and excludes trusted data points, wherein each untrusted data point is associated with one or more provenance signatures of the provenance data; randomly assigning a first portion of the untrusted data points to a training dataset; randomly assigning a second portion of the untrusted data points to a full evaluation dataset; grouping the untrusted data points of the training dataset into a plurality of groups each characterized by a different one of the provenance signatures, wherein untrusted data points of each group are characterized by a same one of the provenance signatures; for each group of the untrusted data points in the training dataset: training a supervised learning method using a first training dataset to generate a complete prediction model, wherein the first training dataset includes all of the untrusted data points; training the supervised learning method using a second training dataset to generate a filtered prediction model, wherein the second training dataset excludes the group of the untrusted data points; generating a new evaluation dataset by removing, from the full evaluation dataset, any data points sharing a provenance signature with one or more data points of the second training dataset; applying each of the complete prediction model and the filtered prediction model to the new evaluation dataset; comparing a performance of applying the complete prediction model to the new evaluation dataset to a performance of applying the filtered prediction model to the new evaluation dataset to determine whether the performance of applying the filtered prediction model to the new evaluation dataset exceeds the performance of applying the complete prediction model to the new evaluation dataset; in response to determining the performance of applying the filtered prediction model to the new evaluation dataset exceeds the performance of applying the complete prediction model to the new evaluation dataset: designating as poisonous one or more data points, in both the training dataset and the full evaluation dataset, the one or more data points having a same provenance signature as: the group of untrusted data points excluded from the second training dataset; and the data points removed from the full evaluation dataset based on sharing the provenance signature with the one or more data points of the second training dataset; and removing the one or more poisonous data points from the training dataset and the full evaluation dataset; and recombining the training dataset and full evaluation dataset after removing the one or more poisonous data points therefrom so as to create a final filtered training set; and training a final prediction model using the final filtered training set.
+12. The computer-implemented method as recited in claim 11, further comprising receiving the supervised learning model.
+13. The computer-implemented method as recited in claim 11, wherein the training dataset and the full evaluation dataset comprise equal numbers of the untrusted data points.
+14. The computer-implemented method as recited in claim 11, wherein the provenance data are trusted data.
+15. The computer-implemented method as recited in claim 11, wherein the provenance data are associated with the untrusted data points as metadata.
+16. The computer-implemented method as recited in claim 11, wherein the provenance data identify an origin of the untrusted data point with which the provenance data are associated.
+17. The computer-implemented method as recited in claim 11, wherein the untrusted data points each comprise one or more features for training the final prediction model; and wherein the final prediction model is based on a supervised learning model.
+18. The computer-implemented method as recited in claim 11, wherein the poison attack comprises a targeted attack.
+19. The computer-implemented method as recited in claim 18, wherein the targeted attack comprises a false negative attack.
+20. The computer-implemented method as recited in claim 18, wherein the targeted attack comprises a false positive attack.
+</claims>
+</document>

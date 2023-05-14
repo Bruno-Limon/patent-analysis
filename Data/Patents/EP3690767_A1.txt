@@ -1,0 +1,69 @@
+<document>
+
+<filing_date>
+2018-08-28
+</filing_date>
+
+<publication_date>
+2020-08-05
+</publication_date>
+
+<priority_date>
+2017-11-13
+</priority_date>
+
+<ipc_classes>
+G06Q10/04,G06Q10/06
+</ipc_classes>
+
+<assignee>
+ALIBABA GROUP
+</assignee>
+
+<inventors>
+XIAO, KAI
+ZHAO, WENBIAO
+</inventors>
+
+<docdb_family_id>
+61780402
+</docdb_family_id>
+
+<title>
+METHOD AND APPARATUS FOR DETERMINING RISK MANAGEMENT DECISION-MAKING CRITICAL VALUES
+</title>
+
+<abstract>
+A method and apparatus for determining risk management decision-making critical values are disclosed. A method for determining critical values in risk management for decision-making comprises: initializing a set P comprising K combinations and utilizing the following steps for cyclic processing until a preset stop condition is satisfied: calculating the score of each combination in the set P, selecting two combinations from the set P each time and exchanging one or more critical values to generate two new combinations until the number of new combinations reaches a preset number; updating the set P according to the new combinations; determining the corresponding M critical values of the combination having the highest score in the set P to be available critical values.
+</abstract>
+
+<claims>
+1. A method for determining decision-making critical values in risk management, comprising: acquiring relation functions between M critical values of M features and N index values, wherein each of the N index values corresponds to one of the relation functions, and each of the relation functions comprises all or some of the M critical values as input and one of the N index values as output; initializing a set P comprising K combinations, wherein each of the K combinations comprise the M critical values, and K is a preset value; performing a cyclic process comprising the following steps until a preset stop condition is satisfied: calculating a score for each combination in the set P according to the acquired N relation functions, wherein the score represents an overall quality of the N index values corresponding to the each combination, and the score is positively correlated to positive index values of the N index values and negatively correlated to negative index values of the N index values; selecting two combinations from the set P each time and exchanging one or more critical values thereof to generate two new combinations until a number of new combinations reaches a preset number, wherein a probability for each of the K combinations being selected from the set P is positively correlated to the score of the each combination; and updating the set P according to the new combinations, wherein a number of combinations in the set P remains unchanged after updating the set P; and after the cyclic process stops, determining the M critical values corresponding to a combination having a highest score in the set P to be available critical values.
+2. The method as claimed in claim 1, wherein acquiring the relation functions between the M critical values and the N index values comprises: acquiring a plurality of correspondences comprising the M critical values and the N index values from historical data; and using the acquired plurality of correspondences as samples to obtain the relation functions between the M critical values and the N index values through training.
+3. The method as claimed in claim 1, wherein the calculating a score for each combination in the set P according to the acquired N relation functions comprises:
+calculating the score for the each combination according to the following formula:
+Σ the positive index values of the N index values - Σ the negative index value of the N index values.
+4. The method as claimed in claim 1, wherein the calculating a score for each combination in the set P according to the acquired N relation functions comprises: generating a random correction factor for each of the N index values; and calculating the score of the each combination according to corrected N index values.
+5. The method as claimed in claim 1, wherein the probability for each combination being selected from the set P is determined in a following way: calculating a sum of the scores of the K combinations in the set P; and determining a ratio of the score of each of the K combinations to the sum of the scores as the probability of the each combination being selected.
+6. The method as claimed in claim 1, wherein selecting two combinations from the set P each time and exchanging one or more critical values thereof to generate two new combinations comprises:
+after selecting the two combinations from the set P each time and exchanging the one or more critical values thereof, randomly correcting the two combinations to generate two new combinations.
+7. The method as claimed in claim 1, wherein updating the set P according to the new combinations comprises:
+sorting the new combinations by the corresponding scores, and determining K of the new combinations having the highest scores to be the set P after updating.
+8. The method as claimed in claim 1, wherein updating the set P according to the new combinations comprises:
+merging the K combinations in original set P and the new combinations, sorting the merged combinations by the corresponding scores, and determining K of the merged combinations having the highest scores to be the set P after updating.
+9. The method as claimed in claim 1, wherein the preset stop condition includes: a preset number of cycles is reached, or the highest combination score in the set P already satisfies a preset condition of convergence, or the corresponding N index values of each combination in the set P already satisfy the requirements.
+10. An apparatus for determining decision-making critical values in risk management, comprising: a relation function acquisition module, configured to acquire relation functions between M critical values of M features and N index values, wherein each of the N index values corresponds to one of the relation functions, and each of the relation functions comprises all or some of the M critical values as input and one of the N index values as output, a set initialization module, configured to initialize a set P comprising K combinations, each combination comprising the M critical values and K being a preset value, a set updating module, configured to utilize following sub-modules to perform a cyclic process until a preset stop condition is satisfied: a score calculation sub-module, configured to calculate a score for each combination in the set P according to the acquired N relation functions, the score representing an overall quality of the N index values of the corresponding combination and being positively correlated to positive index values of the N index values and negatively correlated to negative index values of the N index values, a reorganization sub-module, configured to select two combinations from the set P each time and exchange one or more critical values to generate two new combinations until a number of the new combinations reaches a preset number, wherein a probability for each combination being selected from the set P is positively correlated to the score of the combination, and an updating sub-module, configured to update the set P according to the new combinations, the number of combinations in the set P after updating remaining unchanged, and a critical value determination module, configured to determine the M critical values of the combination having a highest score in the set P to be available critical values after the cyclic process is stopped.
+11. The apparatus as claimed in claim 10, wherein the relation function acquisition module is specifically configured to: acquire a plurality of correspondences comprising the M critical values and the N index values from historical data, and use the acquired plurality of correspondences as samples to obtain the relation functions between the M critical values and the N index values through training.
+12. The apparatus as claimed in claim 10, wherein the score calculation sub-module is specifically configured to: calculate the score of the combination according to a following formula: Σ the positive index values of the N index values - Σ the negative index value of the N index values
+13. The apparatus as claimed in claim 10, wherein the score calculation sub-module is specifically configured to: generate random correction factors for the N index values, respectively, and calculate the score of the combination according to corrected N index values.
+14. The apparatus as claimed in claim 10, wherein the reorganization sub-module determines the probability for each combination being selected from the set P in a following way: calculating a sum of the scores of the K combinations in the set P, and determining a ratio of the score of the each combination to the sum of the scores as the probability for the combination being selected.
+15. The apparatus as claimed in claim 10, wherein the reorganization sub-module is specifically configured to:
+after selecting the two combinations from the set P each time and exchanging the one or more critical values thereof, randomly correct the two combinations to generate two new combinations.
+16. The apparatus as claimed in claim 10, wherein the updating sub-module is specifically configured to:
+sort the new combinations by the corresponding scores and determine K of the new combinations having the highest scores to be the set P after updating.
+17. The apparatus as claimed in claim 10, wherein the updating sub-module is specifically configured to:
+merge the K combinations in original set P and the new combinations, sort the merged combinations by the corresponding scores and determine K of the merged combinations having the highest scores to be the set P after updating.
+18. The apparatus as claimed in claim 10, wherein the preset stop condition includes: a preset number of cycles is reached, or the highest combination score in the set P already satisfies a preset condition of convergence, or the corresponding N index values of each combination in the set P already satisfy the requirements.
+19. A computer device, comprising a memory, a processor and a computer program which is stored in the memory and runs on the processor, wherein the processor executes the program to implement the method as claimed in any of claims 1 to 9.
+</claims>
+</document>

@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-04-26
+</filing_date>
+
+<publication_date>
+2020-09-29
+</publication_date>
+
+<priority_date>
+2017-01-02
+</priority_date>
+
+<ipc_classes>
+H04L12/801,H04L12/823
+</ipc_classes>
+
+<assignee>
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+CHUNG, ERIC S.
+CAULFIELD, ADRIAN M.
+PAPAMICHAEL, MICHAEL
+</inventors>
+
+<docdb_family_id>
+62711309
+</docdb_family_id>
+
+<title>
+Flow control and congestion management for acceleration components configured to accelerate a service
+</title>
+
+<abstract>
+Systems and methods for flow control and congestion management of messages among acceleration components (ACs) configurable to accelerate a service are provided. An example system comprises a software plane including host components configured to execute instructions corresponding to a service and an acceleration plane including ACs configurable to accelerate the service. In a first mode a sending AC is configured to, in response to receiving a first indication from a receiving AC, send subsequent packets corresponding to a first message associated with the service using a larger inter-packet gap than an inter-packet gap used for previous packets corresponding to the first message associated with the service, and in the second mode the sending AC is configured to, in response to receiving a second indication from the receiving AC, delay a transmission of a next packet corresponding to the first message associated with the service.
+</abstract>
+
+<claims>
+1. A system comprising: a software plane including a plurality of host components configured to execute instructions corresponding to at least one service; and an acceleration plane including a plurality of acceleration components configurable to accelerate the at least one service, wherein each of the plurality of acceleration components is configurable as a sending acceleration component for sending messages for the at least one service or as a receiving acceleration component for receiving messages for the at least one service, and wherein each of the messages comprises a plurality of packets having an inter-packet gap, and wherein a sending acceleration component is configured to operate in a first mode for the at least one service or in a second mode for the at least one service, wherein in the first mode the sending acceleration component is configured to target a single receiving acceleration component at a time, and wherein in the second mode the sending acceleration component is configured to target multiple receiving acceleration components at a time, wherein in the first mode the sending acceleration component is configured to, in response to receiving a first indication from the receiving acceleration component, send subsequent packets corresponding to a first message associated with the at least one service using a larger inter-packet gap than an inter-packet gap used for previous packets corresponding to the first message associated with the at least one service, and wherein the sending acceleration component is not allowed to increase the amount of the inter-packet gap more than once during a specified predetermined time period and wherein in the second mode the sending acceleration component is configured to, in response to receiving a second indication from the receiving acceleration component, delay for a configurable amount of time a transmission of a next packet corresponding to the first message associated with the at least one service.
+2. The system of claim 1, wherein in the second mode the receiving acceleration component is further configured to track the sending acceleration component and at least a subset of other sending acceleration components that previously attempted to send at least one message to the receiving acceleration component and at least one packet corresponding to the at least one message was dropped.
+3. The system of claim 2, wherein in the second mode the receiving acceleration component is further configured to maintain a queue comprising an identifier corresponding to each tracked sending acceleration component.
+4. The system of claim 3, wherein upon a receipt of an entirety of the first message, the receiving acceleration component is further configured to, based on at least one criteria, dynamically determine which one of the tracked sending acceleration components is moved to a head of the queue.
+5. The system of claim 4, wherein the criteria comprises at least one input provided by an application logic corresponding to the at least one service.
+6. The system of claim 5, wherein the at least service comprises a search service for serving search requests and wherein the at least one input comprises time stamps associated with the search requests.
+7. The system of claim 1, wherein the first indication comprises at least one of an expiration of a timer associated with a transmission of the first message, an explicit congestion notification from an elastic router associated with the receiving acceleration component, or an explicit retransmission request for retransmitting at least one packet associated with the first message.
+8. The system of claim 1, wherein in the second mode, a sending acceleration component is configured to delay a transmission of a next packet corresponding to a message based on a status of any receiving acceleration components that the sending acceleration component is transmitting a message to or has previously attempted to transmit a message to and a packet corresponding to the message was dropped.
+9. A method in a system comprising a plurality of endpoints coupled via a network, wherein each of the plurality of the endpoints is configurable as a sending endpoint for sending messages or as a receiving endpoint for receiving messages, wherein each of the messages comprises a plurality of packets, and wherein the method comprising: a first sending endpoint initiating transmission of first packets corresponding to a first message to a first receiving endpoint; the first receiving endpoint storing the first packets in a first buffer associated with the first receiving endpoint and the first receiving endpoint transmitting a first indication to the first sending endpoint in response to the first buffer meeting a predetermined condition, wherein the predetermined condition comprises the first buffer filling up to a first threshold; the first sending endpoint increasing an amount of an inter-packet gap between successive first packets in response to the first indication, wherein the first sending endpoint is not allowed to increase the amount of the inter-packet gap between the successive first packets more than once during a first specified predetermined time period; a second sending endpoint initiating transmission of second packets corresponding to a second message to the first receiving endpoint; if the first receiving endpoint is still receiving the first packets corresponding to the first message from the first sending endpoint, then the first receiving endpoint dropping the second packets and transmitting a second indication to the second sending endpoint; and the second sending endpoint processing the second indication and if the second indication corresponds to a first value, then the second sending endpoint delaying a transmission of a next second packet for a back-off period and transmitting the next second packet after an expiration of the back-off period, otherwise if the second indication corresponds to a second value, then the second sending endpoint not only delaying a transmission of the next second packet for a back-off period and transmitting the next second packet after an expiration of the back-off period, but also increasing an amount of an inter-packet gap between successive second packets, wherein the second sending endpoint is not allowed to increase the amount of the inter-packet gap between the successive second packets more than once during a second specified predetermined time period.
+10. The method of claim 9, wherein the first indication comprises at least one of an expiration of a timer associated with a transmission of the first message, an explicit congestion notification from an elastic router associated with the receiving endpoint, or an explicit retransmission request for retransmitting at least one packet associated with the first message.
+11. The method of claim 9 further comprising the first receiving endpoint placing an identifier corresponding to the second sending endpoint in a queue for tracking any sending endpoints that previously attempted to send at least one message to the first receiving endpoint.
+12. The method of claim 11 further comprising the first receiving endpoint based on at least one criteria dynamically determining which one of tracked sending endpoints is moved to a head of the queue.
+13. The method of claim 12, wherein each of the plurality of endpoints comprises an acceleration component for accelerating at least one service, and wherein the at least one criteria comprises at least one input provided by an application logic corresponding to the at least one service.
+14. The method of claim 13, wherein the at least one service comprises a search service for serving search requests and wherein the at least one input comprises time stamps associated with the search requests.
+15. The method of claim 9 further comprising the first receiving endpoint transmitting a third indication to each one of tracked sending endpoints, wherein the third indication corresponds to a dynamically determined back-off method and corresponding parameters.
+16. The method of claim 15, wherein the back-off method comprises at least one of a linear back-off method or an exponential back-off method.
+17. The method of claim 9, wherein each of the first sending endpoint, the second sending endpoint, the first receiving endpoint, and the second receiving endpoint comprises one or more field programmable gate arrays (FPGAs) and wherein at least the one or more of the FPGAs is at least partially configurable using an image file.
+18. A method in a system comprising a plurality of endpoints coupled via a network, wherein each of the plurality of the endpoints is configurable as a sending endpoint for sending messages or as a receiving endpoint for receiving messages, wherein each of the messages comprises a plurality of packets, and wherein the method comprising: a first sending endpoint initiating transmission of first packets corresponding to a first message to a first receiving endpoint; the first receiving endpoint storing the first packets in a first buffer associated with the first receiving endpoint and the first receiving endpoint transmitting a first indication to the first sending endpoint in response to the first buffer meeting a predetermined condition, wherein the first indication comprises at least one of an expiration of a timer associated with a transmission of the first message, an explicit congestion notification from an elastic router associated with the receiving endpoint, or an explicit retransmission request for retransmitting at least one packet associated with the first message; and the first sending endpoint dynamically determining a back-off method and corresponding parameters for increasing an amount of an inter-packet gap between successive first packets in response to the first indication, wherein the dynamically determining comprises selecting one of a linear back-off method or an exponential back-off method, and wherein the first sending endpoint is not allowed to increase the amount of the inter-packet gap more than once during a specified predetermined time period.
+19. The method of claim 18, wherein the inter-packet gap corresponds to a delay value, and wherein the linear back-off comprises adding additional delay to the delay value to increase the inter-packet gap.
+20. The method of claim 18, wherein the inter-packet gap corresponds to a delay value, and wherein the exponential back-off comprises multiplying the delay value by a factor to increase the inter-packet gap.
+</claims>
+</document>

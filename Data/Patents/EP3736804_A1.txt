@@ -1,0 +1,130 @@
+<document>
+
+<filing_date>
+2019-05-07
+</filing_date>
+
+<publication_date>
+2020-11-11
+</publication_date>
+
+<priority_date>
+2019-05-07
+</priority_date>
+
+<ipc_classes>
+G10H1/00,G10L25/30
+</ipc_classes>
+
+<assignee>
+MOODAGENT
+</assignee>
+
+<inventors>
+Jørgensen, Thomas
+Steffensen, Peter Berg
+Dyrsting, Søren
+Andersen, Uffe
+Henderson, Mikael
+Diez Antich, Luis
+Abou-Zleikha, Mohamed
+Teglbjærg, David Stubbe
+</inventors>
+
+<docdb_family_id>
+66625746
+</docdb_family_id>
+
+<title>
+METHODS AND SYSTEMS FOR DETERMINING COMPACT SEMANTIC REPRESENTATIONS OF DIGITAL AUDIO SIGNALS
+</title>
+
+<abstract>
+A method and system for determining a compact semantic representation of a digital audio signal (1) by calculating at least one low-level feature matrix (2) from the digital audio signal (1); processing the low-level feature matrix or matrices (2,2A,2B) using pre-trained machine learning engines (16T,26T) comprising an ensemble of modules (15,25), wherein each module in the ensemble is trained to predict a one of a plurality of high-level feature values (5); and concatenating the obtained plurality of high-level feature values (5) into a descriptor vector (6).The calculated descriptor vectors (6) can be used alone, or in an arbitrary or temporally ordered combination with further descriptor vectors (6) calculated from different audio signals (1) extracted from the same music track (11), as a compact semantic representation of the respective music track (11).
+</abstract>
+
+<claims>
+1. A method for determining a compact semantic representation of a digital audio signal, the method comprising: providing (101) a digital audio signal (1); calculating (102), using a digital signal processor module (12), a low-level feature matrix (2) from said digital audio signal (1), said low-level feature matrix (2) comprising numerical values corresponding to a low-level audio feature in a temporal sequence; calculating (103), using a general extractor module (13), a high-level feature matrix (3) from said low-level feature matrix (2), said high-level feature matrix (3) comprising numerical values corresponding to a high-level audio feature; calculating (104), using a feature-specific extractor module (14), a number nf of high-level feature vectors (4) from said high-level feature matrix (3), each high-level feature vector (4) comprising numerical values corresponding to a high-level audio feature; calculating (105), using a feature-specific regressor module (15), a number nf of high-level feature values (5) from said number nf of high-level feature vectors (4); wherein each high-level feature value (5) represents a musical or emotional characteristic of said digital audio signal (1); and calculating (106) a descriptor vector (6) by concatenating said number nf of high-level feature values (5).
+2. A method according to claim 1, wherein said low-level feature matrix (2) is a vertical concatenation of the Mel-spectrogram of said digital audio signal (1) and its subsequent first and second derivatives, and
+wherein said low-level feature matrix (2) preferably comprises a number of rows ranging from 1 to 1000, more preferably 1 to 200, most preferably 102 rows; and a number of columns ranging from 1 to 5000, more preferably 1 to 1000, most preferably 612 columns.
+3. A method according to any one of claims 1 or 2, wherein said general extractor module (13) uses a pre-trained Convolutional Neural Network, CNN, model (17), wherein the architecture of said CNN model (17) comprises: an input block (171) configured for normalizing said low-level feature matrix (2) using a batch normalization layer; followed by four consecutive convolutional blocks (172); and an output layer (173).
+4. A method according to claim 3, wherein each of said four consecutive convolutional blocks (172) comprises
+a 2-dimensional convolutional layer (1721),
+a batch normalization layer (1722),
+an Exponential Linear Unit (1723),
+a 2-dimensional max pooling layer (1724), and
+a dropout layer (1725); and
+wherein the convolutional layer (1721) of the first convolutional block comprises 64 filters, while the convolutional layers (1721) of the further consecutive blocks comprise 128 filters.
+5. A method according to claim 3, wherein said CNN model (17) is pre-trained (107) in isolation from the rest of the modules as a musical genre classifier model by replacing said output layer (173) with a recurrent layer (174) and a decision layer (175) in the architecture of said CNN model (17);
+providing a number nl of labeled digital audio signals (9), wherein each labeled digital audio signal (9) comprises an associated ground truth musical genre;
+training said CNN model (17) by using said labeled digital audio signals (9) as input, and iterating over a number of N epochs; and
+after the training, replacing said recurrent layer (174) and decision layer (175) with an output layer (173) in the architecture of said CNN model (17);
+wherein said number nl is 1 ≤ nl ≤ 100,000,000, more preferably 100,000 ≤ nl ≤ 10,000,000, more preferably 300,000 ≤ nl ≤ 400,000, most preferably nl = 340,000; and
+wherein said number of training epochs is 1 ≤ N ≤ 1000, more preferably 1 ≤ N ≤ 100, most preferably N = 40.
+6. A method according to claim 5, wherein said recurrent layer (174) comprises two Gated Recurrent Units, GRU, layers (1741), and a dropout layer (1742); and
+wherein said decision layer (175) comprises a fully connected layer (1751).
+7. A method according to any one of claims 1 to 6, wherein said high-level feature matrix (3) comprises a number of rows ranging from 1 to 1000, more preferably 1 to 100, most preferably 32 rows; and a number of columns ranging from 1 to 1000, more preferably 1 to 500, most preferably 128 columns.
+8. A method according to any one of claims 1 to 7, wherein said feature-specific extractor module (14) uses an ensemble of a number nf of a pre-trained Recurrent Neural Network, RNN, models (18),
+wherein the architecture of said RNN models (18) may differ from each other,
+wherein a preferred RNN model (18) architecture comprises two Gated Recurrent Units, GRU, layers (181), and
+a dropout layer (182).
+9. A method according to claim 8, wherein each of said RNN models (18) in the ensemble is pre-trained (108) as a regressor to predict one target value from said number nf of high-level feature values (5) by
+providing an additional, fully connected layer (183) of one unit in the architecture of said RNN model (18),
+providing a number of annotated digital audio signals (7), wherein each annotated digital audio signal (7) comprises a number of annotations, said number of annotations comprising ground truth values XGT for high-level features of the respective annotated digital audio signal (7);
+training each RNN model (18) to predict one target value XP from said high-level feature values (5) by using said annotated digital audio signals (7) as input, and iterating until the Mean Absolute Error, MAE, between said one predicted target value XP and the corresponding ground truth value XGT meets a predefined threshold T; and
+after the training, removing said fully connected layer (183) from the architecture of said RNN model (18);
+wherein the total number na of annotations is 1 ≤ na ≤ 100,000, more preferably 50,000 ≤ na ≤ 100,000 more preferably 70,000 ≤ na ≤ 80,000.
+10. A method according to any one of claims 1 to 9, wherein said high-level feature vector (4) is a 1-dimensional vector comprising a number of values ranging from 1 to 1024, more preferably from 1 to 512, most preferably comprising either 33, 128 or 256 values.
+11. A method according to any one of claims 1 to 10, wherein said feature-specific regressor module (15) uses an ensemble of a number nf of a pre-trained Gaussian Process Regressor, GPR, models (19), wherein
+each GPR model (19) is specifically configured to one target value from said number nf of high-level feature values (5), and wherein
+each GPR model (19) uses a rational quadratic kernel, wherein the kernel function k for points xi,xj is given by: wherein {σ, α, l} ∈ [0.0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8].
+12. A method according to claim 11, wherein each of said GPR models (19) in the ensemble is pre-trained (109) as a regressor to predict one target value from said number nf of high-level feature values (5) by
+providing (1091) a number of annotated digital audio signals (7), wherein each annotated digital audio signal (7) comprises a number of annotations, said number of annotations comprising ground truth values for high-level features of the respective annotated digital audio signal (7);
+training (1092) each GPR model (19) to predict one target value from said high-level feature values (5) by using said annotated digital audio signals (7) as input, and iterating until the Mean Absolute Error, MAE, between said one predicted target value and the corresponding ground truth value meets a predefined threshold;
+repeating (1093) the above steps by performing a hyper-parameter grid search on the parameters σ, α and l of the kernel by assigning each parameter a value from a predefined list of [0.0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8], and using Mean Squared Error, MSE, as the evaluation metric, until the combination of three hyper-parameters that obtain the lowest MSE are identified; and
+keeping (1094) the model with the smallest error by comparing said MAE and MSE;
+wherein the total number na of annotations is 1 ≤ na ≤ 100,000, more preferably 50,000 ≤ na ≤ 100,000 more preferably 70,000 ≤ na ≤ 80,000.
+13. A method according to any one of claims 1 to 12, further comprising training (110) a descriptor profiler engine (16), said descriptor profiler engine (16) comprising said digital signal processor module (12), said general extractor module (13), said feature-specific extractor module (14), and said feature-specific regressor module (15); by
+providing (1101) a number naa of auto-annotated digital audio signals (8), wherein each auto-annotated digital audio signal (8) comprises an associated descriptor vector (6A) comprising truth values for different musical or emotional characteristics of said digital audio signal (1);
+training (1102) said descriptor profiler engine (16) by using said auto-annotated digital audio signals (8) as input, and iterating said modules until the Mean Absolute Error, MAE, between calculated values of descriptor vectors (6) and truth values of associated descriptor vectors (6A) meets a predefined threshold; and
+calculating (1103), using the trained descriptor profiler engine (16T), descriptor vectors (6) for un-annotated digital audio signals (10) with no associated descriptor vectors (6A),
+wherein said number naa is 1 ≤ naa ≤ 100,000,000, more preferably 100,000 ≤ naa ≤ 1,000,000, more preferably 500, 000 ≤ naa ≤ 600, 000.
+14. A computer-based system (20) for determining a compact semantic representation of a digital audio signal (1), the system comprising
+a processor (21);
+a storage device (22) configured to store one or more digital audio signals (1);
+a digital signal processor module (12) configured to calculate a low-level feature matrix (2) from said digital audio signal (1);
+a general extractor module (13) configured to calculate a high-level feature matrix (3) from said low-level feature matrix (2);
+a feature-specific extractor module (14) configured to calculate one or more high-level feature vectors (4) from said high-level feature matrix (3);
+a feature-specific regressor module (15) configured to calculate one or more high-level feature values (5) from said one or more high-level feature vectors (4); and
+optionally, a descriptor profiler engine (16) comprising said digital signal processor module (12), said general extractor module (13), said feature-specific extractor module, and said feature-specific regressor module;
+wherein the storage device (22) is further configured to store instructions that, when executed by said processor (21), cause the computer-based system (20) to perform a method according to any one of claims 1 to 13.
+15. A method for determining a compact semantic representation of a digital audio signal (1), the method comprising: providing (201) a digital audio signal (1); calculating (202), using a low-level feature extractor module (23), from said digital audio signal (1), a Mel-spectrogram (2A), and a Mel Frequency Cepstral Coefficients, MFCC, matrix (2B); processing (203), using a low-level feature pre-processor module (24) said Mel-spectrogram (2A) and MFCC matrix (2B), wherein said Mel-spectrogram (2A) is subjected separately to at least a Multi Auto Regression Analysis, MARA, process and a Dynamic Histogram, DH, process, and said MFCC matrix (2B) is subjected separately to at least an Auto Regression Analysis, ARA, process and a MARA process, wherein the output of each MARA process is a first order multivariate autoregression matrix, the output of each ARA process is a third order autoregression matrix, and the output of each DH process is a dynamic histogram matrix; and calculating (204), using an ensemble learning module (25), a number nf of high-level feature values (5) by feeding (2041) the output matrices from said low-level feature pre-processor module (24) as a group parallelly into a number nf of ensemble learning blocks (25A) within said ensemble learning module (25), each ensemble learning block (25A) further comprising a number nGP of parallelly executed Gaussian Processes, GPs, wherein each of said GPs receives at least one of said output matrices and outputs a predicted high-level feature value (5A), and picking (2042), as the output of each ensemble learning block (25A), the best candidate from said predicted high-level feature values (5A), using statistical data, as one of said number nf of high-level feature values (5), wherein each high-level feature value (5) represents a musical or emotional characteristic of said digital audio signal (1); and calculating (205) a descriptor vector (6) by concatenating said number nf of high-level feature values (5).
+16. A method according to claim 15, wherein picking (2042) the best candidate from said predicted high-level feature values (5A) comprises
+determining (2043), using a predefined database of statistical probabilities regarding the ability of each GP to predict a certain high-level feature value (5), the GP within the ensemble learning block (25A) with the lowest probability to predict the respective high-level feature value (5), and discarding its output (5A); and
+picking (2044) the predicted high-level feature value (5) with a numerical value in the middle from within the remaining outputs (5A).
+17. A method according to any one of claims 15 or 16, further comprising training (206) an auto-annotating engine (26), said auto-annotating engine (26) comprising said low-level feature extractor module (23), said low-level feature pre-processor module (24), and said ensemble learning module (25) ;
+providing (2061) a number of annotated digital audio signals (7), wherein each annotated digital audio signal (7) comprises a number of annotations, said number of annotations comprising ground truth values for high-level features of the respective annotated digital audio signal (7);
+training (2062) said auto-annotating engine (26) by using said annotated digital audio signals (7) as input and training said Gaussian Processes using ordinal regression; and
+calculating (2063), using the trained auto-annotating engine (26T), descriptor vectors (6) for un-annotated digital audio signals (10), said descriptor vectors (6) comprising predicted high-level features,
+wherein the total number na of annotations is 1 ≤ na ≤ 100,000, more preferably 50,000 ≤ na ≤ 100,000 more preferably 70,000 ≤ na ≤ 80,000.
+18. A computer-based system (20) for determining a compact semantic representation of a digital audio signal (1), the system comprising
+a processor (21);
+a storage device (22) configured to store one or more digital audio signals (1);
+a low-level feature extractor module (23) configured to calculate, from said digital audio signal (1), a Mel-spectrogram (2A), and a Mel Frequency Cepstral Coefficients, MFCC, matrix (2B);
+a low-level feature pre-processor module (24) configured to process said Mel-spectrogram (2A) using a Multi Auto Regression Analysis, MARA, process and a Dynamic Histogram, DH, process, and to process said MFCC matrix (2B) using an Auto Regression Analysis, ARA, process and a MARA process; an ensemble learning module (25) comprising a number nf of ensemble learning blocks (25A) configured to calculate one or more high-level feature values (5) from the output data from the processes of said low-level feature pre-processor module (24) using a number nGP of parallelly executed Gaussian Processes, GPs; and
+optionally, an auto-annotating engine (26) comprising said low-level feature extractor module (23), said low-level feature pre-processor module (24), and said ensemble learning module (25);
+wherein the storage device (22) is further configured to store instructions that, when executed by said processor (21), cause the computer-based system (20) to perform a method according to any one of claims 15 to 17.
+19. A method according to any one of claims 1 to 13, or 15 to 17, wherein each high-level feature value (5) represents one of either a perceived musical characteristic corresponding to the musical style, musical genre, musical sub-genre, rhythm, tempo, vocals, or instrumentation of the respective digital audio signal (1); or a perceived emotional characteristic corresponding to the mood of the respective digital audio signal (1).
+20. A method according to any one of claims 1 to 13, 15 to 17, or 19, wherein each high-level feature value (5) can take a discrete numerical value between a minimum value vmin and a maximum value vmax, wherein vmin represents and absence and vmax represents a maximum intensity of said musical or emotional characteristic in said digital audio signal (1), and
+wherein vmin = 1, and 1 < vmax ≤ 100, more preferably 5 ≤ vmax ≤ 10, more preferably vmax = 7.
+21. A method according to any one of claims 1 to 13, 15 to 17, or 19 to 20, wherein the duration Ls of said digital audio signal (1) is 1s < Ls < 60s, more preferably 5s < Ls < 30s, more preferably Ls = 15s.
+22. A method according to any one of claims 1 to 13, 15 to 17, or 19 to 21, wherein said number nf is 1 ≤ nf ≤ 256, more preferably 10 ≤ nf ≤ 50, more preferably nf = 34.
+23. A method according to any one of claims 15 to 17, or 19 to 22, wherein said number nGP is 1 < nGP ≤ 10, more preferably 1 < nGP ≤ 5, more preferably nGP = 4.
+24. A method according to claim 13, wherein providing said number naa of auto-annotated digital audio signals (8) comprises:
+calculating (301) said associated descriptor vector (6A) using a method according to any one of claims 15 to 17.
+25. A computer-based system (20) according to claim 14, the system further comprising: a low-level feature extractor module (23) configured to calculate, from a digital audio signal (1), a Mel-spectrogram (2A), and a Mel Frequency Cepstral Coefficients, MFCC, matrix (2B); a low-level feature pre-processor module (24) configured to process said Mel-spectrogram (2A) using a Multi Auto Regression Analysis, MARA, process and a Dynamic Histogram, DH, process, and to process said MFCC matrix (2B) using an Auto Regression Analysis, ARA, process and a MARA process; an ensemble learning module (25) comprising a number nf of ensemble learning blocks (25A) configured to calculate one or more high-level feature values (5) from the output data from the processes of said low-level feature pre-processor module (24) using a number nGP of parallelly executed Gaussian Processes, GPs; and optionally, an auto-annotating engine (26) comprising said low-level feature extractor module (23), said low-level feature pre-processor module (24), and said ensemble learning module (25); wherein the storage device (22) is further configured to store instructions that, when executed by the processor (21), cause the computer-based system (20) to perform a method according to any one of claims 15 to 17, or 19 to 24.
+26. A method according to any one of claims 1 to 13, 15 to 17, or 19 to 24, further comprising: storing said descriptor vector (6) in a database alone, or in an arbitrary or temporally ordered combination with further one or more descriptor vectors (6), as a compact semantic representation of a music track (11A), wherein each of said descriptor vectors (6) are calculated from different audio signals (1) extracted from said same music track (11A).
+27. A method according to claim 26, further comprising:
+determining similarities between two or more music tracks (11A, 11B) based on their respective compact semantic representations.
+</claims>
+</document>

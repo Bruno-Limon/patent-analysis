@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2018-10-09
+</filing_date>
+
+<publication_date>
+2020-11-12
+</publication_date>
+
+<priority_date>
+2017-11-03
+</priority_date>
+
+<ipc_classes>
+G06N3/08,G06N5/04
+</ipc_classes>
+
+<assignee>
+SIEMENS
+</assignee>
+
+<inventors>
+ERNST, JAN
+PENG, KUAN-CHUAN
+WU, ZIYAN
+Li, Kunpeng
+</inventors>
+
+<docdb_family_id>
+63966152
+</docdb_family_id>
+
+<title>
+WEAKLY-SUPERVISED SEMANTIC SEGMENTATION WITH SELF-GUIDANCE
+</title>
+
+<abstract>
+Systems, methods, and computer-readable media are described for performing weakly supervised semantic segmentation of input images that utilizes self-guidance on attention maps during training to cause a guided attention inference network (GAIN) to focus attention on an object in an input image in a holistic manner rather than only on the most discriminative parts of the image. The self-guidance is provided jointly by a classification loss function and an attention mining loss function. Extra supervision can also be provided by using a select number pixel-level labeled input images to enhance the semantic segmentation capabilities of the GAIN.
+</abstract>
+
+<claims>
+1. A computer-implemented method, comprising: providing an input image to a convolutional neural network (CNN), wherein the input image is associated with an image-level label; obtaining, from the CNN, a first classification probability distribution associated with the input image; determining, based at least in part on the first classification probability distribution and the image-level label of the input image, a classification loss; determining an attention map associated with the input image; applying a thresholding operation to the attention map to obtain a soft mask; applying the soft mask to the input image to obtain a masked image; providing the masked image as an input to the CNN; obtaining, from the CNN, a second classification probability distribution associated with the masked image; determining an attention mining loss associated with the attention map based at least in part on the first classification probability distribution and the second classification probability distribution; and utilizing the classification loss and the attention mining loss to self-guide training of the CNN.
+2. The computer-implemented method of claim 1, wherein the input image is a first input image and the attention map is a first attention map, the method further comprising: providing a second input image to the CNN, wherein the second input image is associated with a pixel-level label; determining a second attention map associated with the second input image; determining an attention loss associated with the second attention map based at least in part on the pixel-level label of the second input image; and utilizing the attention loss in addition to the classification loss and the attention mining loss to provide extra supervision during the training of the CNN.
+3. The computer-implemented method of claim 2, wherein determining the attention loss associated with the second attention map comprises determining an L2 norm Euclidean distance between the pixel-level label of the second input image and the second attention map.
+4. The computer-implemented method of claim 1, wherein the input image is a first input image and the attention map is a first attention map, the method further comprising testing the trained CNN by: providing a second input image to the trained CNN; and outputting, by the trained CNN, a third classification probability distribution and a second attention map corresponding to a target class of the second input image.
+5. The computer-implemented method of claim 1, wherein applying the thresholding operation to the attention map to obtain the soft mask comprises executing a masking function on the attention map to determine one or more portions of the attention map that have a classification response to a target class of the input image that is above a threshold value.
+6. The computer-implemented method of claim 5, wherein applying the soft mask to the input image to obtain the masked image comprises performing an element-wise multiplication of the soft mask and the input image to obtain the masked image, wherein the masked image has one or more regions of the input image removed therefrom that correspond to the one or more portions of the attention map that have the classification response that is above the threshold value.
+7. The computer-implemented method of claim 1, wherein determining the attention map associated with the input image comprises: backpropagating the classification loss to a last convolutional layer of the CNN; passing the backpropagated classification loss through a global average pooling layer to obtain a set of weights; and applying the set of weights to one or more feature maps to obtain the attention map.
+8. A system, comprising: at least one memory storing computer-executable instructions; and at least one processor, wherein the at least one processor is configured to access the at least one memory and execute the computer-executable instructions to: provide an input image to a convolutional neural network (CNN), wherein the input image is associated with an image-level label; obtain, from the CNN, a first classification probability distribution associated with the input image; determine, based at least in part on the first classification probability distribution and the image-level label of the input image, a classification loss; determine an attention map associated with the input image; apply a thresholding operation to the attention map to obtain a soft mask; apply the soft mask to the input image to obtain a masked image; provide the masked image as an input to the CNN; obtain, from the CNN, a second classification probability distribution associated with the masked image; determine an attention mining loss associated with the attention map based at least in part on the first classification probability distribution and the second classification probability distribution; and utilize the classification loss and the attention mining loss to self-guide training of the CNN.
+9. The system of claim 8, wherein the input image is a first input image and the attention map is a first attention map, and wherein the at least one processor is further configured to execute the computer-executable instructions to: provide a second input image to the CNN, wherein the second input image is associated with a pixel-level label; determine a second attention map associated with the second input image; determine an attention loss associated with the second attention map based at least in part on the pixel-level label of the second input image; and utilizing the attention loss in addition to the classification loss and the attention mining loss to provide extra supervision during the training of the CNN.
+10. The system of claim 9, wherein the at least one processor is configured to determine the attention loss associated with the second attention map by executing the computer-executable instructions to determine an L2 norm Euclidean distance between the pixel-level label of the second input image and the second attention map.
+11. The system of claim 8, wherein the input image is a first input image and the attention map is a first attention map, and wherein the at least one processor is further configured to execute the computer-executable instructions to train CNN by: provide a second input image to the trained CNN; and output, by the trained CNN, a third classification probability distribution and a second attention map corresponding to a target class of the second input image.
+12. The system of claim 8, wherein the at least one processor is configured to apply the thresholding operation to the attention map to obtain the soft mask by executing the computer-executable instructions to execute a masking function on the attention map to determine one or more portions of the attention map that have a classification response to a target class of the input image that is above a threshold value.
+13. The system of claim 12, wherein the at least one processor is configured to apply the soft mask to the input image to obtain the masked image by executing the computer-executable instructions to perform an element-wise multiplication of the soft mask and the input image to obtain the masked image, wherein the masked image has one or more regions of the input image removed therefrom that correspond to the one or more portions of the attention map that have the classification response that is above the threshold value.
+14. The system of claim 8, wherein the at least one processor is configured to determine the attention map associated with the input image by executing the computer-executable instructions to: backpropagate the classification loss to a last convolutional layer of the CNN; pass the backpropagated classification loss through a global average pooling layer to obtain a set of weights; and apply the set of weights to one or more feature maps to obtain the attention map.
+15. A computer program product comprising a storage medium readable by a processing circuit, the storage medium storing instructions executable by the processing circuit to cause a method to be performed, the method comprising: providing an input image to a convolutional neural network (CNN), wherein the input image is associated with an image-level label; obtaining, from the CNN, a first classification probability distribution associated with the input image; determining, based at least in part on the first classification probability distribution and the image-level label of the input image, a classification loss; determining an attention map associated with the input image; applying a thresholding operation to the attention map to obtain a soft mask; applying the soft mask to the input image to obtain a masked image; providing the masked image as an input to the CNN; obtaining, from the CNN, a second classification probability distribution associated with the masked image; determining an attention mining loss associated with the attention map based at least in part on the first classification probability distribution and the second classification probability distribution; and utilizing the classification loss and the attention mining loss to self-guide training of the CNN.
+16. The computer program product of claim 15, wherein the input image is a first input image and the attention map is a first attention map, the method further comprising: providing a second input image to the CNN, wherein the second input image is associated with a pixel-level label; determining a second attention map associated with the second input image; determining an attention loss associated with the second attention map based at least in part on the pixel-level label of the second input image; and utilizing the attention loss in addition to the classification loss and the attention mining loss to provide extra supervision during the training of the CNN.
+17. The computer program product of claim 16, wherein determining the attention loss associated with the second attention map comprises determining an L2 norm Euclidean distance between the pixel-level label of the second input image and the second attention map.
+18. The computer program product of claim 15, wherein the input image is a first input image and the attention map is a first attention map, the method further comprising testing the trained CNN by: providing a second input image to the trained CNN; and outputting, by the trained CNN, a third classification probability distribution and a second attention map corresponding to a target class of the second input image.
+19. The computer program product of claim 15, wherein applying the thresholding operation to the attention map to obtain the soft mask comprises: executing a masking function on the attention map to determine one or more portions of the attention map that have a classification response to a target class of the input image that is above a threshold value, and wherein applying the soft mask to the input image to obtain the masked image comprises: performing an element-wise multiplication of the soft mask and the input image to obtain the masked image, wherein the masked image has one or more regions of the input image removed therefrom that correspond to the one or more portions of the attention map that have the classification response that is above the threshold value.
+20. The computer program product of claim 15, wherein determining the attention map associated with the input image comprises: backpropagating the classification loss to a last convolutional layer of the CNN; passing the backpropagated classification loss through a global average pooling layer to obtain a set of weights; and applying the set of weights to one or more feature maps to obtain the attention map.
+</claims>
+</document>

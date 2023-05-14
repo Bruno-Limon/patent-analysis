@@ -1,0 +1,104 @@
+<document>
+
+<filing_date>
+2020-07-01
+</filing_date>
+
+<publication_date>
+2021-01-07
+</publication_date>
+
+<priority_date>
+2019-07-02
+</priority_date>
+
+<ipc_classes>
+G06F16/332,G06N3/02,G10L15/16,G10L15/18,G10L15/19
+</ipc_classes>
+
+<assignee>
+SERVICENOW
+</assignee>
+
+<inventors>
+SAPUGAY, EDWIN
+SARDA, Gopal
+</inventors>
+
+<docdb_family_id>
+74066424
+</docdb_family_id>
+
+<title>
+DERIVING MULTIPLE MEANING REPRESENTATIONS FOR AN UTTERANCE IN A NATURAL LANGUAGE UNDERSTANDING FRAMEWORK
+</title>
+
+<abstract>
+The present approaches are generally related to an agent automation framework that is capable of extracting meaning from user utterances, such as requests received by a virtual agent (e.g., a chat agent), and suitably responding to these user utterances. In certain aspects, the agent automation framework includes a NLU framework and an intent-entity model having defined intents and entities that are associated with sample utterances. The NLU framework may include a meaning extraction subsystem designed to generate meaning representations for the sample utterances of the intent-entity model to construct an understanding model, as well as generate meaning representations for a received user utterance to construct an utterance meaning model. The disclosed NLU framework may include a meaning search subsystem that is designed to search the meaning representations of the understanding model to locate matches for meaning representations of the utterance meaning model.
+</abstract>
+
+<claims>
+What is claimed is:
+1. An agent automation system, compri sing :
+a memory configured to store a natural language understanding (NLU) framework, wherein the NLU framework includes a part-of-speech (POS) component, a correction component, a variability filter component, a parser component, and a final scoring and filtering component; and
+a processor configured to execute instructions of the NLU framework to cause the agent automation system to perform actions comprising:
+using the POS component to perform part-of-speech (POS) tagging of a set of utterances to generate a set of potential POS taggings from the set of utterances; using the variability filter component to remove one or more POS taggings from the set of potential POS taggings that are substantially similar to other POS taggings in the set of potential POS taggings;
+using the parser component to generate a set of potential meaning representations from the set of potential POS taggings; and
+using the final scoring and filtering component to calculate a respective final score for each potential meaning representation in the set of potential meaning representations and to remove potential meaning representations from the set of potential meaning representations based on their respective final score to generate a final set of meaning representations.
+2. The system of claim 1, wherein the processor is configured to execute the instructions of the NLU framework to cause the agent automation system to perform actions comprising:
+performing vocabulary injection to generate the set of utterances based on an original utterance, wherein the set of utterances includes the original utterance and one or more re-expressions of the original utterance having different phraseology, different terminology, or a combination thereof.
+3. The system of claim 2, wherein the original utterance is a user utterance, and wherein the final set of meaning representations form part of an utterance meaning model that defines a search key for a meaning search.
+4. The system of claim 2, wherein the original utterance is a sample utterance of an intent-entity model stored in the memory, and wherein the final set of meaning
+representations form part of an understanding model that defines a search space for a meaning search.
+5. The system of claim 1, wherein the POS component, the correction component, the variability filter component, the parser component, and the final scoring and filtering component are each implemented as plug-ins of the NLU framework.
+6. The system of claim 1, wherein the POS component, the parser component, or a combination thereof, includes a machine-learning (ML)-based component that is a feed forward artificial neural network.
+7. The system of claim 1, wherein each potential meaning representation of the set of potential meaning representations is an utterance tree.
+8. The system of claim 1 , wherein, to use the POS component to perform POS tagging, the processor is configured to execute the instructions of the NLU framework to cause the agent automation system to perform actions comprising:
+for each utterance of the set of utterances:
+generating at least one potential POS tagging of the utterance; determining a respective confidence score for the at least one potential POS tagging; and
+including the at least one potential POS tagging in the set of potential POS taggings in response to determining that the respective confidence score is greater than or equal to a predefined POS threshold value.
+9. The system of claim 1 , wherein, to use the variability filter component to remove the one or more POS taggings, the processor is configured to execute the instructions of the NLU framework to cause the agent automation system to perform actions comprising: calculating a variability score between a first potential POS tagging and a second potential POS tagging of the set of potential POS taggings; in response to the variability score being less that a predefined variation threshold value, removing the second potential POS tagging from the set of potential POS taggings.
+10. The system of claim 1 , wherein, to use the variability filter component to remove the one or more POS taggings, the processor is configured to execute the instructions of the NLU framework to cause the agent automation system to perform actions comprising: calculating a tagging distance between each potential POS tagging of the set of potential POS taggings;
+clustering the set of potential POS taggings into groups of potential POS taggings based on the tagging distance and a predefined variation threshold value;
+selecting a representative potential POS tagging for each of the groups of potential POS taggings; and
+removing potential POS taggings from the set of potential POS taggings that are not representative potential POS taggings.
+11. The system of claim 1, wherein, to use the parser component to generate the set of potential meaning representations, the processor is configured to execute the instructions of the NLU framework to cause the agent automation system to perform actions comprising: for each potential POS tagging of the set of potential POS taggings:
+generating at least one potential meaning representation of the potential POS tagging;
+determining a respective confidence score for the at least one potential meaning representation; and including the at least one potential meaning representations in the set of potential meaning representations in response to determining that the respective confidence score is greater than or equal to a predefined parse threshold value.
+12. The system of claim 1, wherein, to use using the final scoring and filtering component, the processor is configured to execute the instructions of the NLU framework to cause the agent automation system to perform actions comprising:
+for each potential meaning representation of the set of potential meaning representations:
+combining a POS tagging confidence score and a parsing confidence score of the potential meaning representation to calculate the respective final score of the potential meaning representation; and
+removing the potential meaning representations from the set of potential meaning representations in response to determining that the respective final score of the potential meaning representation is less than a final scoring and filtering threshold value.
+13. A method of operating a natural language understanding (NLU) framework, comprising:
+performing vocabulary injection to generate a set of utterances based on an original utterance, wherein the set of utterances includes the original utterance and one or more re expressions of the original utterance; performing part-of-speech (POS) tagging of the set of utterances to generate a set of potential POS taggings for the set of utterances;
+performing variability filtering to remove POS taggings from the set of potential POS taggings that are substantially similar to other POS taggings in the set of potential POS taggings;
+parsing the set of potential POS taggings to generate a set of potential meaning representations; and
+calculating a respective final score for each potential meaning representation in the set of potential meaning representations and selecting a final set of meaning representations for the original utterance from the set of potential meaning representations based on the respective final score of each potential meaning representation in the set of potential meaning representations.
+14. The method of claim 13, comprising:
+cleansing the original utterance before performing vocabulary injection, wherein cleansing comprises replacing or removing one or more tokens of the original utterance.
+15. The method of claim 13, wherein performing vocabulary injection comprises: identifying one or more tokens of the original utterance that are present in a vocabulary model;
+selecting one or more alternative tokens from the vocabulary model for the one or more tokens; and replacing the one or more tokens of the original utterance with the one or more alternative tokens to generate the one or more re-expressions of the original utterance.
+16. The method of claim 13, wherein performing part-of-speech (POS) tagging comprises:
+for each utterance of the set of utterances:
+generating at least one potential POS tagging of the utterance; determining a respective confidence score for the at least one potential POS tagging; and
+including the at least one potential POS tagging in the set of potential POS taggings in response to determining that the respective confidence score is greater than or equal to a predefined POS threshold value.
+17. The method of claim 13, wherein performing variability filtering comprises:
+calculating a variability score between two potential POS taggings of the set of potential POS taggings;
+in response to the variability score being less that a predefined variation threshold value, removing one of the two potential POS taggings from the set of potential POS taggings.
+18. The method of claim 13, wherein calculating a respective final score and selecting the final set of meaning representations comprises:
+for each potential meaning representation of the set of potential meaning
+representations:
+combining a POS tagging confidence score and a parsing confidence score of the potential meaning representation to calculate the respective final score for the potential meaning representation; and
+including the potential meaning representations in the final set of meaning representations in response to determining that the final score is greater than or equal to a predefined final scoring and filtering threshold value.
+19. The method of claim 13, comprising:
+performing a meaning search using the final set of meaning representations, wherein the final set of meaning representations form part of an utterance meaning model that defines a search key of the meaning search or form part of an understanding model that defines a search space for the meaning search.
+20. A non-transitory, computer-readable medium storing instructions of a natural language understanding (NLU) framework executable by one or more processors of a computing system, the instructions comprising instructions to:
+receive an original utterance, wherein the original utterance is a user utterance is a sample utterance of an intent-entity model; cleanse the original utterance by replacing or removing one or more tokens of the original utterance;
+perform vocabulary injection to generate a set of utterances from the original utterance, wherein the set of utterances includes the original utterance and one or more re expressions of the original utterance;
+perform part-of-speech (POS) tagging of the set of utterances to generate a set of potential POS taggings for the set of utterances;
+perform variability filtering to remove POS taggings from the set of potential POS taggings that are substantially similar to other POS taggings in the set of potential POS taggings;
+parse the set of potential POS taggings to generate a set of potential meaning representations;
+calculate a respective final score for each potential meaning representation in the set of potential meaning representations and selecting a final set of meaning representations for the original utterance from the set of potential meaning representations based on the respective final score of each potential meaning representation in the set of potential meaning representations; and
+perform a meaning search using the final set of meaning representations, wherein the final set of meaning representations form part of an utterance meaning model that defines a search key of the meaning search or form part of an understanding model that defines a search space for the meaning search.
+</claims>
+</document>

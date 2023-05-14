@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2020-01-24
+</filing_date>
+
+<publication_date>
+2020-05-21
+</publication_date>
+
+<priority_date>
+2015-10-23
+</priority_date>
+
+<ipc_classes>
+G06N3/08,G16B40/00
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+NELSON, PHILIP CHARLES
+TRIPPE, BRIAN
+CORAM, MARC ADLAI
+RILEY, PATRICK F.
+BERNDL, MARC
+DIMON, MICHELLE THERESE HOERNER
+</inventors>
+
+<docdb_family_id>
+57240831
+</docdb_family_id>
+
+<title>
+NEURAL NETWORK FOR PROCESSING APTAMER DATA
+</title>
+
+<abstract>
+Methods, systems, and apparatus, including computer programs encoded on computer storage media, for obtaining data defining a sequence for an aptamer, the aptamer comprising a string of nucleobases; encoding the data defining the sequence for the aptamer as a neural network input; and processing the neural network input using a neural network to generate an output that characterizes how strongly the aptamer binds to a particular target molecule, wherein the neural network has been configured through training to receive the data defining the sequence and to process the data to generate predicted outputs that characterize how strongly the aptamer binds to the particular target molecule.
+</abstract>
+
+<claims>
+1. 1-20. (canceled)
+21. A computer-implemented method for modeling, for a particular aptamer and at least one target molecule, the results of an iterative SELEX process that begins with an initial pool of aptamers and iteratively updates the initial pool of aptamers at each of a plurality of rounds, the method comprising: obtaining data defining a sequence for the particular aptamer, the aptamer comprising a string of nucleobases; encoding the data defining the sequence for the particular aptamer as a neural network input; and processing the neural network input using a trained neural network to generate an output that comprises a plurality of neural network outputs, wherein: each neural network output corresponds to a different one of the plurality of rounds in the iterative SELEX process, and each neural network output is a prediction of a result of the corresponding SELEX round, if the particular aptamer were in the initial pool of aptamers as of the beginning of the corresponding SELEX round.
+22. The method of claim 21, wherein the neural network output corresponding to a first SELEX round in the iterative SELEX process comprises a binary value or a confidence value indicating whether the particular aptamer would exist in the pool of aptamers at completion of the first SELEX round.
+23. The method of claim 22, wherein the neural network output corresponding to a second SELEX round in the iterative SELEX process comprises a numerical value that represents predicted count of the particular aptamer in the pool of aptamers for the second SELEX round, and the second SELEX round is after the first SELEX round in the iterative SELEX process.
+24. The method of claim 21, wherein the output comprises a vector of fluorescence levels, where a brightness of each fluorescence level indicates how strongly the particular aptamer binds to the at least one target molecule.
+25. The method of claim 21, wherein the neural network is a convolutional neural network.
+26. The method of claim 21, wherein the data defining the sequence comprises data specifying secondary structure of the particular aptamer.
+27. The method of claim 26, wherein the data specifying the secondary structure comprises data specifying a pattern of hydrogen bonds in the particular aptamer or an energy dot plot matrix of the particular aptamer.
+28. The method of claim 21, wherein encoding the data defining the sequence comprises converting the data defining the sequence to a plurality of one-hot vectors, each one-hot vector corresponding to a respective nucleobase in the particular aptamer.
+29. The method of claim 21, further comprising iteratively applying mutations to the sequence to generate a mutated sequence that has a maximum strength of binding to the at least one target molecule, comprising for each of a plurality of iterations: applying a mutation to a current mutated sequence to generate a new mutated sequence; processing the new mutated sequence using the neural network to generate an output that characterizes how strongly the new mutated sequence binds to the particular target molecule; using the neural network to determine whether the output indicates that the new mutated sequence binds stronger than the current mutated sequence; and selecting another mutation to be applied in a next iteration based on whether the output indicates that the new mutated sequence binds stronger than the current mutated sequence.
+30. A computer-implemented method for training a neural network to model results of an iterative SELEX process, wherein the iterative SELEX process begins with an initial pool of aptamers and iteratively updates the initial pool of aptamers at each of a plurality of different rounds, the method comprising: obtaining results of the iterative SELEX process applied to the initial pool of aptamers; obtaining data defining a plurality of sequences for a plurality of aptamers in the initial pool of aptamers, each aptamer from the plurality of aptamers comprising a string of nucleobases, generating, based on the results of the iterative SELEX process, a respective label for each sequence from the plurality of sequences that comprises characteristics of how strongly the respective aptamer binds to at least one target molecule, wherein the respective label for each sequence from the plurality of sequences includes a plurality of sub-labels and each sub-label corresponds to a different round in the iterative SELEX process and characterizes a result of the corresponding round for the respective aptamer; generating training data for a neural network from the data defining the plurality of sequences and the respective labels for each of the sequences; and training the neural network on the training data, the neural network configured to generate, for a particular aptamer, an output that comprises a plurality neural network outputs, each neural network output corresponding to a different round in the iterative SELEX process, and, each neural network output being a prediction of a result of the corresponding SELEX round, if the particular aptamer were in the pool of aptamers at the beginning of the corresponding SELEX round.
+31. The method of claim 30, wherein the neural network output corresponding to a first SELEX round in the iterative SELEX process comprises a binary value or a confidence value indicating whether the particular aptamer would exist in the pool of aptamers at completion of the first SELEX round.
+32. The method of claim 31, wherein the neural network output corresponding to a second SELEX round in the iterative SELEX process comprises a numerical value that represents predicted count of the particular aptamer in the pool of aptamers for the second SELEX round, and the second SELEX round is after the first SELEX round in the iterative SELEX process.
+33. A system comprising: one or more computers; and one or more storage devices storing instructions, which, when executed by the one or more computers, cause the one or more computers to perform operations for modeling, for a particular aptamer and at least one target molecule, the results of an iterative SELEX process that begins with an initial pool of aptamers and iteratively updates the initial pool of aptamers at each of a plurality of rounds, the operations comprising: obtaining data defining a sequence for the particular aptamer, the aptamer comprising a string of nucleobases; encoding the data defining the sequence for the particular aptamer as a neural network input; and processing the neural network input using a trained neural network to generate an output that comprises a plurality of neural network outputs, wherein: each neural network output corresponds to a different one of the plurality of rounds in the iterative SELEX process, and each neural network output is a prediction of a result of the corresponding SELEX round, if the particular aptamer were in the initial pool of aptamers as of the beginning of the corresponding SELEX round.
+34. The system of claim 33, wherein the neural network output corresponding to a first SELEX round in the iterative SELEX process comprises a binary value or a confidence value indicating whether the particular aptamer would exist in the pool of aptamers at completion of the first SELEX round.
+35. The system of claim 34, wherein the neural network output corresponding to a second SELEX round in the iterative SELEX process comprises a numerical value that represents predicted count of the particular aptamer in the pool of aptamers for the second SELEX round, and the second SELEX round is after the first SELEX round in the iterative SELEX process.
+36. The system of claim 33, wherein the output comprises a vector of fluorescence levels, where a brightness of each fluorescence level indicates how strongly the particular aptamer binds to the at least one target molecule.
+37. The system of claim 33, wherein the neural network is a convolutional neural network.
+38. The system of claim 33, wherein the data defining the sequence comprises data specifying secondary structure of the particular aptamer.
+39. The system of claim 38, wherein the data specifying the secondary structure comprises data specifying a pattern of hydrogen bonds in the particular aptamer or an energy dot plot matrix of the particular aptamer.
+40. The system of claim 33, wherein encoding the data defining the sequence comprises converting the data defining the sequence to a plurality of one-hot vectors, each one-hot vector corresponding to a respective nucleobase in the particular aptamer.
+</claims>
+</document>

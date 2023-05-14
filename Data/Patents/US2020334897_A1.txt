@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2019-04-18
+</filing_date>
+
+<publication_date>
+2020-10-22
+</publication_date>
+
+<priority_date>
+2019-04-18
+</priority_date>
+
+<ipc_classes>
+A61B6/00,A61B6/03,G06K9/00,G06N3/02,G06T11/00,G06T17/00,G06T7/00,G06T7/33
+</ipc_classes>
+
+<assignee>
+ZEBRA MEDICAL VISION
+</assignee>
+
+<inventors>
+OVED, AMIT
+</inventors>
+
+<docdb_family_id>
+69845894
+</docdb_family_id>
+
+<title>
+Systems and methods for reconstruction of 3D anatomical images from 2D anatomical images
+</title>
+
+<abstract>
+There is provided a method of training a neural network for reconstructing of a 3D point cloud from 2D image(s), comprising: extracting point clouds each represented by an ordered list of coordinates, from 3D anatomical images depicting a target anatomical structure, selecting one of the plurality of point clouds as a template, non-rigidly registering the template with each of the point clouds to compute a respective warped template having a shape of the respective point cloud and retaining the coordinate order of the template, wherein the warped templates are consistent in terms of coordinate order, receiving 2D anatomical images depicting the target anatomical structure depicted in corresponding 3D anatomical images, and training a neural network, according to a training dataset of the warped templates and corresponding 2D images, for mapping 2D anatomical image(s) into a 3D point cloud.
+</abstract>
+
+<claims>
+1. A method of training a neural network for reconstructing of a 3D point cloud from at least one 2D image, comprising: extracting a plurality of point clouds each represented by an ordered list of coordinates, from a plurality of 3D anatomical images depicting a target anatomical structure; selecting one of the plurality of point clouds as a template; non-rigidly registering the template with each of the plurality of point clouds to compute a respective warped template having a shape of the respective point cloud and retaining the coordinate order of the template, wherein the plurality of warped templates are consistent in terms of coordinate order; receiving a plurality of 2D anatomical images depicting the target anatomical structure depicted in corresponding 3D anatomical images; and training a neural network, according to a training dataset of the warped templates and corresponding 2D images, for mapping at least one 2D anatomical image into a 3D point cloud.
+2. The method of claim 1, wherein the plurality of 2D anatomical images comprise a plurality of emulated 2D anatomical images computed from each of the corresponding 3D anatomical images, by aggregating imaging values of the corresponding 3D anatomical image along a direction corresponding to an orientation of a virtual 2D sensor virtually capturing the emulated 2D anatomical image.
+3. The method of claim 2, wherein the plurality of emulated 2D anatomical images are computed to correspond to target 2D x-ray images captured by an x-ray source and x-ray sensor array at a predefined orientation relation to the patient.
+4. The method of claim 1, wherein each of the plurality of point clouds extracted from the plurality of 3D anatomical images denotes a 3D polygon mesh represented by coordinate order of the vertices and connections thereof.
+5. The method of claim 1, wherein each point cloud of the plurality of point clouds is extracted from a respective 3D anatomical image of the plurality of 3D anatomical images by: computing, for each 2D slice of a plurality of 2D slices of the respective 3D anatomical image, a 2D segmentation of the depicted target anatomical structure, stacking the plurality of 2D segmentations computed for the plurality of 2D slices, obtaining a 3D binary array of the target anatomical structure from the stacked plurality of 2D segmentations, and computing the point cloud from the 3D binary array.
+6. The method of claim 5, wherein the 2D segmentation of the depicted target anatomical structured is segmented from the respective 2D slice by a segmentation neural network that computes a pixel-wise probability of the respective pixel depicting the target anatomical structure, wherein the segmentation neural network is trained on a training dataset of a plurality of 2D slices of each a plurality of 3D anatomical images of a plurality of sample patients, wherein each 2D slice is annotated with an indication of a segmentation of the target anatomical structure.
+7. The method of claim 1, wherein the non-rigidly registering is performed according to a non-rigid registration process selected from coherent point drift and non-rigid iterative closest points.
+8. The method of claim 1, wherein the target anatomical structure includes a joint and associated bones, selected from the group consisting of: a hip joint, a knee joint, and a shoulder joint.
+9. The method of claim 1, wherein the target anatomical structure comprises a bone.
+10. The method of claim 9, wherein the target anatomical structure comprises a femur.
+11. The method of claim 1, wherein the target anatomical structure includes an inner surface of a bone.
+12. The method of claim 11, wherein the inner surface comprises an inner surface of a cortical bone.
+13. The method of claim 11, wherein the inner surface is of a medullary cavity of a long bone.
+14. A method for surgical treatment of a target anatomical structure of a patient, comprising: obtaining a 2D anatomical image depicting a target anatomical structure of a target patient; inputting the 2D anatomical image into a trained neural network trained according to a training dataset of a plurality of warped templates and corresponding 2D images, wherein the plurality of warped templates are created from a plurality of point clouds extracted from a plurality of 3D anatomical images, each point cloud represented by an ordered list of coordinates, one of the plurality of point clouds is selected as a template, the template is non-rigidly registered with each of the plurality of point clouds to compute the plurality of warped template each having a shape of the respective point cloud and retaining the coordinate order of the template, wherein the plurality of warped templates are consistent in terms of coordinate order; and outputting a reconstructed 3D point cloud model of the target anatomical structure by the trained neural network, wherein surgical treatment of the target anatomical structure of the patient is planned according to the reconstructed 3D point cloud model of the target anatomical structure.
+15. The method of claim 14, wherein the reconstructed 3D point cloud model of the target anatomical structure includes an internal surface thereof.
+16. The method of claim 15, wherein the target anatomical structure comprises a long bone and the internal surface depicted in the reconstructed 3D point cloud comprises an inner surface of a medullary cavity of the long bone.
+17. The method of claim 14, wherein the 2D anatomical images comprises an x-ray image.
+18. The method of claim 14, further comprising: computing a projection for projecting the reconstructed 3D model on the plane of the 2D image, wherein the 2D anatomical image includes a depiction of a calibration object having known dimensions; computing a scale parameter of the projection; scaling the reconstructed 3D model from original arbitrary units to pixel units according to the scale parameter; computing a conversion parameter for converting from pixel units to millimeters according to the calibration object depicted in the 2D anatomical image; and converting the pixel units of the reconstructed 3D image to millimeters according to the computed conversion parameter.
+19. The method of claim 14, wherein the target anatomical region comprises at least one bone, and surgical treatment of the patient planned according to the reconstructed 3D point cloud model of the target anatomical structure comprises selecting at least one of a joint replacement prosthetic and a fracture repair implantable device according to at least one dimension of the at least one bone depicted by the 3D point cloud model.
+20. The method of claim 14, wherein surgical treatment of the patient planned according to the reconstructed 3D point cloud model of the target anatomical structure comprises simulating a surgical procedure using the 3D point cloud model.
+21. A system for training a neural network for reconstructing of a 3D point cloud from a 2D image, comprising: at least one hardware processor executing a code for: extracting a plurality of point clouds each represented by an ordered list of coordinates, from a plurality of 3D anatomical images depicting a target anatomical structure; selecting one of the plurality of point clouds as a template; non-rigidly registering the template with each of the plurality of point clouds to compute a respective warped template having a shape of the respective point cloud and retaining the coordinate order of the template, wherein the plurality of warped templates are consistent in terms of coordinate order; receiving a plurality of 2D anatomical images depicting the target anatomical structure depicted in corresponding 3D anatomical images; and training a neural network, according to a training dataset of the warped templates and corresponding 2D images, for mapping at least one 2D anatomical image into a 3D point cloud.
+</claims>
+</document>

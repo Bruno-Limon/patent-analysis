@@ -1,0 +1,53 @@
+<document>
+
+<filing_date>
+2017-02-22
+</filing_date>
+
+<publication_date>
+2020-12-29
+</publication_date>
+
+<priority_date>
+2016-02-24
+</priority_date>
+
+<ipc_classes>
+G06F21/56,H04L29/06
+</ipc_classes>
+
+<assignee>
+NTT (NIPPON TELEGRAPH AND TELEPHONE CORPORATION)
+</assignee>
+
+<inventors>
+IWAMURA, MAKOTO
+IKUSE, TOMONORI
+YADA, TAKESHI
+Usui, Toshinori
+</inventors>
+
+<docdb_family_id>
+59685263
+</docdb_family_id>
+
+<title>
+Attack code detection device, attack code detection method, and attack code detection program
+</title>
+
+<abstract>
+An attack code detection device includes a learning unit configured to generate a model that learns, using a known labeled malicious document file including an ROP code, as learning data, a feature of a byte sequence being a component of a document file, and a feature of a byte sequence being a component of an ROP code, a detection unit configured to detect the ROP code included in an inspection target unknown document file, based on the model, and a malignancy determination unit configured to determine, based on a detection result, whether the inspection target unknown document file is a malicious data series that executes attack using ROP.
+</abstract>
+
+<claims>
+1. An attack code detection device comprising: a memory; and a processor coupled to the memory and that executes a process comprising: generating a model that learns, using a known malicious data series including a Return Oriented Programming (ROP) code, as learning data, a feature of a byte sequence being a component of a data series, and a feature of a byte sequence being a component of the ROP code; detecting, for each byte sequence, the ROP code included in an inspection target unknown data series, based on the model; and determining, using a detection result, whether the inspection target unknown data series is a malicious data series that executes attack using ROP, wherein the inspection target unknown data series is an unknown document file, and the detection of the ROP code included in the inspection target unknown data series is performed without opening the unknown document file using a viewer application.
+2. The attack code detection device according to claim 1, wherein, based on the model, the detecting obtains a component of a data series included in a byte sequence forming the inspection target unknown data series, or a component of the ROP code included in the inspection target unknown data series, and detects the ROP code included in the inspection target unknown data series.
+3. The attack code detection device according to claim 2, wherein the generating generates the model in which a byte sequence in the malicious data series is an observation series, and a label sequence is a latent series, by learning the malicious data series in which a byte being the component of the data series is labeled with a data label indicating that the byte is the component of the data series, and a byte being the component of the ROP code is labeled with an ROP label indicating that the byte is the ROP code, wherein, based on the model, the detecting grants, to a byte sequence of the inspection target unknown data series, a label sequence having a combination of a label with a highest probability at which the byte sequence is output, and detects whether the ROP label is included in the granted label sequence, and wherein, in a case where it is detected that the ROP label is included in the label sequence granted, the determining determines the inspection target unknown data series as the malicious data series, and in a case where it is detected that the ROP label is not included in the label sequence granted, determines the inspection target unknown data series as not a malicious data series that performs attack using the ROP.
+4. The attack code detection device according to claim 3, wherein the generating generates the model including an output probability of an observation variable associated with an output probability of each byte being the observation variable, for each of the label being a latent variable, a transition probability between the latent variables that is associated with a transition probability to the latent variable to which each of the latent variables can transition, and an initial state probability of the latent series, as model parameters, and wherein, based on the model, the detecting stochastically obtains a label sequence having a most probable combination of labels, among all possible combinations of labels, and grants to a byte sequence in the inspection target unknown data series.
+5. The attack code detection device according to claim 4, wherein, in a case where a length of the inspection target unknown data series is denoted by T, based on the model, when a possible label sequence is denoted by S=s1, s2, . . . , sT, an observed byte sequence is denoted by O=o1, o2, . . . , oT, and a model parameter of the model is denoted by θ, the detecting obtains a label sequence S* having a highest probability P(S, O; θ), for a byte sequence O, and grants the obtained label sequence S* to the byte sequence O.
+6. The attack code detection device according to claim 1, wherein, based on a labeled malicious data series method using manual or predetermined dynamic analysis for the malicious data series including the ROP code, the generating generates the model that learns the malicious data series in which labeling is implemented on each byte.
+7. The attack code detection device according to claim 1, wherein the malicious data series is a document file.
+8. An attack code detection method executed by an attack code detection device, the attack code detection method comprising: a process of generating, by the attack code detection device, a model that learns, using a known malicious data series including a Return Oriented Programming (ROP) code, as learning data, a feature of a byte sequence being a component of a data series, and a feature of a byte sequence being a component of the ROP code; a process of detecting, by the attack code detection device and for each byte sequence, the ROP code included in an inspection target unknown data series, based on the model; and a process of determining, by the attack code detection device, using a detection result, whether the inspection target unknown data series is a malicious data series that executes attack using ROP, wherein the inspection target unknown data series is an unknown document file, and the detection of the ROP code included in the inspection target unknown data series is performed without opening the unknown document file using a viewer application.
+9. A non-transitory computer-readable recording medium having stored therein an attack code detection program for causing a computer to execute a process comprising: generating a model that learns, using a known malicious data series including a Return Oriented Programming (ROP) code, as learning data, a feature of a byte sequence being a component of a data series, and a feature of a byte sequence being a component of the ROP code; detecting, for each byte sequence, the ROP code included in an inspection target unknown data series, based on the model; and determining, using a detection result, whether the inspection target unknown data series is a malicious data series that executes attack using ROP, wherein the inspection target unknown data series is an unknown document file, and the detection of the ROP code included in the inspection target unknown data series is performed without opening the unknown document file using a viewer application.
+</claims>
+</document>

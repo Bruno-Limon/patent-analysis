@@ -1,0 +1,61 @@
+<document>
+
+<filing_date>
+2018-02-17
+</filing_date>
+
+<publication_date>
+2020-10-13
+</publication_date>
+
+<priority_date>
+2018-02-17
+</priority_date>
+
+<ipc_classes>
+G06K9/46,G06K9/62,G06N3/08,G06T7/11,G06T7/194,G06T7/238,G06T7/40,H04N19/103,H04N19/167,H04N19/17,H04N19/172,H04N19/176,H04N19/503,H04N19/527,H04N19/543,H04N19/593,H04N19/61
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+GRANGE ADRIAN
+LIU, YUXIN
+</inventors>
+
+<docdb_family_id>
+65234712
+</docdb_family_id>
+
+<title>
+Video compression through motion warping using learning-based motion segmentation
+</title>
+
+<abstract>
+Regions for texture-based coding are identified using a spatial segmentation and a motion flow segmentation. For frames of a group of frames in a video sequence, a frame is segmented using a first classifier into at least one of a texture region or a non-texture region of an image in the frame. Then, the texture regions of the group of frames are segmented using a second classifier into a texture coding region or a non-texture coding region. The second classifier uses motion across the group of frames as input. Each of the classifiers is generated using a machine-learning process. Blocks of the non-texture region and the non-texture coding region of the current frame are coded using a block-based coding technique, while blocks of the texture coding region are coded using a coding technique that is other than the block-based coding technique.
+</abstract>
+
+<claims>
+1. An apparatus, comprising: a non-transitory memory; and a processor configured to execute instructions stored in the non-transitory memory to: for each frame of a group of frames in a video sequence, segment the frame using a first classifier into at least one of a texture region or a non-texture region of an image in the frame, the first classifier generated using a first machine-learning process; estimate an optical flow between adjacent frames in the group of frames; define motion tunnels for the group of frames, a motion tunnel of the motion tunnels comprising a series of frame portions from adjacent frames of the group of frames in the video sequence; segment the texture regions of the group of frames using a second classifier into a texture coding region or a non-texture coding region, the second classifier using motion across the group of frames and generated using a second machine-learning process, wherein the instructions to segment the texture regions comprise instructions to: for a motion tunnel of the motion tunnels including a texture region, classify the motion tunnel using the second classifier into the texture coding region or the non-texture coding region using the optical flow; and encode a current frame of the group of frames in the video sequence by: encoding blocks of the non-texture coding region of the current frame using a block-based coding technique; and encoding blocks of the texture coding region of the current frame using other than the block-based coding technique.
+2. The apparatus of claim 1, wherein the instructions to classify the motion tunnel comprise instructions to: extract values from the series of frame portions of the motion tunnel; and apply the second classifier to the motion tunnel using the values as input, the second classifier having an output value assigning the motion tunnel to the texture coding region or to the non-texture coding region.
+3. The apparatus of claim 1, wherein the instructions to encode the current frame comprises instructions to: encode blocks of the non-texture region of the current frame using the block-based coding technique.
+4. The apparatus of claim 1, wherein: the instructions further comprise instructions to perform a global motion estimation for the texture coding region to obtain a homographic global motion model; and the instructions to encode the texture coding region comprise instructions to encode the texture coding region using the homographic global motion model.
+5. The apparatus of claim 1, wherein the instructions to segment the frame comprise instructions to, for multiple blocks of the frame, apply the first classifier to a block of the multiple blocks using pixel values of the block as input, the first classifier having an output value assigning the block to the texture region or to the non-texture region.
+6. The apparatus of claim 5, wherein a first value output from the first classifier assigns the block to the texture region and a second value output from the first classifier assigns the block to the non-texture region.
+7. The apparatus of claim 1, wherein: the texture region of each of at least two adjacent frames of the group of frames includes a first texture region and a second texture region, the instructions to segment the frames comprise instructions to, for multiple blocks in each of the at least two adjacent frames: apply the first classifier to the block using pixel values from the block as input, the first classifier having a first output value assigning the block to the first texture region, a second output value assigning the block to a second texture region, or a third output value assigning the block to the non-texture region; and the first texture region, the second texture region, and the non-texture region are non-overlapping regions of a respective frame of each of the at least two adjacent frames.
+8. The apparatus of claim 1, wherein the instructions further comprise instructions to: define a texture region mask that indicates pixel locations of the texture coding region in a frame of the group of frames in which the texture coding region first appears in the video sequence; and encode the texture region mask.
+9. The apparatus of claim 1, wherein the instructions further comprise instructions to: train the first classifier using a convolution neural network.
+10. The apparatus of claim 1, wherein the first classifier is a binary classifier and the second classifier is a binary classifier.
+11. An apparatus, comprising: a processor configured to: select a current frame of a group of frames in a video sequence, the current frame encoded by: for each frame of a group of frames in a video sequence, segmenting blocks of the frame using a first classifier into a texture region or a non-texture region of an image in the frame, the first classifier generated using a first machine-learning process; estimate an optical flow between temporally-adjacent frames in the group of frames; establish motion tunnels of the group of frames, respective motion tunnels of the motion tunnels established by connecting regions across the group of frames sharing a motion pattern according to the optical flow; assigning a motion tunnel of the group of frames using a second classifier into a texture coding region or a non-texture coding region, wherein the second classifier is generated using a second machine-learning process, the motion tunnel includes a texture region of at least one of the group of frames, assigning the motion tunnel into a texture coding region comprises assigning all blocks that form the motion tunnel to the texture coding region, and assigning the motion tunnel into a non-texture coding region comprises assigning all blocks that form the motion tunnel to the non-texture coding region; encoding blocks of the non-texture coding region of the current frame using the block-based coding technique; and encoding blocks of the texture coding region of the current frame using other than the block-based coding technique; decode the blocks of the non-texture coding region of the current frame using the block-based coding technique; and decode the blocks of the texture coding region using the other than the block-based coding technique.
+12. The apparatus of claim 11, wherein the processor is configured to: determine a texture region mask for the current frame, wherein the texture region mask indicates which blocks of the current frame are in the texture coding region.
+13. The apparatus of claim 11, wherein to decode the blocks of the texture coding region comprise to: decode parameters of a homographic global motion model for the texture coding region; and synthesize the texture coding region in the current frame by warping a texture coding region in a reference frame using the homographic global motion model.
+14. The apparatus of claim 11, wherein to decode the blocks of the non-texture coding region comprises to: decode quantized transform coefficients of a current block of the non-texture coding region to generate a residual; at least one of inter-predict or intra-predict the current block of the non-texture coding region to generate a prediction block; and generate the current block by adding the prediction block to the residual.
+15. The apparatus of claim 11, wherein to decode the blocks of the non-texture coding region comprises to decode the blocks of the non-texture coding region before decoding the blocks of the texture coding region.
+16. A method, comprising: selecting a current frame of a group of frames in a video sequence, the current frame encoded by: for each frame of a group of frames in a video sequence, segmenting the frame using a first classifier into at least one of a texture region or a non-texture region of an image in the frame, the first classifier generated using a first machine-learning process; segmenting the texture regions of the group of frames using a second classifier into a texture coding region or a non-texture coding region, the second classifier using motion across the group of frames as input and generated using a second machine-learning process, wherein the motion across the group of frames comprises motion between temporally-adjacent frames in the group of frames, and segmenting the texture regions of the group of frames comprises: establishing motion tunnels of the group of frames, respective motion tunnels of the motion tunnels established by connecting regions across the group of frames sharing a motion pattern, wherein at least some of the motion tunnels include a texture region of the texture regions; and assigning each motion tunnel of the group of frames using the second classifier into a texture coding region or a non-texture coding region using the second classifier; encoding blocks of the non-texture region of the current frame using a block-based coding technique; encoding blocks of the non-texture coding region of the current frame using the block-based coding technique; and encoding blocks of the texture coding region of the current frame using other than the block-based coding technique; and decoding the blocks of the texture coding region using the other than the block-based coding technique after decoding all other blocks of the current frame.
+17. The method of claim 16, further comprising: decoding a texture region mask for the current frame that identifies the blocks of the texture coding region of the current frame.
+18. The method of claim 16, further comprising: decoding all other blocks of the current frame in raster scan order using the block-based coding technique before decoding the blocks of the texture coding region.
+19. The method of claim 16, further comprising: determining a homographic global motion model for the texture coding region from an encoded bitstream; determining a reference frame for the current frame; and decoding the blocks of the texture coding region by synthesizing the texture coding region by warping a reference texture coding region in the reference frame using the homographic global motion model.
+</claims>
+</document>

@@ -1,0 +1,60 @@
+<document>
+
+<filing_date>
+2018-02-05
+</filing_date>
+
+<publication_date>
+2020-08-11
+</publication_date>
+
+<priority_date>
+2017-02-03
+</priority_date>
+
+<ipc_classes>
+G06F17/27,G06F40/279,G06F40/30,G06N20/00,G06N20/20,G06N7/00,G06N99/00
+</ipc_classes>
+
+<assignee>
+DUGAN BENEDICT R.
+</assignee>
+
+<inventors>
+DUGAN BENEDICT R.
+</inventors>
+
+<docdb_family_id>
+63037733
+</docdb_family_id>
+
+<title>
+System and methods for text classification
+</title>
+
+<abstract>
+Techniques for improving machine learning and text classification are described. The described techniques include improved processes for collecting training data to train a machine classifier. Some data sets are very large but contain only a small number of positive or negative training examples. The described text classification system obtains training examples by intelligently identifying documents that are likely to present or identify positive or negative training examples. The text classification system employs these techniques to train a classifier to categorize patent claims according some legal rule, such as subject-matter eligibility requirements under patent law.
+</abstract>
+
+<claims>
+1. A method for classifying text, the method comprising: determining a set of documents that are each likely to identify another document that can serve as a text classification training example, by determining a set of patent applications that are likely to have subject-matter rejections; processing the determined set of documents to identify those that each identify a training example document, by: receiving multiple office actions that each have a corresponding patent application in the determined set; and processing the multiple office actions to identify those that include subject-matter rejections; generating a set of training examples that are obtained based on the identified documents, by: generating a set of patent ineligible claims that are obtained from patent applications that have office actions that include subject-matter rejections; and generating a set of patent eligible claims that are obtained from patent applications that do not include subject-matter rejections; and training a first machine learning model with the set of training examples, by training the first machine learning model with the set of patent eligible claims and the set of patent ineligible claims, wherein the trained machine learning model is configured, in response to an input patent claim, to output a numerical likelihood that the patent claim is patent eligible.
+2. The method of claim 1, wherein the determining a set of patent applications includes: downloading multiple office actions, from a random sample of patent applications; determining one or more features that are correlated with subject-matter rejections, the determining based on the downloaded office actions and the random sample of patent applications; and generating a list of patent applications having the determined features.
+3. The method of claim 1, further comprising: training a second machine learning model to recognize office actions that include subject matter rejections; and using the second machine learning model to identify office actions that include subject matter rejections.
+4. The method of claim 1, wherein the processing the multiple office actions to identify those that include subject-matter rejections includes: scanning text of the multiple office actions for text strings that indicate a subject matter rejection.
+5. The method of claim 1, wherein the generating a set of patent ineligible claims includes: obtaining claims from patent application publications from the patent applications that do include subject-matter rejections.
+6. The method of claim 1, wherein the generating a set of patent eligible claims includes: obtaining claims from patents issued from the patent applications that do not include subject-matter rejections.
+7. The method of claim 1, further comprising: receiving text of a patent claim; determining, based on the trained machine learning model, the numerical likelihood that the patent claim is patent eligible; and providing output that presents the numerical likelihood that the patent claim is patent eligible.
+8. The method of claim 7, further comprising: training multiple machine learning models; and determining whether or not the patent claim is patent eligible based on results obtained from the multiple machine learning models, wherein the claim is eligible when a majority of the models indicate that the claim is eligible, wherein the numerical likelihood is calculated as the number of models that indicate the claim is eligible divided by the total number of models.
+9. The method of claim 7, further comprising: training multiple machine learning models, wherein each model is trained using a different mix of eligible and ineligible claims such that each successive model is trained using a mix that has a higher fraction of ineligible claims than its preceding model; receiving an indication of a classifier sensitivity level; selecting one of the machine learning models based on the classifier sensitivity level; and determining whether or not the patent claim is patent eligible based on text of the patent claim evaluated by the selected machine learning model.
+10. The method of claim 7, further comprising: providing output that highlights one or more terms from the patent claim to indicate a positive or negative association between each term and patent eligibility.
+11. The method of claim 10, further comprising: providing suggested alternative terms for those terms that are negatively associated with patent eligibility.
+12. A system for classifying text, the system comprising: a processor; a memory; a module comprising instructions stored on the memory and configured, when executed by the processor, to perform a method comprising: determining a set of documents that are each likely to identify another document that can serve as a text classification training example, by determining a set of patent applications that are likely to have subject-matter rejections; processing the determined set of documents to identify those that each identify a training example document, by: receiving multiple office actions that each have a corresponding patent application in the determined set; and processing the multiple office actions to identify those that include subject-matter rejections; generating a set of training examples that are obtained based on the identified documents, by: generating a set of patent ineligible claims that are obtained from patent applications that have office actions that include subject-matter rejections; and generating a set of patent eligible claims that are obtained from patent applications that do not include subject-matter rejections; and training a first machine learning model with the set of patent eligible claims and the set of patent ineligible claims, wherein the trained machine learning model is configured, in response to an input patent claim, to output a numerical likelihood that the patent claim is patent eligible; and a user interface module configured to: receive text of a patent claim; display output that presents a numerical likelihood that the patent claim is patent eligible, wherein the numerical likelihood is computed by the trained machine learning model classifying the text; and display claim terms highlighted to indicate positive or negative associations with patent eligibility.
+13. The system of claim 12, wherein the determining a set of patent applications includes: downloading multiple office actions, from a random sample of patent applications; determining one or more features that are correlated with subject-matter rejections, the determining based on the downloaded office actions and the random sample of patent applications; and generating a list of patent applications having the determined features.
+14. The system of claim 12, wherein the generating a set of patent eligible claims includes: obtaining claims from patents issued from the patent applications that do not include subject-matter rejections, wherein claims from patent application publications from the patent applications that do not include subject-matter rejections are not used for training the first machine learning model when the patent application has not issued into a patent; and storing the obtained claims in association with an eligibility indicator.
+15. The system of claim 12, wherein the user interface module is further configured to: display output that highlights one or more terms from the patent claim to indicate a positive or negative association between each term and patent eligibility, wherein the user interface module further includes a control configured to select a threshold that establishes a cutoff below which claim terms will not be highlighted; and display suggested alternative terms for those terms that are negatively associated with patent eligibility.
+16. A system for classifying text, the system comprising: a processor; a memory; a module stored on the memory and configured, when executed by the processor, to: determine a set of documents that are each likely to identify another document that can serve as a text classification training example by identifying patent applications that have associated office actions that include subject-matter rejections; process the determined set of documents to identify those that each identify a training example document; generate a set of training examples that are obtained based on the identified documents, wherein the training examples are patent claims obtained from publications or patents issued from the patent applications; and train a first machine learning model with the set of training examples; and a user interface module configured to: receive text of a patent claim; display output that presents a numerical likelihood that the patent claim is patent eligible, wherein the numerical likelihood is computed by the trained machine learning model classifying the text; and display output that highlights one or more terms from the patent claim to indicate a positive or negative association between each term and patent eligibility, wherein the user interface module further includes a control configured to select a threshold that establishes a cutoff below which claim terms will not be highlighted.
+17. The system of claim 16, wherein the user interface module is further configured to: display suggested alternative terms for those terms that are negatively associated with patent eligibility.
+18. The system of claim 16, wherein each of the one or more terms from the patent claim has a numerical score that represents the positive or negative association between the term and patent eligibility, and wherein the control selects a numerical threshold that is compared to the numerical scores to determine whether to highlight the claim terms.
+19. The system of claim 16, wherein the module determines the set of documents by determining a set of patent applications that are likely to have subject-matter rejections; wherein the module processes the determined set of documents by: receiving multiple office actions that each have a corresponding patent application in the determined set; and processing the multiple office actions to identify those that include subject-matter rejections; and wherein the module generates the set of training examples by: generating a set of patent ineligible claims that are obtained from patent applications that have office actions that include subject-matter rejections; and generating a set of patent eligible claims that are obtained from patent applications that do not include subject-matter rejections.
+</claims>
+</document>

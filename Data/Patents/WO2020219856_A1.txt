@@ -1,0 +1,121 @@
+<document>
+
+<filing_date>
+2020-04-24
+</filing_date>
+
+<publication_date>
+2020-10-29
+</publication_date>
+
+<priority_date>
+2019-04-26
+</priority_date>
+
+<ipc_classes>
+A61B5/00
+</ipc_classes>
+
+<assignee>
+UNIVERSITY OF HOUSTON
+</assignee>
+
+<inventors>
+CHEONG, Audrey
+MERCHANT, Fatima
+</inventors>
+
+<docdb_family_id>
+72941359
+</docdb_family_id>
+
+<title>
+SYSTEMS AND METHODS FOR MODELING THE BREAST USING SPHERICAL HARMONICS
+</title>
+
+<abstract>
+A system and a computer implemented method are disclosed to model breast shape using three-dimensional spherical harmonics with adjustable parameters to modulate breast size, projection, and/or ptosis. The method includes receiving a 3D image including a breast, identifying the breast in the 3D image, extracting 3D image data of the breast from the 3D image, forming a closed object using the 3D image data of the breast to create a zero-genus surface, mapping the 3D image data of the breast to a predefined template using spherical coordinates, and determining a 3D spherical harmonic descriptor of the 3D image data of the breast.
+</abstract>
+
+<claims>
+WHAT IS CLAIMED IS:
+1. A computer implemented method of modeling a breast shape, the method comprising:
+receiving a 3D image including a breast;
+identifying the breast in the 3D image;
+extracting 3D image data of the breast from the 3D image;
+forming a closed object using the 3D image data of the breast to create a zero-genus surface;
+mapping the 3D image data of the breast to a predefined template using spherical coordinates; and
+determining a 3D spherical harmonic descriptor of the 3D image data of the breast.
+2. The method of claim 1, wherein the method further includes identifying parameters of the 3D spherical harmonic descriptor that represent anatomical breast parameters including at least one of a height, a width, a depth, or ptosis.
+3. The method of claim 1, wherein the method further includes identifying different types of breast shapes, including at least one of a natural breast, a surgically altered breast, an autologous breast, or an implant reconstructed breast, or a combination of autologous and implant breasts, based on spherical harmonic (SPHARM) coefficients.
+4. The method of claim 1, wherein the 3D image is a patient's preoperative image; and
+the method further includes:
+predicting a post-operative breast shape from the 3D image based on the 3D SPHARM model; and
+outputting a predicted 3D image based on the predicted post-operative breast shape.
+5. The method of claim 4, wherein the predicting includes:
+searching a database for a 3D image of at least one second patient with similar demographics or medical history, to the received the patient of the 3D image, wherein the database includes pre-operative and post-operative 3D images;
+determining SPHARM coefficients of the received 3D image;
+locating a pre-operative 3D image of at least one second patient with at least one of a similar age, breast size, or breast shape based on the SPHARM coefficients;
+locating a post-operative 3D image of the at least one second patient;
+generating an average pre-operative 3D image based on the pre-operative 3D images; generating an average post-operative 3D image based on the post-operative 3D images; determining SPHARM coefficients of at least one of an average pre-operative 3D image or a located post-operative 3D image;
+determining SPHARM coefficients of at least one of an average post-operative 3D image or a located post-operative 3D image;
+determining a difference between SPHARM coefficients of the received 3D image or the average pre-operative image and SPHARM coefficients of the average post-operative 3D image; applying the difference in SPHARM coefficients to the received 3D image; and morphing the breast of the received 3D image based on the determined SPHARM coefficients.
+6. The method of claim 4, wherein the predicting includes:
+identifying, in a database, a post-op 3D image of at least one second patient with similar demographics or medical history, or breast shape to the patient of the received 3D image, wherein the database includes post-operative 3D images of breasts;
+generating a template post-operative 3D image based on the identified post-operative images to represent a particular outcome;
+determining SPHARM coefficients of the received 3D image and SPHARM coefficients of the template;
+determining a difference between the SPHARM coefficients of the received 3D image and the SPHARM coefficients of the template;
+applying the difference in SPHARM coefficients to the received 3D image; and morphing the breast of the received 3D image based on the determined SPHARM coefficients.
+7. The method of claim 4, wherein the predicting includes using a machine learning algorithm, where training data inputs include at least one of pre operation image data, pre operation model data, post operation image data, post operation model data, or patient demographic data.
+8. The method of claim 7, wherein the machine learning algorithm includes at least one of a neural network, random forest regression, linear regression (LR), ridge regression (RR), leastangle regression (LARS), or least absolute shrinkage and selection operator regression (LASSO).
+9. The method of claim 4, wherein the method includes identifying different types of breast shapes based on position including at least one of upright, supine prone, or any position there between, generating position specific templates, and
+wherein the outputting is based on patient position including at least one of upright, supine, prone, or any position there between.
+10. The method of claim 9, wherein the different types of breast shapes include at least one of natural, unnatural, surgically altered, or aged.
+11. The method of claim 1, wherein the forming of a closed object includes:
+identifying holes in a first mesh by finding boundary edges, which are edges that are not shared by two faces;
+calculating the angle between adjacent boundary edges at a vertex;
+locating the smallest angle and creating a new triangle at the vertex;
+creating a second mesh to substantially fill the identified holes, wherein a location of a second vertex is determined by an average edge length and a shortest direction to close a gap across the two meshes;
+computing a distance between every newly created vertex and every related boundary vertex, in a case where the distance between them is less than a predetermined threshold they are merged; and updating the mesh based on the computed distance.
+12. The method of claim 1, wherein the method further includes identifying different types of breast shapes, including at least one of natural breast shape, cosmetically altered breast shape, surgically reconstructed breast shape, reduction mammoplasty, reduction mastopexy, augmentation mammoplasty, augmentation mastopexy, or correction of any breast shape deformities, based on spherical harmonic coefficients.
+13. A system for modeling a breast shape, the system comprising:
+a processor; and
+a memory, including instructions, which when executed by the processor, cause the system to:
+receive a 3D image including a breast;
+identify the breast in the 3D image;
+extract 3D image data of the breast from the 3D image;
+form a closed object using the 3D image data of the breast to create a zero-genus surface;
+map the 3D image data of the breast to a predefined template using spherical coordinates; and
+determine a 3D spherical harmonic descriptor of the 3D image data of the breast.
+14. The system of claim 13, wherein the instructions, when executed, further cause the system to identify parameters of the 3D spherical harmonic descriptor that represent anatomical breast parameters including at least one of a height, a width, a depth, or ptosis.
+15. The system of claim 13, wherein the instructions, when executed, further cause the system to identify different types of breast shapes, including at least one of autologous or implant reconstructed breast or a combination of autologous and implant breasts, based on spherical harmonic (SPHARM) coefficients.
+16. The system of claim 13, wherein the 3D image is a patient's preoperative image; and wherein the instructions, when executed, further cause the system to:
+predict a post-operative breast shape from the 3D image based on the 3D SPHARM model; and
+output a predicted 3D image based on the predicted post-operative breast shape.
+17. The system of claim 16, wherein when predicting, the instructions, when executed, further cause the system to:
+search a database for a 3D image of at least one second patient with similar demographics or medical history, to the received the patient of the 3D image, wherein the database includes pre-operative and post-operative 3D images;
+determine SPHARM coefficients of the received 3D image;
+locate a pre-operative 3D image of at least one second patient with at least one of a similar age, breast size, or breast shape based on the SPHARM coefficients;
+locate a post-operative 3D image of the at least one second patient;
+generate an average pre-operative 3D image based on the pre-operative 3D images;
+generate an average post-operative 3D image based on the post-operative 3D images; determine SPHARM coefficients of at least one of the average pre-operative 3D image determine SPHARM coefficients of at least one of the average post-operative 3D image or a located post-operative 3D image;
+determine a difference between SPHARM coefficients of the received 3D image or the average pre-operative image and SPHARM coefficients of the average post-operative 3D image; apply the difference in SPHARM coefficients to the received 3D image; and
+morph the breast of the received 3D image based on the determined SPHARM
+coefficients.
+18. The system of claim 16, wherein when predicting, the instructions, when executed, further cause the system to:
+identify, in a database, a post-op 3D image of at least one second patient with similar demographics or medical history, or breast shape to the patient of the received 3D image, wherein the database includes post-operative 3D images of breasts; generate a template post-operative 3D image based on the identified post-operative images to represent a particular outcome;
+determine SPHARM coefficients of the received 3D image and the SPHARM
+coefficients of the template;
+determine a difference between the SPHARM coefficients of the received 3D image and the SPHARM coefficients of the template;
+apply the difference in SPHARM coefficients to the received 3D image; and
+morph the breast of the received 3D image based on the determined SPHARM coefficients.
+19. The system of claim 16, wherein the predicting includes using a machine learning algorithm, where training data inputs include at least one of pre and post operation image data or patient demographic data, wherein the machine learning algorithm includes at least one of a neural network, random forest regression, linear regression (LR), ridge regression (RR), least-angle regression (LARS), or least absolute shrinkage and selection operator regression (LASSO).
+20. A non-transitory storage medium that stores a program causing a computer to execute a method for modeling a breast shape, the method comprising:
+receiving a 3D image including a breast;
+identifying the breast in the 3D image;
+extracting 3D image data of the breast from the 3D image;
+forming a closed object using the 3D image data of the breast to create a zero-genus surface;
+mapping the 3D image data of the breast to a predefined template using spherical coordinates; and
+determining a 3D spherical harmonic descriptor of the 3D image data of the breast.
+</claims>
+</document>

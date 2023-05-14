@@ -1,0 +1,56 @@
+<document>
+
+<filing_date>
+2019-04-05
+</filing_date>
+
+<publication_date>
+2020-10-08
+</publication_date>
+
+<priority_date>
+2019-04-05
+</priority_date>
+
+<ipc_classes>
+G01C21/20,H04W4/024,H04W4/029
+</ipc_classes>
+
+<assignee>
+IDRiSi Indoor Location Solution, Inc.
+</assignee>
+
+<inventors>
+Abdullah, Loai
+</inventors>
+
+<docdb_family_id>
+72662963
+</docdb_family_id>
+
+<title>
+SYSTEM AND METHOD FOR INDOOR LOCATION COMPUTATION OF A USER DEVICE
+</title>
+
+<abstract>
+The system and method provide methods and devices that compute the indoor location of a user device with improved accuracy and reduced runtime complexity. A method for determining an indoor location of a user device may be done by a server. According to the method, the server measures quality of each of a plurality of calibration points stored in the server. The measurement of the quality includes calculation of a first distance from each of the plurality of calibration points to each other calibration point of the plurality of calibration points, calculation of a second distance from each of the plurality of calibration points to each other calibration point of the plurality of calibration points, and determination of a correlation between the first distance and the second distance for each calibration point of the plurality of calibration points.
+</abstract>
+
+<claims>
+1. A method to determine an indoor location of a user device, the method comprising: measuring, by a server, quality of each of a plurality of calibration points stored in the server, wherein measuring the quality comprises: calculating a first distance from each of the plurality of calibration points to each other calibration point of the plurality of calibration points; calculating a second distance from each of the plurality of calibration points to each other calibration point of the plurality of calibration points; and determining a correlation between the first distance and the second distance for each calibration point of the plurality of calibration points; identifying, by the server, a first set of calibration points from the plurality of calibration points having the quality less than a first threshold value; selecting, by the server, a remaining set of calibration points from the plurality of calibration points based on elimination of the first set of calibration points; and determining, by the server, the indoor location of the user device based on a subset of the remaining set of calibration points of the plurality of calibration points.
+2. The method of claim 1, wherein the calculation of the first distance is based on position coordinates of the plurality of calibration points.
+3. The method of claim 2, wherein the first distance is a Euclidean distance from each of the plurality of calibration points to each other calibration point, wherein the first distance is calculated as: and wherein EucGeoDistance(di, dj) is the Euclidean distance from di to dj based on the position coordinates (longitude/latitude), di is one calibration point of the plurality of calibration points, where i=(1, 2 . . . , m), and m is total number of calibration points. dj is one calibration point of the other calibration points, where j=(1, 2 . . . , m).
+4. The method of claim 3, wherein the calculation of the second distance is based on received signal strength (RSS) values of signals received from a plurality of access points (APs).
+5. The method of claim 4, wherein the second distance is a Euclidean distance from each of the plurality of calibration points to each other calibration point, wherein the second distance is calculated as: and wherein EucRSSDistance(di,dj) is the Euclidean distance from di to dj based on the RSS values, RSS1, RSS2 . . . RSSn is signal strength values of the signals received from different access points. di is one calibration point of the plurality of calibration points, where i=(1, 2 . . . , m), and m is total number of calibration points. dj is one calibration point of the other calibration points, where j=(1, 2 . . . , m).
+6. The method of claim 5, wherein the correlation between the first distance and the second distance is determined as: and wherein SSDE(Λgeo, ΛRSS) is sum square distances error between Λgeo and ΛRSS, EucGeoDistance (Λgeoi, ΛRSSj) is the Euclidean distance from Λgeoi to ΛRSS points based on the position coordinates (longitude/latitude), Λgeo and ΛRSS comprises a set of nearest calibration points, in descending order, from the plurality of calibration points based on the position coordinates (longitude/latitude) and RSS values respectively, Λgeo, ΛRSS denotes the ith and the jth points in Λgeo and ΛRSS respectively, λ is nearest neighbor of di.
+7. The method of claim 1 further comprising: in response to the selection of the remaining set of calibration points, determining, by the server, a contribution rank of each of the remaining set of calibration points; identifying, by the server, a second set of calibration points from the remaining set of calibration points with the contribution rank less than a second threshold value; and selecting, by the server, a third set of calibration points from the remaining set of calibration points based on elimination of the second set of calibration points, wherein the third set of calibration points corresponds to the subset of the remaining set of calibration points used to determine the indoor location of user device.
+8. The method of claim 7, wherein the determination of the contribution rank comprises: calculating, by the server, a distance from each of the remaining set of calibration points to each other remaining calibration point of the plurality of calibration points; based on the calculated distance, identifying by the server, for each of the remaining set of calibration points, a set of nearest calibration points of the remaining calibration points of the plurality of calibration points, wherein the set of nearest calibration points are determined based on a Euclidean distance from each of the remaining set of calibration points to each other remaining calibration point, and wherein the set of nearest calibration points are calibration points having a distance less than a third threshold value; and determining, by the server, a number of times each of the remaining set of calibration points of the plurality of calibration points exists as a point in the set of nearest calibration points, wherein the contribution rank of each of the remaining set of calibration points corresponds to the determined number of times.
+9. A system to determine an indoor location of a user device, the system comprising: one or more processors; an application executed by the one or more processors, wherein the one or more processors is configured to: measure quality of each of a plurality of calibration points stored in a server, wherein to measure the quality the one or more processors is configured to: calculate a first distance from each of the plurality of calibration points to each other calibration point of the plurality of calibration points; calculate a second distance from each of the plurality of calibration points to each other calibration point of the plurality of calibration points; and determine a correlation between the first distance and the second distance for each calibration point of the plurality of calibration points; identify a first set of calibration points from the plurality of calibration points having the quality less than a first threshold value; select a remaining set of calibration points from the plurality of calibration points based on elimination of the first set of calibration points; and determine the indoor location of the user device based on a subset of the remaining set of calibration points of the plurality of calibration points.
+10. The system of claim 9, wherein the calculation of the first distance is based on position coordinates of the plurality of calibration points.
+11. The system of claim 10, wherein the first distance is a Euclidean distance from each of the plurality of calibration points to each other calibration point, wherein the first distance is calculated as: and wherein EucGeoDistance(di, dj) is the Euclidean distance from di to dj based on the position coordinates (longitude/latitude), di is one calibration point of the plurality of calibration points, where i=(1, 2 . . . , m), and m is total number of calibration points. dj is one calibration point of the other calibration points, where j=(1, 2 . . . , m).
+12. The system of claim 11, wherein the calculation of the second distance is based on received signal strength (RSS) values of signals received at each of the plurality of calibration points from a plurality of access points (APs).
+13. The system of claim 12, wherein the second distance is Euclidean distance from each of the plurality of calibration points to each other calibration point, wherein the second distance is calculated as: and wherein EucRSSDistance(di, dj) is the Euclidean distance from di to dj based on the RSS values, RSS1, RSS2. . . . RSSn is signal strength values of the signals received from different access points, di is one calibration point of the plurality of calibration points, where i=(1, 2 . . . m), and m is total number of calibration points. dj is one calibration point of the other calibration points, where j=(1, 2 . . . m).
+14. The system of claim 13, wherein the correlation between the first distance and the second distance is determined as: and wherein SSDE(Λgeo, ΛRSS) is sum square distances error between Λgeo and ΛRSS, EucGeoDistance (Λgeoi, ΛRSSj) is the Euclidean distance from Λgeo to ΛRSS points based on the position coordinates (longitude/latitude), Λgeo and ΛRSS comprises a set of nearest calibration points, in descending order, from the plurality of calibration points based on the position coordinates (longitude/latitude) and RSS values respectively, Λgeo, ΛRSS denotes the ith and the jth points in Λgeo and ΛRSS respectively, λ is nearest neighbor of di.
+15. The system of claim 9, wherein the one or more processors is further configured to: determine, in response to the selection of the remaining set of calibration points, a contribution rank of each of the remaining set of calibration points; identify a second set of calibration points from the remaining set of calibration points with the contribution rank less than a second threshold value; and select a third set of calibration points from the remaining set of calibration points based on elimination of the second set of calibration points, wherein the third set of calibration points corresponds to the subset of the remaining set of calibration points used to determine the indoor location of user device.
+</claims>
+</document>

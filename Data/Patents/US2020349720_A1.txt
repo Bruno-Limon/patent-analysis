@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2018-10-24
+</filing_date>
+
+<publication_date>
+2020-11-05
+</publication_date>
+
+<priority_date>
+2017-10-24
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/03,G06K9/62,G06N3/04,G06N3/08,G06T7/246
+</ipc_classes>
+
+<assignee>
+BEIJING JINGDONG CENTURY TRADING
+BEIJING JINGDONG SHANGKE INFORMATION TECHNOLOGY COMPANY
+</assignee>
+
+<inventors>
+LIU QIANG
+CHEN YU
+WENG, ZHI
+AN, SHAN
+CHE, GUANGFU
+</inventors>
+
+<docdb_family_id>
+66227762
+</docdb_family_id>
+
+<title>
+PEDESTRIAN FLOW FUNNEL GENERATION METHOD AND APPARATUS, STORAGE MEDIUM AND ELECTRONIC DEVICE
+</title>
+
+<abstract>
+The disclosure relates to the technical field of data processing. Disclosed are a pedestrian flow funnel generation method and apparatus, a storage medium and an electronic device. The method can comprise: acquiring a current frame of image, and tracking and updating, according to a multi-target tracking algorithm, a head and shoulder area in a tracking sequence set in the current frame of image; acquiring, according to a head and shoulder recognition model, a head and shoulder area in the current frame of image, and updating, according to the head and shoulder area in the current frame of image, the tracking sequence set; analysing a motion track of each head and shoulder area in the tracking sequence set so as to count pedestrians, and when the current frame of image is the last frame of image, generating a pedestrian flow funnel based on a counting result of pedestrians.
+</abstract>
+
+<claims>
+1. A method for generating a pedestrian flow funnel, comprising: obtaining a current frame image, and tracking and updating head-shoulder regions in a tracking sequence set in the current frame image according to a multi-target tracking algorithm; obtaining head-shoulder regions in the current frame image according to a head-shoulder recognition model, and updating the tracking sequence set according to the head-shoulder regions in the current frame image; and analyzing a motion trajectory of each head-shoulder region in the tracking sequence set to count pedestrians, and when the current frame image is a last frame image, generating the pedestrian flow funnel based on a counting result of the pedestrians.
+2. The method for generating a pedestrian flow funnel according to claim 1, before obtaining a current frame image, the method further comprises: obtaining a first frame image, obtaining head-shoulder regions in the first frame image according to the head-shoulder recognition model, and initializing the tracking sequence set through the head-shoulder regions.
+3. The method for generating a pedestrian flow funnel according to claim 1, wherein the method further comprises: identifying age groups and gender of each head-shoulder region in the tracking sequence set according to a gender-age recognition model.
+4. The method for generating a pedestrian flow funnel according to claim 2, wherein generating the pedestrian flow funnel based on a counting result of the pedestrians comprises: generating the pedestrian flow funnel based on the counting result of the pedestrians and in combination with the age groups and gender of each head-shoulder region in the tracking sequence set.
+5. The method for generating a pedestrian flow funnel according to claim 1, wherein tracking and updating head-shoulder regions in a tracking sequence set in the current frame image according to a multi-target tracking algorithm comprises: tracking and updating the head-shoulder regions in the tracking sequence set in the current frame image according to a kernel correlation filter tracking algorithm, respectively.
+6. The method for generating a pedestrian flow funnel according to claim 5, wherein tracking and updating the head-shoulder regions in the tracking sequence set in the current frame image according to a kernel correlation filter tracking algorithm respectively comprises: obtaining candidate tracking targets corresponding to each head-shoulder region in the tracking sequence set in the current frame image based on a position of each head-shoulder region in the tracking sequence set in a previous frame image, respectively; correspondingly calculating response values of the candidate tracking targets corresponding to each head-shoulder region according to a tracker corresponding to each head-shoulder region, respectively; determining a candidate tracking target with a largest response value among the candidate tracking targets corresponding to each head-shoulder region as a tracking target of the corresponding head-shoulder region in the current frame image; and correspondingly updating each head-shoulder region in the tracking sequence set according to the tracking target of each head-shoulder region in the current frame image.
+7. The method for generating a pedestrian flow funnel according to claim 6, wherein the method further comprises: calculating the tracker corresponding to each head-shoulder region, comprising: obtaining a first training sample set corresponding to each head-shoulder region in the tracking sequence set in the previous frame image based on the position of each head-shoulder region in the tracking sequence set in the previous frame image, respectively; and training a regression model according to the first training sample set corresponding to each head-shoulder region respectively, to obtain the tracker corresponding to each head-shoulder region.
+8. The method for generating a pedestrian flow funnel according to claim 1, wherein the method further comprises: generating the head-shoulder recognition model according to a convolutional neural network, comprising: training a MobileNet network according to an ImageNet categorical dataset to obtain a weight value of the MobileNet network; adding convolutional layers with a preset number of layers above the MobileNet network to obtain a head-shoulder detection network, wherein a size of the convolutional layers decreases layer by layer; and obtaining a second training sample set marked with the head-shoulder regions, and training the head-shoulder detection network retaining the weight value of the MobileNet network according to the second training sample set, to obtain the head-shoulder recognition model.
+9. The method for generating a pedestrian flow funnel according to claim 1, wherein updating the tracking sequence set according to the head-shoulder regions in the current frame image comprises: calculating similarity between each head-shoulder region in the current frame image and each head-shoulder region in the tracking sequence set; and updating the tracking sequence set according to the similarity.
+10. The method for generating a pedestrian flow funnel according to claim 9, wherein calculating similarity between each head-shoulder region in the current frame image and each head-shoulder region in the tracking sequence set comprises: calculating similarity between each head-shoulder region in the current frame image and each head-shoulder region in the tracking sequence set according to a following equation: wherein, sim(Qi, Qj) is similarity between the i-th head-shoulder region Qi in the current frame image and the j-th head-shoulder region Qj in the tracking target set, Qiarea is an area of the i-th head-shoulder region Qi in the current frame image, and Qjarea is an area of the j-th head-shoulder region Qj in the tracking sequence set.
+11. The method for generating a pedestrian flow funnel according to claim 9, wherein updating the tracking sequence set according to the similarity comprises: matching each head-shoulder region in the current frame image with each head-shoulder region in the tracking sequence set according to the similarity and a similarity threshold, respectively; if the matching successes, replacing the head-shoulder region in the tracking sequence set with the matched successfully head-shoulder region in the current frame image; if the matching fails, adding the matched unsuccessfully head-shoulder region in the current frame image to the tracking sequence set.
+12. The method for generating a pedestrian flow funnel according to claim 11, wherein replacing the head-shoulder region in the tracking sequence set with the matched successfully head-shoulder region in the current frame image comprises: calculating a confidence of the matched successfully head-shoulder region in the current frame image and a confidence of a corresponding head-shoulder region in the tracking sequence set, respectively; when the confidence of the matched successfully head-shoulder region in the current frame image is greater than the confidence of the corresponding head-shoulder region in the tracking sequence set, replacing the head-shoulder region in the tracking sequence set with the matched successfully head-shoulder region in the current frame image correspondingly.
+13. The method for generating a pedestrian flow funnel according to claim 12, wherein a calculation equation of the confidence is: wherein, conf(obj) is the confidence of obj, obj is the head-shoulder region in the current frame image or the head-shoulder region in the tracking sequence set, area(obj) is an area of obj, and Score(obj) is a class belonging probability of obj calculated by the head-shoulder recognition model, and α is 0.5, and B is 1000.
+14. The method for generating a pedestrian flow funnel according to claim 11, wherein before analyzing a motion trajectory of each head-shoulder region in the tracking sequence set to count the pedestrians, the method further comprises: when a head-shoulder region in a tracking state not updated by the head-shoulder regions obtained from each frame image in images with a first preset number of frames exists in the tracking sequence set, changing the head-shoulder region not updated by the head-shoulder regions obtained from each frame image in the images with the first preset number of frames from the tracking state to an abnormal state; and when a head-shoulder region in the abnormal state not updated by the head-shoulder regions obtained from each frame image in images with a second preset number of frames exists in the tracking sequence set, deleting the head-shoulder region in the abnormal state in the tracking sequence set that has not been updated by the head-shoulder regions obtained from each frame image in the images with the second preset number of frames.
+15. The method for generating a pedestrian flow funnel according to claim 1, wherein analyzing a motion trajectory of each head-shoulder region in the tracking sequence set to count the pedestrians comprises: analyzing the motion trajectory of each head-shoulder region in the tracking sequence set; and counting the pedestrians according to the motion trajectory of each head-shoulder region and in combination with a virtual counting line.
+16. The method for generating a pedestrian flow funnel according to claim 3, wherein the method further comprises: constructing the gender-age recognition model, comprising: obtaining a third training sample set marking gender and age in a LFW dataset and a social network site; and training a gender-age network by using the third training sample set to obtain the gender-age recognition model, wherein the gender-age network comprises three convolutional layers and three fully connected layers.
+17. A device for generating a pedestrian flow funnel, comprising: a processor; and a memory for storing executable instructions of the processor; wherein, the processor is configured to execute: obtaining a current frame image, and tracking and updating head-shoulder regions in a tracking sequence set in the current frame image according to a multi-target tracking algorithm; obtaining head-shoulder regions in the current frame image according to a head-shoulder recognition model, and updating the tracking sequence set according to the head-shoulder regions in the current frame image; and analyzing a motion trajectory of each head-shoulder region in the tracking sequence set to count pedestrians, and when the current frame image is a last frame image, generating the pedestrian flow funnel based on a counting result of the pedestrians.
+18. A computer-readable storage medium having a computer program stored thereon, wherein the computer program, when executed by a processor, implements the method for generating a pedestrian flow funnel according to claim 1.
+19. (canceled)
+</claims>
+</document>

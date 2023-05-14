@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2017-02-09
+</filing_date>
+
+<publication_date>
+2020-01-07
+</publication_date>
+
+<priority_date>
+2017-02-09
+</priority_date>
+
+<ipc_classes>
+G06F16/00,G06F16/215,G06F17/30
+</ipc_classes>
+
+<assignee>
+ADOBE
+</assignee>
+
+<inventors>
+HIRANANDANI, GAURUSH
+PAULSEN, TREVOR
+SAINI, SHIV KUMAR
+SINHA, MOUMITA
+</inventors>
+
+<docdb_family_id>
+63037825
+</docdb_family_id>
+
+<title>
+Anomaly detection at coarser granularity of data
+</title>
+
+<abstract>
+Techniques are disclosed for identifying anomalies in small data sets, by identifying anomalies using a Generalized Extreme Student Deviate test (GESD test). In an embodiment, a data set, such as business data or a website metric, is checked for skewness and, if found to be skewed, is transformed to a normal distribution (e.g., by applying a Box-Cox transformation). The data set is checked for presence of trends and, if a trend is found, has the trend removed (e.g., by running a linear regression). In one embodiment, a maximum number of anomalies is estimated for the data set, by applying an adjusted box plot to the data set. The data set and the estimated number of anomalies is run through a GESD test, and the test identifies anomalous data points in the data set, based on the provided estimated number of anomalies. In an embodiment, a confidence interval is generated for the identified anomalies.
+</abstract>
+
+<claims>
+1. A method of determining a number of anomalies present in a data set, the method comprising steps performed by at least one processor included in an anomaly identification system, the steps comprising: receiving, via a user interface, a data set comprising a set of values related to a metric; estimating, by an anomaly estimation module included in the anomaly identification system, a maximum number of potential anomalies present in the data set, wherein the maximum number of potential anomalies is estimated based on a quantity of data points outside of an adjusted box plot applied to the data set; performing, by an anomaly identification module included in the anomaly identification system, a set of comparisons based on the set of values, wherein a quantity of comparisons is based on the estimated maximum number of potential anomalies; determining, by the anomaly identification module and based on the performed set of comparisons, that one or more anomalies are present in the data set; and providing, via a display device, an indication of the one or more determined anomalies.
+2. The method of claim 1, wherein the received data set corresponds to a first period of time, and the steps further comprise: receiving a second data set comprising a second set of values related to the metric wherein the second set of values corresponds to a second period of time occurring prior to the first period of time; and determining a modified data set comprising a modified set of values by subtracting the second data set from the data set, wherein estimating the maximum number of potential anomalies present is based on the modified data set, performing the set of comparisons is based on the modified set of values, and determining whether one or more anomalies are present is based on the modified data set.
+3. The method of claim 1, wherein the steps further comprise: determining that the data set is skewed; and responsive to determining that the data set is skewed, determining a modified data comprising a modified set of values set by transforming the data set, wherein estimating the maximum number of potential anomalies present is based on the modified data set, performing the set of comparisons is based on the modified set of values, and determining whether one or more anomalies are present is based on the modified data set.
+4. The method of claim 3, wherein transforming the data set comprises applying a Box-Cox transformation to the data set.
+5. The method of claim 1, wherein the steps further comprise: determining that the data set has a trend component; and responsive to determining that the data set has a trend component, determining a modified data set comprising a modified set of values by removing the trend component from the data set, wherein estimating the maximum number of potential anomalies present is based on the modified data set, performing the set of comparisons is based on the modified set of values, and determining whether one or more anomalies are present is based on the modified data set.
+6. The method of claim 5, wherein: determining that the data set has a trend component comprises applying a Mann-Kendall test to the data set; and removing the trend component from the data set comprises performing a linear regression on the data set.
+7. The method of claim 1, wherein the steps further comprise: receiving, via the user interface, a confidence level, the confidence level identifying a desired sensitivity indicating a tolerance for incorrectly identified anomalies; and providing a confidence interval for each of the one or more determined anomalies, wherein each confidence interval is based on the received confidence level, and each confidence interval indicates a probability that the determined anomaly is incorrectly identified.
+8. The method of claim 1, wherein determining whether the one or more anomalies are present in the data set is based on a generalized extreme standardized deviate test (GESD test).
+9. The method of claim 1, wherein a number of values comprising the data set is less than 50.
+10. A non-transitory computer-readable medium embodying program code for determining a number of anomalies present in a data set, the program code comprising instructions which, when executed by at least one processor included in an anomaly identification system, cause the processor to perform operations comprising: receiving, via a user interface, a data set, the data set comprising a set of values related to a metric; estimating, by an anomaly estimation module included in the anomaly identification system, a maximum number of potential anomalies present in the data set, wherein the maximum number of potential anomalies is estimated based on a quantity of data points outside of an adjusted box plot applied to the data set; performing, by an anomaly identification module included in the anomaly identification system, a set of comparisons based on the set of values, wherein a quantity of comparisons is based on the estimated maximum number of potential anomalies; determining, by the anomaly identification module and based on the performed set of comparisons, that one or more anomalies are present in the data set; and providing, via a display device, an indication of the one or more determined anomalies.
+11. The non-transitory computer-readable medium of claim 10, wherein the received data set corresponds to a first period of time, and the operations further comprise: receiving a second data set comprising a second set of values related to the metric wherein the second set of values corresponds to a second period of time occurring prior to the first period of time; and determining a modified data set comprising a modified set of values by subtracting the second data set from the data set, wherein estimating the maximum number of potential anomalies present is based on the modified data set, performing the set of comparisons is based on the modified set of values, and determining whether one or more anomalies are present is based on the modified data set.
+12. The non-transitory computer-readable medium of claim 10, wherein the operations further comprise: determining that the data set is skewed; and responsive to determining that the data set is skewed, determining a modified data set comprising a modified set of values by transforming the data set, wherein estimating the maximum number of potential anomalies present is based on the modified data set, performing the set of comparisons is based on the modified set of values, and determining whether one or more anomalies are present is based on the modified data set.
+13. The non-transitory computer-readable medium of claim 10, wherein the operations further comprise: determining that the data set has a trend component; and responsive to determining that the data set has a trend component, determining a modified data set comprising a modified set of values by removing the trend component from the data set, wherein estimating the maximum number of potential anomalies present is based on the modified data set, performing the set of comparisons is based on the modified set of values and determining whether one or more anomalies are present is based on the modified data set.
+14. The non-transitory computer-readable medium of claim 10, wherein the operations further comprise: receiving, via the user interface, a confidence level, the confidence level identifying a desired sensitivity indicating a tolerance for incorrectly identified anomalies; and providing a confidence interval for each of the one or more determined anomalies, wherein each confidence interval is based on the received confidence level, and each confidence interval indicates a probability that the determined anomaly is incorrectly identified.
+15. The non-transitory computer-readable medium of claim 10, wherein determining whether the one or more anomalies are present in the data set is based on a generalized extreme standardized deviate test (GESD test).
+16. An anomaly identification system for determining a number of anomalies present in a data set, the anomaly identification system comprising: a means for receiving, via a user interface, a data set, the data set comprising a set of values related to a metric; an anomaly estimation module configured for estimating a maximum number of potential anomalies present in the data set, wherein the maximum number of potential anomalies is estimated based on a quantity of data points outside of an adjusted box plot applied to the data set; an anomaly identification module configured for performing a set of comparisons based on the set of values, wherein a quantity of comparisons is based on the estimated maximum number of potential anomalies; the anomaly identification module further configured for determining, based on the performed set of comparisons, that one or more anomalies are present in the data set; and a means for providing, via a display device, an indication of the one or more determined anomalies.
+17. The system of claim 16, wherein the received data set corresponds to a first period of time, and the system further comprises: a means for receiving a second data set comprising a second set of values related to the metric wherein the second set of values corresponds to a second period of time occurring prior to the first period of time; and a means for determining a modified data set comprising a modified set of values by subtracting the second data set from the data set, wherein estimating the maximum number of potential anomalies present is based on the modified data set, performing the set of comparisons is based on the modified set of values, and determining whether one or more anomalies are present is based on the modified data set.
+18. The system of claim 16, wherein the system further comprises: a means for determining that the data set is skewed; and a means for, responsive to determining that the data set is skewed, determining a modified data set comprising a modified set of values by transforming the data set, wherein estimating the maximum number of potential anomalies present is based on the modified data set, performing the set of comparisons is based on the modified set of values, and determining whether one or more anomalies are present is based on the modified data set.
+19. The system of claim 16, wherein the system further comprises: a means for determining that the data set has a trend component; and a means for, responsive to determining that the data set has a trend component, determining a modified data set comprising a modified set of values by removing the trend component from the data set, wherein estimating the maximum number of potential anomalies present is based on the modified data set, performing the set of comparisons is based on the modified set of values, and determining whether one or more anomalies are present is based on the modified data set.
+20. The system of claim 16, wherein determining whether the one or more anomalies are present in the data set is based on a generalized extreme standardized deviate test (GESD test).
+</claims>
+</document>

@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2020-03-11
+</filing_date>
+
+<publication_date>
+2020-10-22
+</publication_date>
+
+<priority_date>
+2019-04-16
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G10L15/00,G10L15/16
+</ipc_classes>
+
+<assignee>
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+LI KE
+ZHAO RUI
+GONG YIFAN
+LI JINYU
+YE, Guoli
+</inventors>
+
+<docdb_family_id>
+72832812
+</docdb_family_id>
+
+<title>
+CODE-SWITCHING SPEECH RECOGNITION WITH END-TO-END CONNECTIONIST TEMPORAL CLASSIFICATION MODEL
+</title>
+
+<abstract>
+A CS CTC model may be initialed from a major language CTC model by keeping network hidden weights and replacing output tokens with a union of major and secondary language output tokens. The initialized model may be trained by updating parameters with training data from both languages, and a LID model may also be trained with the data. During a decoding process for each of a series of audio frames, if silence dominates a current frame then a silence output token may be emitted. If silence does not dominate the frame, then a major language output token posterior vector from the CS CTC model may be multiplied with the LID major language probability to create a probability vector from the major language. A similar step is performed for the secondary language, and the system may emit an output token associated with the highest probability across all tokens from both languages.
+</abstract>
+
+<claims>
+1. A system for automatic speech recognition associated with a major language and a secondary language, comprising:
+a computer processor; and
+a memory storage device including instructions that when executed by the computer processor enable the system to:
+initialize a Code-Switching ("CS") Connectionist Temporal Classification ("CTC") model from a major language CTC model by keeping network hidden weights and replacing output tokens of the major language CTC model with a union of major language output tokens, secondary language output tokens, and a silence output token;
+train the initialized CS CTC model by updating parameters with training data from both the major language and the secondary language;
+train a Language Identification ("LID") model with the training data in connection with three frame-by-frame outputs: (1) a major language probability,
+(2) a secondary language probability, and (3) a silence probability;
+during a decoding process for each of a series of frames associated with a speech waveform input, if silence dominates a current frame then emit the silence output token; and
+if silence does not dominate the current frame, then:
+multiply a major language output token posterior vector constructed from posteriors of major language tokens from the CS CTC model with the LID major language probability to create a probability vector from the major language,
+multiply a secondary language output token posterior vector from the CS CTC model with the LID secondary language probability to create a probability vector from the secondary language, and
+emit the output token associated with the highest probability across all tokens from the major and secondary language.
+2. The system of claim 1, further comprising instructions that when executed by the computer processor enable the system to:
+collapse the emitted output tokens using greedy decoding to generate an automatic speech recognition decoding hypothesis.
+3. The system of claim 2, wherein the greedy decoding removes silence output tokens and repetitive language output tokens.
+4. The system of claim 1, wherein the CTC model comprises bidirectional Long Short-Term Memory ("LSTM") Recurrent Neural Networks ("RNNs").
+5. The system of claim 4, wherein an objective function for the CTC model is CTC loss.
+6. The system of claim 1, wherein the LID model is associated with feed-forward Deep Neural Networks ("DNNs") and Long Short-Term Memories ("LSTMs") to build a frame-level LID model.
+7. The system of claim 1, wherein the LID model utilizes information from a context window that includes data external to the current frame.
+</claims>
+</document>

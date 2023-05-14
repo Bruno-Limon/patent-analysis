@@ -1,0 +1,51 @@
+<document>
+
+<filing_date>
+2019-04-16
+</filing_date>
+
+<publication_date>
+2020-04-30
+</publication_date>
+
+<priority_date>
+2018-10-29
+</priority_date>
+
+<ipc_classes>
+G06N20/00,G06N5/04,G08G1/01,G08G1/052
+</ipc_classes>
+
+<assignee>
+BEIHANG UNIVERSITY
+</assignee>
+
+<inventors>
+LI YI
+WANG, YUNPENG
+MA, XIAOLEI
+LUAN, SEN
+ZHUANG, DAI
+</inventors>
+
+<docdb_family_id>
+65469447
+</docdb_family_id>
+
+<title>
+TRANSPORTATION NETWORK SPEED FOREEASTING METHOD USING DEEP CAPSULE NETWORKS WITH NESTED LSTM MODELS
+</title>
+
+<abstract>
+This application is a transportation network speed forecasting method using deep capsule networks with nested LSTM models. The method includes the following steps: (1) This method divides the transport network into road links, calculates average speeds of each road link, maps the average speeds into a grid system, and generate traffic images representing traffic state at time intervals; (2) the method uses a CapsNet to capture the spatial relationship between road links. The learn patterns are represented in vectors; (3) The vectors of CapsNet are feed into a NLSTM model to learn temporal relationships between road links; (4) The model is trained using and training dataset, and predicts future traffic states using testing dataset. This application uses a new and advanced CapsNet neural structure, while can more efficiently deal with complex traffic networks than CNN models.
+</abstract>
+
+<claims>
+1. A road network status prediction method based on a capsule network and a nested long-short term memory neural network, comprising the following specific steps: Step 1. selecting a target road network, dividing same into n road sections, and dividing time at equal interval; Step 2. for a certain time interval t, calculating the average velocity of all vehicles passing through each road section within the time interval t; if no vehicle passes through a certain road section a within the time interval t, replacing the average velocity with the average velocity within the previous time interval; wherein the average velocity of the road section a within the time interval t is calculated as follows: where Vat represents the average velocity of the road section a within the time interval t, a∈(1, 2, . . . , n); k represents the number of vehicles passing through the road section within the time interval, and Vit represents the average velocity of each vehicle passing through the road section; Step 3. in combination with a GIS map, projecting the average velocity of each road section within each time interval into the road network, and establishing a spatial corresponding relationship between each road section and the average velocity; Step 4. performing mesh division on a spatial geographic area where the target road network is located according to the latitude and longitude range, and evaluating each mesh according to the average velocity of the road section; Step 5. taking the value corresponding to each mesh within each time interval as a pixel, generating pictures corresponding to all time intervals, and taking all pictures obtained within the study time range as an input sample set of a prediction model; wherein each picture represents the traffic status of the road network within each time interval; the prediction model is (X, Y), and is represented by a status vector composed of velocities of each road section; X represents the input training and test sample set pictures, and Y represents output, is a true value of the predicted road network status, and is in the form of a status vector; Step 6. constructing, a capsule network model, and extracting spatial features of the input sample set; Step 7. replacing a memory unit in the LSTM structure with a complete LSTM structure and connecting same by a gate unit, and building a nested long-short term memory neural network model to extract time sequence evolution features of the traffic status of the road network; Step 8. performing sequential connection on the capsule network model and the nested long-short term memory neural network model, to constitute a final combined prediction model; Step 9. repeatedly training, and verifying the combined prediction model using the input sample training set, to obtain the most accurate prediction model composed of optimal model parameters; and making accurate prediction using test set pictures within previous several time periods as input, to obtain the status of the road network within a certain time period in the future, wherein the status of the road network within a certain time period in the future is represented by a status vector composed of velocities of vehicles passing through each road section.
+2. A road network status prediction method based on a capsule network and a nested long-short term memory neural network of claim 1, wherein in the step 1, the time interval is divided by taking the rule of capturing the change of the traffic status of the road network as much as possible within a short time as a principle.
+3. A road network status, prediction method based on a capsule network and a nested long-short term memory neural network of claim 1, wherein in the step 3, the spatial corresponding relationship means that the average velocity value of each road section is matched to the line segment in the spatial geographic area corresponding thereto, and velocities are represented by different gray scales.
+4. A road network status prediction method based on a capsule network and a nested long-short term memory neural network of claim 1, wherein in the step 4, the value standards are as follows: for a mesh area without a road section, the value is zero; for a mesh area with only one road section, the value is the corresponding average velocity of the road section; and for a mesh area with more than two road, sections, the value is the mean of corresponding average velocities of all road sections.
+5. A road network status prediction method based on a capsule network and a nested long-short term memory neural network of claim 1, wherein the step 6 specifically includes the following steps: first, establishing a primary-level capsule layer according to the input sample set pictures, and extracting a plurality groups of spatial local features of the traffic status, of the road network implied in the pictures as low-level capsules; then, establishing a high-level capsule layer, integrating the local features in all the low-level capsules in a mode of full connection, further extracting a spatial relationship among all the local features to obtain a group of high-level capsules which characterize the global spatial relationship among the traffic status of the road network, and converting the group of high-level capsules into a group of spatial feature vectors to make preparation for subsequent model establishment.
+6. A road network status prediction method based on a capsule network and a nested long-short term memory neural network of claim 1, wherein in the step 8, the sequential connection means that the spatial feature vector of each time interval output by the capsule network model is used as the input of the nested long-short term memory neural network model, a full connection layer is added at the end of the nested long-short term memory neural network model, building a complete deep learning framework, and combining a prediction model.
+</claims>
+</document>

@@ -1,0 +1,75 @@
+<document>
+
+<filing_date>
+2019-11-20
+</filing_date>
+
+<publication_date>
+2020-06-11
+</publication_date>
+
+<priority_date>
+2018-12-05
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/46,G06K9/62
+</ipc_classes>
+
+<assignee>
+IMRA EUROPE
+</assignee>
+
+<inventors>
+BENDAHAN, RÉMY
+TSISHKOU, DZMITRY
+ABAD, FRÉDÉRIC
+MIOULET, LUC
+</inventors>
+
+<docdb_family_id>
+64949125
+</docdb_family_id>
+
+<title>
+METHOD FOR PREDICTING MULTIPLE FUTURES
+</title>
+
+<abstract>
+A computer-implemented method comprising an operating phase comprising the steps of receiving one or several video frames from a plurality of modalities, so-called multi-modality video frames, of a vehicle's environment, corresponding to present and past timestamps; encoding into a latent representation, said multi-modality video frames by a spatial-temporal encoding convolutional neural network (E); combining into a composite representation (Z), said latent representation with encoded conditioning parameters corresponding to timestamps at the desired future time horizon; predicting multiple future multi-modality video frames corresponding to multiple future modes of a multi-modal future solution space associated with likelihood coefficients by a generative convolutional neural network (G) previously trained in a generative adversarial network training scheme.
+</abstract>
+
+<claims>
+CLAI MS
+1. A computer-implemented method comprising an operating phase comprising the steps of:
+receiving one or several video frames from a plurality of modalities, so-called multi-modality video frames, of a vehicle's environment, corresponding to present and past timestamps;
+encoding into a latent representation, said multi-modality video frames by a spatial-temporal encoding convolutional neural network (E);
+combining into a composite representation (Z), said latent representation with encoded conditioning parameters corresponding to timestamps at the desired future time horizon;
+predicting multiple future multi-modality video frames corresponding to multiple future modes of a multi-modal future solution space associated with likelihood coefficients by a generative convolutional neural network (G) previously trained in a generative adversarial network training scheme, each predicted future mode resulting from the steps of:
+decoding said composite representation (Z) and generating one or several future multi-modality video frames of said vehicle's environment corresponding to the timestamps at the desired time horizon; and
+associating a likelihood coefficient to each predicted future mode in the multi-modal future solution space.
+2. The method of claim 1 , further comprising an anticipation mode with the steps of: adding to the composite representation additional encoded conditioning parameters related to objects to hallucinate in relation with the received multi-modality video frames; taking into account the additional encoded conditioning parameters and hallucinating the related objects when generating and decoding future multi-modality video frames for each predicted future mode; and wherein said multiple predicted future modes contain predictions for the hallucinated objects along with their associated likelihood coefficients.
+3. The method of claim 2, wherein in the anticipation mode, the additional encoded conditioning parameters are the class and the density of the objects to be hallucinated.
+4. The method of any of claims 1 to 3, wherein said received multimodality video frames are lying in an input space and the encoding convolutional neural network comprises multiple convolutional downscaling layers and wherein the encoding step compresses said one or several multi modality video frames into a latent representation lying in a dimensional space smaller than the input space of the received video frames.
+5. The method of claim 4, wherein the encoding step is performed either a) through the usage of 3D convolutional operations applied to the received multi-modality video frames considered as spatio-temporal 3D data, or
+b) through the combined usage of 2D convolutional operations for spatial encoding and a transition model for temporal encoding. 6. The method of any of claims 1 to 5, wherein the generative convolutional neural network comprises multiple de-convolutional upscaling layers and wherein the decoding and generating step decompresses the composite representation into the future multi-modality video frames.
+7. The method of any of claims 1 to 6, wherein the received video frames contains at least one of the following modalities: RGB images, semantic maps, motion flow maps or the like. 8. The method of any of claims 1 to 7, wherein the combining step further consists in combining into said composite representation (Z), contextual information such as position data, odometric data, detailed map information or the like. 9. The method of any of claims 1 to 8, wherein each predicted future mode is a direct prediction of the future multi-modality video frames corresponding to the timestamps at the desired time horizon, without computing predictions corresponding to the intermediate time horizons. 10. The method of any of claims 1 to 9, comprising a training phase prior to the operating phase, said training phase being based on a generative adversarial network architecture and comprising the steps of:
+training the generative convolutional neural network so that its outputs are realistic enough to fool a discriminative convolutional neural network and - training the discriminative convolutional neural network so that it is not fooled by the outputs of the generative convolutional neural network;
+until reaching convergence of both generative and discriminative networks, when the future multi-modality video frames predicted by the generative network are undistinguishable from real future multi-modality video frames. 1 1. The method of claim 10, wherein the discriminative convolutional neural network comprises multiple convolutional downscaling layers and wherein the training step of the discriminative convolutional neural network consists in: receiving the predicted future multi-modality video frames outputted by the generative convolutional neural network along with the conditioning parameters and real future multi-modality video frames and
+discriminating the predicted future multi-modality video frames from the real future multi-modality video frames by classifying them as fake or real depending on their origin.
+12. The method of any of claims 10 to 1 1 , wherein the generative convolutional neural network and the discriminative convolutional neural network are trained so as to be time-conditioned.
+13. The method of any of claims 10 to 12, wherein in the anticipation mode the generative convolutional neural network and the discriminative convolutional neural network are trained so as to be class-conditioned and density-conditioned.
+14. A method for assisting a human driver to drive a vehicle or for assisting an advanced driver assistance system or for assisting an autonomous driving system, the method comprising the steps of:
+- capturing a vehicle's environment into a series of video frames while the vehicle is driven;
+obtaining one or several multi-modality video frames from the series of captured video frames; supplying said multi-modality video to the computer implemented method according to any of claims 1 to 13;
+displaying to a driver's attention multiple predicted future modes of a multi-modal future solution space along with an indication of their likelihood coefficient, or
+providing to the advanced driver assistance system, said multiple predicted future modes of a multi-modal future solution space associated with their likelihood coefficient, or
+providing to the autonomous driving system, said multiple predicted future modes of a multi-modal future solution space associated with their likelihood coefficient.
+15. A system comprising one or more computing devices configured to: receive one or several multi-modality video frames of a vehicle's environment, corresponding to present and past timestamps;
+encode into a latent representation, said one or several multi-modality video frames by a spatial-temporal encoding convolutional neural network (E);
+combine into a composite representation (Z), said latent representation with encoded conditioning parameters corresponding to timestamps at the desired future time horizon;
+predict multiple future multi-modality video frames corresponding to multiple future modes of a multi-modal future solution space associated with likelihood coefficients by a generative convolutional neural network (G) previously trained in a generative adversarial network training scheme, each predicted future mode resulting from a procedure configured to
+decode said composite representation (Z) and generate one or several future multi-modality video frames of said vehicle's environment corresponding to the timestamps at the desired time horizon; and
+associate a likelihood coefficient to each predicted future mode in the multi-modal future solution space.
+</claims>
+</document>

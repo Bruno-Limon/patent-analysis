@@ -1,0 +1,61 @@
+<document>
+
+<filing_date>
+2018-12-03
+</filing_date>
+
+<publication_date>
+2020-04-21
+</publication_date>
+
+<priority_date>
+2018-03-29
+</priority_date>
+
+<ipc_classes>
+G06F8/33,G06F9/44,G06N20/00,G06N7/00
+</ipc_classes>
+
+<assignee>
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+FU, SHENGYU
+SUNDARESAN, NEELAKANTAN
+ZHAO, YING
+</inventors>
+
+<docdb_family_id>
+68056228
+</docdb_family_id>
+
+<title>
+Code completion of custom classes with machine learning
+</title>
+
+<abstract>
+A code completion tool uses machine learning models generated for custom or proprietary classes associated with a custom library of classes of a programming language and for overlapping classes associated with a standard library of classes for the programming language. The machine learning models are trained with features from usage patterns of the custom classes and overlapping classes found in two different sources of training data. An n-order Markov chain model is trained for each custom class and each overlapping class from the usage patterns to generate probabilities to predict a method invocation more likely to follow a sequence of method invocations for a custom class and for an overlapping class.
+</abstract>
+
+<claims>
+1. A system comprising: at least one processor and a memory; at least one program configured to be executed by the at least one processor, the at least one program including instructions that: train a first sequential model for at least one custom class with features from a plurality of source code programs using methods associated with the at least one custom class, the at least one custom class associated with a custom library of classes for a programming language that differs from a standard library of classes for the programming language, the first sequential model including a sequence of n custom method invocations, at least one custom candidate method succeeding the sequence of n custom method invocations, and a probability that the at least one custom candidate method succeeds the sequence of n custom method invocations; train a second sequential model for at least one overlapping class with features from a plurality of source code programs using methods associated with the at least one overlapping class, the at least one overlapping class associated with a standard library of classes for the programming language that are present in the custom library, the second sequential model including a sequence of n overlapping method invocations, at least one overlapping candidate method succeeding the sequence of n overlapping method invocations, and a probability that the at least one overlapping candidate method succeeds the sequence of n overlapping method invocations; and employ the first sequential model and the second sequential model in a code completion system to provide at least one candidate to complete a method invocation for a source code program having the custom class, wherein the at least one candidate is ranked based on a highest probability.
+2. The system of claim 1, wherein the first sequential model and the second sequential model are n-order Markov chain models.
+3. The system of claim 1, wherein the probability that at least one overlapping candidate method succeeds the sequence of n overlapping method invocations is based on a combined frequency derived from training data using only the standard library of classes and training data using the custom library of classes.
+4. The system of claim 1, wherein the probability that the at least one overlapping candidate method succeeds the sequence of n overlapping method invocations is based on a combined frequency derived from a frequency of the overlapping candidate method in a sequence in training data using only standard classes and a frequency of the overlapping candidate method in a sequence in training data using custom classes.
+5. The system of claim 4, wherein the frequency of the overlapping candidate method in the sequence in training data using custom classes is weighted by an oversample ratio.
+6. The system of claim 5, wherein the oversample ratio is based on a ratio of a total frequency of the overlapping candidate method in the sequence in training data using standard classes over the frequency of the overlapping candidate method in the sequence in training data using custom classes.
+7. The system of claim 1, wherein the probability that a custom candidate method succeeds the sequence of n custom method invocations is based on a frequency of the custom candidate method occurring in a sequence in training data using custom classes over a frequency of other methods in the class occurring after the sequence in training data using custom classes.
+8. The system of claim 1, wherein the at least one program includes further instructions that train a third sequential model for at least one standard class with features from a plurality of source code programs using methods associated with the at least one standard class, the first sequential model including a sequence of n standard method invocations, at least one standard candidate method succeeding the sequence of n custom method invocations, and a probability that the at least one standard candidate method succeeds the sequence of n custom method invocations.
+9. The system of claim 8, wherein the at least one program includes further instructions that employ the third sequential model into the code completion system.
+10. A method, comprising: generating, on a computing device having at least one processor and a memory, at least one n-state sequence of method invocations of a custom class of a programming language, the n-state sequence of method invocations of the custom class associated with at least one custom-class method candidate, wherein the at least one n-state sequence of method invocations of the custom class are generated from extracting features from a plurality of source code programs using classes from a custom library; assigning the at least one custom-class method candidate with a probability of succeeding the at least one n-state sequence of method invocations of the custom class; generating at least one n-state sequence of method invocations of an overlapping class of the programming language, the n-state sequence of method invocations of the overlapping class associated with at least one overlapping-class method candidate, wherein the at least one n-state sequence of method invocations of the overlapping class are generated from extracting features from a plurality of source code programs using classes from a standard library and the custom library; assigning the at least one overlapping-class method candidate with a probability of succeeding the at least one n-state sequence of method invocations of the overlapping class; and formatting the at least one n-state sequence of method invocations of the overlapping class and the at least one n-state sequence of method invocations of the custom class for use in a code completion system to predict a method to complete a method invocation, wherein the at least one overlapping class is part of a standard library of classes for the programming language, wherein the at least one custom class is part of a custom library of classes for the programming language, wherein the custom class is not part of the standard library of classes.
+11. The method of claim 10, wherein the probability of the at least one overlapping-class method candidate is based on a combined frequency derived from frequencies of methods of the overlapping class in training data that only uses standard classes and from frequencies of methods of the overlapping class in training data uses the custom classes.
+12. The method of claim 11, wherein the frequencies of methods of the overlapping class in training data that uses custom classes is weighted by an oversample ratio.
+13. The method of claim 12, wherein the oversample ratio is based on a ratio of a total frequency of the at least one overlapping-class method candidate in training data using standard classes over the frequency of the at least one overlapping-class method candidate in training data using custom classes.
+14. The method of claim 10, wherein at least one n-state sequence of method invocations of a custom class and the at least one custom-class method candidate are represented by an n-order Markov model.
+15. The method of claim 10, wherein the at least one n-state sequence of method invocations of an overlapping class and the at least one overlapping-class method candidate are represented by an n-order Markov model.
+16. The method of claim 10, further comprising: generating at least one n-state sequence of method invocations of a standard class of the programming language, the n-state sequence of method invocations of the standard class associated with at least one standard-class method candidate; assigning the at least one standard-class method candidate with a probability of succeeding the at least one n-state sequence of method invocations of the standard class.
+17. The method of claim 16, further comprising: formatting the at least one n-state sequence of method invocations of the standard class and the at least one standard-class method candidate for use in the code completion system.
+18. The method of claim 17, further comprising: generating a lookup table including the at least one n-state sequence of method invocations of the overlapping class, the at least one overlapping-class method candidate, the at least one n-state sequence of method invocations of the custom class, the at least one custom-class method candidate, the at least one n-state sequence of method invocations of the standard class, and/or the at least one standard-class method candidate; and employing the lookup table in a code completion system.
+</claims>
+</document>

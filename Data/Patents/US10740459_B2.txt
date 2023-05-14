@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2017-12-28
+</filing_date>
+
+<publication_date>
+2020-08-11
+</publication_date>
+
+<priority_date>
+2017-12-28
+</priority_date>
+
+<ipc_classes>
+G06F21/53,G06F21/55,G06F21/56,G06F21/60,H04L29/06,H04L9/32
+</ipc_classes>
+
+<assignee>
+CROWDSTRIKE
+</assignee>
+
+<inventors>
+PETRBOK, MILOS
+DIEHL, DAVID, F.
+MCCAMBRIDGE, COLIN CHRISTOPHER
+PUTNAM, AARON
+</inventors>
+
+<docdb_family_id>
+67058308
+</docdb_family_id>
+
+<title>
+Kernel- and user-level cooperative security processing
+</title>
+
+<abstract>
+Some examples detect malicious activity on a computing device. A processor in kernel mode detects an event on the computing device. The processor provides a validation request on a kernel-level bus. A bidirectional bridge component transmits the request to a user-level bus. The processor in user mode determines that the event is associated with malicious activity and provides a validation response on the user-level bus. The bridge component transmits the validation response to the kernel-level bus. In some examples, the processor in user mode receives security-relevant information from a system service of the computing device, and analyzes the event based at least in part on the security-relevant information. In some examples, the processor in user mode receives a security query, queries the kernel mode via the bridge component, and responds to the security query indicating that the data stream is associated with malware.
+</abstract>
+
+<claims>
+1. A method of detecting malicious activity on a computing device, the method comprising: detecting, in a kernel mode of the computing device, an event associated with a process executing on the computing device; determining, in the kernel mode, that validation of the event is required; in response, providing a validation request on a kernel-level bus; transmitting, via a bridge component, the validation request to a user-level bus; receiving security-relevant information from a system service of the computing device in a user mode of the computing device; providing, in the user mode, an information response on the user-level bus, the information response determined based at least in part on the security-relevant information; and transmitting, via the bridge component, the information response to the kernel-level bus; and determining that the event is associated with malicious activity: in the kernel mode; and based at least in part on the security-relevant information in the information response on the kernel-level bus.
+2. The method according to claim 1, the operation of determining that the event is associated with malicious activity comprising: applying at least some data associated with the event to a machine-learning model; and receiving from the machine-learning model an indication that the at least some data is associated with malicious activity.
+3. The method according to claim 1, further comprising, in the kernel mode, terminating or quarantining the process in response to determining that the event is associated with malicious activity.
+4. The method according to claim 3, wherein: the event is associated with a request for service; and the method further comprises, in the kernel mode, permitting the request to succeed before receiving the information response on the kernel-level bus.
+5. The method according to claim 1, wherein: the event is associated with a request for service; and the method further comprises, in the kernel mode: blocking the request to await validation; and causing the request to fail in response to determining that the event is associated with malicious activity.
+6. The method according to claim 1, wherein: the event is associated with a request to create a second process; and the method further comprises, in the kernel mode: permitting the request to succeed before receiving the information response on the kernel-level bus; and terminating or quarantining the second process in response to determining that the event is associated with malicious activity.
+7. The method according to claim 1, further comprising: providing, in the kernel mode, the validation request identifying a file to which access is requested; determining that the file is associated with malicious activity; and in response, determining that the event is associated with malicious activity.
+8. The method according to claim 7, further comprising at least one of: determining that the file corresponds with a catalog of malicious files; or applying at least some data of the file to a machine-learning model and receiving from the machine-learning model an indication that the at least some data is associated with malicious activity.
+9. One or more non-transitory computer-readable media having thereon computer-executable instructions that, upon execution by one or more processors, cause the one or more processors to perform a method of detecting malicious activity on a computing device, the method comprising: detecting, in a kernel mode of the computing device, an event associated with a process executing on the computing device; providing a validation request associated with the event on a kernel-level bus; transmitting, via a bridge component, the validation request to a user-level bus; receiving security-relevant information from a system service of the computing device in a user mode of the computing device; providing, in the user mode, an information response on the user-level bus, the information response determined based at least in part on the security-relevant information; transmitting, via the bridge component, the information response to the kernel-level bus; and determining that the event is associated with malicious activity: in the kernel mode; and based at least in part on the security-relevant information in the information response on the kernel-level bus.
+10. The one or more non-transitory computer-readable media according to claim 9, the method further comprising, in the kernel mode, terminating or quarantining the process in response to the determination that the event is associated with malicious activity.
+11. The one or more non-transitory computer-readable media according to claim 9, the method further comprising, in the user mode: determining a query based at least in part on the validation request on the user-level bus; providing the query to the system service; and receiving the security-relevant information in response to the query.
+12. The one or more non-transitory computer-readable media according to claim 11, the method further comprising, in the user mode: extracting a digital certificate from the validation request; determining the query comprising the digital certificate; and receiving the security-relevant information indicating whether the digital certificate is valid.
+13. The one or more non-transitory computer-readable media according to claim 9, the method further comprising, in the user mode, before receiving the security-relevant information, registering with the system service to receive the security-relevant information.
+14. The one or more non-transitory computer-readable media according to claim 13, the method further comprising, in the user mode, registering with the system service to receive at least login notifications or new-session notifications.
+15. A method comprising: registering, in a user mode of a computing device, with an operating system (OS) of the computing device to receive security queries; subsequently, receiving a security query indicating a data stream; in response, providing a request on a user-level bus, the request indicating the data stream; transmitting, via a bridge component, the request to a kernel-level bus; determining, in a kernel mode of the computing device, in response to the request on the kernel-level bus, that the data stream is associated with malware; providing a response on the kernel-level bus in response to the determination that the data stream is associated with malware; transmitting, via the bridge component, the response to the user-level bus; and in response to the response on the user-level bus, in the user mode, responding to the security query with an indication that the data stream is associated with malware.
+16. The method according to claim 15, wherein the data stream comprises a script that is ready for execution.
+17. The method according to claim 15, further comprising: determining a summary representation of the data stream; and determining, in the kernel mode, that the summary representation is associated with malware.
+18. The method according to claim 15, further comprising registering with the WINDOWS Antimalware Scan Interface (AMSI) to receive the security queries.
+19. The method according to claim 1, further comprising, in the user mode, before receiving the security-relevant information, registering with the system service to receive the security-relevant information.
+20. The one or more non-transitory computer-readable media according to claim 9, wherein transmitting, via the bridge component, the validation request to the user-level bus comprises: opening a communications port to create an opened but disconnected communications port in response to activating a function in the kernel mode; setting the opened but disconnected communications port to a connected state to create an opened and connected communications port in response to activating the function in the user mode; and transmitting the validation request via the opened and connected communications port from a first endpoint component executable in the kernel mode to a second endpoint component executable in the user mode.
+</claims>
+</document>

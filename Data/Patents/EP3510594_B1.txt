@@ -1,0 +1,61 @@
+<document>
+
+<filing_date>
+2017-10-10
+</filing_date>
+
+<publication_date>
+2020-07-01
+</publication_date>
+
+<priority_date>
+2016-10-10
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G10L15/16
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+CHAN, WILLIAM
+ZHANG, YU
+JAITLY, NAVDEEP
+</inventors>
+
+<docdb_family_id>
+60162302
+</docdb_family_id>
+
+<title>
+VERY DEEP CONVOLUTIONAL NEURAL NETWORKS FOR END-TO-END SPEECH RECOGNITION
+</title>
+
+<abstract>
+A speech recognition neural network system includes an encoder neural network and a decoder neural network. The encoder neural network generates an encoded sequence from an input acoustic sequence that represents an utterance. The input acoustic sequence includes a respective acoustic feature representation at each of a plurality of input time steps, the encoded sequence includes a respective encoded representation at each of a plurality of time reduced time steps, and the number of time reduced time steps is less than the number of input time steps. The encoder neural network includes a time reduction subnetwork, a convolutional LSTM subnetwork, and a network in network subnetwork. The decoder neural network receives the encoded sequence and processes the encoded sequence to generate, for each position in an output sequence order, a set of substring scores that includes a respective substring score for each substring in a set of substrings.
+</abstract>
+
+<claims>
+1. A speech recognition neural network system implemented by one or more computers, comprising: an encoder neural network configured to generate an encoded sequence from an input acoustic sequence, the input acoustic sequence representing an utterance, the input acoustic sequence comprising a respective acoustic feature representation at each of a plurality of input time steps, the encoded sequence comprising a respective encoded representation at each of a plurality of time reduced time steps, the number of time reduced time steps being less than the number of input time steps, and the encoder neural network comprising: a time reduction subnetwork configured to process the input acoustic sequence to generate a sequence of reduced representations comprising a respective reduced representation at each of the plurality of time reduced time steps; a convolutional LSTM subnetwork configured to, for each time reduced time step, process the reduced representation at the time reduced time step to generate a convolutional LSTM output for the time step; and a network in network subnetwork configured to, for each time reduced time step, process the convolutional LSTM output at the time reduced time step to generate the encoded representation for the time reduced time step; and a decoder neural network configured to receive the encoded sequence and process the encoded sequence to generate, for each position in an output sequence order, a set of substring scores that includes a respective substring score for each substring in a set of substrings; wherein the time reduction subnetwork comprises: a first time reduction block comprising: a first depth concatenation layer configured to depth concatenate acoustic feature representations at multiple adjacent input time steps at predetermined intervals in the input acoustic sequence to generate a first sequence of concatenated representations; and a first time-reduction convolutional layer configured to process the first sequence of concatenated representations to generate a sequence of initial reduced representations comprising a respective initial reduced representation at each of a plurality of initial time reduced time steps; and a second time reduction block comprising: a second depth concatenation layer configured to depth concatenate initial reduced representations at multiple adjacent initial time reduced time steps at predetermined intervals in the initial reduced sequence to generate a second sequence of concatenated representations; and a second time-reduction convolutional layer configured to process the second sequence of concatenated representations to generate the sequence of reduced representations comprising a reduced representation at each of the plurality of time reduced time steps; and wherein the network in network subnetwork comprises a plurality of bi-directional LSTM layers.
+2. The system of claim 1, wherein the convolutional LSTM subnetwork comprises a plurality of residual blocks stacked one after the other;
+wherein each residual block comprises:
+a convolutional neural network layer and a convolutional LSTM neural network layer separated by at least a batch normalization layer.
+3. The system of claim 2, wherein each residual block further comprises:
+a skip connection from an input to the residual block to an output of the convolutional LSTM neural network layer.
+4. The system of any preceding claim, wherein the network in network subnetwork comprises a respective 1 x 1 convolutional layer in between each pair of LSTM layers.
+5. The system of claim 4, wherein each 1 x 1 convolutional layer is followed by a respective batch normalization layer.
+6. The system of any one of claims 1-5, further comprising:
+a decoder subsystem configured to generate a sequence of substrings from the substring scores that represents a transcription of the utterance.
+7. A method comprising: receiving an input acoustic sequence representing an utterance; and processing the input acoustic sequence using the encoder neural network of any one of claims 1-6 to generate an encoded sequence comprising a respective encoded representation at each of a plurality of time reduced time steps.
+8. The method of claim 7, further comprising:
+processing the encoded sequence using a decoder neural network to generate, for each position in an output sequence order, a set of substring scores that includes a respective substring score for each substring in a set of substrings.
+9. The method of claim 7 or claim 8, further comprising:
+generating a sequence of substrings from the substring scores that represents a transcription of the utterance.
+10. One or more computer storage media storing instructions that when executed by one or more computers cause the one or more computers to implement the respective system of any one of claims 1-6.
+11. One or more computer storage media storing instructions that when executed by one or more computers cause the one or more computers to perform the operations of the respective method of any one of claims 7-9.
+12. Apparatus comprising at least one processor and at least one computer storage medium storing instructions that when executed by the at least one processor, cause the system of any one of claims 1 to 6 to be implemented and/or the method of any one of claims 7 to 9 to be performed.
+</claims>
+</document>

@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2019-09-24
+</filing_date>
+
+<publication_date>
+2020-03-26
+</publication_date>
+
+<priority_date>
+2018-09-26
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/08,H04L29/08,H04W76/10
+</ipc_classes>
+
+<assignee>
+ALLSTATE INSURANCE COMPANY
+</assignee>
+
+<inventors>
+ARAGON, JUAN CARLOS
+MADIGAN, REGINA
+</inventors>
+
+<docdb_family_id>
+69884927
+</docdb_family_id>
+
+<title>
+Adaptable On-Deployment Learning Platform for Driver Analysis Output Generation
+</title>
+
+<abstract>
+Aspects of the disclosure relate to enhanced processing systems for providing dynamic driving metric outputs using improved machine learning methods. A computing platform may receive sensor data from vehicle sensors. The computing platform may generate a pattern deviation output corresponding to an output of a sensor data analysis model, an actual outcome associated with a lowest TTC value, and driving actions that occurred over a prediction horizon corresponding to the pattern deviation output. The computing platform may cluster the pattern deviation outputs to maximize a ratio of inter-cluster variance to intra-cluster variance. The computing platform may train a long short term memory (LSTM) for each cluster, and may verify consistency of the pattern deviation outputs in the respective clusters. After verifying the consistency of the pattern deviation outputs in each cluster, the computing platform may modify the sensor data analysis model to reflect pattern deviation outputs associated with verified consistency.
+</abstract>
+
+<claims>
+1. A computing platform, comprising: at least one processor; a communication interface; and memory storing computer-readable instructions that, when executed by the at least one processor, cause the computing platform to: receive, from one or more vehicle sensors, sensor data inputs; generate, for one or more of the sensor data inputs, a pattern deviation output corresponding to an output of a sensor data analysis model, an actual outcome associated with a lowest time to collision (TTC) value, and a sequence of driving actions that occurred over a prediction horizon corresponding to the pattern deviation output; cluster the pattern deviation outputs to maximize a ratio of inter-cluster variance to intra-cluster variance; train a long short term memory (LSTM) for each cluster; verify, based on the LSTM for each cluster, consistency of the pattern deviation outputs in each cluster; and modify, after verifying the consistency of the pattern deviation outputs in each cluster, the sensor data analysis model to reflect pattern deviation outputs associated with verified consistency.
+2. The computing platform of claim 1, wherein the prediction horizon comprises a duration over which collision prediction is estimated.
+3. The computing platform of claim 1, wherein the memory stores additional computer-readable instructions that, when executed by the at least one processor, cause the computing platform to: determine an error value corresponding to a difference between an estimated TTC value and the lowest TTC value for each of the sensor data inputs; group each of the sensor data inputs based on whether the estimated TTC value exceeds a predetermined TTC threshold. rank, for each group, each of the sensor data inputs based on their corresponding error values; and determine, for each group, a subset of the sensor data inputs, wherein determining the subset of the sensor data inputs comprises determining that the error values corresponding to each subset of the sensor data inputs exceeds a predetermined error threshold.
+4. The computing platform of claim 3, wherein each group is associated with a different predetermined error threshold.
+5. The computing platform of claim 3, wherein the one or more of the sensor data inputs correspond to the subsets of the sensor data inputs.
+6. The computing platform of claim 1, wherein the memory stores additional computer-readable instructions that, when executed by the at least one processor, cause the computing platform to predict, for each cluster and using the trained LSTMs, a subsequent driver action.
+7. The computing platform of claim 1, wherein training the LSTM for each of the clusters comprises training the LSTMs on a subset of the pattern deviation outputs for each cluster based on similarity of their sequences of driving actions, and wherein the similarity of their sequence of driving actions is determined based on Euclidian distance.
+8. The computing platform of claim 7, wherein the memory stores additional computer-readable instructions that, when executed by the at least one processor, cause the computing platform to: after training the LSTMs on the subset of the pattern deviation outputs for each cluster, apply the LSTMs to remaining pattern deviation outputs in their respective clusters to determine additional error values; incorporate a first subset of the remaining pattern deviation outputs into future LSTM training after determining that additional error values corresponding to the first subset of the remaining pattern deviation outputs are below a predefined LSTM training threshold; and discard a second subset of the remaining pattern deviation outputs after determining that additional error values corresponding to the second subset of the remaining pattern deviation outputs exceed the predefined LSTM training threshold.
+9. The computing platform of claim 1, wherein training the LSTM for each of the clusters comprises: performing training over a beginning portion of the sequence of driving actions; performing training, after performing the training over the beginning portion of the sequence of driving actions and before performing training over a final portion of the sequence of driving actions, over one or more middle portions of the sequence of driving actions, wherein the middle portions of the sequence of driving actions occur after the beginning portion of the sequence of driving actions and before the final portion of the sequence of driving actions, and wherein the training over the one or more middle portions of the sequence of driving actions occurs one middle portion at a time; and performing training, after performing the training over the middle portions of the sequence of driving actions, over the final portion of the sequence of driving actions, wherein the final portion of the sequence of driving actions occurs after the middle portions of the sequence of driving actions.
+10. The computing platform of claim 9, wherein the memory stores additional computer-readable instructions that, when executed by the at least one processor, cause the computing platform to: determine, after training the LSTM for each of the clusters, clusters associated with different groups but with similar sensor data inputs; and store an indication of the determined clusters.
+11. The computing platform of claim 1, wherein modifying the sensor data analysis model comprises incorporating the pattern deviation outputs into training of the sensor data analysis model.
+12. The computing platform of claim 1, wherein the memory stores additional computer-readable instructions that, when executed by the at least one processor, cause the computing platform to: establish a wireless data connection with a driver analysis output platform; and send, to the driver analysis output platform and while the wireless data connection is established, driving analysis output information corresponding to analysis of the sensor data inputs, wherein sending the driving analysis output information causes the driver analysis output platform to generate, using the driving analysis output information, a driving analysis output corresponding to feedback on a user's driving ability.
+13. A method comprising: at a computing platform comprising at least one processor, a communication interface, and memory: receiving, from one or more vehicle sensors, sensor data inputs; generating, for one or more of the sensor data inputs, a pattern deviation output corresponding to an output of a sensor data analysis model, an actual outcome associated with a lowest time to collision (TTC) value, and a sequence of driving actions that occurred over a prediction horizon corresponding to the pattern deviation output; clustering the pattern deviation outputs to maximize a ratio of inter-cluster variance to intra-cluster variance; training a long short term memory (LSTM) for each cluster; verifying, based on the LSTM for each cluster, consistency of the pattern deviation outputs in each cluster; and modifying, after verifying the consistency of the pattern deviation outputs in each cluster, the sensor data analysis model to reflect pattern deviation outputs associated with verified consistency.
+14. The method of claim 13, wherein the prediction horizon comprises a duration over which collision prediction is estimated.
+15. The method of claim 13, further comprising: determining an error value corresponding to a difference between an estimated TTC value and the lowest TTC value for each of the sensor data inputs; grouping each of the sensor data inputs based on whether the estimated TTC value exceeds a predetermined TTC threshold. ranking, for each group, each of the sensor data inputs based on their corresponding error values; and determining, for each group, a subset of the sensor data inputs, wherein determining the subset of the sensor data inputs comprises determining that the error values corresponding to each subset of the sensor data inputs exceeds a predetermined error threshold.
+16. The method of claim 15, wherein each group is associated with a different predetermined error threshold.
+17. The method of claim 15, wherein the one or more of the sensor data inputs correspond to the subsets of the sensor data inputs.
+18. The method of claim 13, further comprising predicting, for each cluster and using the trained LSTMs, a subsequent driver action.
+19. The method of claim 13, wherein training the LSTM for each of the clusters comprises training the LSTMs on a subset of the pattern deviation outputs for each cluster based on similarity of their sequences of driving actions, and wherein the similarity of their sequence of driving actions is determined based on Euclidian distance.
+20. One or more non-transitory computer-readable media storing instructions that, when executed by a computing platform comprising at least one processor, a communication interface, and memory, cause the computing platform to: receive, from one or more vehicle sensors, sensor data inputs; generate, for one or more of the sensor data inputs, a pattern deviation output corresponding to an output of a sensor data analysis model, an actual outcome associated with a lowest time to collision (TTC) value, and a sequence of driving actions that occurred over a prediction horizon corresponding to the pattern deviation output; cluster the pattern deviation outputs to maximize a ratio of inter-cluster variance to intra-cluster variance; train a long short term memory (LSTM) for each cluster; verify, based on the LSTM for each cluster, consistency of the pattern deviation outputs in each cluster; and modify, after verifying the consistency of the pattern deviation outputs in each cluster, the sensor data analysis model to reflect pattern deviation outputs associated with verified consistency.
+</claims>
+</document>

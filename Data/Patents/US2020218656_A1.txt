@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-01-08
+</filing_date>
+
+<publication_date>
+2020-07-09
+</publication_date>
+
+<priority_date>
+2019-01-08
+</priority_date>
+
+<ipc_classes>
+G06F12/0808,G06F12/084
+</ipc_classes>
+
+<assignee>
+ORACLE INTERNATIONAL CORPORATION
+</assignee>
+
+<inventors>
+GLOVER, FREDERICK S.
+BRUNELLE, ALAN DAVID
+GRAVES, JR., DONALD ALLAN
+BAGUR, PRANAV DAYANANDA
+BENSSON, JAMES
+</inventors>
+
+<docdb_family_id>
+71405173
+</docdb_family_id>
+
+<title>
+FULLY ACTIVE AND NON REPLICATED BLOCK STORAGE SOLUTION
+</title>
+
+<abstract>
+Techniques are provided for providing a fully active and non-replicated block storage solution in a clustered filesystem that implements cache coherency. In a clustered filesystem where one or more data blocks are stored in a respective cache of each host node of a plurality of host nodes, a request is received at a host node of the plurality of host nodes from a client device to write the one or more data blocks to a shared storage device. In response to the request, the one or more data blocks are stored in the cache of the host node and a particular notification is sent to another host node of the plurality of host nodes that the one or more data blocks have been written to the shared storage device. In response to receiving the notification, the other host node invalidates a cached copy of the one or more data blocks in the respective cache of the other host node.
+</abstract>
+
+<claims>
+1. A method comprising: each host node of a plurality of host nodes receiving from a respective client device a respective request of a plurality of requests to write one or more data blocks to a shared storage device; wherein each host node of said plurality of host nodes shares access to said shared storage device; wherein each respective request of said plurality of requests is sent by said client device to a single virtual IP address; each host node of a plurality of host nodes, in response to the respective request from said client device to write said one or more data blocks to a shared storage device: storing said one or more data blocks requested to be written by the respective request in said shared storage; sending a respective notification to one or more other host nodes of said plurality of host nodes that said one or more data blocks requested to be written by the respective request have been written to shared storage; wherein said plurality of host nodes includes a particular host node that stores particular one or more data blocks in said shared storage in response to receiving the respective request from said client device; wherein another host node of said plurality of host nodes receives a particular notification from said particular host node that said particular host node stored the particular one or more data blocks in said shared storage; and in response to receiving said particular notification, said another host node invalidating a cached copy of each of the particular one or more data blocks stored by said particular host node in said shared storage.
+2. The method of claim 1, further comprising: receiving, by said another host node, a request from said client device to read a particular data block of the particular one or more data blocks; and in response to said another host determining that a cached copy said particular data block is invalid, said another host reading the one or more data blocks from the shared storage device.
+3. The method of claim 1, wherein a mapping is maintained by a name server that maps each host node of the plurality of host nodes to virtual IP addresses.
+4. The method of claim 1, wherein a cache of said particular host node comprises volatile memory and stores cached copies of the particular one or more data blocks in the volatile memory of said each respective cache.
+5. The method of claim 1, wherein a notification is not sent to each host node of the plurality of host nodes that do not store a cached copy of the particular one or more data blocks.
+6. The method of claim 1, wherein said particular host node sending a particular notification includes the particular host node sending the particular notification in response to obtaining a lock on said particular one or more data blocks.
+7. One or more non-transitory computer-readable storage media storing instructions, which when executed by one or more processors, cause: each host node of a plurality of host nodes receiving from a respective client device a respective request of a plurality of requests to write one or more data blocks to a shared storage device; wherein each host node of said plurality of host nodes shares access to said shared storage device; wherein each respective request of said plurality of requests is sent by said client device to a single virtual IP address; each host node of a plurality of host nodes, in response to the respective request from said client device to write said one or more data blocks to a shared storage device: storing said one or more data blocks requested to be written by the respective request in said shared storage; sending a respective notification to one or more other host nodes of said plurality of host nodes that said one or more data blocks requested to be written by the respective request have been written to shared storage; wherein said plurality of host nodes includes a particular host node that stores particular one or more data blocks in said shared storage in response to receiving the respective request from said client device; wherein another host node of said plurality of host nodes receives a particular notification from said particular host node that said particular host node stored the particular one or more data blocks in said shared storage; and in response to receiving said particular notification, said another host node invalidating a cached copy of each of the particular one or more data blocks stored by said particular host node in said shared storage.
+8. The one or more non-transitory computer-readable storage media of claim 7, further comprising instructions, which when executed by the one or more processors, cause: receiving, by said another host node, a request from said client device to read a particular data block of the particular one or more data blocks; and in response to said another host determining that a cached copy said particular data block is invalid, said another host reading the one or more data blocks from the shared storage device.
+9. The one or more non-transitory computer-readable storage media of claim 7, wherein a mapping is maintained by a name server that maps each host node of the plurality of host nodes to virtual IP addresses.
+10. The one or more non-transitory computer-readable storage media of claim 7, wherein a cache of said particular host node comprises volatile memory and stores cached copies of the particular one or more data blocks in the volatile memory of said each respective cache.
+11. The one or more non-transitory computer-readable storage media of claim 7, wherein a notification is not sent to each host node of the plurality of host nodes that do not store a cached copy of the particular one or more data blocks.
+12. The one or more non-transitory computer-readable storage media of claim 7, wherein said particular host node sending a particular notification includes the particular host node sending the particular notification in response to obtaining a lock on said particular one or more data blocks.
+13. A system comprising comprising: each host node of a plurality of host nodes configured to receive from a respective client device a respective request of a plurality of requests to write one or more data blocks to a shared storage device; wherein each host node of said plurality of host nodes shares access to said shared storage device; wherein each respective request of said plurality of requests is sent by said client device to a single virtual IP address; each host node of a plurality of host nodes is configured to, in response to the respective request from said client device to write said one or more data blocks to a shared storage device: store said one or more data blocks requested to be written by the respective request in said shared storage; send a respective notification to one or more other host nodes of said plurality of host nodes that said one or more data blocks requested to be written by the respective request have been written to shared storage; wherein said plurality of host nodes includes a particular host node configured to store particular one or more data blocks in said shared storage in response to receiving the respective request from said client device; wherein another host node of said plurality of host nodes is configured to receive a particular notification from said particular host node that said particular host node stored the particular one or more data blocks in said shared storage; and in response to receiving said particular notification, said another host node is configured to invalidate a cached copy of each of the particular one or more data blocks stored by said particular host node in said shared storage.
+14. The system of claim 13, further comprising: wherein said another host node is configured to: receive a request from said client device to read a particular data block of the particular one or more data blocks; and in response to determining that a cached copy said particular data block is invalid, to read the one or more data blocks from the shared storage device.
+15. The system of claim 13, wherein a mapping is maintained by a name server that maps each host node of the plurality of host nodes to virtual IP addresses.
+16. The system of claim 13, wherein a cache of said particular host node comprises volatile memory and stores cached copies of the particular one or more data blocks in the volatile memory of said each respective cache.
+17. The system of claim 13, wherein a notification is not sent to each host node of the plurality of host nodes that do not store a cached copy of the particular one or more data blocks.
+18. The system of claim 13, wherein said particular host node sending a particular notification includes the particular host node sending the particular notification in response to obtaining a lock on said particular one or more data blocks.
+</claims>
+</document>

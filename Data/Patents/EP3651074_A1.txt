@@ -1,0 +1,70 @@
+<document>
+
+<filing_date>
+2018-09-03
+</filing_date>
+
+<publication_date>
+2020-05-13
+</publication_date>
+
+<priority_date>
+2018-02-13
+</priority_date>
+
+<ipc_classes>
+G06F7/499,G06N3/063
+</ipc_classes>
+
+<assignee>
+SHANGHAI CAMBRICON INFORMATION TECHNOLOGY COMPANY
+</assignee>
+
+<inventors>
+ZHANG, YAO
+WANG, BINGRUI
+</inventors>
+
+<docdb_family_id>
+67618498
+</docdb_family_id>
+
+<title>
+COMPUTATION DEVICE AND METHOD
+</title>
+
+<abstract>
+The present disclosure provides a computation device. The computation device is configured to perform a machine learning computation, and includes an operation unit, a controller unit, and a conversion unit. The storage unit is configured to obtain input data and a computation instruction. The controller unit is configured to extract and parse the computation instruction from the storage unit to obtain one or more operation instructions, and to transmit the one or more operation instructions and the input data to the operation unit. The operation unit is configured to perform operations on the input data according to one or more operation instructions to obtain a computation result of the computation instruction. In the examples of the present disclosure, the input data involved in machine learning computations is represented by fixed-point data, thereby improving the processing speed and processing efficiency of training operations.
+</abstract>
+
+<claims>
+1. A computation device, comprising a storage unit (10), a conversion unit (13), an operation unit (12), and a controller unit (11), wherein the storage unit (10) comprises a cache (202) and a register (201);
+the controller unit (11) is configured to determine a decimal point position of first input data and a bit width of fixed-point data; the bit width of the fixed-point data is the bit width of the first input data converted into the fixed-point data;
+the operation unit (12) is configured to initialize the decimal point position of the first input data and adjust the decimal point position of the first input data; and store the adjusted decimal point position of the first input data in the cache (202) of the storage unit (10);
+the controller unit (11) is configured to obtain the first input data and a plurality of operation instructions from the register (201), and obtain the adjusted decimal point position of the first input data and the first input data from the cache (202); and transmit the adjusted decimal point position of the first input data and the first input data to the conversion unit (13);
+the conversion unit (13) is configured to convert the first input data into a second input data according to the adjusted decimal point position of the first input data;
+wherein initializing the decimal point position of the first input data by the operation unit (12) includes: initializing the decimal point position of the first input data according to an empirical constant.
+2. The computation device of claim 1, wherein adjusting the decimal point position of the first input data by the operation unit (12) includes: adjusting the decimal point position of the first input data upwardly by a single step according to a maximum absolute value of the first input data, or adjusting the decimal point position of the first input data upwardly step by step according to the maximum absolute value of the first input data, or adjusting the decimal point position of the first input data upwardly by a single step according to the first input data distribution, or adjusting the decimal point position of the first input data upwardly step by step according to the first input data distribution, or adjusting the decimal point position of the first input data downwardly according to the absolute value of the first input data.
+3. The computation device of claim 1 or 2, wherein the computation device is configured to execute a machine learning computation, wherein: the controller unit (11) is further configured to transmit the plurality of operation instructions to the operation unit (12), the conversion unit (13) is further configured to transmit the second input data to the operation unit (12), and the operation unit (12) is further configured to perform operations on the second input data according to the plurality of operation instructions to obtain an operation result.
+4. The computation device of claim 3, wherein the machine learning computation includes an artificial neural network operation, the first input data includes an input neuron and a weight, and the computation result is an output neuron.
+5. The computation device of claim 3 or 4, wherein the operation unit (12) includes a primary processing circuit (101) and a plurality of secondary processing circuits (102),
+the primary processing circuit (101) is configured to perform pre-processing on the second input data and to transmit data and the plurality of operation instructions between the plurality of secondary processing circuits (102) and the primary processing circuit (101),
+the plurality of secondary processing circuits (102) are configured to perform an intermediate operation to obtain a plurality of intermediate results according to the second input data and the plurality of operation instructions transmitted from the primary processing circuit (101), and to transmit the plurality of intermediate results to the primary processing circuit (101), and
+the primary processing circuit (101) is further configured to perform post-processing on the plurality of intermediate results to obtain the computation result of the computation instruction.
+6. The computation device of claim 5, further comprising a direct memory access, DMA, unit (50), wherein: the cache (202) includes a scratch pad cache and is configured to store the first input data, and the register (201) is configured to store scalar data in the first input data, and the DMA unit (50) is configured to read data from the storage unit (10) or store data in the storage unit (10).
+7. The computation device of any of claims 3 to 6, wherein when the first input data is fixed-point data, the operation unit (12) further includes:
+a derivation unit configured to derive a decimal point position of at least one intermediate result according to the decimal point position of the first input data, wherein the at least one intermediate result is obtained by operating according to the first input data.
+8. The computation device of claim 7, wherein the operation unit (12) further includes:
+a data cache unit configured to cache the one or more intermediate results.
+9. A combination processing device, comprising a machine learning operation device, universal interconnection interfaces, a storage device, and other processing devices, wherein:
+the machine learning operation device, comprising one or more computation devices according to any of claims 3 to 8, wherein the at least one computation device is configured to obtain data to be processed and control information from other processing devices, to perform specified machine learning computations, and to transmit an execution result to the other processing devices through I/O interfaces, wherein: when the machine learning operation device includes a plurality of the computation devices, the plurality of computation devices is configured to couple and transmit data with each other through a specific structure, and the plurality of computation devices is configured to: interconnect and transmit data through a peripheral component interconnect express, PCIE, bus to support larger-scale machine learning computations, share the same one control system or have respective control systems, share the same one memory or have respective memories, and deploy an interconnection manner of any arbitrary interconnection topology, the machine learning operation device is configured to interact with the other processing devices to jointly perform user-specified computing operations, and the storage device is configured to couple with the machine learning operation device and the other processing devices for storing data of the machine learning operation device and the other processing devices.
+10. An electronic device, comprising a neural network chip, wherein the neural network chip comprises the combination processing device of claim 9.
+11. A board, comprising a storage device (390), an interface device, a control device (392), and the neural network chip of claim 10, wherein: the neural network chip is respectively coupled with the storage device (390), the control device (392), and the interface device, the storage device (390) is configured to store data, the interface device is configured to implement data transmission between the neural network chip and external devices, and the control device (392) is configured to monitor a status of the neural network chip, wherein the storage device (390) includes a plurality of groups of storage units (393), wherein each group of the plurality of groups of the storage units (393) is coupled with the neural network chip through a bus, and the storage unit (393) is a double data rate synchronous dynamic random access memory, the neural network chip includes a double data rate controller for controlling data transmission and data storage of each of the storage units (393), and the interface device is a standard PCIE interface.
+12. A computation method, comprising: determining, by the controller unit (11), the decimal point position of the first input data and the bit width of the fixed-point data, wherein the bit width of the fixed-point data is the bit width of the first input data converted into the fixed-point data, initializing, by the operation unit (12), the decimal point position of the first input data, and adjust, by the operation unit (12), the decimal point position of the first input data, obtaining, by the conversion unit (13), the adjusted decimal point position of the first input data, and converting, by the conversion unit (13), the first input data into the second input data according to the adjusted decimal point position of the first input data, wherein initializing the decimal point position of the first input data by the operation unit (12) includes: initializing the decimal point position of the first input data according to the empirical constant.
+13. The method of claim 12, wherein adjusting the decimal point position of the first input data by the operation unit (12) includes: adjusting the decimal point position of the first input data upwardly by a single step according to the maximum absolute value of the first input data, or adjusting the decimal point position of the first input data upwardly step by step according to the maximum absolute value of the first input data, or adjusting the decimal point position of the first input data upwardly by a single step according to the first input data distribution, or adjusting the decimal point position of the first input data upwardly step by step according to the first input data distribution, or adjusting the decimal point position of the first input data downwardly according to the absolute value of the first input data.
+14. The method of claim 12 or 13, wherein the method is configured to execute the machine learning computation, and further includes:
+performing, by the operation unit (12), the operations on the second input data according to the plurality of operation instructions to obtain the computation result.
+15. The method of claim 14, wherein: the machine learning computation includes the artificial neural network operation, the first input data includes the input neuron and the weight, and the computation result is the output neuron; and when the first input data is the fixed-point data, the method further includes:
+deriving a decimal point position of one or more intermediate results according to the decimal point position of the first input data, wherein the one or more intermediate results are obtained by operating according to the first input data.
+</claims>
+</document>

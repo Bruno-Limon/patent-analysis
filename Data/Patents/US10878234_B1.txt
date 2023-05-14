@@ -1,0 +1,71 @@
+<document>
+
+<filing_date>
+2018-11-20
+</filing_date>
+
+<publication_date>
+2020-12-29
+</publication_date>
+
+<priority_date>
+2018-11-20
+</priority_date>
+
+<ipc_classes>
+G06F16/901,G06K9/00,G06K9/46,G06K9/62,G06T7/70,H04L29/08
+</ipc_classes>
+
+<assignee>
+AMAZON TECHNOLOGIES
+</assignee>
+
+<inventors>
+ADAM, AMIT
+BHOTIKA, RAHUL
+MAZOR, SHAI
+OLGIATI, ANDREA
+SOATTO, STEFANO
+TSE, WENDY
+Elor, Hadar Averbuch
+Star, Gal Sabina
+Perel, Or
+Anschel, Oron
+</inventors>
+
+<docdb_family_id>
+74039937
+</docdb_family_id>
+
+<title>
+Automated form understanding via layout agnostic identification of keys and corresponding values
+</title>
+
+<abstract>
+Techniques for automated form understanding via layout-agnostic identification of keys and corresponding values are described. An embedding generator creates embeddings of pixels from an image including a representation of a form. The generated embeddings are similar for pixels within a same key-value unit, and far apart for pixels not in a same key-value unit. A weighted bipartite graph is constructed including a first set of nodes corresponding to keys of the form and a second set of nodes corresponding to values of the form. Weights for the edges are determined based on an analysis of distances between ones of the embeddings. The graph is partitioned according to a scheme to identify pairings between the first set of nodes and the second set of nodes that produces a minimum overall edge weight. The pairings indicate keys and values that are associated within the form.
+</abstract>
+
+<claims>
+1. A computer-implemented method comprising: obtaining an electronic image comprising a visual representation of a form; generating, using a machine learning (ML) model, a plurality of embeddings corresponding to a plurality of pixels of the electronic image, wherein the ML model was trained according to a loss function that separates embeddings of pixels in a same key-value unit from embeddings of pixels in other key-value units; constructing a weighted bipartite graph including a first plurality of nodes connected to a second plurality of nodes via a plurality of edges, wherein each of the first plurality of nodes is connected to each of the second plurality of nodes, wherein each of the first plurality of nodes corresponds to a key within the electronic image and each of the second plurality of nodes corresponds to a value within the electronic image, and wherein a weight of each of the plurality of edges is based on an analysis of a set of the plurality of embeddings; performing a combinatorial optimization process using the weighted bipartite graph to determine a plurality of pairings of ones of the plurality of keys with ones of the plurality of values; and sending a message including identifiers of the plurality of pairings or storing the identifiers of the plurality of pairings.
+2. The computer-implemented method of claim 1, wherein constructing the weighted bipartite graph comprises: determining the weight for a first edge in the weighted bipartite graph between a first node of the first plurality of nodes and a second node of the second plurality of nodes, the determining including: generating a plurality of distance values between embeddings that lie on a line between a first embedding and a second embedding, the first embedding corresponding to a first pixel of the electronic image associated with a first key, the second embedding corresponding to a second pixel of the electronic image associated with a first value, and selecting, as the weight, a maximum distance value of the plurality of distance values.
+3. The computer-implemented method of claim 1, wherein the combinatorial optimization process comprises identifying the plurality of pairings that produces a minimum overall graph edge weight.
+4. A computer-implemented method comprising: generating, using a machine learning (ML) model, a plurality of embeddings corresponding to a plurality of pixels of an image depicting a form; constructing a graph including a first plurality of nodes connected to a second plurality of nodes via a plurality of edges, the first plurality of nodes corresponding to a plurality of keys of the form and the second plurality of nodes corresponding to a plurality of values of the form, wherein each of the plurality of edges comprises a weight value determined based on an analysis of ones of the plurality of embeddings; determining a plurality of pairings, based on an analysis of the graph, of ones of the plurality of keys with ones of the plurality of values; and sending a message including identifiers of the plurality of pairings.
+5. The computer-implemented method of claim 4, wherein the ML model was trained according to a loss function that separates embeddings of pixels in a same key-value unit of the image from embeddings of pixels in another key-value unit of the image.
+6. The computer-implemented method of claim 5, wherein each key-value unit comprises a region from the image including a key and a location for a value corresponding to the key.
+7. The computer-implemented method of claim 4, wherein each of the first plurality of nodes is connected to each of the second plurality of nodes, wherein each of the first plurality of nodes corresponds to a key within the image and each of the second plurality of nodes corresponds to a value within the image.
+8. The computer-implemented method of claim 7, wherein determining the plurality of pairings comprises determining a partitioning of the graph into the plurality of pairings that has a minimum overall weight value of remaining edges.
+9. The computer-implemented method of claim 4, wherein generating the graph comprises, for a first of the plurality of edges that connects a first node with a second node: identifying a first representative pixel from a first region corresponding to a first key corresponding to the first node; identifying a second representative pixel from a second region corresponding to a first value corresponding to the second node; and determining a plurality of distance values between ones of the plurality of embeddings lying between a first embedding corresponding to the first representative pixel and a second embedding corresponding to the second representative pixel.
+10. The computer-implemented method of claim 9, wherein generating the graph further comprises, for the first of the plurality of edges that connects a first node with a second node: selecting, as the weight value for the first edge, a maximum distance value of the plurality of distance values.
+11. The computer-implemented method of claim 4, further comprising: receiving, at a web service endpoint of a provider network, a request to process the image, the request including the image or identifying a location of the image, wherein the message sent that includes the identifiers of the plurality of pairings is destined to a client device outside of the provider network.
+12. The computer-implemented method of claim 4, wherein: the ML model was trained using a plurality of pairs of pixels; one or more of the plurality of pairs includes two pixels located within a same key-value unit; and another one or more of the plurality of pairs includes two pixels located in different key-value units.
+13. The computer-implemented method of claim 12, wherein the ML model comprises a convolutional neural network.
+14. The computer-implemented method of claim 13, wherein the ML model, to generate each of the plurality of embeddings, performs convolutions via multiple filters at several different scales.
+15. A system comprising: a storage service implemented by a first one or more electronic devices within a provider network; and a document processing service implemented by a second one or more electronic devices within the provider network, the document processing service including instructions that upon execution cause the document processing service to: generate, using a machine learning (ML) model, a plurality of embeddings corresponding to a plurality of pixels of an image depicting a form, construct a graph including a first plurality of nodes connected to a second plurality of nodes via a plurality of edges, the first plurality of nodes corresponding to a plurality of keys of the form and the second plurality of nodes corresponding to a plurality of values of the form, wherein each of the plurality of edges comprises a weight value determined based on an analysis of ones of the plurality of embeddings, determine a plurality of pairings, based on an analysis of the graph, of ones of the plurality of keys with ones of the plurality of values, and send a message including identifiers of the plurality of pairings.
+16. The system of claim 15, wherein the ML model was trained according to a loss function that separates embeddings of pixels in a same key-value unit of the image from embeddings of pixels in another key-value unit of the image.
+17. The system of claim 16, wherein each key-value unit comprises a region from the image including a key and a location for a value corresponding to the key.
+18. The system of claim 15, wherein each of the first plurality of nodes is connected to each of the second plurality of nodes, wherein each of the first plurality of nodes corresponds to a key within the image and each of the second plurality of nodes corresponds to a value within the image.
+19. The system of claim 18, wherein to determine the plurality of pairings, the instructions upon execution cause the document processing service to: determine a partitioning of the graph into the plurality of pairings that has a minimum overall weight value of remaining edges.
+20. The system of claim 15, wherein to generate the graph the instructions upon execution cause the document processing service to, for a first of the plurality of edges that connects a first node with a second node: identify a first representative pixel from a first region corresponding to a first key corresponding to the first node; identify a second representative pixel from a second region corresponding to a first value corresponding to the second node; and determine a plurality of distance values between ones of the plurality of embeddings lying between a first embedding corresponding to the first representative pixel and a second embedding corresponding to the second representative pixel.
+21. The system of claim 15, wherein the ML model comprises a convolutional neural network.
+</claims>
+</document>

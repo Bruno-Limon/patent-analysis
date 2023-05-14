@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-10-25
+</filing_date>
+
+<publication_date>
+2020-06-16
+</publication_date>
+
+<priority_date>
+2017-04-27
+</priority_date>
+
+<ipc_classes>
+G06F17/15,G06K9/00,G06K9/46,G06N3/04,G06N3/063,G06N3/08,G06T1/20,G06T5/00,G06T5/20
+</ipc_classes>
+
+<assignee>
+APPLE
+</assignee>
+
+<inventors>
+PARK, SUNG HEE
+SUGISAWA, JUNJI
+WANG, MUGE
+</inventors>
+
+<docdb_family_id>
+61750535
+</docdb_family_id>
+
+<title>
+Configurable convolution engine for interleaved channel data
+</title>
+
+<abstract>
+Embodiments relate to a configurable convolution engine that receives configuration information to perform convolution and other deep machine learning operations on streaming input data of various formats. The convolution engine may include two convolution circuits that each generate a stream of values by applying convolution kernels to input data. The stream of values may each define one or more channels of image data. A channel merge circuit combines the streams of values from each convolution circuit in accordance with a selected mode of operation. In one mode, the first and second streams from the convolution circuits are merged into an output stream having the combined channels of the first and second streams in an interleaved manner. In another mode, the first stream from the first convolution circuit is fed into the input of the second convolution circuit.
+</abstract>
+
+<claims>
+1. A convolution engine, comprising: a first convolution circuit, configured to generate a first stream of first values by applying one or more first convolution kernels to first input data, the first values in the first stream defining a first plurality of channels of data in an interleaved manner; a second convolution circuit, configured to generate a second stream of second values by applying one or more second convolution kernels to second input data, the second values in the second stream defining a second plurality of channels of data in an interleaved manner, the first and second convolution circuits operating in parallel to generate the first stream of first values and the second stream of second values; and a channel merge circuit coupled to the first convolution circuit to receive the first stream and coupled to the second convolution circuit to receive the second stream, the channel merge circuit configured to: in a first mode of the convolution engine, generate a first output stream including the first values and a second output stream including the second values, the first input data received by the first convolution circuit being the same as the second input data received by the second convolution circuit; and in a second mode of the convolution engine, generate a third output stream including the first values interleaved with the second values, the third output stream defining the first plurality of channels and the second plurality of channels in an interleaved manner, the first input data received by the first convolution circuit being the same as the second input data received by the second convolution circuit.
+2. The convolution engine of claim 1, wherein the first convolution circuit applies a first convolution kernel to the first input data concurrently with the second convolution circuit applying a second convolution kernel to the second input data, the first convolution kernel having first filter elements and the second convolution kernel having second filter elements that are different from the first filter elements.
+3. The convolution engine of claim 1, wherein the first convolution circuit includes: a convolution core including: a first execution cluster configured to generate a stream of even data values defining even channels of the first plurality of channels of data; and a second execution cluster configured to generate a stream of odd data values defining odd channels of the first plurality of channels of data; and a post-processing circuit coupled to the first execution cluster to receive the stream of even data values and coupled to the second execution cluster to receive the stream of odd data values, the post-processing circuit configured to generate the first stream of first values from the stream of even data values and the stream of odd data values.
+4. The convolution engine of claim 3, wherein the post-processing circuit includes a multi-channel normalized cross correlation (NCC) unit configured to compute NCC scores for a plurality of first convolution kernels and the stream of even data values.
+5. The convolution engine of claim 4, wherein the post-processing circuit further includes a peak finder configured to determine a best match location for a template based on an NCC score associated with an even channel.
+6. The convolution engine of claim 3, wherein the post-processing circuit includes a response rectifier unit configured to perform a non-linear transformation to the stream of even data values from the first execution cluster.
+7. The convolution engine of claim 3, wherein the post-processing circuit includes an inter-channel local response normalization (LRN) unit configured to perform inter-channel local response normalization to the even data values defining the even channels of the first plurality of channels of data.
+8. The convolution engine of claim 3, wherein: the post-processing circuit includes: a multi-channel normalized cross correlation (NCC) unit coupled to the first execution cluster and configured to compute NCC scores for a plurality of first convolution kernels and the stream of even data values; a response rectifier unit coupled to the multi-channel NCC and configured to perform a non-linear transformation to the stream of even data values; and an inter-channel local response normalization (LRN) unit coupled to the response rectifier unit and configured to perform inter-channel local response normalization to output of the response rectifier unit; and the convolution engine further includes a control circuit configured to selectively activate or deactivate the multi-channel NCC unit, response rectifier unit, and inter-channel LRN unit.
+9. The convolution engine of claim 1, further comprising a control circuit configured cause the convolution engine to switch between a plurality of modes including the first and second modes.
+10. The convolution engine of claim 9, wherein: the second convolution circuit includes a first multiplexer; the channel merge circuit includes a second multiplexer; and the control circuit is further configured to: in the first mode of the convolution engine: cause the first multiplexer to select the first input data as the second input data to the second convolution circuit; and cause the second multiplexer to select the second stream of second values as the second output stream of the channel merge circuit; and in the second mode of the convolution engine: cause the first multiplexer to select the first input data as the second input data to the second convolution circuit; and cause the second multiplexer to select the third output stream as output of the channel merge circuit.
+11. A method, comprising, by a convolution engine: generating a first stream of first values by applying one or more first convolution kernels to first input data, the first values in the first stream defining a first plurality of channels of data in an interleaved manner; generating a second stream of second values by applying one or more second convolution kernels to second input data, the second values in the second stream defining a second plurality of channels of data in an interleaved manner, the first stream of first values and the second stream of second values being generated in parallel; in a first mode of the convolution engine, generating a first output stream including the first values and a second output stream including the second values, the first input data received by the first convolution circuit being the same as the second input data received by the second convolution circuit; and in a second mode of the convolution engine, generating a third output stream including the first values interleaved with the second values, the third output stream defining the first plurality of channels and the second plurality of channels in an interleaved manner, the first input data received by the first convolution circuit being the same as the second input data received by the second convolution circuit.
+12. The method of claim 11, wherein the convolution engine applies a first convolution kernel to the first input data concurrently with applying a second convolution kernel to the input data, the first convolution kernel having first filter elements and the second convolution kernel having second filter elements that are different from the first filter elements.
+13. The method of claim 11, further comprising, by the convolution engine: generating a stream of even data values defining even channels of the first plurality of channels of data; generating a stream of odd data values defining odd channels of the first plurality of channels of data; and generating the first stream of first values from the stream of even data values and the stream of odd data values.
+14. The method of claim 13, further comprising, by the convolution engine: computing first multi-channel normalized cross correlation (NCC) scores for a plurality of first convolution kernels and the stream of even data values; and computing second multi-channel NCC scores for the plurality of first convolution kernels and the stream of odd data values.
+15. The method of claim 14, further comprising, by the convolution engine, determining a best match location for a template based on an NCC score associated with an even channel.
+16. The method of claim 13, further comprising, by the convolution engine, performing a non-linear transformation to the stream of even data values.
+17. The method of claim 13, further comprising, by the convolution engine, performing inter-channel local response normalization to the even data values defining the even channels of the first plurality of channels of data.
+18. An electronic device, comprising: a circuitry configured to: generate a first stream of first values by applying one or more first convolution kernels to first input data, the first values in the first stream defining a first plurality of channels of data in an interleaved manner; generate a second stream of second values by applying one or more second convolution kernels to second input data, the second values in the second stream defining a second plurality of channels of data in an interleaved manner, the first stream of first values and the second stream of second values being generated in parallel; in a first mode of the circuitry, generate a first output stream including the first values and a second output stream including the second values; and in a second mode of the circuitry, generate a third output stream including the first values interleaved with the second values, the third output stream defining the first plurality of channels and the second plurality of channels in an interleaved manner.
+19. The electronic device of claim 18, wherein: the first input data is the same as the second input data; and the one or more first convolution kernels are different from the one or more second convolution kernels.
+20. The electronic device of claim 18, wherein the circuitry includes: a first execution cluster configured to generate a stream of even data values defining even channels of the first plurality of channels of data; a second execution cluster configured to generate a stream of odd data values defining odd channels of the first plurality of channels of data; and a post-processing circuit coupled to the first execution cluster to receive the stream of even data values and coupled to the second execution cluster to receive the stream of odd data values, the post-processing circuit configured to generate the first stream of first values from the stream of even data values and the stream of odd data values.
+</claims>
+</document>

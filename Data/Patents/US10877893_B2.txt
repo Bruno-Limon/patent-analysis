@@ -1,0 +1,60 @@
+<document>
+
+<filing_date>
+2019-02-06
+</filing_date>
+
+<publication_date>
+2020-12-29
+</publication_date>
+
+<priority_date>
+2018-02-06
+</priority_date>
+
+<ipc_classes>
+G06F12/0862
+</ipc_classes>
+
+<assignee>
+QUANTUM CORPORATION
+</assignee>
+
+<inventors>
+DOERNER, DON
+</inventors>
+
+<docdb_family_id>
+67475121
+</docdb_family_id>
+
+<title>
+Adaptive pre-fetch
+</title>
+
+<abstract>
+Adaptive pre-fetching devices can predict data placement to improve the operating and/or electrical efficiency of a data storage system. A future input/output operation can be predicted from a current input/output operation, the state of the data storage apparatus, relationships between data currently being processed and data previously processed, or other factors. The apparatus and methods can improve data storage efficiency by selectively pre-fetching data, relocating data on the data storage apparatus, the backing storage, or within a plurality of data storage apparatus based on working set predictors to reduce cache misses or outperform fetch processes from the backing storage.
+</abstract>
+
+<claims>
+1. An apparatus for adaptive pre-fetching, comprising: a processor; one or more block devices comprising a block space comprising a sequence of chunks; a memory that stores metadata associated with a first working set being processed by the processor for the one or more block devices, wherein the metadata comprises one or more of: an access pattern, a usage trend, a relationship, or a prediction, related to the first working set being processed by the apparatus based on input/output (I/O) operations of an end-user task; an interface that communicatively couples the processor, the memory, and the one or more block devices; wherein the one or more block devices are configured to: process an I/O request for the I/O operations related to the first working set being processed; update the metadata based on observed I/O behavior with the one or more block devices; generate a prediction about a future I/O request based, at least in part, on the I/O request, the observed I/O behavior, and the updated metadata; pre-fetch data adaptively into a second working set based, at least in part, on the prediction; and remove a working set predictor of a plurality of working set predictors for the second working set based on an accuracy of the prediction of the working set predictor associated with an accessed chunk.
+2. The apparatus of claim 1, wherein in response to the second working set being adaptively pre-fetched, the one or more block devices are further configured to reduce a number of cache misses with respect to the first working set.
+3. The apparatus of claim 1, further comprising a backing storage comprising data of the first working set or the second working set, wherein the one or more block devices are further configured to vary a response time on a cache miss in response to the second working set being adaptively pre-fetched, and wherein the response time on the cache miss comprises less time than obtaining, at least in part, the data of the first working set or the second working set from the backing storage.
+4. The apparatus of claim 1, wherein the one or more block devices are further configured to capture a first working set predictor comprising unique chunk numbers of the sequence of chunks that are associated with chunks of the block space that are accessed during execution of the I/O operations over a time interval.
+5. The apparatus of claim 4, wherein the one or more block devices are further configured to: determine a completeness associated with capture of the first working set predictor based on a fixed size set of the unique chunk numbers; and capture a second working set predictor in response to determining that the first working set predictor has reached a threshold level of completeness.
+6. The apparatus of claim 5, wherein the one or more block devices are further configured to determine whether the first working set predictor or the second working set predictor is fully complete based on the fixed size of the set of the unique chunk numbers, and recording the first working set predictor or the second working set predictor in the one or more block devices in response to the fixed size set being fully complete.
+7. The apparatus of claim 1, wherein the one or more block devices are further configured to: determine whether the prediction has converted to a threshold level of convergence for at least one of: a first working set predictor or a second working set predictor; and in response to the prediction being converted to a threshold level of convergence and a chunk associated with a chunk number in the prediction not being stored in a cache, prefetching the chunk associated with the chunk number in the prediction from a backing storage device to store the chunk in the cache.
+8. The apparatus of claim 1, wherein the one or more block devices are further configured to capture the plurality of working set predictors for the second working set and generate the prediction for the second working set based on the plurality of working set predictors.
+9. The apparatus of claim 1, wherein the one or more block devices are further configured to: winnow the prediction by removing the working set predictor of the plurality of working set predictors for the second working set that does not comprise a chunk number associated with a chunk being accessed for the input/output (I/O) operations of the end-user task.
+10. The apparatus of claim 1, wherein the one or more block devices are further configured to: determine whether the working set predictor comprises a threshold level of bloat, and remove the working set predictor from the prediction based, at least in part, on a cost to use the prediction in response to satisfying the threshold level of bloat.
+11. A non-transitory computer-readable storage device storing computer-executable instructions that when executed by a computer cause the computer to perform a method for reducing cache miss frequency, the method comprising: determining, via a block device comprising a block cache based on a block space of a sequence of chunks, associations of a first working set of data with an end-user task; capturing a plurality of working set predictors comprising a fixed size set of unique chunk numbers associated with the sequence of chunks from the block space that are accessed during processing of the end-user task; generating a prediction that comprises an accessed chunk number based on the plurality of working set predictors; determining a second working set of data based on the prediction; prefetching, from a backing storage device, a chunk associated with a chunk number in the prediction; and storing the chunk in the block cache.
+12. The non-transitory computer-readable storage device of claim 11, the method further comprising: reducing a number of cache misses related to the first working set of data and the end-user task, or reducing a response time of a cache miss, by adaptively prefetching the chunk from the second working set of data, wherein the response time of the cache miss comprises less time than obtaining the chunk from the backing storage device.
+13. The non-transitory computer-readable storage device of claim 11, the method further comprising: capturing a first working set predictor of the plurality of working set predictors based on a time interval of input/output (I/O) operations of the end-user task; and in response to determining that the first working set predictor satisfies a threshold level of completeness, capturing a second working set predictor that is concurrent to or overlapping the capturing of the first working set predictor.
+14. The non-transitory computer-readable storage device of claim 11, wherein the generating the prediction is in response to a threshold number of working set predictors being captured that is less than a complete set of working set predictors.
+15. The non-transitory computer-readable storage device of claim 11, the method further comprising: in response to a determination that the chunk has been accessed, winnowing the prediction by removing a working set predictor of the plurality of working set predictors that comprises a different chunk number than the chunk number associated with the chunk that has been accessed.
+16. The non-transitory computer-readable storage device of claim 15, the method further comprising: determining whether the prediction comprises an empty set; and in response to the prediction comprising the empty set, generating a different prediction, where the different prediction comprises another plurality of working set predictors that comprise the chunk number associated with the chunk that has been accessed.
+17. A system for an adaptive pre-fetch that reduces a cache miss frequency comprising: one or more processors; a plurality of block devices comprising block caches configured as block spaces comprising a sequence of chunks; a memory comprising metadata related to a first working set being processed by the processor and comprising associations of the plurality of block devices with input/output (I/O) operations of an end-user task, wherein the metadata comprises one or more of: an access pattern, a usage trend, a relationship, or a prediction, related to the first working set; an interface that communicatively couples the one or more processors, the memory, and the plurality of block devices; wherein the plurality of block devices comprise one or more processing components configured to: process an I/O request for the I/O operations related to the first working set being processed; generate a plurality of working set predictors based on the first working set and I/O behavior with the plurality of block devices and the metadata; generate a prediction about a future I/O request based, at least in part, on the I/O request and the observed I/O behavior; pre-fetch a chunk of the sequence of chunks adaptively into a second working set based, at least in part, on the prediction and a change in the prediction; and determine whether the prediction has converted to a threshold level of convergence for at least one of: a first working set of predictors or a second working set of predictors; and in response to the prediction being converted to the threshold level of convergence and the chunk associated with a chunk number in the prediction not being stored in a cache, prefetching the chunk associated with the chunk number in the prediction from a backing storage device to store the chunk in the cache.
+18. The system of claim 17, wherein the plurality of block devices are further configured to: capture the second working set of predictors of the plurality of working set predictors in response to the first working set of predictors satisfying a threshold level of completeness, wherein the second working set of predictors overlap in part with the first working set of predictors; record the first working set of predictors or the second working set of predictors in response to the first working set of predictors or the second working set of predictors being full; pre-fetch, from the backing storage device, the chunk associated with the chunk number, or the chunk number, in the prediction in response to determining that the prediction satisfies a threshold level of convergence; and store the chunk in at least one blocking cache.
+19. The system of claim 18, wherein the plurality of block devices are further configured to: remove one or more predictors from the first working set of predictors or the second working set of predictors based on a utility metric; and remove one or more data items or descriptors from the first working or the second working set based on removal of the one or more predictors.
+</claims>
+</document>

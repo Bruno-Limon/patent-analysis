@@ -1,0 +1,69 @@
+<document>
+
+<filing_date>
+2018-12-28
+</filing_date>
+
+<publication_date>
+2020-11-03
+</publication_date>
+
+<priority_date>
+2018-12-28
+</priority_date>
+
+<ipc_classes>
+G06F16/2453,G06N3/08
+</ipc_classes>
+
+<assignee>
+TABLEAU SOFTWARE
+</assignee>
+
+<inventors>
+FINIS, JAN
+LEIS, VIKTOR
+NEUMANN, THOMAS
+KEMPER, ALFONS
+MUEHLBAUER, TOBIAS
+THEN, MANUEL
+Kaufmann, Moritz
+Hofstetter, Sebastian
+</inventors>
+
+<docdb_family_id>
+73019870
+</docdb_family_id>
+
+<title>
+Computing domain cardinality estimates for optimizing database query execution
+</title>
+
+<abstract>
+A method implements optimization of database queries by computing domain cardinality estimates. A client sends a database query to a server. The method parses the query to identify data columns. For each of the data columns, the method computes a lower bound and an upper bound of distinct data values using a pre-computed table size. The method also computes a patch factor by applying a pre-computed function to a ratio between a number of distinct data values that appear exactly once in a data sample and a number of distinct data values in the sample. Based on the patch factor, the lower bound, and the upper bound, the method computes an estimate of distinct values for each of the data columns. The method subsequently generates an execution plan for the query according to the computed estimates, executes the execution plan, and returns a result set to the client.
+</abstract>
+
+<claims>
+1. A method for retrieving data from a database, comprising: at a computer system having one or more processors and memory storing one or more programs configured for execution by the one or more processors: receiving a database query from a client; parsing the query to identify a plurality of data columns specified in the query; for each of the plurality of data columns: computing a respective lower bound l and a respective upper bound u of distinct data values for the respective data column using a respective pre-computed table size t for the respective data column; computing a respective patch factor p for the respective data column by applying a pre-computed function ƒ to a respective ratio r between a number of distinct data values that appear exactly once in a respective data sample for the respective data column and a number of distinct data values in the respective data sample; and computing a respective estimate e of distinct data values for the respective data column based on p, l, and u; generating an execution plan for the query according to the estimates; executing the execution plan to retrieve a result set, from the database, corresponding to the query; and returning the result set to the client.
+2. The method of claim 1, further comprising: calculating the pre-computed function ƒ by fitting a curve to plotted data points of table domain sizes versus ratio values for a respective pre-determined set of tables and a respective pre-determined set of data samples corresponding to the respective data column.
+3. The method of claim 2, wherein the pre-computed function ƒ is computed in an offline mode, before receiving the database query from the client.
+4. The method of claim 3, wherein the pre-computed function ƒ is computed in the offline mode using a machine learning technique by training a neural network using various table sizes corresponding to the respective data column.
+5. The method of claim 1, further comprising: computing the respective pre-computed table size t according to a size of the respective data sample and a number of rows in the respective data sample that have been deleted.
+6. The method of claim 1, further comprising: reading the respective pre-computed table size t from stored metadata for the respective table corresponding to the respective data column.
+7. The method of claim 1, further comprising: pre-selecting the respective data sample for the respective data column in an offline mode, before receiving the database query from the client.
+8. The method of claim 7, further comprising: updating the respective data sample when a respective table corresponding to the respective data column changes by at least 10%.
+9. The method of claim 1, wherein the respective upper bound u and the respective lower bound l of distinct data values are computed based on the respective pre-computed table size t, the number of distinct data values that appear exactly once in the respective data sample, the number of distinct data values in the respective data sample, and the size of the respective data sample.
+10. The method of claim 1, wherein the respective upper bound u and the respective lower bound l of distinct data values correspond to upper and lower bounds of Guaranteed Error Estimator (GEE), respectively, wherein: the lower bound l is defined by the formula: the upper bound u is defined by the formula: [Sample Domain Size] is the number of distinct data values in the respective data sample; [F1] is the number of distinct data values that appear exactly once in the respective data sample; t is the respective pre-computed table size for the respective data column; and [Sample Size] is the size of the respective data sample.
+11. The method of claim 1, wherein computing the respective estimate e of distinct data values for the respective data column comprises calculating e based on the following formula:
+description="In-line Formulae" end="lead"?e:=p*u+(1−p)*l description="In-line Formulae" end="tail"? wherein: p is the respective patch factor for the respective data column; l is the respective lower bound for the respective data column; and u is the respective upper bound for the respective data column.
+12. A system for retrieving data from a database, comprising: a display; one or more processors; memory; and one or more programs stored in the memory and configured for execution by the one or more processors, the one or more programs comprising instructions for: receiving a database query from a client; parsing the query to identify a plurality of data columns specified in the query; for each of the plurality of data columns: computing a respective lower bound l and a respective upper bound u of distinct data values for the respective data column using a respective pre-computed table size t for the respective data column; computing a respective patch factor p for the respective data column by applying a pre-computed function ƒ to a respective ratio r between a number of distinct data values that appear exactly once in a respective data sample for the respective data column and a number of distinct data values in the respective data sample; and computing a respective estimate e of distinct data values for the respective data column based on p, l, and u; generating an execution plan for the query according to the estimates; executing the execution plan to retrieve a result set, from the database, corresponding to the query; and returning the result set to the client.
+13. The system of claim 12, wherein the one or more programs further comprise instructions for: calculating the pre-computed function ƒ by fitting a curve to plotted data points of table domain sizes versus ratio values for a respective pre-determined set of tables and a respective pre-determined set of data samples corresponding to the respective data column.
+14. The system of claim 13, wherein the pre-computed function ƒ is computed in an offline mode, before receiving the database query from the client.
+15. The system of claim 14, wherein the pre-computed function ƒ is computed in the offline mode using a machine learning technique by training a neural network using various table sizes corresponding to the respective data column.
+16. The system of claim 12, wherein the one or more programs further comprise instructions for: computing the respective pre-computed table size t according to a size of the respective data sample and a number of rows in the respective data sample that have been deleted.
+17. The system of claim 12, wherein the one or more programs further comprise instructions for: reading the respective pre-computed table size t from stored metadata for the respective table corresponding to the respective data column.
+18. The system of claim 12, wherein the one or more programs further comprise instructions for: pre-selecting the respective data sample for the respective data column in an offline mode, before receiving the database query from the client.
+19. The system of claim 12, wherein the respective upper bound u and the respective lower bound l of distinct data values are computed based on the respective pre-computed table size t, the number of distinct data values that appear exactly once in the respective data sample, the number of distinct data values in the respective data sample, and the size of the respective data sample.
+20. A non-transitory computer readable storage medium storing one or more programs configured for execution by a computer system having a display, one or more processors and memory, the one or more programs comprising instructions for: receiving a database query from a client; parsing the query to identify a plurality of data columns specified in the query; for each of the plurality of data columns: computing a respective lower bound l and a respective upper bound u of distinct data values for the respective data column using a respective pre-computed table size t for the respective data column; computing a respective patch factor p for the respective data column by applying a pre-computed function ƒ to a respective ratio r between a number of distinct data values that appear exactly once in a respective data sample for the respective data column and a number of distinct data values in the respective data sample; and computing a respective estimate e of distinct data values for the respective data column based on p, l, and u; generating an execution plan for the query according to the estimates; executing the execution plan to retrieve a result set, from the database, corresponding to the query; and returning the result set to the client.
+</claims>
+</document>

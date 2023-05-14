@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2012-11-19
+</filing_date>
+
+<publication_date>
+2020-08-18
+</publication_date>
+
+<priority_date>
+2011-11-17
+</priority_date>
+
+<ipc_classes>
+G06T13/40,G06T15/08,G06T17/20,G06T19/00
+</ipc_classes>
+
+<assignee>
+ADOBE
+</assignee>
+
+<inventors>
+CORAZZA, STEFANO
+GAMBARETTO, EMILIANO
+VASUDEVAN, PRASANNA
+</inventors>
+
+<docdb_family_id>
+48426352
+</docdb_family_id>
+
+<title>
+System and method for automatic rigging of three dimensional characters for facial animation
+</title>
+
+<abstract>
+A system and method for automatic rigging of three dimensional characters for facial animation provide a rigged mesh for an original three dimensional mesh. A representative mesh is generated from the original mesh. Segments, key points, a bone set, and skinning weights are then determined for the representative mesh. The Skinning weights and bone set are placed in the original mesh to generate the rigged mesh.
+</abstract>
+
+<claims>
+1. A method for automatic rigging three dimensional characters comprising: receiving a three dimensional character comprising a single three dimensional mesh; generating, by at least one processor, a representative three dimensional mesh based on the single three dimensional mesh; determining a plurality of polygon mesh segments within the representative three dimensional mesh; identifying a plurality of internal mesh key points within the representative three dimensional mesh, wherein identifying the plurality of internal mesh key points comprises identifying mesh key points located at a border between adjoining polygon mesh segments of the plurality of polygon mesh segments using a machine learning process trained using training meshes with identified key points; generating a plurality of bones based on the plurality of polygon mesh segments and the plurality of internal mesh key points, each bone of the plurality of bones connecting together two or more polygon mesh segments of the plurality of polygon mesh segments within the representative three dimensional mesh, the plurality of bones forming a bone set for the representative three dimensional mesh; associating the plurality of bones from the bone set within the representative three dimensional mesh; determining skinning weights for the representative three dimensional mesh based on a location of the plurality of bones from the bone set associated with the representative three dimensional mesh, the plurality of polygon mesh segments, and the plurality of internal mesh key points; and rigging the three dimensional character by mapping the bone set, the plurality of polygon mesh segments, and the skinning weights of the representative three dimensional mesh to the received single three dimensional mesh of the three dimensional character.
+2. The method of claim 1, wherein generating the representative three dimensional mesh based on the three dimensional character comprises using a volumetric method on the single three dimensional mesh.
+3. The method of claim 2, wherein using the volumetric method on the single three dimensional mesh comprises generating a visual hull of an outer geometry of the single three dimensional mesh.
+4. The method of claim 1, wherein determining the plurality of polygon mesh segments within the representative three dimensional mesh comprises performing a second machine learning process to identify the plurality of polygon mesh segments within the representative three dimensional mesh.
+5. The method of claim 4, wherein the second machine learning process is a JointBoost process.
+6. The method of claim 5, wherein performing the second machine learning process comprises: receiving a training set comprising a plurality of training meshes; extracting features from the representative three dimensional mesh and each of the plurality of training meshes; and wherein determining the plurality of polygon mesh segments within the representative three dimensional mesh comprises probabilistically estimating the plurality of polygon mesh segments within the representative three dimensional mesh using the machine learning process based on the extracted features from the representative three dimensional mesh and the extracted features from each of the plurality of training meshes.
+7. The method of claim 6, wherein the plurality of polygon mesh segments are probabilistically estimated based on providing reasonable boundaries between regions of the three dimensional character and providing overall smoothness.
+8. The method of claim 7, wherein determining the plurality of polygon mesh segments from the estimated plurality of segments further comprises applying a Conditional Random Fields (CRF) process to the estimated plurality of polygon mesh segments using the training set.
+9. The method of claim 6, wherein the training set comprising the plurality of meshes further comprises a test set for the plurality of meshes.
+10. The method of claim 1, wherein the plurality of internal mesh key points within the representative three dimensional mesh are identified by applying the machine learning process to the plurality of polygon mesh segments within the representative three dimensional mesh.
+11. The method of claim 10, wherein the training meshes with identified key points comprise user defined key points.
+12. The method of claim 1, wherein generating the plurality of bones that form the bone set for the representative three dimensional mesh comprises: receiving a bone placement training set comprising a plurality of bone sets; and applying a second machine learning process to the representative three dimensional mesh, the plurality of polygon mesh segments within the representative three dimensional mesh, and the internal mesh key points within the representative three dimensional mesh based on the bone placement training set to determine the plurality of bones that forms the bone set for the representative three dimensional mesh.
+13. The method of claim 12, wherein the second machine learning process is based on a Support Vector Machine.
+14. The method of claim 12, wherein generating the plurality of bones that form the bone set for the representative three dimensional mesh further comprises: receiving user input comprising bone parameters; and wherein the second machine learning process uses the bone parameters to generate the bone set for the representative three dimensional mesh.
+15. The method of claim 1, wherein determining the skinning weights for the representative three dimensional mesh comprises using a diffusion process.
+16. The method of claim 15, wherein determining the skinning weights for the representative three dimensional mesh further comprises: determining parameters for the skinning weights; using the skinning weight parameters to generate a Poisson problem for each polygon mesh segment of the plurality of polygon mesh segments by modeling the polygon mesh segment as a heat emitting body and modeling the remaining polygon mesh segments of the plurality of polygon mesh segments that surround the polygon mesh segment as heat absorbing bodies; creating skinning templates by using the Poisson problem generated for each polygon mesh segment of the polygon mesh segments and by using a second machine learning process that is based on a training set of manually skinned models; and calculating the skinning weights from the skinning templates.
+17. The method of claim 1, wherein rigging the three dimensional mesh by mapping the bone set, the plurality of polygon mesh segments, and the skinning weights to the three dimensional mesh comprises using a point-to-polygon nearest neighbor search process.
+18. The method of claim 1, further comprising improving a topology of a rigged three dimensional mesh after the three dimensional mesh is rigged.
+19. The method of claim 1, further comprising providing the rigged three dimensional mesh to a user device.
+20. The method of claim 1, further comprising storing the rigged three dimensional mesh in memory.
+21. A system for automated rigging three dimensional characters, the system comprising: at least one processor; and at least one non-transitory computer readable storage medium storing instructions that, when executed by the at least one processor, cause the system to: receive a three dimensional character comprising a three dimensional mesh; generate a representative three dimensional mesh based on the three dimensional character; determine a plurality of polygon mesh segments within the representative three dimensional mesh; identify a plurality of internal mesh key points within the representative three dimensional mesh by identifying each key points located at a border between adjoining polygon mesh segments of the plurality of polygon mesh segments using a machine learning processes trained using meshes with identified key points; generate a plurality of bones based on the plurality of polygon mesh segments and the plurality of internal mesh key points, each bone of the plurality of bones connecting together two or more polygon mesh segments of the plurality of polygon mesh segments within the representative three dimensional mesh, the plurality of bones forming a bone set for the representative three dimensional mesh; associate the plurality of bones from the bone set within the representative three dimensional mesh; determine skinning weights for the representative three dimensional mesh based on a location of the plurality of bones from the bone set associated with the representative three dimensional mesh, the plurality of polygon mesh segments, and the plurality of internal mesh key points; and rig the three dimensional character by mapping the bone set, the plurality of polygon mesh segments, and the skinning weights of the representative three dimensional mesh to the received three dimensional mesh of the three dimensional character.
+22. A non-transitory computer readable medium storing instructions that, when executed by at least one processor, cause a computer system for performing automated rigging of three dimensional characters to: receive a three dimensional character comprising a three dimensional mesh; generate a representative three dimensional mesh based on the three dimensional character; determine a plurality of polygon mesh segments within the representative three dimensional mesh; identify a plurality of internal mesh key points within the representative three dimensional mesh by identifying mesh key points located at a border between adjoining polygon mesh segments of the plurality of polygon mesh segments a machine learning processes trained using meshes with identified key points; generate a plurality of bones based on the plurality of polygon mesh segments and the plurality of internal mesh key points, each bone of the plurality of bones connecting together two or more polygon mesh segments of the plurality of polygon mesh segments within the representative three dimensional mesh, the plurality of bones forming a bone set for the representative three dimensional mesh; associate the plurality of bones from the bone set within the representative three dimensional mesh; determine skinning weights for the representative three dimensional mesh based on a location of the plurality of bones from the bone set associated with the representative three dimensional mesh, the plurality of polygon mesh segments, and the plurality of internal mesh key points; and rig the three dimensional character by mapping the bone set, the plurality of polygon mesh segments, and the skinning weights of the representative three dimensional mesh to the received three dimensional mesh of the three dimensional character.
+</claims>
+</document>

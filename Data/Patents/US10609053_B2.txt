@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2016-03-30
+</filing_date>
+
+<publication_date>
+2020-03-31
+</publication_date>
+
+<priority_date>
+2015-11-24
+</priority_date>
+
+<ipc_classes>
+G06N20/00,G06N7/00,G06N99/00,H04L29/06
+</ipc_classes>
+
+<assignee>
+INTEL CORPORATION
+</assignee>
+
+<inventors>
+ROSS, ALAN, D.
+BABB, GRANT
+ALTON, MICHAEL R.
+</inventors>
+
+<docdb_family_id>
+58721401
+</docdb_family_id>
+
+<title>
+Suspicious network traffic identification method and apparatus
+</title>
+
+<abstract>
+Apparatuses, methods and storage medium associated with techniques to identify suspicious network connections. In embodiments, an apparatus may include an analysis function to be operated by the one or more processors to receive a collection of network data records, and apply a latent factor model to the network data records to identify a subset of the network data records as suspicious network connections. Other embodiments may be disclosed or claimed.
+</abstract>
+
+<claims>
+1. An apparatus for identifying suspicious network connections, comprising: one or more computer processors; and an analysis function to be operated by the one or more computer processors to receive a collection of network flow records that include information about communications on a network or communications over a network protocol, a first portion of the collection of network flow records not having information of suspicious network connections, and a second portion of the collection of network flow records having information of suspicious network connections, and apply a latent factor model to the network flow records to identify the second portion of the collection of network flow records as having information of suspicious network connections; wherein to identify the second portion of the network flow records as suspicious network connections, the analysis function is further to use the latent factor model to generate a probabilistic model for network traffic, by forming a sparse matrix of connections counts by type based at least in part on non-address features of the connection and/or non-address features of devices.
+2. The apparatus of claim 1, wherein the analysis function is further to train the latent factor model.
+3. The apparatus of claim 2, wherein to train the latent factor model, the analysis function is to identify connection types, and bin the network flow records by connection types.
+4. The apparatus of claim 1, wherein to identify the second portion of the network flow records as suspicious network connections, the analysis function is further to use the latent factor model to further assign a likelihood score to each connection indicating a likelihood of a particular device sending or receiving a given connection from/to another device on the network.
+5. The apparatus of claim 4, wherein forming a sparse matrix of connections counts by type and device is based at least in part on a count of a number of times each type of connection is observed, for each IP address, in a given time period.
+6. The apparatus of claim 5, wherein the analysis function is to further factor the sparse matrix into a d×k device matrix, F, and a k×w connections matrix, W, where d is a number of devices being analyzed, w is a number of connection types and k is a number of latent factors being used.
+7. The apparatus of claim 6, wherein the analysis function is to further compute a plurality of probabilities, one for each device, being involved in a particular connection as: P(Devicei, connectiontypek)=Fi*Wk+bi+bk, where Fi is a 1×k vector of factor weights for device i, Wk is a k×1 vector of factor weights for connection type k and bi and bk are biases for device i and connection type k respectively.
+8. The apparatus of claim 1, wherein the analysis function is to further output the identified suspicious network connections in a graphical user interface (GUI) for analysis by an analyst.
+9. The apparatus of claim 8, wherein the analysis function is to further filter or sort the identified suspicious network connections, in response to instructions from the analyst via the GUI.
+10. The apparatus of claim 8, wherein the analysis function is to further train the latent factor model based on feedback from the analyst.
+11. A method for identifying suspicious network connections, comprising: receiving, by a computing device, a collection of network flow records that include information about communications on a network or communications over a network protocol, a first portion of the collection of network flow records not having information of suspicious network connections, and a second portion of the collection of network flow records having information of suspicious network connections; and applying, by the computing device, a latent factor model to data to identify the second portion of the network flow records as having information of suspicious network connections; wherein to identify the second portion of the network flow records as suspicious network connections comprises to use the latent factor model to generate a probabilistic model for network traffic, by forming a sparse matrix of connections counts by type based at least in part on non-address features of the connection and/or non-address features of devices.
+12. The method of claim 11, further comprising training the latent factor model, wherein training the latent factor model comprises identifying connection types, and binning the network flow records by connection types.
+13. The method of claim 11, wherein applying further comprises assigning a likelihood score to each connection indicating a likelihood of a particular device sending or receiving a given connection from/to another device on the network.
+14. The method of claim 13, wherein forming a sparse matrix of connections counts by type and device is based at least in part on a count of a number of times each type of connection is observed, for each IP address, in a given time period; factoring the sparse matrix into a d×k device matrix, F, and a k×w connections matrix, W, where d is a number of devices being analyzed, w is a number of connection types and k is a number of latent factors being used; and computing a plurality of probabilities, one for each device, being involved in a particular connection as: P(Devicei,connectiontypek)=Fi*Wk+bi+bk, where Fi is a 1×k vector of factor weights for device i, Wk is a k×1 vector of factor weights for connection type k and bi and bk are biases for device i and connection type k respectively.
+15. The method of claim 11, further comprising outputting, by the computing device, the identified suspicious network connections in a graphical user interface (GUI) for analysis by an analyst.
+16. The method of claim 15, further comprising filtering or sorting, by the computing device, the identified suspicious network connections, in response to instructions from the analyst via the GUI.
+17. The method of claim 15, further comprising training the latent factor model based on feedback from the analyst.
+18. One or more non-transitory computer-readable storage media (CRM) having instructions to cause a computing device, in response to execution of the instructions by the computing device, to implement an analysis function to: receive a collection of network flow records that include information about communications on a network or communications over a network protocol, a first portion of the collection of network flow records not having information of suspicious network connections, and a second portion of the collection of network flow records having information of suspicious network connections; and apply a latent factor model to data to identify a portion of the network flow records as having information of suspicious network connections; wherein to identify the second portion of the network flow records as suspicious network connections comprises to use the latent factor model to generate a probabilistic model for network traffic, by forming a sparse matrix of connections counts by type based at least in part on non-address features of the connection and/or non-address features of devices.
+19. The one or more non-transitory CRM of claim 18, wherein the analysis function is further to train the latent factor model; wherein to train the latent factor model, the analysis function is to identify connection types, and bin the network flow records by connection types.
+20. The one or more non-transitory CRM of claim 19, wherein to identify the second portion of the network flow records as suspicious network connections, the analysis function is further to assign a likelihood score to each connection indicating a likelihood of a particular device sending or receiving a given connection from/to another device on the network.
+21. The one or more non-transitory CRM of claim 20, wherein to form a sparse matrix of connections counts by type and device is based at least in part on a count of a number of times each type of connection is observed, for each IP address, in a given time period; factor the sparse matrix into a d×k device matrix, F, and a k×w connections matrix, W, where d is a number of devices being analyzed, w is a number of connection types and k is a number of latent factors being used; and compute a plurality of probabilities, one for each device, being involved in a particular connection as: P(Devicei, connectiontypek)=Fi*Wk+bi+bk, where Fi is a 1×k vector of factor weights for device i, Wk is a k×1 vector of factor weights for connection type k and b and bk are biases for device i and connection type k respectively.
+22. The one or more non-transitory CRM of claim 18, wherein the analysis function is further to output the identified suspicious network connections in a graphical user interface (GUI) for analysis by an analyst.
+23. The one or more non-transitory CRM of claim 22, wherein the analysis function is to further filter or sort the identified suspicious network connections, in response to instructions from the analyst via the GUI.
+24. The one or more non-transitory CRM of claim 22, wherein the analysis function is to further train the latent factor model based on feedback from the analyst.
+</claims>
+</document>

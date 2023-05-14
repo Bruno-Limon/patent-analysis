@@ -1,0 +1,87 @@
+<document>
+
+<filing_date>
+2020-02-04
+</filing_date>
+
+<publication_date>
+2020-10-08
+</publication_date>
+
+<priority_date>
+2019-03-29
+</priority_date>
+
+<ipc_classes>
+G05B13/02,G05B13/04,G05B23/02,G06N3/04
+</ipc_classes>
+
+<assignee>
+MITSUBISHI ELECTRIC CORPORATION
+</assignee>
+
+<inventors>
+ZHANG WENYU
+NIKOVSKI, DANIEL
+JHA, DEVESH
+LAFTCHIEV, EMIL
+</inventors>
+
+<docdb_family_id>
+69941428
+</docdb_family_id>
+
+<title>
+PREDICTIVE CLASSIFICATION OF FUTURE OPERATIONS
+</title>
+
+<abstract>
+A system evaluates a plurality of faults in an operation of a machine at a set of future instances of time. The system uses a neural network including a first subnetwork sequentially connected with a sequence of second subnetworks for each of the future instance of time such that an output of one subnetwork is an input to a subsequent subnetwork. The first subnetwork accepts the current time-series data and the current setpoints of operation of the machine. Each of the second subnetworks accepts the output of a preceding subnetwork, an internal state of the preceding subnetwork, and a future setpoint for a corresponding future instance of time. Each of the second subnetworks outputs an individual prediction of each fault of a plurality of faults at the corresponding future instance of time.
+</abstract>
+
+<claims>
+[CLAIMS]
+[Claim 1]
+A system for evaluating a plurality of faults in an operation of a machine at a set of future instances of time forming a prediction horizon, comprising:
+an input interface configured to accept, during the operation of the machine, input data including
+current time-series data collected from multiple sensors measuring the operation of the machine over a period of time including multiple time instances up to a current instance of time;
+a set of current set points for the operation of the machine within the period of time; and
+a set of future set points of the operation of the machine for a set of future instances of time forming a prediction horizon;
+a memory configured to store a neural network including a first subnetwork sequentially connected with a sequence of second subnetworks such that an output of one subnetwork is an input to a subsequent subnetwork, wherein there is a second subnetwork for each of the future instance of time within the prediction horizon, wherein the first subnetwork accepts the current time-series data and the current setpoints, wherein each of the second subnetworks accepts the output of a preceding subnetwork, an internal state of the preceding subnetwork, and a future setpoint for a corresponding future instance of time, and wherein each of the second subnetworks outputs an individual prediction of each fault of a plurality of faults at the corresponding future instance of time;
+a processor configured to submit the input data received from the input interface to the neural network to estimate individual predictions of each fault of the plurality of faults at each of the future instances of time; and an output interface to output the individual predictions of each of the faults.
+[Claim 2]
+The system of claim 1 , wherein the memory is configured to store a binary classifier trained to classify the predictions of each fault to produce a binary vector of a multi-label fault, wherein the output interface outputs the binary vector.
+[Claim 3]
+The system of claim 2, wherein a number and types of the sensors form dimensions of an operation space, wherein the first subnetwork is trained to transform the time series data in the operation space into embedded data in an embedded space with dimensions less than the dimensions of the operation space, and wherein each of the second subnetworks is trained to estimate evolution of the embedded data in the embedded space for the corresponding future instance of time.
+[Claim 4]
+The system of claim 3,
+wherein the first subnetwork is trained to transform the time series data into the embedded space to reduce a classification error of the prediction of each fault at the current instance of time performed by the classifier on the corresponding embedded data; and
+wherein the second subnetwork is trained to predict embedded data for a next instance of time from embedded data for a previous point of time without observations on time series data collected up to the next point of time to reduce an error between predicted embedded data for the next point of time and embedded data for the next point of time transformed by the first subnetwork from the time series data collected up to the next point of time. [Claim 5] The system of claim 4, wherein the first subnetwork and the sequence of the second subnetworks are jointly trained to optimize a loss function. [Claim 6]
+The system of claim 5, wherein the classifier is a third neural network jointly trained with the first subnetwork and the sequence of the second subnetworks.
+[Claim 7]
+The system of claim 5, wherein the loss function estimates a prediction error for each type of fault independently of the other fault types. [Claim 8]
+The system of claim 5, wherein a probability of label occurrence in a training dataset is used as a weight in a cross-entropy loss component of the loss function.
+[Claim 9]
+The system of claim 5, wherein the loss function includes a
+combination of a fault occurrence indication at each time instance and a total fault occurrence indication over the prediction horizon.
+[Claim 10]
+The system of claim 5, wherein the loss function includes only per fault embedding loss penalty.
+[Claim 11]
+The system of claim 1, wherein the output of the first subnetwork is an embedding of the current time-series data and the current set points.
+[Claim 12]
+The system of claim 1 , wherein the output of the second subnetwork includes a prediction of the label output at the corresponding future instance of time and a prediction of the labeled output over the prediction horizon. [Claim 13] The system of claim 1, wherein the processor is configured to control the machine based on the individual predictions of each of the faults.
+[Claim 14]
+A method for evaluating a plurality of faults in an operation of a machine at a set of future instances of time forming a prediction horizon, wherein the method is coupled with stored instructions implementing the method, wherein the instructions, when executed by the processor carry out steps of the method, comprising:
+accepting, during the operation of the machine, input data including current time-series data collected from multiple sensors measuring the operation of the machine over a period of time including multiple time instances up to a current instance of time; a set of current set points for the operation of the machine within the period of time; and a set of future set points of the operation of the machine for a set of future instances of time forming a prediction horizon;
+submitting the input data received from the input interface to a neural network to estimate individual predictions of each fault of the plurality of faults at each of the future instances of time, the neural network including a first subnetwork sequentially connected with a sequence of second
+subnetworks such that an output of one subnetwork is an input to a
+subsequent subnetwork, wherein there is a second subnetwork for each of the future instance of time within the prediction horizon, wherein the first subnetwork accepts the current time-series data and the current setpoints, wherein each of the second subnetworks accepts the output of a preceding subnetwork, an internal state of the preceding subnetwork, and a future setpoint for a corresponding future instance of time, and wherein each of the second subnetworks outputs an individual prediction of each fault of a plurality of faults at the corresponding future instance of time; and outputting the individual predictions of each of the faults.
+[Claim 15]
+A non-transitory computer readable storage medium embodied thereon a program executable by a processor for performing a method, the method comprising:
+accepting, during the operation of the machine, input data including current time-series data collected from multiple sensors measuring the operation of the machine over a period of time including multiple time instances up to a current instance of time; a set of current set points for the operation of the machine within the period of time; and a set of future set points of the operation of the machine for a set of future instances of time forming a prediction horizon;
+submitting the input data received from the input interface to a neural network to estimate individual predictions of each fault of the plurality of faults at each of the future instances of time, the neural network including a first subnetwork sequentially connected with a sequence of second
+subnetworks such that an output of one subnetwork is an input to a
+subsequent subnetwork, wherein there is a second subnetwork for each of the future instances of time within the prediction horizon, wherein the first subnetwork accepts the current time-series data and the current setpoints, wherein each of the second subnetworks accepts the output of a preceding subnetwork, an internal state of the preceding subnetwork, and a future setpoint for a corresponding future instance of time, and wherein each of the second subnetworks outputs an individual prediction of each fault of a plurality of faults at the corresponding future instance of time; and
+outputting the individual predictions of each of the faults.
+</claims>
+</document>

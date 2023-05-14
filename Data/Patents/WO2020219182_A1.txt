@@ -1,0 +1,75 @@
+<document>
+
+<filing_date>
+2020-03-17
+</filing_date>
+
+<publication_date>
+2020-10-29
+</publication_date>
+
+<priority_date>
+2018-04-29
+</priority_date>
+
+<ipc_classes>
+G06F8/33,G06N20/00,G06N7/00
+</ipc_classes>
+
+<assignee>
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+FU, SHENGYU
+SUNDARESAN, NEELAKANTAN
+ZHAO YING
+</inventors>
+
+<docdb_family_id>
+68290738
+</docdb_family_id>
+
+<title>
+CODE COMPLETION FOR LANGUAGES WITH HIERARCHICAL STRUCTURES
+</title>
+
+<abstract>
+A code completion system predicts candidates to complete a code fragment with a tag name and/or an attribute name in source code written in a hierarchically-structured language. Candidates for predicting a tag name are based on a first-order tag Markov chain model generated from usage patterns of relationships of tag names found in a training dataset. Candidates for predicting an attribute name are based on a second-order attribute Markov chain model generated from usage patterns of sequences of attribute names associated with each tag name found in the training dataset.
+</abstract>
+
+<claims>
+1. A system comprising:
+one or more processors;
+at least one memory device communicatively coupled to the one or more processors; and
+one or more programs, wherein the one or more programs are stored in the memory device and configured to be executed by the one or more processors, the one or more programs including instructions that:
+provide a tag sequence model having a plurality of n-order sequences, an n-order sequence representing a hierarchical relationship between a first tag element and a second tag element, the n-order sequence having a transition probability associated with transitioning from the first tag element to the second tag element;
+provide an attribute sequence model having a plurality of m-order sequences, a morder sequence representing a relationship between a tag element and a sequence of attributes embedded within the tag element, the m-order sequence having a transition probability associated with transitioning from a first attribute in a m-order sequence to a second attribute in the m-order sequence; and
+during an editing session of a document written in the hierarchically-structured language:
+upon detection of a marker character input by a user associated with an attribute element:
+obtain a tag element at a current context of the marker character and a sequence of one or more attribute elements within the tag element at the current context of the marker character; and
+provide one or more candidates to complete an attribute element at the marker character from the attribute sequence model using the tag element at the current context and the sequence of one or more attribute elements within the tag element that precede the marker character.
+2. The system of claim 1, wherein the one or more programs include further instructions that:
+receive a selection from the user of a select one of the one or more candidates; and input the selected candidate into the document.
+3. The system of claim 1, wherein the tag sequence model is a n-order Markov model and the attribute model is a m-order Markov model.
+4. The system of claim 1, wherein the transition probability associated with transitioning from the first tag element to the second tag element is based on a frequency of the second tag element being is a lower hierarchical order than the first tag element in a training dataset and a number of tag elements that descend from the first tag element in the training dataset.
+5. The system of claim 1, wherein the transition probability associated with transitioning from a first attribute element to a second attribute element is based on a frequency of the first attribute element and the second attribute element present within a same tag element in a training dataset.
+6. The system of claim 1, wherein the one or more programs include further instructions that:
+upon detection of a marker character input by a user associated with a tag element, obtain a tag element at a current context of the marker character; and
+provide one or more candidates to complete the tag element at the marker character from the tag sequence model using the tag element at the current context.
+7. A method, comprising:
+extracting tag elements and hierarchical relationships between the tag elements within each of a plurality of source code documents written in a hierarchically-structured language, wherein the hierarchical relationships represent a hierarchical order between the tag elements that includes a parent relationship, a sibling relationship, and/or a child relationship;
+extracting sequences of attribute elements within each of the plurality of tag elements;
+generating a n-order tag model from the extracted tag elements and the hierarchical relationships, the n-order tag model includes a plurality of tag sequences, a tag sequence having n+1 tag states, wherein each tag state represents a tag name, each tag state has a transition probability between successive tag states based on a frequency a tag name in a particular hierarchical order;
+generating a m-order attribute model from the extracted attribute elements for each of the extracted tag elements, the m-order attribute model includes a plurality of attribute sequences, an attribute sequence having m+1 attribute states, wherein each attribute state represents an attribute name, each attribute state has a transition probability between successive attribute states based on a frequency of an attribute name appearing in a particular tag element; and employing the tag model and the attribute model into a code completion system to generate a candidate for a tag name and/or a candidate for an attribute name for a document written in the hierarchically-structured document, wherein the tag model is searched based on a current context of the document when a request to generate a tag name is made, wherein the attribute model is searched based on a current tag and one or more attribute names within the current tag that precede a request to generate an attribute name.
+8. The method of claim 7, wherein a tag sequence includes a parent tag name followed by a child tag name or a null parent tag name followed by a tag name.
+9. The method of claim 7, wherein each of the attribute sequences represents one or more attributes associated with a tag element in an unordered sequence.
+10. The method of claim 8, further comprising:
+combining the tag model and the attribute model into a single file having a tag portion and an attribute portion for each tag element.
+11. The method of claim 8, further comprising:
+parsing each of the plurality of source code documents in a first pass to extract the tag elements and relationships between the tag elements in each of the plurality of source code documents; and
+parsing each of the plurality of source code documents in a second pass to extract attribute elements corresponding to each of the tag elements.
+12. The method of claim 8, wherein the tag model is a n-order Markov model.
+13. The method of claim 8, wherein the attribute model is a m-order Markov model.
+</claims>
+</document>

@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2020-05-04
+</filing_date>
+
+<publication_date>
+2020-08-20
+</publication_date>
+
+<priority_date>
+2015-11-12
+</priority_date>
+
+<ipc_classes>
+G06N3/08
+</ipc_classes>
+
+<assignee>
+DEEPMIND TECHNOLOGIES
+</assignee>
+
+<inventors>
+QUAN, JOHN
+SCHAUL, TOM
+SILVER, DAVID
+</inventors>
+
+<docdb_family_id>
+57485888
+</docdb_family_id>
+
+<title>
+TRAINING NEURAL NETWORKS USING A PRIORITIZED EXPERIENCE MEMORY
+</title>
+
+<abstract>
+Methods, systems, and apparatus, including computer programs encoded on a computer storage medium, for training a neural network used to select actions performed by a reinforcement learning agent interacting with an environment. In one aspect, a method includes maintaining a replay memory, where the replay memory stores pieces of experience data generated as a result of the reinforcement learning agent interacting with the environment. Each piece of experience data is associated with a respective expected learning progress measure that is a measure of an expected amount of progress made in the training of the neural network if the neural network is trained on the piece of experience data. The method further includes selecting a piece of experience data from the replay memory by prioritizing for selection pieces of experience data having relatively higher expected learning progress measures and training the neural network on the selected piece of experience data.
+</abstract>
+
+<claims>
+1. 1-20. (canceled)
+21. A method for training a neural network used to select actions performed by a reinforcement learning agent interacting with an environment by performing actions that cause the environment to transition states, the method comprising: maintaining a replay memory, the replay memory storing a plurality of pieces of experience data that each represents information about an interaction of the agent with the environment, each piece of experience data having a respective expected learning progress measure, wherein for each of one or more pieces of experience data, the respective expected learning process measure is derived from a result of a preceding time that the piece of experience data was used in training the neural network and is computed based on an error measured at least with respect to a target expected return resulting from the interaction; selecting a piece of experience data from the replay memory by prioritizing for selection pieces of experience data having relatively higher expected learning progress measures; and training, using a reinforcement learning technique, the neural network on the selected piece of experience data.
+22. The method of claim 21, wherein: the target expected return resulting from the interaction comprises a target expected total reward that could have been received by the agent following the interaction characterized by the selected piece of experience data; and training the neural network on the selected piece of experience data comprises determining, with respect to the target expected total reward, an updated error for the selected piece of experience data.
+23. The method of claim 22, further comprising: determining an updated expected learning progress measure for the selected piece of experience data based on an absolute value of the updated error; and associating, in the replay memory, the selected piece of experience data with the updated expected learning progress measure.
+24. The method of claim 21, wherein selecting the piece of experience data from the replay memory by prioritizing for selection pieces of experience data having relatively higher expected learning progress measures comprises: determining, based on the respective expected learning progress measures for the pieces of experience data, a respective probability for each of the pieces of experience data in the replay memory; and sampling a piece of experience data from the replay memory in accordance with the determined probabilities.
+25. The method of claim 24, wherein determining, based on the respective expected learning progress measures for the pieces of experience data, a respective probability for each of the pieces of experience data in the replay memory comprises: determining a respective probability for each piece of experience data such that pieces of experience data having higher expected learning progress measures have higher probabilities than pieces of experience data having relatively lower expected learning progress measures.
+26. The method of claim 25, wherein the probability P(i) for a piece of experience data i satisfies: where α is a predetermined constant, k ranges across the pieces of experience data in the replay memory, and pi is a priority for the piece of experience data i derived from the expected learning progress measure for the piece of experience data i.
+27. The method of claim 26, wherein the priority is the expected learning measure plus a constant value.
+28. The method of claim 26 wherein the priority is a fraction having a predetermined positive value as a numerator and a rank of the piece of experience data i in a ranking of the pieces of experience data in the replay memory according to their expected learning progress measures as a denominator.
+29. The method of claim 26, wherein the priority is set to a maximum value for a piece of experience data that has not yet been used in training.
+30. The method of claim 21, wherein each piece of experience data is an experience tuple that comprises a respective current observation characterizing a respective current state of the environment, a respective current action performed by the agent in response to the current observation, a respective next state characterizing a respective next state of the environment, and a reward received in response to the agent performing the current action.
+31. The method of claim 22, wherein training the neural network on the selected piece of experience data further comprises: using the updated error in adjusting values of the parameters of the neural network.
+32. The method of claim 31, wherein using the updated error in adjusting the values of the parameters comprises: determining a weight for the updated error using the expected learning progress measure for the selected experience tuple; adjusting the updated error using the weight; and using the adjusted error as a target error for adjusting the values of the parameters of the neural network.
+33. The method of claim 32, further comprising annealing an exponent used in computing the weight during the training of the neural network.
+34. The method of claim 30, wherein the expected learning progress measure for each experience tuple in the replay memory is a derivative of an absolute value of a temporal difference learning error determined for the experience tuple the preceding time the experience tuple was used in training the neural network.
+35. The method of claim 30, wherein the expected learning progress measure for each experience tuple in the replay memory is a norm of an induced weight-change by using the experience tuple to train the neural network.
+36. A system comprising one or more computers and one or more storage devices storing instructions that are operable, when executed by the one or more computers, to cause the one or more computers to perform operations for training a neural network used to select actions performed by a reinforcement learning agent interacting with an environment by performing actions that cause the environment to transition states, the operations comprising: maintaining a replay memory, the replay memory storing a plurality of pieces of experience data that each represents information about an interaction of the agent with the environment, each piece of experience data having a respective expected learning progress measure, wherein for each of one or more pieces of experience data, the respective expected learning process measure is derived from a result of a preceding time that the piece of experience data was used in training the neural network and is computed based on an error measured at least with respect to a target expected return resulting from the interaction; selecting a piece of experience data from the replay memory by prioritizing for selection pieces of experience data having relatively higher expected learning progress measures; and training, using a reinforcement learning technique, the neural network on the selected piece of experience data.
+37. The system of claim 36, wherein training the neural network on the selected piece of experience data comprises: determining, with respect to a target expected total reward that could have been received by the agent following the interaction characterized by the selected piece of experience data, an updated error for the selected piece of experience data.
+38. The system of claim 37, wherein the operations further comprise: determining an updated expected learning progress measure for the selected piece of experience data based on an absolute value of the updated error; and associating, in the replay memory, the selected piece of experience data with the updated expected learning progress measure.
+39. The system of claim 36, wherein selecting the piece of experience data from the replay memory by prioritizing for selection pieces of experience data having relatively higher expected learning progress measures comprises: determining, based on the respective expected learning progress measures for the pieces of experience data, a respective probability for each of the pieces of experience data in the replay memory; and sampling a piece of experience data from the replay memory in accordance with the determined probabilities.
+40. The system of claim 39, wherein determining, based on the respective expected learning progress measures for the pieces of experience data, a respective probability for each of the pieces of experience data in the replay memory comprises: determining a respective probability for each piece of experience data such that pieces of experience data having higher expected learning progress measures have higher probabilities than pieces of experience data having relatively lower expected learning progress measures.
+41. A non-transitory computer storage medium encoded with instructions that, when executed by one or more computers, cause the one or more computers to perform operations for training a neural network used to select actions performed by a reinforcement learning agent interacting with an environment by performing actions that cause the environment to transition states, the operations comprising: maintaining a replay memory, the replay memory storing a plurality of pieces of experience data that each represents information about an interaction of the agent with the environment, each piece of experience data having a respective expected learning progress measure, wherein for each of one or more pieces of experience data, the respective expected learning process measure is derived from a result of a preceding time that the piece of experience data was used in training the neural network and is computed based on an error measured at least with respect to a target expected return resulting from the interaction; selecting a piece of experience data from the replay memory by prioritizing for selection pieces of experience data having relatively higher expected learning progress measures; and training, using a reinforcement learning technique, the neural network on the selected piece of experience data.
+</claims>
+</document>

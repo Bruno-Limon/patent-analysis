@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2019-07-26
+</filing_date>
+
+<publication_date>
+2021-01-28
+</publication_date>
+
+<priority_date>
+2019-07-26
+</priority_date>
+
+<ipc_classes>
+G06F3/06,G06F9/4401,G06F9/48
+</ipc_classes>
+
+<assignee>
+INTEL CORPORATION
+</assignee>
+
+<inventors>
+KONDAPALLI, RAGHU
+BACHMUTSKY, ALEXANDER
+SUKHOMLINOV, VADIM
+DOSHI, KSHITIJ A.
+</inventors>
+
+<docdb_family_id>
+69953792
+</docdb_family_id>
+
+<title>
+WAKE-UP AND SCHEDULING OF FUNCTIONS WITH CONTEXT HINTS
+</title>
+
+<abstract>
+Examples are described that relate to waking up or invoking a function such as a processor-executed application or a hardware device. The application or a hardware device can specify which sources can cause wake-ups and which sources are not to cause wake-ups. A device or processor-executed software can monitor reads from or writes to a region of memory and cause the application or a hardware device to wake-up unless the wake-up is specified as inhibited. The updated region of memory can be precisely specified to allow a pinpoint retrieval of updated content instead of scanning a memory range for changes. In some cases, a write to a region of memory can include various parameters that are to be used by the woken-up application or a hardware device. Parameters can include a source of a wake-up, a timer to cap execution time, or any other information.
+</abstract>
+
+<claims>
+1. An apparatus comprising: a memory device comprising at least one memory region and a function scheduler to monitor for an access to at least one memory region, wherein in response to an access to the least one memory region, the function scheduler is to write an identification of the accessed memory region into one or more registers and a target function associated with the at least one memory region is to read merely an accessed portion of the least one memory region based on the identification of the accessed portion in the one or more registers.
+2. The apparatus of claim 1, wherein the function scheduler is to identify a source that requested a function wake-up and job-related information from a memory region to the one or more registers and comprising a processor, wherein the processor is to execute a monitoring application, the function scheduler is to awaken the monitoring application, and the target function is to access the identification of the source and the job-related information from the one or more registers.
+3. The apparatus of claim 1, wherein the function scheduler is to copy information about a source that requested a function wake-up and timer information from a memory region to the one or more registers and comprising a processor, wherein the processor is to execute a monitoring application, the function scheduler is to awaken the monitoring application, and the timer information is to control a time that the target function can execute.
+4. The apparatus of claim 3, wherein prior to completion of a timer associated with the timer information, the target function is to complete execution at a point where it does not need to save its context for a next time it is scheduled to run.
+5. The apparatus of claim 1, comprising a processor, wherein the processor is to execute a monitoring application to wake up the target function associated with the accessed memory region.
+6. The apparatus of claim 1, wherein the function scheduler comprises a MONITOR/MWAIT device or memory monitoring device.
+7. The apparatus of claim 1, comprising a processor, wherein the processor is to execute a monitoring application to apply a filter to determine whether to wake-up the target function associated with the accessed memory region and wherein if the filter indicates that the target function is not to be awaken based on a source, the monitoring application does not awaken the target function in response to the accessed memory region.
+8. The apparatus of claim 1, comprising at least one source that is to request a function wake-up to be executed by a monitored memory access, posting interrupt, or another event and comprising a processor, wherein a source include one or more devices, a tenant, a processor-executed software.
+9. The apparatus of claim 1, comprising a processor, wherein the processor is to execute a monitoring application to apply a filter to determine whether to wake-up the target function associated with the accessed memory region and wherein if the filter indicates that the target function is not to be awaken based on a commit type, the monitoring application does not awaken the target function in response to the accessed memory region.
+10. The apparatus of claim 9, wherein the commit type comprises one or more of: a write to certain monitored least one memory region, write that does not change a monitored at least one memory region, access based on input output coherence, reads, or data is written to memory but a cache line is not flushed.
+11. The apparatus of claim 1, wherein the function scheduler is to monitor two or more memory regions and indicate two or more sources of accesses to monitored two or more memory regions.
+12. The apparatus of claim 1, wherein the function scheduler is to prioritize waking-up a target function based at least on a priority level of a source of a wake-up request.
+13. The apparatus of claim 1, comprising a network interface, data center, server, or rack.
+14. A computer-implemented method comprising: monitoring access to at least one memory region; detecting an access to a region of at least one memory region; causing a target function associated with the accessed memory region to perform within a single read operation: reading the accessed memory region in the at least one memory region and no other region in the at least one memory region and accessing parameters associated with a job.
+15. The method of claim 14, wherein the access comprises one or more of read or write operation.
+16. The method of claim 14, comprising: monitoring the at least one memory region using a monitoring device; the monitoring device writing an identifier of the accessed memory region and any parameters associated with a job into one or more registers accessible to the target function; and the target function accessing the one or more registers to read the identifier and any parameters.
+17. The method of claim 14, comprising: configuring a monitoring device to apply a filter accesses of the at least one memory region and the monitoring device detecting an access to at least one memory region, wherein the monitoring device is to allow or disallow wake-up of a function associated with an accessed at least one memory region based on the filter.
+18. The method of claim 17, wherein the filter identifies a source of memory access or one or more of: write to certain monitored least one memory region, write that does not change a monitored at least one memory region, access based on input output coherence, reads, or data is written to memory but a cache line is not flushed.
+19. A system comprising: at least one processor; at least one source that is to request a function wake-up to be executed by at least a monitored memory access, posting an interrupt, or another event; a memory device comprising at least one memory region; and a memory monitoring device to monitor access to the at least one memory region, wherein: the memory monitoring device is to identify any access to the at least one memory region and copy an identifier of a specific accessed memory region to the one or more registers, the memory monitoring device is to cause a wake-up of a target function associated with the specific accessed memory region, and the awoken target function is to access merely the specific accessed memory region and the one or more registers to identify a source of the wake-up and parameters associated with a job.
+20. The system of claim 19, wherein the access comprises one or more of read or write operation.
+21. The system of claim 19, wherein the memory monitoring device is configured to apply a filter of accesses of the at least one memory region and the memory monitoring device is to allow or disallow wake-up of a function associated with an accessed at least one memory region based on the filter.
+22. The system of claim 19, wherein the parameters comprise one or more of: information about a source that requested the wake-up and timer information and comprising a function scheduler, wherein a processor is to execute a monitoring application and the function scheduler is to awaken the monitoring application and direct the monitoring application to read the accessed memory region and identification of the source that requested the wake-up and timer information and provide the timer information to the awoken target function to control a time that the awoken target function can execute.
+</claims>
+</document>

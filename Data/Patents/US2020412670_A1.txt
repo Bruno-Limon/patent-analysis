@@ -1,0 +1,71 @@
+<document>
+
+<filing_date>
+2019-08-21
+</filing_date>
+
+<publication_date>
+2020-12-31
+</publication_date>
+
+<priority_date>
+2019-06-28
+</priority_date>
+
+<ipc_classes>
+H04L12/841,H04L12/861,H04L12/863,H04L12/875,H04L12/935
+</ipc_classes>
+
+<assignee>
+INTEL CORPORATION
+</assignee>
+
+<inventors>
+ARDITTI ILITZKY, DAVID
+GRETH, JOHN
+JUNG, BONG, JIN
+SOUTHWORTH, ROBERT
+SRINIVASAN, ARVIND
+MAEDA NUNEZ, Luis Alfonso
+KUNZ, James
+YOUNG, Travis J.
+</inventors>
+
+<docdb_family_id>
+69960463
+</docdb_family_id>
+
+<title>
+OUTPUT QUEUEING WITH SCALABILITY FOR SEGMENTED TRAFFIC IN A HIGH-RADIX SWITCH
+</title>
+
+<abstract>
+Examples describe an egress subsystem that can be used to schedule fetching and transmission of packets from a switch fabric. Segments of a packet can be requested from a switch fabric and stored in a re-order buffer to re-order any segments that are received out of order from the switch fabric. A header segment re-order buffer can be used to re-order segments of a header. After a header of a packet is available in the header segment re-order buffer, the header can be processed before the entire associated body is received from the switch fabric. A jitter threshold scheme can gate egress of a body from a re-order buffer unless a time threshold or amount threshold is met. The egress subsystem can track a state of packet segments from request to transmission, A flow control message received at the egress subsystem can cause packets in certain states to be paused and not permitted to egress.
+</abstract>
+
+<claims>
+1. An egress port management apparatus comprising: a packet re-order buffer (ROB) and an egress scheduler to decide egress ordering for packets in the packet ROB, wherein based on reception of a flow control message, the egress scheduler is to pause egress of packets in a flow associated with the flow control message from an egress port by halting packet egress scheduling for packets corresponding to a flow associated with flow control from a time of reception of a flow control message until a time when flow control stops.
+2. The apparatus of claim 1, comprising: a transmit controller to control transmission of a packet from the ROB based on packet segment state, the transmit control to react to the flow control message by: permit segments in the flow in a transmit state to be output from the ROB, permit in-flight packet segments in the flow before a flow control reaction deadline expires to be output from the ROB, and do not schedule egress of a packet segment corresponding to a flow associated with the flow control message.
+3. The apparatus of claim 2, comprising a packet replay control to track a state of a packet segment request, wherein a state comprises: packet is waiting to be scheduled for egress, packet has been scheduled for egress and its fetching has started but packet has not started transmission yet, or packet has started transmission.
+4. The apparatus of claim 3, wherein based on end of flow control, the packet replay control is to prioritize re-played requests for fetching from a switch fabric.
+5. The apparatus of claim 3, wherein: the egress scheduler is to notify the packet replay control which packet descriptors have been scheduled for egress to trigger a transition to in-flight state, the transmit controller is to notify the packet replay control which packet descriptors have had transmission initiated, in order to trigger transition to a transmit state, and the transmit controller is to notify the packet replay control that egress of a packet is complete to cause deallocation of packet segment pointers.
+6. The apparatus of claim 1, wherein: the ROB is shared across multiple flows, the ROB comprises a header-ROB (H-ROB) and a body-ROB (B-ROB), a depth of the ROB and pause of the ROB at least, in part, allow the flow to be non-blocking of another flow, the ROB is to receive an out-of-order packet segment from a switch fabric and the ROB is to reorder the segments of a packet, and a depth of the ROB is bounded to be drainable within a pause control reaction deadline in accordance with an egress port transmit rate.
+7. The apparatus of claim 1, wherein the ROB comprises a header-ROB (H-ROB) and a body-ROB (B-ROB) and comprising a jitter threshold enforcement device to apply a time or segment threshold for output from the B-ROB and header processing logic to process a header from the H-ROB and wherein the header processing logic is to retrieve a header before a jitter threshold for a body associated with the header is met.
+8. The apparatus of claim 1, wherein the ROB is to drop packet segments corresponding to packets that were in an in-flight state at expiration of a flow control reaction deadline.
+9. The apparatus of claim 1, wherein a depth of the ROB is large enough to hold, at least, enough packet segments to cover a target maximum switch response latency when egressing segments at line rate and maximum allowed pause reaction time for all in-flight packets to be egressed before the pause reaction time expires.
+10. The apparatus of claim 1, comprising a jitter-threshold (JT) checker to specify a minimum number of head-of-packet segments that must be buffered to allow a packet to commence egress.
+11. The apparatus of claim 10, wherein the JT checker is to cause the ROB to operate in virtual cut through mode when a configured jitter threshold is smaller than a maximum transmission unit for a port.
+12. The apparatus of claim 10, wherein the JT checker is to cause the ROB to operate in store and forward mode when a configured jitter threshold is equal or larger than the maximum transmission unit for an output port.
+13. The apparatus of claim 1, comprising at least one egress port coupled to the egress scheduler.
+14. The apparatus of claim 1, comprising a switch fabric coupled to the egress scheduler.
+15. The apparatus of claim 1, comprising at least one of a server, rack, blade, or data center.
+16. A method comprising: for a packet requested to be fetched from a fabric for egress from a port, storing a packet descriptor that indicates progress of a packet egress, wherein the progress indicates one or more of waiting, in-flight, or transmit; setting a progress to waiting prior to commencement of a fetch for a packet portion; updating the progress based on a change in status from waiting to in-flight based on commencement of the fetch for the packet portion; and updating the progress based on a change in status from in-flight to transmit based on commencement of a transmit of a packet portion.
+17. The method of claim 16, comprising: based on receipt of a flow control request for a flow: changing a state of a packet segment of the flow that is in an in-flight state when a flow control reaction deadline expires into a waiting state; permitting a packet in the flow that is in an in-flight state before a flow control reaction deadline expires to be egressed from an output queue, and not permitting scheduling of transmission of a packet in the flow that is in a waiting state.
+18. The method of claim 16, comprising: processing a header from a header queue by pulling headers before a jitter threshold for an associated body is complied with.
+19. The method of claim 16, comprising: providing a jitter threshold for body segments of packet by waiting for a minimum number of head-of-packet segments to be buffered to allow egress of a packet to start.
+20. A system comprising: a switch fabric; an ingress port to the switch fabric; and an egress system from the switch fabric, the egress system comprising an egress port and the egress system comprising: an output data re-order buffer (ROB) that is shared across multiple flows and a transmit controller to control transmission of a packet from the ROB, the transmit controller to react to a flow control request for a flow by: permit segments in the flow in a transmit state to be output from the ROB, permit in-flight packet segments in the flow before a flow control reaction deadline expires to be output from the ROB, and do not schedule egress of a packet segment in the flow that is in a waiting state.
+21. The system of claim 20, wherein the switch fabric comprises a shared memory switch fabric.
+22. The system of claim 20, wherein: the ROB is shared across multiple flows, the ROB comprises a header-ROB (H-ROB) and a body-ROB (B-ROB), a depth of the ROB and pause of the ROB at least, in part, allow the flow to be non-blocking of another flow, the ROB is to receive an out-of-order packet segment from a switch fabric and the ROB is to reorder the segments of a packet, and a depth of the ROB is bounded to be drainable within a pause control reaction deadline in accordance with an egress port transmit rate.
+23. The system of claim 20, wherein the egress system is to: based on end of flow control, prioritize re-allocated requests for fetching from a switch fabric.
+</claims>
+</document>

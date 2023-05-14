@@ -1,0 +1,70 @@
+<document>
+
+<filing_date>
+2019-04-25
+</filing_date>
+
+<publication_date>
+2020-10-20
+</publication_date>
+
+<priority_date>
+2019-04-25
+</priority_date>
+
+<ipc_classes>
+A61B5/055,G01R33/48,G01R33/56,G01R33/565,G16H30/40
+</ipc_classes>
+
+<assignee>
+GE PRECISION HEALTHCARE
+</assignee>
+
+<inventors>
+HARDY CHRISTOPHER JUDSON
+BRADA, RAFAEL SHMUEL
+WEIN, RON
+AHN, SANGTAE
+Malkiel, Itzik
+Rotman, Michael
+Heukensfeldt Jansen, Isabelle
+</inventors>
+
+<docdb_family_id>
+72838530
+</docdb_family_id>
+
+<title>
+MRI SYSTEM AND METHOD FOR DETECTION AND CORRECTION OF PATIENT MOTION
+</title>
+
+<abstract>
+A system and method for detecting, timing, and adapting to patient motion during an MR scan includes using the inconsistencies between calculated images from different coil-array elements to detect the presence of patient motion and, together with the k-space scan-order information, determine the timing of the motion during the scan. Once the timing is known, various actions may be taken, including restarting the scan, reacquiring those portions of k-space acquired before the movement, or correcting for the motion using the existing data and reconstructing a motion-corrected image from the data.
+</abstract>
+
+<claims>
+1. A magnetic resonance imaging method comprising: generating intensity-corrected single-coil images from raw magnetic resonance (MR) data of an imaged subject, wherein the raw MR data comprise data collected by each coil of a plurality of coils in a receiving coil array of an MR system, and wherein the raw MR data are associated with a scan order used during acquisition thereof, the scan order having a plurality of time steps in which k-space is filled in a predetermined manner; identifying inconsistencies among the intensity-corrected single-coil images; calculating, for at least one time step of the scan order, a motion score using the scan order and the inconsistencies to identify timing associated with motion occurring during the acquisition; and performing a corrective action based at least on the timing associated with the motion to ameliorate the effects of the motion on an MR image produced using at least a portion of the raw MR data.
+2. The method of claim 1, wherein identifying inconsistencies among the intensity-corrected single-coil images comprises: applying a Fourier transform to the intensity-corrected single-coil images to transform image data of the intensity-corrected single-coil images into k-space data; and determining differences between the k-space data of pairs of intensity-corrected single-coil images.
+3. The method of claim 2, wherein determining differences between the k-space data of pairs of intensity-corrected single-coil images comprises taking an absolute difference between the Fourier transform of two intensity-corrected single-coil images.
+4. The method of claim 2, wherein determining differences between the k-space data of pairs of intensity-corrected single-coil images comprises generating a k-space difference map representing a difference between the k-space data for a pair of the intensity-corrected single-coil images.
+5. The method of claim 4, wherein identifying inconsistencies between the intensity-corrected single-coil images comprises identifying locations of relatively bright columns or rows in the k-space difference map.
+6. The method of claim 4, wherein identifying inconsistencies among the intensity-corrected single-coil images comprises projecting the k-space difference map along the readout direction onto an axis to produce a plot of integrated k-space difference as a function of phase-encoding index, and identifying peaks that are relatively larger than others, and wherein a size of a peak is proportional to a degree of inconsistency.
+7. The method of claim 6, wherein calculating, for the at least one time step of the scan order, the motion score comprises integrating over all previous time steps the peaks of the plot of integrated k-space difference.
+8. The method of claim 1 wherein k-space is undersampled to accelerate imaging, by use of parallel imaging, compressed sensing, or some other method.
+9. The method of claim 1, comprising, for the at least one time step of the scan order, zero-filling regions of k-space in the raw MR data that have not yet been sampled such that the raw MR data comprise regions of k-space that are zero-filled.
+10. The method of claim 9, comprising determining differences between k-space data of pairs of intensity-corrected single-coil images by generating a k-space difference map by taking an absolute difference between the Fourier transform of two intensity-corrected single-coil images using only the zero-filled k-space data collected up to a particular time step.
+11. The method of claim 10, wherein identifying inconsistencies between the intensity-corrected single-coil images comprises identifying peaks in the calculated k-space difference by calculating a 1D projection of the absolute value along rows or columns of k-space, and detecting peaks.
+12. The method of claim 11, wherein detecting peaks comprises calculating the negative of the second derivative of the signal at the time step.
+13. The method of claim 12, wherein calculating the motion score, for the at least one time step of the scan order, comprises: removing peaks that are due to borders between sampled and unsampled locations of k-space according to scan order information; and calculating the motion score by taking a sum of the remaining peaks.
+14. The method of claim 13, wherein the motion score is calculated using the amplitude of the removed peaks to normalize the remaining peaks.
+15. The method of claim 13, comprising applying a threshold to the calculated motion score to determine whether the calculated motion score is indicative of motion.
+16. The method of claim 1, wherein performing the corrective action comprises reacquiring portions of k-space acquired before movement.
+17. The method of claim 1, wherein performing the corrective action comprises correcting for the motion using the existing raw MR data using a deep-learning neural network or iterative optimization.
+18. A magnetic resonance imaging (MRI) method comprising: generating intensity-corrected single-coil images from raw magnetic resonance (MR) data of an imaged subject, wherein the raw MR data comprise data collected by each coil of a plurality of coils in a receiving coil array of an MRI system; identifying inconsistencies among the intensity-corrected single-coil images; identifying whether motion occurred during acquisition of the raw MR data based at least on the inconsistencies; and performing further operations of the MRI system in response to determining that motion occurred during the acquisition.
+19. The method of claim 18, wherein performing further operations of the MRI system in response to determining that motion occurred during the acquisition comprises restarting an MR scan to re-acquire raw MR data of the imaged subject.
+20. The method of claim 18, wherein identifying inconsistencies among the intensity-corrected single-coil images comprises: applying a Fourier transform to the intensity-corrected single-coil images to transform image data of the intensity-corrected single-coil images into k-space data; determining differences between the k-space data of pairs of intensity-corrected single-coil images; calculating motion scores for at least some time steps of a scan order associated with acquisition of the raw MR data based at least on the determined differences, the scan order defining phase encode as a function of time step; and identifying presence and timing of motion based on the calculated motion scores.
+21. The method of claim 20, wherein performing further operations of the MRI system in response to determining that motion occurred during the acquisition comprises reacquiring portions of k-space acquired before movement.
+22. A magnetic resonance imaging (MRI) method comprising: obtaining raw magnetic resonance (MR) data of a subject, wherein the raw MR data comprises data collected by each coil of a plurality of coils in a receiving coil array of an MRI system, and wherein the raw MR data is associated with a scan order used during acquisition thereof, the scan order having a plurality of time steps in which k-space is filled in a predetermined manner; using inconsistencies among calculated intensity-corrected single-coil images produced from the raw MR data to detect motion of the subject and, together with the scan order, determine the timing of the motion during the acquisition; and performing image reconstruction using the timing of the motion to generate a single motion-corrected image.
+23. The method of claim 22 comprising: dividing the data collected by each coil of the plurality of coils coil data into pre-motion and post-motion datasets based on the timing; reconstructing images for each coil from zero-filled pre-motion k-space dataset and zero-filled post-motion k-space dataset; and providing the two sets of images as inputs into a deep-learning neural network to reconstruct the single motion-corrected image.
+</claims>
+</document>

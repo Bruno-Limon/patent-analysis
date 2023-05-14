@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2019-11-28
+</filing_date>
+
+<publication_date>
+2020-03-26
+</publication_date>
+
+<priority_date>
+2017-05-23
+</priority_date>
+
+<ipc_classes>
+G06F12/0875,G06N3/04,G06N3/063,G06N3/08
+</ipc_classes>
+
+<assignee>
+SHANGHAI CAMBRICON INFORMATION TECHNOLOGY COMPANY
+</assignee>
+
+<inventors>
+CHEN, TIANSHI
+DU, ZIDONG
+WANG, ZAI
+ZHOU, XUDA
+</inventors>
+
+<docdb_family_id>
+64396230
+</docdb_family_id>
+
+<title>
+PROCESSING METHOD AND ACCELERATING DEVICE
+</title>
+
+<abstract>
+The present disclosure provides a processing device including: a coarse-grained pruning unit configured to perform coarse-grained pruning on a weight of a neural network to obtain a pruned weight, an operation unit configured to train the neural network according to the pruned weight. The coarse-grained pruning unit is specifically configured to select M weights from the weights of the neural network through a sliding window, and when the M weights meet a preset condition, all or part of the M weights may be set to 0. The processing device can reduce the memory access while reducing the amount of computation, thereby obtaining an acceleration ratio and reducing energy consumption.
+</abstract>
+
+<claims>
+1. A processing device, comprising: a coarse-grained selection unit configured to input position information of a neuron and a target weight, and select a neuron to be computed, where the target weight is a weight whose absolute value is greater than a given threshold; a lookup table unit configured to receive a quantized target weight dictionary and a quantized target weight codebook, perform a table lookup operation to obtain a target weight of a neural network and output the target weight of the neural network; and an operation unit configured to receive the selected neuron and target weight, perform an operation on the neural network, and output the neuron.
+2. The processing device of claim 1, wherein the lookup table unit is further configured to transmit an unquantized target weight directly to the operation unit by a bypass.
+3. The processing device of claim 1, further comprising: an instruction control unit configured to receive and decode the instruction to obtain control information to control the operation unit.
+4. The processing device of claim 1, further comprising: a storage unit configured to store a neuron, a weight, and an instruction of the neural network.
+5. The processing device of claim 4, wherein the storage unit is further configured to store the target weight and position information of the target weight, and store the quantized target weight codebook and the target weight dictionary.
+6. The processing device of claim 1, wherein the operation unit includes at least one of the following: a multiplier configured to multiply first input data and second input data to obtain a product; an adder tree configured to add third input data step by step, or add the third input data to fourth input data to obtain a sum; and an activation function unit configured to perform an activation function on fifth data to obtain output data, where the activation function includes sigmoid, tanh, relu, or softmax.
+7. The processing device of claim 6, wherein the operation unit further includes a pooling unit configured to perform a pooling operation on sixth input data to obtain output data, where the pooling operation includes average pooling, maximum pooling, and median pooling.
+8. The processing device of claim 1, further comprising: an instruction control unit configured to receive and decode the instruction in the storage unit to generate control information, control the coarse-grained selection unit to perform a selection operation, control the lookup table unit to perform a table lookup operation, and control the operation unit to perform a computation operation.
+9. The processing device of claim 1, further comprising: an instruction caching unit configured to cache the instruction, where the instruction caching unit is an on-chip caching unit, a target weight codebook caching unit configured to cache a target weight codebook, where the target weight codebook caching unit is an on-chip caching unit, a target weight dictionary caching unit configured to cache a target weight dictionary, where the target weight dictionary caching unit is an on-chip caching unit, and a target weight position caching unit configured to cache a position of a target weight, and map each connection weight in the input data to a corresponding input neuron, where the target weight position caching unit is an on-chip caching unit.
+10. The processing device of claim 9, wherein the target weight position caching unit mapping each connection weight in the input data to the corresponding input neuron includes: 1 indicating that the weight is connected to the input neuron, 0 indicating that the weight is not connected to the input neuron, and a connection status of the input and output of each group forming a string of 0 and 1 to indicate a connection relationship of the output.
+11. The processing device of claim 9, wherein the target weight position caching unit mapping each connection weight in the input data to the corresponding input neuron includes: combining a distance from the input neuron where a first connection is located in a first group to a first input neuron, a distance from the input neuron where a second connection is located to a previous connection in the input neuron, a distance from the input neuron where a third connection is located to the previous connection in the input neuron, . . . , and so on, until all the input neurons connected to the output neuron are exhausted, into a connection array of the output.
+12. The processing device of claim 1, further comprising: an input neuron caching unit configured to cache an input neuron input to the coarse-grained selection unit, where the input neuron caching unit is an on-chip caching unit, an output neuron caching unit configured to cache an output neuron, where the output neuron caching unit is an on-chip caching unit, a DMA (direct memory access) unit configured to read/write data or instruction in the storage unit, the instruction caching unit, the target weight codebook caching unit, the target weight dictionary caching unit, the target weight position caching unit, the input neuron caching unit, and the output neuron caching unit, and a pre-processing unit configured to pre-process original data, and input pre-processed data into the storage unit.
+13. A processing method, comprising: inputting position information of a neuron and a target weight, selecting a neuron that needs to be computed, where the target weight is a weight whose absolute value is greater than a given threshold; receiving a quantized target weight dictionary and a target weight codebook, performing a table lookup operation, and generating and outputting the target weight of the neural network; and receiving the selected neuron and target weight, performing an operation on the neural network, and generating and outputting the neuron.
+14. The processing method of claim 13, further comprising: receiving an unquantized target weight for a neural network operation.
+15. The processing method of claim 13, further comprising: receiving and decoding an instruction to generate control information for controlling the neural network operation.
+16. The processing method of claim 13, wherein the operation includes at least one of the following: a multiplication operation for multiplying first input data and second input data to obtain a product; an addition operation for adding third input data through a adder tree step by step, or adding the third input data to fourth input data to obtain a sum; an activation function for performing an activation function on fifth data to obtain output data, where the activation function includes sigmoid, tanh, relu or softmax.
+17. The processing method of claim 16, wherein the operation further includes a pooling operation performed on sixth input data to obtain an output data, where the pooling operation includes average pooling, maximum pooling, and median pooling.
+18. The processing method of claim 13, further comprising: pre-processing position information of the input neuron and target weight, where the pre-processing includes segmentation, Gaussian filter, binarization, regularization, and/or normalization.
+19. The processing method of claim 13, wherein, after receiving the selected neuron and the target weight, the processing method further includes: storing the input neuron, the weight dictionary, the weight codebook and the instruction, storing the output neuron, and caching the instruction, the input neuron, and the output neuron.
+20. An electronic device, comprising: a coarse-grained selection unit configured to input position information of a neuron and a target weight, and select a neuron to be computed, where the target weight is a weight whose absolute value is greater than a given threshold; a lookup table unit configured to receive a quantized target weight dictionary and a quantized target weight codebook, perform a table lookup operation to obtain a target weight of a neural network and output the target weight of the neural network; and an operation unit configured to receive the selected neuron and target weight, perform an operation on the neural network, and output the neuron.
+</claims>
+</document>

@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2017-12-12
+</filing_date>
+
+<publication_date>
+2020-08-04
+</publication_date>
+
+<priority_date>
+2017-12-12
+</priority_date>
+
+<ipc_classes>
+G06F17/27,G06F17/28,G06F21/56,G06F40/279,G06F40/30,G06F40/40,G06K9/62,G06K9/72
+</ipc_classes>
+
+<assignee>
+INSTITUTE FOR INFORMATION INDUSTRY
+</assignee>
+
+<inventors>
+LAI, CHIA-MIN
+LU, CHIA-YU
+</inventors>
+
+<docdb_family_id>
+66696168
+</docdb_family_id>
+
+<title>
+Behavior inference model building apparatus and behavior inference model building method thereof
+</title>
+
+<abstract>
+A behavior inference model building apparatus and a behavior inference model building method thereof are provided. The behavior inference model building apparatus converts a plurality of program operation sequences of a plurality of program operation sequence data into a plurality of word vectors through a word embedding model, and inputs the first M word vectors of the word vectors, corresponding to each program operation sequence data, into a generative adversarial network (GAN) model to train and optimize the GAN model. The behavior inference model building apparatus integrates the word embedding model and the generator of the optimized GAN model to build a behavior inference model.
+</abstract>
+
+<claims>
+1. A behavior inference model building apparatus, comprising: a storage, being configured to store a plurality of program operations sequence data, each of the program operation sequence data recording a plurality of program operation sequences; and a processor electrically connected to the storage, being configured to execute the following steps of: (a) converting the program operation sequences of each of the program operation sequence data into a plurality of word vectors through a word embedding model; (b) retrieving, for each of the program operation sequence data, first M word vectors of the word vectors as M input vectors of a Generative Adversarial Network (GAN) model f, M being a positive integer; (c) generating, for each of the program operation sequence data, a plurality of inference word vectors by computing the M input vectors through a generator of the GAN model; (d) performing, for each of the program operation sequence data, a real/fake discrimination between the word vectors and the inference word vectors through a discriminator of the GAN model; (e) backpropagating a discrimination result of the real/fake discrimination to the generator to adjust a parameter setting of the generator; (f) repeating the step (c) to the step (e) to train the GAN model to optimize the GAN model; and (g) integrating the word embedding model and the generator of the optimized GAN model to build a behavior inference model.
+2. The behavior inference model building apparatus of claim 1, wherein the program operation sequences are a dynamic program operation sequence.
+3. The behavior inference model building apparatus of claim 2, wherein the dynamic program operation sequence is an Application Programming Interface (API) sequence.
+4. The behavior inference model building apparatus of claim 2, wherein the dynamic program operation sequence is a system call sequence.
+5. The behavior inference model building apparatus of claim 2, wherein the dynamic program operation sequence is retrieved by a tracking program.
+6. The behavior inference model building apparatus of claim 1, wherein the word embedding model is one of a Word-to-Vector (Word2Vec) model and a One-Hot Encoding model.
+7. The behavior inference model building apparatus of claim 1, wherein the program operation sequence data include a plurality of abnormal program operation sequence data, and each of the abnormal program operation sequence data is associated with a malicious program.
+8. The behavior inference model building apparatus of claim 1, wherein the processor further integrates an abnormal behavior detection model, the word embedding model and the generator of the optimized GAN model to build the behavior inference model.
+9. The behavior inference model building apparatus of claim 8, wherein the storage further stores a plurality of behavior labels, each of the program operation sequence data corresponding to one of the behavior labels, and the processor further executes the following steps of: clustering the word vectors of the program operation sequence data into a plurality of word vector groups based on a clustering algorithm; comparing the program operation sequences of each of the program operation sequence data severally with at least one of the program operation sequences corresponding to at least one of the word vectors included in each of the word vector groups to generate a feature vector of each of the program operation sequence data; performing a supervised learning of a classification algorithm to generate a classifier for classifying the feature vectors to correspond to the behavior labels based on the feature vectors and the behavior labels; and building the abnormal behavior detection model based on the word vector groups and the classifier.
+10. The behavior inference model building apparatus of claim 9, wherein the clustering algorithm is one of an Affinity Propagation (AP) clustering algorithm, a Spectral clustering algorithm, a Fuzzy C-means (FCM) clustering algorithm, an Iterative Self-Organizing Data Analysis Technique Algorithm (ISODATA) clustering algorithm, a K-means clustering algorithm, a Complete-Linkage (CL) clustering algorithm, a Single-Linkage (SL) clustering algorithm and a Ward's method clustering algorithm, and the classification algorithm is one of a Support Vector Machine (SVM) algorithm, a Decision Tree (DT) algorithm, a Bayes algorithm and a Nearest Neighbors (NN) algorithm.
+11. A behavior inference model building method for a behavior inference model building apparatus, the behavior inference model building apparatus comprising a storage and a processor, the storage storing a plurality of program operations sequence data, each of the program operation sequence data recording a plurality of program operation sequences, the behavior inference model building method being executed by the processor and comprising: (a) converting the program operation sequences of each of the program operation sequence data into a plurality of word vectors through a word embedding model; (b) retrieving, for each of the program operation sequence data, first M word vectors of the word vectors as M input vectors of a Generative Adversarial Network (GAN) model, wherein M being a positive integer; (c) generating, for each of the program operation sequence data, a plurality of inference word vectors by computing the M input vectors through a generator of the GAN model; (d) performing, for each of the program operation sequence data, a real/fake discrimination between the word vectors and the inference word vectors through a discriminator of the GAN model; (e) backpropagating a discrimination result of the real/fake discrimination to the generator to adjust a parameter setting of the generator; (f) repeating the step (c) to the step (e) to train the GAN model to optimize the GAN model; and (g) integrating the word embedding model and the generator of the optimized GAN model to build a behavior inference model.
+12. The behavior inference model building method of claim 11, wherein the program operation sequences are a dynamic program operation sequence.
+13. The behavior inference model building method of claim 12, wherein the dynamic program operation sequence is an Application Programing Interface (API) sequence.
+14. The behavior inference model building method of CIaEm 12, wherein the dynamic program operation sequence is a system call sequence.
+15. The behavior inference model building method of claim 12, wherein the dynamic program operation sequence is retrieved by a tracking program.
+16. The behavior inference model building method of claim 11, wherein the word embedding model is one of a Word-to-Vector (Word2Vec) model and a One-Hot Encoding model.
+17. The behavior inference model building method of claim 11, wherein the program operation sequence data include a plurality of abnormal program operation sequence data, and each of the abnormal program operation sequence data is associated with a malicious program.
+18. The behavior inference model budding method of claim 11, wherein the processor further integrates an abnormal behavior detection model, the word embedding model and the generator of the optimized GAN model to build the behavior inference model.
+19. The behavior inference model building method of claim 18, wherein the storage further stores a plurality of behavior labels, each of the program operation sequence data corresponding to one of the behavior labels, and the processor further executes the following steps of: clustering the word vectors of the program operation sequence data into a plurality of word vector groups based on a clustering algorithm; comparing the program operation sequences of each of the program operation sequence data severally with at least one of the program operation sequences corresponding to at least one of the word vectors included in each of the word vector groups to generate a feature vector of each of the program operation sequence data; performing a supervised learning of a classification algorithm to generate a classifier for classifying the feature vectors to correspond to the behavior labels based on the feature vectors and the behavior labels; and building the abnormal behavior detection model based on the word vector groups and the classifier.
+20. The behavior inference model building method of claim 19, wherein the clustering algorithm is one of an Affinity Propagation (AP) clustering algorithm, a Spectral clustering algorithm, a Fuzzy C-means (FCM) clustering algorithm, an Iterative Self-Organizing Data Analysis Technique Algorithm (ISODATA) clustering algorithm, a K-means clustering algorithm, a Complete-Linkage (CL) clustering algorithm, a Single-Linkage (SL) clustering algorithm and a Ward's method clustering algorithm, and the classification algorithm is one of a Support Vector Machine (SVM) algorithm, a Decision Tree (DT) algorithm, a Bayes algorithm and a Nearest Neighbors (NN) algorithm.
+</claims>
+</document>

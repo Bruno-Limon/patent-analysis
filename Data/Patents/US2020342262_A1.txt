@@ -1,0 +1,70 @@
+<document>
+
+<filing_date>
+2020-04-23
+</filing_date>
+
+<publication_date>
+2020-10-29
+</publication_date>
+
+<priority_date>
+2019-04-24
+</priority_date>
+
+<ipc_classes>
+G06K9/62,G06N7/00
+</ipc_classes>
+
+<assignee>
+NEC CORPORATION
+</assignee>
+
+<inventors>
+FENG, LU
+LIU, CHUNCHEN
+WEI, WENJUAN
+Cui, Lvye
+</inventors>
+
+<docdb_family_id>
+72917241
+</docdb_family_id>
+
+<title>
+METHOD, DEVICE, AND MEDIUM FOR DATA PROCESSING
+</title>
+
+<abstract>
+Embodiments of the present disclosure relate to a method, a device and a computer-readable storage medium for data processing. The method for data processing comprises: obtaining a set of observation samples regarding a plurality of factors, one of the set of observation samples comprising respective observed values of the plurality of factors. The method further comprises: estimating, for each of the plurality of factors and based on the set of observation samples, a distribution that differences between observed values of the factor and estimated values of the factor follow. The method further comprises determining, based at least on the estimated distribution, a causal structure representing a causal relationship among the plurality of factors. Embodiments of the present disclosure further provide a device and a computer-readable storage medium for implementing the above method. The embodiments of the present disclosure can accurately and robustly discover the causal relationship among a plurality of factors without making any assumptions about the relationship between the data distribution and the factors, and affect the observed value of the target factor based on the causal relationship.
+</abstract>
+
+<claims>
+I/we claim:
+1. A method of data processing, comprising: obtaining a set of observation samples regarding a plurality of factors, one of the set of observation samples comprising respective observed values of the plurality of factors; estimating, for each of the plurality of factors and based on the set of observation samples, a distribution that differences between observed values of the factor and estimated values of the factor follow, the estimated values being determined based on observed values of at least one other factor of the plurality of factors and an impact of the at least one other factor on the factor; and determining, based at least on the estimated distribution, a causal structure representing a causal relationship among the plurality of factors.
+2. The method according to claim 1, wherein the plurality of factors comprise a target factor, and the method further comprises: determining, based on the determined causal structure and from the plurality of factors, at least one factor as a cause of the target factor; and affecting an observed value of the target factor by changing observed values of the at least one factor.
+3. The method according to claim 2, further comprising: obtaining the changed set of observation samples regarding the plurality of factors, at least one of the changed set of observation samples comprising the changed observed values of the at least one factor; and optimizing the causal structure based on the changed set of observation samples.
+4. The method according to claim 1, wherein estimating the distribution comprises: estimating the impact of the at least one other factor on the factor; and estimating the distribution based on the impact, observed values of the factor in the set of observation samples, and observed values of the at least one other factor.
+5. The method according to claim 4, wherein estimating the impact comprises: estimating the impact using a B-spline regression algorithm.
+6. The method according to claim 4, wherein estimating the distribution comprises: estimating the distribution using a kernel density estimation algorithm.
+7. The method according to claim 1, wherein the distribution is different from a Gaussian distribution.
+8. The method according to claim 1, wherein determining the causal structure comprises: generating, based on the distribution, an objective function for determining the causal to structure, a penalty term being absent from the objective function; and determining the causal structure by minimizing the objective function.
+9. The method according to claim 1, wherein the causal structure is represented by a directed acyclic graph, the directed acyclic graph comprises a plurality of nodes corresponding to the plurality of factors, and determining the causal structure comprises: determining, based on the distribution, a plurality of causality scores associated with a plurality of factor pairs in the plurality of factors, wherein a causality score of a first factor pair in the plurality of factor pairs indicates a likelihood that one factor in the first factor pair is a cause of the other factor in the first factor pair; and iteratively performing the following operations until the number of iterations reaches a threshold number: determining, from the plurality of factor pairs, a second factor pair associated with a maximum likelihood by comparing the plurality of causality scores, the second factor pair indicating that a first factor in the second factor pair is a cause of a second factor in the second factor pair; adding, to the directed acyclic graph, an edge from a first node corresponding to the first factor to a second node corresponding to the second factor; and updating one or more of the plurality of causality scores associated with the second factor.
+10. The method according to claim 9, wherein the threshold number is determined based on the number of the plurality of factor pairs.
+11. The method according to claim 9, further comprising: determining, from the plurality of factors, two factors that are likely to have a causal relationship as one of the plurality of factor pairs.
+12. The method according to claim 9, further comprising: optimizing edges in the directed acyclic graph using a sparse regression algorithm.
+13. A device for data processing, comprising: at least one processor configured to obtain a set of observation samples regarding a plurality of factors, one of the set of observation samples comprising respective observed values of the plurality of factors; estimate, for each of the plurality of factors and based on the set of observation samples, a distribution that differences between observed values of the factor and estimated values of the factor follow, the estimated values being determined based on observed values of at least one other factor of the plurality of factors and an impact of the at least one other factor on the factor; and determine, based at least on the estimated distribution, a causal structure representing a causal relationship among the plurality of factors.
+14. The device according to claim 13, wherein the plurality of factors comprise a target factor, and the at least one processor is further configured to: determine, based on the determined causal structure and from the plurality of factors, at least one factor as a cause of the target factor; and affect an observed value of the target factor by changing observed values of the at least one factor.
+15. The device according to claim 14, wherein the at least one processor is further configured to: obtain the changed set of observation samples regarding the plurality of factors, at least one of the changed set of observation samples comprising the changed observed values of the at least one factor; and optimize the causal structure based on the changed set of observation samples.
+16. The device according to claim 13, wherein the at least one processor is further configured to: estimate the impact of the at least one other factor on the factor; and estimate the distribution based on the impact, observed values of the factor in the set of observation samples, and observed values of the at least one other factor.
+17. The device according to claim 16, wherein the at least one processor is further configured to: estimate the impact using a B-spline regression algorithm.
+18. The device according to claim 16, wherein the at least one processor is further configured to: estimate the distribution using a kernel density estimation algorithm.
+19. The device according to claim 13, wherein the distribution is different from a Gaussian distribution.
+20. The device according to claim 13, wherein the at least one processor is further configured to: generate, based on the distribution, an objective function for determining the causal structure, a penalty term being absent from the objective function; and determine the causal structure by minimizing the objective function.
+21. The device according to claim 13, wherein the causal structure is represented by a directed acyclic graph, the directed acyclic graph comprises a plurality of nodes corresponding to the plurality of factors, and the at least one processor is further configured to: determine, based on the distribution, a plurality of causality scores associated with a plurality of factor pairs in the plurality of factors, wherein a causality score of a first factor pair in the plurality of factor pairs indicates a likelihood that one factor in the first factor pair is a cause of the other factor in the first factor pair; and iteratively perform the following operations until the number of iterations reaches a threshold number: determine, from the plurality of factor pairs, a second factor pair associated with a maximum likelihood by comparing the plurality of causality scores, the second factor pair indicating that a first factor in the second factor pair is a cause of a second factor in the second factor pair; add, to the directed acyclic graph, an edge from a first node corresponding to the first factor to a second node corresponding to the second factor; and update one or more of the plurality of causality scores associated with the second factor.
+22. The device according to claim 21, wherein the threshold number is determined based on the number of the plurality of factor pairs.
+23. The device according to claim 21, where the at least one processor is further configured to: determine, from the plurality of factors, two factors that are likely to have a causal relationship as one of the plurality of factor pairs.
+24. The device according to claim 21, wherein the acts further comprise: optimize edges in the directed acyclic graph using a sparse regression algorithm.
+25. A computer-readable storage medium having machine-executable instructions stored thereon which, when executed by a device, cause the device to perform the method according to claim 1.
+</claims>
+</document>

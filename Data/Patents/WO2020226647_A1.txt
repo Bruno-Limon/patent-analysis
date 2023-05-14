@@ -1,0 +1,101 @@
+<document>
+
+<filing_date>
+2019-05-09
+</filing_date>
+
+<publication_date>
+2020-11-12
+</publication_date>
+
+<priority_date>
+2019-05-09
+</priority_date>
+
+<ipc_classes>
+E21B41/00,E21B43/26,G06F30/00
+</ipc_classes>
+
+<assignee>
+LANDMARK GRAPHICS CORPORATION
+</assignee>
+
+<inventors>
+WALTERS, HAROLD GRAYSON
+ZHANG, SHANG
+BRUMBAUGH, GREG DANIEL
+BARDY, Gaetan Pierre Louis
+NI, Hailun
+</inventors>
+
+<docdb_family_id>
+73051648
+</docdb_family_id>
+
+<title>
+SIMULATING HYDRAULIC FRACTURING GEOMETRY PROPAGATION USING A DIFFERENTIAL STRESS AND PATTERN-BASED MODEL
+</title>
+
+<abstract>
+The disclosure presents a technique to generate a fracture model using a differential stress map and model inputs. The technique simulates the fracture model using fracture fronts, initiated at perforations of a perforation stage of a hydraulic fracturing (HF) wellbore. Each fracture front is evaluated using a propagation step of a fracture model process. Using the relative differential stress states, a fracture pattern is composited to the fracture model. At each propagation step, the total energy available from the simulated HF fluid being pumped into the wellbore location is reduced by the amount necessary to generate the computed fractures. Once the remaining energy is reduced to a level where no further fractures can be created, or if a map boundary is encountered, the fracture model process terminates. The generated fracture model can be communicated to update HF job plans, wellbore placements, and other uses of the fracture model.
+</abstract>
+
+<claims>
+1. A method to generate a fracture model of a well system area with hydraulic fracturing (HF) using a fracture model process, comprising:
+receiving model inputs and a differential stress map of the well system area;
+locating a perforation stage location on the differential stress map;
+initializing propagation steps utilizing the model inputs and the differential stress map; and
+executing the propagation steps until an exit condition is true;
+wherein the propagation steps comprise:
+determining a differential stress state for a current portion of the differential stress map proximate to a previous portion of the differential stress map utilized in a previous propagation step;
+calculating a HF geometry for the current portion of the differential stress map wherein a total energy value is reduced utilizing the calculated HF geometry; and updating the fracture model utilizing the HF geometry for the current portion of the differential stress map.
+2. The method as recited in Claim 1, wherein the exit condition is set to true where at least one of a total energy value is reduced to substantially zero, a count of propagation steps equals a total time step, and the differential stress map has been completed.
+3. The method as recited in Claim 1, wherein the current portion of the differential stress map utilized when the fracture model process begins is proximate to the perforation stage location.
+4. The method as recited in Claim 1 , wherein the calculating a HF geometry utilizes neighbor portions of the differential stress map, the differential stress state, and the model inputs, wherein the neighbor portions had the HF geometry calculated in the previous propagation step.
+5. The method as recited in Claim 1, further comprising utilizing the fracture model to determine at least one of a well placement location within the well system and a HF job plan of the well system.
+6. The method as recited in Claim 1, wherein the model inputs include at least one of the perforation stage location, a perforation count, a perforation interval length, the total energy value, and a total time step.
+7. The method as recited in any one of Claims 1 to 6, wherein the receiving the differential stress map further comprises:
+receiving a stress map of the well system area, wherein the stress map is generated from a stress analysis method; identifying a maximum principal stress direction of each fracture utilizing the stress map;
+computing a natural fracture network using the stress map, the maximum principle stress direction, and a geological information determined from the natural fracture network;
+generating a local differential stress map utilizing the natural fracture network and the stress map; and
+rotating the local differential stress map to align with the maximum principle stress direction.
+8. The method as recited in Claim 1, wherein the calculating the HF geometry further comprises:
+constraining the calculating utilizing mass conservation, energy conservation, multifracture interaction, and stress field orientation.
+9. The method as recited in Claim 8, wherein the constraining further includes a HF fluid leak-off calculation.
+10. The method as recited in Claim 8, wherein the constraining further includes a stress shadow effect.
+11. The method as recited in Claim 1, wherein the calculating the HF geometry merges two or more fractures.
+12. The method as recited in Claim 1, wherein the model inputs further includes a wellbore length, a wellbore orientation, and a HF stage.
+13. The method as recited in any one of Claims 1 to 6, 8, 11, and 12, wherein the calculating the HF geometry further comprises:
+pre-processing the current portion of the differential stress map, wherein the pre processing includes determining at least one of the current portion is outside of the differential stress map, the current portion already has fractures, the total energy value is sufficient to fracture the current portion, the total energy value is sufficient to complete the HF geometry, and the total energy value is sufficient to enable a stress shadow effect; and
+determining to bypass a current propagation step utilizing the pre-processing.
+14. The method as recited in Claim 1, wherein the current portion of the differential stress map is determined utilizing a fracture volume calculated volumetrically at the end of each of the propagation steps, and wherein the calculating the HF geometry utilizes the angle and length of a fracture.
+15. The method as recited in any one of Claims 1 to 6, 8, 11, and 14, wherein the fracture model process utilizes a machine learning algorithm, and wherein the machine learning algorithm utilizes well system area property constraints.
+16. The method as recited in Claim 1, wherein the fracture model process is executed on a well site controller of the well system area, and the fracture model is utilized to update a HF job plan.
+17. A computer program product having a series of operating instructions stored on a non-transitory computer-readable medium that directs a data processing apparatus when executed thereby to perform operations to generate a fracture model of a well system area with hydraulic fracturing (HF) using a fracture model process, the operations comprising:
+receiving model inputs and a differential stress map of the well system area;
+locating a perforation stage location on the differential stress map;
+initializing propagation steps utilizing the model inputs and the differential stress map; and
+executing the propagation steps until an exit condition is true;
+wherein the propagation steps comprise:
+determining a differential stress state for a current portion of the differential stress map proximate to a previous portion of the differential stress map utilized in a previous propagation step;
+calculating a HF geometry for the current portion of the differential stress map wherein a total energy value is reduced utilizing the calculated HF geometry; and updating the fracture model utilizing the HF geometry for the current portion of the differential stress map.
+18. The computer program product as recited in Claim 17, wherein the receiving the differential stress map further comprises:
+receiving a stress map of the well system area, wherein the stress map is generated from a stress analysis method;
+identifying a maximum principal stress direction of each fracture utilizing the stress map;
+computing a natural fracture network using the stress map, the maximum principle stress direction, and a geological information determined from the natural fracture network;
+generating a local differential stress map utilizing the natural fracture network and the stress map; and
+rotating the local differential stress map to align with the maximum principle stress direction.
+19. The computer program product as recited in any one of Claims 17 and 18, wherein the calculating the HF geometry further comprises: constraining the calculating utilizing mass conservation, energy conservation, multifracture interaction, and stress field orientation.
+20. The computer program product as recited in any one of Claims 17 and 18, wherein the calculating the HF geometry further comprises:
+pre-processing the current portion of the differential stress map, wherein the pre processing includes determining at least one of the current portion is outside of the differential stress map, the current portion already has fractures, the total energy value is sufficient to fracture the current portion, the total energy value is sufficient to complete the HF geometry, and the total energy value is sufficient to enable a stress shadow effect; and
+determining to bypass a current propagation step utilizing the pre-processing.
+21. A system to generate a fracture model of a well system area using hydraulic fracturing (HF), comprising:
+a HF modeler, operable to receive model inputs and a stress map of the well system area, and to execute a fracture model process, the HF modeler comprising:
+a differential stress map generator, operable to generate a local differential stress map utilizing the received stress map, to determine a differential stress state of portions of the local differential stress map, and to identify the maximum principle stress state utilizing the stress map and the model inputs; and
+a fracture modeler, operable to execute propagation steps across the local differential stress map to update the fracture model utilizing the portions of differential stress states, the model inputs, and the maximum principle stress state, and operable to track a number of propagation steps, and an amount of total energy expended.
+22. The system as recited in Claim 21, further comprising:
+a well system HF job plan generator, operable to modify a well system HF job plan utilizing the fracture model.
+23. The system as recited in Claim 21, further comprising:
+a well system controller, operable to adjust a HF job plan utilizing the fracture model and to provide model inputs to the HF modeler, wherein the well system controller is located proximate to the well system area.
+</claims>
+</document>

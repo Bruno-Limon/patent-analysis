@@ -1,0 +1,69 @@
+<document>
+
+<filing_date>
+2016-06-20
+</filing_date>
+
+<publication_date>
+2020-07-14
+</publication_date>
+
+<priority_date>
+2015-07-24
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G10L15/02,G10L15/04,G10L15/14,G10L15/16,G10L15/197
+</ipc_classes>
+
+<assignee>
+SAMSUNG ELECTRONICS COMPANY
+</assignee>
+
+<inventors>
+CHOI, YOUNG SANG
+SONG, INCHUL
+</inventors>
+
+<docdb_family_id>
+56507519
+</docdb_family_id>
+
+<title>
+Apparatus and method of acoustic score calculation and speech recognition using deep neural networks
+</title>
+
+<abstract>
+An apparatus for calculating acoustic score, a method of calculating acoustic score, an apparatus for speech recognition, a method of speech recognition, and an electronic device including the same are provided. An apparatus for calculating acoustic score includes a preprocessor configured to sequentially extract audio frames into windows and a score calculator configured to calculate an acoustic score of a window by using a deep neural network (DNN)-based acoustic model.
+</abstract>
+
+<claims>
+1. An apparatus for recognizing an audio signal, the apparatus comprising: a processor configured to: sequentially extract audio frames of the audio signal into respective plural windows of information without overlapping of same audio frames in successive windows of information over time; include non-zero padding frames in a window of information, of the plural windows of information, so that the window of information overlaps in time with one or more frames of an other window of information, of the plural windows of information, adjacent to the window of information; calculate first acoustic scores of each frame of the window of information, of the plural windows of information, using a deep neural network (DNN)-based acoustic model, by inputting the window of information, to which the non-zero padding frames are included, to input layers of the DNN-based acoustic model; recalculate second acoustic scores of the overlapping frames of the window of information based on pre-calculated acoustic scores of non-zero padding frames of the other window of information to update the first acoustic scores using the second acoustic scores with respect to the overlapping frames; and recognize the audio signal based on the first acoustic scores of the window of information and the second acoustic scores of the overlapping frames of the window of information.
+2. The apparatus of claim 1, wherein the DNN is a bidirectional recurrent deep neural network (BRDNN).
+3. The apparatus of claim 1, wherein, in the including of the non-zero padding frames, the processor is configured to include the non-zero padding frames in both right and left ends of the window of information.
+4. The apparatus of claim 3, wherein a size of the window of information or a size of the non-zero padding frames is determined based on one or more of a speech recognition application field and computing performance capability of a device applied with the apparatus.
+5. The apparatus of claim 1, wherein the non-zero padding frames included in the window of information overlap in time with the one or more frames of the other window of information, of the plural windows of information, adjacent to the window of information.
+6. The apparatus of claim 1, wherein the processor recalculates the second acoustic scores of the overlapping frames of the window of information by using a statistical method.
+7. The apparatus of claim 6, wherein the statistical method comprises calculating one of an arithmetic mean and a geometric mean.
+8. The apparatus of claim 1, the first acoustic scores and the second acoustic scores indicate a probability of phonemes, pronunciations, morphemes, syllables, or words.
+9. A processor implemented method of recognizing an audio signal, the method comprising: sequentially extracting audio frames of the audio signal into respective plural windows of information without overlapping of same audio frames in successive windows of information over time; including non-zero padding frames in a window of information, of the plural windows of information, so that the window of information overlaps in time with one or more frames of an other window of information, of the plural windows of information, adjacent to the window of information; calculating first acoustic scores of the window of information, of the plural windows of information, using a deep neural network (DNN)-based acoustic model, by inputting the window of information, to which the non-zero padding frames are included, to input layers of the DNN-based acoustic model; recalculating second acoustic scores of the overlapping frames of the window of information based on pre-calculated acoustic scores of non-zero padding frames of the other window of information to update the first acoustic scores using the second acoustic scores with respect to the overlapping frames; and recognizing the audio signal based on the first acoustic scores of the window of information and the second acoustic scores of the overlapping frames of the window of information.
+10. The method of claim 9, wherein the DNN is a bidirectional recurrent deep neural network (BRDNN).
+11. The method of claim 9, further comprising including the non-zero padding frames in both right and left ends of the window of information.
+12. The method of claim 9, wherein the non-zero padding frames included in the window of information overlap in time with one or more frames of the other window of information, of the plural windows of information, adjacent to the window of information.
+13. The method of claim 12, wherein a size of the window of information or a size of the non-zero padding frames is determined based on one or more of a speech recognition application field and computing performance capability of an apparatus performing the method.
+14. The method of claim 9, wherein the second acoustic scores of the overlapping frames of the window of information is recalculated by using a statistical method.
+15. The method of claim 14, wherein the statistical method comprises one of an arithmetic mean and a geometric mean.
+16. A speech recognition apparatus, comprising: a processor configured to: extract frames of an audio signal, while the frames are successively input, into respective plural windows of information without overlapping of same frames in successive windows of information over time; include non-zero padding frames in a window of information, of the plural windows of information, so that the window of information overlaps in time with one or more frames of an other window of information, of the plural windows of information, adjacent to the window of information; calculate first acoustic scores of the window of information, of the plural windows of information, using a deep neural network (DNN)-based acoustic model, by inputting the window of information to input layers of the DNN-based acoustic model; recalculate second acoustic scores of the overlapping frames of the window of information based on pre-calculated acoustic scores of non-zero padding frames of the other window of information to update the first acoustic scores using the second acoustic scores with respect to the overlapping frames; and generate an incremental recognition result, obtained up to a current window, by recognizing the audio signal based on the first acoustic scores of the window of information and the second acoustic scores of the overlapping frames of the window of information.
+17. The apparatus of claim 16, wherein the processor is further configured to calculate one or more word or sentence scores of the window of information by using a language model, and wherein the processor generates the incremental recognition result, obtained up to the current window, further based on the one or more word or sentence scores.
+18. The apparatus of claim 17, wherein the language model is based on an n-gram or a neural network.
+19. The apparatus of claim 16, wherein in response to predetermined criteria being satisfied, the processor generates the incremental recognition result obtained up to the current window as a final recognition result of the audio signal.
+20. The apparatus of claim 16, wherein the DNN is a bidirectional recurrent deep neural network (BRDNN).
+21. The apparatus of claim 16, wherein, in the including of the non-zero padding frames, the processor is configured to include the non-zero padding frames in both right and left ends of the window of information, and the processor is further configured to calculate the first acoustic scores of each frame of the window of information, in which the non-zero padding frames are included.
+22. A processor implemented method of speech recognition, the method comprising: extracting frames of an audio signal, while the frames are successively input, into respective plural windows of information without overlapping of same frames in successive windows of information over time; including non-zero padding frames in a window of information, of the plural windows of information, so that the window of information overlaps in time with one or more frames of an other window of information, of the plural windows of information, adjacent to the window of information; calculating first acoustic scores of the window of information, of the plural windows of information, using a deep neural network (DNN)-based acoustic model, by inputting the window of information, to which the non-zero padding frames are included, to input layers of the DNN-based acoustic model; recalculating second acoustic scores of the overlapping frames of the window of information based on pre-calculated acoustic scores of non-zero padding frames of the other window of information to update the first acoustic scores using the second acoustic scores with respect to the overlapping frames; and generating an incremental recognition result, obtained up to a current window, by recognizing the audio signal based on the first acoustic scores of the window of information and the second acoustic scores thereof.
+23. The method of claim 22, further comprising calculating one or more word or sentence scores of the window of information by using a language model, wherein the generating of the incremental recognition result comprises generating the incremental recognition result, obtained up to the current window, further based on the one or more word or sentence scores.
+24. The method of claim 22, further comprising: determining whether predetermined criteria are satisfied; and in response to a determination that the predetermined criteria are satisfied, generating the incremental recognition result obtained up to the current window as a final recognition result of the audio signal.
+25. The method of claim 22, further comprising including the non-zero padding frames on both right and left sides of the window of information, wherein the calculating of the first acoustic scores comprises calculating the first acoustic scores of each frame of the window of information, in which the non-zero padding frames are included.
+26. An electronic device, comprising: a processor configured to: receive an audio signal from a user; sequentially extract frames into respective plural windows of information without overlapping of same frames in successive windows of information over time; include non-zero padding frames in a window of information, of the plural windows of information, so that the window of information overlaps in time with one or more frames of an other window of information, of the plural windows of information, adjacent to the window of information; recognize the audio signal of the user by inputting the window of information, to which the non-zero padding frames are included, to input layers of a deep neural network (DNN)-based acoustic model, by calculating first acoustic scores of the window of information, of the plural windows of information, using the DNN-based acoustic model while the audio signal is input, by recalculating second acoustic scores of the overlapping frames of the window of information based on pre-calculated acoustic scores of non-zero padding frames of the other window of information, and by incrementally decoding the calculating first acoustic scores of the window of information in consideration of the recalculated second acoustic scores thereof; and perform a predetermined operation based on a result of the recognizing of the audio signal of the user.
+27. The electronic device of claim 26, wherein the operation comprises at least one of outputting the result of the recognizing in voice or in a text format, translation of the result of the recognizing into another language, and processing of commands for controlling the electronic device.
+</claims>
+</document>

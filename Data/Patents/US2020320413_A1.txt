@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2020-04-08
+</filing_date>
+
+<publication_date>
+2020-10-08
+</publication_date>
+
+<priority_date>
+2019-04-08
+</priority_date>
+
+<ipc_classes>
+G06F16/29,G06F7/14,G06N20/00,G06N5/04
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+Cheng, Xi
+Deng, Mingge
+Hormati, Amir H.
+</inventors>
+
+<docdb_family_id>
+72662257
+</docdb_family_id>
+
+<title>
+CREATING A MACHINE LEARNING MODEL WITH K-MEANS CLUSTERING
+</title>
+
+<abstract>
+Methods, systems, and apparatus, including computer programs encoded on a computer storage medium, that creates a machine learning model with k-means clustering. In some implementations, an instruction to create a model is obtained. A data set including geographic data and non-geographic data is received. The data set includes multiple data entries. Geographic centroids are determined from the geographic data. The data set is analyzed to obtain statistics of the data set. Transformed data is generated from the data set, the statistics, and the geographic centroids. A model is generated with the transformed data, the model indicating multiple data groupings.
+</abstract>
+
+<claims>
+1. A computer-implemented method, comprising: obtaining an instruction to create a model; receiving a data set including geographic data and non-geographic data, the data set having multiple data entries; determining geographic centroids from the geographic data; analyzing the data set to obtain statistics of the data set; generating transformed data from the data set, the statistics, and the geographic centroids; and generating a model with the transformed data, the model indicating multiple data groupings.
+2. The method of claim 1, wherein the non-geographic data includes at least one of numerical data and categorical data.
+3. The method of claim 1, comprising: receiving a second data set that includes second data entries; and using the model to assign the second data entries of the second data set to the data groupings.
+4. The method of claim 3, comprising: generating a merged data set from the data set and the second data set; determining geographic centroids from geographic data in the merged data set; analyzing the merged data set to obtain statistics of the merged data set; generating updated transformed data from the merged data set, the statistics, and the geographic centroids; and generating an updated model with the updated transformed data, the updated model indicating multiple data groupings, wherein one or more of the geographic centroids from the geographic data in the merged data set is different from one or more of the geographic centroids from the geographic data in the data set.
+5. The method of claim 1, wherein determining the geographic centroids from the geographic data in the data set comprises: obtaining locations for a subset of the data entries from the geographic data, the subset including data entries in the data set having a geographic data component; and determining single-point positions from the locations, wherein the geographic centroids are the single-point positions.
+6. The method of claim 5, wherein: obtaining the locations comprises obtaining a geographic area for a data entry in the subset, determining the single-point positions from the locations comprises determining a geometric center of the geographic area, and the single-point positions include the geometric center for the geographic area.
+7. The method of claim 5, wherein: obtaining the locations comprises obtaining coordinates for a data entry in the subset, determining the single-point positions from the locations comprises converting the coordinates to a single-point position for the data entry or using the coordinates as the single-point position, and the single-point positions include the single-point position for the data entry.
+8. The method of claim 1, wherein analyzing the data set to obtain statistics of the data set comprises: determining an overall centroid of the geographic data; determining an overall geographic distance of the geographic centroids from the overall centroid; and determining a variance for the geographic data.
+9. The method of claim 8, wherein: determining the overall centroid comprises determining a geometric center of the geographic centroids, and the overall centroid is the geometric center of the geographic centroids.
+10. The method of claim 8, wherein determining the overall geographic distance of the geographic centroids from the overall centroid comprises: determining geographic distances of the geographic centroids from the overall centroid; and averaging the geographic distances to obtain the overall geographic distance.
+11. The method of claim 10, wherein determining the variance for the geographic data comprises determining a variance of the geographic distances using differences between the geographic distances and the overall geographic distance.
+12. The method of claim 10, wherein the overall geographic distance and the geographic distances are geodesic distances along a surface of the earth.
+13. The method of claim 8, wherein generating the transformed geographic data from the data set, the statistics, and the geographic centroids comprises: for a first subset of the data entries, adding the geographic centroids to corresponding data entries of the transformed data as at least a portion of the transformed data; and for a second subset of the data entries, adding the overall centroid to corresponding data entries of the transformed data as at least a portion of the transformed data, wherein the first subset includes data entries in the data set having a geographic data component and the second subset includes data entries in the data set that do not have the geographic component.
+14. The method of claim 1, wherein generating the model with the transformed data comprises: determining a number of data groupings; assigning positions to the data groupings; and assigning data entries of the transformed data to the nearest data grouping using the positions, wherein assigning the data entries of the transformed data to the nearest data grouping comprises: determining total Euclidean distances between the data entries and the positions, wherein determining the total Euclidean distances between the data entries and the positions comprises: determining Euclidean distances for transformed non-geographic data in the transformed data from each of the positions; determining Euclidean distances for transformed geographic data in the transformed data from each of the positions; and aggregating the Euclidean distances for the transformed non-geographic data and the Euclidean distances for the transformed geographic data to obtain the total Euclidean distances, comparing the total Euclidean distances to identify the positions that are nearest the data entries of the transformed data; and based on the comparison, assigning the data entries of the transformed data to the data groupings corresponding to the positions that are nearest the data entries of the transformed data.
+15. The method of claim 14, wherein determining the Euclidean distances for the transformed non-geographic data from each of the positions comprises: determining Euclidean distances for numerical data components in the transformed non-geographic data from each of the positions; and determining Euclidean distances for categorical data components in the transformed non-geographic data from each of the positions, wherein aggregating the Euclidean distances comprises aggregating the Euclidean distances for the numerical data components, the Euclidean distances for the categorical data components, and the Euclidean distances for the transformed geographic data to obtain the total Euclidean distances.
+16. The method of claim 14, wherein determining the Euclidean distances for the transformed geographic data from each of the positions comprises: determining geographic distances between the geographic centroids and each of the positions; using the statistics to identify a variance of the geographic data; and using the variance to standardize the geographic distances, wherein the Euclidean distances for the transformed geographic data include the standardized geographic distances.
+17. The method of claim 14, wherein generating the model with the transformed data comprises determining new positions for the data groupings by: for each of the data groupings, determining a geometric center for data entries of the transformed data assigned to the respective data grouping; and assigning the geometric centers to the data groupings as the new positions, wherein determining the geometric center comprises: averaging the Euclidean distances for transformed non-geographic data in the transformed data corresponding to the data entries of the transformed data assigned to the respective data grouping; and averaging the Euclidean distances for transformed geographic data in the transformed data corresponding to the data entries of the transformed data assigned to the respective data grouping.
+18. The method of claim 17, wherein generating the model with the transformed data comprises determining an accuracy of the model by: determining that differences between the new positions and the positions meet a first threshold, or determining that an average quantization error for the data entries of the transformed data assigned to the data groupings at the new positions meet a second threshold.
+19. A system comprising: one or more computers; and one or more computer-readable media storing instructions that, when executed, cause the one or more computers to perform operations comprising: obtaining an instruction to create a model; receiving a data set including geographic data and non-geographic data, the data set having multiple data entries; determining geographic centroids from the geographic data; analyzing the data set to obtain statistics of the data set; generating transformed data from the data set, the statistics, and the geographic centroids; and generating a model with the transformed data, the model indicating multiple data groupings.
+20. One or more non-transitory computer-readable media storing instructions that, when executed by one or more computers, cause the one or more computers to perform operations comprising: obtaining an instruction to create a model; receiving a data set including geographic data and non-geographic data, the data set having multiple data entries; determining geographic centroids from the geographic data; analyzing the data set to obtain statistics of the data set; generating transformed data from the data set, the statistics, and the geographic centroids; and generating a model with the transformed data, the model indicating multiple data groupings.
+</claims>
+</document>

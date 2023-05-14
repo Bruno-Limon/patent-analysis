@@ -1,0 +1,61 @@
+<document>
+
+<filing_date>
+2020-05-29
+</filing_date>
+
+<publication_date>
+2020-09-17
+</publication_date>
+
+<priority_date>
+2006-05-05
+</priority_date>
+
+<ipc_classes>
+G06F11/10,G06F11/14,G06F16/11,G06F16/13,G06F16/178,G06F16/27,G06F21/60,G06F21/64,H04L29/06,H04L29/08,H04L9/32
+</ipc_classes>
+
+<assignee>
+HYBIR
+</assignee>
+
+<inventors>
+YOUNG, HADLEY RASCH
+</inventors>
+
+<docdb_family_id>
+38668596
+</docdb_family_id>
+
+<title>
+GROUP BASED COMPLETE AND INCREMENTAL COMPUTER FILE BACKUP SYSTEM, PROCESS AND APPARATUS
+</title>
+
+<abstract>
+The present invention is capable of determining the rights to a file based on providing a descriptor. The descriptor can be calculated using an algorithm, which may be cryptographic and/or non-cryptographic. The descriptor may further be based on the file contents, metadata of the file, other file data, or any combination thereof to uniquely identify the file in a shared file repository. Since the descriptor is generated based on file data it will be the same regardless of which user generates it. Accordingly, only one copy of the file needs to be maintained in the shared file repository, thereby reducing the amount of network bandwidth required to assure the file is backed up and further reducing the amount of storage required to backup the files. This results in a vastly more efficient method of backup in terms of processing time, network bandwidth, and storage requirements.
+</abstract>
+
+<claims>
+1. A method, comprising: scanning a list of data blocks stored in memory of a client device; identifying a first set of data blocks in the list of data blocks as one or more of new and changed since a last backup operation was performed; categorizing a first data block in the first set of data blocks as a data block that is updated frequently; dividing the first data block into portions of a first size; categorizing a second data block in the first set of data blocks as a data block that is updated less frequently than the first data block; dividing the second data block into portions of a second size, wherein the second size is different from the first size; for each portion in the first data block and for each portion in the second data block, generating, by the client device, a cryptographic signature value for the portion, wherein the cryptographic signature value is computed by using actual data of the portion as an input to a cryptographic signature-generating algorithm which computes the cryptographic signature value; generating, at the client device, a first inventory including the cryptographic signatures calculated for the portions in the first and second data blocks; and transmitting the first inventory from the client device to a backup server.
+2. The method of claim 1, further comprising: receiving, at the backup server, the first inventory including the cryptographic signatures calculated for the portions in the first and second data blocks; extracting, by the backup server, the cryptographic signatures from the first inventory; comparing, by the backup server, the cryptographic signatures to a list containing all cryptographic signatures identifying raw data currently stored in a backup system managed by the backup server regardless of whether the raw data currently stored in the backup system was stored there by the client device or by a second client device other than the client device which generated the first inventory; based on the comparison, generating a second inventory, the second inventory including the cryptographic signatures found in the first inventory and not found in the list containing all cryptographic signatures identifying actual data currently stored in the backup system; transmitting the second inventory from the backup server to the client device; receiving, at the client device, the second inventory; transmitting, from the client device to the backup server, every portion having a cryptographic signature corresponding to a cryptographic signature found in the second inventory; and causing the portions transmitted from the client device to the backup server to be stored in the backup system.
+3. The method of claim 1, wherein the second size is larger than the first size.
+4. The method of claim 1, wherein the first data block is categorized by comparing a creation timestamp of the first data block with an update timestamp of the first data block.
+5. The method of claim 4, wherein the second data block is categorized by comparing a creation timestamp of the second data block with an update timestamp of the second data block.
+6. The method of claim 5, wherein the first data block is also categorized by comparing the update timestamp of the first data block with a current time.
+7. The method of claim 1, wherein the first inventory further includes one or more markers that identify sizes of portions of the first and second data block.
+8. A method, comprising: scanning a list of data blocks stored in memory of a client device; identifying a first set of data blocks in the list of data blocks as one or more of new and changed since a last backup operation was performed; analyzing metadata of a first data block in the first set of data blocks; based on the analysis of the metadata of the first data block, dividing the first data block into portions of a predetermined size; for each portion in the first data block, generating, by the client device, a cryptographic signature value for the portion, wherein the cryptographic signature value is computed by using actual data of the portion as an input to a cryptographic signature-generating algorithm which computes the cryptographic signature value; generating, at the client device, a first inventory including the cryptographic signatures calculated for the portions in the first data block; and transmitting the first inventory from the client device to a backup server.
+9. The method of claim 8, further comprising: receiving, at the backup server, the first inventory including the cryptographic signatures calculated for the portions in the first data block; extracting, by the backup server, the cryptographic signatures from the first inventory; comparing, by the backup server, the cryptographic signatures to a list containing all cryptographic signatures identifying raw data currently stored in a backup system managed by the backup server regardless of whether the raw data currently stored in the backup system was stored there by the client device or by a second client device other than the client device which generated the first inventory; based on the comparison, generating a second inventory, the second inventory including the cryptographic signatures found in the first inventory and not found in the list containing all cryptographic signatures identifying actual data currently stored in the backup system; transmitting the second inventory from the backup server to the client device; receiving, at the client device, the second inventory; transmitting, from the client device to the backup server, every portion having a cryptographic signature corresponding to a cryptographic signature found in the second inventory; and causing the portions transmitted from the client device to the backup server to be stored in the backup system.
+10. The method of claim 8, wherein the metadata includes a data block type.
+11. The method of claim 10, wherein the metadata further includes a creation timestamp and an update timestamp.
+12. The method of claim 8, wherein the predetermined size is determined, at least in part, based on a data block type of the first data block.
+13. A data synchronization method, comprising: scanning electronic data stored at a client device; identifying a first set of blocks in the electronic data as one or more of new and changed since a last data restore was performed; analyzing metadata of a first block in the first set of blocks; based on the analysis of the metadata of the first block, dividing the first block into portions; for each portion in the first block, generating, by the client device, a cryptographic signature value for the portion, wherein the cryptographic signature value is computed by using actual data of the portion as an input to a cryptographic signature-generating algorithm which computes the cryptographic signature value; generating, at the client device, a first inventory including the cryptographic signatures calculated for the portions in the first block; transmitting the first inventory from the client device to a backup server; receiving, at the client device and from the backup server, a second inventory, wherein the second inventory includes the cryptographic signatures found in the first inventory by the backup server but not found in a list containing all cryptographic signatures identifying actual data currently stored at a backup system managed by the backup server; and transmitting, from the client device to the backup server, every portion having a cryptographic signature corresponding to a cryptographic signature found in the second inventory.
+14. The method of claim 13, further comprising: receiving, at the backup server, the first inventory including the cryptographic signatures calculated for the portions in the first block; extracting, by the backup server, the cryptographic signatures from the first inventory; comparing, by the backup server, the cryptographic signatures to the list containing all cryptographic signatures identifying raw data currently stored in the backup system managed by the backup server; based on the comparison, generating the second inventory; transmitting the second inventory from the backup server to the client device; and causing the portions transmitted from the client device to the backup server to be stored in the backup system.
+15. The method of claim 13, wherein the metadata includes a block type.
+16. The method of claim 15, wherein the metadata further includes a creation timestamp and an update timestamp.
+17. The method of claim 13, further comprising: scanning a selected target media; determining a time of last data synchronization between the selected target media and the client device; identifying changed electronic data since the time of last data synchronization; generating cryptographic signatures for blocks in the changed electronic data; and comparing the cryptographic signatures for the blocks in the changed electronic data with the cryptographic signatures from the first inventory.
+18. The method of claim 13, wherein the first block is categorized by comparing a creation timestamp of the first block with an update timestamp of the first block.
+19. The method of claim 18, wherein the first block is also categorized by comparing the update timestamp of the first block with a current time.
+20. The method of claim 18, wherein the first block is also categorized by file type and wherein file type is determined by an identifier in the first block or by file extension.
+</claims>
+</document>

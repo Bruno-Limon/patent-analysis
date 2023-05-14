@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2020-09-14
+</filing_date>
+
+<publication_date>
+2020-12-31
+</publication_date>
+
+<priority_date>
+2018-05-16
+</priority_date>
+
+<ipc_classes>
+G06F13/16,G06F17/18,G11C16/26,G11C29/10,G11C29/42,G11C29/44,G11C29/56
+</ipc_classes>
+
+<assignee>
+MICRON TECHNOLOGY
+</assignee>
+
+<inventors>
+LIIKANEN, BRUCE, A.
+CADLONI, GERALD, L.
+MILLER, DAVID
+</inventors>
+
+<docdb_family_id>
+68533931
+</docdb_family_id>
+
+<title>
+MEMORY SYSTEM QUALITY INTEGRAL ANALYSIS AND CONFIGURATION
+</title>
+
+<abstract>
+A memory quality engine can improve the operation of a memory system by setting more effective operating parameters, disabling or removing memory devices unable to meet performance requirements, and providing evaluations between memory populations. These improvements can be accomplished by converting quality measurements of a memory population into CDF-based data, formulating comparisons of the CDF-based data to metrics for quality analysis, and applying the quality analysis. In some implementations, the metrics for quality analysis can use one or more thresholds, such as a system health threshold. Formulating the comparison to these metrics can include determining an area between a baseline frequency and a curve specified by the CDF-based data. In some implementations, this area can further be defined by a lowest frequency bound and/or can be compared as a ratio to an area of a rectangle that contains the CDF curve.
+</abstract>
+
+<claims>
+I/We claim:
+1. A method comprising: obtaining quality measures, based on counts of errors, for a memory population of a memory system; converting the quality measures into cumulative distribution function (CDF)-based data, wherein the CDF-based data defines a CDF curve in relation to at least two axes; performing a quality analysis based on the CDF-based data by computing a first area, wherein at least a portion of the first area is computed based on the CDF curve and one or more bounds defined on one or more of the at least two axes; and causing, based on the computed first area, one or more actions in relation to the memory population.
+2. The method of claim 1, further comprising: identifying a baseline frequency as a first demarcation on at least one of the at least two axes; identifying a lower frequency bound as a second demarcation on at least one of the at least two axes; and wherein the portion of the first area is a first portion of the first area with bounds on the x-axis that: begin at the smallest point on the x-axis that corresponds to a point in the CDF-based data; and end at the point on the x-axis that corresponds to a point where the CDF curve intersects with the lower frequency bound, wherein a second portion of the first area is computed as an area between the baseline frequency and the lower frequency bound with bounds on the x-axis that: begin at the point on the x-axis that corresponds to the point where the CDF curve intersects with the lower frequency bound; and end at the largest point on the x-axis that corresponds to a point in the CDF-based data; and wherein the first area comprises the combination of the first portion and the second portion.
+3. The method of claim 1, further comprising: computing a second area that comprises at least the area of a rectangle, the rectangle being based on at least a portion of the CDF-based data; and computing a ratio between the first area and the second area.
+4. The method of claim 1, further comprising: identifying a baseline frequency as a first demarcation on at least one of the at least two axes; identifying a lower frequency bound as a second demarcation on the at least one of the at least two axes; computing a second area that comprises at least the area of a rectangle that is based on the CDF-based data and the lower frequency bound; and computing a ratio between the first area and second area, wherein computing the first area is performed by combining A) the area between the baseline frequency and the portion of the CDF curve that is based on the CDF-based data, and B) an area that 1) corresponds, on the x-axis, to a second portion of the CDF curve and 2) is between the lower frequency bound and the baseline frequency.
+5. The method of claim 1, wherein computing the first area further comprises: determining a first section of the first area that, on the x-axis, is before a threshold condition; determining a second section of the first area that, on the x-axis, is after the threshold condition; and computing the first area as the first section minus the second section.
+6. The method of claim 5, wherein the threshold condition is an uncorrectable error correction condition (UECC) threshold specifying the error rate above which errors are not recoverable by a controller of the memory population.
+7. The method of claim 1, wherein the one or more actions comprise a modification to operating parameters for the memory population, and wherein the modification comprises adjusting a voltage, a clock rate, or a latency, or a combination thereof for the memory population.
+8. An apparatus comprising: a memory; one or more processors; an interface configured to, using the one or more processors: obtain quality measures for a memory population of a memory system, wherein the quality measures comprise a histogram indicating counts of errors per memory unit in the memory population; a cumulative distribution function (CDF) converter configured to, using the one or more processors, convert the quality measures into CDF-based data; an integral analysis engine configured to, using the one or more processors, perform a quality analysis based on the CDF-based data by: determining two areas, wherein each of the two areas is based on aspects of a CDF curve formed by the CDF-based data, and computing a ratio of the two areas; and an analysis application engine configured to, using the one or more processors, cause, based on the computed ratio, a modification to operating parameters for the memory population.
+9. The apparatus of claim 8, wherein the CDF-based data is defined in terms of at least two axes and wherein determining the two areas—comprises: identifying a baseline frequency as a first demarcation on at least one of the at least two axes; identifying a lower frequency bound as a second demarcation on the at least one of the at least two axes; computing a first area between A) the baseline frequency and B) a combination of the CDF curveand the lower frequency bound, wherein the combination is obtained by, for any given x-axis point in the CDF-based data, taking the y-axis value of either the CDF curve or the lower frequency bound, whichever is closer to the baseline frequency; computing a second area that comprises at least the area of a rectangle that is based on the CDF-based data and the lower frequency bound; and computing, as the ratio of two areas-, a ratio between the first area and the second area.
+10. The apparatus of claim 9, wherein computing the first area further comprises: determining a first portion of the first area that, on the x-axis, is before a threshold condition; determining a second portion of the first area that, on the x-axis, is after the threshold condition; and computing the first area as the first portion minus the second portion.
+11. The apparatus of claim 10, wherein the threshold condition is a system trigger threshold that specifies the error count correlated to data recovery speed as an error rate above which the memory system has to invoke secondary methods to perform data recovery by a controller of the memory system.
+12. The apparatus of claim 9, wherein each side of the rectangle is parallel to either the x-axis or y-axis; and wherein the rectangle is formed with a first corner being either the first point of the CDF-based data or the origin of the CDF-based data and a second corner, opposite the first corner, having a y-axis value that matches the lower frequency bound and an x-axis value that matches the x-axis value of the last point of the CDF-based data.
+13. The apparatus of claim 9, wherein the identified baseline frequency is the x-axis of the CDF-based data.
+14. The apparatus of claim 9, wherein the memory population comprises: a plurality of memory cells, a plurality of memory pages, a plurality of memory word lines, a plurality of memory blocks, a plurality of memory planes, a plurality of memory dies, or a plurality of memory devices, or a combination thereof.
+15. The apparatus of claim 9, wherein the modification to the operating parameters comprises adjusting a voltage, a clock rate, or a latency, or a combination thereof for the memory population based on the computed ratio.
+16. A non-transitory computer-readable storage medium storing instructions that, when executed by a computing system, cause the computing system to perform operations comprising: obtaining quality measures for a memory population of a memory system, wherein the quality measures comprise a histogram indicating counts of errors per memory unit in the memory population; converting the quality measures into cumulative distribution function (CDF)-based data by computing a cumulative distribution function of the histogram; performing a quality analysis based on the CDF-based data, the quality analysis comprising: determining two areas, wherein each of the two areas is based on aspects of a CDF curve formed by the CDF-based data; and computing a ratio of the two areas; and causing, based on the computed ratio, a modification to operating parameters for the memory population
+17. The non-transitory computer-readable storage medium of claim 16, wherein the CDF-based data is defined in terms of at least two axes and wherein determining the two areas—comprises: identifying a baseline frequency as a first demarcation on at least one of the at least two axes; identifying a lower frequency bound as a second demarcation on the at least one of the at least two axes; computing a first area between A) the baseline frequency and B) a combination of the CDF curveand the lower frequency bound, wherein the combination is obtained by, for any given x-axis point in the CDF-based data, taking the y-axis value of either the CDF curve or the lower frequency bound, whichever is closer to the baseline frequency; computing a second area that comprises at least the area of a rectangle that is based on the CDF-based data and the lower frequency bound; and computing, as the ratio of two areas-, a ratio between the first area and the second area.
+18. The non-transitory computer-readable storage medium of claim 17, wherein computing the first area further comprises: determining a first portion of the first area that, on the x-axis, is before a threshold condition; determining a second portion of the first area that, on the x-axis, is after the threshold condition; and computing the first area as the first portion minus the second portion.
+19. The non-transitory computer-readable storage medium of claim 18, wherein the threshold condition is a system trigger threshold that specifies the error count correlated to data recovery speed as an error rate above which the memory system has to invoke secondary methods to perform data recovery by a controller of the memory system.
+20. The non-transitory computer-readable storage medium of claim 16, wherein the modification to the operating parameters comprises adjusting a voltage, a clock rate, or a latency, or a combination thereof for the memory population based on the computed ratio.
+</claims>
+</document>

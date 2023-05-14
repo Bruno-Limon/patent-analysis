@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2016-09-20
+</filing_date>
+
+<publication_date>
+2020-06-02
+</publication_date>
+
+<priority_date>
+2015-09-29
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+DATAROBOT
+</assignee>
+
+<inventors>
+KHERMOSH, LIOR
+SUNDARARAMAN, SWAMINATHAN
+ZUCKERMAN, GAL
+</inventors>
+
+<docdb_family_id>
+70855994
+</docdb_family_id>
+
+<title>
+Systems and methods to execute efficiently a plurality of machine learning processes
+</title>
+
+<abstract>
+Described herein are systems and methods for executing efficiently, in real-time, a plurality of machine learning processes. In one embodiment, a computing platform with multiple compute elements receives multiple data streams, each such stream associated with its own respective machine learning process. Each machine learning process is operative to use its data stream as input to train, in real-time, a respective mathematical model. Each of the processes has peaks and dips in processing demands. The system re-allocates, in real-time, compute elements from the processes with lower processing demands to processes with higher processing demands, thereby handling all of the multiple processes on-the-fly, preventing peak demands from causing the system to stall, and reducing overall the computational resources required by the system.
+</abstract>
+
+<claims>
+1. A method for efficiently executing a plurality of machine learning processes, comprising: receiving, in a computing platform comprising a plurality of compute elements, a plurality of streams of data sets; continuous training, by the plurality of compute elements, of a plurality of mathematical models using respectively the plurality of streams acting as inputs, in which said continuous training is executed respectively as a plurality of machine learning processes in conjunction with the plurality of compute elements, wherein the plurality of mathematical models include a first mathematical and a second mathematical model, wherein the plurality of compute elements include one or more first compute elements allocated to the continuous training of the first mathematical model and one or more second compute elements allocated to the continuous training of the second mathematical model; detecting, in the computing platform, during executing of the plurality of machine learning processes, a temporary condition in which the continuous training of the second mathematical model is lagging behind a respective stream of the plurality of streams of data sets as a result of a temporary computational state associated with the second mathematical model and the respective stream; and at least temporarily re-allocating at least one of the one or more first compute elements from the continuous training of the first mathematical model to the continuous training of the second mathematical model based, at least in part, on the detected temporary condition and on a utilization of the re-allocated at least one first compute element being lower than a utilization of the one or more second compute elements, thereby boosting performance of said continuous training which lags behind the respective stream, thereby allowing the computing platform to cope with the temporary condition.
+2. The method of claim 1, wherein the temporary computational state is a state in which the second mathematical model has evolved into a certain state in which the second mathematical model requires more computational resources to process the respective data sets of the respective stream.
+3. The method of claim 2, wherein said boosting of performance comprises: changing the second mathematical model from the certain state of the second mathematical model into a previous state of the second mathematical model; and re-training the second mathematical model, using the respective data sets, thereby converging to a new state of the second mathematical model, which is different than said certain state, thereby eliminating the temporary computational state.
+4. The method of claim 3, wherein said re-training comprises: using the respective data sets, repeatedly, a plurality of times, each time producing a different alternative state of the second mathematical model, thereby producing a plurality of alternative forms of the second mathematical model; and selecting one of the plurality of alternative forms as the new state of the mathematical model.
+5. The method of claim 2, wherein said boosting of performance comprises: distributing the continuous training of the certain state of the second mathematical model among the at least one first compute elements re-allocated toward said boosting, thereby converging into a next state of the mathematical model which eliminates the temporary computational state.
+6. The method of claim 1, wherein the temporary computational state is a state in which the second mathematical model is no longer valid in view of a certain change in the data sets of the respective stream.
+7. The method of claim 6, wherein said boosting of performance comprises: resetting the second mathematical model into an initial state as a result of said change; and re-training the second mathematical model, using the respective data sets, thereby converging to a new state of the second mathematical model, thereby eliminating the temporary computational state.
+8. The method of claim 1, wherein the second mathematical model is a prediction model, a classification model, or a clustering model, in which the continuous training of the second mathematical model, in view of the respective stream, is done using a technique associated with a gradient-descent or stochastic-gradient-descent, in which said temporary computational state is a state associated with poor convergence of the gradient-descent or stochastic-gradient-descent technique.
+9. The method of claim 1, wherein the second mathematical model is a neural network model, in which the continuous training of the second mathematical model, in view of the respective stream, is done using a technique associated with deep learning, in which said temporary computational state is a state associated with a need to either increase a complexity of the neural network model or increase a number of layers associated with the neural network model.
+10. A system comprising: a computing platform comprising a plurality of compute elements, wherein the computing platform is configured to perform operations including: receiving a plurality of streams of data sets; continuous training, by the plurality of compute elements, of a plurality of mathematical models using respectively the plurality of streams acting as inputs, in which said continuous training is executed respectively as a plurality of machine learning processes in conjunction with the plurality of compute elements, wherein the plurality of mathematical models include a first mathematical and a second mathematical model, wherein the plurality of compute elements include one or more first compute elements allocated to the continuous training of the first mathematical model and one or more second compute elements allocated to the continuous training of the second mathematical model; detecting, during executing of the plurality of machine learning processes, a temporary condition in which the continuous training of the second mathematical model is lagging behind a respective stream of the plurality of streams of data sets as a result of a temporary computational state associated with the second mathematical model and the respective stream; and at least temporarily re-allocating at least one of the one or more first compute elements from the continuous training of the first mathematical model to the continuous training of the second mathematical model based, at least in part, on the detected temporary condition and on a utilization of the re-allocated at least one first compute element being lower than a utilization of the one or more second compute elements, thereby boosting performance of said continuous training which lags behind the respective stream, thereby allowing the computing platform to cope with the temporary condition.
+11. The system of claim 10, wherein the plurality of machine learning processes are uncorrelated such that respective peak demands of the plurality of machine learning processes for computational resources are uncorrelated in time.
+12. The system of claim 11, wherein as a result of the plurality of machine learning processes being uncorrelated, the system is able to avoid stalling despite a total processing power of the computing platform being less than a certain processing power needed to handle all the peak demands simultaneously.
+13. The system of claim 12, wherein the peak demand for computational resources is higher than both the dip demand and an average demand for computational resources, and as a result of said re-allocation, the system prevents said stalling when the total processing power of the computing platform is greater than or equal to a level of a processing power needed to handle all average demands simultaneously.
+14. The system of claim 13, wherein: a ratio between the peak demand and the dip demand for computational resources is above one hundred to one; a ratio between the average demand and the dip demand for computational resources is below two to one; and therefore the system is able to prevent said stalling with less than two percent of the computational resources that would have otherwise been needed in a case that said re-allocation in real-time was not available.
+15. The method of claim 1, wherein the plurality of machine learning processes are uncorrelated, therefore causing the respective peak demands to be uncorrelated in time, thereby enabling the system to achieve said decrease in actual number of said compute elements needed to prevent the system from stalling.
+16. The method of claim 1, wherein the plurality of machine learning processes are uncorrelated as a result of the streams being originated by different uncorrelated sources.
+17. The method of claim 1, wherein the plurality of machine learning processes are uncorrelated as a result of the streams being made intentionally uncorrelated by adapting, rearranging, reordering, or otherwise manipulating a single stream into said plurality of streams which are uncorrelated.
+18. The method of claim 1, wherein the plurality of machine learning processes are uncorrelated as a result of breaking a single master machine learning process into said plurality of machine learning processes.
+19. The method of claim 1, wherein the training of each of the plurality of mathematical models is characterized by having a peak demand and a dip demand for computational resources, wherein the peak demand for computational resources is higher than both the dip demand and an average demand for computational resources.
+20. The method of claim 1, wherein the training of each of the plurality of mathematical models is characterized by having a peak demand and a dip demand for computational resources, wherein the peak demand for computational resources is higher than both the dip demand and an average demand for computational resources.
+</claims>
+</document>

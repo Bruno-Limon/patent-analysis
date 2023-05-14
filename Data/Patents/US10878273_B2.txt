@@ -1,0 +1,71 @@
+<document>
+
+<filing_date>
+2018-07-06
+</filing_date>
+
+<publication_date>
+2020-12-29
+</publication_date>
+
+<priority_date>
+2017-07-06
+</priority_date>
+
+<ipc_classes>
+G06K9/38,G06K9/46,G06K9/62,G06N3/04,G06N3/063,G06N3/08
+</ipc_classes>
+
+<assignee>
+TEXAS INSTRUMENTS
+</assignee>
+
+<inventors>
+SWAMI, PRAMOD KUMAR
+MATHEW, MANU
+DESAPPAN, KUMAR
+EPPA, PRAVEEN
+</inventors>
+
+<docdb_family_id>
+64903321
+</docdb_family_id>
+
+<title>
+Dynamic quantization for deep neural network inference system and method
+</title>
+
+<abstract>
+A method for dynamically quantizing feature maps of a received image. The method includes convolving an image based on a predicted maximum value, a predicted minimum value, trained kernel weights and the image data. The input data is quantized based on the predicted minimum value and predicted maximum value. The output of the convolution is computed into an accumulator and re-quantized. The re-quantized value is output to an external memory. The predicted min value and the predicted max value are computed based on the previous max values and min values with a weighted average or a pre-determined formula. Initial min value and max value are computed based on known quantization methods and utilized for initializing the predicted min value and predicted max value in the quantization process.
+</abstract>
+
+<claims>
+We claim:
+1. A method comprising: receiving, by at least one processor, an image; in response to determining that the image is a first image, computing, by the at least one processor, a first min value and a first max value for a feature map of the image; setting, by the at least one processor, a second min value to the first min value and setting a second max value to the first max value; convolving, by the at least one processor, the image based on the second min value, the second max value, kernel weights, and the image; computing, by the at least one processor, a third min value and a third max value of the feature map of the image; updating, by the at least one processor, the third min value based on the third min value and previous third min values; and updating, by the at least one processor, the third max value based on the third max value and previous third max values.
+2. The method of claim 1, further comprising: computing an output of the convolution; storing the output of the convoluting in an accumulator; re-quantizing an output of the accumulator; and outputting the re-quantized output of the accumulator to an external memory.
+3. The method of claim 2, wherein the output of the accumulator is a 32-bit integer.
+4. The method of claim 2, wherein an output of the re-quantization step is an 8-bit integer.
+5. The method of claim 2, wherein the re-quantization further comprises converting the output of the accumulator with a division operation.
+6. The method of claim 2, wherein the re-quantization further comprises converting the output of the accumulator with a shift operation.
+7. The method of claim 1, wherein the second min value, the second max value, the third min value, the third max value, the first min value, and the first max value are floating point numbers.
+8. The method of claim 1, wherein the second min value, the second max value, the third min value, the third max value, the first min value, and the first max value are fixed point numbers between 4 bits and 32 bits.
+9. The method of claim 1, wherein the second min value, the second max value, second min value, the second max value, the first min value, and the first max value are fixed point 8 bit numbers.
+10. The method of claim 1, wherein the second min value, the second max value, the third min value, the third max value, the first min value and the first max value are signed integers.
+11. The method of claim 1, wherein the second min value, the second max value, the third min value, the third max value, the first min value, and the first max value are unsigned integers.
+12. The method of claim 1, wherein a number of layers in each of the feature maps is from 1 layer to 10,000 layers.
+13. The method of claim 1, wherein the kernel weights are determined during a training sequence.
+14. The method of claim 1, wherein the second min value is computed based on an average of the previous third min values and the second max value is computed based on an average of the previous third max values.
+15. The method of claim 1, wherein the second min value is computed based on a weighted average of the previous second min values and the second max value is computed based on a weighted average of the previous second max values.
+16. The method of claim 1, wherein the second min value is computed based on a formula applied on the previous second min values and the second max value is computed based on a formula applied on the previous second max values.
+17. The method of claim 1, wherein accuracy loss due to dynamic quantization is less than 0.1%.
+18. The method of claim 1, wherein the computing the first min value and the first max value for each layer further comprises: determining a quantization scaling factor based on a global min value and a global max value during training; assigning the global min value to the first min value and the global max value to the first max value; convolving the first image based on the feature map and the kernel weights; storing the output of the convolution in an accumulator; re-quantizing an output of the convolution from the accumulator; and outputting the re-quantized output of the convolution from the accumulator to an external memory.
+19. The method of claim 1, wherein computing the first min value and the first max value for each layer further comprises: convolving the first image based on the feature map and the kernel weights; storing an output of the convolution in an accumulator for each layer of the feature map; computing a min value and a max value on the output of the convolution for each layer of the feature map; storing an output of the accumulator for each layer of the feature map in an external memory; reading the output of the accumulator for all the layers and computing the first min value and the initial first max value based on the output of the accumulator for all the layers; quantizing the output of the accumulator based on the first min value and the first max value; and re-quantizing the output of the accumulator.
+20. The method of claim 1, wherein computing the first min value and the first max value for each layer further comprises: creating a representative image during inference; computing a min value and max value of a feature map of the representative image on a personal computer (PC); assigning the min value and the max value to the first min value and the first max value, respectively.
+21. A system comprising: an image capture device configured to capture an image; a training framework model configured to generate kernel weights based on the image; an inference block configured to dynamically quantize feature maps of the image based on a min value, a max value, and the kernel weights, comprising: determining a quantization scaling factor based on a global min value and a global max value; assigning the global min value to the min value and the global max value to the max value; convolving the image based on the feature map of the image and the kernel weights; re-quantizing the convolved image; and outputting the re-quantized convolved image to an external memory; and a detection block configured to detect the image based on the quantized feature maps.
+22. The system of claim 21, wherein the training framework model is configured to apply weights on the image with kernel weights determined during a training process.
+23. The system of claim 21, wherein the min value and the max value are determined based on a formula applied on a previous min value and a previous max value, respectively.
+24. The system of claim 21, wherein the inference block is further configured to compute a second min value and a second max value and update a third min value and a third max value based on the second min value and the second max value.
+25. The system of claim 21, wherein the min value and the max value are 32 bits, and the kernel weights are 8-bit integers.
+26. The system of claim 21, wherein the output from the inference block is an 8-bit integer.
+</claims>
+</document>

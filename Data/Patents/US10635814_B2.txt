@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2018-11-07
+</filing_date>
+
+<publication_date>
+2020-04-28
+</publication_date>
+
+<priority_date>
+2015-07-15
+</priority_date>
+
+<ipc_classes>
+G06F21/56,G06N3/08
+</ipc_classes>
+
+<assignee>
+CYLANCE
+</assignee>
+
+<inventors>
+SOEDER, DEREK A.
+PERMEH, RYAN
+CHISHOLM, GLENN
+WOLFF, MATTHEW
+DAVIS, ANDREW
+</inventors>
+
+<docdb_family_id>
+56550400
+</docdb_family_id>
+
+<title>
+Malware detection
+</title>
+
+<abstract>
+In one respect, there is provided a system for training a neural network adapted for classifying one or more scripts. The system may include at least one processor and at least one memory. The memory may include program code which when executed by the at least one memory provides operations including: receiving a disassembled binary file that includes a plurality of instructions; processing the disassembled binary file with a convolutional neural network configured to detect a presence of one or more sequences of instructions amongst the plurality of instructions and determine a classification for the disassembled binary file based at least in part on the presence of the one or more sequences of instructions; and providing, as an output, the classification of the disassembled binary file. Related computer-implemented methods are also disclosed.
+</abstract>
+
+<claims>
+1. A system, comprising: at least one processor; and at least one memory including program code which when executed by the at least one memory provides operations comprising: receiving a disassembled binary file that includes a plurality of instructions, at least a portion of the instructions being variable in length; generating fixed length representations of the plurality of instructions by at least one of truncating or padding each of the plurality of instructions to a same length; encoding the generated fixed length representations for more efficient processing by a convolutional neural network; processing the disassembled binary file with a trained convolutional neural network configured to detect a presence of one or more sequences of instructions amongst the plurality of instructions and determine a classification for the disassembled binary file based at least in part on the presence of the one or more sequences of instructions; and providing, as an output, the classification of the disassembled binary file to determine whether to execute, open, or access a binary file corresponding to the disassembled binary file; wherein the convolutional neural network is configured to: apply a first plurality of kernels to the disassembled binary file, and wherein each of the first plurality of kernels is adapted to detect a different sequence of two or more instructions; and subsequently apply a second plurality of kernels to the disassembled binary file, and wherein each of the second plurality of kernels is adapted to detect a different sequence of two or more sequences of instructions.
+2. The system of claim 1, wherein the fixed length representations of the plurality of instructions includes a mnemonic associated with each instruction.
+3. The system of claim 1, wherein the encoding is based on one-hot encoding or binary encoding.
+4. The system of claim 1, wherein applying the first plurality of kernels includes applying a first weight matrix to a matrix representation of the disassembled binary file, and wherein the matrix representation of the disassembled binary file comprises encoded fixed length representations of the plurality of instructions included in the disassembled binary file.
+5. The system of claim 4, wherein the system is further configured to train the convolutional neural network by at least: receiving a plurality of training files, wherein the plurality of training files comprises a plurality of disassembled binary files; determining a classification of a first training file by at least processing the first training file with the convolutional neural network; back propagating an error associated with the classification of the first training file; and adjusting at least the first weight matrix to minimize the error associated with the classification of the first training file.
+6. The system of claim 5, wherein training the convolutional neural network further comprises: determining a classification for a second training file by at least processing the second training file with the convolutional neural network; back propagating an error associated with the classification of the second training file; and readjusting at least the first weight matrix to minimize the error associated with the classification of the second training file.
+7. A computer-implemented method, comprising: receiving a disassembled binary file that includes a plurality of instructions, at least a portion of the instructions being variable in length; generating fixed length representations of the plurality of instructions by at least one of truncating or padding each of the plurality of instructions to a same length; encoding the generated fixed length representations for more efficient processing by a convolutional neural network; processing the disassembled binary file with a trained convolutional neural network configured to detect a presence of one or more sequences of instructions amongst the plurality of instructions and determine a classification for the disassembled binary file based at least in part on the presence of the one or more sequences of instructions; and providing, as an output, the classification of the disassembled binary file to determine whether to execute, open, or access a binary file corresponding to the disassembled binary file; wherein the convolutional neural network is configured to: apply a first plurality of kernels to the disassembled binary file, and wherein each of the first plurality of kernels is adapted to detect a different sequence of two or more instructions; and subsequently apply a second plurality of kernels to the disassembled binary file, and wherein each of the second plurality of kernels is adapted to detect a different sequence of two or more sequences of instructions.
+8. The method of claim 7, wherein the fixed length representations of the plurality of instructions includes a mnemonic associated with each instruction.
+9. The method of claim 7, wherein the encoding is based on one-hot encoding or binary encoding.
+10. The method of claim 7, wherein applying the first plurality of kernels includes applying a first weight matrix to a matrix representation of the disassembled binary file, and wherein the matrix representation of the disassembled binary file comprises encoded fixed length representations of the plurality of instructions included in the disassembled binary file.
+11. The method of claim 10, further comprising training the convolutional neural network by at least: receiving a plurality of training files, wherein the plurality of training files comprises a plurality of disassembled binary files; determining a classification of a first training file by at least processing the first training file with the convolutional neural network; back propagating an error associated with the classification of the first training file; adjusting at least the first weight matrix to minimize the error associated with the classification of the first training file.
+12. The method of claim 11, wherein training the convolutional neural network further comprises: determining a classification for a second training file by at least processing the second training file with the convolutional neural network; back propagating an error associated with the classification of the second training file; and readjusting at least the first weight matrix to minimize the error associated with the classification of the second training file.
+13. A computer-implemented method, comprising: receiving a disassembled binary file that includes a plurality of instructions, at least a portion of the instructions being variable in length; generating fixed length representations of the plurality of instructions by at least one of truncating or padding each of the plurality of instructions to a same length; encoding the generated fixed length representations for more efficient processing by a convolutional neural network; processing the disassembled binary file with a trained convolutional neural network configured to apply two different pluralities of kernels in sequence to detect a presence of one or more sequences of instructions amongst the plurality of instructions and determine a classification for the disassembled binary file based at least in part on the presence of the one or more sequences of instructions, each kernel being configured to detect a specific, different sequence of instructions; and providing, as an output, the classification of the disassembled binary file to determine whether to execute, open, or access a binary file corresponding to the disassembled binary file.
+14. The method of claim 13, wherein the fixed length representations of the plurality of instructions includes a mnemonic associated with each instruction.
+15. The method of claim 13, wherein the encoding is based on one-hot encoding or binary encoding.
+16. The method of claim 13, further comprising training the convolutional neural network by at least: receiving a plurality of training files, wherein the plurality of training files comprises a plurality of disassembled binary files; determining a classification of a first training file by at least processing the first training file with the convolutional neural network; back propagating an error associated with the classification of the first training file; adjusting at least the first weight matrix to minimize the error associated with the classification of the first training file.
+17. The method of claim 16, wherein training the convolutional neural network further comprises: determining a classification for a second training file by at least processing the second training file with the convolutional neural network; back propagating an error associated with the classification of the second training file; and readjusting at least the first weight matrix to minimize the error associated with the classification of the second training file.
+</claims>
+</document>

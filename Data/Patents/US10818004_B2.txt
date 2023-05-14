@@ -1,0 +1,55 @@
+<document>
+
+<filing_date>
+2019-01-15
+</filing_date>
+
+<publication_date>
+2020-10-27
+</publication_date>
+
+<priority_date>
+2018-01-17
+</priority_date>
+
+<ipc_classes>
+G06T7/00,G06T7/66
+</ipc_classes>
+
+<assignee>
+TOKYO ELECTRON
+</assignee>
+
+<inventors>
+IWANAGA, SHUJI
+</inventors>
+
+<docdb_family_id>
+67214123
+</docdb_family_id>
+
+<title>
+Substrate defect inspection apparatus, substrate defect inspection method, and storage medium
+</title>
+
+<abstract>
+An apparatus for classifying a defect generated in a substrate, includes: a first storage part for storing a first image data for defect classification determination, which includes a defect region in which the defect is generated and a surrounding region of the defect region; a first estimation part for estimating a first type of defect by using a deep learning system, based on the first image data; a second storage part for storing a second image data for defect classification estimation, which is obtained by expressing the defect region and the surrounding region by a binarized data; a second estimation part for estimating a second type of defect by using a rule-based system, based on an attribute of the defect region extracted from the second image data; and a comprehensive determination part for comprehensively determining a type of defect based on the first and second types of defects.
+</abstract>
+
+<claims>
+1. A substrate defect inspection apparatus for classifying a defect generated in a substrate based on a picked-up image as an inspection object which is obtained by picking up an image of the substrate, comprising: a first storage pail configured to store a first image data for defect classification determination, wherein the first image data is cut out from an image created based on the picked-up image and includes a defect region in which the defect is generated and a surrounding region of the defect region, and a pixel value is assigned to each of a plurality of pixels of the first image data; a first estimation part configured to estimate a first type of defect by using a deep learning system, based on the first image data stored in the first storage part; a second storage part configured to store a second image data for defect classification estimation, wherein the second image data is created based on the picked-up image and is obtained by expressing the defect region in which the defect is generated and the surrounding region of the defect region by a binarized data; a second estimation part configured to estimate a second type of defect by using a rule-based system, based on an attribute of the defect region extracted from the second image data stored in the second storage part; and a comprehensive determination part configured to comprehensively determine a type of defect based on the first type of defect estimated by the first estimation part and the second type of defect estimated by the second estimation part; a feature region extraction part and a two-class classification part configured to use the deep learning system to create the second image data, wherein the feature region extraction part includes an image data corresponding to the picked-up image, of which the pixel value is assigned to each of the plurality of pixels, as an input data, the feature region extraction part including a plurality of convolution layers, each of which is provided with a plurality of filters, the plurality of pixels being arranged in a matrix form in each of the plurality of filters, and wherein the two-class classification part is configured to use a data obtained by associating pixels obtained by a convolution process in each of the plurality of convolution layers with calculation values which are results of the convolution process, to classify whether each of the plurality of pixels is a pixel corresponding to the defect or a pixel corresponding to a normal portion based on an arrangement distribution of the calculation values of the plurality of convolution layers for each of the plurality of pixels, and to obtain the second image data for defect classification estimation.
+2. The substrate defect inspection apparatus of claim 1, wherein the first estimation part is configured to estimate a plurality of candidates for the first type of defect using the deep learning system based on the first image data, obtain a data by associating the plurality of candidates estimated for the first type of defect with a numerical value indicating a degree of correctness of each of the plurality of candidates, and estimate the first type of defect based on the obtained data.
+3. The substrate detect inspection apparatus of claim 1, wherein the second estimation part is configured to estimate the second type of defect using the rule-based system, based on the attribute and a position of the detect region.
+4. The substrate defect inspection apparatus of claim 1, wherein the attribute of the defect region is at least one of a shape, an area, a length dimension, a width dimension, a circumference length, and an extending direction.
+5. The substrate defect inspection apparatus of claim 4, wherein the attribute of the defect region includes the shape, and the shape includes a degree of circularity of the defect region and a degree of unevenness around the defect region.
+6. The substrate defect inspection apparatus of claim 1, further comprising: a preprocessing part configured to create the first image data based on the second image data for defect classification estimation expressed by the binarized data and the picked-up image.
+7. The substrate defect inspection apparatus of claim 1, wherein the pixel value of an R component, a G component, and a B component is assigned to each of the plurality of pixels of the first image data.
+8. The substrate defect inspection apparatus of claim 1, wherein the comprehensive determination part is configured to determine the type of defect based on a rule for determining one of the first type of defect and the second type of defect with priority when the first type of defect estimated by the first estimation part and the second type of defect estimated by the second estimation part are different from each other.
+9. A substrate defect inspection method for classifying a defect generated in a substrate, based on a picked-up image as an inspection object which is obtained by picking up an image of the substrate, the method comprising: a first estimating process of estimating a first type of defect by using a deep learning system, based on a first image data for defect classification determination, wherein the first image data is cut out from an image created based on the picked-up image and includes a defect region in which the defect is generated and a surrounding region of the defect region, a pixel value is assigned to each of a plurality′ of pixels of the first image data; a second estimating process of estimating a second type of defect by using a rule-based system, based on a second image data for defect classification estimation which is created based on the picked-up image and is obtained by expressing the defect region in which the defect is generated and the surrounding region of the defect region by a binarized data, and an attribute of the defect region extracted from the second image data; and a comprehensive determining process of comprehensively determining a type of defect based on the first type of defect estimated by the first estimating process and the second type of defect estimated by the second estimating process; a feature region extraction part and a two-class classification part configured to use the deep learning system to create the second image data, wherein the feature region extraction part includes an image data corresponding to the picked-up image, of which the pixel value is assigned to each of the plurality of pixels, as an input data, the feature region extraction part including a plurality of convolution layers, each of which is provided with a plurality of filters, the plurality of pixels being arranged in a matrix form in each of the plurality of filters, and wherein the two-class classification part is configured to use a data obtained by associating pixels obtained by a convolution process in each of the plurality of convolution layers with calculation values which are results of the convolution process, to classify whether each of the plurality of pixels is a pixel corresponding to the defect or a pixel corresponding to a normal portion based on an arrangement distribution of the calculation values of the plurality of convolution layers for each of the plurality of pixels, and to obtain the second image data for defect classification estimation.
+10. The substrate detect inspection method of claim 9, wherein the first estimating process includes: estimating a plurality of candidates for the first type of defect using the deep learning system; obtaining a data by associating the plurality of candidates estimated for the first type of defect with a numerical value indicating a degree of correctness of each of the plurality of candidates; and estimating the first type of defect based on the obtained data.
+11. The substrate defect inspection method of claim 9, wherein the second estimating process includes estimating the second type of defect using the rule-based system, based on the attribute and a position of the defect region.
+12. The substrate defect inspection method of claim 9, wherein the attribute of the defect region is at least one of a shape, an area, a length dimension, a width dimension, a circumference length, and an extending direction.
+13. The substrate defect inspection method of claim 9, further comprising: creating the first image data based on the second image data for defect classification estimation expressed by the binarized data and the picked-up image.
+14. A non-transitory computer-readable storage medium that stores a software used in an apparatus for classifying a defect generated in a substrate based on a picked-up image as an inspection object which is obtained by picking up an image of the substrate, wherein the software includes a program having a group of instructions for executing the substrate detect inspection method of claim 9.
+</claims>
+</document>

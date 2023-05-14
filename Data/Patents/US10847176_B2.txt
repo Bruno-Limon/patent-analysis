@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2018-03-12
+</filing_date>
+
+<publication_date>
+2020-11-24
+</publication_date>
+
+<priority_date>
+2018-03-12
+</priority_date>
+
+<ipc_classes>
+G06F3/16,G10L15/22,G10L21/00,G10L25/00,G10L25/57,H04N17/04,H04N5/44,H04N5/60
+</ipc_classes>
+
+<assignee>
+AMAZON TECHNOLOGIES
+</assignee>
+
+<inventors>
+LAWRENCE, MARK
+KRISTJANSSON, TRAUSTI THOR
+KANDADAI, SRIVATSAN
+RISTIC, MIROSLAV
+LABAN, BALSA
+VANDERSCHAEGEN, VALERE JOSEPH
+TAVARES, JOSEPH PEDRO
+SANTOS, ANNA CHEN
+</inventors>
+
+<docdb_family_id>
+67843406
+</docdb_family_id>
+
+<title>
+Detection of TV state using sub-audible signal
+</title>
+
+<abstract>
+A computer-implemented method includes receiving, at a microphone of a voice-controlled device, a speech input, generating an electrical signal having a first gain level that is below a gain threshold for audible detection by a user, transmitting the electrical signal to the speaker and detecting, by the microphone, an audio signal that includes a combination of ambient noise and a probe audio signal, wherein the probe audio signal is output by the speaker based on the electrical signal. The method further includes determining a power level of the probe audio signal and determining a state of the display based on the power level of the probe audio signal.
+</abstract>
+
+<claims>
+1. A computer-implemented method, comprising: receiving, by a voice-controlled device that comprises a microphone, a speech input, wherein the voice-controlled device is operatively coupled, via a signal port, to a display that is coupled to a speaker, the voice-controlled device being separate from and external to the display; generating, by the voice-controlled device and based on the speech input, an electrical signal having a first gain level that is below a gain threshold for audible detection by a user; transmitting, by the voice-controlled device and via the signal port, the electrical signal to the speaker; detecting, by the voice-controlled device, an audio signal that includes a combination of ambient noise and a probe audio signal, wherein the probe audio signal is output by the speaker based on the electrical signal; determining, by the voice-controlled device, a power level of the probe audio signal; and determining, by the voice-controlled device, a state of the display based on the power level of the probe audio signal.
+2. The computer-implemented method of claim 1, wherein the electrical signal represents a pseudo-random bit sequence.
+3. The computer-implemented method of claim 1, wherein determining the power level of the probe audio signal comprises generating a cross-correlation signal by computing a cross-correlation between the electrical signal and the audio signal; and wherein determining the state of the display further comprises comparing a maximum value of the cross-correlation signal to a detection threshold power level, wherein the detection threshold power level is a second power level where the probe audio signal is inaudible to a user.
+4. The computer-implemented method of claim 3, wherein the detection threshold power level corresponds to a probe audio signal sound pressure level of between −18 dB and 20 dB SPL, inclusive, as measure at a distance of 1 meter from the speaker.
+5. The computer-implemented method of claim 3, further comprising: determining a time lag between the electrical signal and the probe audio signal to be a time shift that results in the max value of the cross-correlation signal.
+6. The computer-implemented method of claim 3, further comprising: determining a volume setting of the speaker based on the max value of the cross-correlation signal and at least one reference gain.
+7. The computer-implemented method of claim 1: wherein determining the power level of the probe audio signal comprises: generating a transformed electrical signal by computing a Fourier transform of the electrical signal; generating a transformed audio signal by computing a Fourier transform of the audio signal; generating a normalized audio signal by computing a phase transform of the transformed audio signal; and generating a cross-correlation signal by computing a cross-correlation between the transformed electrical signal and the normalized audio signal; and wherein determining the state of the display further comprises comparing a maximum value of the cross-correlation signal to a detection threshold power level, wherein the detection threshold power level is a second power level where the probe audio signal is inaudible to a user.
+8. The computer-implemented method of claim 1: wherein determining the power level of the probe audio signal comprises: generating a transformed audio signal by computing a Fourier transform of the audio signal; generating a frequency domain corrected audio signal by applying an inverse room impulse response function to the transformed audio signal; generating a time domain corrected audio signal by applying an inverse Fourier transform to the frequency domain corrected audio signal; and generating a cross-correlation signal by computing a cross-correlation between the electrical signal and a time domain corrected audio signal; and wherein determining the state of the display further comprises comparing a maximum value of the cross-correlation signal to a detection threshold power level, wherein the detection threshold power level is a second power level where the probe audio signal is inaudible to a user.
+9. The computer-implemented method of claim 1, wherein determining the power level of the probe audio signal comprises: determining a transformed electrical signal by computing a Fourier transform of the electrical signal; determining a transformed audio signal by computing a Fourier transform of the audio signal; determining a normalized audio signal by computing a phase transform of the transformed audio signal; determining a phase transformed cross-correlation signal by taking an inverse Fourier transform of a product of the transformed electrical signal and the normalized audio signal; and determining a corrected cross-correlation signal by computing a cross-correlation between the phase transformed cross-correlation signal and a room impulse response function; and wherein determining the state of the display further comprises comparing a maximum value of the corrected cross-correlation signal to a detection threshold power level, wherein the detection threshold power level is a second power level where the probe audio signal is inaudible to a user.
+10. The computer-implemented method of claim 1, wherein the power level of the probe audio signal is lower than a detection threshold power level, wherein the detection threshold power level is a second power level where the probe audio signal is inaudible to a user, the method further comprising: determining the state of the display to be in an OFF state; and modifying the electrical signal by applying an increased gain level to the electrical signal.
+11. The computer-implemented method of claim 3, wherein the power level of the probe audio signal is lower than a detection threshold power level, wherein the detection threshold power level is a second power level where the probe audio signal is inaudible to a user, the method further comprising: determining the state of the display to be in an OFF state; and increasing a duration of time over which to compute the cross-correlation.
+12. The computer-implemented method of claim 3, further comprising storing running values of the cross-correlation signal and determining the maximum value of the cross-correlation from the running values, wherein the running values are computed recursively and an ith iteration of the running values of the cross-correlation ŷi(t) is computed using a recursive integrator of the form
+description="In-line Formulae" end="lead"?ŷi(t)=αŷi−1(t)+(1+α)yi(t),description="In-line Formulae" end="tail"? where α is a constant between 0 and 1 exclusive, yi(t) are cross-correlation values acquired during an ith iteration, ŷi−1(t) are the running values computed during a previous, (i−1)th iteration.
+13. The computer-implemented method of claim 10, wherein: the power level of the probe audio signal is lower than the detection threshold power level; the increased gain level is equal to a maximum value; and a current value of a timeout timer is greater than or equal to a timeout value, the method further comprising: determining the state of the display to be in an OFF state; and terminating generating the electrical signal.
+14. The computer-implemented method of claim 1, wherein the voice-controlled device comprises an audio video port configured to couple the voice-controlled device to the display that is coupled to the speaker.
+15. The computer-implemented method of claim 1, wherein the voice-controlled device is separate from and external to the display.
+16. The computer-implemented method of claim 1, wherein the first gain level is generated independently of the speech input, and wherein the audio probe signal has a second gain level that is equal to or below the gain threshold for audible detection.
+</claims>
+</document>

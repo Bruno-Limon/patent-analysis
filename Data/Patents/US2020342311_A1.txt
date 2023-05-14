@@ -1,0 +1,75 @@
+<document>
+
+<filing_date>
+2019-04-29
+</filing_date>
+
+<publication_date>
+2020-10-29
+</publication_date>
+
+<priority_date>
+2019-04-29
+</priority_date>
+
+<ipc_classes>
+G06N3/08,H04W24/08,H04W84/04
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+KALAPATAPU, DUTT
+TERZIS, ANDREAS
+PEROULAS, JAMES
+Sayana, Krishna
+Thukral, Poojita
+</inventors>
+
+<docdb_family_id>
+68887153
+</docdb_family_id>
+
+<title>
+Network anomaly detection
+</title>
+
+<abstract>
+A method for detecting network anomalies includes receiving a control message from a cellular network and extracting one or more features from the control message. The method also includes predicting a potential label for the control message using a predictive model configured to receive the one or more extracted features from the control message as feature inputs. Here, the predictive model is trained on a set of training control messages where each training control message includes one or more corresponding features and an actual label. The method further includes determining that a probability of the potential label satisfies a confidence threshold. The method also includes analyzing the control message to determine whether the control message corresponds to a respective network performance issue. When the control message impacts network performance, the method includes communicating the network performance issue to a network entity responsible for the network performance issue.
+</abstract>
+
+<claims>
+1. A method comprising: receiving, at data processing hardware, a control message from a cellular network; extracting, by the data processing hardware, one or more features from the control message; predicting, by the data processing hardware, a potential label for the control message using a predictive model configured to receive the one or more extracted features from the control message as feature inputs, the predictive model trained on a set of training control messages, each training control message comprising one or more corresponding features and an actual label; determining, by the data processing hardware, that a probability of the potential label satisfies a confidence threshold; analyzing, by the data processing hardware, the control message to determine whether the control message corresponds to a respective network performance issue impacting network performance of the cellular network; and when the control message corresponds to the respective network performance issue impacting network performance, communicating, by the data processing hardware, the network performance issue to a network entity responsible for the network performance issue.
+2. The method of claim 1, wherein predicting the potential label using the predictive model comprises predicting a probability distribution over potential labels, the predicted potential label comprising one of the potential labels in the probability distribution over potential labels.
+3. The method of claim 2, wherein predicting the potential label comprises selecting the potential label associated with a highest probability in the probability distribution over potential labels.
+4. The method of claim 1, further comprising, when the control message fails to correspond to the respective network performance issue: receiving, at the data processing hardware, a subsequent control message from the cellular network; extracting, by the data processing hardware, one or more corresponding features from the subsequent control message; identifying, by the data processing hardware, that at least one of the one or more corresponding features extracted from the subsequent control message match the one or more features extracted from the control message; and prior to using the predictive model to predict a corresponding potential label for the subsequent control message, removing, by the data processing hardware, the identified at least one of the one or more corresponding features extracted from the subsequent control message from use as feature inputs to the predictive model.
+5. The method of claim 1, further comprising, when the control message fails to correspond to the respective network performance issue: identifying, by the data processing hardware, the one or more features extracted from the control message; and prior to using the predictive model to predict a corresponding potential label for a subsequent control message: modifying, by the data processing hardware, the set of training control messages by removing each training control message that comprises one or more corresponding features that match any of the identified one or more features extracted from the control message; and retraining, by the data processing hardware, the predictive model with the modified set of training control messages.
+6. The method of claim 1, wherein the predictive model comprises a multi-class classification model configured to predict one or more types of labels.
+7. The method of claim 1, wherein the actual label of each training control message comprises a type allocation code (TAC) for a user equipment (UE) device associated with the training control message.
+8. The method of claim 1, wherein the actual label of each training control message comprises an identifier for a network element of the cellular network.
+9. The method of claim 1, wherein the cellular network communicates the control message according to a general packet radio service tunneling protocol (GTP-C).
+10. The method of claim 1, wherein the cellular network communicates the control message according to a Diameter protocol.
+11. The method of claim 1, wherein the control message corresponds to one of a plurality of control messages sent by a user of the cellular network during a single network session.
+12. The method of claim 1, wherein the one or more features extracted from the control message comprise a message type summary vector representing a number of times a message type occurs within a single session by a user of the cellular network.
+13. The method of claim 1, wherein the features comprise an amount of data transferred in a time period associated with a single session by a user of the cellular network.
+14. The method of claim 1, wherein the predictive model comprises a deep neural network or a recurrent neural network.
+15. The method of claim 1, wherein analyzing the control message to determine whether the control message corresponds to the respective network performance issue impacting network performance of the cellular network comprises clustering the control message into a cluster that shares a respective one of the one or more extracted features from the control message.
+16. A system comprising: data processing hardware; and memory hardware in communication with the data processing hardware, the memory hardware storing instructions that when executed on the data processing hardware cause the data processing hardware to perform operations comprising: receiving a control message from cellular network; extracting one or more features from the control message; predicting a potential label for the control message using a predictive model configured to receive the one or more extracted features from the control message as feature inputs, the predictive model trained on a set of training control messages, each training control message comprising one or more corresponding features and an actual label; determining that a probability of the potential label satisfies a confidence threshold; analyzing the control message to determine whether the control message corresponds to a respective network performance issue impacting network performance of the cellular network; and when the control message corresponds to the respective network performance issue impacting network performance, communicating, by the data processing hardware, the network performance issue to a network entity responsible for the network performance issue.
+17. The system of claim 16, wherein predicting the potential label using the predictive model comprises predicting a probability distribution over potential labels, the predicted potential label comprising one of the potential labels in the probability distribution over potential labels.
+18. The system of claim 17, wherein predicting the potential label comprises selecting the potential label associated with a highest probability in the probability distribution over potential labels.
+19. The system of claim 16, wherein the operations further comprise, when the control message fails to correspond to the respective network performance issue: receiving a subsequent control message from the cellular network; extracting one or more corresponding features from the subsequent control message; identifying that at least one of the one or more corresponding features extracted from the subsequent control message match the one or more features extracted from the control message; and prior to using the predictive model to predict a corresponding potential label for the subsequent control message, removing the identified at least one of the one or more corresponding features extracted from the subsequent control message from use as feature inputs to the predictive model.
+20. The system of claim 16, wherein the operations further comprise, when the control message fails to correspond to the respective network performance issue: identifying the one or more features extracted from the control message; and prior to using the predictive model to predict a corresponding potential label for a subsequent control message: modifying the set of training control messages by removing each training control message that comprises one or more corresponding features that match any of the identified one or more features extracted from the control message; and retraining the predictive model with the modified set of training control messages.
+21. The system of claim 16, wherein the predictive model comprises a multi-class classification model configured to predict one or more types of labels.
+22. The system of claim 16, wherein the actual label of each training control message comprises a type allocation code (TAC) for a user equipment (UE) device associated with the training control message.
+23. The system of claim 16, wherein the actual label of each training control message comprises an identifier for a network element of the cellular network.
+24. The system of claim 16, wherein the cellular network communicates the control message according to a general packet radio service tunneling protocol (GTP-C).
+25. The system of claim 16, wherein the cellular network communicates the control message according to a Diameter protocol.
+26. The system of claim 16, wherein the control message corresponds to one of a plurality of control messages sent by a user of the cellular network during a single network session.
+27. The system of claim 16, wherein the one or more features extracted from the control message comprise a message type summary vector representing a number of times a message type occurs within a single session by a user of the cellular network.
+28. The system of claim 16, wherein the features comprise an amount of data transferred in a time period associated with a single session by a user of the cellular network.
+29. The system of claim 16, wherein the predictive model comprises a deep neural network or a recurrent neural network.
+30. The system of claim 16, wherein analyzing the control message to determine whether the control message corresponds to the respective network performance issue impacting network performance of the cellular network comprises clustering the control message into a cluster that shares a respective one of the one or more extracted features from the control message.
+</claims>
+</document>

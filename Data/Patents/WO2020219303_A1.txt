@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2020-04-14
+</filing_date>
+
+<publication_date>
+2020-10-29
+</publication_date>
+
+<priority_date>
+2019-04-26
+</priority_date>
+
+<ipc_classes>
+B60W30/00,G01C21/26,G06K9/00
+</ipc_classes>
+
+<assignee>
+NVIDIA CORPORATION
+</assignee>
+
+<inventors>
+PHAM, TRUNG
+NISTER, DAVID
+PARK, MIN WOO
+CVIJETIC, NEDA
+RODRIGUEZ HERVAS, Berta
+DOU, Hang
+</inventors>
+
+<docdb_family_id>
+72916853
+</docdb_family_id>
+
+<title>
+INTERSECTION POSE DETECTION IN AUTONOMOUS MACHINE APPLICATIONS
+</title>
+
+<abstract>
+In various examples, live perception from sensors of a vehicle may be leveraged to generate potential paths for the vehicle to navigate an intersection in real-time or near real-time. For example, a deep neural network (DNN) may be trained to compute various outputs – such as heat maps corresponding to key points associated with the intersection, vector fields corresponding to directionality, heading, and offsets with respect to lanes, intensity maps corresponding to widths of lanes, and/or classifications corresponding to line segments of the intersection. The outputs may be decoded and/or otherwise post-processed to reconstruct an intersection – or key points corresponding thereto – and to determine proposed or potential paths for navigating the vehicle through the intersection.
+</abstract>
+
+<claims>
+What is claimed is:
+1. A method comprising: applying, to a neural network, image data representative of an intersection in a field of view of an image sensor of a vehicle; computing, using the neural network and based at least in part on the image data, first data representative of one or more two dimensional (2D) heat maps representing locations of key points in corresponding to the intersection and second data representative of classification confidence values corresponding to the key points; decoding the one or more 2D heat maps to determine pixel locations of the key points in the image; determining associated classifications from the classification confidence values that correspond to the key points; based at least in part on the pixel locations and the associated classifications, generating one or more proposed paths through the intersection; and performing one or more operations by the vehicle using the one or more proposed paths.
+2. The method of claim 1, wherein the associated classifications represent one or more of: an entrance point to a pedestrian crossing, an entrance point to the intersection, an exit point from the intersection, an exit point from a pedestrian crossing, or a bike path.
+3. The method of claim 1, wherein the 2D heat map comprises an unnormalized normal distribution, and wherein the 2D heat map comprises one of a fixed standard deviation or an adaptive covariance.
+4. The method of claim 1, wherein the decoding the 2D heat map includes executing a peak finding algorithm to determine peak-probability pixels, the peak-probability pixels corresponding to the key points.
+5. The method of claim 1, further comprising receiving third data corresponding to a proposed maneuver of the vehicle through the intersection, wherein the one or more operations include selecting at least one of the one or more proposed paths based at least in part on the third data.
+6. The method of claim 1, further comprising: computing, using the neural network, third data representative of one or more vector fields corresponding to one or more of directionalities of line segments corresponding to the key points or heading directions of lanes corresponding to the key points; and based at least in part on the third data and the pixel locations of the key points, decoding the one or more vector fields to determine one or more of the directionalities or the heading directions.
+7. The method of claim 6, wherein the generating the one or more proposed paths is further based at least in part on one or more of the directionalities or the heading directions.
+8. The method of claim 1, further comprising: computing, using the neural network, third data representative of an intensity map corresponding to widths of lanes associated with the intersection; and based at least in part on the third data and the pixel locations of the key points, decoding the intensity map to determine the widths of the lanes.
+9. The method of claim 1, wherein the one or more proposed paths include at least one of a left turn, a right turn, and a straight path for traversing the vehicle through the intersection.
+10. The method of claim 1, further comprising: computing, using the neural network, third data representative of an offset vector field, wherein the decoding the 2D heat map is based at least in part on the offset vector field.
+11. The method of claim 1 , wherein the generating the one or more proposed paths includes executing a curve fitting algorithm to determine a trajectory from a first key point of the key points to a second key point of the key points.
+12. A method comprising: receiving image data representative of an intersection; receiving first data representative of annotations corresponding to line segments within the intersection and second data corresponding to classifications of the line segments; determining, based at least in part on the line segments, locations of key points corresponding to the line segments; encoding the key points to a Gaussian heat map; and training a neural network using the Gaussian heat map and the classifications as ground truth data.
+13. The method of claim 12, wherein the determining the locations of the key points includes identifying pixels corresponding to longitudinal centers of the line segments.
+14. The method of claim 13, further comprising encoding one or more vector fields corresponding to one or more of directionalities of the line segments or heading directions of lanes corresponding to the line segments, wherein the training the neural network is further using the one or more vector fields.
+15. The method of claim 12, further comprising encoding a vector field by, at least in part, generating vectors from pixels at an output resolution of the neural network to first key point locations within the output resolution that correspond to second key point locations at the input resolution of the neural network, wherein the first key point locations and the second key point locations correspond to at least one of center key points, left edge key points, or right edge key points of the line segments, and further wherein the training the neural network is further using the vector field.
+16. The method of claim 12, further comprising encoding an intensity map based at least in part on lengths of the line segments, the lengths corresponding to widths of lanes within the intersection, further wherein the training the neural network is further using the intensity map.
+17. A system comprising: an image sensor to generate image data representative of an image of a field of view of the image sensor in an environment; a computing device including one or more processing devices and one or more memory devices communicatively coupled to the one or more processing devices storing programmed instructions thereon, which when executed by the processor causes the instantiation of: applying, to a neural network, image data representative of an image of an intersection in a field of view of an image sensor of a vehicle; an output generator to compute, using a neural network and based at least in part on the image data, first data representative of one or more two-dimensional (2D) heat maps associated with key points corresponding to an intersection within the environment; a decoder to decode the one or more 2D maps to determine pixel locations of the key points within the image and semantic labels corresponding thereto; a path generator to: sample pairs of the key points to determine the pairs that are connectable; and generate one or more proposed paths by connecting the pairs of the key points that are connectable; and a control component to perform one or more operations by the vehicle using the one or more proposed paths.
+18. The system of claim 17, wherein the 2D heat map comprises an unnormalized normal distribution, and wherein the 2D heat map comprises one of a fixed standard deviation or an adaptive covariance.
+19. The system of claim 17, wherein the sampling the pairs of the key points includes analyzing at least one of heading directions corresponding to the pairs of the key points or traffic laws corresponding to the region where the intersection is located.
+20. The system of claim 17, wherein each 2D heat map of the 2D heat maps corresponds to a single semantic label, and a semantic label for each key point is determined based at least in part on the 2D heat map from which the key point was decoded.
+</claims>
+</document>

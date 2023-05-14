@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2019-08-30
+</filing_date>
+
+<publication_date>
+2020-09-30
+</publication_date>
+
+<priority_date>
+2018-06-27
+</priority_date>
+
+<ipc_classes>
+G03B13/36,G06T5/00
+</ipc_classes>
+
+<assignee>
+LEICA MICROSYSTEMS CMS
+</assignee>
+
+<inventors>
+Schechter, Markus
+Schlaudraff, Falk
+Sieckmann, Frank
+Schlicker, Oliver
+</inventors>
+
+<docdb_family_id>
+66867077
+</docdb_family_id>
+
+<title>
+IMAGE PROCESSING APPARATUS AND METHOD FOR USE IN AN AUTOFOCUS SYSTEM
+</title>
+
+<abstract>
+The invention relates to an image processing apparatus (1) for determining a focused output image(O<sub>AF</sub>(x<sub>i</sub>)) in an autofocus system (13), in particular a passive autofocus system (13). The image processing apparatus (1) may be part of an observation device and be, for example, a microscope (2a) or an endoscope. In order to provide a more reliable autofocus function, the apparatus and the method according to the invention are configured to retrieve a set (11) of input images (I(x<sub>i</sub>)); to compute at least one baseline estimate (f(x<sub>i</sub>)) for at least one input image of the set of input images, the at least one baseline estimate representing image structures having a length scale larger than a predetermined image feature length scale (fl<sub>j</sub>); to compute a set (31) of output images (O(x<sub>i</sub>)); to compute each output image of the set of output images based on one of (a) a different input image of the set of input images and the at least one baseline estimate for this input image and in (b) the at least one baseline estimate for a respective different input image; and to determine one output image of the set of output images as the focused output image. Identifying a baseline by computing the baseline estimate, where the baseline represents image features of only a certain length scale, removes blur and thus allows to more easily identify the output image to autofocus on.
+</abstract>
+
+<claims>
+1. Image processing apparatus (1) for determining a focused output image (OAF(xi)) in an autofocus system (13), in particular a passive autofocus system (13),
+wherein the image processing apparatus (1) is configured - to retrieve a set (11) of input images (I(xi)); - to compute at least one baseline estimate (f(xi)) for at least one [preferably each] input image of the set of input images, the at least one baseline estimate representing image structures having a length scale larger than a predetermined image feature length scale (flj); - to compute a set (31) of output images (O(xi)); - to compute each output image of the set of output images based on one of (a) a different input image of the set of input images and the at least one baseline estimate for this input image and (b) the at least one baseline estimate for a respective different input image; and - to determine one output image of the set of output images as the focused output image.
+2. Image processing apparatus (1) according to claim 1, wherein the image processing apparatus (1) is configured - to remove the at least one baseline estimate (f(xi)) from the respective input image (I(xi)) to obtain an output image (O(xi)) of the set (31) of output images.
+3. Image processing apparatus (1) according to claim 1 or 2, wherein the image processing apparatus (1) is configured - to compute for an input image (I(xi)) of the set of input images a first baseline estimate (fI(xi)) based on a first predetermined image feature length scale (flI,j) and a second baseline estimate (fII(xi)) based on a second image feature length scale (flI,j), the second image feature length scale being different from the first image feature length scale, and - to compute an output image (O(xi)) based on the first and the second baseline estimate.
+4. Image processing apparatus (1) according to claim 3, wherein the image processing apparatus is configured - to remove the baseline estimate (fII(xi)) based on a larger image feature length scale (flII) from the baseline estimate (fI(xi)) based on a smaller image feature length scale (flI).
+5. Image processing apparatus (1) according to any one of claims 1 to 4, wherein the image processing apparatus (1) is configured - to obtain a baseline estimate (f(xi)) as an output image (O(xi)) of the set (31) of output images.
+6. Image processing apparatus (1) according to any one of claims 1 to 5, wherein the image processing apparatus (1) is configured - to compute the baseline estimate (f(xi)) using a least-square minimization criterion for the baseline estimate (M(f(xi))), the least-square minimization criterion comprising a scalar combination of the image feature length scale and a derivative of the baseline estimate.
+7. Image processing apparatus (1) according to claim 6, wherein the least-square minimization criterion (M(f(xi))) comprises a penalty term (P(f(xi))), the penalty term containing the image feature length scale (flj).
+8. Image processing apparatus (1) according to any one of claims 1 to 7, wherein the apparatus (1) is configured to use a focus function to determine the one output image (OAF(xi)) of the set of output images O(xi) as a focused image.
+9. Image processing apparatus (1) according to claim 8, wherein the focus function comprises at least one focus function of the following list: - computation of an amount of entropy contained in the input image and/or the output image; - computation of a contrast in at least a part of the input image and/or the output image; - computation of an intensity and/or an intensity distribution in at least part of the input image and/or the output image; - computation of a phase correlation; - computation of a correlation with a predetermined pattern.
+10. Image processing apparatus (1) according to any one of claims 1 to 9, wherein the apparatus (1) is configured to pre-process at least one input image (I(xi)) of the set (11) of input images (I(xi)) using a top-hat transform.
+11. Image processing apparatus (1) according to any one of claims 1 to 10, wherein the apparatus (1) is configured to pre-process at least one input image (I(xi)) of the set of input images to improve image quality and/or for filtering.
+12. Autofocus system (13) comprising an image processing apparatus (1) according to any one of claims 1 to 11, and an imaging system (4) comprising an image sensor (9) and an autofocus objective (14).
+13. Observation device (2) comprising one of an image processing apparatus (1) according to any one of claims 1 to 11 and an autofocus system according to claim 12, and a display (37), the display being configured to display the focused output image (OAF(xi)).
+14. Observation device (2) according to claim 13, the observation device being one of a microscope (2a) and an endoscope.
+15. Image processing method, for determining a focused output image (OAF(xi)) in an autofocus system (13), in particular a passive autofocus system (13), the method comprising the steps of - retrieving a set (11) of input images (I(xi)); - computing at least one baseline estimate (f(xi)) for at least one input image of the set of input images, the at least one baseline estimate representing image structures having a length scale larger than a predetermined image feature length scale (flj); - computing a set (31) of output images (O(xi)); - the step computing the set of output images comprising the step of:
+computing each output image of the set of output images based on one of (a) a different input image of the set of input images and the at least one baseline estimate for this input image and (b) the at least one baseline estimate for a respective different input image; and - selecting one output image of the set of output images as the focused output image.
+16. Image processing method according to claim 15, wherein the step of retrieving the set (11) of input images (I(xi)) comprises the step of automatically capturing at least some input images of the set of input images at different focus distances (12) and/or different relative positions of a field of view (12) and an object (15).
+17. Autofocusing method, comprising the image processing method of claim 15 or 16 and the step of displaying the selected output image (OAF(xi)).
+18. Computer program with a program code for performing the method according to claim 15 or 16 when the computer program runs on a processor.
+19. Non-transitory computer readable medium storing a computer program causing a computer to execute the image processing method according to claim 15 or 16.
+20. Machine learning device for use in an autofocus system, trained by sets of input images and selected output images, wherein the selected output images are created from the set of input images by method according to claim 15 or 16.
+21. Focused output image (OAF(xi)) being the result of the method according to claim 15 or 16.
+</claims>
+</document>

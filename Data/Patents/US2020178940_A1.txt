@@ -1,0 +1,85 @@
+<document>
+
+<filing_date>
+2019-12-09
+</filing_date>
+
+<publication_date>
+2020-06-11
+</publication_date>
+
+<priority_date>
+2018-12-11
+</priority_date>
+
+<ipc_classes>
+A61B8/00,A61B8/06,A61B8/08,A61B8/14,G06T7/00,G16H30/20,G16H30/40
+</ipc_classes>
+
+<assignee>
+EKO.AI
+</assignee>
+
+<inventors>
+LAM, SU PING CAROLYN
+OUWEKERK, WOUTER
+TROMP, JASPER
+SEEKINGS, PAUL JAMES
+HARE, II, JAMES OTIS
+HUMMEL, YORAN
+</inventors>
+
+<docdb_family_id>
+70332323
+</docdb_family_id>
+
+<title>
+Automatic clinical workflow that recognizes and analyzes 2D and doppler modality echocardiogram images for automated cardiac measurements and the diagnosis, prediction and prognosis of heart disease
+</title>
+
+<abstract>
+An automated workflow performed by software executing on at least one processor includes receiving a plurality of echocardiogram images taken by an ultrasound device. A filter separates the plurality of echocardiogram images by 2D images and Doppler modality images based on analyzing image metadata. The 2D images are classified by view type, and the Doppler modality images are classified by view type. The cardiac chambers are segmented in the 2D images, and the Doppler modality images are segmented to generate waveform traces, producing segmented 2D images and segmented Doppler modality images. Using both the sets of images, measurements of cardiac features for both left and right sides of the heart are calculated. The calculated measurements are compared with international cardiac guidelines to generate conclusions and a report is output showing the calculated measurements that fall both within and outside of the guidelines.
+</abstract>
+
+<claims>
+We claim:
+1. A computer-implemented method for an automated workflow performed by a software component executing at least one processor, the method comprising: receiving, from a memory, a patient study comprising a plurality of echocardiogram images taken by an ultrasound device of a patient heart; separating, by a filter, the plurality of echocardiogram (echo) images according to 2D images and Doppler modality images based on analyzing image metadata; classifying the 2D images by view type; classifying the Doppler modality images by view type; segmenting regions of interest in the 2D images to produce segmented 2D images; segmenting the Doppler modality images to generate waveform traces to produce segmented Doppler modality images; using both the segmented 2D images and the segmented Doppler modality images to calculate measurements of cardiac features for both left and right sides of the heart; comparing the calculated measurements with International cardiac guidelines; and outputting a report showing the calculated measurements that fall both within and outside of the International cardiac guidelines.
+2. The method of claim 1, wherein receiving, from a memory, a patient study, further comprises: receiving, by the processor, the echo images directly from a local or remote source, including the ultrasound device; storing the echo images in an image archive; and opening the stored echo images in the memory for processing.
+3. The method of claim 2, further comprising: queuing the echo images and checking for any unprocessed echo images, and filtering the echo image for having a valid image format.
+4. The method of claim 1, wherein the 2D images are classified by view type by a first neural network, the method further comprising: training the first neural network to classify frames of the 2D images as one of: A2C, A3C, A4C, A5C, PLAX Modified, PLAX, PSAX AoV level, PSAX Mid-level, Subcostal Ao, Subcostal Hep vein, Subcostal IVC, Subcostal LAX, Subcostal SAX, Suprasternal and Other.
+5. The method of claim 1, wherein the Doppler modality images are classified by view type by a second neural network, the method further comprising: classifying continuous wave (CW), pulsed-wave (PW), and M-mode Doppler modality images by: if an echo image file contains a waveform modality (CW, PW, PWTDI, M-mode), inputting an echo image extracted from the Doppler modality image to a CNN trained for CW, PW, PWTDI and M-mode view classification to further classify the echo image as one of: CW (AoV), CW (TrV), CW Other, PW (LVOT), PW (MV), PW Other, PWTDI (lateral), PWTDI (septal), PWTDI (tricuspid), M-mode (TrV) and M-mode Other.
+6. The method of claim 1, wherein separating the echo images according to 2D images and Doppler modality images based on analyzing image metadata further comprises: using metadata in order to group the images into one of the following four classes: 2D only, pulsed (PW), continuous wave (CW), and m-mode; and using a transducer frequency of the ultrasound device in the metadata to separate some of the PW images into a fifth class: pulsed-wave tissue Doppler imaging (PWTDI).
+7. The method of claim 1, wherein separating the echo images further comprises: filtering out the echo images having a zoomed view.
+8. The method of claim 1, wherein the regions of interest in the 2D images are segmented by a third neural network to produce segmented 2D images, the method further comprising: determining locations where each of the cardiac chambers begin and end and generating outlines of heart structures.
+9. The method of claim 1, wherein the regions of interest in the 2D images are segmented by a third neural network to produce segmented 2D images, the method further comprising: performing an annotation post process that spline fits outlines of cardiac structures and adjusts locations of the boundary lines closer to the region of interest.
+10. The method of claim 1, wherein segmenting the regions of interest in the 2D images and the Doppler modality images further comprises: defining an imaging window for each of the echo images, and filtering out annotations that lie outside of the imaging window.
+11. The method of claim 1, wherein segmenting the regions of interest in the 2D images and the Doppler modality images further comprises: using the 2D images to simulate Doppler modality measurements by using Left Ventricular (LV) and Left Atrial (LA) volume measurements to derive E, e′ and A (e.g., early and late diastolic transmittal flow and early/mean diastolic tissue velocity) measurements.
+12. The method of claim 1, wherein using both the segmented 2D images and the segmented Doppler modality images to calculate for the patient study measurements of cardiac features for both left and right sides of the heart, further comprises: using a 2D pipeline to measure for the 2D images left/right ventricle, left/right atriums, left ventricular outflow (LVOT) and pericardium; and using a Doppler modality image pipeline to measure for the Doppler modality images blood flow velocities.
+13. The method of claim 1, further comprising: implementing the automated workflow to include a machine learning layer, a presentation layer, and a database layer, wherein the machine learning layer comprises at least a first neural network, a second neural network, a third neural network, and a fourth neural network.
+14. The method of claim 13, further comprising: implementing the machine learning layer to comprise a set of one or more classification convolutional neural networks (CNNs) for view classification, a set of one or more segmentation CNNs for chamber segmentation and waveform mask/trace, a set of one or more prediction CNNs for disease prediction.
+15. The method of claim 1, further comprising: for all non-filtered out data, selecting as best measurement data the measurements associated with cardiac chambers with the largest volumes; and saving with the best measurement data, image location, classification, annotation and other measurement data associated with the best measurements.
+16. The method of claim 15, further comprising: inputting the best measurement data to a set of rules based on international measurement guidelines to generate conclusions for medical decisions support.
+17. The method of claim 1, wherein the workflow engine outputs the report by at least electronically displaying the report to a user on a display of an electronic device, wherein the report is displayed in a browser-based UI visualizing the calculated measurements in a manner that is editable by the user for human verification.
+18. The method of claim 1, further comprising: implementing the automated workflow as a software application that is configured to execute on at least one of: i) a computer operating in a standalone setting; ii) the computer connected through a network to other DICOM based devices, including one or more of a DICOM server, a network file share device, an Echo workstation, and a cloud storage service hosting DICOM files; iii) a handheld device connected to a portable ultrasound scanner probe that transmits echo images to the handheld device; and iv) on a server in communication over a network with a plurality of client devices, wherein the server and the software application are part of a third-party service providing automated heart disease diagnosis to the client devices over the Internet.
+19. A system, comprising: a memory storing a patient study comprising a plurality of echocardiogram images taken by an ultrasound device of a patient heart; a processor coupled to the memory; and a workflow engine executed by the processor that is configured to: separate, by a filter, the plurality of echocardiogram images according to 2D images and Doppler modality images based on analyzing image metadata; classify the 2D images by view type; classify the Doppler modality images by view type; segment regions of interest in the 2D images to produce segmented 2D images; segment the Doppler modality images to generate waveform traces to produce segmented Doppler modality images; use both the segmented 2D images and the segmented Doppler modality images to calculate measurements of cardiac features for both left and right sides of the heart; compare the calculated measurements with international cardiac guidelines; and output a report showing the calculated measurements that fall both within and outside of the International guidelines.
+20. The system of claim 19, wherein the workflow engine receives the patient study directly from a local or remote source, including the ultrasound device; stores the images in an image archive; and opens the stored images in the memory for processing.
+21. The system of claim 20, wherein the workflow engine queues the images and checks for any unprocessed images, and filters the image for having a valid image format.
+22. The system of claim 19, wherein a first neural network is trained to classify frames of the 2D images as one of: A2C, A3C, A4C, ASC, PLAX Modified, PLAX, PSAX AoV level, PSAX Mid-level, Subcostal Ao, Subcostal Hep vein, Subcostal IVC, Subcostal LAX, Subcostal SAX, Suprasternal and Other.
+23. The system of claim 19, wherein a second neural network classifies continuous wave (CW), pulsed-wave (PW), and M-mode Doppler modality images by: if an echo image file contains a waveform modality (CW, PW, PWTDI, M-mode), inputting an image extracted from the Doppler modality image to a CNN trained for CW, PW, PWTDI and M-mode view classification to further classify the image as one of: CW (AoV), CW (TrV), CW Other, PW (LVOT), PW (MV), PW Other, PWTDI (lateral), PWTDI (septal), PWTDI (tricuspid), M-mode (TrV) and M-mode Other.
+24. The system of claim 19, wherein separating the images according to 2D images and Doppler modality images based on analyzing image metadata uses metadata in order to group the images into one of the following four classes: 2D only, pulsed (PW), continuous wave (CW), and m-mode; and uses a transducer frequency of the ultrasound device in the metadata to separate some of the PW images into a fifth class: pulsed-wave tissue Doppler imaging (PWTDI).
+25. The system of claim 19, wherein when separating the images the workflow engine filters out the images having a zoomed view.
+26. The system of claim 19, wherein the regions of interest in the 2D images are segmented by a third neural network to determine where each of the cardiac chambers begin and end and generating outlines of heart structures.
+27. The system of claim 19, wherein the regions of interest in the 2D images are segmented by a third neural network to perform an annotation post process that spline fits outlines of cardiac structures and adjusts locations of the boundary lines closer to the region of interest.
+28. The system of claim 19, wherein segmenting the regions of interest in the 2D images and the Doppler modality images includes defining an imaging window for each of the images, and filtering out annotations that lie outside of the imaging window.
+29. The system of claim 19, wherein segmenting the regions of interest in the 2D images includes using the 2D images to simulate Doppler modality measurements by using Left Ventricular (LV) and Left Atrial (LA) volume measurements to derive E, e′ and A (e.g., early and late diastolic transmittal flow and early/mean diastolic tissue velocity) measurements.
+30. The system of claim 19, wherein the workflow engine uses a 2D pipeline to measure for the 2D images left/right ventricle, left/right atriums, left ventricular outflow (LVOT) and pericardium; and uses a Doppler modality image pipeline to measure for the Doppler modality images blood flow velocities.
+31. The system of claim 19, wherein the workflow engine includes a machine learning layer, a presentation layer, and a database layer, wherein the machine learning layer comprises at least a first neural network, a second neural network, a third neural network, and a fourth neural network.
+32. The system of claim 31, wherein the machine learning layer comprises a set of one or more classification convolutional neural networks (CNNs) for view classification, a set of one or more segmentation CNNs for chamber segmentation and waveform mask/trace, a set of one or more prediction CNNs for disease.
+33. The system of claim 19, wherein classification confidence scores, annotation confidence scores, and measurement confidence scores are maintained during processing and ones of the confidence scores failing to meet a threshold are filtered out.
+34. The system of claim 33, wherein for all non-filtered out data, the workflow engine selects as best measurement data the measurements associated with cardiac chambers with the largest volumes; and saving with the best measurement data, image location, classification, annotation and other measurement data associated with the best measurements.
+35. The system of claim 34, wherein the workflow engine inputs the best measurement data to a set of rules based on international measurement guidelines to generate conclusions for medical decisions support.
+36. The system of claim 19, wherein the workflow engine outputs the report by at least electronically displaying the report to a user on a display of an electronic device, wherein the report is displayed in a browser-based UI visualizing the calculated measurements in a manner that is editable by the user for human verification.
+37. The system of claim 19, wherein the workflow engine is configured to execute on at least one of: i) a computer operating in a standalone setting; ii) the computer connected through a network to other DICOM based devices, including one or more of a DICOM server, a network file share device, an workstation, and a cloud storage service hosting DICOM files; iii) a handheld device connected to a portable ultrasound scanner probe that transmits images to the handheld device; and iv) on a server in communication over a network with a plurality of client devices, wherein the server and the workflow engine are part of a third-party service providing automated heart disease diagnosis to the client devices over the Internet.
+38. An executable software product stored on a non-transitory computer-readable medium containing program instructions for implementing an automated workflow, the program instructions for: receiving, from a memory, a patient study comprising a plurality of echocardiogram images taken by an ultrasound device of a patient heart; separating, by a filter, the plurality of echocardiogram images according to 2D images and Doppler modality images based on analyzing image metadata; classifying the 2D images by view type; classifying the Doppler modality images by view type; segmenting cardiac chambers in the 2D images and segmenting the Doppler modality images to generate waveform traces, thereby producing segmented 2D images and segmented Doppler modality images; using both the segmented 2D images and the segmented Doppler modality images to calculate measurements of cardiac features for both left and right sides of the heart; comparing the calculated measurements with international cardiac guidelines; and outputting a report showing the calculated measurements that fall both within and outside of the International guidelines.
+</claims>
+</document>

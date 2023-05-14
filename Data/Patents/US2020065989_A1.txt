@@ -1,0 +1,69 @@
+<document>
+
+<filing_date>
+2019-08-23
+</filing_date>
+
+<publication_date>
+2020-02-27
+</publication_date>
+
+<priority_date>
+2018-08-23
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/08,G06T7/68
+</ipc_classes>
+
+<assignee>
+SHENZHEN KEYA MEDICAL TECHNOLOGY COMPANY
+</assignee>
+
+<inventors>
+LU YI
+OUYANG, BIN
+BAI, JUNJIE
+YIN, YOUBING
+CAO, KUNLIN
+SONG, QI
+WANG, XIN
+XU, XIAOYANG
+GUO, ZHIHUI
+</inventors>
+
+<docdb_family_id>
+68553324
+</docdb_family_id>
+
+<title>
+METHOD, DEVICE AND SYSTEM FOR GENERATING A CENTERLINE FOR AN OBJECT IN AN IMAGE
+</title>
+
+<abstract>
+Systems and methods for generating a centerline for an object in an image are provided. An exemplary method includes receiving an image containing the object. The method also includes generating a distance cost image using a trained first learning network based on the image. The method further includes detecting end points of the object using a trained second learning network based on the image. Moreover, the method includes extracting the centerline of the object based on the distance cost image and the end points of the object.
+</abstract>
+
+<claims>
+1. A method for generating a centerline for an object, comprising: receiving an image containing the object, wherein the image is acquired by an imaging device; generating, by a processor, a distance cost image using a trained first learning network based on the image; detecting, by the processor, end points of the object using a trained second learning network based on the image; and extracting, by the processor, the centerline of the object based on the distance cost image and the end points of the object.
+2. The method of claim 1, wherein extracting the centerline of the object comprises: generating a path connecting a pair of a starting end point and a corresponding terminating end point with a minimal distance cost.
+3. The method of claim 1, wherein the method further comprises: predicting, by the processor, an end point map using the trained second learning network based on the image, wherein an intensity of a pixel of the end point map indicates whether the pixel corresponds to an end point.
+4. The method of claim 3, wherein the intensity of the pixel of the end point map indicates whether the pixel corresponds to a starting end point or a terminating end point, or the pixel does not correspond to an ending point.
+5. The method of claim 3, wherein when the pixel corresponds to an end point, the intensity of the pixel further indicates another ending point that is in a pair with the end point corresponding to the pixel.
+6. The method of claim 3, wherein a ground truth end point map for training the second learning network is obtained based on setting intensities of pixels in an area around each end point based on the intensity of the pixel at that end point.
+7. The method of claim 1, further comprising: when a starting end point pairs with multiple terminating end points, determining a path with a minimal distance cost connecting the starting end point and each terminating end point and integrating the determined paths as at least a portion of the centerline of a corresponding portion of the object defined by the starting end point and the multiple terminating end points; and when a starting end point pairs with only one terminating end point, determining a path with a minimal distance cost connecting the starting end point and the paired terminating end point as at least a portion the centerline of a corresponding portion of the object defined by the starting end point and the paired terminating end point.
+8. The method of claim 1, wherein the extracted centerline of the object comprises a single pixel-wide line.
+9. The method of claim 1, wherein an intensity of each pixel of a ground truth distance cost image for training the first learning network indicates a normalized distance of the pixel from the centerline of the object, and the normalized distance of the pixel belonging to the object indicates a ratio of a distance from the centerline to a radius of the object at a longitudinal position of the centerline corresponding to the pixel.
+10. The method of claim 1, wherein at least one of the first learning network or the second learning network includes an encoder for extracting features, and the method further comprises: adding an attention unit to the encoder at a location corresponding to the object to increase weights of features extracted at that location compared to weights of features extracted at another location not corresponding to the object.
+11. The method of claim 1, wherein at least one of the first learning network or the second learning network is constructed by a convolutional network.
+12. The method of claim 1, wherein the first learning network and the second learning network are independent from each other.
+13. The method of claim 1, wherein the first learning network shares an encoder with the second learning network.
+14. The method of claim 13, wherein the first learning network and the second learning network are trained in at least one of the following manners: the first learning network is trained first, and then the first and second learning networks are trained integrally using parameters of a trained encoder of the first learning network as initial parameters of both encoders of the first and second learning networks; or the first and second learning networks are trained integrally with predefined initial parameters of encoders of the first and second learning networks.
+15. The method of claim 1, wherein the method further comprises: detecting, by the processor, bifurcations of the object using a trained third learning network based on the image; and extracting, by the processor, the centerline of the object based on the distance cost image and the end points of the object under a constraint condition that the centerline passes through the detected corresponding bifurcations.
+16. A system for generating a centerline for an object, comprising: an interface configured to receive an image containing the object, wherein the image is acquired by an imaging device; and a processor configured to: generate a distance cost image using a trained first learning network based on the image; detect end points of the object using a trained second learning network based on the image; and extract the centerline of the object based on the distance cost image and the end points of the object.
+17. The system of claim 16, wherein the object includes a vessel.
+18. The system of claim 16, wherein the processor is further configured to: generate a path connecting a pair of a starting end point and a corresponding terminating end point with a minimal distance cost.
+19. The system of claim 16, wherein the processor is further configured to: pair the detected end points; and select a subset of the detected end points as starting end points.
+20. A non-transitory computer readable medium storing instructions that, when executed by a processor, perform a method for generating a centerline for an object, the method comprising: receiving an image containing the object, wherein the image is acquired by an imaging device; generating a distance cost image using a trained first learning network based on the image; detecting end points of the object using a trained second learning network based on the image; and extracting the centerline of the object based on the distance cost image and the end points of the object.
+</claims>
+</document>

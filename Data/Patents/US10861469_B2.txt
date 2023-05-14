@@ -1,0 +1,57 @@
+<document>
+
+<filing_date>
+2018-12-21
+</filing_date>
+
+<publication_date>
+2020-12-08
+</publication_date>
+
+<priority_date>
+2016-06-30
+</priority_date>
+
+<ipc_classes>
+G06F16/683,G10L19/008
+</ipc_classes>
+
+<assignee>
+HUAWEI TECHNOLOGIES DUESSELDORF
+</assignee>
+
+<inventors>
+SETIAWAN, PANJI
+KONIECZNY, JACEK
+</inventors>
+
+<docdb_family_id>
+56345116
+</docdb_family_id>
+
+<title>
+Apparatuses and methods for encoding and decoding a multichannel audio signal
+</title>
+
+<abstract>
+The disclosure relates to an apparatus for encoding an input audio signal, wherein the input audio signal comprises a plurality of input audio channels. The apparatus comprises a KLT-based pre-processor configured to transform the plurality of input audio channels into a plurality of eigenchannels and to provide metadata in the form of a plurality of metadata elements, wherein the metadata allows reconstructing the plurality of input audio channels on the basis of the plurality of eigenchannels, a metadata re-arrangement unit configured to re-arrange the plurality of metadata elements on the basis of a re-arrangement scheme into one or more metadata blocks, wherein each of the one or more metadata blocks is a multi-dimensional array, and a metadata encoder configured to encode each of the one or more metadata blocks.
+</abstract>
+
+<claims>
+1. An apparatus for encoding a signal, the apparatus comprising: one or more processors configured to: receive an input audio signal, wherein the input audio signal comprises a plurality of input audio channels; transform the plurality of input audio channels into a plurality of eigenchannels; generate metadata comprising a plurality of metadata elements based on the plurality of eigenchannels, wherein the metadata allows reconstructing the plurality of input audio channels based on the plurality of eigenchannels; perform a re-arrangement scheme to re-arrange the plurality of metadata elements into one or more metadata blocks, wherein each of the one or more metadata blocks comprises a multi-dimensional array, wherein the re-arrangement scheme is based on a set of correlation values, wherein each correlation value of the set of correlation values is a value of a correlation between two or more metadata elements of the plurality of metadata elements, wherein the re-arrangement scheme is configured to minimize a cost function, and wherein the cost function assigns to each one of a set of candidate re-arrangement schemes a respective cost value; and encode each of the one or more metadata blocks.
+2. The apparatus of claim 1, wherein the one or more processors are further configured to determine the set of correlation values based on a set of training input audio signals.
+3. The apparatus of claim 1, wherein the re-arrangement scheme is configured to place more correlated metadata elements closer together than less correlated metadata elements.
+4. The apparatus of claim 1, wherein the cost function is a sum of powers of correlation-distance products.
+5. The apparatus of claim 1, wherein the re-arrangement scheme comprises one or more iterations of the following sequence of operations: defining a set of remaining metadata elements, the set of remaining metadata elements comprising those metadata elements of the plurality of metadata elements that remain to be re-arranged; selecting, from the set of remaining metadata elements, the subset of M metadata elements that has the highest correlation value, wherein M is greater than or equal to 2; and re-arranging the selected subset of M metadata elements into one of the one or more metadata blocks.
+6. The apparatus of claim 5, wherein each of the metadata blocks comprises M elements.
+7. The apparatus of claim 1, wherein performing the re-arrangement scheme comprises: selecting a first metadata element from the plurality of metadata elements; and re-arranging the first metadata element into a first one of the one or more metadata blocks; and one or more iterations of the following sequence of operations: defining a set of remaining metadata elements, the set of remaining metadata elements consisting of those metadata elements of the plurality of metadata elements that remain to be re-arranged; selecting, in the first metadata block, a free position next to an occupied position; selecting, from the set of remaining metadata elements, the metadata element that is most highly correlated with the metadata element at the occupied position; and re-arranging the selected metadata element into the selected free position.
+8. The apparatus of claim 1, wherein the one or more processors are further configured to: for each of the one or more metadata blocks, apply a discrete block transform to the respective metadata block, thereby generating a plurality of transform coefficients of the respective metadata block; and encode the plurality of transform coefficients.
+9. The apparatus of claim 8, wherein the one or more processors are further configured to: for each of the one more metadata blocks, re-arrange the plurality of transform coefficients of the respective metadata block, based on the respective magnitudes of the plurality of transform coefficients, thereby providing a sequence of transform coefficients; and encode the sequence of transform coefficients.
+10. The apparatus of claim 8, wherein the discrete block transform is a discrete cosine transform (DCT), a discrete sine transform (DST), or a discrete Fourier transform (DFT).
+11. An apparatus for decoding a signal, comprising: one or more processors configured to: receive an input audio signal comprising encoded metadata; decode the encoded metadata, wherein the encoded metadata comprises metadata elements arranged in one or more metadata blocks, wherein each metadata block of the one or more metadata blocks comprises a multi-dimensional array; perform a re-arrangement scheme to re-arrange the plurality of metadata elements into a plurality of re-arranged metadata elements, wherein the re-arrangement scheme is configured to minimize a cost function, and wherein the cost function assigns to each one of a set of candidate re-arrangement schemes a respective cost value; and provide an output audio signal comprising a plurality of output audio channels based on the plurality of re-arranged metadata elements.
+12. A method for encoding a signal, the method comprising: receiving an input audio signal, wherein the input audio signal comprises a plurality of input audio channels; transforming the plurality of input audio channels into a plurality of eigenchannels; generating metadata comprising a plurality of metadata elements based on the plurality of eigenchannels, wherein the metadata allows reconstructing the plurality of input audio channels based on the plurality of eigenchannels; performing a re-arrangement scheme to re-arrange the plurality of metadata elements into one or more metadata blocks, wherein each of the one or more metadata blocks comprises a multi-dimensional array, wherein the re-arrangement scheme is based on a set of correlation values, wherein each correlation value of the set of correlation values is a value of a correlation between two or more metadata elements of the plurality of metadata elements, wherein the re-arrangement scheme is configured to minimize a cost function, and wherein the cost function assigns to each one of a set of candidate re-arrangement schemes a respective cost value; and encoding each of the one or more metadata blocks.
+13. A non-transitory memory storing computer-executable program code that, when executed by a computer, causes the computer to perform the method of claim 12.
+14. A method for decoding a signal, the method comprising: receiving an input audio signal comprising encoded metadata; decoding the encoded metadata, wherein the encoded metadata comprises metadata elements arranged in one or more metadata blocks, wherein each metadata block of the one or more metadata blocks comprises a multi-dimensional array; performing a re-arrangement scheme to re-arrange the plurality of metadata elements into a plurality of re-arranged metadata elements, wherein the re-arrangement scheme is configured to minimize a cost function, and wherein the cost function assigns to each one of a set of candidate re-arrangement schemes a respective cost value; and providing an output audio signal comprising a plurality of output audio channels based on the plurality of re-arranged metadata elements.
+15. A non-transitory memory storing computer-executable program code that, when executed by a computer, causes the computer to perform the method of claim 14.
+</claims>
+</document>

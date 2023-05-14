@@ -1,0 +1,59 @@
+<document>
+
+<filing_date>
+2020-05-11
+</filing_date>
+
+<publication_date>
+2020-11-11
+</publication_date>
+
+<priority_date>
+2019-05-09
+</priority_date>
+
+<ipc_classes>
+G06T7/11,G06T7/194,H04N5/272,H04N5/275
+</ipc_classes>
+
+<assignee>
+DISNEY ENTERPRISES
+</assignee>
+
+<inventors>
+AYDIN, Tunç Ozan
+AKSOY, Yagiz
+TANG, Jingwei
+ÖZTIRELI, Ahmet Cengiz
+</inventors>
+
+<docdb_family_id>
+70681700
+</docdb_family_id>
+
+<title>
+LEARNING-BASED SAMPLING FOR IMAGE MATTING
+</title>
+
+<abstract>
+Techniques are disclosed for image matting. In particular, embodiments decompose the matting problem of estimating foreground opacity into the targeted subproblems of estimating a background using a first trained neural network, estimating a foreground using a second neural network and the estimated background as one of the inputs into the second neural network, and estimating an alpha matte using a third neural network and the estimated background and foreground as two of the inputs into the third neural network. Such a decomposition is in contrast to traditional sampling-based matting approaches that estimated foreground and background color pairs together directly for each pixel. By decomposing the matting problem into subproblems that are easier for a neural network to learn compared to traditional data-driven techniques for image matting, embodiments disclosed herein can produce better opacity estimates than such data-driven techniques as well as sampling-based and affinity-based matting approaches.
+</abstract>
+
+<claims>
+1. A computer-implemented method for image matting, the method comprising: processing a received image and associated trimap using, at least in part, a first machine learning model which outputs a predicted background; processing the received image, the associated trimap, and the predicted background using, at least in part, a second machine learning model which outputs a predicted foreground; and processing the received image, the associated trimap, the predicted background, and the predicted foreground using, at least in part, a third machine learning model which outputs an alpha matte.
+2. The method of claim 1, wherein: the first machine learning model is trained using at least a portion of training data which includes images and corresponding trimaps; the second machine learning model is trained using at least a portion of the training data and backgrounds predicted by the first machine learning model subsequent to the training of the first machine learning model; and the third machine learning model is trained using at least a portion of the training data, backgrounds predicted by the first machine learning model, and foregrounds predicted by the second machine learning model subsequent to the training of the second machine learning model.
+3. The method of claim 2, wherein the training of the third machine learning model attempts to minimize a loss function which includes a loss defined over alpha gradients.
+4. The method of claim 3, wherein the loss defined over alpha gradients is defined as a L1 distance between a spatial gradient of predicted and ground-truth alpha mattes.
+5. The method of any of claims 2 to 4, wherein the training of the first machine learning model attempts to minimize a loss function which is defined over one or more unknown-opacity regions indicated by the trimaps corresponding to the images included in the training data.
+6. The method of any of claims 2 to 5, wherein the training of the second machine learning model attempts to minimize a loss function which includes a L1 loss defined over one or more unknown-opacity regions and a compositional loss which penalizes deviations of an intermediate composite image.
+7. The method of any of claims 2 to 6, further comprising: generating the training data which includes the images and the corresponding trimaps, wherein the generating of the images in the training data includes at least one of compositing pairs of random foreground images on top of each other with a predefined probability, selecting random background images and creating composite images using the selected background images and the composited pairs of random foreground images, applying random scaling, or randomly changing at least one of foreground image brightness, contrast, saturation, or hue.
+8. The method of any preceding claim, wherein each of the first and second machine learning models has a two-stage architecture in which both stages are fully convolutional encoder-decoder structures.
+9. The method of any preceding claim, wherein the third machine learning model has one of a generative adversarial network (GAN), a Deep Matting, or an encoder-decoder architecture.
+10. The method of any preceding claim, wherein the associated trimap indicates at least one foreground region, at least one background region, and at least one region of unknown opacity in the received image.
+11. A non-transitory computer-readable storage medium storing a program, which, when executed by a processor performs operations for image matting, the operations comprising: processing a received image and associated trimap using, at least in part, a first machine learning model which outputs a predicted background; processing the received image, the associated trimap, and the predicted background using, at least in part, a second machine learning model which outputs a predicted foreground; and processing the received image, the associated trimap, the predicted background, and the predicted foreground using, at least in part, a third machine learning model which outputs an alpha matte.
+12. The computer-readable storage medium of claim 11, wherein: the first machine learning model is trained using at least a portion of training data which includes images and corresponding trimaps; the second machine learning model is trained using at least a portion of the training data and backgrounds predicted by the first machine learning model subsequent to the training of the first machine learning model; and the third machine learning model is trained using at least a portion of the training data, backgrounds predicted by the first machine learning model, and foregrounds predicted by the second machine learning model subsequent to the training of the second machine learning model.
+13. The computer-readable storage medium of claim 12, wherein the training of the third machine learning model attempts to minimize a loss function which includes a loss defined over alpha gradients.
+14. The computer-readable storage medium of claim 11, wherein each of the first and second machine learning models has a two-stage architecture in which both stages are fully convolutional encoder-decoder structures and/or wherein the third machine learning model has one of a generative adversarial network (GAN), a Deep Matting, or an encoder-decoder architecture.
+15. The computer-readable storage medium of claim 11 arranged to perform the method of any of claims 4 to 7 or 10.
+</claims>
+</document>

@@ -1,0 +1,101 @@
+<document>
+
+<filing_date>
+2020-07-09
+</filing_date>
+
+<publication_date>
+2021-01-14
+</publication_date>
+
+<priority_date>
+2019-07-10
+</priority_date>
+
+<ipc_classes>
+A61B5/103,G06K9/62,G06N3/02,G06N3/08,G16H50/20
+</ipc_classes>
+
+<assignee>
+AARABI, PARHAM
+SEITE, SOPHIE
+KEZELE, IRINA
+JIANG, RUOWEI
+FLAMENT, Frédéric Antoinin Raymond Serge
+YU, Zhi
+</assignee>
+
+<inventors>
+AARABI, PARHAM
+SEITE, SOPHIE
+KEZELE, IRINA
+JIANG, RUOWEI
+FLAMENT, Frédéric Antoinin Raymond Serge
+YU, Zhi
+</inventors>
+
+<docdb_family_id>
+74116962
+</docdb_family_id>
+
+<title>
+SYSTEMS AND METHODS TO PROCESS IMAGES FOR SKIN ANALYSIS AND TO VISUALIZE SKIN ANALYSIS
+</title>
+
+<abstract>
+Systems and methods process images to determine a skin condition severity analysis and to visualize a skin analysis such as using a deep neural network (e.g. a convolutional neural network) where a problem was formulated as a regression task with integer-only labels. Auxiliary classification tasks (for example, comprising gender and ethnicity predictions) are introduced to improve performance. Scoring and other image processing techniques may be used (e.g. in assoc. with the model) to visualize results such as highlighting the analyzed image. It is demonstrated that the visualization of results, which highlight skin condition affected areas, can also provide perspicuous explanations for the model. A plurality (k) of data augmentations may be made to a source image to yield k augmented images for processing. Activation masks (e.g. heatmaps) produced from processing the k augmented images are used to define a final map to visualize the skin analysis.
+</abstract>
+
+<claims>
+What is claimed is:
+1. A skin diagnostic device comprising circuity providing a processing unit coupled to a storage unit to configure the skin diagnostic device to provide: a skin analysis unit to classify pixels of an image using a deep neural network comprising a regressor and a classifier for image classification to generate the skin diagnosis for a skin condition.
+2. The diagnostic device of claim 1 , wherein the processing unit and storage unit further configure the skin diagnostic device to provide a visualization unit to annotate the image to visualize the skin diagnosis.
+3. The diagnostic device of claim 1 or claim 2, wherein the processing unit and storage unit
+further configure the skin diagnostic device to provide a recommendation unit, responsive to the skin diagnosis, to recommend a product for the skin condition.
+4. The diagnostic device of any one of claims 1 to 3, wherein the processing unit and storage unit further configure the skin diagnostic device to provide an e-commerce interface with which to purchase products for the skin condition.
+5. The diagnostic device of any one of claims 1 to 4, wherein the skin diagnosis comprises an integer value on a scale classifying a severity of the skin condition over the image.
+6. The diagnostic device of claim 5, wherein the deep neural network is configured to receive a normalized face image as input and to output a vector which represents a probability distribution over all possible integer values on the scale and applies an activation function to determine the integer value of the skin diagnosis.
+7. The diagnostic device of any one of claims 1 to 6, the deep neural network is further
+configured with auxiliary tasks to determine one or both of an ethnicity prediction and gender prediction.
+8. The diagnostic device of any one of claims 1 to 7, wherein the deep neural network comprises an adapted network for image classification which is adapted to generate the skin diagnosis.
+9. The diagnostic device of any one of claims 1 to 8, wherein the deep neural network comprises a convolutional neural network (CNN) for image processing.
+10. The diagnostic device of claim 9, wherein the CNN comprises a residual network as an
+encoder having a global pooling operation before final fully connected layers configured to generate regressor and classifier outputs.
+11. The diagnostic device of any one of claims 1 to 10, wherein the deep neural network is trained with a combined loss function combining a regressor loss function and a classifier loss function.
+12. The diagnostic device of claim 11 , wherein the combined loss function conforms to an
+equation: i r i r
+L ^mse-^mse T A'ce ^ce + ^gender ^gender T '' ethnicity ^ ethnicity (2) where:
+£mse, £ce, £gender and £ethnicity are respective mean square error (MSE), cross-entropy error (CE), gender prediction and ethnicity prediction functions; and weighting factors.
+13. The diagnostic device of any one of claims 1 to 12, wherein the deep neural network is trained using a dataset of facial image data comprising selfie images from user mobile devices.
+14. The diagnostic device of any one of claims 2 to 13, where claims 3-13 depend from claim 2, wherein the deep neural network is configured to generate a heatmap to visualize skin diagnosis in association with the image.
+15. The diagnostic device of claim 14 wherein the deep neural network is configured to apply a Class Activation Mapping (CAM) technique to generate the heatmap.
+16. The diagnostic device of any one of claims 1 to 15, wherein the image comprises a selfie image from a user mobile device.
+17. The diagnostic device of any one of claims 1 to 16, wherein the diagnostic device comprises one of a computing device for personal use and a server providing skin diagnostic services via a communications network.
+18. The diagnostic device of claim 17, wherein the computing device for personal use comprises one of a smartphone, tablet, laptop, personal computer, or other computing device having or coupled to a camera.
+19. The diagnostic device of any one of claims 3 to 18, where claims 4 to 18 depend from claim 3, wherein the recommendation unit provides a treatment product selector responsive to the skin diagnosis to obtain at least one of a product recommendation and a treatment plan
+recommendation.
+20. The diagnostic device of any one of claims 1 to 19, wherein the processing unit and storage unit configure the skin diagnostic device to provide an image acquisition function to receive the image.
+21. The diagnostic device of any one of claims 1 to 20, wherein the skin condition is acne vulgaris.
+22. A computer implemented method of skin diagnosis comprising: receiving an image and processing the image using a deep neural network configured to
+classify image pixels to determine skin diagnosis for a skin condition, wherein the deep neural is configured as a regressor and a classifier to determine the skin diagnosis; and visualizing the skin diagnosis in association with the image.
+23. A computer implemented method comprising: receiving an image of skin; processing the image with a deep neural network configured to produce a skin analysis result and an activation mask to visualize the skin analysis result in association with the image; and providing the activation mask and image for display.
+24. The method of claim 23, wherein processing the image comprises, performing a plurality ( k ) of data augmentations to the image to produce k augmented images for processing by the deep neural network; processing the k augmented images by the deep neural network to produce k activations
+masks and defining a final activation mask therefrom.
+25. The method of claim 24, wherein the k activation masks and final activation mask comprise heatmaps.
+26. The method of claim 25, wherein the deep neural network produces the respective k activation masks using Grad-CAM technique.
+27. The method of any one of claims 24 to 26, wherein the final activation mask is defined from the k activation masks using averaging.
+28. The method of claim 27, wherein a threshold is applied to the eliminate values from the k
+activation masks as averaged.
+29. The method of any one of claims 24 to 28, wherein 2<= k <= 20.
+30. The method of any one of claims 24 to 29 comprising normalizing the image of the skin before performing the k data augmentations.
+31. The method of any one of claims 24 to 30, wherein the k data augmentations each comprise one augmentation randomly selected from affine transformations and a horizontal flip operation.
+32. The method of any one of claims 23 to 30 comprising providing a product recommendation responsive to the skin analysis result.
+33. The method of claim 32 comprising providing an e-commerce interface with which to purchase one or more products, the interface responsive to the product recommendation.
+34. The method of claim 33, wherein the product recommendation is associated with a treatment plan for using a recommended product.
+35. The method of any one of claims 23 to 34, wherein the deep neural network is configured to analyze the image for a skin condition.
+36. The method of claim 35, wherein the skin condition is acne vulgaris.
+37. The method of any one of claims 23 to 36, wherein the deep neural network comprises a convolutional neural network (CNN).
+38. A computing device comprising circuity which configures the computing device to perform the method of any one of claims 23 to 37.
+39. A method comprising: training a convolutional neural network (CNN) configured to classify pixels of an image to determine an skin diagnosis, wherein: the CNN comprises a deep neural network for image classification configured to generate the skin diagnosis; the CNN is configured as a regressor and a classifier to determine the skin diagnosis; and the CNN is trained using a dataset of facial image data comprising selfie images from user mobile devices.
+</claims>
+</document>

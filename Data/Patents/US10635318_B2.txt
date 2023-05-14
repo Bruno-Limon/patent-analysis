@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2017-12-27
+</filing_date>
+
+<publication_date>
+2020-04-28
+</publication_date>
+
+<priority_date>
+2017-12-27
+</priority_date>
+
+<ipc_classes>
+G06F11/10,G06F11/34,G06F3/06,G06F9/46,G06F9/50,G06N20/00,H04L12/24,H04L29/08
+</ipc_classes>
+
+<assignee>
+INTEL CORPORATION
+</assignee>
+
+<inventors>
+BARCZAK, MARIUSZ
+JAKOWSKI, ANDRZEJ
+WYSOCZANSKI, MICHAL
+</inventors>
+
+<docdb_family_id>
+65229497
+</docdb_family_id>
+
+<title>
+Logical storage driver
+</title>
+
+<abstract>
+A technology is described for a logical storage driver. An example method can include using the logical storage driver to: forward requests to a first storage stack for processing of an I/O workload associated with the I/O requests. Initiate generation of trace data for the I/O workload for collection and analysis to determine a second storage stack for improving performance of the I/O workload. Receive the storage processing logic for processing the I/O workloads using the storage configuration for the I/O workload, where the storage processing logic interfaces with the storage configuration. Intercept the I/O requests that correspond to the I/O workload. And, process the I/O workloads using the storage processing logic that interfaces with the storage configuration.
+</abstract>
+
+<claims>
+1. A data storage system, comprising: at least one processor; a memory device including instructions that, when executed by the at least one processor, cause the data storage system to: receive, with a logical storage driver in a detached mode, a request to perform an I/O (input/output) workload, and forward, by the logical storage driver in the detached mode, the I/O workload to a default storage stack; determine, with the logical storage driver, a second storage stack based on analysis of collected trace data, the second storage stack including storage processing logic defined for the I/O workload and a storage configuration defined for the I/O workload; attach the storage processing logic according to the second storage stack to the logical storage driver; process, with the logical storage driver in an attached mode instantiated therefor, the I/O workload using the storage processing logic to send I/O tasks included in the I/O workload to the storage configuration; and initiate, with the logical storage driver, generation of trace data for the I/O workload for analysis to determine whether I/O performance using a default or second storage stack meets performance specifications for the I/O workload.
+2. The data storage system as in claim 1, wherein the memory device includes instructions that, when executed by the at least one processor, cause the data storage system to determine via analysis of the trace data that use of the storage stack does not meet the performance specifications for the I/O workload.
+3. The data storage system as in claim 2, wherein the memory device includes instructions that, when executed by the at least one processor, cause the data storage system to identify a second storage stack that meets the performance specifications for the I/O workload.
+4. The data storage system as in claim 3, wherein the memory device includes instructions that, when executed by the at least one processor, cause the data storage system to synchronize data from a storage component of the storage configuration to a second storage component of a second storage configuration.
+5. The data storage system as in claim 3, wherein the memory device includes instructions that, when executed by the at least one processor, cause the data storage system to detach the storage processing logic used with the storage configuration from the logical storage driver.
+6. The data storage system as in claim 5, wherein the detached mode is configured to forward, with the logical storage driver, I/O workloads to a default storage stack for processing of the I/O workloads.
+7. A computer implemented method for processing I/O (input/output) workloads using a logical storage driver, comprising: forwarding, by the logical storage driver in a detached mode, a received I/O workload to a default storage stack for processing of the I/O workload, wherein I/O associated with the I/O workload is passed through the logical storage driver; initiating generation of trace data for the I/O workload for collection and analysis to determine a second storage stack for improving performance of the I/O workload, wherein the second storage stack comprises storage processing logic and a storage configuration defined to handle the I/O workload; receiving the storage processing logic for processing the I/O workload using the storage configuration for the I/O workload, wherein the storage processing logic interfaces with the storage configuration; attaching the storage processing logic according to the second storage stack to the logical storage driver; intercepting, by the logical storage driver in an attached mode instantiated therefor, I/O requests that correspond to the I/O workload; and processing, by the logical storage driver in the attached mode, the I/O workload using the storage processing logic that interfaces with the storage configuration.
+8. The method as in claim 7, wherein the storage processing logic sends I/O tasks included in the I/O workload to the storage configuration.
+9. The method as in claim 7, wherein the storage configuration includes at least a data storage driver and a data storage device.
+10. The method as in claim 7, wherein determining the second storage stack used to improve the performance of the I/O workload includes using QoS (quality of service) specifications to determine the storage configuration.
+11. The method as in claim 7, wherein determining the second storage stack used to improve the performance of the I/O workload includes using an SLA (service level agreement) to determine the storage configuration.
+12. The method as in claim 7, wherein determining the second storage stack used to improve the performance of the I/O workload includes analyzing the trace data using a machine learning model to identify the storage configuration.
+13. The method as in claim 7, further comprising: requesting configuration of storage components according to the second storage stack; and receiving a notification that the storage components according to the second storage stack are ready.
+14. The method as in claim 7, further comprising: collecting trace data for the I/O workload performed using the first storage stack; detecting via analysis of the trace data that use of the first storage stack does not meet performance specifications for the I/O workload; and identifying the second storage stack that meets the performance specifications for the I/O workload.
+15. The method as in claim 14, further comprising synchronizing data from a data cache used by the first storage stack with the second storage stack.
+16. The method as in claim 14, further comprising replacing the storage processing logic for the first storage stack with new storage processing logic for the second storage stack.
+17. A non-transitory machine readable storage medium having instructions embodied thereon, the instructions when executed by a processor, cause a logical storage driver to: execute in a detached mode of the logical storage driver to forward a received I/O (input/output) workload to a default storage stack for processing of the I/O workload; initiate generation of trace data for the I/O workload; initiate sending of the trace data for collection and analysis to determine a second storage stack that meets performance specifications of the I/O workload, wherein the second storage stack includes storage processing logic used with a storage configuration used to handle the I/O workload; receive the storage processing logic for processing the I/O workload, wherein the storage processing logic interfaces with the storage configuration included in the second storage stack; attach the storage processing logic to the logical storage driver according to the second storage stack; and enable an attached mode instantiated for the logical storage driver to intercept I/O requests associated with the I/O workload and process the I/O workload using the storage processing logic and the storage configuration according to the second storage stack.
+18. The non-transitory machine readable storage medium in claim 17, wherein the attached mode further comprises the logical storage driver to cause the trace data for the I/O workload processed using the storage processing logic and storage configuration to be generated and collected.
+19. The non-transitory machine readable storage medium in claim 17, wherein the attached mode further comprises the logical storage driver to analyze the trace data to detect performance degradation associated with use of the second storage stack.
+20. The non-transitory machine readable storage medium in claim 17, wherein the instructions that when executed by the processor further cause the logical storage driver to: receive a notification alert that I/O performance associated with the second storage stack has degraded; and enable the detached mode to forward I/O workloads received with the logical storage driver to the default storage stack for processing of the I/O workload.
+21. The non-transitory machine readable storage medium in claim 20, wherein the instructions that when executed by the processor further cause the logical storage driver to request storage processing logic for a second storage stack that meets the performance specifications of the I/O workload.
+</claims>
+</document>

@@ -1,0 +1,109 @@
+<document>
+
+<filing_date>
+2020-05-02
+</filing_date>
+
+<publication_date>
+2020-11-05
+</publication_date>
+
+<priority_date>
+2019-05-02
+</priority_date>
+
+<ipc_classes>
+G06N20/00,G06T7/55
+</ipc_classes>
+
+<assignee>
+NIANTIC COMPANY
+</assignee>
+
+<inventors>
+BROSTOW, GABRIEL J.
+FIRMAN, MICHAEL
+WATSON JAMES
+TURMUKHAMBETOV, DANIYAR
+</inventors>
+
+<docdb_family_id>
+73016748
+</docdb_family_id>
+
+<title>
+SELF-SUPERVISED TRAINING OF A DEPTH ESTIMATION MODEL USING DEPTH HINTS
+</title>
+
+<abstract>
+A method for training a depth estimation model with depth hints is disclosed. For each image pair: for a first image, a depth prediction is determined by the depth estimation model and a depth hint is obtained; the second image is projected onto the first image once to generate a synthetic frame based on the depth prediction and again to generate a hinted synthetic frame based on the depth hint; a primary loss is calculated with the synthetic frame; a hinted loss is calculated with the hinted synthetic frame; and an overall loss is calculated for the image pair based on a per-pixel determination, wherein if the hinted loss is smaller than the primary loss, then the overall loss includes the primary loss and a supervised depth loss between depth prediction and depth hint. The depth estimation model is trained by minimizing the overall losses for the image pairs.
+</abstract>
+
+<claims>
+What is claimed is:
+1. A computer-implemented method comprising:
+receiving an image of a scene;
+inputting the image into a depth estimation model that was trained by a process
+comprising:
+accessing training image data comprising a plurality of image pairs, each image pair comprising a first image and a second image;
+for each image pair:
+generating, by the depth estimation model, depth prediction values for pixels of the first image;
+obtaining depth hint values for the pixels of the first image;
+projecting the second image onto the first image based on the depth prediction values for the pixels of the first image to generate a model synthetic frame;
+projecting the second image onto the first image based on the depth hint values for the pixels of the first image to generate a hinted synthetic frame;
+calculating primary loss values for the depth prediction values based on a comparison of the pixels of the model synthetic frame and the pixels of the first image;
+calculating hinted loss values for the depth hint values based on a comparison of the pixels of the hinted synthetic frame and the pixels of the first image; and
+calculating an overall loss for the image pair, wherein contribution of a given pixel in the first image to the overall loss is determined based on whether the primary loss value or hinted loss value is smaller, wherein the contribution of a first pixel in the first image with a hinted loss value smaller than a primary loss value comprises the primary loss value and a supervised depth loss value based on a depth prediction value and a depth hint value for the first pixel; adjusting the parameters of the depth estimation model based on the overall losses of the image pairs; and
+generating, by the depth estimation model, a depth map of the scene corresponding to the image of the scene.
+2. The method of claim 1, wherein each image pair is a true stereoscopic image pair captured by a pair of cameras.
+3. The method of claim 1, wherein each image pair is a pseudo stereoscopic image pair, wherein the first image and the second image are temporally distinct frames captured by a single camera.
+4. The method of claim 1, wherein projecting the second image onto the first image in each image pair is further based on a pose between the first image and the second image.
+5. The method of claim 1, wherein projecting the second image onto the first image is further based on a first set of camera intrinsic parameters for the first image and a second set of camera intrinsic parameters for the second image.
+6. The method of claim 1, wherein the primary loss value at a pixel according to a depth prediction value is based on a differential between the pixel of the model synthetic frame and the pixel of the first image, and wherein the hinted loss value at the pixel according to a depth hint value is based on a differential between the pixel of the hinted synthetic frame and the pixel of the first image
+7. The method of claim 1,
+wherein the contribution of a given pixel to the overall loss is the primary loss value of the given pixel, if the primary loss value is smaller than or equal to the hinted loss value at the given pixel; and
+wherein the contribution of the given pixel to the overall loss is a sum of the primary loss value of the given pixel and a differential between a depth prediction value and a depth hint value at the given pixel, if the hinted loss value is smaller than the primary loss value at the given pixel.
+8. The method of claim 1, wherein the depth hint values are generated by a stereo depth estimation model configured to input the image pair and to output the depth hint values based on the image pair.
+9. The method of claim 1, wherein the depth hint values are generated by a simultaneous-localization-and-mapping (SLAM) module based on the image pair.
+10. A computer-implemented method for training a depth estimation model comprising:
+accessing training image data comprising a plurality of image pairs, each image pair comprising a first image and a second image;
+for each image pair:
+generating, by the depth estimation model, depth prediction values for pixels of the first image;
+obtaining depth hint values for the pixels of the first image;
+projecting the second image onto the first image based on the depth prediction values for the pixels of the first image to generate a model synthetic frame;
+projecting the second image onto the first image based on the depth hint
+values for the pixels of the first image to generate a hinted synthetic frame;
+calculating primary loss values for the depth prediction values based on a comparison of the pixels of the model synthetic frame and the pixels of the first image;
+calculating hinted loss values for the depth hint values based on a comparison of the pixels of the hinted synthetic frame and the pixels of the first image; and
+calculating an overall loss for the image pair, the contribution of a given pixel in the first image to the overall loss determined based on whether the primary loss value or hinted loss value is smaller, wherein the contribution of a first pixel in the first image with a hinted loss value smaller than a primary loss value comprises the primary loss value and a supervised depth loss value based on a depth prediction value and a depth hint value for the first pixel;
+adjusting the parameters of the depth estimation model based on the overall losses of the image pairs.
+11. The method of claim 10, wherein each image pair is a true stereoscopic image pair captured by a pair of cameras.
+12. The method of claim 10, wherein each image pair is a pseudo stereoscopic image pair, wherein the first image and the second image are temporally distinct frames captured by a single camera.
+13. The method of claim 10, wherein projecting the second image onto the first image in each image pair is further based on a pose between the first image and the second image.
+14. The method of claim 10, wherein projecting the second image onto the first image is further based on a first set of camera intrinsic parameters for the first image and a second set of camera intrinsic parameters for the second image.
+15. The method of claim 10, wherein the primary loss value at a pixel according to a depth prediction value is based on a differential between the pixel of the model synthetic frame and the pixel of the first image, and wherein the hinted loss value at the pixel according to a depth hint value is based on a differential between the pixel of the hinted synthetic frame and the pixel of the first image
+16. The method of claim 10,
+wherein the contribution of a given pixel to the overall loss is the primary loss value of the given pixel, if the primary loss value is smaller than or equal to the hinted loss value at the given pixel; and
+wherein the contribution of the given pixel to the overall loss is a sum of the primary loss value of the given pixel and a differential between a depth prediction value and a depth hint at the given pixel, if the hinted loss value is smaller than the primary loss value at the given pixel.
+17. The method of claim 10, wherein the depth hint values are generated by a stereo depth estimation model configured to input the image pair and to output the depth hint values based on the image pair.
+18. The method of claim 10, wherein the depth hint values are generated by a simultaneous-localization-and-mapping (SLAM) module based on the image pair.
+19. A non-transitory computer-readable storage medium storing instructions that, when executed by a processor, cause the processor to perform operations comprising:
+receiving an image of a scene;
+inputting the image into a depth estimation model that was trained by a process
+comprising:
+accessing training image data comprising a plurality of image pairs, each
+image pair comprising a first image and a second image;
+for each image pair:
+generating, by the depth estimation model, depth prediction values for pixels of the first image; obtaining depth hint values for the pixels of the first image;
+projecting the second image onto the first image based on the depth prediction values for the pixels of the first image to generate a model synthetic frame;
+projecting the second image onto the first image based on the depth hint values for the pixels of the first image to generate a hinted synthetic frame;
+calculating primary loss values for the depth prediction values based on a comparison of the pixels of the model synthetic frame and the pixels of the first image;
+calculating hinted loss values for the depth hint values based on a comparison of the pixels of the hinted synthetic frame and the pixels of the first image; and
+calculating an overall loss for the image pair, the contribution of a given pixel in the first image to the overall loss determined based on whether the primary loss value or hinted loss value is smaller, wherein the contribution of a first pixel in the first image with a hinted loss value smaller than a primary loss value comprises the primary loss value and a supervised depth loss value based on a depth prediction value and a depth hint value for the first pixel;
+adjusting the parameters of the depth estimation model based on the overall losses of the image pairs; and
+generating, by the depth estimation model, a depth map of the scene corresponding to the image of the scene.
+20. The storage medium of claim 19,
+wherein the contribution of a given pixel to the overall loss is the primary loss value of the given pixel, if the primary loss value is smaller than or equal to the hinted loss value at the given pixel; and
+wherein the contribution of the given pixel to the overall loss is a sum of the primary loss value of the given pixel and a differential between a depth prediction value and a depth hint at the given pixel, if the hinted loss value is smaller than the primary loss value at the given pixel.
+</claims>
+</document>

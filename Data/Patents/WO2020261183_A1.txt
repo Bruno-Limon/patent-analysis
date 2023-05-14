@@ -1,0 +1,198 @@
+<document>
+
+<filing_date>
+2020-06-25
+</filing_date>
+
+<publication_date>
+2020-12-30
+</publication_date>
+
+<priority_date>
+2019-06-25
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/46,G06K9/62,G06T7/00,G06T7/11
+</ipc_classes>
+
+<assignee>
+OWKIN INC.
+OWKIN FRANCE SAS
+</assignee>
+
+<inventors>
+SCHMAUCH, BENOIT
+WAINRIB, GILLES
+MOINDROT, Olivier
+MAUSSION, Charles
+COURTIOL, Pierre
+SAILLARD, Charlie
+</inventors>
+
+<docdb_family_id>
+67988947
+</docdb_family_id>
+
+<title>
+SYSTEMS AND METHODS FOR IMAGE PREPROCESSING
+</title>
+
+<abstract>
+A method and apparatus of a device that classifies an image is described. In an exemplary embodiment, the device segments the image into a region of interest that includes information useful for classification and a background region by applying a first convolutional neural network. In addition, the device tiles the region of interest into a set of tiles. For each tile, the device extracts a feature vector of that tile by applying a second convolutional neural network, where the features of the feature vectors represent local descriptors of the tile. Furthermore, the device processes the extracted feature vectors of the set of tiles to classify the image.
+</abstract>
+
+<claims>
+1. A method of classifying an input image, the method comprising:
+segmenting the input image into a region of interest that includes information useful for classification and a background region by applying a first convolutional neural network;
+tiling the region of interest into a set of tiles;
+for each tile, extracting a feature vector of that tile by applying a second convolutional neural network, wherein the features of the feature vectors represent local descriptors of the tile; and
+processing the extracted feature vectors of the set of tiles to classify the input image.
+2. The method according to claim 1 , wherein said first convolutional network is a semantic segmentation neural network classifying each pixel of the input image as one of region of interest and a background region.
+3. The method according to claim 2, wherein the semantic segmentation neural network is selected from the group consisting of U-NET, a Fully Convolutional Networks for Semantic Segmentation, SegNet, and DeepLab.
+4. The method according to claim 1, wherein the tiling comprises:
+applying a fixed tiling grid to at least the region of interest, wherein each of the set of tiles has a predetermined size.
+5. The method according to claim 1, wherein a level of zoom is applied to the set of tiles.
+6. The method according to claim 1 , wherein multiple levels of zoom are applied to the set of tiles and the set of tiles at different levels of zoom are combined.
+7. The method according to claim 1 , wherein the tiling further comprises: augmenting the set of tiles by performing an action on the set of tiles, wherein the action is at least one of a rotation, translation, cropping, adding noise to the input image, modifying an intensity of one or more colors, or changing a contrast of the input image.
+8. The method according to claim 1, wherein the tiling further comprises:
+normalizing a number of tiles in the set of tiles per the input image by performing at least one of a random sampling of the set of tiles and padding the set of tiles with blank tiles, so that said set of tiles comprises a given number of tiles per the input image.
+9. The method according to claim 1 , wherein said second convolutional neural network is a residual neural network selected from the group consisting of a ResNet type of residual neural network, a VGG neural network, an autoencoder for unsupervised feature extraction, and an Inception neural network.
+10. The method according to claim 1, further comprising:
+pre-training weights of the second convolutional neural network on at least one of another dataset and a task, wherein at least one output layer is removed from the second convolutional neural network.
+11. The method according to claim 1 , wherein the processing comprises:
+for each tile,
+computing a score associated with that tile from the extracted feature vector, wherein said tile score represents a contribution of that tile to the classification of the input image;
+sorting a set of the tile scores;
+selecting a subset of the tile scores based on at least one of a value and a rank of a tile in the sorted set of tile scores, and
+applying a classifier to the subset of tile scores to classify the image.
+12. The method according to claim 1, wherein the tiling further comprises: aggregating groups of corresponding tiles from the different ones of a plurality images, wherein the plurality of images includes the input image.
+13. The method according to claim 1, wherein the tiling further comprises:
+aggregating clusters of tiles from the set of tiles that are within a given distance according to a distance metric computed in at least one of the input image or a feature map.
+14. The method according to claim 13, wherein aggregating a cluster of tiles comprises at least one of:
+concatenating tiles in the cluster of tiles;
+selecting a single tile from the cluster of tiles based on at least a given criterion, using the cluster of tiles as a multidimensional object for the feature vector extraction;
+computing a mean of the feature vectors of tiles in the cluster of tiles; and
+computing at least the maximum or minimum value of the feature vectors of tiles in the cluster of tiles.
+15. The method according to claim 1 , wherein the feature vector extraction further comprises:
+applying an autoencoder on the extracted feature vectors to reduce the dimensionality of the features.
+16. The method according to claim 1, wherein the input image is a histopathology slide and said region of interest is a tissue region.
+17. The method according to claim 1, wherein the image classification is used to perform at least one of a diagnosis classification, survival prediction, and response to treatment prediction.
+18. The method according to claim 1, wherein the classification of the input image includes predicting at least one type of global and local label.
+19. The method according to claim 1, wherein the processing of the extracted feature vectors includes using one or more local annotations associated with the input image that are
+incorporated as weights in a weighted combination of a feature vector derived from extracted feature vectors that provides additional information for the classification of the input image.
+20. The method according to claim 1, wherein the classification of the input image includes predicting multiple global labels in a multi-task environment.
+21. A non-transitory machine readable medium having executable instructions to cause one or more processing units to perform a method to classify an input image, the method comprising: segmenting the input image into a region of interest that includes information useful for classification and a background region by applying a first convolutional neural network;
+tiling said region of interest into a set of tiles;
+for each tile, extracting a feature vector of that tile by applying a second convolutional neural network, wherein the features of the feature vectors represent local descriptors of the tile; and
+processing the extracted feature vectors of the set of tiles to classify the input image.
+22. The machine readable medium according to claim 21, wherein the tiling comprises: applying a fixed tiling grid to at least the region of interest, wherein the each of the set of tiles has a predetermined size.
+23. The machine readable medium according to claim 21, wherein the tiling further comprises:
+normalizing a number of tiles in the set of tiles per input image by performing at least one of a random sampling of the set of tiles and padding the set of tiles with blank tiles, so that said set of tiles comprises a given number of tiles per input image.
+24. The machine readable medium according to claim 21, wherein said second convolutional neural network is a residual neural network selected from the group consisting of a ResNet type of residual neural network, a VGG neural network, an autoencoder for unsupervised feature extraction, and an Inception neural network.
+25. The machine readable medium according to claim 21, further comprising:
+pre-training weights of the second convolutional neural network on at least one of another dataset and task, wherein at least one output layer removed from the second
+convolutional neural network.
+26. The machine readable medium according to claim 21, wherein the processing comprises: for each tile,
+computing a score associated with that tile from the extracted feature vector, wherein said tile score represents a contribution of that tile to the classification of the input image;
+sorting a set of the tile scores;
+selecting a subset of the tile scores based on at least one of a value and a rank of a tile in the sorted set of tile scores; and
+applying a classifier to the subset of tile scores to classify the input image.
+27. The machine readable medium according to claim 21, wherein the tiling further comprises:
+aggregating groups of corresponding tiles from the different ones of a plurality images, wherein the plurality of images includes the input image.
+28. The machine readable medium according to claim 21, wherein the tiling further comprises:
+aggregating clusters of tiles from the set of tiles that are within a given distance according to a distance metric computed in at least one of the input image or a feature map.
+29. The machine readable medium according to claim 21, wherein the feature vector extraction further comprises:
+applying an autoencoder on the extracted feature vectors so as to reduce the
+dimensionality of the features.
+30. The machine readable medium according to claim 21, wherein the input image is a histopathology slide and said region of interest is a tissue region.
+31. The machine readable medium according to claim 21, wherein the image classification is used to perform at least one of a diagnosis classification, survival prediction, and response to treatment prediction.
+32. The machine readable medium according to claim 21, wherein the classification of the input image includes predicting at least one global and local label.
+33. The machine readable medium according to claim 21, wherein the processing of the extracted feature vectors includes using one or more local annotations associated with the input image that are incorporated as weights in a weighted combination with a feature vector derived from extracted feature vectors that provides additional information for the classification of the input image.
+34. The machine readable medium according to claim 21, wherein the classification of the input image includes predicting multiple global labels in a multi-task environment.
+35. A method for extracting a comparison target region of an image correlated with a classification of the image, the method comprising:
+tiling a region of interest of said image into a set of tiles;
+for each tile,
+extracting a feature vector of that tile by applying a convolutional neural network, wherein the features of the feature vector represent local descriptors of the tile;
+computing a score of the tile from the extracted feature vector, said tile score being representative of a contribution of the tile into the classification of the image;
+selecting at least one tile having a score verifying a given property; extracting the comparison target region that is a set of tiles having an average tile score and being in visually proximity to the at least one selected tile according to a distance metric.
+36. A method according to claim 35, wherein the selecting comprises:
+sorting the set of tiles according to the tile scores for the tiles in the set of tiles; and selecting the at least one tile based on at least one of the tile scores and a rank of a tile in the sorted set of tiles.
+37. A method according to claim 36, wherein the selecting comprises:
+selecting at least one of a first given number, R top, of the highest of the tiles scores and a second given number, R bottom, of the lowest of the tile scores.
+38. A method according to claim 35, wherein an average tile score is a score that is in-between the R top and the R bottom tiles scores.
+39. A method according to claim 38, wherein the selecting comprises:
+selecting the tiles that have a score that is at least one of greater than a given threshold and smaller than a given threshold.
+40. A method according to claim 39, wherein the selecting comprises:
+randomly selecting the tiles with a probability derived from at least a score of the corresponding tile.
+41. A method according to claim 35, wherein the distance metric used to evaluate the visual proximity between two tiles is an L2 norm computed on the extracted features of the two tiles.
+42. A method according to claim 35, wherein the distance metric used to evaluate the visual proximity between two tiles is an L2 norm computed on the original tiles.
+43. A non-transitory machine readable medium having executable instructions to cause one or more processing units to perform a method to extract a comparison target region of an image correlated with a classification of the image, the method comprising:
+tiling a region of interest of said image into a set of tiles;
+for each tile,
+extracting a feature vector of that tile by applying a convolutional neural network, wherein the features of the feature vector represent local descriptors of the tile;
+computing a score of the tile from the extracted feature vector, said tile score being representative of a contribution of the tile into the classification of the image;
+selecting at least one tile having a score verifying a given property; extracting the target region that is a set of tiles having an average score and being in visually proximity to the at least one selected tile according to a distance metric.
+44. A machine readable medium according to claim 43, wherein the selecting comprises: sorting the set of tiles according to tile scores for the tiles in the set of tiles; and selecting the at least one tile based on at least one of the tile scores and a rank of a tile in the sorted set of tiles.
+45. A machine readable medium according to claim 44, wherein the selecting comprises: selecting at least one of a first given number, R top, of the highest of the tiles scores and a second given number, R bottom, of the smallest of the tile scores.
+46. A machine readable medium according to claim 45, wherein an average tile score is a score that is in-between the R top and the R bottom tiles scores.
+47. A machine readable medium according to claim 44, wherein the selecting comprises: selecting the tiles that have a score that is at least one of greater than a given threshold and smaller than a given threshold.
+48. A machine readable medium according to claim 44, wherein the selecting comprises: randomly selecting the tiles with a probability calculated derived from at least a score of the corresponding tile.
+49. A machine readable medium according to claim 44, wherein the distance metric used to evaluate the visual proximity between two tiles is an L2 norm computed on the extracted features of the two tiles.
+50. A machine readable medium according to claim 44, wherein the distance metric used to evaluate the visual proximity between two tiles is an L2 norm computed on the original tiles.
+51. A method for generating a classification model, the method comprising:
+receiving a training set of images, wherein each of the training set of images has an associated known classification;
+for each training image in the training set of images,
+extracting a plurality of feature vectors of the training image by applying a first convolutional neural network, wherein each of the features of the plurality of feature vectors represents local descriptors of that image; and training the classification model using at least the extracted feature vectors and the associated known classifications.
+52. The method of claim 49, further comprising:
+validating the classification model using at least a validation set of images.
+53. The method of claim 52, wherein the validation comprises:
+receiving the validation set of images, wherein each validating image of the validation set of images has an associated known classification;
+for each validating image in the validation set of images, extracting a plurality of feature vectors of that validating image by applying a first convolutional neural network, wherein each of the features of the plurality of feature vectors represents local descriptors of that validating image, generating a validation score set for that validating image using at least the
+plurality feature vectors, and
+generating a classification for that validating image using at least the validation score set and the classification model; and
+comparing the plurality of generated classifications with the associated known classifications.
+54. The method of claim 53, wherein the comparison of the plurality of generated
+classifications is performed using at least one of an area under the receiver operating
+characteristic curve (ROC-AUC) comparison, an area under the precision recall curve (PR-AUC) comparison, or a concordance index (c-index) comparison.
+55. The method of claim 51, wherein the classification model is a multi-layer perceptron with two fully connected layers.
+56. The method of claim 51, wherein an image of the training set of validation set is one of a digitized whole slide image (WSI).
+57. The method of claim 51, wherein the first convolutional neural network is a ResNet50 neural network.
+58. The method of claim 51, wherein the extracting of the plurality of feature vectors comprises:
+tiling a region of interest of that training image into a set of tiles, wherein each of the plurality of feature vectors corresponds to a tile from the set of tiles.
+59. The method of claim 58, wherein the tiling comprises: applying a fixed tiling grid to at least the region of interest, wherein each of the set of tiles has a predetermined size.
+60. The method of claim 58, wherein the training of the classification model comprises: computing a score for each tile in the set of tiles using at least a convolutional ID layer and the corresponding feature vector for that tile.
+61. The method of claim 51, wherein for each of the training images in the training set of training images, the method further comprises:
+segmenting that training image into a region of interest that includes information useful for classification and a background region by applying a second convolutional neural network.
+62. The method of claim 61, wherein the second convolutional neural network is a U-NET neural network.
+63. The method of claim 51, wherein the classification model includes one or more separate models.
+64. The method of claim 51, wherein the classification model includes at least one of a multi layer perceptron model and a one dimensional convolutional neural network model.
+65. A machine readable medium having executable instructions to cause one or more processing units to perform a method for generating a classification model, the method comprising:
+receiving a training set of images, wherein each of the training set of images has an associated known classification;
+for each training image in the training set of images,
+extracting a plurality of feature vectors of the training image by applying a first convolutional neural network, wherein each of the features of the plurality of feature vectors represents local descriptors of that image; and training the classification model using at least the extracted feature vectors and the associated known classifications.
+66. The machine readable medium of claim 65, further comprising:
+validating the classification model using at least a validation set of images.
+67. The machine readable medium of claim 66, wherein the validation comprises:
+receiving the validation set of images, wherein each image in the validation set of images has an associated known classification;
+for each validating image in the validation set of images,
+extracting a plurality of feature vectors of that validating image by applying a first convolutional neural network, wherein each of the features of the plurality of feature vectors represents local descriptors of that validating image, generating a validation score set for that validating image using at least the plurality feature vectors, and
+generating a classification for that validating image using at least the validation score set and the classification model; and
+comparing the plurality of generated classifications with the associated known classifications.
+68. The machine readable medium of claim 67, wherein the comparison of the plurality of generated classifications is performed using at least one of an area under the receiver operating characteristic curve (ROC-AUC) comparison, an area under the precision recall curve (PR-AUC) comparison, or a concordance index (c-index) comparison.
+69. The machine readable medium of claim 65, wherein the classification model is a multi layer perceptron with two connected layers.
+70. The machine readable medium of claim 65, wherein a training image of the training set or validation set is one of a digitized whole slide image (WSI).
+71. The machine readable medium of claim 65, wherein the first convolutional neural network is a ResNet50 neural network.
+72. The machine readable medium of claim 65, wherein the extracting of the plurality of feature vectors comprises:
+tiling a region of interest of that training image into a set of tiles, wherein each of the plurality of feature vectors corresponds to a tile from the set of tiles.
+73. The machine readable medium of claim 72, wherein the tiling comprises:
+applying a fixed tiling grid to at least the region of interest, wherein each of the set of tiles has a predetermined size.
+74. The machine readable medium of claim 72, wherein the training of the classification model comprises:
+computing a score for each tile in the set of tiles using at least a convolutional ID layer and the corresponding feature vector for that tile.
+75. The machine readable medium of claim 65, wherein for each of the training images in the training set of training images, the method further comprises:
+segmenting that training image into a region of interest that includes information useful for classification and a background region by applying a second convolutional neural network.
+76. The machine readable medium of claim 75, wherein the second convolutional neural network is a U-NET neural network.
+77. The machine readable medium of claim 65, wherein the classification model includes one or more separate models.
+78. The machine readable medium of claim 65, wherein the classification model includes at least one of a multi-layer perceptron model and a one dimensional convolutional neural network model.
+</claims>
+</document>

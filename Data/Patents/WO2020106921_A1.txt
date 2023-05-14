@@ -1,0 +1,105 @@
+<document>
+
+<filing_date>
+2019-11-21
+</filing_date>
+
+<publication_date>
+2020-05-28
+</publication_date>
+
+<priority_date>
+2018-11-21
+</priority_date>
+
+<ipc_classes>
+G06F16/35
+</ipc_classes>
+
+<assignee>
+AMAZON TECHNOLOGIES
+</assignee>
+
+<inventors>
+ADAM, AMIT
+BHOTIKA, RAHUL
+DHANDHANIA, ANAND
+DOSHI, BHAVESH
+FAROOQ, UMAR
+KOSURU, GURURAJ
+MAZOR, SHAI
+OLGIATI, ANDREA
+TSE, WENDY
+WILSON, PATRICK IAN
+</inventors>
+
+<docdb_family_id>
+69061436
+</docdb_family_id>
+
+<title>
+LAYOUT-AGNOSTIC COMPLEX DOCUMENT PROCESSING SYSTEM
+</title>
+
+<abstract>
+Techniques for layout-agnostic complex document processing are described. A document processing service can analyze documents that do not adhere to defined layout rules in an automated manner to determine the content and meaning of a variety of types of segments within the documents. The service may chunk a document into multiple chunks, and operate upon the chunks in parallel by identifying segments within each chunk, classifying the segments into segment types, and processing the segments using special-purpose analysis engines adapted for the analysis of particular segment types to generate results that can be aggregated into an overall output for the entire document that captures the meaning and context of the document text.
+</abstract>
+
+<claims>
+WHAT IS CLAIMED IS:
+1. A computer-implemented method comprising:
+receiving a request to analyze a document encoded by a file;
+identifying, within at least a portion of the electronic document, one or more segments; determining, via use of one or more machine learning (ML) models, a classification of each of the one or more segments into one or more corresponding segment types; processing each of the one or more segments using an analysis engine selected based on the determined segment type for the segment to yield one or more results; and transmitting a response including an output based on the one or more results.
+2. The computer-implemented method of claim 1, wherein the request includes data of the file or identifies a location of the file.
+3. The computer-implemented method of any one of claims 1-2, further comprising:
+generating a job identifier (ID) of a job;
+transmitting the job ID within a second response, wherein the second response is
+associated with the request; and
+receiving a second request for the output of the job, the second request comprising the job ID, wherein the response is associated with the second request.
+4. The computer-implemented method of claim 3, further comprising:
+splitting the file into a plurality of chunks;
+analyzing, at least partially in a parallel manner, the plurality of chunks to yield a
+plurality of chunk results, wherein the portion is from a first chunk of the plurality of chunks;
+determining that the plurality of chunks have all been analyzed; and
+combining the plurality of chunk results into the output value.
+5. The computer-implemented method of claim 3, further comprising:
+determining that a value meets or exceeds a threshold, the value comprising a size of the file, a number of pages of the file, or an amount of requests pending for a same user; determining that an amount of idle compute capacity does not meet or exceed an availability threshold; and
+suspending processing of the file for a period of time.
+6. The computer-implemented method of any one of claims 1-5, wherein:
+the response comprises a HyperText Transfer Protocol (HTTP) response message sent in response to the request, the request comprising an HTTP request message;
+the HTTP request message was received at a first Application Programming Interface (API) endpoint; and
+the method further comprises:
+sending another HTTP request message to another endpoint associated with an analysis service, the another HTTP request message including data of the file or identifying a location of the file, and
+receiving another HTTP response message from the another endpoint.
+7. The computer-implemented method of any one of claims 1-6, wherein at least one of the one or more corresponding segment types comprises one of: form, receipt, invoice, paragraph, or table.
+8. The computer-implemented method of claim 7, wherein:
+at least one of the one or more corresponding segment types is form; and
+the processing of at least one of the one or more segments using the analysis engine comprises:
+identifying a plurality of keys of the form and a plurality of values of the form; and
+determining a plurality of key-value pairings, wherein at least one of the plurality of keyvalue pairings comprises one of the plurality of keys and one of the plurality of values that corresponds to the one key.
+9. The computer-implemented method of claim 8, wherein:
+identifying the plurality of keys and the plurality of values is based on use of a second one or more ML models; and
+determining the plurality of keyvalue pairings is based on use of a third one or more ML models.
+10. The computer-implemented method of any one of claims 1-9, wherein the request is received at a web service endpoint of a provider network, and wherein the response is destined to a client device located outside of the provider network.
+11. The computer-implemented method of any one of claims 1-10, wherein the file comprises an electronic image taken of the document.
+12. A system comprising:
+a storage service implemented by a first one or more electronic devices within a provider network; and
+a document processing service implemented by a second one or more electronic devices within the provider network, the document processing service including instructions that upon execution cause the document processing service to:
+receive a request to analyze a document encoded by a file, the request identifying a location provided by the storage service that stores the file;
+obtain the file from the storage service;
+identify, within at least a portion of the electronic document, one or more
+segments;
+determine, via use of one or more machine learning (ML) models, a classification of each of the one or more segments into one or more corresponding segment types;
+process each of the one or more segments using an analysis engine selected based the determined segment type for the segment to yield one or more results; and
+transmit a response including an output based on the one or more results.
+13. The system of claim 12, wherein the request includes data of the file or identifies a location of the file.
+14. The system of any one of claims 12-13, wherein the instructions further cause the document processing service to:
+generate a job identifier (ID) of a job;
+transmit the job ID within a second response, wherein the second response is associated with the request; and receive a second request for the output of the job, the second request comprising the job ID, wherein the response is associated with the second request.
+15. The system of claim 14, wherein the instructions further cause the document processing service to:
+split the file into a plurality of chunks;
+analyze, at least partially in a parallel manner, the plurality of chunks to yield a plurality of chunk results, wherein the portion is from a first chunk of the plurality of chunks;
+determine that the plurality of chunks have all been analyzed; and
+combine the plurality of chunk results into the output value.
+</claims>
+</document>

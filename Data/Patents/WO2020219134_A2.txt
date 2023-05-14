@@ -1,0 +1,88 @@
+<document>
+
+<filing_date>
+2020-01-28
+</filing_date>
+
+<publication_date>
+2020-10-29
+</publication_date>
+
+<priority_date>
+2019-03-05
+</priority_date>
+
+<ipc_classes>
+G06F21/55,H04L29/06
+</ipc_classes>
+
+<assignee>
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+KARPOVSKY, ANDREY
+KRAUS, NAAMA
+LEVIN, ROY
+SALMAN, TAMER
+</inventors>
+
+<docdb_family_id>
+72139646
+</docdb_family_id>
+
+<title>
+DYNAMIC CYBERSECURITY DETECTION OF SEQUENCE ANOMALIES
+</title>
+
+<abstract>
+Anomalous sequences are detected by approximating user sessions with heuristically extracted event sequences, allowing behavior analysis even without user identification or session identifiers. Extraction delimiters may include event count or event timing constraints. Event sequences extracted from logs or other event lists are vectorized and embedded in a vector space. A machine learning model similarity function measures anomalousness of a candidate sequence relative to a specified history, thus computing an anomaly score. Restrictions may be placed on the history to focus on a particular IP address or time frame, without retraining the model. Anomalous sequences may generate alerts, prompt investigations by security personnel, trigger automatic mitigation, trigger automatic acceptance, trigger tool configuration actions, or result in other cybersecurity actions.
+</abstract>
+
+<claims>
+1. A cybersecurity system, comprising:
+a processor;
+a memory in operable communication with the processor;
+an event listing source which is configured to provide one or more lists of events which represent occurrences or states or both in a guarded computing system (GCS); and
+a sequence anomalies detection code which upon execution with the processor performs operations that include (a) obtaining a list of events from the event listing source, (b) heuristically extracting an ordered event sequence from the list of events as a user session candidate without reliance on user identity data, (c) producing a candidate vector by vectorizing the extracted ordered event sequence, (d) submitting the candidate vector to a trained machine learning model which computes an anomaly score for the candidate vector, wherein the machine learning model measures anomalousness using previously vectorized ordered event sequences which collectively represent a history of GCS events, (e) receiving the computed anomaly score, and (f) utilizing the computed anomaly score to enhance cybersecurity of the GCS.
+2. The system of claim 1, wherein the sequence anomalies detection code comprises a max-events-per-sequence limit which is at least three, and also comprises heuristic sequence extraction code which upon execution extracts the ordered event sequence by (a) selecting at least one anchor event from the list of events, and (b) selecting zero or more additional events from the list of events up to a total number of no more than max-events-per-sequence selected events.
+3. The system of claim 1, wherein the sequence anomalies detection code comprises a max-time-between-events limit which is in a range from one nanosecond to ten minutes, and also comprises heuristic sequence extraction code which upon execution extracts the ordered event sequence by (a) selecting an anchor event from the list of events, and (b) selecting additional events from the list of events, each selected event having an associated timestamp, where the difference between timestamps of any two consecutive selected events when the selected events are ordered by timestamp value is no more than max-time-between-events.
+4. The system of claim 1, further comprising a coarse detector having precursor detection code which upon execution detects a precursor condition in a list of events from the event listing source, and wherein the system is configured such that the coarse detector triggers execution of the sequence anomalies detection code.
+5. The system of claim 1, further comprising a dynamic restriction code which upon execution gets a restriction condition which is satisfied by a proper subset of the history of GCS events, and wherein the trained machine learning model upon execution computes the anomaly score for the candidate vector without using previously vectorized ordered event sequences outside the proper subset.
+6. The system of claim 1, further comprising the trained machine learning model which upon execution computes the anomaly score for the candidate vector using previously vectorized ordered event sequences, wherein the learning model was trained using one or more ordered event sequences whose length as text differs from a length of the extracted ordered event sequence as text.
+7. A cybersecurity method, comprising:
+acquiring a candidate event sequence to be tested for anomalousness, events in the candidate event sequence representing occurrences or states or both in a guarded computing system (GCS);
+vectorizing the candidate event sequence at least in part by embedding the
+candidate event sequence in a vector space, thereby producing a candidate vector, the vectorizing being independent of any association of user account identification with events of the candidate event sequence; computing an anomaly score for the candidate vector using a machine learning model which was trained with previously vectorized event sequences which collectively represent a history of events in the GCS; and
+utilizing the computed anomaly score of the candidate vector by performing at least one of the following cybersecurity operations based at least in part on the computed anomaly score:
+configuring an intrusion detection tool to detect GCS intrusion, configuring an intrusion prevention tool to prevent GCS intrusion, configuring an administrative interface to facilitate administration of the GCS,
+configuring a data loss prevention tool to prevent data loss from the GCS, configuring a security information and event management tool which
+monitors the GCS, configuring a cybersecurity tool which generates alerts about the GCS based at least in part on anomaly scores, or
+prompting an investigation of the GCS by a security analyst or other human security personnel or an automated security investigator.
+8. The method of claim 7, wherein acquiring a candidate event sequence comprises heuristically extracting the candidate event sequence from a list of events, wherein heuristically extracting the candidate event sequence comprises delimiting the candidate event sequence, and wherein delimiting the candidate event sequence is based on at least one of the following sequence delimiting parameters:
+a limit on the maximum number of events allowed in the candidate event sequence, or
+a limit on the maximum time allowed between any two consecutive events in the candidate event sequence, or
+a limit on the maximum time allowed between an earliest event in the candidate event sequence and a latest event in the candidate event sequence.
+9. The method of claim 7, wherein vectorizing the candidate event sequence comprises:
+transforming the candidate event sequence into a single piece of text; and performing on the single piece of text an algorithm that learns fixed-length feature representations from variable-length pieces of text.
+10. The method of claim 7, further comprising:
+getting a restriction condition;
+restricting the history based on the restriction condition, thereby defining a
+restricted history;
+computing a focused anomaly score for the candidate vector, while using from the history only the restricted history portion of the history; and utilizing the focused anomaly score of the candidate vector by performing one or more cybersecurity operations.
+11. The method of claim 10, wherein the restricting comprises restricting the history to meet at least one of the following restriction conditions:
+all events in any sequence represented in the restricted history originated from the same IP address;
+all events in any sequence represented in the restricted history originated from the same IP address range; all events in any sequence represented in the restricted history originated from the same application program;
+all events in any sequence represented in the restricted history originated from the same application program interface;
+all events in any sequence represented in the restricted history originated from the same device; or
+all events in any sequence represented in the restricted history originated from the same service.
+12. The method of claim 7, wherein computing an anomaly score for the candidate vector comprises using at least one of the following:
+a k nearest neighbors calculation;
+an isolation forest calculation; or
+a local outlier factor calculation.
+13. The method of claim 7, further comprising at least one of the following: training the machine learning model using vectorized event sequences without using any association of particular event sequences with particular user accounts; or
+training the machine learning model using vectorized event sequences without using logged session ids.
+14. The method of claim 7, further comprising avoiding associating particular event sequences with particular user accounts, based on at least one of the following conditions: presence of a privacy policy, a lack of user account identification at a location where events are logged, a lack of logged session ids.
+15. The method of claim 7, wherein acquiring the candidate event sequence to be tested for anomalousness comprises acquiring a set of storage service requests which do not associate user information with each request.
+</claims>
+</document>

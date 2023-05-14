@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-07-11
+</filing_date>
+
+<publication_date>
+2021-01-14
+</publication_date>
+
+<priority_date>
+2019-07-11
+</priority_date>
+
+<ipc_classes>
+A61B6/00,A61B6/03,G06N20/00,G06N3/08,G06T11/00
+</ipc_classes>
+
+<assignee>
+CANON MEDICAL SYSTEMS CORPORATION
+</assignee>
+
+<inventors>
+YU, ZHOU
+HEIN, Ilmar
+Lee, Efren
+</inventors>
+
+<docdb_family_id>
+74101646
+</docdb_family_id>
+
+<title>
+APPARATUS AND METHOD COMBINING DEEP LEARNING (DL) WITH AN X-RAY COMPUTED TOMOGRAPHY (CT) SCANNER HAVING A MULTI-RESOLUTION DETECTOR
+</title>
+
+<abstract>
+A method and apparatus is provided that uses a deep learning (DL) network together with a multi-resolution detector to perform X-ray projection imaging to provide improved resolution similar to a single-resolution detector but at lower cost and less demand on the communication bandwidth between the rotating and stationary parts of an X-ray gantry. The DL network is trained using a training dataset that includes input data and target data. The input data includes projection data acquired using a multi-resolution detector, and the target data includes projection data acquired using a single-resolution, high-resolution detector. Thus, the DL network is trained to improve the resolution of projection data acquired using a multi-resolution detector. Further, the DL network is can be trained to additional correct other aspects of the projection data (e.g., noise and artifacts).
+</abstract>
+
+<claims>
+1. An apparatus, comprising: circuitry configured to obtain projection data representing an intensity of X-rays detected by a detector array comprising a plurality of pixels, the plurality of pixels including first pixels and second pixels having a larger size than the first pixels, acquire a neural network, the neural network having been trained using a training dataset including input data and target data, the input data comprising input projection data that was generated using a multi-resolution detector configuration corresponding to the plurality of pixels of the detector array, and the target data comprising target projection data that was generated using a second detector configuration having a finer resolution than a coarse-resolution part of the multi-resolution configuration, and apply the projection data to the neural network to thereby output filtered projection data from the neural network.
+2. The apparatus according to claim 1, wherein the circuitry is further configured to apply the projection data to the neural network to thereby output the filtered projection data having a uniform pixel resolution of the first pixels.
+3. The apparatus according to claim 1, wherein the circuitry is further configured to acquire the neural network, and the neural network has been trained using the target data that is acquired using the second detector configuration, and the second detector configuration has a uniform pixel resolution corresponding to a pixel resolution of the first pixels of the detector array.
+4. The apparatus according to claim 1, further comprising an X-ray source configured to emit an X-ray beam having a field of view with a central portion and a peripheral portion, which is arranged around the central portion, and the detector array arranged across a gantry from the X-ray source to detect X-rays within the field of view of the X-ray beam, wherein the first pixels are configured in the central portion of the field of view and the second pixels are configured in the peripheral portion of the field of view.
+5. The apparatus according to claim 4, wherein the detector array is further configured with the first pixels arranged in a plus-shape with first band along a central axis of the detector array in a first direction and second band along another central axis of the detector array in a second direction.
+6. The apparatus according to claim 4, wherein the detector array is further configured with the first pixels arranged in a single band of uniform width along a first direction of the detector array.
+7. The apparatus according to claim 4, wherein the X-ray source is further configured such that the central portion of the field of view spans a region of interest and the peripheral portion of the field of view falls outside the region of interest but spans an imaging region for avoiding truncation artifacts.
+8. The apparatus according to claim 4, wherein the X-ray source is further configured to emit a higher X-ray intensity in the central portion of the field of view than in the peripheral portion of the field of view.
+9. The apparatus according to claim 4, wherein the detector array is a single monolithic structural member and the first pixels lie on a same surface as the second pixels.
+10. The apparatus according to claim 1, wherein the circuitry is further configured to train the neural network by obtaining the training dataset comprising input sinograms paired with respective target sinograms, the input sinograms being generated using the multi-resolution detector configuration, and the target sinograms being generated using the second detector configuration, using the neural network to generate output sinograms from the respective input sinograms by applying a given input sinogram to the neural network, thereby generating a corresponding output sinogram, and training the neural network by iteratively adjusting weighting coefficients the neural network to minimize a value of a loss function, the loss function measuring a disagreement between the output sinogram and a target sinogram that corresponds to the given input sinogram used when generating the output sinogram.
+11. The apparatus according to claim 10, wherein the circuitry is further configured to train the neural network wherein the loss function includes a peak signal to noise ratio, a structural similarity index, and/or an lp-norm of a difference between the respective target sinograms and the filtered sinograms corresponding to the input sinograms.
+12. The apparatus according to claim 10, wherein the circuitry is further configured to train the neural network to generate the output sinograms, wherein the output sinograms have enhanced resolution relative to the input sinograms by training the neural network using the training dataset wherein the second detector configuration used to acquire the target sinograms has a uniform pixel resolution corresponding to a pixel resolution of the first pixels.
+13. The apparatus according to claim 1, wherein the circuitry is further configured to obtain the projection data, wherein the projection data is fluoroscopy data.
+14. The apparatus according to claim 1, wherein the circuitry is further configured to obtain the projection data, wherein the projection data is a sinogram of a computed tomography (CT) scan, and reconstruct an image from the filtered projection data.
+15. The apparatus according to claim 1, wherein the circuitry is further configured to obtain projection data wherein a configuration of the first pixels of the plurality of pixels is selected from (i) a single-sided, single-band configuration, (ii) a single-sided, plus-sign configuration, (iii) an off-center, single-band configuration, (iv) an off-center, plus-sign configuration, (v) a tapered configuration, wherein the single-sided, single-band configuration has the first pixels on one side of the detector array and the second pixels on another side the detector array, the single-sided, plus-sign configuration has a first band of the first pixels along a first direction on the one side of the detector array and has a second band of the first pixels along a central axis in a second direction on the another side of the detector array, the off-center, single-band configuration has the first band of the first pixels off of center axis along the first direction but not entirely to the one side of the detector array, the off-center, plus-sign configuration has the first band of the first pixels off of center axis along the first direction but not entirely to the one side of the detector array, and has the second band of the first pixels extending to either side of the first band of in the second direction, and the tapered configuration has the first pixels in a shape that tapers in the first and second directions.
+16. A method, comprising: obtaining projection data representing an intensity of X-rays detected by a detector array comprising a plurality of pixels, the plurality of pixels including first pixels and second pixels having a larger size than the first pixels; acquiring a neural network, the neural network having been trained using a training dataset including input data and target data, the input data comprising input projection data that was generated using a multi-resolution detector configuration corresponding to the plurality of pixels of the detector array, and the target data comprising target projection data that was generated using a second detector configuration having a finer resolution than a coarse-resolution part of the multi-resolution configuration; and applying the obtained projection data to the neural network to thereby output filtered projection data from the neural network.
+17. The method according to claim 16, further comprising generating the projection data using an X-ray source configured to emit an X-ray beam having a field of view with a central portion and a peripheral portion, which is arranged around the central portion, and the detector array being arranged across a gantry from the X-ray source to detect X-rays within the field of view of the X-ray beam, wherein the first pixels are configured in the central portion of the field of view and the second pixels are configured in the peripheral portion of the field of view, and the X-ray source is further configured to emit a higher X-ray intensity in the central portion of the field of view than in the peripheral portion of the field of view.
+18. The method according to claim 16, further comprising training the neural network by obtaining the training dataset comprising input sinograms paired with respective target sinograms, the input sinograms being acquired using the multi-resolution detector configuration, and the target sinograms being using the second detector configuration, using the neural network to generate output sinograms from the respective input sinograms by applying a given input sinogram to the neural network, thereby generating a corresponding output sinogram, and training the neural network by iteratively adjusting weighting coefficients the neural network to minimize a value of a loss function, the loss function measuring a disagreement between the output sinogram and a target sinogram that corresponds to the given input sinogram used to generate the output sinogram, wherein the loss function includes a peak signal to noise ratio, a structural similarity index, and/or an lp-norm of a difference between the respective target sinograms and the filtered sinograms corresponding to the input sinograms, and the neural network is trained to generate output sinograms having enhanced resolution relative to the input sinograms by using the training dataset in which the second detector configuration used to acquire the target sinograms has a uniform pixel resolution corresponding to a pixel resolution of the first pixels.
+19. The method according to claim 16, wherein the step of acquiring the neural network further includes that the neural network has been trained using the target data that is acquired using second detector configuration, which has a uniform pixel resolution corresponding to a pixel resolution of the first pixels, and the step of applying the projection data to the neural network further includes that the filtered projection output from the data neural network has a uniform pixel resolution of the first pixels.
+20. A non-transitory computer-readable storage medium including executable instructions, which when executed by circuitry, cause the circuitry to perform the method according to claim 16.
+</claims>
+</document>

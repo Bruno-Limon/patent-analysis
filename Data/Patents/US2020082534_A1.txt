@@ -1,0 +1,74 @@
+<document>
+
+<filing_date>
+2019-09-09
+</filing_date>
+
+<publication_date>
+2020-03-12
+</publication_date>
+
+<priority_date>
+2018-09-10
+</priority_date>
+
+<ipc_classes>
+A61B5/00,A61B6/00,A61B6/03,A61N5/10,G06N3/08,G06T7/11,G06T7/62
+</ipc_classes>
+
+<assignee>
+DEEPMIND TECHNOLOGIES
+</assignee>
+
+<inventors>
+BLACKWELL, SAMUEL
+BACK, TREVOR
+DE FAUW, JEFFREY
+NIKOLOV, STANISLAV
+RONNEBERGER, OLAF
+ASKHAM, HARRY
+ROMERA-PAREDES, BERNARDINO
+LEDSAM, JOSEPH R.
+HUGHES, CIAN
+MEYER, CLEMENS
+</inventors>
+
+<docdb_family_id>
+67953779
+</docdb_family_id>
+
+<title>
+3-D CONVOLUTIONAL NEURAL NETWORKS FOR ORGAN SEGMENTATION IN MEDICAL IMAGES FOR RADIOTHERAPY PLANNING
+</title>
+
+<abstract>
+Methods, systems, and apparatus, including computer programs encoded on a computer storage medium, for segmenting a medical image. In one aspect, a method comprises: receiving a medical image that is captured using a medical imaging modality and that depicts a region of tissue in a body; and processing the medical image using a segmentation neural network to generate a segmentation output, wherein the segmentation neural network comprises a sequence of multiple encoder blocks, wherein: each encoder block is a residual neural network block comprising one or more two-dimensional convolutional neural network layers, one or more three-dimensional convolutional neural network layers, or both, and each encoder block is configured to process a respective encoder block input to generate a respective encoder block output wherein a spatial resolution of the encoder block output is lower than a spatial resolution of the encoder block input.
+</abstract>
+
+<claims>
+1. A method performed by one or more data processing apparatus, the method comprising: receiving a medical image that is captured using a medical imaging modality and that depicts a region of tissue in a body; processing the medical image using a segmentation neural network to generate a segmentation output, wherein: the segmentation output comprises a plurality of segmentation channels, each segmentation channel corresponds to a respective organ from a predetermined set of organs, and each segmentation channel defines a segmentation of the respective organ corresponding to the segmentation channel in the medical image; a segmentation of a respective organ in the medical image comprises, for each of a plurality of voxels in the medical image, a respective score characterizing whether the voxel corresponds to an interior of the respective organ; the segmentation neural network comprises a sequence of multiple encoder blocks, wherein: each encoder block is a residual neural network block comprising one or more two-dimensional convolutional neural network layers, one or more three-dimensional convolutional neural network layers, or both; each encoder block is configured to process a respective encoder block input to generate a respective encoder block output wherein a spatial resolution of the encoder block output is lower than a spatial resolution of the encoder block input; and for each encoder block that is after an initial encoder block in the sequence of encoder blocks, the encoder block input comprises a previous encoder block output of a previous encoder block in the sequence of encoder blocks; and the segmentation neural network comprises a decoder subnetwork, wherein the decoder subnetwork is configured to process a decoder subnetwork input comprising an intermediate output of each encoder block to generate the segmentation output.
+2. The method of claim 1, wherein the medical imaging modality is a computerized tomography (CT) medical imaging modality.
+3. The method of claim 1, wherein the region of tissue in the body that is depicted by the medical image comprises a head and neck region.
+4. The method of claim 1, wherein the predetermined set of organs comprise one or more organs at risk in a patient receiving radiotherapy treatment.
+5. The method of claim 1, further comprising using the segmentation output in radiotherapy treatment planning.
+6. The method of claim 1, wherein the decoder subnetwork comprises a sequence of multiple decoder blocks, wherein: each decoder block is a residual neural network block comprising one or more two-dimensional convolutional neural network layers; each decoder block is configured to process a respective decoder block input to generate a respective decoder block output, wherein a spatial resolution of the decoder block output is greater than a resolution of the decoder block input; and for each decoder block that is after an initial decoder block in the sequence of decoder blocks, the decoder block input comprises: (i) an intermediate output of a respective encoder block, and (ii) a previous decoder block output of a previous decoder block.
+7. The method of claim 1, wherein the three-dimensional convolutional neural network layers in the encoder blocks comprise padded xy-convolutions and unpadded z-convolutions.
+8. The method of claim 1, wherein the segmentation neural network comprises a linking block, wherein: the linking block is a residual neural network block comprising a fully-connected layer; the linking block is configured to process a linking block input comprising an output of a final encoder block in the sequence of encoder blocks to generate a linking block output; and the linking block output is provided as an input to the decoder subnetwork.
+9. The method of claim 1, further comprising computing a surface Dice measure between: (i) a segmentation of a respective organ in the medical image defined by a segmentation channel from the segmentation output, and (ii) a reference segmentation of the respective organ in the medical image, comprising: determining a number of voxels in a first intersection between: (i) a surface of the segmentation of the respective organ, and (ii) a tolerance region around a surface of the reference segmentation of the respective organ; determining a number of voxels in a second intersection between: (i) a surface of the reference segmentation of the respective organ, and (ii) a tolerance region around a surface of the segmentation of the respective organ; and determining the surface dice measure as a ratio of: (i) a sum of the number of voxels in the first intersection and the number of voxels in the second intersection, and (ii) a sum of a number of voxels in the surface of the segmentation of the respective organ and a number of voxels in the surface of the reference segmentation of the respective organ.
+10. The method of claim 1, wherein generating the segmentation output comprises processing the output of a final neural network layer of the segmentation neural network using a sigmoid activation function.
+11. A method performed by one or more data processing apparatus for training a segmentation neural network which is configured to process a medical image that is captured using a medical imaging modality and that depicts a region of tissue in a body to generate a segmentation output, wherein: the segmentation output comprises a plurality of segmentation channels, each segmentation channel corresponds to a respective organ from a predetermined set of organs, and each segmentation channel defines a segmentation of the respective organ corresponding to the segmentation channel in the medical image, and a segmentation of a respective organ in the medical image comprises, for each of a plurality of voxels in the medical image, a respective score characterizing whether the voxel corresponds to an interior of the respective organ, the method comprising: receiving a training medical image; processing the training medical image using the segmentation neural network to generate a training segmentation output; determining a segmentation loss for the training medical image, comprising: for each segmentation channel of the training segmentation output: determining a set of error values for the segmentation channel, wherein each error value in the set of error values for the segmentation channel corresponds to a respective voxel in the medical image and is based on an error between: (i) the score from the segmentation channel which characterizes whether the voxel corresponds to the interior of the organ corresponding to the segmentation channel, and (ii) a target score defining whether the voxel corresponds to the interior of the organ corresponding to the segmentation channel; and identifying a plurality of highest error values in the set of error values for the segmentation channel; and determining the segmentation loss based on the plurality of highest error values identified for each segmentation channel of the training segmentation output; and adjusting current values of segmentation neural network weights based on the segmentation loss for the training medical image.
+12. The method of claim 11, wherein the error between: (i) the score from the segmentation channel which characterizes whether the voxel corresponds to the interior of the organ corresponding to the segmentation channel, and (ii) a target score defining whether the voxel corresponds to the interior of the organ corresponding to the segmentation channel, comprises: a cross entropy between: (i) the score from the segmentation channel which characterizes whether the voxel corresponds to the interior of the organ corresponding to the segmentation channel, and (ii) a target score defining whether the voxel corresponds to the interior of the organ corresponding to the segmentation channel.
+13. The method of claim 11, wherein identifying a plurality of highest error values in the set of error values for the segmentation channel comprises: identifying the plurality of highest error values in the set of error values for the segmentation channel to be a proper subset of the set of error values for the segmentation channel.
+14. The method of claim 11, wherein determining the segmentation loss comprises summing the plurality of highest error values identified for each segmentation channel of the training segmentation output.
+15. The method of claim 11, wherein adjusting current values of segmentation neural network weights comprises: backpropagating a gradient of the segmentation loss for the training medical image.
+16. The method of claim 11, wherein the medical imaging modality is a computerized tomography (CT) medical imaging modality.
+17. The method of claim 11, wherein the region of tissue in the body that is depicted by the medical image comprises a head and neck region.
+18. The method of claim 11, wherein the predetermined set of organs comprise one or more organs at risk in a patient receiving radiotherapy treatment.
+19. A method performed by one or more data processing apparatus, the method comprising: receiving a medical image that is captured using a medical imaging modality and that depicts a region of tissue in a body; processing the medical image using a segmentation neural network to generate a segmentation output, wherein: the segmentation output comprises a plurality of segmentation channels, each segmentation channel corresponds to a respective organ from a predetermined set of organs, and each segmentation channel defines a segmentation of the respective organ corresponding to the segmentation channel in the medical image; a segmentation of a respective organ in the medical image comprises, for each of a plurality of voxels in the medical image, a respective score characterizing whether the voxel corresponds to an interior of the respective organ; the segmentation neural network comprises a final layer which is configured to process a final layer input to generate the segmentation output; processing the final layer input to generate the segmentation output comprises: processing the final layer input in accordance with a set of final layer weights to generate a transformed final layer input; and processing the transformed final layer input using a sigmoid activation function to generate the segmentation output.
+20. The method of claim 19, wherein the medical imaging modality is a computerized tomography (CT) medical imaging modality.
+21. The method of claim 19, wherein the region of tissue in the body that is depicted by the medical image comprises a head and neck region.
+22. The method of claim 19, wherein the predetermined set of organs comprise one or more organs at risk in a patient receiving radiotherapy treatment.
+23. The method of claim 19, further comprising using the segmentation output in radiotherapy treatment planning.
+24. The method of claim 19, further comprising computing a surface Dice measure between: (i) a segmentation of a respective organ in the medical image defined by a segmentation channel from the segmentation output, and (ii) a reference segmentation of the respective organ in the medical image, comprising: determining a number of voxels in a first intersection between: (i) a surface of the segmentation of the respective organ, and (ii) a tolerance region around a surface of the reference segmentation of the respective organ; determining a number of voxels in a second intersection between: (i) a surface of the reference segmentation of the respective organ, and (ii) a tolerance region around a surface of the segmentation of the respective organ; and determining the surface dice measure as a ratio of: (i) a sum of the number of voxels in the first intersection and the number of voxels in the second intersection, and (ii) a sum of a number of voxels in the surface of the segmentation of the respective organ and a number of voxels in the surface of the reference segmentation of the respective organ.
+</claims>
+</document>

@@ -1,0 +1,82 @@
+<document>
+
+<filing_date>
+2020-06-22
+</filing_date>
+
+<publication_date>
+2021-01-07
+</publication_date>
+
+<priority_date>
+2019-07-01
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/62,G06N3/08
+</ipc_classes>
+
+<assignee>
+ALIBABA GROUP
+</assignee>
+
+<inventors>
+XIE YUAN
+GU ZHENYU
+LIU LIU
+LI, Shuangchen
+</inventors>
+
+<docdb_family_id>
+74066053
+</docdb_family_id>
+
+<title>
+SYSTEMS AND METHODS FOR ACCELERATING SPARSE NEURAL NETWORK EXECUTION
+</title>
+
+<abstract>
+The present disclosure relates to systems and methods for dynamically executing sparse neural networks. In one implementation, a system for providing dynamic sparsity in a neural network may include at least one memory storing instructions and at least one processor configured to execute the instructions to: reduce an input vector and a set of weights of the neural network, execute an input layer of the neural network using the reduced input vector and set of weights to generate a reduced output vector; expand the reduced output vector to a full output vector using first predictable output neurons (PONs); using a PON map, reduce a dimension of the full output vector; execute subsequent layers of the neural network using the reduced full output vector to produce a second reduced output vector; and expand the second reduced output vector to a second full output vector using second PONs.
+</abstract>
+
+<claims>
+1. A system for dynamic sparse execution of a neural network, comprising:
+at least one global buffer configured to receive inputs for the neural network;
+a plurality of processing elements configured to execute activation functions for nodes of the neural network; and
+at least one processor configured to:
+execute ternary random projection to reduce at least one dimension of the inputs from the at least one global buffer and generate a corresponding predictable output neuron map for use by the plurality of processing elements, and
+receive outputs from the plurality of processing elements, reduce at least one dimension of the outputs, and update the corresponding predictable output neuron map for use by the plurality of processing elements based on the reduced outputs.
+2. The system of claim 1, wherein the at least one processor iteratively receives current outputs from the plurality of processing elements, reduces at least one dimension of the current outputs, and updates the corresponding predictable output neuron map, based on the reduced current outputs, for use by the plurality of processing elements in generating next outputs until the plurality of processing elements have executed each layer of the neural network.
+3. The system of claim 1, wherein each processing element comprises a control logic and a multiply-accumulate accelerator.
+4. The system of claim 1, wherein the at least one processor comprises a plurality of adder trees.
+5. The system of claim 1, wherein the global buffer is further configured to transmit the predictable output neuron map from the at least one processor to the plurality of processing elements and to transmit the outputs from the plurality of processing elements to the at least one processor.
+6. The system of claim 1, wherein the plurality of processing elements are organized in an array along a first dimension and a second dimension.
+7. The system of claim 6, wherein the plurality of processing elements share a first bus along the first dimension and communicate with the global buffer using a second bus along the second dimension.
+8. The system of claim 1, wherein the at least one processor further comprises a systolic array configured to reduce at least one dimension of a set of weights for the neural network based on the reduced inputs.
+9. The system of claim 8, wherein the systolic array is further configured to reduce at least one dimension of the set of weights for the neural network based on the reduced outputs.
+10. The system of claim 1, wherein the plurality of processing elements and the at least one processor are configured to execute instructions in parallel.
+11. The system of claim 10, wherein the at least one processor reduces at least one dimension of the outputs and updates the corresponding predictable output neuron map concurrently with execution of one or more of the activation functions by the plurality of processing elements.
+12. The system of claim 1, wherein the at least one processor re-assigns the nodes to the plurality of processing element whenever the predictable output neuron map is updated.
+13. The system of claim 12, wherein re-assigning comprises grouping the activation functions based on the predictable output neuron map such that each group has approximately the same number of calculations.
+14. The system of claim 1, further comprising a quantizer configured to truncate the inputs before reducing at least one dimension of the inputs.
+15. The system of claim 14, wherein the truncation comprises a truncation from 16-bit fixed-point values to 4-bit fixed-point values.
+16. The system of claim 1, wherein the global buffer receives the inputs from a memory that is on a different chip than the global buffer.
+17. The system of claim 16, wherein the global buffer is further configured to transmit final outputs to the memory.
+18. The system of claim 1, wherein the plurality of processing elements further comprise local buffers for storing inputs and outputs.
+19. A method for dynamic sparse execution of a neural network, comprising:
+providing, via a buffer, inputs for a neural network to at least one processor;
+executing, via the at least one processor, ternary random projection to reduce at least one dimension of the inputs;
+generating, via the at least one processor, generate a corresponding predictable output neuron map;
+executing, via a plurality of processing elements, one or more first activation functions of the neural network using the reduced inputs to generate first outputs;
+providing, via the buffer, the first outputs to the at least one processor;
+reducing, via the at least one processor, at least one dimension of the first outputs; updating, via the at least one processor, the corresponding predictable output neuron map based on the reduced first outputs; and
+executing, via the plurality of processing elements, one or more second activation functions of the neural network using the reduced first outputs to generate second outputs.
+20. A non-transitory computer-readable storage medium storing a set of instructions that is executable by a computing device to cause the computing device to perform a method for dynamic sparse execution of a neural network, the method comprising:
+providing, via a buffer, inputs for a neural network to at least one processor;
+executing, via the at least one processor, ternary random projection to reduce at least one dimension of the inputs;
+generating, via the at least one processor, generate a corresponding predictable output neuron map;
+executing, via a plurality of processing elements, one or more first activation functions of the neural network using the reduced inputs to generate first outputs; providing, via the buffer, the first outputs to the at least one processor;
+reducing, via the at least one processor, at least one dimension of the first outputs; updating, via the at least one processor, the corresponding predictable output neuron map based on the reduced first outputs; and
+executing, via the plurality of processing elements, one or more second activation functions of the neural network using the reduced first outputs to generate second outputs.
+</claims>
+</document>

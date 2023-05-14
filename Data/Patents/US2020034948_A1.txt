@@ -1,0 +1,68 @@
+<document>
+
+<filing_date>
+2019-07-29
+</filing_date>
+
+<publication_date>
+2020-01-30
+</publication_date>
+
+<priority_date>
+2018-07-27
+</priority_date>
+
+<ipc_classes>
+A61B6/00,A61N5/10,G06F17/18,G06N20/20,G06N3/04,G06N3/08,G06T3/40,G06T5/00
+</ipc_classes>
+
+<assignee>
+WASHINGTON UNIVERSITY IN ST. LOUIS
+MUTIC, SASA
+GREEN, OLGA
+ZHANG HAO
+PARK, CHUNJOO
+</assignee>
+
+<inventors>
+MUTIC, SASA
+GREEN, OLGA
+ZHANG HAO
+PARK, CHUNJOO
+</inventors>
+
+<docdb_family_id>
+69178195
+</docdb_family_id>
+
+<title>
+ML-BASED METHODS FOR PSEUDO-CT AND HR MR IMAGE ESTIMATION
+</title>
+
+<abstract>
+The present disclosure describes a computer-implemented method of transforming a low-resolution MR image to a high-resolution MR image using a deep CNN-based MRI SR network and a computer-implemented method of transforming an MR image to a pseudo-CT (sCT) image using a deep CNN-based sCT network. The present disclosure further describes a MR image-guided radiation treatment system that includes a computing device to implement the MRI SR and CT networks and to produce a radiation plan based in the resulting high resolution MR images and sCT images.
+</abstract>
+
+<claims>
+1. A computer-implemented method of transforming a low-resolution MR image into a super-resolution MR image using an MRI SR deep CNN system comprising a deep CNN-based de-noising auto-encoder (DAE) network and a deep CNN-based super-resolution generative network (SRG), the method comprising: receiving, using a computing device, a low resolution MR image; transforming, using the computing device, the low resolution MR image into a de-noised MR image using the DAE network; and transforming, using the computing device, the de-noised MR data into the super-resolution MR image using the SRG network.
+2. The computer-implemented method of claim 1, wherein the DAE network comprises: six convolutional encoder layers with 4×4 filters and six de-convolutional decoder layers with 4×4 filters, wherein: each convolutional encoder layer and each de-convolution decoder layer comprises a single convolutional/deconvolutional filter with stride 2; and each convolutional encoder layer and each de-convolution decoder layer ends with a leaky and standard rectified linear unit (ReLU).
+3. The computer-implemented method of claim 1, wherein the SRG network comprises: two up-sampling layers, eight residual blocks, each residual block comprising two 3×3 convolutional filters separated by a ReLU activation with an elementwise sum operator attached at the end of the layer; and two output layers, each output layer comprising a 3×3 convolutional filter, ReLU activation, and a subpixel operator up-sampling layer.
+4. The computer-implemented method of claim 2, further comprising training the DAE network by: receiving, using the computing device, a set of noisy low resolution MR images; transforming, using the computing device, each noisy MR image into a de-noised MR image using a noise filter, wherein each noisy MR image and corresponding de-noised MR image together form a noisy/de-noised MR image pair; and training, using the computing device, the DAE network to minimize a reconstruction error given by ∥gθg(fθf({tilde over (x)}))−x∥ for each matched noisy/de-noised low resolution image pair, where x denotes each de-noised MR image, {tilde over (x)} denotes each noisy MR image, and fθf and gθg denote the encoding and decoding network parameterized by θf and θg, respectively.
+5. The computer-implemented method of claim 4, wherein the noise filter comprises a non-local means filter.
+6. The computer-implemented method of claim 3, further comprising training the SRG network by: receiving, using the computing device, a set of matched low resolution/high resolution MR image pairs; forming, using the computing device, a generative adversarial network (GAN) including a generative model G parametrized by θG and comprising the SRG network and a discriminative model D parametrized by θD, the discriminative model D configured to determine a probability that a high resolution MR image is a high resolution image or an SRG-transformed low resolution MR image from a matched low resolution/high resolution MR image pair; and training, using the computing device, the GAN to solve the optimization problem given by by updating D and G in alternating steps while fixing the other parameter, wherein the GAN is trained if D is unable to determine whether each high resolution MR image is the selected high resolution MR image or the transformed low resolution MR image from each matched low resolution/high resolution MR image pair.
+7. The computer-implemented method of claim 6, wherein the set of matched low resolution/high resolution MR image pairs is produced by: transforming, using the computing device, a high resolution MR image to a low resolution MR image training using a deep CNN-based down-sampling network (DSN), the DSN comprising: two down-sampling layers, each down-sampling layer comprising a 3×3 convolutional filter of stride 2 followed by a ReLU activation; two residual blocks, each residual block comprising two 3×3 convolutional filters separated by a ReLU activation and followed by an elementwise sum operator; and an output layer.
+8. A computer-implemented method of transforming a low-resolution MR data into a pseudo-CT (sCT) using a deep-CNN based sCT system, the sCT system comprising a deep CNN-based sCT generative network, the method comprising: receiving, using a computing device, an MR image; and transforming, using the computing device, the MR image into a sCT image.
+9. The computer-implemented method of claim 8, wherein the sCT generative network is selected from the group consisting of a pix network and an aspp network.
+10. The computer-implemented method of claim 9, wherein the pix network comprises a stacked encoder-decoder U-Net network with skip connections between corresponding encoder and decoder layers, the encoder layers comprising C64-C128-C256-C512-C512-C512-C512-C512 and the decoder layers comprising CD512-CD1024-CD1024-C1024-C1024-C512-C256-C128, and wherein: Ck denotes a convolution-BatchNorm-ReLU layer with k convolutional filters and the first encoder layer does not perform batch normalization; CDk denotes a convolution-BatchNorm-Dropout-ReLU layer with a dropout rate of 50% and the final decoder layer applies a convolution to map to a single output channel followed by a hyperbolic tangent function; and each convolution is a 4×4 filter applied with a stride of 2.
+11. The computer-implemented method of claim 9, wherein the aspp network comprises a stacked encoder-decoder U-Net network further comprising an ASPP module, the encoder comprising C64-C128-C256-C512, the ASPP module comprising C512, AC512 rate 3, AC512 rate 6, AC512 rate 9, average pool-C512)-C512, and the decoder comprising C512-C512-C256-C128, wherein: Ck denotes a convolution-BatchNorm-ReLU layer with k convolutional filters; CDk denotes a convolution-BatchNorm-Dropout-ReLU layer with a dropout rate of 50% and the final decoder layer applies a convolution to map to a single output channel followed by a hyperbolic tangent function; AC denote an atrous convolution, and each convolution in the coder and decoder layers is a 4×4 filter applied with a stride of 2.
+11. The computer-implemented method of claim 9, further comprising training the sCT generative network by: receiving, using the computing device, a set of matched MR/CT image pairs; forming, using the computing device, a generative adversarial network (GAN) including a generative model G parametrized by θG and comprising the sCT generative network and a discriminative model D parametrized by θD, the discriminative model D configured to determine a probability that a CT image is a CT image or a generative network-transformed MR image from the set of matched MR/CT image pairs; training, using the computing device, the GAN by updating D and G in alternating steps while fixing the other parameter, wherein the GAN is trained if D is unable to determine whether each CT image is the selected CT image or the transformed MR image from the set of matched MR/CT image pairs.
+12. The computer-implemented method of claim 11, wherein the discriminative model D comprises C64-C128-C256-C512 followed by a final convolution to map to a single channel, wherein: Ck denotes a convolution-BatchNorm-ReLU layer with k convolutional filters; and no batch normalization is performed on the first layer.
+13. A MR image-guided radiation treatment system, comprising: a computing device operatively coupled to an MR scanner, the computing device comprising at least one processor and a non-volatile computer-readable media, a memory containing a plurality of modules, the plurality of modules containing a plurality of instructions executable on the at least one processor, the plurality of modules comprising: a de-noising auto-encoder module to transform a noisy low-resolution MR image received from the MR scanner to a de-noised low-resolution MR image using a deep CNN-based de-noising auto-encoder (DAE) network; a MR super-resolution image module to transform the de-noised low-resolution MR image received from the de-noising auto-encoder module to a high-resolution MR image using a deep CNN-based super-resolution generative network (SRG); an sCT module to transform the high-resolution MR image received from the MR super-resolution image module to a pseudo-CT (sCT) image using a deep CNN-based sCT generative network; and a radiation treatment module to produce a radiation treatment plan based on the high resolution MR image and the sCT image.
+14. The MR image-guided radiation treatment system of claim 13, wherein the computing device is further operatively coupled to a radiation treatment device and the plurality of modules further comprises a radiation treatment control module configured to operate the radiation treatment device to administer a radiation treatment to a patient based on the radiation treatment plan produced by the radiation treatment module
+15. The MR image-guided radiation treatment system of claim 13, wherein the DAE network comprises: six convolutional encoder layers with 4×4 filters and six de-convolutional decoder layers with 4×4 filters, wherein: each convolutional encoder layer and each de-convolution decoder layer comprises a single convolutional/deconvolutional filter with stride 2; and each convolutional encoder layer and each de-convolution decoder layer ends with a leaky and standard rectified linear unit (ReLU).
+16. The MR image-guided radiation treatment system of claim 13, wherein the SRG network comprises: two up-sampling layers, eight residual blocks, each residual block comprising two 3×3 convolutional filters separated by a ReLU activation with an elementwise sum operator attached at the end of the layer; and two output layers, each output layer comprising a 3×3 convolutional filter, ReLU activation, and a subpixel operator up-sampling layer.
+17. The MR image-guided radiation treatment system of claim 13, wherein the sCT generative network is selected from the group consisting of a pix network and an aspp network.
+18. The MR image-guided radiation treatment system of claim 17, wherein the pix network comprises a stacked encoder-decoder U-Net network with skip connections between corresponding encoder and decoder layers, the encoder layers comprising C64-C128-C256-C512-C512-C512-C512-C512 and the decoder layers comprising CD512-CD1024-CD1024-C1024-C1024-C512-C256-C128, and wherein: Ck denotes a convolution-BatchNorm-ReLU layer with k convolutional filters and the first encoder layer does not perform batch normalization; CDk denotes a convolution-BatchNorm-Dropout-ReLU layer with a dropout rate of 50% and the final decoder layer applies a convolution to map to a single output channel followed by a hyperbolic tangent function; and each convolution is a 4×4 filter applied with a stride of 2.
+19. The MR image-guided radiation treatment system of claim 17, wherein the aspp network comprises a stacked encoder-decoder U-Net network further comprising an ASPP module, the encoder comprising C64-C128-C256-C512, the ASPP module comprising C512, AC512 rate 3, AC512 rate 6, AC512 rate 9, average pool-C512)-C512, and the decoder comprising C512-C512-C256-C128, wherein: Ck denotes a convolution-BatchNorm-ReLU layer with k convolutional filters; CDk denotes a convolution-BatchNorm-Dropout-ReLU layer with a dropout rate of 50% and the final decoder layer applies a convolution to map to a single output channel followed by a hyperbolic tangent function; AC denote an atrous convolution, wherein and each convolution in the coder and decoder layers is a 4×4 filter applied with a stride of 2.
+</claims>
+</document>

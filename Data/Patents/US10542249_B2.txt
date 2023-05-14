@@ -1,0 +1,58 @@
+<document>
+
+<filing_date>
+2016-12-29
+</filing_date>
+
+<publication_date>
+2020-01-21
+</publication_date>
+
+<priority_date>
+2016-12-29
+</priority_date>
+
+<ipc_classes>
+G06F17/15,G06N3/04,G06N3/08,H04N13/257,H04N13/261
+</ipc_classes>
+
+<assignee>
+ZHEJIANG GONGSHANG UNIVERSITY
+</assignee>
+
+<inventors>
+WANG, XUN
+WANG, HUIYAN
+ZHU, LEQING
+</inventors>
+
+<docdb_family_id>
+62710238
+</docdb_family_id>
+
+<title>
+Stereoscopic video generation method based on 3D convolution neural network
+</title>
+
+<abstract>
+A stereoscopic video generation method based on 3D convolution neural network is disclosed, which is able to convert existing 2D video sources into stereoscopic videos. The method includes preparing the training data, dividing the training video sources into left eye view sequences and right eye view sequences; and then processing the left eye image sequences through shot segmentation via fuzzy C-means clustering method, calculating a mean image of all left eye images, subtracting the mean image from the left eye images, taking the right eye images as a training target; training the obtained 3D convolution neural network through the training data; processing the 2D video sources which need to be converted into stereoscopic videos in the same way as training set, inputting to the trained 3D convolution neural network to obtain the right eye view image sequences of the 2D videos; and finally combining the two to be stereoscopic videos.
+</abstract>
+
+<claims>
+1. A stereoscopic video generation method based on 3D convolution neural network, comprising steps of: (1) preparing training data comprising: downloading a sufficient number of non-animated 3D movies as the training data through web, dividing the non-animated 3D movies into left eye views and right eye views, and deleting blank frames which occur at title, tail and shot transition; (2) training the 3D convolution neural network comprising: training the 3D convolution neural network through taking the left eye views of the prepared training data in the step (1) as an input and the right eye views as a target, wherein the 3D convolution neural network comprises six convolutional layers, a former two of the six convolutional layers are 3D convolutional layers and a latter four thereof are 2D convolutional layers; to calculate a loss function, comparing a central area of the right eye views with a same size of a network output with the network output which is back propagated to adjust network parameters; and (3) generating a stereoscopic video through the trained full convolution neural network comprising: inputting 2D videos as the left eye views into the trained 3D convolution neural network, normalizing an output of the network to an integer in a range of 0 to 255, that is, taking the output of the network to be a nearest integer in the range of 0 to 255, obtaining right eye views, merging the left eye views with the right eye views according to display characteristics into a view source, outputting and displaying the view source on a display.
+2. The stereoscopic video generation method based on 3D convolution neural network, as recited in claim 1, wherein in the step (1), the training sample is firstly processed through shot segmentation because a correlation between video frames exists only within a same shot; the shot segmentation comprises: firstly, converting every frame of a video from RGB (Red-Green-Blue) space to YUV (Luminance and Chrominance) space through a conversion formula of
+description="In-line Formulae" end="lead"?Y=0.299R+0.587G+0.114B description="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?U=0.492(B−Y)description="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?V=0.877(R−Y) (1),description="In-line Formulae" end="tail"? and then calculating a color histogram of YUV channels of every frame and calculating an inter-frame difference between adjacent frames through a formula of
+description="In-line Formulae" end="lead"?x(fi, fi+1)=Σk=1n|HY(fi, k)−HY(fi+1, k)|+Σk=1m(|HU(fi, k)−HU(fi+1, k)|+|HV(fi, k)−HV(fi+1, k)|) (2),description="In-line Formulae" end="tail"? here, m is a histogram bin number of a UV channel, n is a histogram bin number of a Y channel, m<n, H (f, k) represents that an amount of pixels within the kth bin of a frame f, the shot segmentation is achieved based on the histogram inter-frame difference through a fuzzy C-means clustering method.
+3. The stereoscopic video generation method based on 3D convolution neural network, as recited in claim 1, wherein in the step (1), the training sample takes the shot as a unit to organize files, a mean image of all left eye views in the training samples is calculated and the mean image is subtracted from every frame of the left eye views.
+4. The stereoscopic video generation method based on 3D convolution neural network, as recited in claim 1, wherein in the step (2), the trained 3D convolution neural network is a full convolution neural network without full connection layer which is not sensitive to a size of the image frame to be processed.
+5. The stereoscopic video generation method based on 3D convolution neural network, as recited in claim 1, wherein in the network of the step (2), a size of 3D convolution kernels is 3×3×3, a size of 2D convolution kernels is 3×3, a stride of the 3D and 2D convolution kernels is one, an edge of 3D convolution is not processed through zero expansion, an edge of 2D convolution is expanded to remain a size of the image before and after convolution unchanged, an output of every convolutional layer is activated through ReLu function and then inputted into a next layer.
+6. The stereoscopic video generation method based on 3D convolution neural network, as recited in claim 1, wherein in the network of the step (2), a time window size of a first 3D convolution kernel is t0=5, that is, one convolution processes five frames images; through a formula (3), due to pad=0, stride=1, kernel_size=3, an outputted time window size is shrunk to t1=3 after being convoluted by the convolution kernel with the size of 3×3×3; and then through a second 3D convolution kernel, the time window size is further shrunk to 1, latter 2D convolutions only process single frame images; similarly, through formulas (4) and (5), in former two 3D convolutions, due to pad=0, a height and a width are shrunk 2 units; in latter 2D convolutions, due to pad=(kernel_size−1)/2, the height and the width before and after the convolutions are unchanged, here,
+description="In-line Formulae" end="lead"?t1=(t0+2×pad-kernel_size)/stride+1 (3)description="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?w1=(w0+2×pad-kernel_size)/stride+1 (4)description="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?h1=(h0+2×pad-kernel_size)/stride+1 (5).description="In-line Formulae" end="tail"?
+7. The stereoscopic video generation method based on 3D convolution neural network, as recited in claim 1, wherein in the network of the step (2), while training, the time window slides forward at a stride of one in each shot; since the 3D convolution shrinks in time domain, first two frames and last two frames of every shot in target view (namely, the right eye view) is discharged when calculating a loss.
+8. The stereoscopic video generation method based on 3D convolution neural network, as recited in claim 1, wherein in the step (2), while training the network and adjusting network parameters through back propagation, a loss function is calculated through mean square error of here, {tilde over (Y)} is an output of the last layer of the 3D convolution neural network, Y is a real right eye view corresponding to a middle frame of five continuous frames participating in the 3D convolution, n is an amount of outputted pixels.
+</claims>
+</document>

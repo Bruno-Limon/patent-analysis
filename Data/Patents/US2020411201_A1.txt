@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2020-06-25
+</filing_date>
+
+<publication_date>
+2020-12-31
+</publication_date>
+
+<priority_date>
+2019-06-27
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/08,G06T7/00,G16H30/40,G16H70/60
+</ipc_classes>
+
+<assignee>
+Retrace Labs
+</assignee>
+
+<inventors>
+Kearney, Vasant
+Sadat, Ali
+</inventors>
+
+<docdb_family_id>
+74044827
+</docdb_family_id>
+
+<title>
+Systems And Method For Artificial-Intelligence-Based Dental Image To Text Generation
+</title>
+
+<abstract>
+A first machine learning model is trained to classify dental anatomy and/or pathologies represented in an input dental image or to generate a label (pixel mask) for dental anatomy and/or pathologies represented in the input dental image. A final layer, such as one of two fully connected layers, may be removed from the first machine learning model to obtain a modified machine learning model. Hidden features output from the modified machine learning model may be input to a LSTM model that outputs a text sequence. The LSTM model may be trained with images labeled with text sequences to output a text sequence for a given input dental image.
+</abstract>
+
+<claims>
+1. A method for diagnosis of dental pathologies comprising: providing an encoder machine learning model trained to output a classification of one or both of dental anatomy and a dental pathology in an image input to the encoder machine learning model; providing a plurality of first training data entries, each first training data entry of the plurality of first training data entries including a first dental image and a target text sequence; removing, by a computer system, at least one layer from the encoder machine learning model to obtain a modified machine learning model; and for each first training data entry of the plurality of first training data entries: processing, by the computer system, the first dental image of the each first training data entry the modified machine learning model to obtain a matrix of hidden values; processing, by the computer system, the hidden values using a long short term memory (LSTM) model to obtain a synthetic text sequence; comparing, by the computer system, the synthetic text sequence to the target text sequence of the each first training data entry; and updating, by the computer system, the LSTM model according to the comparing of the synthetic text sequence to the target text sequence of the each first training data entry.
+2. The method of claim 1, further comprising: providing a plurality of second training data entries that are either the same as or different from the plurality of first training data entries, each second training data entry of the plurality of second training data entries including a second dental image and a second target label, the second target label being one of (a) a classification encoding one or both of dental anatomy and a dental pathology represented in the second dental image and (b) one or more labels of one or both of the dental anatomy and the dental pathology represented in the second dental image; for each second training data entry of the plurality of second training data entries: processing, by the computer system, the second dental image of the each second training data entry using the encoder machine learning model to obtain a synthetic label; comparing, by the computer system, the synthetic label to the second target label of the each second training data entry; and updating, by the computer system, the encoder machine learning model according to the comparing of the synthetic label to the second target label of the each second training data entry.
+3. The method of claim 1, wherein the LSTM model comprises a plurality of LSTM networks arranged in series; and wherein processing the hidden features using the LSTM model to obtain the synthetic text sequence comprises obtaining portions of the synthetic text sequence from the plurality of LSTM networks.
+4. The method of claim 3, wherein the plurality of LSTM networks comprise at least six LSTM networks.
+5. The method of claim 1, wherein the encoder machine learning model is an encoder convolution neural network (CNN).
+6. The method of claim 5, wherein the at least one layer is a fully connected layer.
+7. The method of claim 5, wherein final layers of the encoder machine learning model include two fully connected layers, the at least one layer being a last fully connected layer of the two fully connected layers.
+8. The method of claim 1, wherein the target text sequence of each first training data entry of the plurality of first training data entries is a textual description of a pathology represented in the first dental image of the each first training data entry.
+9. The method of claim 1, wherein the target text sequence of each first training data entry of the plurality of first training data entries is a textual description of a proposed treatment for a pathology represented in the first dental image of the each first training data entry.
+10. The method of claim 1, wherein the first dental image of each first training data entry of the plurality of first training data entries is an image of dental anatomy according to an imaging modality selected from the group consisting of full mouth series X-rays, dental cone beam computed tomography (CBCT), cephalometric X-ray, intra-oral optical image, panoramic dental X-ray, dental magnetic resonance imaging (MM) image, dental light detection and ranging (LIDAR) image.
+11. A non-transitory computer-readable medium storing executable instructions that, when executed by a processing device, cause the processing device to: receive an encoder machine learning model trained to output a classification of one or both of dental anatomy and a dental pathology in an image input to the encoder machine learning model; receive a plurality of first training data entries, each first training data entry of the plurality of first training data entries including a first dental image and a target text sequence; remove at least one layer from the encoder machine learning model to obtain a modified machine learning model; and for each first training data entry of the plurality of first training data entries: process the first dental image of the each first training data entry the modified machine learning model to obtain a matrix of hidden values; process the hidden values using a long short term memory (LSTM) model to obtain a synthetic text sequence; compare the synthetic text sequence to the target text sequence of the each first training data entry; and update the LSTM model according to the comparing of the synthetic text sequence to the target text sequence of the each first training data entry.
+12. The non-transitory computer-readable medium of claim 11, wherein the executable instructions, when executed by the processing device, further cause the processing device to: receive a plurality of second training data entries that are either the same as or different from the plurality of first training data entries, each second training data entry of the plurality of second training data entries including a second dental image and a second target label, the second target label being one of (a) a classification encoding one or both of dental anatomy and a dental pathology represented in the second dental image and (b) one or more labels of one or both of the dental anatomy and the dental pathology represented in the second dental image; for each second training data entry of the plurality of second training data entries: process the second dental image of the each second training data entry using the encoder machine learning model to obtain a synthetic label; compare the synthetic label to the second target label of the each second training data entry; and update the encoder machine learning model according to the comparing of the synthetic label to the second target label of the each second training data entry.
+13. The non-transitory computer-readable medium of claim 11, wherein the LSTM model comprises a plurality of LSTM networks arranged in series; and wherein the executable instructions, when executed by the processing device, further cause the processing device to process the hidden values using the LSTM model to obtain the synthetic text sequence by obtaining portions of the synthetic text sequence from the plurality of LSTM networks.
+14. The non-transitory computer-readable medium of claim 13, wherein the plurality of LSTM networks comprise at least six LSTM networks.
+15. The non-transitory computer-readable medium of claim 11, wherein the encoder machine learning model is an encoder convolution neural network (CNN).
+16. The non-transitory computer-readable medium of claim 15, wherein the at least one layer is a fully connected layer.
+17. The non-transitory computer-readable medium of claim 15, wherein final layers of the encoder machine learning model include two fully connected layers, the at least one layer being a last fully connected layer of the two fully connected layers.
+18. The non-transitory computer-readable medium of claim 11, wherein the target text sequence of each first training data entry of the plurality of first training data entries is a textual description of a pathology represented in the first dental image of the each first training data entry.
+19. The non-transitory computer-readable medium of claim 11, wherein the target text sequence of each first training data entry of the plurality of first training data entries is a textual description of a proposed treatment for a pathology represented in the first dental image of the each first training data entry.
+20. The non-transitory computer-readable medium of claim 11, wherein the first dental image of each first training data entry of the plurality of first training data entries is an image of dental anatomy according to an imaging modality selected from the group consisting of full mouth series X-rays, dental cone beam computed tomography (CBCT), cephalometric X-ray, intra-oral optical image, panoramic dental X-ray, dental magnetic resonance imaging (MM) image, dental light detection and ranging (LIDAR) image.
+</claims>
+</document>

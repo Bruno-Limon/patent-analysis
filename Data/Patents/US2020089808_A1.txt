@@ -1,0 +1,61 @@
+<document>
+
+<filing_date>
+2018-09-17
+</filing_date>
+
+<publication_date>
+2020-03-19
+</publication_date>
+
+<priority_date>
+2018-09-17
+</priority_date>
+
+<ipc_classes>
+G06K9/62,G06N3/04
+</ipc_classes>
+
+<assignee>
+EBAY
+</assignee>
+
+<inventors>
+LIU, MINGKUAN
+</inventors>
+
+<docdb_family_id>
+69774108
+</docdb_family_id>
+
+<title>
+SEARCH SYSTEM FOR PROVIDING SEARCH RESULTS USING QUERY UNDERSTANDING AND SEMANTIC BINARY SIGNATURES
+</title>
+
+<abstract>
+Technology for the improved processing of search queries is provided. In one embodiment, methods may return semantically relevant search results for a search query. During a pre-computing offline processing, an inventory semantic index may be generated and may include inventory binary hashing signatures that are associated with inventory listings, such as goods or services for sell, and the index may be partitioned by categories and shards. When a search query is received, relevant categories are determined using a relevant category recognition service, and a search query binary hashing signature maybe generated for the search query. The relevant categories are searched to determine hamming distances between the inventory binary hashing signatures and the search query binary hashing signature, where the hamming distance indicates semantic relevance.
+</abstract>
+
+<claims>
+1. A search system for processing search queries, the system comprising: one or more processors; and one or more computer storage media storing computer-useable instructions that, when used by the one or more processors, cause the one or more processors to execute: a pre-computing offline processing engine configured to: train a semantic-signature-generator model for use by a semantic-signature generator, wherein the semantic-signature generator generates binary hashing signatures for inputs into the semantic-signature-generator model; access a plurality of inventory listings, wherein each inventory listing is associated with a category; employ the semantic-signature generator to generate inventory binary hashing signatures based on an inventory identifier associated with each of the plurality of inventory listings; and store the inventory binary hashing signature for each inventory listing in an inventory semantic index, the inventory semantic index partitioned by a plurality of categories; and a runtime online processing engine configured to: receive a search query from a client device; generate a search query binary hashing signature for the search query using the semantic-signature generator; employ a relevant category recognition service to identify at least two relevant categories for the search query; search the at least two relevant categories of the inventory semantic index to identify at least one inventory listing, wherein identifying the at least one inventory listing is based on a hamming distance between the search query binary hashing signature and the inventory binary hashing signature for each inventory listing in the at least two relevant categories; and communicate to the client device the at least one inventory listing as search results for the search query.
+2. The system of claim 1, wherein the semantic-signature-generator is a deep learning neural network model trained on stored behavioral data, and wherein the semantic-signature generator is further configured to: generate the inventory binary hashing signature directly from the inventory listing; and generate the search query binary hashing signature directly from the search query, wherein a semantic relationship between the inventory listing and the search query is represented by the hamming.
+3. The system of claim 1, wherein the inventory semantic index is partitioned by leaf categories.
+4. The system of claim 1, wherein the inventory semantic index comprises a plurality of index identifiers, the at least two relevant categories associated with an index identifier of the plurality of index identifiers.
+5. The system of claim 4, wherein searching the at least two relevant categories of the inventory semantic index comprises employing a parallel processing engine to identify the index identifier associated with each of the at least two relevant categories, the parallel processing engine utilizing each index identifier to search the at least two relevant categories in parallel.
+6. The system of claim 5, wherein the parallel processing engine continues to search the at least two relevant categories in parallel by comparing the search query binary hashing signature to the inventory binary hashing signature for each inventory listing in the at least two relevant categories until the parallel processing engine identifies a different index identifier for each of the at least two relevant categories searched.
+7. The system of claim 1, wherein the inventory semantic index comprises shards that partition at least a portion of the categories within the inventory semantic index, each shard associated with an index identifier.
+8. The system of claim 7, wherein the at least two relevant categories are partitioned by the shards, and wherein searching the at least two relevant categories of the inventory semantic index comprises employing a parallel processing engine to identify the index identifier associated with each of the shards, the parallel processing engine utilizing each index identifier to search the at least two relevant categories in parallel.
+9. One or more computer storage media having computer-executable instructions embodied thereon that, when executed, by one or more processors, cause the one or more processors to perform a method for processing search queries, the method comprising: receiving a search query; generating a search query binary hashing signature for the search query using a semantic-signature generator; identifying a relevant category for the search query, wherein the relevant category is identified using a relevant category recognition service; accessing an inventory semantic index, wherein the inventory semantic index comprises a plurality of inventory listings associated with the relevant category, each inventory listing associated with an inventory binary hashing signature; searching the relevant category by computing a hamming distance between the search query binary hashing signature and each inventory binary hashing signature for the plurality of inventory listings in the relevant category; based on computing the hamming distance, identifying an inventory listing; and communicating the inventory listing as a search result for the search query.
+10. The media of claim 9, wherein the semantic-signature generator generates the search query binary hashing signature directly from the search query.
+11. The media of claim 9, wherein the inventory semantic index includes a plurality of shards, the plurality of shards partitioning the plurality of inventory listings associated with the relevant category.
+12. The media of claim 11, wherein searching the relevant category of the inventory semantic index comprises employing a parallel processing engine to search the plurality of shards in parallel.
+13. The media of claim 12, wherein the inventory semantic index comprises an index identifier associated with each shard of the plurality of shards, and wherein the parallel processing engine searches the plurality of inventory listings in parallel based on the index identifier associated with each shard.
+14. The media of claim 9, wherein computing the hamming distance comprises determining a number of differences between a set of binary digits representing the search query binary hashing signature and a set of binary digits representing the inventory binary hashing signature.
+15. A computer-implemented method for processing search queries, the method comprising: receiving a search query; generating a search query binary hashing signature of the search query; identifying a relevant category for the search query; searching an inventory semantic index that includes the relevant category to identify an inventory listing from the relevant category, wherein identifying the inventory listing is based on computing a hamming distance between the search query binary hashing signature and an inventory binary hashing signature of the inventory listing; and communicating the inventory listing as a search result for the search query.
+16. The method of claim 15, wherein generating the search query binary hashing signature is performed by a semantic-signature generator, the semantic-signature generator including a semantic-signature-generator model that generates binary hashing signatures from inputs, the semantic-signature-generator model trained using stored behavioral data so that the binary hashing signatures generated are semantically related based on the stored behavioral data.
+17. The method of claim 16, wherein identifying the relevant category includes determining a vector representation of the search query and comparing the vector representation of the search query to a vector representation of the relevant category, wherein the relevant category is identified based on a vector distance determined from the comparison.
+18. The method of claim 15, wherein the inventory semantic index is partitioned by category, and each category includes a plurality of inventory listings that are associated with a plurality of inventory binary hashing signatures.
+19. The method of claim 15, wherein the inventory semantic index includes a plurality of shards that partition the relevant category, and wherein searching the relevant category of the inventory semantic index comprises employing a parallel processing engine to search inventory listings associated with each shard of the plurality of shards in parallel.
+20. The method of claim 15, wherein computing the hamming distance comprises determining a number of differences between a set of binary digits representing the search query binary hashing signature and a set of binary digits representing the inventory binary hashing signature.
+</claims>
+</document>

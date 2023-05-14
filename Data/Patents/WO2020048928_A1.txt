@@ -1,0 +1,69 @@
+<document>
+
+<filing_date>
+2019-09-02
+</filing_date>
+
+<publication_date>
+2020-03-12
+</publication_date>
+
+<priority_date>
+2018-09-05
+</priority_date>
+
+<ipc_classes>
+G06T7/00,G06T7/20
+</ipc_classes>
+
+<assignee>
+NORWEGIAN UNIVERSITY OF SCIENCE AND TECHNOLOGY
+</assignee>
+
+<inventors>
+LØVSTAKKEN, LASSE
+ØSTVIK, ANDREAS
+SMISTAD, ERIK
+</inventors>
+
+<docdb_family_id>
+67847723
+</docdb_family_id>
+
+<title>
+FUNCTIONAL MEASUREMENTS IN ECHOCARDIOGRAPHY
+</title>
+
+<abstract>
+A method for processing echocardiography data in order to enable automatic functional measurements based on cardiac ultrasound images as an input, the method comprising: (i) classification of the cardiac ultrasound images in order to ensure that relevant images are passed on to the next steps, optionally utilising a first neural network, or first part of a neural network, such as a convolutional neural network; (ii) segmentation and semantic partitioning of the left ventricle (LV) myocardium to extract relevant parts of the image, optionally by using a second neural network, or second part of a neural network; (iii) regional motion estimates to determine a mapping of displacements in the extracted parts of the imageand to output estimated tissue motion vectors for the extracted parts of the image, optionally using a third neural network, or third part of a neural network; and (iv) fusion of measurements via state estimation applied to the tissue motion vectors and thereby incorporating a temporal domain to produce data showing variation of the estimated measurements over time; wherein at least one of steps (i), (ii), and (iii) uses a neural network or a part of a neural network.
+</abstract>
+
+<claims>
+1. A method for processing echocardiography data in order to enable automatic functional measurements based on cardiac ultrasound images as an input, the method comprising:
+(i) classification of the cardiac ultrasound images in order to ensure that relevant images are passed on to the next steps;
+(ii) segmentation and semantic partitioning of the left ventricle (LV) myocardium to extract relevant parts of the images;
+(iii) regional motion estimates to determine a mapping of displacements in the extracted parts of the image and to output estimated tissue motion vectors for the extracted parts of the image; and
+(iv) fusion of measurements via state estimation applied to the tissue motion vectors and thereby incorporating a temporal domain to produce data showing variation of the estimated measurements over time;
+wherein at least one of steps (i), (ii) and (iii) is done using a neural network, or a part of a neural network.
+2 A method as claimed in claim 1 , wherein step (i) uses a first neural network, or a first part of a neural network, step (ii) uses a second neural network, or second part of a neural network, and step (iii) uses a third neural network, or third part of a neural network.
+3. A method as claimed in claim 1 or 2, wherein step (i) uses a convolutional neural network (CNN) in the form of a feed-forward CNN composed of inception blocks and a dense connectivity pattern.
+4. A method as claimed in claim 1 , 2 or 3, wherein the segmentation at step (ii) uses a U-Net type of CNN classify the LV myocardium with the pixel map of the segmentation being processed and used to define regions of interest (ROI) and the basis of measurement kernels.
+5. A method as claimed in any preceding claim, wherein the segmentation at step (ii) is used for masking to extract the relevant parts of the images and also used for centerline extraction. 6. A method as claimed in claim 5 wherein the contour of the segmentation mask is used to define the endoand epicardial borders, and the centerline is sampled along the myocard, with the latter being passed to the state estimation at step (iv).
+7. A method as claimed in any preceding claim, wherein the motion estimation at step (iii) uses the neural networks referred to as FlowNets and includes stacking of multiple U-Net architectures with image warping of intermediate motion and propagation of brightness error.
+8. A method as claimed in claim 7, wherein step (iii) includes two parallel routes for the motion estimation in order to tackle larger and smaller displacements separately.
+9. A method as claimed in claim 8, wherein: larger displacements are predicted by stacking three U-Net architectures, the first which includes explicit correlation of feature maps, while the two succeeding are standard U-Net architectures without custom layers; and wherein for smaller displacements only one U-Net is used, but compared to the networks for the larger displacements, the kernel size and stride of the first layer is reduced.
+10. A method as claimed in any preceding claim, including a further step (v), which comprises calculation of clinical indices.
+11. A method as claimed in claim 10, wherein step (v) uses the updated pointvelocity components from step (iv) in order to calculate one or more clinical indices selected from: global or regional longitudinal myocardial strain; global or regional longitudinal myocardial strain rate; regional myocardial velocity; and/or regional myocardial displacement.
+12. A method as claimed in any preceding claim, wherein the input cardiac images are cardiac B-mode ultrasound data
+13. A method as claimed in any preceding claim, comprising automatically providing an output comprising regional numeric deformation values for all segments of the left ventricle. 14. A method as claimed in any preceding claim, wherein cardiac cycles which have inferior quality are automatically discarded during initial processing at step (i).
+15. A method as claimed in claim 14 wherein the automatic discarding of ultrasound data occurs: when view recognition fails due to view recognition confidence being lower than a threshold; when segmentation indicates that apex is moving away and towards the probe during the cardiac cycle; and/or when regularization is failing.
+16. A method as claimed in any preceding claim, wherein the method is applied to multiple cardiac cycles.
+17. A method as claimed in claim 16, wherein tesults from several stored cardiac cycles from different patients are used to compare regional strain between patient groups.
+18. A method as claimed in any preceding claim, including outputting information via a user interface that displays a trend graph for regional and/or global values based on processing of as current exam and optionally also prior exams for the same patient.
+19. A method as claimed in any preceding claim, wherein at the end of an exam, the user is automatically presented with a Left ventricle segmental bullseye generated in background based on processing recorded images while the user was completing the exam.
+20. A method as claimed in any preceding claim, wherein the processing of images occurs in the background while the user continues to record images.
+21. A computer programme product containing instructions that, when executed, will configure a computer device to carry out the method of any preceding claim.
+22. A computer device configured to carry out the method of any of claims 1 to
+20. 23. An ultrasound imaging system comprising a computer device as claimed in claim 22 for processing ultrasound images obtained via the imaging system.
+</claims>
+</document>

@@ -1,0 +1,264 @@
+<document>
+
+<filing_date>
+2020-04-29
+</filing_date>
+
+<publication_date>
+2020-11-05
+</publication_date>
+
+<priority_date>
+2019-04-30
+</priority_date>
+
+<ipc_classes>
+H04N19/136,H04N19/154,H04N19/164,H04N19/436
+</ipc_classes>
+
+<assignee>
+PHANTOM AUTO INC.
+</assignee>
+
+<inventors>
+MAGZIMOF, SHAY
+EFITOROV, Alexander
+MEZHANSKIY, Gleb
+SILVERA, Elrom
+DERI, Yuval
+PARUNAKIAN, David
+</inventors>
+
+<docdb_family_id>
+73015993
+</docdb_family_id>
+
+<title>
+LOW LATENCY WIRELESS COMMUNICATION SYSTEM FOR TELEOPERATED VEHICLE ENVIRONMENTS
+</title>
+
+<abstract>
+A vehicle remote support system includes a communication system that operates over a plurality of parallel wireless network connections to provide low-latency video from vehicle to a remote support server that provides remote support to the vehicle dependent on real-time video. The vehicle includes a source that encodes multiple versions of the original video segments (e.g., one per wireless network connection) and transmits the multiple versions of the segments to a sink at the remote support server over the respective wireless connections. This redundant multi-path communication system rationally allocates network resources to the managed video streams and balances bandwidth against latency in order to avoid network congestion and safety issues associated with single-path transmissions. In other embodiments, a similar communication system that transmits video or other real-time messages between a source and a sink may be utilized in cloud robotics applications.
+</abstract>
+
+<claims>
+1. A method for wirelessly communicating low latency video from a vehicle to a remote support server during a remote support session, the method comprising:
+receiving a first video feed from a first camera;
+encoding, by a video encoder, a first encoder, a first video segment of the first video feed to generate a first encoded video segment;
+encoding, by a second encoder, the first video segment to generate a second encoded video segment, the second encoded video segment including redundant video data to the first encoded video segment;
+generating, by a network orchestrator, an assignment of the first encoded video segment for transmission by a first communication unit over a first wireless network connection, and an assignment of the second encoded video segment for transmission by a second communication unit over a second wireless network connection different than the first wireless network connection;
+transmitting, by the first communication unit, the first encoded video segment over the first wireless network connection;
+transmitting, by the second communication unit, the second encoded video segment over the second wireless network connection.
+2. The method of claim 1, wherein encoding the first video segment by the first encoder comprises: receiving at the first encoder, feedback parameters relating to transmission of prior encoded video segments over the first wireless network connection; and
+adjusting encoding parameters of the first encoder based on the feedback parameters.
+3. The method of claim 1, wherein encoding the first video segment by the first encoder comprises: receiving location data associated with the vehicle;
+determining encoding parameters from a geospatial database based on the location data; and applying the encoding parameters when encoding the first video segment.
+4. The method of 1, wherein encoding the first video segment by the first encoder comprises:
+responsive to network feedback indicating limited bandwidth conditions are present on the first wireless network connection, encoding chromatic components of the first video segment at lower resolution than luminosity components of the first video segment.
+5. The method of 1, wherein encoding the first video segment by the first encoder comprises: responsive to network feedback indicating limited bandwidth conditions are present on the first wireless network, encoding the first video segment at a higher resolution if the first video frame is a key frame than if the first video segment is a non-key frame.
+6. The method of claim 1, further comprising:
+receiving a second video feed from a second camera;
+encoding, by a third encoder, the second video segment to generate a third encoded video segment;
+encoding, by a fourth encoder, the video segment to generate a fourth encoded video
+segment;
+transmitting, by the first communication unit, the third encoded video segment over the first wireless network;
+transmitting, by the second communication unit, the fourth encoded video segment over the second wireless network, the fourth encoded video segment including redundant video data to the third encoded video segment.
+7. The method of claim 1, wherein encoding the first video segment by the first encoder comprises applying a first encoding format with first encoding parameters, and wherein encoding the first video segment by the second encoder comprises applying a second code with second encoding parameters different than the first encoding parameters.
+8. The method of claim 1, wherein generating the assignments by the network orchestrator
+comprises:
+applying an optimization algorithm to optimize the assignments according to a predefined optimization criterion.
+9. The method of claim 8, wherein the optimization criterion comprises at least one of minimizing predicting latency, minimizing predicted network congestion, and maximizing predicted quality.
+10. A non-transitory computer-readable storage medium storing instructions for wirelessly
+communicating low latency video from a vehicle to a remote support server during a remote support session, the instructions when executed by one or more processors causing the one or more processors to perform steps comprising:
+receiving a first video feed from a first camera; encoding, by a video encoder, a first encoder, a first video segment of the first video feed to generate a first encoded video segment;
+encoding, by a second encoder, the first video segment to generate a second encoded video segment, the second encoded video segment including redundant video data to the first encoded video segment;
+generating, by a network orchestrator, an assignment of the first encoded video segment for transmission by a first communication unit over a first wireless network connection, and an assignment of the second encoded video segment for transmission by a second communication unit over a second wireless network connection different than the first wireless network connection;
+transmitting, by the first communication unit, the first encoded video segment over the first wireless network connection;
+transmitting, by the second communication unit, the second encoded video segment over the second wireless network connection.
+11. The non-transitory computer-readable storage medium of claim 10, wherein encoding the first video segment by the first encoder comprises:
+receiving at the first encoder, feedback parameters relating to transmission of prior encoded video segments over the first wireless network connection; and
+adjusting encoding parameters of the first encoder based on the feedback parameters.
+12. The non-transitory computer-readable storage medium of claim 10, wherein encoding the first video segment by the first encoder comprises:
+receiving location data associated with the vehicle;
+determining encoding parameters from a geospatial database based on the location data; and applying the encoding parameters when encoding the first video segment.
+13. The non-transitory computer-readable storage medium of 10, wherein encoding the first video segment by the first encoder comprises:
+responsive to network feedback indicating limited bandwidth conditions are present on the first wireless network connection, encoding chromatic components of the first video segment at lower resolution than luminosity components of the first video segment.
+14. The non-transitory computer-readable storage medium of 10, wherein encoding the first video segment by the first encoder comprises: responsive to network feedback indicating limited bandwidth conditions are present on the first wireless network, encoding the first video segment at a higher resolution if the first video segment is a key frame than if the first video segment is a non-key frame.
+15. The non-transitory computer-readable storage medium of claim 10, further comprising:
+receiving a second video feed from a second camera;
+encoding, by a third encoder, the second video segment to generate a third encoded video segment;
+encoding, by a fourth encoder, the video segment to generate a fourth encoded video
+segment;
+transmitting, by the first communication unit, the third encoded video segment over the first wireless network;
+transmitting, by the second communication unit, the fourth encoded video segment over the second wireless network, the fourth encoded video segment including redundant video data to the third encoded video segment.
+16. The non-transitory computer-readable storage medium of claim 10, wherein encoding the first video segment by the first encoder comprises applying a first encoding format with first encoding parameters, and wherein encoding the first video segment by the second encoder comprises applying a second code with second encoding parameters different than the first encoding parameters.
+17. The non-transitory computer-readable storage medium of claim 10, wherein generating the assignments by the network orchestrator comprises:
+applying an optimization algorithm to optimize the assignments according to a predefined optimization criterion.
+18. The non-transitory computer-readable storage medium of claim 18, wherein the optimization criterion comprises at least one of minimizing predicting latency, minimizing predicted network congestion, and maximizing predicted quality.
+19. A vehicle system for wirelessly communicating low latency video from a vehicle to a remote support server during a remote support session, the vehicle system comprising:
+a drive system for controlling operation of the vehicle;
+a camera for generating a first video feed;
+one or more processors; a non-transitory computer-readable storage medium storing instructions that when executed by one or more processors causing the one or more processors to perform steps comprising:
+receiving the first video feed from the camera;
+encoding, by a video encoder, a first encoder, a first video segment of the first video feed to generate a first encoded video segment;
+encoding, by a second encoder, the first video segment to generate a second encoded video segment, the second encoded video segment including redundant video data to the first encoded video segment;
+generating, by a network orchestrator, an assignment of the first encoded video
+segment for transmission by over a first wireless network connection, and an assignment of the second encoded video segment for transmission over a second wireless network connection different than the first wireless network connection;
+a first communication unit to transmit the first encoded video segment over the first wireless network connection; and
+a second communication unit to transmit the second encoded video segment over the second wireless network connection.
+20. The vehicle system of claim 19, wherein generating the assignments by the network orchestrator comprises:
+applying an optimization algorithm to optimize the assignments according to a predefined optimization criterion.
+21. A method for wireless communicating low latency data from a vehicle to a remote support server during a remote support session, the method comprising:
+generating a plurality of data streams, the plurality of data streams including subsets of
+complementary data streams having redundant data;
+generating, by a network orchestrator, assignments for transmitting the plurality of data
+streams over at least two different wireless network connections, wherein each data stream within one of the subsets of complementary data streams is assigned to different ones of the wireless network connections; and
+transmitting, by a plurality of communication units, the plurality of data streams over the at least two wireless network connections based on the assignments.
+22. The method of claim 21, wherein generating the plurality of data streams comprises: obtaining one or more video feeds from one or more cameras; and
+encoding each of the one or more camera feeds into one of the subsets of complementary data streams having the redundant data.
+23. The method of claim 21, wherein generating the assignments by the network orchestrator
+comprises:
+applying an optimization algorithm to optimize the assignments according to a predefined optimization criterion.
+24. The method of claim 23, wherein the optimization criterion comprises at least one of
+minimizing predicting latency, minimizing predicted network congestion, and maximizing predicted quality.
+25. The method of claim 23, wherein generating the assignments by the network orchestrator
+comprises:
+applying a policy generated by a machine-learned model from a simulation of network
+conditions along a route of the vehicle.
+26. The method of claim 21, wherein generating the assignments by the network orchestrator
+comprises:
+assigning at least one data stream to a null identifier to prevent the data stream from being transmitted by any of the wireless network connections.
+27. The method of claim 21, wherein generating the assignments by the network orchestrator
+comprises:
+assigning at least one backup data stream to a null identifier to cause a reduction in encoding bitrate of the data stream;
+responsive to a failure of a primary data stream having redundant data with the backup data stream, assigning the backup data stream to wireless communication associated with the primary data stream.
+28. The method of claim 27, further comprising:
+responsive to the failure of the primary data stream, increasing the encoding bit rate
+associated with the backup data stream.
+29. The method of claim 21, wherein generating the assignments by the network orchestrator
+comprises: designating a first data stream within a complementary pair as a primary data stream for transmitting over one of the wireless network connections;
+designating a second data stream within the complementary pair as a backup data steam; stripping payload data from the backup data stream to operate the backup data stream as a dummy stream; and
+obtaining network performance data associated with the backup data stream based on
+transmission of the dummy stream.
+30. A non-transitory computer-readable storage medium storing instructions for wireless
+communicating low latency data from a vehicle to a remote support server during a remote support session, the instructions when executed causing one or more processors to perform steps including:
+generating a plurality of data streams, the plurality of data streams including subsets of complementary data streams having redundant data;
+generating, by a network orchestrator, assignments for transmitting the plurality of data streams over at least two different wireless network connections, wherein each data stream within one of the subsets of complementary data streams is assigned to different ones of the wireless network connections; and
+transmitting, by a plurality of communication units, the plurality of data streams over the at least two wireless network connections based on the assignments.
+31. The non-transitory computer-readable storage medium of claim 30, wherein generating the plurality of data streams comprises:
+obtaining one or more video feeds from one or more cameras; and
+encoding each of the one or more camera feeds into one of the subsets of complementary data streams having the redundant data.
+32. The non-transitory computer-readable storage medium of claim 31, wherein generating the assignments by the network orchestrator comprises:
+applying an optimization algorithm to optimize the assignments according to a predefined optimization criterion.
+33. The non-transitory computer-readable storage medium of claim 32, wherein the optimization criterion comprises at least one of minimizing predicting latency, minimizing predicted network congestion, and maximizing predicted quality.
+34. The non-transitory computer-readable storage medium of claim 32, wherein generating the assignments by the network orchestrator comprises:
+applying a policy generated by a machine-learned model from a simulation of network
+conditions along a route of the vehicle.
+35. The non-transitory computer-readable storage medium of claim 31, wherein generating the assignments by the network orchestrator comprises:
+assigning at least one data stream to a null identifier to prevent the data stream from being transmitted by any of the wireless network connections.
+36. The non-transitory computer-readable storage medium of claim 31, wherein generating the assignments by the network orchestrator comprises:
+assigning at least one backup data stream to a null identifier to cause a reduction in encoding bitrate of the data stream;
+responsive to a failure of a primary data stream having redundant data with the backup data stream, assigning the backup data stream to wireless communication associated with the primary data stream.
+37. The non-transitory computer-readable storage medium of claim 36, further comprising:
+responsive to the failure of the primary data stream, increasing the encoding bit rate
+associated with the backup data stream.
+38. The non-transitory computer-readable storage medium of claim 31, wherein generating the assignments by the network orchestrator comprises:
+designating a first data stream within a complementary pair as a primary data stream for transmitting over one of the wireless network connections;
+designating a second data stream within the complementary pair as a backup data steam; stripping payload data from the backup data stream to operate the backup data stream as a dummy stream; and
+obtaining network performance data associated with the backup data stream based on
+transmission of the dummy stream.
+39. A method for wirelessly receiving low latency video at a remote support server supporting a teleoperated vehicle during a remote support session, the method comprising:
+establishing the remote support session with the vehicle; receiving at a video processor, a first encoded video segment and a segment identifier for the first encoded video segment from a first wireless network connection; determining that the segment identifier is absent from a segment identifier buffer;
+responsive to determining that the segment identifier is absent from the segment identifier buffer, storing the segment identifier to the segment identifier buffer and providing the first encoded video segment to a video device;
+receiving at the video processor, a second encoded video segment and the segment identifier from a second wireless network connection different than the first wireless network connection, the second encoded video segment including redundant video data to the first encoded video segment;
+determining that the segment identifier is present in the segment identifier buffer;
+responsive to determining that the segment identifier is present in the segment identifier buffer, discarding the second encoded video segment.
+40. The method of claim 39, wherein the first wireless network connection comprises a first cellular network connection to a first cellular network operated by a first wireless carrier, and wherein the second wireless network connection comprises a second cellular network connection to a second cellular network operated by a second wireless carrier different than the first wireless carrier.
+41. The method of claim 39, wherein the first wireless network connection comprises a first WiFi network connection and the second wireless network connection comprises a second WiFi network connection.
+42. The method of claim 39, wherein the first wireless network connection comprises a cellular network connection to a cellular network and the second wireless network comprises a WiFi network connection to a WiFi network.
+43. The method of claim 39, wherein the first wireless network connection operates according to a first communication protocol and wherein the second wireless network connection operates according to a second communication protocol different than the first communication protocol.
+44. The method of claim 39, wherein the first wireless network connection is facilitated by first networking infrastructure and wherein the second wireless network connection is facilitated by second networking infrastructure different than the first networking infrastructure.
+45. The method of claim 39, wherein communications over the first wireless network connection comprise different performance parameters than communications over the second wireless network connection.
+46. The method of claim 39, wherein the second encoded video segment is encoded according to a different encoding format or encoding parameters than the first encoded video segment.
+47. The method of claim 39, further comprising:
+receiving at a message processor, a first message and a message identifier for the first
+message from the first wireless network connection;
+determining that the message identifier is absent from a message identifier buffer;
+responsive to determining that the message identifier is absent from the message identifier buffer, storing the message identifier to the message identifier buffer and providing the first message to a remote support device;
+receiving at the message processor, a second message and the message identifier from the second wireless network connection, the second message including redundant data to the first message;
+determining that the message identifier is present in the message identifier buffer;
+responsive to determining that the message identifier is present in the message identifier buffer, discarding the second message.
+48. The method of claim 47, wherein the first and second message comprise telemetry data
+associated with sensor readings from the vehicle.
+49. A non-transitory computer-readable storage medium storing instructions for wirelessly
+receiving low latency video at a remote support server supporting a teleoperated vehicle during a remote support session, the instructions when executed by one or more processors causing the one or more processors to perform steps comprising:
+establishing the remote support session with the vehicle;
+receiving at a video processor, a first encoded video segment and a segment identifier for the first encoded video segment from a first wireless network connection; determining that the segment identifier is absent from a segment identifier buffer;
+responsive to determining that the segment identifier is absent from the segment identifier buffer, storing the segment identifier to the segment identifier buffer and providing the first encoded video segment to a video device; receiving at the video processor, a second encoded video segment and the segment identifier from a second wireless network connection different than the first wireless network connection, the second encoded video segment including redundant video data to the first encoded video segment;
+determining that the segment identifier is present in the segment identifier buffer;
+responsive to determining that the segment identifier is present in the segment identifier buffer, discarding the second encoded video segment.
+50. The non-transitory computer-readable storage medium of claim 49, wherein the first wireless network connection comprises a first cellular network connection to a first cellular network operated by a first wireless carrier, and wherein the second wireless network connection comprises a second cellular network connection to a second cellular network operated by a second wireless carrier different than the first wireless carrier.
+51. The non-transitory computer-readable storage medium of claim 49, wherein the first wireless network connection comprises a first WiFi network connection and the second wireless network connection comprises a second WiFi network connection.
+52. The non-transitory computer-readable storage medium of claim 49, wherein the first wireless network connection comprises a cellular network connection to a cellular network and the second wireless network connection comprises a WiFi network connection to a WiFi network.
+53. The non-transitory computer-readable storage medium of claim 49, wherein the first wireless network connection operates according to a first communication protocol and wherein the second wireless network connection operates according to a second communication protocol different than the first communication protocol.
+54. The non-transitory computer-readable storage medium of claim 49, wherein the first wireless network is facilitated by first networking infrastructure and wherein the second wireless network connection is facilitated by second networking infrastructure different than the first networking infrastructure.
+55. The non-transitory computer-readable storage medium of claim 49, wherein communications over the first wireless network connection comprise different performance parameters than communications over the second wireless network connection.
+56. The non-transitory computer-readable storage medium of claim 49, wherein the second encoded video segment is encoded according to a different encoding format or encoding parameters than the first encoded video segment.
+57. The non-transitory computer-readable storage medium of claim 49, the instructions when
+executed further causing the one or more processors to perform steps comprising:
+receiving at a message processor, a first message and a message identifier for the first
+message from the first wireless network connection;
+determining that the message identifier is absent from a message identifier buffer;
+responsive to determining that the message identifier is absent from the message identifier buffer, storing the message identifier to the message identifier buffer and providing the first message to a remote support device;
+receiving at the message processor, a second message and the message identifier from the second wireless network connection, the second message including redundant data to the first message;
+determining that the message identifier is present in the message identifier buffer;
+responsive to determining that the message identifier is present in the message identifier buffer, discarding the second message.
+58. The non-transitory computer-readable storage medium of claim 47, wherein the first and second message comprise telemetry data associated with sensor readings from the vehicle.
+59. A method for wirelessly receiving video at a remote support server supporting a teleoperated vehicle during a remote support session, the method comprising:
+establishing the remote support session with the vehicle;
+receiving at a video processor, a first encoded video segment from a first wireless network connection;
+determining a first video performance indicator associated with the first encoded video
+segment;
+receiving at the video processor, a second encoded video segment from a second wireless network connection different than the first wireless network connection, the second encoded video segment representing redundant video data to the first encoded video segment;
+determining a second video performance indicator associated with second encoded video segment; and determining a selected video segment selected between the first encoded video segment and the second encoded video segment based on the first and second video performance indicators; and
+outputting the selected video segment to a video device.
+60. The method of claim 59, wherein the first and second video performance indicators comprise respective quality metrics associated with the first and second video segments.
+61. The method of claim 59, wherein determining the selected video segment based on the first and second video performance indicators comprises:
+determining a threshold switching video performance indicator as a function of the first video performance indicator; and
+selecting the second video segment as the selected video segment when the second video performance indicator associated with the second video segment exceeds the threshold switching video performance indicator.
+62. The method of claim 59, wherein determining the selected video segment based on the first and second video performance indicators comprises:
+performing a detection indicating that the first video segment comprises a key frame and the second video segment comprises a non-key frame; and
+selecting the first video segment in response to the detection.
+63. The method of claim 59, wherein the first wireless network connection comprises a first cellular network connection to a first cellular network operated by a first wireless carrier, and wherein the second wireless network connection comprises a second cellular network connection to a second cellular network operated by a second wireless carrier different than the first wireless carrier.
+64. The method of claim 59, wherein the first wireless network connection comprises a first WiFi network connection and the second wireless network connection comprises a second WiFi network connection.
+65. The method of claim 59, wherein the first wireless network connection comprises a cellular network connection to a cellular network and the second wireless network comprises a WiFi network connection to a WiFi network.
+66. The method of claim 59, wherein the first wireless network connection operates according to a first communication protocol and wherein the second wireless network connection operates according to a second communication protocol different than the first communication protocol.
+67. The method of claim 59, wherein the first wireless network connection is facilitated by a first wireless network includes first networking infrastructure and wherein the second wireless network connection is facilitated by a second wireless network including second networking infrastructure different than the first networking infrastructure.
+68. The method of claim 59, wherein communications over the first wireless network connection comprise different performance parameters than communications over the second wireless network connection.
+69. The method of claim 59, wherein the second encoded video segment is encoded according to a different encoding format or encoding parameters than the first encoded video segment.
+70. A non-transitory computer-readable storage medium storing instructions for wirelessly
+receiving video at a remote support server supporting a teleoperated vehicle during a remote support session, the instructions when executed by one or more processors causing the one or more processors to perform steps comprising:
+establishing the remote support session with the vehicle;
+receiving at a video processor, a first encoded video segment from a first wireless network connection;
+determining a first video performance indicator associated with the first encoded video
+segment;
+receiving at the video processor, a second encoded video segment from a second wireless network connection different than the first wireless network connection, the second encoded video segment representing redundant video data to the first encoded video segment;
+determining a second video performance indicator associated with second encoded video segment; and
+determining a selected video segment selected between the first encoded video segment and the second encoded video segment based on the first and second video performance indicators; and
+outputting the selected video segment to a video device.
+71. The non-transitory computer-readable storage medium of claim 69, wherein the first and second video performance indicators comprise respective quality metrics associated with the first and second video segments.
+72. The non-transitory computer-readable storage medium of claim 69, wherein determining the selected video segment based on the first and second video performance indicators comprises:
+determining a threshold switching video performance indicator as a function of the first video performance indicator; and
+selecting the second video segment as the selected video segment when the second video performance indicator associated with the second video segment exceeds the threshold switching video performance indicator.
+73. The non-transitory computer-readable storage medium of claim 69, wherein determining the selected video segment based on the first and second video performance indicators comprises:
+performing a detection indicating that the first video segment comprises a key frame and the second video segment comprises a non-key frame; and
+selecting the first video segment in response to the detection.
+74. The non-transitory computer-readable storage medium of claim 69, wherein the first wireless network connection comprises a first cellular network connection to a first cellular network operated by a first wireless carrier, and wherein the second wireless network connection comprises a second cellular network connection to a second cellular network operated by a second wireless carrier different than the first wireless carrier.
+75. The non-transitory computer-readable storage medium of claim 69, wherein the first wireless network connection comprises a first WiFi network connection and the second wireless network connection comprises a second WiFi network connection.
+76. The non-transitory computer-readable storage medium of claim 69, wherein the first wireless network connection comprises a cellular network a connection to a cellular network and the second wireless network connection comprises a WiFi network connection to a WiFi network.
+77. The non-transitory computer-readable storage medium of claim 69, wherein the first wireless network connection operates according to a first communication protocol and wherein the second wireless network connection operates according to a second communication protocol different than the first communication protocol.
+78. The non-transitory computer-readable storage medium of claim 69, wherein the first wireless network connection is facilitated by first networking infrastructure and wherein the second wireless network connection is facilitated by second networking infrastructure different than the first networking infrastructure.
+79. The non-transitory computer-readable storage medium of claim 69, wherein communications over the first wireless network connection comprise different performance parameters than communications over the second wireless network connection.
+80. The non-transitory computer-readable storage medium of claim 69, wherein the second encoded video segment is encoded according to a different encoding format or encoding parameters than the first encoded video segment.
+</claims>
+</document>

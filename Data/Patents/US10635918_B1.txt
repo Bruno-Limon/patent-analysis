@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2019-12-31
+</filing_date>
+
+<publication_date>
+2020-04-28
+</publication_date>
+
+<priority_date>
+2019-01-30
+</priority_date>
+
+<ipc_classes>
+G06F16/51,G06K9/00,G06K9/62,G06N3/08
+</ipc_classes>
+
+<assignee>
+STRADVISION
+</assignee>
+
+<inventors>
+SHIN, DONGSOO
+LEE, HYUNG SOO
+JANG, TAEWOONG
+KIM, HAK-KYOUNG
+JE, HONGMO
+YEO, DONGHUN
+SUNG, MYUNGCHUL
+KIM, KYE-HYEON
+KIM, YONGJOONG
+JEONG, KYUNGJOONG
+RYU, WOOJU
+NAM, WOONHYUN
+BOO, SUKHOON
+CHO, HOJIN
+LEE, MYEONG-CHUN
+</inventors>
+
+<docdb_family_id>
+70332403
+</docdb_family_id>
+
+<title>
+Method and device for managing smart database for face recognition based on continual learning
+</title>
+
+<abstract>
+A method for managing a smart database which stores facial images for face recognition is provided. The method includes steps of: a managing device (a) counting specific facial images corresponding to a specific person in the smart database where new facial images are continuously stored, and determining whether a first counted value, representing a count of the specific facial images, satisfies a first set value; and (b) if the first counted value satisfies the first set value, inputting the specific facial images into a neural aggregation network, to generate quality scores of the specific facial images by aggregation of the specific facial images, and, if a second counted value, representing a count of specific quality scores among the quality scores from a highest during counting thereof, satisfies a second set value, deleting part of the specific facial images, corresponding to the uncounted quality scores, from the smart database.
+</abstract>
+
+<claims>
+1. A method for managing a smart database which stores facial images for face recognition, comprising steps of: (a) a managing device performing a process of counting one or more specific facial images corresponding to at least one specific person stored in the smart database where new facial images for the face recognition are continuously stored, and a process of determining whether a first counted value representing a count of the specific facial images satisfies a preset first set value; and (b) if the first counted value is determined as satisfying the first set value, the managing device performing a process of inputting the specific facial images into a neural aggregation network, to thereby allow the neural aggregation network to generate each of quality scores of each of the specific facial images by aggregation of the specific facial images, and a process of sorting the quality scores corresponding to the specific facial images in a descending order of the quality scores, a process of counting the sorted specific facial images in the descending order until a second counted value which represents the number of a counted part of the specific facial images becomes equal to a preset second set value, and a process of deleting an uncounted part of the specific facial images from the smart database.
+2. The method of claim 1, further comprising a step of: (c) the managing device performing a process of generating at least one optimal feature by weighted summation of one or more features of the specific facial images using the counted part of the quality scores and a process of setting the optimal feature as a representative face corresponding to the specific person.
+3. The method of claim 1, wherein, at the step of (b), the managing device performs a process of inputting the specific facial images into a CNN of the neural aggregation network, to thereby allow the CNN to generate one or more features corresponding to each of the specific facial images, and a process of inputting at least one feature vector, where the features are embedded, into an aggregation module including at least two attention blocks, to thereby allow the aggregation module to generate each of the quality scores of each of the features.
+4. The method of claim 1, wherein, at the step of (b), the managing device performs a process of matching (i) (i-1) one or more features corresponding to each of the specific facial images stored in the smart database and (i-2) the quality scores with (ii) the specific person, and a process of storing the matched features and the matched quality scores in the smart database.
+5. The method of claim 1, further comprising a step of: (d) the managing device performing one of (i) a process of learning a face recognition system by using the specific facial images corresponding to the specific person stored in the smart database and (ii) a process of transmitting the specific facial images, corresponding to the specific person, to a learning device corresponding to the face recognition system, to thereby allow the learning device to learn the face recognition system using the specific facial images.
+6. The method of claim 1, wherein the neural aggregation network has been learned by a learning device repeating more than once (i) a process of inputting multiple facial images for training corresponding to an image set of a single face or a video of the single face into a CNN of the neural aggregation network, to thereby allow the CNN to generate one or more features for training by applying at least one convolution operation to the facial images for training, (ii) a process of inputting at least one feature vector for training, where the features for training are embedded, into an aggregation module, including at least two attention blocks, of the neural aggregation network, to thereby allow the aggregation module to generate each of quality scores for training of each of the features for training by aggregation of the features for training using one or more attention parameters learned in a previous iteration, (iii) a process of outputting at least one optimal feature for training by weighted summation of the features for training using the quality scores for training, and (iv) a process of updating the attention parameters learned in the previous iteration of the at least two attention blocks such that one or more losses are minimized which are outputted from a loss layer by referring to the optimal feature for training and its corresponding ground truth.
+7. A managing device for managing a smart database which stores facial images for face recognition, comprising: at least one memory that stores instructions; and at least one processor configured to execute the instructions to perform or support another device to perform: (I) a process of counting one or more specific facial images corresponding to at least one specific person stored in the smart database where new facial images for the face recognition are continuously stored, and a process of determining whether a first counted value representing a count of the specific facial images satisfies a preset first set value, and (II) if the first counted value is determined as satisfying the first set value, a process of inputting the specific facial images into a neural aggregation network, to thereby allow the neural aggregation network to generate each of quality scores of each of the specific facial images by aggregation of the specific facial images, and a process of sorting the quality scores corresponding to the specific facial images in a descending order of the quality scores, a process of counting the sorted specific facial images in the descending order until a second counted value which represents the number of a counted part of the specific facial images becomes equal to a preset second set value, and a process of deleting an uncounted part of the specific facial images from the smart database.
+8. The managing device of claim 7, wherein the processor further performs: (III) a process of generating at least one optimal feature by weighted summation of one or more features of the specific facial images using the counted part of the quality scores and a process of setting the optimal feature as a representative face corresponding to the specific person.
+9. The managing device of claim 7, wherein, at the process of (II), the processor performs a process of inputting the specific facial images into a CNN of the neural aggregation network, to thereby allow the CNN to generate one or more features corresponding to each of the specific facial images, and a process of inputting at least one feature vector, where the features are embedded, into an aggregation module including at least two attention blocks, to thereby allow the aggregation module to generate each of the quality scores of each of the features.
+10. The managing device of claim 7, wherein, at the process of (II), the processor performs a process of matching (i) (i-1) one or more features corresponding to each of the specific facial images stored in the smart database and (i-2) the quality scores with (ii) the specific person, and a process of storing the matched features and the matched quality scores in the smart database.
+11. The managing device of claim 7, wherein the processor further performs: (IV) one of (i) a process of learning a face recognition system by using the specific facial images corresponding to the specific person stored in the smart database and (ii) a process of transmitting the specific facial images, corresponding to the specific person, to a learning device corresponding to the face recognition system, to thereby allow the learning device to learn the face recognition system using the specific facial images.
+12. The managing device of claim 7, wherein the neural aggregation network has been learned by a learning device repeating more than once (i) a process of inputting multiple facial images for training corresponding to an image set of a single face or a video of the single face into a CNN of the neural aggregation network, to thereby allow the CNN to generate one or more features for training by applying at least one convolution operation to the facial images for training, (ii) a process of inputting at least one feature vector for training, where the features for training are embedded, into an aggregation module, including at least two attention blocks, of the neural aggregation network, to thereby allow the aggregation module to generate each of quality scores for training of each of the features for training by aggregation of the features for training using one or more attention parameters learned in a previous iteration, (iii) a process of outputting at least one optimal feature for training by weighted summation of the features for training using the quality scores for training, and (iv) a process of updating the attention parameters learned in the previous iteration of the at least two attention blocks such that one or more losses are minimized which are outputted from a loss layer by referring to the optimal feature for training and its corresponding ground truth.
+</claims>
+</document>

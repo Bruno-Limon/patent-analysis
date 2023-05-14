@@ -1,0 +1,60 @@
+<document>
+
+<filing_date>
+2020-05-13
+</filing_date>
+
+<publication_date>
+2020-11-18
+</publication_date>
+
+<priority_date>
+2019-05-13
+</priority_date>
+
+<ipc_classes>
+G01C21/20,G06F16/29,G08G3/00
+</ipc_classes>
+
+<assignee>
+S.A.T.E. - Systems and Advanced Technologies Engineering S.R.L.
+</assignee>
+
+<inventors>
+VASCON, Sebastiano
+FARINATI, Giacomo
+BRIGHENTI, Attilio
+GIUDICE, Lorenzo
+BRIGHENTI, Chiara
+</inventors>
+
+<docdb_family_id>
+67513680
+</docdb_family_id>
+
+<title>
+METHOD FOR DETERMINING AN OPTIMAL NAVAL NAVIGATION ROUTES FROM HISTORICAL GNSS DATA OF NAVAL TRAJECTORIES
+</title>
+
+<abstract>
+A determination method of determining optimal routes for navigating naval vehicles by analysis of historical GNSS data, which optimal routes consist of sequences of waypoints. The determination method comprises the steps of: reducing the data by using an extraction method to retain only significant positions of a trajectory while keeping information about speed and heading changes; evaluating trajectories similarity by using a distance measure; applying a clustering algorithm to verify whether different patterns of trajectories exist for ships navigating the same area and assess whether the clusters extracted automatically from the data reflect the actual known traffic flows inside a port area; and extracting the most representative trajectories from the clusters extracted and the corresponding waypoints obtained by a further clustering algorithm applied to the points of the trajectories belonging to the same cluster of trajectories.
+</abstract>
+
+<claims>
+1. A determination method of determining optimal routes for navigating naval vehicles by analysis of historical GNSS data; wherein the historical GNSS data comprise spatio-temporal historical trajectories made of sequenced of points, each defined by a position x, a position y and a time value t; each optimal route includes a sequence of waypoints; the determination method comprises the steps of: reducing the historical GNSS data transforming each historical trajectory into a corresponding reduced trajectory, eliminating all the points of the historical trajectory that do not determine changes of speed and/or course, i.e. retaining only the points of the historical trajectory that determine changes of speed and/or course; evaluating the similarity among reduced trajectories, thereby determining for each reduced trajectory a degree of similarity to all the other reduced trajectories; applying a first clustering algorithm that, based on the similarity among reduced trajectories, forms one or more clusters of reduced trajectories assigning to each cluster all and only those reduced trajectories that are similar among them; extracting the most representative reduced trajectory from each cluster formed by applying the first clustering algorithm; and identifying the optimal routes as the most representative reduced trajectories; the determination method is characterized in that: a. each most representative reduced trajectory of a cluster is used to initialise a second clustering algorithm that is applied to all the points of all the reduced trajectories belonging to said cluster to create groups of points around the points of the most representative trajectory; b. the groups of points are filtered to obtain waypoints clouds, each corresponding to a group of points obtained after having removed the points of that group that overlap to other groups, so to obtain groups of points that are non-overlapping among them around each point of the most representative trajectory; c. into each waypoint cloud, the time values t associated to each point are analysed to create time boundaries for each waypoint; d. the waypoints of each optimal route consist of the points of the corresponding most representative trajectory and of the corresponding waypoint clouds.
+2. The determination method according to claim 1, wherein the second clustering algorithm is a clustering algorithm of k-NN type.
+3. The determination method according to claim 2, wherein in the second clustering algorithm of k-NN type, k is set to 1, meaning that each point of the reduced trajectories is assigned to the single closest waypoint.
+4. The determination method according to claim 1, 2 or 3, wherein the outliers are removed by discarding the points of reduced trajectories falling outside the 95th percentile of the time values inside each waypoint cloud.
+5. The determination method according to one of the claims from 1 to 4, wherein each waypoint of a most representative trajectory includes a tolerance in the space and time.
+6. The determination method according to claim 5, wherein the tolerance of each waypoint in the space and temporal dimensions is initially a circle and is subsequently cut to visualise only the boundaries of the navigation areas that have been actually navigated by the naval vehicles according to the historical GNSS data.
+7. The determination method according to one of the claims from 1 to 6, wherein tolerance bounds around each waypoint are determined based on the points in time and in space of all the reduced trajectories that belong to that cluster.
+8. The determinatin method according to one of the claims from 1 to 7 and comprising the step of removing noise by filtering out from the historical GNSS data those informations corresponding to unfeasible vessel speed values, i.e. by applying thresholds to the vessel speed to remove outliers in the historical GNSS data.
+9. The determination method according to one of the claims from 1 to 8, wherein the historical GNSS data are reduced using the Douglas-Peucker points reduction method.
+10. The determination method according to one of the claims from 1 to 9, wherein the similarity among reduced trajectories is measured by using the Dynamic Time Warping distance measure.
+11. The determination method according to one of the claims from 1 to 10, wherein the first clustering algorithm is the Dominant Sets clustering algorithm.
+12. The determination method according claim 11, wherein for each cluster of reduced trajectories, its most representative reduced trajectory corresponds to the centroid that is output by the Dominant Sets clustering algorithm and the points of the centroid represent the waypoints of the most representative reduced trajectory.
+13. The determination method according to claim 12, wherein each waypoint is marked by a marker on the centroid that indicate the time at which the naval vehicle should reach that waypoint.
+14. A maneuvring method of a naval vehicle comprising the steps of: determining at least one optimal route by means of the determination method according one of the claims from 1 to 13; and maneuvring the naval vehicle to follow the optimal route.
+15. Computing system suitable for the implementation of the determination method according one of the claims from 1 to 13.
+</claims>
+</document>

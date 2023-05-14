@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2018-03-28
+</filing_date>
+
+<publication_date>
+2020-12-29
+</publication_date>
+
+<priority_date>
+2018-03-28
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/20,G06K9/62,G06N3/08,G06N7/00,G06T7/00,G06T7/13,G06T7/143,G06T7/62,G16H30/20
+</ipc_classes>
+
+<assignee>
+IBM (INTERNATIONAL BUSINESS MACHINES CORPORATION)
+</assignee>
+
+<inventors>
+KISILEV, PAVEL
+BEN-ARI, RAMI
+BAKALO, RAN
+CHOUKROUN, YONI
+AKSELROD-BALLIN, AYELET
+</inventors>
+
+<docdb_family_id>
+68056442
+</docdb_family_id>
+
+<title>
+Systems and methods for automatic detection of an indication of abnormality in an anatomical image
+</title>
+
+<abstract>
+There is provided a method for training a deep convolutional neural network (CNN) for detecting an indication of likelihood of abnormality, comprising: receiving anatomical training images, each including an associated annotation indicative of abnormality for the whole image without an indication of location of the abnormality, executing, for each anatomical training image: decomposing the anatomical training image into patches, computing a feature representation of each patch, computing for each patch, according to the feature representation of the patch, a probability that the patch includes an indication of abnormality, setting a probability indicative of likelihood of abnormality in the anatomical image according to the maximal probability value computed for one patch, and training a deep CNN for detecting an indication of likelihood of abnormality in a target anatomical image according to the patches of the anatomical training images, the one patch, and the probability set for each respective anatomical training image.
+</abstract>
+
+<claims>
+1. A computer implemented method for training a deep convolutional neural network (CNN) for detecting an indication of likelihood of abnormality in a target anatomical image based on a plurality of anatomical training images each associated with an annotation for a whole respective training image, comprising: receiving the plurality of anatomical training images, each including an associated annotation indicative of abnormality for the whole respective anatomical training image without an indication of a location of the abnormality within the respective anatomical image; executing, for each respective anatomical training image of the plurality of anatomical training images: decomposing the respective anatomical training image into a plurality of patches; computing a feature representation of each patch of the plurality of patches; computing for each respective patch of the plurality of patches, according to the feature representation of the respective patch, a probability that the respective patch includes an indication of abnormality; setting a probability indicative of likelihood of abnormality in the respective anatomical image according to the maximal probability value computed for one patch of the plurality of patches; and training the deep convolutional neural network for detecting the indication of likelihood of abnormality in the target anatomical image according to the plurality of patches of the plurality of anatomical training images, the one patch, and the probability set for each respective anatomical training image; wherein the deep CNN is trained according to a loss function that computes a log likelihood loss according to a probability that a certain patch of the plurality of patches is classified as indicative of abnormality based on a plurality of coefficients of the deep CNN; and wherein the loss function is mathematically represented as: wherein: xji denotes the respective patch of the respective anatomical image, θ denotes the coefficients of the deep CNN, (y+|xij,θ) denotes a probability that the respective patch denoted xji is classified as positive based on the coefficients θ of the deep CNN.
+2. The method according to claim 1, wherein an abnormality appearing in each one of the plurality of anatomical training images is not associated with a manual annotation indicative of location of the abnormality within the respective anatomical training image.
+3. The method according to claim 1, wherein the loss function considers the one patch of the plurality of patches most probably indicative of abnormality and excludes other patches of the plurality of patches with lower probability values than the one patch, wherein the one patch is back propagated through the deep CNN for updating of the coefficients of the deep CNN.
+4. The method according to claim 3, wherein the probability comprises a probabilistic geometric prior value denoting areas on a border of at least one tissue portion based on distance from an edge of the area on the border of the at least one tissue portion.
+5. The method according to claim 4, wherein the geometric prior value is mathematically represented as: where: ω(xji) denotes the geometric prior value, (xij) denotes the area of the respective patch of the respective anatomical image xij, and denotes the area on the border of the at least one tissue portion.
+6. The method according to claim 1, wherein the size of each of the plurality of anatomical training images is at least one of arbitrary and varying between each of the plurality of anatomical training images, and wherein a number of the plurality of patches is at least one of arbitrary and varying between each of the plurality of anatomical training images.
+7. The method according to claim 1, wherein the respective anatomical training image is decomposed based on a sliding window moved within the respective anatomical training image to extract each of the plurality of patches, wherein the each patch of the plurality of patches overlaps with at least one other patch of the plurality of patches.
+8. The method according to claim 1, wherein the plurality of patches are decomposed from the respective anatomical training image in full resolution and without downsampling.
+9. The method according to claim 1, wherein the trained deep CNN comprises a first stage including a pretrained CNN, wherein trained deep CNN coefficients are extracted from a last hidden layer of the pretrained CNN, and a second stage comprising a refined fully connected neural network comprising three fully connected layers trained from scratch according to a loss function that considers the one patch of the plurality of patches and back propagates the one patch through the refined fully connected neural network.
+10. The method according to claim 9, wherein the trained deep CNN coefficients extracted from the last hidden layer of the first stage are represented as a 4096D feature vector, wherein the feature representation of each patch comprises the 4096D feature vector.
+11. The method according to claim 10, wherein the refined fully connected neural network computes for each respective patch of the plurality of patches, according to the corresponding feature vector, the probability that the respective patch includes an indication of abnormality.
+12. The method according to claim 9, wherein the convolutional neural network coefficients extracted from the last hidden layer of the first stage are computed once for each patch of the plurality of patches.
+13. The method according to claim 9, wherein the three fully connected layers of the refined fully connected neural network comprise rectified linear units (ReLUs) as non-linear layers, and wherein the second stage is optimized using momentum stochastic gradient descent.
+14. The method according to claim 1, wherein the plurality of anatomical training images comprise a plurality of mammographic training images, each including at least one breast portion.
+15. A computer implemented method for detecting an indication of likelihood of abnormality in a target anatomical image, comprising: receiving the target anatomical image; decomposing the target anatomical image into a plurality of patches; computing a feature representation of each patch of the plurality of patches by a deep CNN trained based on a plurality of anatomical training images each associated with an annotation for a whole respective training image without an indication of a location of the abnormality within the respective anatomical image; computing by the deep CNN, for each respective patch of the plurality of patches, according to the feature representation of the respective patch, a probability that the respective patch includes an indication of abnormality; and setting a probability indicative of likelihood of abnormality in the target anatomical image according to the maximal probability value computed for one of the plurality of patches; wherein the deep CNN is trained according to a loss function that computes a log likelihood loss according to a probability that a certain patch of a plurality of patches of the anatomical training images is classified as indicative of abnormality based on a plurality of coefficients of the deep CNN; and wherein the loss function is mathematically represented as: wherein: xji denotes the respective patch of the respective anatomical training image, θ denotes coefficients of the deep CNN, (y+|xij,θ) denotes a probability that the respective patch denoted xji is classified as positive based on the coefficients θ of the deep CNN.
+16. The method according to claim 15, further comprising providing an indication of a location indicative of likelihood of abnormality according to the location with the target anatomical image of at least one patch of the plurality of patches associated with the maximal probability value.
+17. The method according to claim 16, further comprising presenting on a display, the target anatomical image with a plurality of overlay markings each indicative of the location of one of the plurality of patches within the anatomical image according to decreasing probability values, wherein each overlay marking distinctly represents a descending order of probability, wherein each overlay indicates abnormality location in full resolution.
+18. A system for training a deep CNN for detecting an indication of likelihood of abnormality in a target anatomical image based on a plurality of anatomical training images each associated with an annotation for a whole respective training image, comprising: a non-transitory memory having stored thereon a code for execution by at least one hardware processor of a computing device, the code comprising: code for receiving the plurality of anatomical training images, each including an associated annotation indicative of abnormality for the whole respective anatomical training image without an indication of a location of the abnormality within the respective anatomical image; code for executing, for each respective anatomical training image of the plurality of anatomical training images: decomposing the respective anatomical training image into a plurality of patches; computing a feature representation of each patch of the plurality of patches; computing for each respective patch of the plurality of patches, according to the feature representation of the respective patch, a probability that the respective patch includes an indication of abnormality; setting a probability indicative of likelihood of abnormality in the respective anatomical image according to the maximal probability value computed for one patch of the plurality of patches; and code for training a deep convolutional neural network for detecting the indication of likelihood of abnormality in the target anatomical image according to the plurality of patches of the plurality of anatomical training images, the one patch, and the probability set for each respective anatomical training image; wherein the deep CNN is trained according to a loss function that computes a log likelihood loss according to a probability that a certain patch of a plurality of patches of the anatomical training images is classified as indicative of abnormality based on a plurality of coefficients of the deep CNN; and wherein the loss function is mathematically represented as: wherein: xji denotes the respective patch of the respective anatomical training image, θ denotes coefficients of the deep CNN, (y+xij,θ) denotes a probability that the respective patch denoted xji is classified as positive based on the coefficients θ of the deep CNN.
+</claims>
+</document>

@@ -1,0 +1,68 @@
+<document>
+
+<filing_date>
+2019-09-12
+</filing_date>
+
+<publication_date>
+2020-12-15
+</publication_date>
+
+<priority_date>
+2018-09-12
+</priority_date>
+
+<ipc_classes>
+G01S7/292,G01S7/295,G01S7/35
+</ipc_classes>
+
+<assignee>
+Neural Propulsion Systems, Inc.
+</assignee>
+
+<inventors>
+HASSIBI, BABAK
+Rezvani, Behrooz
+</inventors>
+
+<docdb_family_id>
+73746644
+</docdb_family_id>
+
+<title>
+Signal detection and denoising systems
+</title>
+
+<abstract>
+Disclosed herein are systems and methods for estimating target ranges, angles of arrival, and speed using optimization procedures. Target ranges are estimated by performing an optimization procedure to obtain a denoised signal, performing a correlation of a transmitted waveform and the denoised signal, and using a result of the correlation to determine an estimate of a distance between the sensor and at least one target. Target angles of arrival are estimated by determining ranges at which targets are located, and, for each range, constructing an array signal from samples of received echo signals, and using the array signal, performing another optimization procedure to estimate a respective angle of arrival for each target of the at least one target. Doppler shifts may also be estimated using another optimization procedure. Certain of the optimization procedures use atomic norm techniques.
+</abstract>
+
+<claims>
+We claim:
+1. A system, comprising: a sensor for receiving an echo signal off of at least one target; at least one analog-to-digital converter (ADC) coupled to the sensor and configured to generate samples of the echo signal; and at least one processor configured to execute at least one machine-executable instruction that, when executed, causes the at least one processor to: using at least a portion of the samples of the echo signal, perform an optimization procedure to obtain a denoised signal, wherein the optimization procedure explicitly exploits a structure of the echo signal to select, from a set of estimates, a best estimate with regard to a criterion, perform a correlation of a transmitted waveform and the denoised signal, and using a result of the correlation of the transmitted waveform and the denoised signal, determine at least one range value, the at least one range value being an estimate of a distance between the sensor and the at least one target.
+2. The system recited in claim 1, wherein perform the optimization procedure to obtain the denoised signal comprises: minimize an atomic norm of the denoised signal subject to a constraint on a metric characterizing a closeness of the denoised signal to the samples of the echo signal.
+3. The system recited in claim 2, wherein the atomic norm corresponds to a collection of atoms, wherein each atom is a time-shifted version of the transmitted waveform.
+4. The system recited in claim 2, wherein minimize the atomic norm comprises perform a frequency-domain atomic norm optimization procedure.
+5. The system recited in claim 2, wherein minimize the atomic norm comprises perform a projected gradient descent.
+6. The system recited in claim 2, wherein the metric characterizing the closeness of the denoised signal to the samples of the echo signal is a squared Euclidean distance.
+7. The system recited in claim 2, wherein the metric characterizing the closeness of the denoised signal to the samples of the echo signal is an information-theoretic metric.
+8. The system recited in claim 1, wherein perform the optimization procedure to obtain the denoised signal comprises: minimize a metric characterizing a closeness of the denoised signal to the samples of the echo signal subject to a constraint on an atomic norm of the denoised signal.
+9. The system recited in claim 1, wherein perform the optimization procedure to obtain the denoised signal comprises: minimize a weighted sum of (a) a metric characterizing a closeness of the denoised signal to the samples of the echo signal and (b) an atomic norm of the denoised signal.
+10. The system recited in claim 9, wherein the metric characterizing the closeness of the denoised signal to the samples of the echo signal is an L1 norm, an L2 norm, or an L∞ norm.
+11. The system recited in claim 1, further comprising a plurality of additional sensors for receiving respective echo signals off of the at least one target, and wherein the at least one ADC is coupled to each of the plurality of additional sensors and configured to generate respective samples of the respective echo signal, and wherein, when executed by the at least one processor, the at least one machine-executable instruction further causes the at least one processor to, for each of the plurality of additional sensors: using at least a portion of the samples of the respective echo signal, perform the optimization procedure to obtain a respective denoised signal, perform a correlation of the transmitted waveform and the respective denoised signal, and using a result of the correlation of the transmitted waveform and the respective denoised signal, determine a respective at least one range value, the respective at least one range value being an estimate of a distance between the respective sensor and the at least one target.
+12. The system recited in claim 11, wherein the sensor is a first sensor, and wherein the plurality of additional sensors comprises second and third sensors, wherein the first, second, and third sensors are non-collinear.
+13. The system recited in claim 12, wherein the second sensor is disposed between the first and third sensors, and wherein a distance between the first and second sensors differs from a distance between the second and third sensors.
+14. The system recited in claim 1, wherein the echo signal is a first echo signal in a first frequency band, and the denoised signal is a first denoised signal, and the transmitted waveform is a first transmitted waveform, and the at least one range value is a first at least one range value, and the estimate of the distance between the sensor at the at least one target is a first estimate of the distance between the sensor and the at least one target, and wherein the sensor is configured to receive signals in at least two frequency bands, including a second echo signal in a second frequency band, and wherein the at least one ADC is configured to generate samples of the second echo signal, and wherein, when executed by the at least one processor, the at least one machine-executable instruction further causes the at least one processor to: using at least a portion of the samples of the second echo signal, perform the optimization procedure to obtain a second denoised signal, perform a correlation of a second transmitted waveform and the second denoised signal, and using a result of the correlation of the second transmitted waveform and the second denoised signal, determine a second at least one range value, the second at least one range value being a second estimate of the distance between the sensor and the at least one target.
+15. The system recited in claim 1, wherein the sensor is a first sensor, the echo signal is a first echo signal, the samples of the echo signal are first samples of the first echo signal, the denoised signal is a first denoised signal, the at least one range value is a first at least one range value, and the optimization procedure is a first optimization procedure, and further comprising: a second sensor for receiving a second echo signal off of the at least one target, wherein the at least one ADC is coupled to the second sensor and configured to generate second samples of the second echo signal, and wherein, when executed by the at least one processor, the at least one machine-executable instruction further causes the at least one processor to: using at least a portion of the second samples of the second echo signal, perform the first optimization procedure to obtain a second denoised signal, perform a correlation of the transmitted waveform and the second denoised signal, using a result of the correlation of the transmitted waveform and the second denoised signal, determine a second at least one range value, the second at least one range value being an estimate of a distance between the second sensor and the at least one target, using the first denoised signal, the second denoised signal, and the first at least one range value, construct a first array signal, using the first array signal, perform a second optimization procedure to estimate a first respective angle of arrival for each target of the at least one target, using the first denoised signal, the second denoised signal, and the second at least one range value, construct a second array signal, and using the second array signal, perform the second optimization procedure to estimate a second respective angle of arrival for each target of the at least one target.
+16. The system recited in claim 15, wherein perform the second optimization procedure comprises: obtain a denoised array signal from an array signal, and apply an angle-of-arrival estimation algorithm to the denoised array signal.
+17. The system recited in claim 16, wherein obtain the denoised array signal from the array signal comprises: minimize an atomic norm of the denoised array signal subject to a constraint on a metric characterizing a closeness of the denoised array signal to the array signal.
+18. The system recited in claim 17, wherein the atomic norm corresponds to a collection of atoms, wherein each atom is a planar wave with a respective arrival angle that differs from the respective arrival angle of every other atom.
+19. The system recited in claim 17, wherein the metric characterizing the closeness of the denoised array signal to the array signal is a squared Euclidean distance.
+20. The system recited in claim 17, wherein the metric characterizing the closeness of the denoised array signal to the array signal is an information-theoretic metric.
+21. The system recited in claim 16, wherein obtain the denoised array signal from the array signal comprises: minimize a metric characterizing a closeness of the denoised array signal to the array signal subject to a constraint on an atomic norm of the denoised array signal.
+22. The system recited in claim 16, wherein obtain the denoised array signal from the array signal comprises: minimize a weighted sum of (a) a metric characterizing a closeness of the denoised array signal to the array signal and (b) an atomic norm of the denoised array signal.
+23. The system recited in claim 15, wherein, when executed by the at least one processor, the at least one machine-executable instruction further causes the at least one processor to: using the first denoised signal, the second denoised signal, the first at least one range value, and the second at least one range value, perform a third optimization procedure to determine a velocity of the target.
+24. The system recited in claim 15, further comprising: a first transmitter for transmitting, for a time period, a first instance of the transmitted waveform modulated onto a first carrier signal having a carrier frequency and a first phase; and a second transmitter for transmitting, for the time period and substantially synchronously with the first transmitter, a second instance of the transmitted waveform modulated onto a second carrier signal having the carrier frequency and a second phase, the second phase being different from the first phase, wherein the first and second instances of the transmitted waveform are substantially identical.
+25. A system, comprising: a first sensor for receiving a first echo signal off of at least one target; a second sensor for receiving a second echo signal off of the at least one target; at least one analog-to-digital converter (ADC) coupled to the first and second sensors and configured to generate first samples of the first echo signal and second samples of the second echo signal; and at least one processor configured to execute at least one machine-executable instruction that, when executed, causes the at least one processor to: using at least a portion of the first samples of the first echo signal and at least a portion of the second samples of the second echo signal, determine at least one range value, the at least one range value being an estimate of a distance between the first and second sensor and the at least one target, and for each range value of the at least one range value: construct a respective array signal from the first and second samples, and using the respective array signal, perform an optimization procedure to estimate a respective angle of arrival for each target of the at least one target.
+</claims>
+</document>

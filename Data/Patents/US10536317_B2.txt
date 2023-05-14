@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-03-20
+</filing_date>
+
+<publication_date>
+2020-01-14
+</publication_date>
+
+<priority_date>
+2016-12-23
+</priority_date>
+
+<ipc_classes>
+H03J7/02,H03L7/08,H03L7/093,H04B7/01,H04L25/02,H04L27/00,H04L27/26
+</ipc_classes>
+
+<assignee>
+SAMSUNG ELECTRONICS COMPANY
+</assignee>
+
+<inventors>
+GO, HYUN-JU
+KANG, YOUNG-YUN
+SHIN, MIN-HO
+</inventors>
+
+<docdb_family_id>
+62630302
+</docdb_family_id>
+
+<title>
+Automatic frequency controllers for adjusting digital loop filter gain based on wireless channel classification, wireless communication devices including the same, automatic frequency control methods. and wireless communication methods
+</title>
+
+<abstract>
+Automatic frequency controllers, automatic frequency control methods, wireless communication devices, and/or wireless communication methods are provided. The automatic frequency controllers for correcting a frequency offset between a base station and a terminal includes at least one processor communicatively coupled to a memory and configured to execute computer-readable instructions stored in the memory to obtain a phase estimate from a reference signal received from the base station; classify a downlink channel as a High Speed Train (HST) channel or a non-HST channel based on the phase estimate; adjust a loop gain according to the classified downlink channel; calculate a phase error based on the phase estimate and the loop gain; correct the frequency offset using the phase error; and communicate with the base station after correcting the frequency offset.
+</abstract>
+
+<claims>
+1. An automatic frequency controller for correcting a frequency offset between a base station and a terminal, the automatic frequency controller comprising: a phase estimator configured to obtain a phase estimate from a reference signal received from the base station; a wireless channel classifier configured to classify a downlink channel as a high speed train (HST) channel or a non-HST channel based on the phase estimate; a loop gain controller configured to adjust a loop gain according to the classification of the downlink channel; and a digital loop filter configured to output a phase error for correcting the frequency offset, based on the phase estimate and the loop gain, wherein the loop gain controller is configured to output the loop gain as a variable loop gain when the downlink channel is classified as the HST channel, and to output the loop gain as a fixed loop gain when the downlink channel is classified as the non-HST channel.
+2. The automatic frequency controller of claim 1, wherein the digital loop filter is configured to output the phase error based on the phase estimate and the variable loop gain or the fixed loop gain.
+3. The automatic frequency controller of claim 1, wherein the wireless channel classifier is configured to classify the downlink channel as the HST channel or the non-HST channel, based on statistical characteristics of phase estimates in the HST channel and non-HST channel.
+4. The automatic frequency controller of claim 3, wherein the wireless channel classifier comprises: a moving mean calculator configured to calculate a moving mean of an absolute value of the phase estimate; and a moving variance calculator configured to calculate a moving variance of the absolute value of the phase estimate.
+5. The automatic frequency controller of claim 4, wherein the moving mean calculator is configured to calculate an exponentially weighted moving mean of the absolute value of the phase estimate, and the moving variance calculator is configured to calculate an exponentially weighted moving variance of the absolute value of the phase estimate.
+6. The automatic frequency controller of claim 4, wherein the wireless channel classifier further comprises: a filter configured to perform filtering on the moving variance; and a limiter configured to limit the filtered moving variance to a maximum variance value.
+7. The automatic frequency controller of claim 6, wherein the loop gain controller is configured to adjust the loop gain when a value of the filtered moving variance is greater than a threshold value.
+8. The automatic frequency controller of claim 7, wherein the loop gain controller is configured to set the loop gain as a minimum loop gain when the loop gain is less than the minimum loop gain, and to set the loop gain as a maximum loop gain when the loop gain is greater than the maximum loop gain.
+9. The automatic frequency controller of claim 1, wherein the wireless channel classifier is configured to classify the downlink channel as the HST channel or the non-HST channel, based on training data obtained in an HST channel environment and a non-HST channel environment.
+10. The automatic frequency controller of claim 9, wherein the wireless channel classifier is configured to receive a two-dimensional input vector including an absolute value of the phase estimate and an absolute value of a phase estimate difference, and to classify the downlink channel as the HST channel or the non-HST channel based on a classifier obtained based on the training data.
+11. The automatic frequency controller of claim 10, wherein the classifier is a Support Vector Machine (SVM) classifier having a soft margin with respect to the training data.
+12. The automatic frequency controller of claim 11, wherein the loop gain controller is configured to adjust the loop gain when the SVM classifier outputs a value less than 0.
+13. The automatic frequency controller of claim 12, wherein the loop gain controller is configured to set the loop gain as a minimum loop gain when the loop gain is less than the minimum loop gain, and to set the loop gain as a maximum loop gain when the loop gain is greater than the maximum loop gain.
+14. The automatic frequency controller of claim 1, further comprising: a channel estimator configured to calculate channel estimates by performing channel estimation on reference symbols included in the reference signal and to output the calculated channel estimates; and a differential correlator configured to calculate a differential correlation for the channel estimates and to output the calculated differential correlation, wherein the phase estimator is configured to calculates the phase estimate from the calculated differential correlation.
+15. The automatic frequency controller of claim 14, further comprising a phase limiter configured to limit the phase estimate to a value less than or equal to a maximum phase estimate, wherein the digital loop filter is configured to calculates the phase error by multiplying an output of the phase limiter by the loop gain, wherein the loop gain is a variable loop gain or a fixed loop gain.
+16. The automatic frequency controller of claim 1, further comprising a frequency offset compensator configured to estimate the frequency offset according to the phase error and to generate a frequency control signal for controlling a local oscillation frequency according to the frequency offset.
+17. An automatic frequency controller for correcting a frequency offset between a base station and a terminal, the automatic frequency controller comprising: a wireless channel classifier configured to classify a downlink channel as a high speed train (HST) channel or a non-HST channel based on a reference signal received from the base station; a loop gain controller configured to adjust a loop gain and to output the loop gain as a variable loop gain when the downlink channel is classified as the HST channel, and to output the loop gain as a fixed loop gain when the downlink channel is classified as the non-HST channel; and a digital loop filter configured to output a value corresponding to the frequency offset from the reference signal according to the variable loop gain or the fixed loop gain.
+18. A wireless communication device comprising: a local oscillator configured to generate an oscillation signal having a local oscillation frequency; a Radio Frequency (RF) circuit configured to output a baseband signal based on an RF signal received from a base station and the oscillation signal received from the local oscillator; and an automatic frequency controller configured to classify a downlink channel as a high speed train (HST) channel or a non-HST channel based on a reference signal included in the baseband signal, to adjust a loop gain according to the classification of the downlink channel, to calculate a phase error from the reference signal according to the loop gain, and to adjust the local oscillation frequency based on the calculated phase error, wherein the automatic frequency controller comprises: a phase estimator configured to obtain a phase estimate from the reference signal; a wireless channel classifier configured to classify the downlink channel as the HST channel or the non-HST channel based on the phase estimate; a loop gain controller configured to adjust and to output the loop gain as a variable loop gain when the downlink channel is classified as the HST channel, and to output the loop gain as a fixed loop gain when the downlink channel is classified as the non-HST channel; and a digital loop filter configured to calculate the phase error based on the phase estimate and the variable loop gain or fixed loop gain.
+19. The wireless communication device of claim 18, wherein the wireless channel classifier is configured to calculate a moving mean and a moving variance of an absolute value of the phase estimate and to classify the downlink channel as the HST channel or the non-HST channel based on the moving variance.
+20. The wireless communication device of claim 18, wherein the wireless channel classifier is configured to classify the downlink channel as the HST channel or the non-HST channel by applying a two-dimensional input vector to a Support Vector Machine (SVM) classifier obtained through training data, wherein the two-dimensional input vector includes an absolute value of the phase estimate and an absolute value of a phase estimate difference.
+</claims>
+</document>

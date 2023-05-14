@@ -1,0 +1,135 @@
+<document>
+
+<filing_date>
+2020-03-30
+</filing_date>
+
+<publication_date>
+2020-10-08
+</publication_date>
+
+<priority_date>
+2019-04-03
+</priority_date>
+
+<ipc_classes>
+G06F16/835
+</ipc_classes>
+
+<assignee>
+UNITED HEALTH GROUP
+</assignee>
+
+<inventors>
+KORPMAN, RALPH A.
+POST, CINDY A.
+CLEGG, W. RANDAL
+HILADO, RUDY R.
+</inventors>
+
+<docdb_family_id>
+72661889
+</docdb_family_id>
+
+<title>
+MANAGING DATA OBJECTS FOR GRAPH-BASED DATA STRUCTURES
+</title>
+
+<abstract>
+Various embodiments provide methods, systems, apparatus, computer program products, and/or the like for managing, ingesting, monitoring, updating, and/or extracting/retrieving information/data associated with an electronic record (ER) stored in an ER data store and/or accessing information/data from the ER data store, wherein the ERs are generated, updated/modified, and/or accessed via a graph-based domain ontology.
+</abstract>
+
+<claims>
+1. A method for persisting data elements to a database using a data store management layer, the method comprising:
+receiving, by a data store management layer in communication with a primary program and operating on a computing entity, a request, wherein the request is to (a) load a primary software object instance from a database, or (b) persist a primary software object instance in the database;
+identifying, by the data store management layer, one or more database objects corresponding to the primary software object;
+determining, by a persistence manager of the data store management layer, a mapping of the one or more database objects to storage locations within the database based at least in part on the one or more database objects, wherein (a) the data store management layer comprises a plurality of persistence managers, and (b) the persistence manager is associated with an entity class for the primary software object; and
+automatically generating, by the persistence manager of the data store management layer and based at least in part on the determined mapping, an executable code portion configured to cause (a) a load request to be performed, or (b) a write request to be performed;
+executing, by the data store management layer, the executable code portion to cause:
+(a) in an instance of the load request, one or more database objects stored at the storage locations within the database to be loaded as a functional primary software object instance, or
+(b) in an instance of the write request, one or more values corresponding to the primary software object instance to be written to the database at the storage locations.
+2. The method of claim 1 further comprising:
+executing, by the data store management layer, a connect method to connect to the database; and
+executing, by the data store management layer, a disconnect method to disconnect from the database.
+3. The method of claim 2, wherein the connect and disconnect methods comprise at least one of (a) opening a session and closing the session or (b) opening a transaction within a session and closing the transaction within the session.
+4. The method of claim 1, wherein (a) the primary program is database agnostic, and (b) the executable code portion is an SQL statement.
+5. The method of claim 1, further comprising updating a change log based at least in part on (a) the loading of the one or more database objects from the storage locations, or (b) the writing of the one or more values corresponding to the primary software object instance at the storage locations.
+6. The method of claim 1, further comprising returning the functional primary software object instance to the primary program.
+7. The method of claim 1, wherein (a) at least a portion of the executable code portion was automatically inserted into a database object class definition corresponding to a class associated with at least one of the one or more database objects, and (b) generating the executable code portion comprises accessing the inserted executable code portion and populating one or more entity identifiers therein.
+8. The method of claim 1, wherein (a) the request to load the primary software object instance from the database was generated and provided by one of a rules engine or an extraction processing module, or (b) the request to persist the primary software object instance in the database was generated and provided by a single best record object process.
+9. The method of claim 1, wherein:
+(a) in an instance of the load request, loading the one or more database objects stored at the storage locations within the database as a functional primary software object instance comprises performing a deserialization function on the one or more database objects stored at the storage locations, or
+(b) in an instance of the write request, writing the one or more values
+corresponding to the primary software object instance to the database at the storage locations comprises performing a serialization function on the primary software object instance.
+10. The method of claim 1, wherein, in an instance of the load request, the request is received from an extractable packet data object.
+11. The method of claim 10 further comprising generating a data artifact packet data object based at least in part on the extractable packet data object, wherein the data artifact data object (a) comprises a subject entity identifier identifying a subject entity, and (b) one or more ontology concept identifiers corresponding respectively to one or more concepts defined within a graph-based domain ontology.
+12. The method of claim 11 further comprising:
+automatically generating a container tree data structure comprising a data artifact container node as the root node based at least in part on the data artifact packet data object, wherein (a) the container tree data structure comprises a plurality of container nodes that are descendants of the root node based at least in part on the data artifact packet data object, (b) each container node of plurality of container nodes comprises an observable and an empty value for the corresponding observable, (c) each empty value is to be retrieved from a database or aggregated from retrieved empty values;
+automatically traversing each of the plurality of container nodes of the container tree data structure in a depth-first traversal, wherein (a) at each container node that is a leaf node in the traversal, a method is executed to retrieve a non-empty value from the database for the corresponding observable, and (b) at the completion of the traversal, each of the plurality of container nodes comprises a non-empty value for the corresponding observable; and
+after the depth-first traversal, automatically processing the container tree data structure to generate at least one observable group, wherein the at least one observable group comprises each observable and the corresponding non-empty value.
+13. The method of claim 1, wherein, in an instance of the write request, the request is received from an observable packet data object.
+14. The method of claim 13 further comprising generating a data artifact packet data object based at least in part on the observable packet data object, wherein the data artifact data object (a) comprises a subject entity identifier identifying a subject entity, and (b) one or more ontology concept identifiers corresponding respectively to one or more concepts defined within a graph-based domain ontology.
+15. The method of claim 14 further comprising:
+automatically generating a container tree data structure comprising a data artifact packet container node as a root node based at least in part on the data artifact packet data object, wherein (a) the container tree data structure comprises a plurality of container nodes that are descendants of the root node based at least in part on the data artifact packet data object, (b) each container node of the container tree data structure corresponds to one pair of a plurality of observable-value pairs in the data artifact packet data object; and automatically traversing the container tree data structure in a depth-first traversal to generate a data transfer object for each of container node of the plurality of container nodes, wherein each data transfer object corresponds to one pair of the plurality of observable-value pairs.
+16. A system comprising one or more processors, one or more memory storage areas comprising program code, the one or more memory storage areas and the program code configured to, with the one or more processors, cause the system to at least:
+receive, by a data store management layer in communication with a primary program, a request, wherein the request is to (a) load a primary software object instance from a database, or (b) persist a primary software object instance in the database;
+identify, by the data store management layer, one or more database objects corresponding to the primary software object;
+determine, by a persistence manager of the data store management layer, a mapping of the one or more database objects to storage locations within the database based at least in part on the one or more database objects, wherein (a) the data store management layer comprises a plurality of persistence managers, and (b) the persistence manager is associated with an entity class for the primary software object; and
+automatically generate, by the persistence manager of the data store management layer and based at least in part on the determined mapping, an executable code portion configured to cause (a) a load request to be performed, or (b) a write request to be performed;
+execute, by the data store management layer, the executable code portion to cause:
+(a) in an instance of the load request, one or more database objects stored at the storage locations within the database to be loaded as a functional primary software object instance, or
+(b) in an instance of the write request, one or more values corresponding to the primary software object instance to be written to the database at the storage locations.
+17. The system of Claim 16, wherein the one or more memory storage areas and the program code are further configured to, with the one or more processors, cause the system to at least:
+execute, by the data store management layer, a connect method to connect to the database; and
+execute, by the data store management layer, a disconnect method to disconnect from the database.
+18. The system of Claim 17, wherein the connect and disconnect methods comprise at least one of (a) opening a session and closing the session or (b) opening a transaction within a session and closing the transaction within the session.
+19. The system of Claim 16, wherein (a) the primary program is database agnostic, and (b) the executable code portion is an SQL statement.
+20. The system of Claim 16, wherein the one or more memory storage areas and the program code are further configured to, with the one or more processors, cause the system to at least update a change log based at least in part on (a) the loading of the one or more database objects from the storage locations, or (b) the writing of the one or more values corresponding to the primary software object instance at the storage locations.
+21. The system of Claim 16, wherein the one or more memory storage areas and the program code are further configured to, with the one or more processors, cause the system to at least return the functional primary software object instance to the primary program.
+22. The system of Claim 16, wherein (a) at least a portion of the executable code portion was automatically inserted into a database object class definition corresponding to a class associated with at least one of the one or more database objects, and (b) generating the executable code portion comprises accessing the inserted executable code portion and populating one or more entity identifiers therein.
+23. The system of Claim 16, wherein (a) the request to load the primary software object instance from the database was generated and provided by one of a rules engine or an extraction processing module, or (b) the request to persist the primary software object instance in the database was generated and provided by a single best record object process.
+24. The system of Claim 16, wherein the one or more memory storage areas and the program code are further configured to, with the one or more processors, cause the system to at least:
+(a) in an instance of the load request, load the one or more database objects stored at the storage locations within the database as a functional primary software object instance comprises performing a deserialization function on the one or more database objects stored at the storage locations, or
+(b) in an instance of the write request, write the one or more values corresponding to the primary software object instance to the database at the storage locations comprises performing a serialization function on the primary software object instance.
+25. The system of Claim 16, wherein, in an instance of the load request, the request is received from an extractable packet data object.
+26. The system of Claim 25, wherein the one or more memory storage areas and the program code are further configured to, with the one or more processors, cause the system to at least generate a data artifact packet data object based at least in part on the extractable packet data object, wherein the data artifact data object (a) comprises a subject entity identifier identifying a subject entity, and (b) one or more ontology concept identifiers corresponding respectively to one or more concepts defined within a graphbased domain ontology.
+27. The system of Claim 26, wherein the one or more memory storage areas and the program code are further configured to, with the one or more processors, cause the system to at least:
+automatically generate a container tree data structure comprising a data artifact container node as the root node based at least in part on the data artifact packet data object, wherein (a) the container tree data structure comprises a plurality of container nodes that are descendants of the root node based at least in part on the data artifact packet data object, (b) each container node of plurality of container nodes comprises an observable and an empty value for the corresponding observable, (c) each empty value is to be retrieved from a database or aggregated from retrieved empty values;
+automatically traverse each of the plurality of container nodes of the container tree data structure in a depth-first traversal, wherein (a) at each container node that is a leaf node in the traversal, a method is executed to retrieve a non-empty value from the database for the corresponding observable, and (b) at the completion of the traversal, each of the plurality of container nodes comprises a non-empty value for the corresponding observable; and
+after the depth-first traversal, automatically process the container tree data structure to generate at least one observable group, wherein the at least one observable group comprises each observable and the corresponding non-empty value.
+28. The system of Claim 16, wherein, in an instance of the write request, the request is received from an observable packet data object.
+29. The system of Claim 28, wherein the one or more memory storage areas and the program code are further configured to, with the one or more processors, cause the system to at least generate a data artifact packet data object based at least in part on the observable packet data object, wherein the data artifact data object (a) comprises a subject entity identifier identifying a subject entity, and (b) one or more ontology concept identifiers corresponding respectively to one or more concepts defined within a graphbased domain ontology.
+30. The system of Claim 29 wherein the one or more memory storage areas and the program code are further configured to, with the one or more processors, cause the system to at least
+automatically generate a container tree data structure comprising a data artifact packet container node as a root node based at least in part on the data artifact packet data object, wherein (a) the container tree data structure comprises a plurality of container nodes that are descendants of the root node based at least in part on the data artifact packet data object, (b) each container node of the container tree data structure corresponds to one pair of a plurality of observable-value pairs in the data artifact packet data object; and automatically traverse the container tree data structure in a depth-first traversal to generate a data transfer object for each of container node of the plurality of container nodes, wherein each data transfer object corresponds to one pair of the plurality of observable-value pairs.
+31. A computer program product comprising at least one non-transitory computerreadable storage medium having computer-readable program code stored therein, the computer-readable program code configured to at least:
+receive, by a data store management layer in communication with a primary program, a request, wherein the request is to (a) load a primary software object instance from a database, or (b) persist a primary software object instance in the database;
+identify, by the data store management layer, one or more database objects corresponding to the primary software object;
+determine, by a persistence manager of the data store management layer, a mapping of the one or more database objects to storage locations within the database based at least in part on the one or more database objects, wherein (a) the data store management layer comprises a plurality of persistence managers, and (b) the persistence manager is associated with an entity class for the primary software object; and
+automatically generate, by the persistence manager of the data store management layer and based at least in part on the determined mapping, an executable code portion configured to cause (a) a load request to be performed, or (b) a write request to be performed;
+execute, by the data store management layer, the executable code portion to cause:
+(a) in an instance of the load request, one or more database objects stored at the storage locations within the database to be loaded as a functional primary software object instance, or
+(b) in an instance of the write request, one or more values corresponding to the primary software object instance to be written to the database at the storage locations.
+32. The computer program product of Claim 31, wherein the computer-readable program code is further configured to:
+execute, by the data store management layer, a connect method to connect to the database; and
+execute, by the data store management layer, a disconnect method to disconnect from the database.
+33. The computer program product of Claim 32, wherein the connect and disconnect methods comprise at least one of (a) opening a session and closing the session or (b) opening a transaction within a session and closing the transaction within the session.
+34. The computer program product of Claim 31, wherein (a) the primary program is database agnostic, and (b) the executable code portion is an SQL statement.
+35. The computer program product of Claim 31, wherein the computer-readable program code is further configured to update a change log based at least in part on (a) the loading of the one or more database objects from the storage locations, or (b) the writing of the one or more values corresponding to the primary software object instance at the storage locations.
+36. The computer program product of Claim 31, wherein the computer-readable program code is further configured to return the functional primary software object instance to the primary program.
+37. The computer program product of Claim 31, wherein (a) at least a portion of the executable code portion was automatically inserted into a database object class definition corresponding to a class associated with at least one of the one or more database objects, and (b) generating the executable code portion comprises accessing the inserted executable code portion and populating one or more entity identifiers therein.
+38. The computer program product of Claim 31, wherein (a) the request to load the primary software object instance from the database was generated and provided by one of a rules engine or an extraction processing module, or (b) the request to persist the primary software object instance in the database was generated and provided by a single best record object process.
+39. The computer program product of Claim 31, wherein the computer-readable program code is further configured to:
+(a) in an instance of the load request, load the one or more database objects stored at the storage locations within the database as a functional primary software object instance comprises performing a deserialization function on the one or more database objects stored at the storage locations, or
+(b) in an instance of the write request, write the one or more values corresponding to the primary software object instance to the database at the storage locations comprises performing a serialization function on the primary software object instance.
+40. The computer program product of Claim 31, wherein, in an instance of the load request, the request is received from an extractable packet data object.
+41. The computer program product of Claim 41, wherein the computer-readable program code is further configured to generate a data artifact packet data object based at least in part on the extractable packet data object, wherein the data artifact data object (a) comprises a subject entity identifier identifying a subject entity, and (b) one or more ontology concept identifiers corresponding respectively to one or more concepts defined within a graph-based domain ontology.
+42. The computer program product of Claim 41, wherein the computer-readable program code is further configured to:
+automatically generate a container tree data structure comprising a data artifact container node as the root node based at least in part on the data artifact packet data object, wherein (a) the container tree data structure comprises a plurality of container nodes that are descendants of the root node based at least in part on the data artifact packet data object, (b) each container node of plurality of container nodes comprises an observable and an empty value for the corresponding observable, (c) each empty value is to be retrieved from a database or aggregated from retrieved empty values;
+automatically traverse each of the plurality of container nodes of the container tree data structure in a depth-first traversal, wherein (a) at each container node that is a leaf node in the traversal, a method is executed to retrieve a non-empty value from the database for the corresponding observable, and (b) at the completion of the traversal, each of the plurality of container nodes comprises a non-empty value for the corresponding observable; and
+after the depth-first traversal, automatically process the container tree data structure to generate at least one observable group, wherein the at least one observable group comprises each observable and the corresponding non-empty value.
+43. The computer program product of Claim 31, in an instance of the write request, the request is received from an observable packet data object.
+44. The computer program product of Claim 43, wherein the computer-readable program code is further configured to generate a data artifact packet data object based at least in part on the observable packet data object, wherein the data artifact data object (a) comprises a subject entity identifier identifying a subject entity, and (b) one or more ontology concept identifiers corresponding respectively to one or more concepts defined within a graph-based domain ontology.
+45. The computer program product of Claim 44, wherein the computer-readable program code is further configured to:
+automatically generate a container tree data structure comprising a data artifact packet container node as a root node based at least in part on the data artifact packet data object, wherein (a) the container tree data structure comprises a plurality of container nodes that are descendants of the root node based at least in part on the data artifact packet data object, (b) each container node of the container tree data structure corresponds to one pair of a plurality of observable-value pairs in the data artifact packet data object; and automatically traverse the container tree data structure in a depth-first traversal to generate a data transfer object for each of container node of the plurality of container nodes, wherein each data transfer object corresponds to one pair of the plurality of observable-value pairs.
+</claims>
+</document>

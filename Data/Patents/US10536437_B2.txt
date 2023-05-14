@@ -1,0 +1,61 @@
+<document>
+
+<filing_date>
+2017-01-31
+</filing_date>
+
+<publication_date>
+2020-01-14
+</publication_date>
+
+<priority_date>
+2017-01-31
+</priority_date>
+
+<ipc_classes>
+H04L29/06,H04L29/08,H04W12/02,H04W4/70
+</ipc_classes>
+
+<assignee>
+HPE (HEWLETT PACKARD ENTERPRISE)
+</assignee>
+
+<inventors>
+MEHNAZ, SHAGUFTA
+BELLALA, GOWTHAM
+</inventors>
+
+<docdb_family_id>
+62980316
+</docdb_family_id>
+
+<title>
+Performing privacy-preserving multi-party analytics on vertically partitioned local data
+</title>
+
+<abstract>
+Example computing devices described herein enable computation of a machine learning model on distributed multi-party data that is vertically partitioned, in a privacy preserving fashion. The computing device computes at a party a sum of local data owned by the party, wherein the local data is vertically partitioned into a plurality of data segments, each data segment representing a non-overlapping subset of data features; transforms a cost function of a data analytics task to a gradient descent function, wherein the cost function comprises a summation of a plurality of cost function values; anonymizes aggregated data shards received from a mediator; updating local model parameters based on the aggregated data shards; and performs privacy-preserving multi-party analytics on the vertically partitioned local data based on a learned global analytic model. It leverages a secure-sum protocol that provides strong security guarantees against collusion and prior-knowledge attacks.
+</abstract>
+
+<claims>
+We claim:
+1. A method comprising: computing, by a computing device at a party among a plurality of parties, a sum of local data owned by the party, wherein the local data is vertically partitioned into a plurality of data segments, and wherein each data segment comprises a non-overlapping subset of data features; transforming, by the computing device, a cost function of a data analytics task to a gradient descent function, wherein the cost function comprises a summation of a plurality of cost function values; initializing, by the computing device, each data segment; decrypting, by the computing device, a collection of data shards received from the mediator using the private key corresponding to the first party; shuffling, by the computing device, the collection of data shards that are decrypted using the private key corresponding to the first party; transmitting, by the computing device, the shuffled collection of data shards to one of the plurality of parties and the mediator; anonymizing, by the computing device, aggregated data shards received from a mediator, wherein the aggregated data shards comprise the plurality of cost function values for data features owned by the plurality of parties; updating, by the computing device, local model parameters based on the aggregated data shards; learning, by the computing device, a global analytic model based on the updated local parameters and cost function values; and performing, by the computing device, privacy-preserving multi-party analytics on the vertically partitioned local data based on the learned global analytic model.
+2. The method of claim 1, wherein initializing each data segment comprises: dividing, by the computing device, each data segment into at least two data shards; recursively encrypting, by the computing device, each data shard using a plurality of public keys corresponding to the plurality of parties and a mediator; and sharing, by the computing device, each encrypted data shard with the mediator.
+3. The method of claim 1, wherein the global analytic model comprises a plurality of features, each feature being associated with a particular party, and wherein a set of features associated with the particular party has no interdependency with features associated with another party.
+4. The method of claim 3, wherein the global analytic model comprises a linear relationship between a model parameter and a feature vector.
+5. The method of claim 3, wherein the global analytic model comprises one of: a linear regression cost function, a logistic regression cost function, a ridge regression cost function, a support vector machine (SVM) function, and a least absolute shrinkage and selection operator (LASSO) function.
+6. The method of claim 1, wherein the plurality of parties participate in data sharing under a semi-honest adversary model in which each party follows an agreed-upon protocol while attempting to acquire information about private data during computation.
+7. The method of claim 1, wherein the collection of data shards is further decrypted using other private keys corresponding to other parties in the plurality of parties following a predetermined priority order.
+8. A system comprising: a plurality of computing devices associated with a plurality of parties participating in privacy-preserving data sharing under a semi-honest adversary model, and a mediator coupled to the plurality of parties, wherein each of the plurality of computing devices comprises a hardware processor to: compute, at a party among a plurality of parties, a sum of local data owned by the party, wherein the local data is vertically partitioned into a plurality of data segments, and wherein each data segment comprises a non-overlapping subset of data features; transform a cost function of a data analytics task to a gradient descent function, wherein the cost function comprises a summation of a plurality of cost function values; initialize each data segment; decrypt a collection of data shards received from the mediator using the private key corresponding to the first party; shuffle the collection of data shards that are decrypted using the private key corresponding to the first party; transmit the shuffled collection of data shards to one of the plurality of parties and the mediator; anonymize aggregated data shards received from the mediator, wherein the aggregated data shards comprise the plurality of cost function values for data features owned by the plurality of parties; update local model parameters based on the aggregated data shards; learn a global analytic model based on the updated local model parameters; and wherein the mediator computes a global gradient for the global analytic model used by the plurality of parties to perform privacy-preserving analytics on vertically partitioned local data.
+9. The system of claim 8, wherein the hardware processor in each of the plurality of computing devices is further to: divide each data segment into at least two data shards; recursively encrypt each data shard using a plurality of public keys corresponding to the plurality of parties and a mediator; and share each encrypted data shard with the mediator.
+10. The system of claim 8, wherein the global analytic model comprises a plurality of features, each feature being associated with a particular party, and wherein a set of features associated with the particular party has no interdependency with features associated with another party.
+11. The system of claim 10, wherein the global analytic model comprises a linear relationship between a model parameter and a feature vector.
+12. The system of claim 10, wherein the global analytic model comprises one of: a linear regression cost function, a logistic regression cost function, a ridge regression cost function, a support vector machine (SVM) function, and a least absolute shrinkage and selection operator (LASSO) function.
+13. The system of claim 8, wherein the plurality of parties participate in data sharing under a semi-honest adversary model in which each party follows an agreed-upon protocol while attempting to acquire information about private data during computation.
+14. A non-transitory machine-readable storage medium encoded with instructions executable by at least one processor of a computing device associated with a mediator in a multi-party environment, the machine-readable storage medium comprising instructions to: receive, from a plurality of parties, sums of local data owned by the party, wherein the data is vertically partitioned into a plurality of data segments, and wherein each data segment comprises a non-overlapping subset of data features; transform a cost function of a data analytics task to a gradient descent function, wherein the cost function comprises a summation of a plurality of cost function values; aggregate the sums received from the plurality of parties into aggregated data shards; decrypt aggregated data shards using the private key corresponding to a first party; shuffle the aggregated data shards that are decrypted using the private key corresponding to the first party; transmit the shuffled collection of data shards to one of the plurality of parties and a mediator; share the aggregated data shards with the plurality of parties to update local model parameters at each party such that each party learns a global analytic model, wherein the aggregated data shards comprise the plurality of cost function values for data features owned by the plurality of parties; and compute a global gradient for the global analytic model used by the plurality of parties to perform privacy-preserving multi-party analytics on the vertically partitioned local data.
+15. The non-transitory machine-readable storage medium of claim 14, wherein the global analytic model comprises a plurality of features, each feature being associated with a particular party, and wherein a set of features associated with the particular party has no interdependency with features associated with another party.
+16. The non-transitory machine-readable storage medium of claim 15, wherein the global analytic model comprises a linear relationship between a model parameter and a feature vector.
+17. The non-transitory machine-readable storage medium of claim 15, wherein the global analytic model comprises one of: a linear regression cost function, a logistic regression cost function, a ridge regression cost function, a support vector machine (SVM) function, and a least absolute shrinkage and selection operator (LASSO) function.
+18. The non-transitory machine-readable storage medium of claim 14, wherein the plurality of parties participate in data sharing under a semi-honest adversary model in which each party follows an agreed-upon protocol while attempting to acquire information from private data during computation.
+</claims>
+</document>

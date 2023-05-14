@@ -1,0 +1,61 @@
+<document>
+
+<filing_date>
+2017-10-11
+</filing_date>
+
+<publication_date>
+2020-12-22
+</publication_date>
+
+<priority_date>
+2017-10-11
+</priority_date>
+
+<ipc_classes>
+G06F16/31,G06F16/332,G06F16/335,G06F16/93,G06F17/22,G06F40/131,G06F40/14,G06N3/08
+</ipc_classes>
+
+<assignee>
+ADOBE
+</assignee>
+
+<inventors>
+TANEJA, SALIL
+Jain, Arneh
+</inventors>
+
+<docdb_family_id>
+65994003
+</docdb_family_id>
+
+<title>
+Method to identify and extract fragments among large collections of digital documents using repeatability and semantic information
+</title>
+
+<abstract>
+A corpus of documents is processed using, for example, algorithms including deep learning and deep neural networks ("DNN"), to extract fragments across the corpus of documents. The extracted fragments can then be edited individually and referenced by a plurality of documents so that changes to the fragments are reflected universally across a corpus of documents efficiently. In one example case, a computer-implemented method is provided for extracting fragments in a digital document. The method includes indexing said document to generate a document element ID sequence; processing said document element ID sequence to generate at least one fragment candidate; processing said at least one fragment candidate to generate at least one respective fragment; and utilizing said at least one fragment to perform a reconstruction of said document.
+</abstract>
+
+<claims>
+1. A method for extracting document fragments, the method comprising: receiving a document comprising a set of document elements; extracting and serializing the document elements to generate a document element identifier (ID) sequence that comprises a list of the document elements; generating a suffix array that includes a plurality of suffixes of the document element ID sequence arranged according to a defined order; generating a longest common prefix (LCP) array including a LCP between ith and (i+1)th elements of the suffix array; updating a generalized longest common prefix (GLCP) array that indicates a maximum size of the plurality of suffixes that occur at least a rnin_occur number of times between the ith and the (ith+min_occur) elements in the LCP array; identifying, from the plurality of suffixes in the GLCP array having the maximum size of the plurality of suffixes that occur at least the min_occur number of times, a particular fragment candidate having a fragment size greater than a minimum fragment size; deconstructing the particular fragment candidate to generate a plurality of enhanced fragments, each of which forms a part of the particular fragment candidate; and using the enhanced fragments to reconstruct the document.
+2. The method according to claim 1, wherein: the defined order is an alphabetical order; and each of the suffixes of the document element ID sequence is associated with a suffix array index that is sequentially incrementing when the suffixes are arranged in the defined order.
+3. The method according to claim 1, wherein an ith element of said GLCP array is a minimum among ith through (i+min_occur −2)th elements of the LCP array.
+4. The method according to claim 1, further comprising: determining a position of a particular element in the GLCP array; determining a fragment_size parameter over min_occur elements in the GLCP array; and, if said fragment size parameter exceeds the threshold size, updating a data structure to reflect said position and said fragment size parameter.
+5. The method according to claim 1, further comprising replacing a particular enhanced fragment with a reference associated with said particular enhanced fragment.
+6. The method according to claim 1, wherein a plurality of fragment candidates having respective sizes greater than the minimum fragment size are identified, and wherein deconstructing the particular fragment candidate to generate the plurality of enhanced fragments comprises applying a machine learning process to the plurality of fragment candidates to filter said fragment candidates.
+7. A fragment extraction and reconstruction system comprising: one or more processors; a sequencer, executed by the one or more processors, configured to serialize document elements extracted from a document, and generate a document element identifier (ID) sequence that comprises a list of the serialized document elements; an indexer, executed by the one or more processors, configured to (a) generate a suffix array that includes a plurality of suffixes of the document element ID sequence arranged according to a defined order and (b) generate a longest common prefix (LCP) array including a LCP between ith and (i+1)th elements of the suffix array; a fragment manager, executed by the one or more processors, configured to (a) update a generalized longest common prefix (GLCP) array that indicates a maximum size of the plurality of suffixes that occur at least a min_occur number of times between the ith and the (ith+min_occur) elements in the LCP array, and (b) identify, from the plurality of suffixes in the GLCP array having the maximum size of the plurality of suffixes that occur at least the min_occur number of times, a particular fragment candidate having a fragment size greater than a minimum fragment size; and a reconstruction engine, executed by the one or more processors, configured to use the particular fragment candidate to reconstruct the document.
+8. The fragment extraction and reconstruction system according to claim 7, wherein: the defined order is an alphabetical order; and each of the suffixes of the document element ID sequence is associated with a suffix array index that is sequentially incrementing when the suffixes are arranged in the defined order.
+9. The fragment extraction and reconstruction system according to claim 7, further comprising a semantic engine, executed by the one or more processors, configured to deconstruct the particular fragment candidate to generate a plurality of enhanced fragments, at least one of which forms part of the particular fragment candidate, wherein the reconstruction engine is further configured to use the enhanced fragments to reconstruct the document.
+10. The fragment extraction and reconstruction system according to claim 7, wherein an ith element of said GLCP array is a minimum among ith through (i+min_occur −2)th elements of the LCP array.
+11. The fragment extraction and reconstruction system according to claim 7, wherein said fragment manager is further configured to: determine a position of a particular element in said GLCP array; determine a fragment_size parameter over min_occur elements in said GLCP array; and, if said fragment_size parameter exceeds the threshold size, update a data structure to reflect said position and said fragment_size parameter.
+12. The fragment extraction and reconstruction system according to claim 9, wherein a plurality of fragment candidates having respective sizes greater than the threshold size are identified, and wherein deconstructing the particular fragment candidate to generate the plurality of enhanced fragments comprises applying a machine learning process to the plurality of fragment candidates to filter the fragment candidates.
+13. The fragment extraction and reconstruction system according to claim 9, wherein said reconstruction engine is further configured to replace a particular enhanced said fragment with a reference associated with said particular enhanced fragment.
+14. A computer program product including one or more non-transitory machine-readable mediums encoded with instructions that when executed by one or more processors cause a process to be carried out for performing fragment extraction and reconstruction, said process comprising: receiving a document comprising a set of document elements; extracting and serializing the document elements to generate a document element identifier (ID) sequence that comprises a list of the document elements; generating a suffix array that includes a plurality of suffixes of the document element ID sequence arranged according to a defined order; generating a longest common prefix (LCP) array including a LCP between ith and (i+1)th elements of the suffix array; updating a generalized longest common prefix (GLCP) array that indicates a maximum size of the plurality of suffixes that occur at least a min_occur number of times between the ith and the (ith+min_occur) elements in the LCP array; identifying, from the plurality of suffixes in the GLCP array having the maximum size of the plurality of suffixes that occur at least the rnin_occur number of times, a particular fragment candidate having a fragment size greater than a minimum fragment size; and using the particular fragment candidate to reconstruct the document.
+15. The computer program product according to claim 14, wherein: the defined order is an alphabetical order; and each of the suffixes of the document element ID sequence is associated with a suffix array index that is sequentially incrementing when the suffixes are arranged in the defined order.
+16. The computer program product according to claim 14, wherein the process further comprises deconstructing the particular fragment candidate to generate a plurality of enhanced fragments, at least one of which forms part of the particular fragment candidate, and using the enhanced fragments to reconstruct the document.
+17. The computer program product according to claim 16, wherein the process further comprises replacing a particular enhanced fragment with a reference associated with said particular enhanced fragment.
+18. The computer program product according to claim 14, wherein an ith element of said GLCP array is a minimum among ith through (i+min_occur −2)th elements of the LCP array.
+19. The computer program product according to claim 14, wherein the process further comprises: determining a position of a particular element in said GLCP array; determining a fragment size parameter over min_occur elements in said GLCP array; and, if said fragment_size parameter exceeds the threshold size, updating a data structure to reflect said position and said fragment_size parameter.
+</claims>
+</document>

@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2017-10-25
+</filing_date>
+
+<publication_date>
+2020-07-28
+</publication_date>
+
+<priority_date>
+2017-07-28
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06T11/00,G06T3/40,G06T5/00,G06T5/50
+</ipc_classes>
+
+<assignee>
+SHANGHAI UNITED IMAGING HEALTHCARE
+SHENZHEN UNITED IMAGING HEALTHCARE COMPANY
+</assignee>
+
+<inventors>
+LI XIANG
+QUAN, GUOTAO
+ZHAO, QIANLONG
+</inventors>
+
+<docdb_family_id>
+61057127
+</docdb_family_id>
+
+<title>
+System and method for image conversion
+</title>
+
+<abstract>
+A method may include obtaining a first set of projection data with respect to a first dose level; reconstructing, based on the first set of projection data, a first image; determining a second set of projection data based on the first set of projection data, the second set of projection data relating to a second dose level that is lower than the first dose level; reconstructing a second image based on the second set of projection data; and training a first neural network model based on the first image and the second image. In some embodiments, the trained first neural network model may be configured to convert a third image to a fourth image, the fourth image exhibiting a lower noise level and corresponding to a higher dose level than the third image.
+</abstract>
+
+<claims>
+We claim:
+1. A method implemented on a computing device having at least one processor and at least one computer-readable storage medium, the method comprising: obtaining a first set of projection data with respect to a first dose level acquired by a scanner; reconstructing, based on the first set of projection data, a first image; determining, based on the first set of projection data, a second set of projection data, the second set of projection data relating to a second dose level that is lower than the first dose level, wherein the second set of p oiection data is determined according to operations including: determining a first distribution of radiation with respect to the second dose level before the radiation passing through a subject; determining, based on the first distribution of the radiation and the first set of projection data, a second distribution of the radiation after the radiation passing through the subject: determining a noise estimation of the scanner; and determining, based on the second distribution of the radiation and the noise estimation, the second set of projection data; reconstructing, based on the second set of projection data, a second image; and training a first neural network model based on the first image and the second image.
+2. The method of claim 1, wherein the first neural network model is structured based on at least one of a Convolutional Neural Network (CNN), a Recurrent Neural Network (RNN), a Long Short-Term Memory (LSTM), or a Generative Adversarial Network (GAN).
+3. The method of claim 1, wherein the first image is reconstructed based on an iterative reconstruction algorithm with first reconstruction parameters, the second image is reconstructed based on an analytical reconstruction algorithm or an iterative reconstruction algorithm with second reconstruction parameters, and the second reconstruction parameters are at least partially different from the first parameters.
+4. The method of claim 1, wherein the first image is reconstructed by applying at least one of a larger slice thickness, a larger reconstruction matrix, or a smaller FOV, compared to the reconstruction of the second image.
+5. The method of claim 1, wherein the first distribution of radiation is determined based on at least one of a scanning parameter of the scanner that acquires the first projection data, an attenuation coefficient relating to a subject, and noises corresponding to the scanner, a response of a tube, a response of a detector of the scanner, a size of a focus of the scanner, a flying focus of the scanner, an integration time of the detector of the scanner, or a scattering coefficient of the subject.
+6. The method of claim 1, wherein the determining the noise estimation comprises: detecting a response of detectors in the scanner when no radiation is emitted from the scanner.
+7. The method of claim 1, wherein the training the first neural network model based on the first image and the second image comprises: extracting, from the first image, a first region; extracting, from the second image, a second region corresponding to the first region in the first image, the first region in the first image having a same size as the second region; and training the first neural network model based on the first region in the first image and the second region in the second image.
+8. The method of claim 7, wherein the training the firstneural network model based on the first region in the first image and the second region in the second image comprises: initializing parameter values of the first neural network model; iteratively determining, at least based on the first region in the first image and the second region in the second image, a value of a cost function relating to the parameter values of the first neural network model in each iteration, including updating at least some of the parameter values of the first neural network model after each iteration based on an updated value of the cost function obtained in a most recent iteration; and determining the trained first neural network model until a condition is satisfied.
+9. The method of claim 8, wherein the condition includes that a variation of the values of the cost function among a plurality of iterations is below a threshold, or a threshold number of the iterations have been performed.
+10. The method of claim 1, furthering comprising: training a second neural network model, wherein the second neural network model is trained based on a sixth image and a seventh image, wherein the sixth image is reconstructed based on a third set of projection data, wherein the seventh image is reconstructed based on the third set of projection data, wherein an image quality of the seventh image is greater than that of the sixth image, the image quality relating to at least one of a contrast ratio and a spatial resolution.
+11. The method of claim 10, wherein the third set of projection data includes the first set of projection data.
+12. The method of claim 1, wherein a dimension of the first image or the first neural network model is no less than two.
+13. The method of claim 1, wherein the first dose level is 5 mSv or above, or 15 mSv or above.
+14. The method of claim 1, wherein the second dose level is no more than 10% of the first dose level, or no more than 40% of the first dose level.
+15. A method implemented on a computing device having at least one processor and at least one computer-readable storage medium, the method comprising: obtaining a first set of projection data with respect to a first dose level acquired by a scanner; determining, based on a first neural network model and the first set of projection data, a second set of projection data with respect to a second dose level that is higher than the first dose level, the first neural network model being configured to convert low-dose projection data into high-dose projection data corresponding to the low-dose projection data; generating, based on the second set of projection data, a first image; and generating, based on a second neural network model and the first image, a second image.
+16. The method of claim 15, wherein the first neural network is generated by: obtaining a third set of projection data with respect to a third dose level; simulating, based on the third set of projection data, a fourth set of projection data, the fourth set of projection data relating to a fourth dose level that is lower than the third dose level; and training the first neural network model based on the third set of projection data and the fourth set of projection data.
+17. The method of claim 16, wherein the simulating the fourth set of projection data comprises: determining a first distribution of a radiation with respect to the fourth dose level before the radiation passing through a subject; determining, based on the first distribution of the radiation and the third set of projection data, a second distribution of the radiation after the radiation passing through the subject; determining a noise estimation of the scanner that acquires the first set of projection data; and simulating, based on the second distribution of the radiation and the noise estimation, the fourth set of projection data.
+18. The method of claim 15, wherein the second neural network is generated by obtaining a third image, the third image being reconstructed based on a fifth set of projection data, obtaining a fourth image, the fourth image being reconstructed based on the fifth set of projection data, and training the second neural network model based on the third image and the fourth image, wherein an image quality of the fourth image is greater than that of the third image, the image quality relating to at least one of a contrast ratio and a spatial resolution.
+19. A system, comprising: a computer-readable storage medium storing executable instructions, and at least one processor in communication with the computer-readable storage medium, when executing the executable instructions, causing the system to implement a method comprising: obtaining a first set of projection data with respect to a first dose level; reconstructing, based on the first set of projection data, a first image; determining, based on the first set of projection data, a second set of projection data, the second set of projection data relating to a second dose level that is lower than the first dose level, wherein the second set of projection data is determined according to operations including: determining a first distribution of radiation with respect to the second dose level before the radiation passing through a subject; determining, based on the first distribution of the radiation and the first set of projection data, a second distribution of the radiation after the radiation passing through the subject; determining a noise estimation of the scanner; and determining, based on the second distribution of the radiation and the noise estimation, the second set of projection data; reconstructing, based on the second set of projection data, a second image; and training a first neural network model based on the first image and the second image.
+20. The method of claim 1, wherein the trained first neural network model is configured to convert a third image to a fourth image, the fourth image exhibiting a lower noise level than the third image, wherein an effectiveness of the first neural network model for lowering the noise level of the fourth image is associated with a difference between the first noise level and the second noise level.
+</claims>
+</document>

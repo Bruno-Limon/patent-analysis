@@ -1,0 +1,61 @@
+<document>
+
+<filing_date>
+2019-12-18
+</filing_date>
+
+<publication_date>
+2020-04-23
+</publication_date>
+
+<priority_date>
+2018-02-13
+</priority_date>
+
+<ipc_classes>
+G01N33/50,G06T7/00,G06T7/11,G06T7/187
+</ipc_classes>
+
+<assignee>
+RIKEN CORPORATION
+CHUNG YUAN CHRISTIAN UNIVERSITY
+</assignee>
+
+<inventors>
+YOKOTA HIDEO
+CHANG, YUAN-HSIANG
+TSAI, MING-DAR
+ABE, KUNIYA
+CHU, SLO-LI
+</inventors>
+
+<docdb_family_id>
+70280986
+</docdb_family_id>
+
+<title>
+METHOD AND APPARATUS FOR PREDICTING CELL REPROGRAMMING
+</title>
+
+<abstract>
+Disclosed herein are methods for predicting the reprogramming process of cells from a microscopic image of one or more cells. According to some embodiments, the method includes capturing an image of region of interest (ROI) of every pixel of the microscopic image, followed by processing the ROI image with a trained convolutional neural network (CNN) model and a trained long short-term memory (LSTM) network so as to obtain predicted probability maps. Also disclosed herein are a storage medium and a system for executing the present methods.
+</abstract>
+
+<claims>
+1. A method for predicting reprogramming status of cells at a time step in a temporal sequence from a microscopic image of one or more cells, comprising the steps of, (a) for every pixel of the microscopic image, capturing an image of a region of interest (ROI) of the pixel; (b) applying a trained convolutional neural network (CNN) model to the captured ROI image to calculate the respective probabilities of the pixel belonging to any of a plurality of classes, wherein each of the plurality classes indicates a cell clustering pattern of the ROI image; (c) processing the probabilities of the plurality of classes at the pixel by a trained long short-term memory (LSTM) network; and (d) producing a plurality of predicted probability maps respectively indicating the probabilities of the plurality of classes for every pixel of the microscopic image at the time step.
+2. The method of claim 1, further comprising the steps of, (e) converting the microscopic image into a gray-level image according to the plurality of predicted probability maps; and (f) determining the reprogramming status of the gray-level image.
+3. The method of claim 1, wherein the ROI image has a pixel size that is at least 113 by 113 pixels.
+4. The method of claim 1, wherein the trained CNN model is established by a CNN training method comprising the steps of, (1) selecting a region of a CNN training image as a CNN template image; (2) manually classifying the CNN template image to one of the plurality of classes; (3) producing a CNN training set comprising a plurality of CNN template images from a plurality of CNN training images by repeating steps (1) and (2); and (4) using the plurality of CNN template images of the CNN training set as inputs to train a CNN architecture to produce the trained CNN model.
+5. The method of claim 4, wherein the plurality of CNN template images are divided into a first set of CNN template images and a second set of CNN template images, and in the step (4), the method comprises the steps of, using the first set of CNN template images to calculate a plurality of parameters of the CNN model; using the second set of CNN template images to calculate a plurality of error vectors of the plurality of parameters; and using the error vectors to re-calculate the parameters.
+6. The method of claim 1, wherein the trained LSTM network is established by a LSTM training method comprising the steps of, (1) selecting a region of a LSTM training image as a LSTM template image; (2) applying the trained CNN model to the LSTM template image to calculate the respective probabilities of the plurality of classes for every pixel of the LSTM template image; (3) producing a LSTM training set comprising a plurality of LSTM template images from a plurality of LSTM training images by repeating steps (1) and (2); and (4) using the probabilities of the plurality of classes at each pixel of LSTM template images of the LSTM training set as inputs to train a LSTM architecture to produce the trained LSTM network.
+7. The method of claim 6, wherein in the step (4), the trained LSTM network is produced by equations (1)-(6),
+description="In-line Formulae" end="lead"?ft=σ(Wf·[ht−1, xt]+bf) (1),description="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?it=σ(Wi·[hi−1, xi]+bi) (2),description="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?c′t=tanh(Wc·[ht−1, xt]+bc (3),description="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?ct=ft*ct−1+it*c′t (4),description="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?ot=σ(Wo·[hi−1, xi]+bo) (5),description="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?ht=ot*tanh(ct) (6),description="In-line Formulae" end="tail"? where t is the time step in the temporal sequence, t−1 is a previous time step in the temporal sequence, σ is a sigmoid function, i is an input gate activation, f is a forget gate activation, o is an output gate activation, c is a cell activation, h is a cell output activation function, x is the probabilities of the plurality of classes at each pixel of the LSTM template image, each W is a weight matrix, and each b is a bias vector.
+8. A non-transitory, tangible computer-readable storage medium, encoded with computer-readable instructions for executing the method of claim 1.
+9. A system for predicting the reprogramming status of cells at a time step in a temporal sequence from a microscopic image of one or more cells, comprising, an apparatus configured to obtain a microscopic image of one or more cells; and a control unit, comprising a processor and a memory for storing a plurality of instructions which, when executed by the processor, causes the processor to perform the method of claim 1.
+</claims>
+</document>

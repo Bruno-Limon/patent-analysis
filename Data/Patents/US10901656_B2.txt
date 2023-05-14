@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2018-11-16
+</filing_date>
+
+<publication_date>
+2021-01-26
+</publication_date>
+
+<priority_date>
+2017-11-17
+</priority_date>
+
+<ipc_classes>
+G06F11/10,G06F3/06,G11C29/04,G11C29/52
+</ipc_classes>
+
+<assignee>
+SK HYNIX
+</assignee>
+
+<inventors>
+KUMAR, NAVEEN
+CAI, YU
+ZHANG, FAN
+BHATIA, AMAN
+XIONG, CHENRONG
+LU, XUANXUAN
+</inventors>
+
+<docdb_family_id>
+66534710
+</docdb_family_id>
+
+<title>
+Memory system with soft-read suspend scheme and method of operating such memory system
+</title>
+
+<abstract>
+Soft read suspend schemes for a memory system reduce overall command latency and improve QoS of the memory system, which includes a memory device and a memory controller. The memory controller controls the memory device to perform, in response to a command, a hard read to generate hard information for hard decoding, and predict whether soft decoding of the data is to be performed, and if so, how many soft reads are to be performed. When hard decoding fails and soft decoding and at least one soft read is to be performed, the memory device is controlled to perform an initial soft read to generate soft information for soft decoding, predict whether, and if so, how many, subsequent soft reads are to be performed, and determine whether to perform a first subsequent soft read on the data based on the prediction.
+</abstract>
+
+<claims>
+1. A method of operating a memory system, comprising: controlling a memory device of the memory system, using a controller of the memory system, to perform, in response to a command in a queue of commands, a hard read to read data from the memory device to generate hard information for hard decoding; predicting whether soft decoding of the data is to be performed, and if so, how many soft reads are to be performed for the soft decoding; performing an initial soft read to read the data from the memory device when hard decoding fails and it is determined that at least one soft read is to be performed; and predicting whether, and if so, how many, subsequent soft reads are to be performed for soft decoding of the data.
+2. The method of claim 1, further comprising: controlling the memory device to generate soft information for soft decoding from the initial soft read; and determining whether to perform a first subsequent soft read on the data based on the soft information.
+3. The method of claim 2, wherein the predicting steps are carried out using a predictor module of the controller, and wherein the predictor module predicts how many subsequent soft reads are to be performed to generate additional soft information for decoding the data based on at least one of history read status, syndrome weight, percentage of 0's or 1's in the read data.
+4. The method of claim 3, wherein the predictor module employs machine learning to predict how many subsequent soft reads are to be performed to generate additional soft information for decoding the data.
+5. The method of claim 2, wherein the determining step further comprises comparing the number of subsequent soft reads predicted with a threshold.
+6. The method of claim 5, further comprising: suspending execution of the command and not performing any subsequent soft read in response to the command, when the number of subsequent soft read predicted is determined to be greater than or equal to the threshold.
+7. The method of claim 6, further comprising; assigning a bin value for each bit of the read data; updating the bin value for each bit after each soft read is performed; and backing up the bin value for each bit after the command execution is suspended.
+8. The method of claim 5, further comprising: performing the first subsequent soft read on the data to generate soft information when the number of subsequent soft reads predicted is determined to be less than the threshold.
+9. The method of claim 8, further comprising: controlling the memory device to perform a second iteration of error correction decoding on the data read from the memory device using the hard and soft information generated in the hard and initial and first subsequent soft reads; predicting how many subsequent soft reads are to be performed for decoding the data, when the second iteration of error correction decoding fails; and determining whether to perform a second subsequent soft read on the data based on the prediction.
+10. A memory system, comprising a memory device; and a memory controller configured to: control the memory device to perform, in response to a command in a queue of commands, a hard read to read data from the memory device to generate hard information for hard decoding; predict whether soft decoding of the data is to be performed, and if so, how many soft reads are to be performed for the soft decoding; perform an initial soft read to read the data from the memory device when hard decoding fails and it is determined that at least one soft read is to be performed; and predict whether, and if so, how many, subsequent soft reads are to be performed for soft decoding of the data.
+11. The memory system of claim 10, wherein the memory controller is further configured to: control the memory device to generate soft information for soft decoding from the initial soft read; and determine whether to perform a first subsequent soft read on the data based on the soft information.
+12. The memory system of claim 11, wherein the controller includes a predictor module that predicts how many subsequent soft reads are to be performed to generate additional soft information for decoding the data based on at least one of history read status, syndrome weight, percentage of 0's or 1's in the read data.
+13. The memory system of claim 12, wherein the predictor module employs machine learning to predict how many subsequent soft reads are to be performed to generate additional soft information for decoding the data.
+14. The memory system of claim 11, wherein, in performing the determine operation, the memory controller compares the number of subsequent soft reads predicted with a threshold.
+15. The memory system of claim 14, wherein the memory controller is further configured to suspend execution of the command and not perform any subsequent soft read in response to the command, when the number of subsequent soft read predicted is determined to be greater than or equal to the threshold.
+16. The memory system of claim 15, wherein a bin value is assigned for each bit of the read data, and the bin value for each bit is backed up after the command execution is suspended.
+17. The memory system of claim 14, wherein the memory controller is further configured to perform the first subsequent soft read on the data to generate soft information when the number of subsequent soft reads predicted is determined to be less than the threshold.
+18. The memory system of claim 17, wherein the memory controller is further configured to control the memory device to perform a second iteration of error correction decoding on the data read from the memory device using the hard and soft information generated in the hard and initial and first subsequent soft reads; predict how many subsequent soft reads are to be performed for decoding the data, when the second iteration of error correction decoding fails; and determine whether to perform a second subsequent soft read on the data based on the prediction.
+19. The memory system of claim 17, wherein a bin value is assigned for each bit of the read data, and the bin value for each bit is updated after each soft read is performed.
+20. The memory system of claim 14, wherein the threshold is set based on a Quality of Service (QoS) requirement of at least one of a next command in the queue, the memory device, and the memory controller.
+</claims>
+</document>

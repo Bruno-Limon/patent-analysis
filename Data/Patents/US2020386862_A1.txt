@@ -1,0 +1,76 @@
+<document>
+
+<filing_date>
+2018-09-03
+</filing_date>
+
+<publication_date>
+2020-12-10
+</publication_date>
+
+<priority_date>
+2017-09-04
+</priority_date>
+
+<ipc_classes>
+G01S17/42,G01S17/89,G01S17/931,G01S7/48,G05D1/02
+</ipc_classes>
+
+<assignee>
+CSIRO (COMMONWEALTH SCIENTIFIC AND INDUSTRIAL RESEARCH ORGANISATION)
+ETH Zurich,
+</assignee>
+
+<inventors>
+DUBE, Renaud
+BORGES, Paulo
+COP, Konrad
+DUNGAVELL, Ross
+</inventors>
+
+<docdb_family_id>
+65524585
+</docdb_family_id>
+
+<title>
+METHOD AND SYSTEM FOR USE IN PERFORMING LOCALISATION
+</title>
+
+<abstract>
+A method for use in performing localisation in a three-dimensional (3D) environment, the method including in one or more electronic processing devices: determining from a local scan performed by at least one laser sensor, intensity data based at least in part on a power of radiation returned to the at least one laser sensor from points in a local point cloud obtained from the local scan; calculating a first intensity descriptor for the local point cloud using the intensity data; retrieving a plurality of previously calculated second intensity descriptors that are each associated with a respective portion of a map of the 3D environment; comparing the first intensity descriptor with at least some of the second intensity descriptors; and, determining a location with respect to the map at least in part in accordance with results of the comparison.
+</abstract>
+
+<claims>
+1. A method for use in performing localisation in a three-dimensional (3D) environment, the method including in one or more electronic processing devices: a) determining from a local scan performed by at least one laser sensor, intensity data based at least in part on a power of radiation returned to the at least one laser sensor from points in a local point cloud obtained from the local scan; b) calculating a first intensity descriptor for the local point cloud using the intensity data; c) retrieving a plurality of previously calculated second intensity descriptors that are each associated with a respective portion of a map of the 3D environment; d) comparing the first intensity descriptor with at least some of the second intensity descriptors; and, e) determining a location with respect to the map at least in part in accordance with results of the comparison.
+2. The method according to claim 1, wherein the method includes, in the one or more electronic processing devices, calculating the first intensity descriptor based on at least one statistical measure for a distribution of the intensity data in the local point cloud.
+3. The method according to claim 2, wherein the method includes, in the one or more electronic processing devices, calculating the first intensity descriptor by: a) dividing the local point cloud into a plurality of spatially distributed local point cloud segments; b) for each local point cloud segment calculating a first intensity descriptor segment based on a statistical measure for a distribution of intensity data within the local point cloud segment; and, c) calculating the first intensity descriptor using each first intensity descriptor segment.
+4. The method according to claim 2, wherein the statistical measure is indicative of a distribution of the frequency of each of a plurality of intensity values.
+5. The method according to claim 4, wherein at least one of: a) the local point cloud segments have an at least partially spherical structure; b) the local point cloud segments includes at least one of: i) a plurality of concentric spherical regions; and ii) at least two concentric spherical regions segmented into octants; and c) a radius of an outer spherical region is based on a range of the sensor and a radius of one ore more inner spherical regions is selected so that each spherical region contains a similar number of local point cloud points.
+6. (canceled)
+7. (canceled)
+8. The method according to claim 1, wherein at least one of: a) the second intensity descriptors are previously calculated using intensity data associated with points in a point cloud corresponding to the map of the 3D environment, the intensity data based at least in part on a power of radiation returned to the at least one laser sensor from the points in the point cloud in a previously performed scan of the 3D environment; b) each second intensity descriptor includes second intensity descriptor segments obtained for point cloud segments of a part of the point cloud corresponding to the respective portion of the map; and c) the plurality of second intensity descriptors are stored in a data store and wherein the method includes, in the one or more electronic processing devices, retrieving the plurality of second intensity descriptors from the data store.
+9. (canceled)
+10. (canceled)
+11. The method according to claim 8, wherein the method includes, in the one or more electronic processing devices: a) comparing the first intensity descriptor to a second intensity descriptor by: i) comparing the first intensity descriptor segments with the second intensity descriptor segments; and, ii) determining a similarity value based on results of the comparisons; and, b) selecting one or more second intensity descriptors based on the similarity values.
+12. The method according to claim 11, wherein the method includes at least one of: a) in the one or more electronic processing devices: i) for each comparison between the first intensity descriptor and a second intensity descriptor: (1) determining a plurality of relative orientations of the second intensity descriptor; and, (2) comparing the first intensity descriptor segments with the second intensity descriptor segments for each of the plurality of relative orientations of the second intensity descriptor; ii) determining a similarity value for each orientation; and, iii) selecting a minimum similarity value; and b) in the one more electronic processing devices, using similarity values between the first intensity descriptor and respective second intensity descriptors to rank portions of the map as potential locations.
+13. (canceled)
+14. The method according to claim 12, wherein the method includes, in the one or more electronic processing devices: a) generating a submap using at least one portion of the map selected based on the ranking of portions of the map as potential locations; and, b) performing geometrical recognition within the submap.
+15. The method according to claim 14, wherein the method includes, in the one or more electronic processing devices, performing the geometrical recognition by: a) extracting local keypoints from the local point cloud; b) calculating local geometrical descriptors for each local keypoint; c) retrieving previously calculated submap geometrical descriptors calculated using submap keypoints associated with the portions of the map that are included in the submap; d) determining correspondences between local and submap geometrical descriptors; e) clustering correspondences based on geometric consistency to form one or more candidate clusters; and, f) determining transformations for each candidate cluster.
+16. The method according to claim 15, wherein the method includes, in the one or more electronic processing devices: a) selecting a candidate cluster having the highest number of correspondences; b) comparing the number of correspondences in the selected candidate cluster to a first threshold; and c) at least one of: i) determining that the selected candidate cluster is a false match if the number of correspondences is below the first threshold; and, ii) determining that the selected candidate cluster is indicative of a most likely location if the number of correspondences is above the first threshold.
+17. The method according to claim 16, wherein at least one of: a) for the candidate cluster indicative of the most likely location, the method includes, in the one or more electronic processing devices, refining the transformation to align the local point cloud with a submap point cloud associated with the submap; b) the method includes, in the one or more electronic processing devices, performing an Iterative Closest Point (ICP) on at least part of the local and submap point clouds to refine the transformation and determine the pose; and c) the method includes, in the one or more electronic processing devices: i) determining a fitness score that is indicative of how well the local and submap point clouds are aligned; ii) comparing the fitness score to a second threshold; and iii) selectively verifying the location depending on results of the comparison.
+18. (canceled)
+19. (canceled)
+20. The method of claim 17, wherein the method includes, in the one or more electronic processing devices, at least one of: a) generating a new submap if one of: i) the number of correspondences is below the first threshold; and, ii) the fitness score is above the second threshold; generating a new submap at least in part using other portions of the map selected b) based on the ranking of portions of the map as potential locations; and c) determining how many potential locations have been included in the submap and at least one of: i) terminating the localisation method if the number of potential locations has reached a defined maximum; and ii) increasing the size of the submap if the number of potential locations is below the defined maximum.
+21. (canceled)
+22. (canceled)
+23. The method according to claim 1, wherein the local scan is at least one of: a) a stationary scan. b) a wake-up scan associated with a mobile robot or autonomous vehicle; and, c) a loop closure scan.
+24. The method according to claim 1, wherein the at least one laser sensor is a light imaging, detection and ranging (LiDAR) sensor.
+25. The method according to claim 1, wherein portions of the map are extracted from the map along a mapping trajectory.
+26. The method according to claim 25, wherein the mapping trajectory is divided into segments of a pre-defined length and each portion of the map is defined as a point cloud obtained from the at least one sensor as it traveled along a respective segment of the mapping trajectory.
+27. A system for use in performing localisation in a three-dimensional (3D) environment, the system including one or more electronic processing devices configured to: a) determine from a local scan performed by at least one laser sensor, intensity data based at least in part on a power of radiation returned to the at least one laser sensor from points in a local point cloud obtained from the local scan; b) calculate a first intensity descriptor for the local point cloud using the intensity data; c) retrieve a plurality of previously calculated second intensity descriptors that are each associated with a respective portion of a map of the 3D environment; d) compare the first intensity descriptor with at least some of the second intensity descriptors; and, e) determine a location with respect to the map at least in part in accordance with results of the comparison.
+28. The system according to claim 27, wherein the system includes at least one of: a) at least one laser sensor configured to perform the local scan b) at least one sensor configured to perform the local scan that is a light imaging, detection and ranging (LiDAR) sensor; and c) a data store containing the plurality of second intensity descriptors and wherein the data store is accessible by one or more electronic processing devices to retrieve the plurality of second intensity descriptors.
+29. (canceled)
+30. (canceled)
+31. The system according to claim 27, wherein the at least one laser sensor, one or more electronic processing devices and data store are located on-board a mobile robot or autonomous vehicle.
+</claims>
+</document>

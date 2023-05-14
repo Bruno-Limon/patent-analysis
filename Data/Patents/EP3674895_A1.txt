@@ -1,0 +1,84 @@
+<document>
+
+<filing_date>
+2018-10-11
+</filing_date>
+
+<publication_date>
+2020-07-01
+</publication_date>
+
+<priority_date>
+2017-10-13
+</priority_date>
+
+<ipc_classes>
+G06F9/48,G06F9/50,G06N20/00
+</ipc_classes>
+
+<assignee>
+HUAWEI TECHNOLOGIES COMPANY
+</assignee>
+
+<inventors>
+CHEN, HANBING
+CHEN, QIULIN
+KANG, ZHI
+</inventors>
+
+<docdb_family_id>
+66100389
+</docdb_family_id>
+
+<title>
+METHOD FOR MANAGING RESOURCE, AND TERMINAL DEVICE
+</title>
+
+<abstract>
+This application provides a method for managing a resource in a computer system and a terminal device. The method includes: obtaining data, where the data includes application sequence feature data related to a current foreground application, and the data further includes at least one of the following real-time data: a system time of the computer system, current status data of the computer system, and current location data of the computer system; selecting, from a plurality of machine learning models based on at least one of the real-time data, a target machine learning model that matches the real-time data; inputting the obtained data into the target machine learning model to rank importance of a plurality of applications installed in the computer system; and performing resource management based on a result of the importance ranking. In the method, accuracy of identifying importance of an application is improved, so that an object of resource allocation/reservation or resource recycling is more accurate, thereby improving effectiveness of resource management.
+</abstract>
+
+<claims>
+1. A method for managing a resource in a computer system, comprising: obtaining data, wherein the data comprises application sequence feature data related to a current foreground application, and the data further comprises at least one of the following real-time data: a system time of the computer system, current status data of the computer system, and current location data of the computer system; selecting, from a plurality of machine learning models based on at least one of the real-time data, a target machine learning model that matches the real-time data; inputting the obtained data into the target machine learning model to rank importance of a plurality of applications installed in the computer system; and performing resource management based on a result of the importance ranking.
+2. The method according to claim 1, wherein the obtained data comprises the system time of the computer system; and
+the selecting a target machine learning model that matches the real-time data comprises: determining, based on the system time of the computer system, a time period in which the computer system is currently located; and determining, from a correspondence based on the time period in which the computer system is currently located, a target machine learning model corresponding to the time period in which the computer system is currently located, wherein the correspondence comprises a plurality of time periods and a plurality of machine learning models respectively corresponding to the plurality of time periods.
+3. The method according to claim 1, wherein the obtained data comprises the current location data of the computer system; and
+the selecting a target machine learning model that matches the real-time data comprises: determining, based on the current location data of the computer system, a semantic location at which the computer system is currently located; and determining, from a correspondence based on the semantic location at which the computer system is currently located, a target machine learning model corresponding to the semantic location at which the computer system is currently located, wherein the correspondence comprises a plurality of semantic locations and a plurality of machine learning models respectively corresponding to the plurality of semantic locations.
+4. The method according to any one of claims 1 to 3, further comprising:
+collecting and storing application data and related data of the computer system, wherein the application data comprises an identifier of the application and a time when the application is used, and the related data of the computer system comprises at least one of the following data: a time, status data, and location data that are of the computer system at the time when the application is used.
+5. The method according to claim 4, further comprising: obtaining, through calculation, application sequence feature data of a plurality of applications based on the application data collected and stored in a period of time in the past; inputting the application data, or the application data and the related data of the computer system into a classification model, to obtain a plurality of categories related to regularities for using the application, wherein the plurality of categories are one-dimensional categories or multi-dimensional categories, and any two categories are respectively corresponding to two different regularities; and training a machine learning model for each of the plurality of categories, wherein the machine learning model is used to rank importance of applications, input of the training comprises the time when the application is used and the application sequence feature data, and the input of the training further comprises at least one of the related data of the computer system.
+6. The method according to claim 4 or 5, wherein the collection step is started when one or more of the following events are detected: a foreground-background switching event, an application installation event, an application uninstallation event, a notification event caused by a change in the status data of the computer system, or a notification event caused by a change in the location data of the computer system.
+7. The method according to claim 5 or 6, wherein the plurality of categories are a plurality of categories classified in a time dimension.
+8. The method according to claim 7, wherein the plurality of categories comprise a working time period and a non-working time period.
+9. The method according to any one of claims 1 to 8, comprising:
+starting the step of obtaining data when one or more of the following events are detected: a foreground-background switching event, an application installation event, an application uninstallation event, a notification event caused by a change in the status data of the computer system, or a notification event caused by a change in the location data of the computer system.
+10. The method according to any one of claims 1 to 9, wherein before the performing resource management based on a result of the importance ranking, the method further comprises: obtaining a quantity N of applications that need to be protected, wherein a value of N meets the following condition: a ratio of a quantity of times of using N applications that are most frequently used in the past to a sum of quantities of times of using all applications in the period of time is greater than a preset first threshold, and N is an integer greater than 0 and less than or equal to M; and the performing resource management based on a result of the importance ranking comprises performing resource management based on N and the result of the importance ranking.
+11. The method according to claim 10, wherein the performing resource management based on N and the result of the importance ranking comprises:
+identifying, from the result of the importance ranking, N1 applications that are ranked at the top, and performing resource management on the N1 applications or another remaining application, wherein N1 is a positive integer less than or equal to N.
+12. The method according to claim 10, further comprising: ranking importance of newly installed applications based on weights of the newly installed applications, and selecting N2 newly installed applications that are ranked at the top from the newly installed applications, wherein a time when the newly installed applications are installed in the computer system is less than a preset second threshold; and correspondingly, the performing resource management based on N and the result of the importance ranking comprises:
+identifying, from the result of the importance ranking, N to N2 applications that are ranked at the top, and performing resource management on the N to N2 applications and the N2 newly installed applications, or performing resource management on another remaining application.
+13. The method according to claim 12, wherein the ranking importance of newly installed applications based on weights of the newly installed applications comprises: calculating a score of each newly installed application based on a use possibility weight and a time attenuation weight, wherein importance of a newly installed application with a high score is higher than importance of a newly installed application with a low score, wherein the use possibility weight is used to reflect whether the newly installed application has recently been used, and the time attenuation weight is used to reflect a time difference between a current time and a time when the application is installed.
+14. The method according to any one of claims 1 to 13, wherein the performing resource management based on a result of the importance ranking comprises one or more of the following management measures: reserving a resource for an identified application with high importance; temporarily freezing an identified application with low importance until a specific time ends; and creating a VIP queue for each CPU, wherein the VIP queue comprises a task of an application with high importance, and execution of each task in the VIP queue takes precedence over that of another execution queue of the CPU.
+15. The method according to any one of claims 1 to 14, wherein the application sequence feature data comprises k1 recently used applications, k2 most possible pre-order applications in the foreground application, and k3 most possible post-order applications in the foreground application, wherein k1, k2, and k3 are all positive integers.
+16. The method according to any one of claims 1 to 15, wherein the current location data is semantic location data.
+17. The method according to any one of claims 1 to 16, wherein the current status data is one or more of the following data: data indicating a network connection or a network disconnection, data indicating a headset connection or disconnection, data indicating a charging cable connection or disconnection, and data indicating a Bluetooth connection or disconnection.
+18. A terminal device, wherein the terminal device comprises a processor and a memory, the memory is configured to store a computer readable instruction, and the processor is configured to read the computer readable instruction stored in the memory to perform the method according to any one of claims 1 to 17.
+19. A method for temporarily freezing an application, comprising: temporarily freezing some applications when a specific event is detected; and unfreezing all or some of the frozen applications when a specific time period ends or when it is detected that the specific event ends, or unfreezing one or more of the frozen applications when it is detected that a running environment of the one or more of the frozen applications changes.
+20. The method according to claim 19, wherein the specific event is an event indicating that a required quantity of resources increases.
+21. The method according to claim 19 or 20, wherein the specific event comprises at least one of the following events: an application start event, a photographing event, a gallery zooming event, a sliding event, and a screen-on/off event.
+22. The method according to any one of claims 19 to 21, wherein the temporarily freezing is implemented by setting a timer, and duration of the timer is set to the specific time period.
+23. The method according to any one of claims 19 to 22, wherein the some applications that are temporarily frozen comprise all background applications, or the some applications that are temporarily frozen comprise an application with low importance, wherein importance of an application is obtained based on historical usage of the application, a machine learning algorithm, and current scenario data of a system.
+24. The method according to any one of claims 19 to 23, wherein that it is detected that a running environment of the one or more of the frozen applications changes comprises: detecting any one or more of the following events: the frozen application is switched to a foreground, the frozen application exits, the frozen application receives an asynchronous message, and a notification message of the frozen application is tapped by a user.
+25. A terminal device, wherein the terminal device comprises a processor and a memory, the memory is configured to store a computer readable instruction, and the processor is configured to read the computer readable instruction stored in the memory to perform the method according to any one of claims 19 to 24.
+26. A method for executing a task in a computer system, wherein the method is applied to a computer system, the computer system comprises a plurality of physical cores, each physical core is corresponding to one first queue and one second queue, the first queue and the second queue each comprise one or more tasks to be executed by the physical core, and at least one physical core performs the following method:
+obtaining and executing a task in the first queue until execution of all tasks in the first queue is completed, and then obtaining and executing a task in the second queue.
+27. The method according to claim 26, further comprising:
+monitoring whether a task whose wait time exceeds a specific threshold exists in the first queue, and if a task whose wait time exceeds the specific threshold exists, moving the task to a first queue corresponding to another physical core.
+28. The method according to claim 26 or 27, wherein the moving the task to a first queue corresponding to another physical core comprises: after it is determined that the task is movable, moving the task to the first queue corresponding to the another physical core.
+29. The method according to any one of claims 26 to 28, wherein the task in the first queue comprises an important task and a task on which the important task depends.
+30. The method according to claim 29, wherein the important task is a task that affects user experience.
+31. The method according to claim 29 or 30, wherein the important task is a task of an application with high importance, and importance of an application is obtained based on historical usage of the application, a machine learning algorithm, and current scenario data of a system.
+32. The method according to any one of claims 29 to 31, wherein the dependency comprises at least one of the following dependency relationships: a data dependency, a lock dependency, and a binder service dependency.
+33. A terminal device, wherein the terminal device comprises a processor and a memory, the memory is configured to store a computer readable instruction, and the processor is configured to read the computer readable instruction stored in the memory to perform the method according to any one of claims 26 to 32.
+</claims>
+</document>

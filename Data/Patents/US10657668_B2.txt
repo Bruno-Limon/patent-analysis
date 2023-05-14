@@ -1,0 +1,55 @@
+<document>
+
+<filing_date>
+2017-03-21
+</filing_date>
+
+<publication_date>
+2020-05-19
+</publication_date>
+
+<priority_date>
+2016-03-22
+</priority_date>
+
+<ipc_classes>
+G06F3/01,G06K9/00,G06K9/32,G06K9/46,G06K9/62,G06K9/66,G06T3/40,G06T5/20,G06T7/11,G06T7/12,G06T7/246,G06T7/70,G06T7/90
+</ipc_classes>
+
+<assignee>
+TATA CONSULTANCY SERVICES
+</assignee>
+
+<inventors>
+HASSAN, EHTESHAM
+GUPTA, GAURAV
+</inventors>
+
+<docdb_family_id>
+58464161
+</docdb_family_id>
+
+<title>
+Systems and methods for detecting and tracking a marker
+</title>
+
+<abstract>
+Systems and methods for detecting and tracking a marker in real time is disclosed. Shape based segmentation of at least one object detected in a first frame from a sequence of frames is performed to define a region of interest (ROI) surrounding an object of interest corresponding to the marker. A marker detection model is dynamically trained based on sampling points from a plurality of pixels in and around the ROI. The marker is then tracked in real-time based on projected ROI in subsequent frames and the trained marker detection model. To optimize computation time required in classifying the pixels as marker pixels or non-marker pixels, the ROI is reduced to half its size, classification is performed on the reduced ROI and to improve accuracy, blob detection and classifying pixels along the boundary of the reduced ROI is performed by processing the ROI in original resolution.
+</abstract>
+
+<claims>
+1. A method for detecting and tracking a marker, the method comprising: performing shape based segmentation of at least one object detected in a first frame from a sequence of frames, the at least one object having a shape in line with shape of the marker to define a region of interest (ROI) surrounding an object of interest corresponding to the marker, the ROI comprising a plurality of pixels, wherein performing shape based segmentation comprises: receiving the first frame containing the at least one object; performing shape based feature extraction on the first frame to detect the at least one object; eliminating false objects from the at least one object to identify the object of interest, wherein eliminating the false objects comprises use of a color density based band-pass filter and defining the region of interest (ROI) surrounding the object of interest; and iteratively performing until a last frame from the sequence of frames is received: dynamically training and updating a marker detection model based on sampling points from the plurality of pixels in and around the ROI, wherein dynamically training and updating a marker detection model comprises; classifying the plurality of pixels in the ROI as marker pixels and pixels around the ROI as non-marker pixels; training and updating the marker detection model being a support vector machine (SVM), using the marker pixels, the non-marker pixels and velocity of the marker corresponding to one or more frames under consideration in relation to a previous frame in the sequence of frames; and tracking the marker in real-time based on projected ROI in subsequent frames of the sequence of frames and the marker detection model.
+2. The method of claim 1, wherein performing shape based segmentation comprises applying Hough transform technique.
+3. The method of claim 1, wherein the shape of the marker and the object of interest is circular.
+4. The method of claim 1, wherein classifying the plurality of pixels as marker pixels and pixels around the ROI as non-marker pixels is based on a color intensity histogram.
+5. The method of claim 1, wherein the velocity of the marker is computed based on a centroid of the marker detected in the one or more frames under consideration in relation to a previous frame in the sequence of frames.
+6. The method of claim 1, wherein tracking the marker in real-time comprises: projecting the ROI in the subsequent frames based on location of the ROI in the first frame and one or more temporal parameters associated with the shape of the object of interest; and classifying the pixels in the projected ROI in the subsequent frames as marker pixels and non-marker pixels based on the marker detection model to predict location of the marker in the subsequent frames.
+7. The method of claim 6, wherein the one or more temporal parameters are position of the ROI, the velocity of the marker, radius and centroid of the circular object of interest.
+8. The method of claim 1, wherein the ROI is square shaped and surrounds the circular object of interest.
+9. The method of claim 8, wherein an edge of the square shaped ROI is 1.4142 times diameter of the circular object of interest.
+10. The method of claim 1, wherein classifying the pixels in the projected ROI comprises: resizing the projected ROI to half its original size to generate a reduced ROI having reduced resolution; performing classification of the pixels in the reduced ROI as marker pixels and non-marker pixels; and performing blob detection and classifying the pixels along boundary of the reduced ROI by processing the ROI in original resolution.
+11. The method of claim 10, wherein performing blob detection comprises: generating a binary equivalent image of the reduced ROI, the binary equivalent image being characterized by labels based on classification of the pixels in the reduced ROI; resizing the binary equivalent image with a circular blob in the reduced ROI to original resolution; and refining pixels at boundary of the circular blob in the binary equivalent image by relating it with pixel locations in the ROI with original resolution.
+12. A system comprising: one or more processors; and one or more internal data storage devices operatively coupled to the one or more processors for storing instructions configured for execution by the one or more processors, the instructions being comprised in: an image segmenter configured to: perform shape based segmentation of at least one object detected in a first frame from a sequence of frames, the at least one object having a shape in line with shape of the marker to define a region of interest (ROI) surrounding an object of interest corresponding to the marker, the ROI comprising a plurality of pixels, wherein the image segmenter is further configured to: receive the first frame containing the at least one object; perform shape based feature extraction on the first frame to detect the at least one object; eliminate false objects from the at least one object to identify the object of interest, wherein eliminating the false objects comprises use of a color density based band-pass filter; and define the region of interest (ROI) surrounding the object of interest; a marker detection model trainer configured to: dynamically train and update a marker detection model based on sampling points from the plurality of pixels in and around the ROI; classify the plurality of pixels in the ROI as marker pixels and pixels around the ROI as non-marker pixels; and train and update the marker detection model being a support vector machine (SVM), using the marker pixels, the non-marker pixels and velocity of the marker corresponding to one or more frames under consideration in relation to a previous frame in the sequence of frames, and a marker tracker configured to: tracking the marker in real-time based on projected ROI in subsequent frames of the sequence of frames and the marker detection model.
+13. The system of claim 12, wherein the marker tracker is further configured to: projecting the ROI in the subsequent frames based on location of the ROI in the first frame and one or more temporal parameters associated with the shape of the object of interest; and classifying the pixels in the projected ROI in the subsequent frames as marker pixels and non-marker pixels based on the marker detection model to predict location of the marker in the subsequent frames.
+</claims>
+</document>

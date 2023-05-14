@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2016-04-05
+</filing_date>
+
+<publication_date>
+2020-11-10
+</publication_date>
+
+<priority_date>
+2015-12-11
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/06,G06N3/063,G06N3/08
+</ipc_classes>
+
+<assignee>
+BAIDU USA
+</assignee>
+
+<inventors>
+DIAMOS, GREGORY
+ELSEN, ERICH
+SENGUPTA, SHUBHABRATA
+HANNUN, AWNI
+CATANZARO, BRYAN
+ENGEL, JESSE
+AMODEI, DARIO
+</inventors>
+
+<docdb_family_id>
+57530591
+</docdb_family_id>
+
+<title>
+Systems and methods for a multi-core optimized recurrent neural network
+</title>
+
+<abstract>
+Systems and methods for a multi-core optimized Recurrent Neural Network (RNN) architecture are disclosed. The various architectures affect communication and synchronization operations according to the Multi-Bulk-Synchronous-Parallel (MBSP) model for a given processor. The resulting family of network architectures, referred to as MBSP-RNNs, perform similarly to a conventional RNNs having the same number of parameters, but are substantially more efficient when mapped onto a modern general purpose processor. Due to the large gain in computational efficiency, for a fixed computational budget, MBSP-RNNs outperform RNNs at applications such as end-to-end speech recognition.
+</abstract>
+
+<claims>
+1. A method to improve a computing performance of a computing device by mapping a Recurrent Neural Network (RNN) architecture to a processor's microarchitecture of the computing device, the method comprising: associating each of two or more levels of a hierarchy of an RNN architecture with a level of memory hierarchy in a processor microarchitecture, each level of memory hierarchy being described by at least two of memory capacity, number of processor cores, bandwidth, computational bandwidth, and latency: grouping neurons into modules, each module representing a logical unit in an RNN layer within the RNN architecture; and arranging connections between the modules such that the modules satisfy conditions of the RNN architecture, the conditions being related to the at least two of memory capacity, number of processor cores, bandwidth, computational bandwidth, and latency.
+2. The method according to claim 1, wherein arranging connections comprises pruning bi-directional connections between modules to balance the conditions.
+3. The method according to claim 1, wherein for each level of processor memory the conditions comprise that parameters representing neurons fit within a capacity of the processor memory.
+4. The method according to claim 1, wherein for each level of processor memory the conditions comprise that a synchronization cost related to inter-module connections is approximately equal to a computational cost of evaluating the neurons.
+5. The method according to claim 1, wherein for each level of processor memory the conditions comprise that at least one of a bandwidth cost and a latency cost related to intra-module and inter-module connections approximately equals a computational cost of evaluating the neurons.
+6. The method according to claim 1, wherein arranging connections comprises creating sparse connections by connecting outputs of one module to a subset of inputs of other modules on a next timestep to reduce communication bandwidth such that all weights for the module that are loaded on an on-chip memory are reuseable over all timesteps.
+7. The method according to claim 1, further comprising updating connections between modules with a time delay that increases a time neurons have to perform synchronization to improve at least one of communication bandwidth and synchronization between modules.
+8. The method according to claim 1, further comprising, within a same layer: dividing a time series input into independent contiguous time segments that are processed by a first part of the RNN to generate intermediate results for each time segment; running a second part of the RNN over the intermediate results; and running a third part of the RNN over input data subsections using the processed intermediate results inputs.
+9. The method according to claim 1, further comprising: connecting individual neurons in a fast module located in a first RNN layer to individual neurons in a slow module located in a second RNN layer; connecting each module in its respective layer to other modules in that layer; and connecting the fast module to the slow module via an inter-module connection.
+10. A non-transitory computer-readable medium or media comprising one or more sequences of instructions which, when executed by at least one processor of a computing device, causes a Recurrent Neural Network (RNN) architecture designed to operate on a processor microarchitecture to improve computing performance of the computing device, the RNN architecture comprising: neurons; modules comprising the neurons, the modules represent logical units and are arranged according to levels of a hierarchy of a processor microarchitecture to simulate a hierarchical structure of individual computing resources that comprise a processor such that each level of hierarchy is associated with at least one level of processor memory and comprises a first RNN layer and a second RNN layer, each level of processor memory further being associated with at least two of memory capacity, number of processor cores, memory bandwidth, computational bandwidth, and memory latency; and bi-directional inter-module connections that enable communication between the first and second RNN layer such as to satisfy conditions of the RNN architecture, the conditions being related to the at least two of memory capacity, number of processor cores, bandwidth, computational bandwidth, and latency.
+11. The non-transitory computer-readable medium or media according to claim 10, wherein a frequency of synchronization and an amount of connectivity between modules is set according to Multi-Bulk-Synchronous-Parallel (MBSP) parameters of the processor to balance a time required by the RNN architecture to perform at least one of computational, communication, and synchronization operations.
+12. The non-transitory computer-readable medium or media according to claim 11, wherein within a same level of hierarchy, outputs of a module are communicated to inputs of the next module at a lower frequency by updating the inter-module connection at a reduced rate to reduce the amount of data exchange.
+13. The non-transitory computer-readable medium or media according to claim 12, wherein a communication of the outputs is delayed by a predetermined number of timesteps such that inter-module connections are applied at the predetermined number of timesteps.
+14. The non-transitory computer-readable medium or media according to claim 11, wherein modules in contiguous time segments do not communicate with each other, thereby, reducing the frequency and amount of data communicated between timesteps to reduce communication time and increase the number of parallel operations.
+15. The non-transitory computer-readable medium or media according to claim 10, further comprising fast modules having connections that update more frequently than those of slower modules, operate in parallel, and communicate with each other via the slower modules to increase a communication between fast modules.
+16. The non-transitory computer-readable medium or media according to claim 15, wherein the fast modules are internally densely connected and process independent subsets of the input data.
+17. The non-transitory computer-readable medium or media according to claim 15, wherein the fast and slower modules selectively communicate via a permute module that rearranges the order of computed outputs of the fast modules to map outputs of neurons in a fast module onto outputs of neurons of a slower module to change a communication pattern between the modules in two layers.
+18. The non-transitory computer-readable medium or media according to claim 10, wherein an output sequence transformed from an input sequence in one layer is used as the input sequence to another layer thereby stacking layers to expand the RNN architecture to model relatively more complex functions.
+19. A method for operating a Recurrent Neural Network (RNN) architecture on a processor's microarchitecture of a computing device to improve a computing performance of the computing device, the method comprising: based on values associated with levels of memory hierarchy that are based on a description of a processor's microarchitecture, associating each of two or more levels of a hierarchy of an RNN architecture with a level of memory hierarchy that is described by at least two of memory capacity, number of processor cores, bandwidth, computational bandwidth, and latency: grouping neurons into modules, each module representing a logical unit in an RNN layer within the RNN architecture; and arranging connections between the modules such that the modules satisfy conditions of the RNN architecture, the conditions being related to the at least two of memory capacity, number of processor cores, bandwidth, computational bandwidth, and latency.
+20. The method according to claim 19, wherein arranging connections comprises pruning bi-directional connections between modules to balance the conditions.
+</claims>
+</document>

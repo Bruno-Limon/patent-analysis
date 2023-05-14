@@ -1,0 +1,88 @@
+<document>
+
+<filing_date>
+2016-12-20
+</filing_date>
+
+<publication_date>
+2020-03-18
+</publication_date>
+
+<priority_date>
+2016-12-01
+</priority_date>
+
+<ipc_classes>
+G06F17/15,G06N3/063
+</ipc_classes>
+
+<assignee>
+VIA ALLIANCE SEMICONDUCTOR COMPANY
+</assignee>
+
+<inventors>
+HENRY, G. GLENN
+HOUCK, KIM
+</inventors>
+
+<docdb_family_id>
+57680087
+</docdb_family_id>
+
+<title>
+NEURAL NETWORK UNIT THAT PERFORMS EFFICIENT 3 DIMENSIONAL CONVOLUTIONS
+</title>
+
+<abstract>
+A neural network unit convolves a HxWxC input with F RxSxC filters to generate F QxP outputs. N processing units (PU) each have a register receiving a memory word and a multiplexed-register selectively receiving a memory word or word rotated from an adjacent PU multiplexed-register. The N PUs are logically partitioned as G blocks each of B PUs. The PUs convolve in a column-channel-row order. For each filter column: the N registers read a memory row, each PU multiplies the register and the multiplexed-register to generate a product to accumulate, and the multiplexed-registers are rotated by one; the multiplexed-registers are rotated to align the input blocks with the adjacent PU block. This is performed for each channel. For each filter row, N multiplexed-registers read a memory row for the multiply-accumulations, F column-channel-row-sums are generated and written to the memory, then all steps are performed for each output row.
+</abstract>
+
+<claims>
+1. A neural network unit, NNU, (121) configured to convolve an input of H rows by W columns by C channels with F filters each of R rows by S columns by C channels to generate F outputs each of Q rows by P columns, the neural network unit (121) comprising: at least one memory that outputs a row of N words, wherein N is at least 512 and wherein N is at least as great as W; an array of N processing units, PU, (126) arranged in a one-dimensional array, wherein each PU (126) of the array has an accumulator (202), a register (205) configured to receive a respective word of the N words from a row of the at least one memory, a multiplexed-register (208) configured to selectively receive a respective word of the N words from a row of the at least one memory or a word rotated from the multiplexed-register (208) of a logically adjacent PU, and an arithmetic logic unit (204) coupled to the accumulator (202), register (205) and multiplexed-register (208); wherein the N PUs (126) are logically partitioned as G blocks each of B respective PUs, wherein G is equal to or larger than F and wherein B is a smallest factor of N that is at least as great as W; for each output row of the Q output rows: for each filter row of the R filter rows: the NNU (121) reads into the N multiplexed-registers (208) from the at least one memory a row of N words logically partitioned as G input blocks corresponding to the G blocks of PUs (126), wherein at least C of the G input blocks include a row of a respective channel of the C channels of the input, wherein the row is a corresponding vertical slice of the input; and for at least each channel of the C channels: for each filter column of the S filter columns: the NNU (121) reads into the N registers (205) from the at least one memory a row of N words logically partitioned as G filter blocks corresponding to the G input blocks, wherein each of F filter blocks of the G filter blocks corresponds to a respective filter of the F filters and comprises P copies of a weight of the respective filter at the filter column and the filter row and the respective channel of the corresponding input block; each PU (126) of the array multiplies the word in the register (205) and the word in the multiplexed-register (208) to generate a product and accumulates the product in the accumulator (202); and the NNU (121) rotates the words in the multiplexed-registers (208) by one word; the NNU (121) rotates the words in the multiplexed-registers (208) to align the G input blocks with the adjacent G blocks of B PUs; the NNU (121) writes the N words in the accumulators (202) to the at least one memory.
+2. The neural network unit (121) of claim 1, further comprising:
+the NNU (121) clears the accumulators (202) prior to performing any of the multiplies of the word in the register (205) and the word in the multiplexed-register (208) for said each output row of the Q output rows.
+3. The neural network unit (121) of claim 1, further comprising: wherein the multiplexed-register (208) is further configured to selectively receive a word rotated from the multiplexed-register (208) of one or more PUs (126) other than the logically adjacent PU; and wherein to rotate the words in the multiplexed-registers (208) to align the G input blocks with the adjacent G blocks of B PUs, the neural network unit (121) causes the multiplexed-registers (208) to receive the word rotated from the multiplexed-register (208) of the one or more PUs (126) other than the logically adjacent PU.
+4. The neural network unit (121) of claim 1, further comprising:
+wherein the at least one memory comprises: a first memory coupled to the N multiplexed-registers in which are stored the N-word wide rows of the input; and a second memory coupled to the N registers in which are stored the N-word wide rows of the weights.
+5. The neural network unit (121) of claim 1, further comprising:
+wherein the NNU (121) is configured to read the at least one memory only as an entire row of the N words, not individual subunits of the N words within a row.
+6. The neural network unit (121) of claim 1, further comprising:
+wherein N, the number of PUs, is static based on hardware of the NNU (121), but W is a hyper-parameter of neural networks whose inputs the NNU convolves with the filters to generate the outputs and is dynamic with respect to the hardware, and therefore B and G are dynamic because B and G are a function of static N and dynamic W.
+7. The neural network unit (121) of claim 1, further comprising:
+wherein each of the G input blocks includes a row of a channel of the C channels of the input.
+8. The neural network unit (121) of claim 1, further comprising:
+wherein some of the G input blocks do not include a row of a respective channel of the C channels of the input but instead include null values such that the product generated is a null value accumulated with the accumulator (202).
+9. The neural network unit (121) of claim 8, further comprising:
+wherein said for at least each channel of the C channels comprises X channels, wherein X is the number of the G input blocks that include null values.
+10. The neural network unit (121) of claim 1, further comprising:
+wherein X, which is the number of the G input blocks that include null values, of the G input blocks do not include a row of a respective channel of the C channels of the input such that the product generated is a null value accumulated with the accumulator.
+11. The neural network unit (121) of claim 1, further comprising: wherein with respect to said for each output row of the Q output rows, the output row has a zero-based output row index; wherein with respect to said for each filter row of the R filter rows, the filter row has a zero-based filter row index; and wherein the row of the respective channel of the input that the NNU (121) reads into the multiplexed-registers (208) has a zero-based index that is a sum of the output row index and the filter row index.
+12. The neural network unit (121) of claim 1, further comprising:
+wherein said the NNU (121) rotates the words in the multiplexed-registers (208) to align the G input blocks with the adjacent G blocks of N PUs (126) comprises the NNU (121) rotates the words in the multiplexed-registers (208) by B minus S plus one word.
+13. The neural network unit (121) of claim 1, further comprising: wherein each of the N words read into the N multiplexed-registers (208) from the at least one memory has a first bit width, and wherein each of the N accumulators (202) has a second bit width that is larger than the first bit width; and wherein said the NNU (121) writes the N accumulators (202) to the at least one memory comprises the NNU (121) writes to the at least one memory N words of the first bit width that are a lesser precision representation of the corresponding N accumulators of the second bit width.
+14. The neural network unit (121) of claim 1, further comprising:
+wherein each output row of the Q output rows is generated within the accumulator (202) without losing precision attributable to writing to the at least one memory intermediate partial sums and subsequently reading from the at least one memory the intermediate partial sums in order to generate the output row of the Q rows of the output.
+15. A method for operating a neural network unit, NNU, (121) configured to convolve an input of H rows by W columns by C channels with F filters each of R rows by S columns by C channels to generate F outputs each of Q rows by P columns, the neural network unit (121) comprising at least one memory that outputs a row of N words, wherein N is at least 512 and wherein N is at least as great as W, and an array of N processing units, PU, (126) arranged in a one-dimensional array, wherein each PU (126) of the array has an accumulator (202), a register configured to receive a respective word of the N words from a row of the at least one memory, a multiplexed-register (208) configured to selectively receive a respective word of the N words from a row of the at least one memory or a word rotated from the multiplexed-register (208) of a logically adjacent PU, and an arithmetic logic unit (204) coupled to the accumulator (202), register (205) and multiplexed-register (208), wherein the N PUs (126) are logically partitioned as G blocks each of B respective PUs, wherein G is equal to or larger than F and wherein B is a smallest factor of N that is at least as great as W, the method comprising:
+for each output row of the Q output rows: for each filter row of the R filter rows: reading, by the NNU (121), into the N multiplexed-registers from the at least one memory a row of N words logically partitioned as G input blocks corresponding to the G blocks of PUs (126), wherein at least C of the G input blocks include a row of a respective channel of the C channels of the input, wherein the row is a corresponding vertical slice of the input; and for at least each channel of the C channels: for each filter column of the S filter columns: reading, by the NNU (121), into the N registers (205) from the at least one memory a row of N words logically partitioned as G filter blocks corresponding to the G input blocks, wherein each of F filter blocks of the G filter blocks corresponds to a respective filter of the F filters and comprises P copies of a weight of the respective filter at the filter column and the filter row and the respective channel of the corresponding input block; multiplying, by each PU of the array, the word in the register (205) and the word in the multiplexed-register (208) to generate a product and accumulating the product in the accumulator (202); and rotating, by the NNU (121), the words in the multiplexed-registers (208) by one word; rotating, by the NNU (121), the words in the multiplexed-registers (208) to align the G input blocks with the adjacent G blocks of B PUs; writing, by the NNU (121), the N words in the accumulators (202) to the at least one memory.
+16. The method of claim 15, further comprising:
+clearing, by the NNU (121), the accumulators (202) prior to performing any of the multiplies of the word in the register and the word in the multiplexed-register (208) for said each output row of the Q output rows.
+17. The method of claim 15, further comprising: selectively receiving, by the multiplexed-register (208), a word rotated from the multiplexed-register (208) of one or more PUs (126) other than the logically adjacent PU; and wherein said rotating the words in the multiplexed-registers (208) to align the G input blocks with the adjacent G blocks of B PUs comprises receiving, by the multiplexed-registers (208), the word rotated from the multiplexed-register (208) of the one or more PUs (126) other than the logically adjacent PU.
+18. The method of claim 15, further comprising:
+wherein N, the number of PUs (126), is static based on hardware of the NNU (121), but W is a hyper-parameter of neural networks whose inputs the NNU (121) convolves with the filters to generate the outputs and is dynamic with respect to the hardware, and therefore B and G are dynamic because B and G are a function of static N and dynamic W.
+19. The method of claim 15, further comprising:
+wherein each of the G input blocks includes a row of a channel of the C channels of the input.
+20. The method of claim 15, further comprising:
+wherein some of the G input blocks do not include a row of a respective channel of the C channels of the input but instead include null values such that the product generated is a null value accumulated with the accumulator (202).
+21. The method of claim 15, further comprising:
+wherein said for at least each channel of the C channels comprises X channels, wherein X is the number of the G input blocks that include null values.
+22. The method of claim 15, further comprising:
+wherein X, which is the number of the G input blocks that include null values, of the G input blocks do not include a row of a respective channel of the C channels of the input such that the product generated is a null value accumulated with the accumulator (202).
+23. The method of claim 15, further comprising: wherein with respect to said for each output row of the Q output rows, the output row has a zero-based output row index; wherein with respect to said for each filter row of the R filter rows, the filter row has a zero-based filter row index; and wherein the row of the respective channel of the input that the NNU (121) reads into the multiplexed-registers (208) has a zero-based index that is a sum of the output row index and the filter row index.
+24. The method of claim 15, further comprising:
+wherein said rotating the words in the multiplexed-registers (208) to align the G input blocks with the adjacent G blocks of N PUs (126) comprises rotating the words in the multiplexed-registers (208) by B minus S words plus one word.
+25. The method of claim 15, further comprising: wherein each of the N words read into the N multiplexed-registers (208) from the at least one memory has a first bit width, and wherein each of the N accumulators (202) has a second bit width that is larger than the first bit width; and wherein said writing the N accumulators (202) to the at least one memory comprises writing to the at least one memory N words of the first bit width that are a lesser precision representation of the corresponding N accumulators (202) of the second bit width.
+26. The method of claim 15, further comprising:
+wherein each output row of the Q output rows is generated within the accumulator (202) without losing precision attributable to writing to the at least one memory intermediate partial sums and subsequently reading from the at least one memory the intermediate partial sums in order to generate the output row of the Q rows of the output.
+27. A computer program product comprising instructions which, when the program is executed by a computing device comprising a processor and a neural network unit, cause the computing device to operate the neural network unit according to the method of any of claims 15-26.
+</claims>
+</document>

@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-02-08
+</filing_date>
+
+<publication_date>
+2020-08-13
+</publication_date>
+
+<priority_date>
+2019-02-08
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/08,G06N3/10
+</ipc_classes>
+
+<assignee>
+IBM (INTERNATIONAL BUSINESS MACHINES CORPORATION)
+</assignee>
+
+<inventors>
+DIAMANTOPOULOS, DIONYSIOS
+GIEFERS, HEINER
+HAGLEITNER, CHRISTOPH
+</inventors>
+
+<docdb_family_id>
+71945265
+</docdb_family_id>
+
+<title>
+ARTIFICIAL NEURAL NETWORK IMPLEMENTATION IN FIELD-PROGRAMMABLE GATE ARRAYS
+</title>
+
+<abstract>
+A trained model of the neural network is processed, in which weights are defined in a floating-point format, to quantize each set of weights to a respective reduced-precision format in dependence on effect of quantization on accuracy of the model. For each set of weights, a partitioning scheme is defined for a set of block memories of the apparatus such that a plurality k of those weights can be stored in each addressable location of the set of memories, wherein k differs for different sets of weights. The apparatus can be programmed to implement the neural network such that weights in each set are persistently stored in a set of block memories partitioned according to the partitioning scheme for that set of weights.
+</abstract>
+
+<claims>
+1. A method of configuring field-programmable gate array apparatus to implement an artificial neural network having a succession of interconnected neuron layers and a plurality of sets of weights, each associated with a respective neuron layer, for weighting output signals of those neuron layers, the method comprising: processing a trained model of the neural network, in which said weights are defined in a floating-point format, to quantize each set of weights to a respective reduced-precision format in dependence on effect of the quantization on accuracy of the model; for each set of weights, defining a partitioning scheme for a set of block memories of said apparatus such that a plurality k of those weights can be stored in each addressable location of the set of memories, wherein k differs for different sets of weights; and programming said apparatus to implement the neural network such that weights in each set are persistently stored in a set of said block memories partitioned according to said partitioning scheme for that set of weights.
+2. A method as claimed in claim 1 including, after quantizing each set of weights to said reduced-precision format: selecting a minority subset of that set comprising weights whose values exceed a threshold bit-width for that set; defining said partitioning scheme in dependence on said threshold bit-width such that a plurality of weights in the remaining, majority subset of that set can be stored in each said addressable location; and in programming said apparatus, storing said majority subset of the weights in said set of partitioned block memories and storing said minority subset of the weights in a set of registers of the apparatus.
+3. A method as claimed in claim 1 including, in said partitioning scheme for each set of weights associated with a respective neuron layer, defining an interleave factor for cyclic interleaving of weights in the addressable locations of said set of block memories in dependence on interconnections between that neuron layer and a next neuron layer in the network; and in programming said apparatus, cyclically interleaving weights in said set of block memories in accordance with said interleave factor.
+4. A method as claimed in claim 1 wherein, for the set of weights associated with at least one neuron layer: said partitioning scheme defines a vertical partitioning of said set of block memories such that a weight associated with that layer can be stored in one of a plurality of parallel block memories; and in programming said apparatus, storing weights associated with that layer in said plurality of parallel block memories.
+5. A method as claimed in claim 1 including quantizing each set of weights to a respective fixed-point format.
+6. A method as claimed in claim 5, including obtaining the fixed-point format for each set of weights by: providing sufficient integer bits in the fixed-point format to accommodate integer bits of all of those weights; and progressively rounding fractional bits of those weights up to a predetermined threshold for accuracy degradation of the model.
+7. A method as claimed in claim 1 including: defining an input data format for quantizing input data samples to be processed by the neural network; defining a further partitioning scheme for a further set of block memories of said apparatus such that a plurality of input data samples can be accessed in parallel from said further set of memories; and in programming the apparatus, configuring said further set of block memories for receiving input data samples in accordance with said further partitioning scheme.
+8. A method as claimed in claim 1 wherein said model defines a plurality of computation stages for signals transmitted through the network via said neuron layers, the method including: defining, for each computation stage, a normalized data format for an output of that stage; and in programming the apparatus, configuring logic of the apparatus to normalize said output of each stage to said normalized data format for that stage.
+9. A method as claimed in claim 1 wherein said model defines at least one computation stage for each said respective neuron layer, the method including: defining, for at least a last computation stage of each of those layers, a normalized data format for an output of that stage; and in programming the apparatus, for each computation stage for which a said normalized data format is defined, configuring logic of the apparatus to normalize the output of that computation stage to said normalized data format for that stage.
+10. A method as claimed in claim 1 wherein said model defines, for each set of weights associated with a respective neuron layer, a computation stage comprising at least one dot product computation s·w=Σl=1l(si×wij) where s is a vector of said output signals si of that neuron layer and w is a vector of weights wij in said set, the method including: defining a loop unroll factor r for said dot product computation; and in programming the apparatus, configuring logic of the apparatus to implement multiply-accumulate operations for r products si×wij of the dot product computation in parallel.
+11. A method as claimed in claim 10 wherein said computation stage comprises a plurality of said dot product computations, the method including: defining a further loop unroll factor q for said plurality of dot product computations; and in programming the apparatus, configuring logic of the apparatus to implement q of said dot product computations in parallel.
+12. A method as claimed in claim 1 wherein said model defines activation functions for computing said output signals of respective neuron layers, the method including: defining approximated output values of said activation functions for the neuron layers; and in programming the apparatus, storing said approximated output values in persistent memory of the apparatus.
+13. A field-programmable gate array apparatus comprising logic configured to implement an artificial neural network having a succession of interconnected neuron layers and a plurality of sets of weights, each associated with a respective neuron layer, for weighting output signals of those neuron layers, wherein: said logic is configured to process each set of weights in dependence on a respective data format defined for that set; and said logic includes, for each set of weights, a set of block memories partitioned according to a partitioning scheme for that set of weights such that a plurality k of those weights are persistently stored in each addressable location of the set of memories, wherein k differs for different sets of weights
+14. The apparatus as claimed in claim 13 wherein: said logic includes, for each set of weights, a set of registers storing a minority subset of the weights whose values exceed a threshold bit-width for that set; and said partitioning scheme for each set of weights is adapted, in dependence on said threshold bit-width for that set, such that a plurality of weights in the remaining, majority subset of the weights are stored in each said addressable location of the set of block memories.
+15. The apparatus as claimed in claim 13 wherein, for each set of weights associated with a respective neuron layer, the weights stored in said set of block memories are cyclically interleaved with an interleave factor dependent on interconnections between that neuron layer and a next neuron layer in the network.
+16. The apparatus as claimed in claim 13 wherein a respective fixed-point format is defined for each set of weights.
+17. The apparatus as claimed in claim 13 wherein: said logic includes a further set of block memories for receiving input data samples to be processed by the neural network; and said further set of memories is partitioned according to a further partitioning scheme, dependent on a predefined data format for input data, such that a plurality of input data samples can be accessed in parallel from said further set of memories.
+18. The apparatus as claimed in claim 13 wherein: said logic is configured to implement a plurality of computation stages for signals transmitted through the network via said neuron layers; and for each computation stage, said logic is configured to normalize an output of that stage to a respective normalized data format for that stage.
+19. A computer program product for configuring field-programmable gate array apparatus to implement an artificial neural network having a succession of interconnected neuron layers and a plurality of sets of weights, each associated with a respective neuron layer, for weighting output signals of those neuron layers, said computer program product comprising a computer readable storage medium having program instructions embodied therein, the program instructions being executable by a computing system to cause the computing system: to process a trained model of the neural network, in which said weights are defined in a floating-point format, to quantize each set of weights to a respective reduced-precision format for that set in dependence on effect of the quantization on accuracy of the model; for each set of weights, to define a partitioning scheme for a set of block memories of said apparatus such that a plurality of those weights can be stored in each addressable location of the set of memories; and to program said apparatus to implement the neural network such that weights in each set are persistently stored in a set of said block memories partitioned according to said partitioning scheme for that set of weights.
+20. A computer program product as claimed in claim 19, wherein said program instructions are further executable to cause the computing system, after quantizing each set of weights to said reduced-precision format, to: select a minority subset of that set comprising weights whose values exceed a threshold bit-width for that set; define said partitioning scheme in dependence on said threshold bit-width such that a plurality of weights in the remaining, majority subset of that set can be stored in each said addressable location; and in programming said apparatus, to store said majority subset of the weights in said set of partitioned block memories and store said minority subset of the weights in a set of registers of the apparatus.
+</claims>
+</document>

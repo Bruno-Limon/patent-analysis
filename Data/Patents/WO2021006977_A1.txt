@@ -1,0 +1,105 @@
+<document>
+
+<filing_date>
+2020-06-09
+</filing_date>
+
+<publication_date>
+2021-01-14
+</publication_date>
+
+<priority_date>
+2019-07-10
+</priority_date>
+
+<ipc_classes>
+G06F16/23,G06F16/901
+</ipc_classes>
+
+<assignee>
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+GAO, YUQING
+BARON, Derek
+CHANDRAMOULI, Bharat
+</inventors>
+
+<docdb_family_id>
+71899906
+</docdb_family_id>
+
+<title>
+DELTA GRAPH TRAVERSING SYSTEM
+</title>
+
+<abstract>
+Methods and systems are disclosed for traversing graph databases. A graph database may be used for searching for information from applications, as a web search, and for dictionary look-ups for voice recognition. Issues on quickly traversing a graph in the graph database with highly connected entities (nodes) may be addressed by generating a subgraph upon a graph traversal for an entity and traversing the subgraph in subsequent occurrences of looking up the entity. Methods and systems are disclosed for updating the entity of the subgraph with a newer version of data of the corresponding entity of the graph when the data in the entity of the subgraph and the data in the graph are distinct. The differences of versions of data may be identified based on an availability status of data for versions of data and timestamps of last updates to data in the entity of the graph.
+</abstract>
+
+<claims>
+1. A computer-implemented method for traversing a graph database based on a request for an entity, the method comprising:
+retrieving a subgraph of a graph, wherein the subgraph is associated with a previous traversal of the graph for searching the entity;
+determining a link to follow in the subgraph for a graph traversal;
+retrieving the entity from the subgraph;
+determining a version of data in the entity of the graph based on an availability status of the version of data in the entity of the graph; and
+updating data in the entity in the subgraph based on corresponding data in the graph when the data in the entity in the subgraph and the data in the entity in the graph based on the version of data are distinct.
+2. The computer-implemented method of claim 1, the method further comprising:
+determining the version of data in the entity based on the latest available version of the data; and
+providing data in the entity in the subgraph.
+3. The computer-implemented method of claim 1, the method further comprising:
+receiving a request for a data in the entity of the graph; and
+providing the received data according to the determined version of data in the entity of the subgraph.
+4. The computer-implemented method of claim 1, wherein the graph traversal is top-down and according to a breadth-first rule.
+5. The computer-implemented method of claim 1, wherein the graph includes a subject, a predicate, and an object, and the subgraph being a subset of the graph.
+6. The computer-implemented method of claim 1, the method further comprising:
+generating a subgraph of a graph based on a traversal on the graph for the entity; storing a first timestamp of generating the subgraph;
+storing a second timestamp of updating the availability status of the version of data in the entity;
+receiving the data of the determined version from the entity in the graph when the first timestamp is older than the second timestamp; and updating the subgraph with the received data in the entity.
+7. The computer-implemented method of claim 1, wherein the graph traversal includes:
+determining links to follow based on a structure of the graph;
+determining the version of the data to retrieve from the entity based on the availability status of the version of the data in the entity of the graph; and
+converting the entity into at least a part of a fact.
+8. The computer-implemented method of claim 1, further comprising:
+deleting the version of data in the entity of the graph;
+updating the availability status of the version of data in the entity of the graph; and receiving data according to the determined version from the entity of the graph when a version of data in the entity of the subgraph fails to match the determined version of data.
+9. A computing device, comprising:
+at least one processing unit; and
+at least one memory storing computer executable instructions for storing data to a graph database, the instructions when executed by the at least one processing unit causing the computing device to perform steps of:
+retrieving a subgraph of a graph, wherein the subgraph is associated with a previous traversal of the graph for an entity;
+determining a link to follow in the subgraph for a graph traversal associated with the entity of the graph;
+determining a version of data in the entity based on availability status of a version of data in the entity of the graph;
+receiving data according to the determined version of data in the entity when the determined version of data in the entity of the graph is newer than the data in a second entity of the subgraph, the second entity corresponding to the entity; and
+updating the data in the second entity of the subgraph based on the received data.
+10. A computer storage medium storing computer executable instructions for traversing data in a graph database, the instructions when executed by at least one processing unit, cause the at least one processing unit to perform steps of:
+retrieving a subgraph of a graph, wherein the subgraph is associated with a previous traversal of the graph for an entity of the graph;
+determine a link to follow in the subgraph for a graph traversal associated with the entity of the graph;
+determine a version of data in the entity of the graph based on an availability status of a version of data in the entity of the graph;
+receiving data according to the determined version of data in the entity of the graph when the determined version of data in the entity of the graph is newer than the data in a second entity of the subgraph, the second entity corresponding to the entity of the graph; and
+updating the data in the second entity of the subgraph based on the received data.
+11. The computing device of claim 9, the steps further comprising:
+receiving a request for the entity;
+generating a subgraph of a graph based on a traversal on the graph for at least one entity;
+storing a first timestamp of generating the subgraph;
+storing a second timestamp of updating the availability of the version of data in the entity;
+receiving the data according to the determined version of the data in the entity in the graph when the first timestamp is before the second timestamp; and
+updating the subgraph with the received data in the entity.
+12. The computing device of claim 9, wherein the availability of the version of data in the entity is in a freshness table and the freshness table including:
+an entity identifier;
+a source identifier, wherein the source identifier is an identifier of a source that provides the data in the entity;
+the availability status of the version of the data in the entity of the graph; and a deletion flag of the version of the data in the graph.
+13. The computing device of claim 12, the steps further comprising:
+determining traversal path information based on a query configuration, wherein the query configuration includes types of entities, a limitation of levels of the graph for traversal, and structural information about the graph;
+receiving version information of the version of data in the entity of the graph from a source configuration, wherein the source configuration includes source identifiers and versions of data to access for respective sources; and determining a version of data in the entity of the graph based on the source configuration and the freshness table.
+14. The computer storage medium of claim 10, the steps further comprising: receiving a request for a data in the entity of the graph;
+generating a subgraph of a graph based on a traversal on the graph for at least one entity;
+updating a first timestamp when generating the subgraph;
+updating a second timestamp when updating the availability status of the version of data in the entity;
+receiving the data according to the determined version of the data in the entity in the graph when the first timestamp is before the second timestamp;
+updating the subgraph with the received data in the entity; and
+providing the received data according to the determined version of data in the entity of the graph.
+15. The computer storage medium of claim 14, the steps further comprising: deleting the version of data in the entity of the graph;
+updating the availability status of the version of data in the entity of the graph; and receiving data according to the determined version from the entity of the graph when a version of data in the entity of the subgraph fails to match the deleted version of data.
+</claims>
+</document>

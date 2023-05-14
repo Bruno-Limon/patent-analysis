@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2018-07-25
+</filing_date>
+
+<publication_date>
+2020-04-07
+</publication_date>
+
+<priority_date>
+2017-07-28
+</priority_date>
+
+<ipc_classes>
+G06T1/20,G06T15/00,G06T15/06,G06T15/50,G06T5/00
+</ipc_classes>
+
+<assignee>
+NVIDIA CORPORATION
+</assignee>
+
+<inventors>
+KELLER, ALEXANDER
+BINDER, NIKOLAUS
+FRICKE, SASCHA
+</inventors>
+
+<docdb_family_id>
+65038083
+</docdb_family_id>
+
+<title>
+Reducing noise during rendering by performing parallel path space filtering utilizing hashing
+</title>
+
+<abstract>
+A method, computer readable medium, and system are disclosed for reducing noise during a rendering of a scene by sharing information that is spatially close through path space filtering. A vertex of a light transport path is selected, and one or more features of the selected vertex are quantized. A first hash is calculated based on the one or more quantized features of the selected vertex, and a collision resolution is performed within a hash table. A contribution of the light transport path at the selected vertex is accumulated to the hash table, and a counter is incremented in response to adding the contribution of the light transport path at the selected vertex to the hash table. An average contribution of the light transport path is then calculated, utilizing the counter.
+</abstract>
+
+<claims>
+1. A method comprising: selecting a vertex of a light transport path; quantizing one or more features of the selected vertex; calculating a first hash based on the one or more quantized features of the selected vertex; performing a collision resolution within a hash table; accumulating a contribution of the light transport path at the selected vertex to the hash table; incrementing a counter in response to adding the contribution of the light transport path at the selected vertex to the hash table; and calculating an average contribution of the light transport path, utilizing the counter and the hash table.
+2. The method of claim 1, wherein the selected vertex is jittered before quantizing one or more features of the selected vertex, and the jittering is performed according to a selected distribution.
+3. The method of claim 2, wherein the jittering is performed in a tangent plane of a surface on which the vertex is located.
+4. The method of claim 1, wherein the selected vertex is stored with a plurality of additional vertices in a volume, and all vertices stored in the volume may be jittered.
+5. The method of claim 1, wherein: quantizing the one or more features of the selected vertex is performed uniformly, quantizing the one or more features of the selected vertex is performed according to a distance of the selected vertex from a camera, quantizing the one or more features of the selected vertex is performed according to a length of a path segment, or quantizing the one or more features of the selected vertex is performed according to a heuristic based on a distribution and a local density of a plurality of vertices.
+6. The method of claim 1, wherein performing collision resolution within the hash table includes: detecting one or more collisions by comparing the one or more quantized features of the selected vertex with one or more quantized features of additional vertices, or detecting one or more collisions by quantizing a second set of features of the selected vertex, calculating a second hash based on the second set of quantized features, and comparing the second hash of the selected vertex with one or more second hashes of additional vertices.
+7. The method of claim 1, wherein one or more accumulated contributions and zero or more counters are looked up for vertices of paths within a scene during a simulation.
+8. The method of claim 1, wherein: the quantizing of the one or more features of the selected vertex is locally determined, and a local quantization resolution is determined by checking the mutual visibility of selected vertices of different light transport paths within a scene.
+9. The method of claim 1, wherein: one or more features of the selected vertex are excluded during the calculation of the first hash, the excluded features are included in a calculation of a second hash, and an additional search is enabled by performing collision resolution.
+10. The method of claim 1, wherein an exponential moving average is implemented in order to accumulate contributions for the light transport path over time, where: a sum of contributions of all light transport paths having the first hash, as well as the counter, are kept over a period of time, and are combined with an average contribution of the light transport path for a current time period.
+11. The method of claim 1, wherein a predetermined parameter of an exponential moving average is set, such that the exponential moving average becomes a cumulative moving average.
+12. The method of claim 11, wherein the predetermined parameter is selected based on: results of a path tracing simulation, or an evaluation of additional light transport paths.
+13. The method of claim 12, wherein the exponential moving average is controlled based on information from the path tracing simulation.
+14. The method of claim 1, wherein an additional filter is used to filter noise resulting from jittering.
+15. The method of claim 14, wherein: the additional filter operates in a temporal domain, and the additional filter uses an exponential moving average.
+16. The method of claim 15, wherein a parameter of the exponential moving average is set so that the exponential moving average becomes a cumulative moving average.
+17. The method of claim 15, wherein the exponential moving average is controlled based on information from a path tracing simulation.
+18. The method of claim 1, wherein: the vertex is selected from a path from a light source, additional vertices are selected from a path from a camera/eye location, and scaling is performed by an according area measure as part of a photon mapping operation.
+19. The method of claim 1, wherein: the collision resolution is performed within the hash table using the first hash such that the contribution of the light transport path at the selected vertex is accumulated with one or more additional contributions of one or more additional light transports paths at one or more additional vertices also having the first hash, a number of contributions accumulated with respect to the first hash is maintained by the counter, and the average contribution of the light transport path is calculated utilizing the counter and the contributions accumulated with respect to the first hash.
+20. The method of claim 19, wherein the contributions are accumulated over a determined period of time.
+21. The method of claim 19, wherein the contributions are accumulated at a selected level of detail.
+22. A system comprising: a processor that is configured to: select a vertex of a light transport path; quantize one or more features of the selected vertex; calculate a first hash based on the one or more quantized features of the selected vertex; perform a collision resolution within a hash table; accumulate a contribution of the light transport path at the selected vertex to the hash table; increment a counter in response to adding the contribution of the light transport path at the selected vertex to the hash table; and calculate an average contribution of the light transport path, utilizing the counter and the hash table.
+23. A computer-readable storage medium storing instructions that, when executed by a processor, causes the processor to perform steps comprising: selecting a vertex of a light transport path; quantizing one or more features of the selected vertex; calculating a first hash based on the one or more quantized features of the selected vertex; performing a collision resolution within a hash table; accumulating a contribution of the light transport path at the selected vertex to the hash table; incrementing a counter in response to adding the contribution of the light transport path at the selected vertex to the hash table; and calculating an average contribution of the light transport path, utilizing the counter and the hash table.
+</claims>
+</document>

@@ -1,0 +1,70 @@
+<document>
+
+<filing_date>
+2015-11-10
+</filing_date>
+
+<publication_date>
+2020-08-11
+</publication_date>
+
+<priority_date>
+2011-07-06
+</priority_date>
+
+<ipc_classes>
+H04L29/06,H04L29/12
+</ipc_classes>
+
+<assignee>
+NOMINUM
+AKAMAI TECHNOLOGIES
+</assignee>
+
+<inventors>
+WILBOURN, ROBERT S.
+O'LEARY, PAUL
+PAUGH, JAMES
+KULLBERG, MIKAEL
+LIU, HONGLIANG
+FAKERI-TABRIZI, ALI
+YUZIFOVICH, YURIY
+NGUYEN, THANH
+</inventors>
+
+<docdb_family_id>
+55403911
+</docdb_family_id>
+
+<title>
+System for domain reputation scoring
+</title>
+
+<abstract>
+The disclosure is related to computer-implemented methods for domain name scoring. In one example, the method includes receiving a request to provide a reputation score of a domain name, receiving input data associated with the domain name, extracting a plurality of features from the input data and the domain name, generating a feature vector based on the plurality of features, and calculating the reputation score of the domain name by a machine-learning classifier based on a graph database, which includes feature vectors associated with at least a plurality of reference domain names, a plurality of servers, a plurality of domain name owners, and so forth. In another example, the method can calculate the reputation score by finding a similarity between the feature vector and one of domain name clusters in the graph database. The reputation score represents a probability that the domain name is associated with malicious activity.
+</abstract>
+
+<claims>
+1. A computer-implemented method for supervised domain name scoring, the method comprising: receiving a request to provide a reputation score of a particular domain name; receiving input data associated with the particular domain name; extracting a plurality of features from the input data and the particular domain name; generating at least one feature vector for the particular domain name, based on the plurality of features; and calculating the reputation score of the particular domain name using a generated predictive model based on a graph database; the graph database comprising a plurality of nodes corresponding to IP addresses of clients and a plurality of nodes corresponding to domain names, which includes a node corresponding to the particular domain name, the graph database further comprising a plurality of arrows, each arrow connecting one of the plurality of client nodes to one of the plurality of domain name nodes, and each arrow representing a DNS request from the respective client about the respective domain name; wherein said calculating the reputation score of the particular domain name using the generated predictive model based on the graph database comprises: determining that a particular client is infected, and based on the graph database, determining that the particular client has sent DNS queries about the particular domain with a threshold frequency, and based on said determination and the at least one feature vector, classifying the particular domain name as likely malicious and assigning a corresponding reputation score to the particular domain name.
+2. The method of claim 1, further comprising: receiving input data associated with a plurality of reference domain names, the reference domain names being known to be either malicious or non-malicious; extracting a plurality of trusted features from the input data associated with the plurality of reference domain names; generating the graph database based on the plurality of trusted features and the plurality of reference domain names; and training a machine-learning classifier based on the graph database; generating the predictive model using the machine-learning classifier.
+3. The method of claim 1, wherein the reputation score represents a probability that the particular domain name is associated with malicious activity.
+4. The method of claim 1, wherein the plurality of features are organized in a hierarchy structure and the plurality of features includes one or more features associated with network parameters of the particular domain name, one or more features associated with an owner of the particular domain name, one or more features associated with characteristics of the particular domain name, one or more features associated with a web traffic related to the particular domain name, or one or more features associated with clients that accessed the particular domain name.
+5. The method of claim 4, wherein the plurality of features further includes features associated with Doman Name System (DNS) queries or DNS responses.
+6. The method of claim 4, wherein the one or more features associated with network parameters of the particular domain name include at least one address record, a time-to-live (TTL) parameter, a name server (NS) record, a CIDR record, and an ASN record.
+7. The method of claim 4, wherein the one or more features associated with the owner of the particular domain name include WHOIS information.
+8. The method of claim 4, wherein the one or more features associated with characteristics of the particular domain name include semantic characteristics of the particular domain name.
+9. The method of claim 4, wherein the one or more features associated with the web traffic include a query count (QC) associated with the particular domain name, a client count (CC) associated with the particular domain name, a network count (NC) associated with the domain name, and a rank associated with the particular domain name.
+10. The method of claim 1, wherein the plurality of features are organized in a hierarchy structure, wherein the hierarchy structure includes one or more super-features, each of the super-features including one or more meta-features, and each of the meta-features including one or more features selected from the plurality of features.
+11. The method of claim 1, wherein the input data associated with the domain name includes a DNS zone file associated with the particular domain name, DNS logs associated with the particular domain name, DNS queries associated with the particular domain name, and WHOIS information associated with the particular domain name.
+12. The method of claim 1, wherein the calculation of the reputation score of the particular domain name is performed by a machine-learning classifier based on the graph database, wherein the graph database includes feature vectors created based on an aggregation of information characterizing one or more of the following: a plurality of reference domain names, a plurality of servers, a plurality of domain name owners, a plurality of Classless Inter Domain Routing (CIDR) records, and a plurality of Autonomous System Number (ASN) records.
+13. The method of claim 1, further comprising: after the classification of the particular domain name as likely malicious, classifying a second client a likely malicious and assigning a corresponding reputation score to the second client, based on the graph database indicating that the second client queries the particular domain name.
+14. A computer-implemented method for unsupervised domain name scoring, the method comprising: receiving a request to provide a reputation score of a particular domain name; receiving input data associated with the particular domain name; extracting a plurality of features from the input data and the particular domain name; generating a feature vector based on an aggregation of the plurality of features; and calculating a reputation score of the particular domain name based on a similarity between the particular domain name and at least one domain name cluster in a graph databases; the graph database comprising a plurality of nodes corresponding to IP addresses of clients and a plurality of nodes corresponding to domain names, which includes a node corresponding to the particular domain name, the graph database further comprising a plurality of arrows, each arrow connecting one of the plurality of client nodes to one of the plurality of domain name nodes, and each arrow representing a DNS request from the respective client about the respective domain name; wherein said calculating the reputation score of the particular domain name based on a similarity between the particular domain name and at least one domain name cluster in a graph database comprises: determining that a particular client is infected, and based on the graph database, determining that the particular client has sent DNS queries about the particular domain with a threshold frequency, and based on said determination and the at least one feature vector, classifying the particular domain name as likely malicious and any of creating or updating a corresponding reputation score to the at least one domain name cluster in which the particular domain name is classified.
+15. The method of claim 14, further comprising: receiving input data associated with a plurality of reference domain names; extracting a plurality of trusted features from the received input data associated with the plurality of reference domain names; generating the graph database based on the plurality of trusted features and the plurality of reference domain names; and generating the at least one domain name cluster in the graph database, each of the at least one domain name clusters associated with domain names known to be malicious, domain names likely to be malicious, domain names known to be non-malicious, or domain names likely to be non-malicious.
+16. The method of claim 14, wherein the reputation score is a numerical value between 0 and 1 that represents a probability that the particular domain name is associated with malicious activity.
+17. The method of claim 14, wherein the plurality of features includes one or more features associated with network parameters of the particular domain name, one or more features associated with an owner of the particular domain name, one or more features associated with characteristics of the particular domain name, one or more features associated with a web traffic related to the particular domain name, and one or more features associated with clients, which accessed the particular domain name.
+18. The method of claim 17, wherein the plurality of features further includes features associated with DNS queries or DNS responses.
+19. The method of claim 14, wherein the input data associated with the particular domain name includes a DNS zone file associated with the domain name, DNS logs associated with the particular domain name, DNS queries associated with the particular domain name, and WHOIS information associated with the domain particular name.
+20. The method of claim 14, wherein the calculation of the reputation score is performed by finding a similarity of the feature vector with one of domain name clusters in the graph database, wherein the graph database includes feature vectors created based on information characterizing one or more of the following: a plurality of reference domain names, a plurality of servers, a plurality of domain name owners, a plurality of Classless InterDomain Routing (CIDR) records, and a plurality of Autonomous System Number (ASN) records.
+21. A computer-implemented method for domain name scoring, the method comprising: receiving a request to provide a reputation score of a particular domain name; receiving input data associated with the particular domain name; extracting a plurality of features from the received input data and the particular domain name; generating a feature vector based on the plurality of features; calculating a first reputation score of the particular domain name by a machine-learning classifier based on a graph database; calculating a second reputation score of the particular domain name by finding a similarity of the feature vector with a domain name cluster in the graph database; and providing an aggregate reputation score of the particular domain name based on a combination of the first reputation score and the second reputation score; and updating the graph database based on the aggregate reputation score of the particular domain name; the graph database comprising a plurality of nodes corresponding to IP addresses of clients and a plurality of nodes corresponding to domain names, which includes a node corresponding to the particular domain name, the graph database further comprising a plurality of arrows, each arrow connecting one of the plurality of client nodes to one of the plurality of domain name nodes, and each arrow representing a DNS request from the respective client about the respective domain name; wherein any of calculating the first reputation score of the particular domain name by the machine-learning classifier based on the graph database and calculating the second reputation score of the particular domain name by finding the similarity of the feature vector with a domain name cluster in the graph database, comprises: determining that a particular client is infected, and based on the graph database, determining that the particular client has sent DNS queries about the particular domain with a threshold frequency, and based on said determination and the at least one feature vector, classifying the particular domain name as likely malicious and assigning a corresponding reputation score to the particular domain name.
+</claims>
+</document>

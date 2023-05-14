@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2017-05-30
+</filing_date>
+
+<publication_date>
+2020-05-12
+</publication_date>
+
+<priority_date>
+2017-01-31
+</priority_date>
+
+<ipc_classes>
+G06F16/23,G06F16/435,G06F17/30,G06F7/78,G06F9/28,G06Q50/00
+</ipc_classes>
+
+<assignee>
+FACEBOOK
+</assignee>
+
+<inventors>
+JOHNSON, JEFFREY HOYLE
+</inventors>
+
+<docdb_family_id>
+62980595
+</docdb_family_id>
+
+<title>
+κ-selection using parallel processing
+</title>
+
+<abstract>
+In one embodiment, a method includes accessing a query vector; accessing object vectors; determining input distances corresponding to a distance between the query vector and the object vectors; accessing thread queues; accessing a warp queue; for each of the input distance values: selecting one of the thread queues, when the input distance value is less than a greatest one of the distance values stored in the selected thread queue, inserting the input distance value into the thread queues and ejecting the greatest distance values stored in the thread queue, and when a greatest distance value stored in any of the thread queues is less than a greatest distance value stored in the warp queue, merging the thread queue with the warp queue; identifying the objects represented by an object vector corresponding to the distance values stored in the warp queue; and providing the search results for presentation.
+</abstract>
+
+<claims>
+1. A method comprising: by one or more computing devices, accessing a query vector representing a search query entered by a user; by one or more computing devices, accessing a plurality of object vectors that each represent one of a plurality of objects; by one or more computing devices, determining plurality of input distance values that each correspond to a distance between the query vector and one of the object vectors; by one or more computing devices, accessing a plurality of thread queues that initially store thread-queue distance values; by one or more computing devices, accessing a plurality of warp queues in a block, wherein: the warp queues initially store warp-queue distance values; and the block further comprises shared memory for the warp queues; by one or more computing devices, for each of the input distance values: selecting one of the warp queues; selecting one of the thread queues corresponding to the selected one of the warp queues; when the input distance value is less than a greatest one of the distance values stored in the selected one of the thread queues, inserting the input distance value into the selected one of the thread queues and ejecting the greatest one of the distance values stored in the selected one of the thread queues; and when a greatest one of the distance values stored in any of the thread queues is less than a greatest one of the distance values stored in the selected one of the warp queues, merging, within the shared memory in the block, the selected one of the thread queues with the selected one of the warp queues using an odd-size merging network in parallel with one or more other thread queues corresponding to the selected one of the warp queues; by one or more computing devices, identifying one or more objects that are each represented by an object vector corresponding to one of the distance values stored in the warp queues; and by one or more computing devices, providing for presentation to the user one or more search results corresponding to one or more of the identified objects.
+2. The method of claim 1, wherein each of one or more of the warp queues is stored as a lane-stride register array.
+3. The method of claim 1, wherein each of one or more of the thread queues is stored in register memory of a graphics processing unit.
+4. The method of claim 1, wherein each of one or more of the warp queues is stored in shared memory of a graphics processing unit.
+5. The method of claim 1, wherein each of one or more of the warp queues is stored in register memory of a graphics processing unit.
+6. The method of claim 1, wherein accessing the query vector representing the search query entered by the user comprises determining the query vector based on the search query.
+7. The method of claim 1, wherein each object vector is a quantized vector.
+8. The method of claim 1, wherein the each warp queue is a wavefront queue.
+9. The method of claim 1, wherein each thread queue is operated on by a single thread of execution of a processor of the computing device.
+10. The method of claim 1, wherein: each object of the plurality of objects corresponds to at least one node in a graph of a social-networking system; the graph comprises a plurality of nodes and edges connecting the nodes; and the identified objects correspond to nodes in the graph that are responsive to the search query entered by the user.
+11. The method of claim 10, wherein at least one of the plurality of object vectors represents at least one edge connecting the node corresponding to the object vector to another node in the graph.
+12. The method of claim 11, wherein the at least one edge represents one or more of: a friendship; a family relationship; a business or employment relationship; a fan relationship; a follower relationship; a visitor relationship; or a subscriber relationship.
+13. The method of claim 1, wherein: each initially-stored thread-queue distance value is a maximum sentinel distance value; and each initially-stored warp-queue distance value is a maximum sentinel distance value.
+14. One or more computer-readable non-transitory storage media embodying software that is operable when executed to: access a query vector representing a search query entered by a user; access a plurality of object vectors that each represent one of a plurality of objects; determine a plurality of input distance values that each correspond to a distance between the query vector and one of the object vectors; access a plurality of thread queues that initially store thread-queue distance values; access a plurality of warp queues in a block, wherein: the warp queues initially store warp-queue distance values; and the block further comprises shared memory for the warp queues; for each of the input distance values: select one of the warp queues; select one of the thread queues corresponding to the selected one of the warp queues; when the input distance value is less than a greatest one of the distance values stored in the selected one of the thread queues, insert the input distance value into the selected one of the thread queues and eject the greatest one of the distance values stored in the selected one of the thread queues; and when a greatest one of the distance values stored in any of the thread queues is less than a greatest one of the distance values stored in the selected one of the warp queues, merge, within the shared memory in the block, the selected one of the thread queues with the selected one of the warp queues using an odd-size merging network in parallel with one or more other thread queues corresponding to the selected one of the warp queues; identify one or more objects that are each represented by an object vector corresponding to one of the distance values stored in the warp queues; and provide for presentation to the user one or more search results corresponding to one or more of the identified objects.
+15. The media of claim 14, wherein each of one or more of the warp queues is stored as a lane-stride register array.
+16. The media of claim 14, wherein each of one or more of the thread queues is stored in register memory of a graphics processing unit.
+17. The media of claim 14, wherein each of one or more of the warp queues is stored in shared memory of a graphics processing unit.
+18. The media of claim 14, wherein each of one or more of the warp queues is stored in register memory of a graphics processing unit.
+19. The media of claim 14, wherein accessing the query vector representing the search query entered by the user comprises determining the query vector based on the search query.
+20. The media of claim 14, wherein each object vector is a quantized vector.
+21. The media of claim 14, wherein each warp queue is a wavefront queue.
+22. The media of claim 14, wherein each thread queue is operated on by a single thread of execution of a processor of the computing device.
+23. The media of claim 14, wherein: each initially-stored thread-queue distance value is a maximum sentinel distance value; and each initially-stored warp-queue distance value is a maximum sentinel distance value.
+24. A system comprising: one or more processors at a first client computing device; and a memory at the first client computing device coupled to the processors and comprising instructions operable when executed by the processors to cause the processors to: access a query vector representing a search query entered by a user; access a plurality of object vectors that each represent one of a plurality of objects; determine a plurality of input distance values that each correspond to a distance between the query vector and one of the object vectors; access a plurality of thread queues that initially store thread-queue distance values; access a plurality of warp queues in a block, wherein: the warp queues initially store warp-queue distance values; and the block further comprises shared memory for the warp queues; for each of the input distance values: select one of the warp queues; select one of the thread queues corresponding to the selected one of the warp queues; when the input distance value is less than a greatest one of the distance values stored in the selected one of the thread queues, insert the input distance value into the selected one of the thread queues and eject the greatest one of the distance values stored in the selected one of the thread queues; and when a greatest one of the distance values stored in any of the thread queues is less than a greatest one of the distance values stored in the selected one of the warp queues, merge, within the shared memory in the block, the selected one of the thread queues with the selected one of the warp queues using an odd-size merging network in parallel with one or more other thread queues corresponding to the selected one of the warp queues; identify one or more objects that are each represented by an object vector corresponding to one of the distance values stored in the warp queues; and provide for presentation to the user one or more search results corresponding to one or more of the identified objects.
+25. The system of claim 24, wherein each of one or more of the warp queues is stored as a lane-stride register array.
+26. The system of claim 24, wherein: each initially-stored thread-queue distance value is a maximum sentinel distance value; and each initially-stored warp-queue distance value is a maximum sentinel distance value.
+</claims>
+</document>

@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2015-04-10
+</filing_date>
+
+<publication_date>
+2020-06-16
+</publication_date>
+
+<priority_date>
+2015-04-10
+</priority_date>
+
+<ipc_classes>
+G06F21/55,H04L12/26,H04L29/06,H04L29/12,H04L29/14
+</ipc_classes>
+
+<assignee>
+HPE (HEWLETT PACKARD ENTERPRISE)
+</assignee>
+
+<inventors>
+CASASSA MONT, MARCO
+ARNELL, SIMON IAN
+SAUNDERS, NIALL LAWRENCE
+GRAVES, DAVID ANDREW
+REYNOLDS, EDWARD
+</inventors>
+
+<docdb_family_id>
+57073304
+</docdb_family_id>
+
+<title>
+Network anomaly detection
+</title>
+
+<abstract>
+Examples relate to detecting network anomalies. In one example, a computing device may: receive, from each of a plurality of packet capture devices of a private network, domain name system (DNS) query packets that were sent by a particular client computing device operating on the private network, each DNS query packet specifying i) a destination DNS server, ii) a query domain name, and iii) a source address that specifies the particular client computing device; provide at least one of the DNS query packets to a DNS traffic analyzer that is trained to identify DNS anomalies based on characteristics of the DNS query packets; receive anomaly output from the DNS traffic analyzer, the anomaly output indicating a DNS anomaly that was identified for the DNS query packets; and in response to receiving the anomaly output, provide a user device with data specifying the identified DNS anomaly.
+</abstract>
+
+<claims>
+We claim:
+1. A non-transitory machine-readable storage medium encoded with instructions executable by a hardware processor of a computing device for network anomaly detection, the machine-readable storage medium comprising instructions to cause the hardware processor to: receive, from each of a plurality of packet capture devices of a private network, domain name system (DNS) query packets that were sent by a particular client computing device operating on the private network, each DNS query packet specifying i) a destination DNS server, ii) a query domain name, and iii) a source address that specifies the particular client computing device; provide at least one of the DNS query packets to a DNS traffic analyzer that is trained to identify DNS anomalies based on (i) characteristics of the at least one DNS query packets, (ii) data representing previous occurrences of DNS anomalies, and (iii) one or more machine learning techniques, wherein the characteristics include one or more of a change in DNS configuration of the particular client computing device and a time it takes to process the at least one DNS query packet; receive anomaly output from the DNS traffic analyzer, the anomaly output indicating a DNS anomaly that was identified for the at least one DNS query packets; determine an action that caused the DNS anomaly to occur; and in response to receiving the anomaly output, provide a user device with data specifying the identified DNS anomaly and data specifying the action that caused the DNS anomaly to occur.
+2. The storage medium of claim 1, wherein: the particular client computing device comprises a virtual machine; the private network comprises a cloud computing network; and each of the plurality of packet capture devices are implemented in a router included in the cloud computing network.
+3. The storage medium of claim 1, wherein the characteristics further include: a volume of DNS traffic that exceeds a predefined DNS traffic volume threshold; pseudo-randomly generated domain names specified as the query domain name for at least one of the DNS query packets; or a domain name unrecognized by an internal DNS operating in the private network.
+4. The storage medium of claim 1, wherein the instructions further cause the processor to: exclude, from the DNS query packets, whitelist DNS packets that specify a whitelisted domain name included in a whitelist of domain names; and exclude, from the DNS query packets, blacklist DNS packets that specify a blacklisted domain name included in a blacklist of domain names.
+5. The storage medium of claim 1, wherein the particular client computing device is one of a plurality of client computing devices managed by a client, and wherein the instructions further cause the processor to: receive, from each of a second plurality of packet capture devices of the private network, second DNS query packets that were sent by a second client computing device that is included in the plurality of client computing devices, each second DNS query packet specifying i) a destination DNS server, ii) a query domain name, and iii) a source address that specifies the second client computing device; combine at least one of the second DNS query packets with the DNS query packets provided to the DNS traffic analyzer, and wherein the anomaly output from the DNS traffic analyzer indicates a client DNS anomaly, the client DNS anomaly comprising an anomaly that was identified based on both i) the DNS query packets of the particular client computing device, and ii) the second DNS query packets of the second client computing device.
+6. A computing device for network anomaly detection, the computing device comprising: a hardware processor; and a data storage device storing instructions that, when executed by the hardware processor, cause the hardware processor to: obtain, from a plurality of network packet capture devices of a private network, a set of domain name system (DNS) packets, each DNS packet i) being addressed to a DNS server, and ii) having a source address that specifies a client computing device included in the private network; identify, from the set of DNS packets, whitelist DNS packets that specify a whitelisted domain name included in a whitelist of domain names; identify, from the set of DNS packets, blacklist DNS packets that specify a blacklisted domain name included in a blacklist of domain names; identify, from the set of DNS packets, a set of unknown DNS packets by excluding, from the set of DNS packets, each whitelist DNS packet and blacklist DNS packet; analyze, for a particular client computing device included in the private network, unknown DNS packets having a particular source address that specifies the particular client computing device; identify, based on (i) at least one characteristic of the analyzed unknown DNS packets, (ii) data representing previous occurrences of DNS anomalies, and (iii) one or more machine learning techniques, a DNS anomaly for the particular client computing device, wherein the at least one characteristic includes one or more of a change in DNS configuration of the particular client computing device and a time it takes to process the unknown DNS packets; and determine an action that caused the DNS anomaly to occur.
+7. The computing device of claim 6, wherein a DNS anomaly is identified in response to determining that the at least one characteristic of the analyzed unknown DNS packets indicates: a volume of DNS traffic that exceeds a predefined DNS traffic volume threshold; or pseudo-randomly generated domain names; or a domain name unrecognized by an internal DNS operating in the private network.
+8. The computing device of claim 6, wherein: the client computing device of each DNS packet comprises a virtual machine; the private network comprises a cloud computing network; and each of the plurality of network packet capture devices is implemented in a router included in the cloud computing network.
+9. The computing device of claim 6, wherein the unknown DNS packets are analyzed by comparing, for each domain name included in each unknown DNS packet, a first address resolved by a first DNS server to a second address resolved by a second DNS server.
+10. The computing device of claim 9, wherein a DNS anomaly is identified for the client computing device in response to determining, based on the comparison of the first address and the second address, that a discrepancy exists.
+11. A method for network anomaly detection, implemented by a hardware processor, the method comprising: obtaining, from a plurality of network packet capture devices of a private network, domain name system (DNS) query packets that were sent by a plurality of client computing devices operating on the private network, each DNS query packet specifying i) a destination DNS server, ii) a query domain name, and iii) a source address that specifies one of the plurality of client computing devices; identifying, from the DNS query packets, a set of client DNS packets for a particular client, each client DNS packet specifying a source address associated with the particular client; identifying, based on (i) at least one characteristic of the set of client DNS packets, (ii) data representing previous occurrences of DNS anomalies, and (iii) one or more machine learning techniques, a DNS anomaly for the particular client, wherein the at least one characteristic includes one or more of a change in DNS configuration of the particular client and a time it takes to process the unknown DNS packets; determining an action that caused the DNS anomaly to occur; and providing, to a user device, data specifying the DNS anomaly and data specifying the action that caused the DNS anomaly to occur.
+12. The method of claim 11, wherein at least two client computing devices of the plurality of client computing devices are specified by the client DNS packets.
+13. The method of claim 12, wherein the DNS anomaly is identified based on client DNS packets that specify source addresses of each of the at least two client computing devices.
+14. The method of claim 12, wherein the DNS anomaly is identified based on client DNS packets that specify the source address of only one of the at least two client computing devices.
+15. The method of claim 12, wherein: each of the at least two client computing devices comprise a virtual machine; the private network comprises a cloud computing network; and each of the plurality of network packet capture devices is implemented in a router included in the cloud computing network.
+16. The method of claim 11, wherein the DNS anomaly is identified in response to determining that the at least one characteristic of the set of client DNS packets indicates: a volume of DNS traffic that exceeds a predefined DNS traffic volume threshold; pseudo-randomly generated domain names; or a domain name unrecognized by an internal DNS operating in the private network.
+17. The method of claim 11, further comprising analyzing the set of client DNS packets by comparing, for each domain name included in each DNS packet of the set of client DNS packets, a first address resolved by a first DNS server to a second address resolved by a second DNS server.
+18. The method of claim 17, wherein the DNS anomaly is identified in response to determining, based on said comparing, that a discrepancy exists.
+19. The method of claim 11, further comprising excluding, from the set of client DNS packets, whitelist DNS packets that specify a whitelisted domain name included in a whitelist of domain names.
+20. The method of claim 11, further comprising excluding, from the set of client DNS packets, blacklist DNS packets that specify a blacklisted domain name included in a blacklist of domain names.
+</claims>
+</document>

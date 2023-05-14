@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2020-01-10
+</filing_date>
+
+<publication_date>
+2020-05-14
+</publication_date>
+
+<priority_date>
+2015-10-27
+</priority_date>
+
+<ipc_classes>
+G06F16/35,G06N20/00,G06N20/10,G06N3/08,G06N7/00
+</ipc_classes>
+
+<assignee>
+LEGILITY DATA SOLUTIONS
+</assignee>
+
+<inventors>
+BURGESS, CHANDLER L.
+HASAN, MOHAMMAD AL
+JOHNSON, JEFFREY A.
+SAHA, TANAY KUMAR
+HABIB, MD AHSAN
+</inventors>
+
+<docdb_family_id>
+58558997
+</docdb_family_id>
+
+<title>
+Apparatus and Method of Implementing Enhanced Batch-Mode Active Learning for Technology-Assisted Review of Documents
+</title>
+
+<abstract>
+The present disclosure relates to the electronic document review field and, more particularly, to various apparatuses and methods of implementing batch-mode active learning for technology-assisted review (TAR) of documents (e.g., legal documents).
+</abstract>
+
+<claims>
+1. 1.-30. (canceled)
+31. A method to implement an accumulated history of scores process to determine stopping criteria, comprising: by one or more computing devices: performing an iteration of active learning using a classification model Mc; obtaining a current version of the classification model Mc(x), an unlabeled set of available documents D and extended training data documents Dc collectively referred to as a total set of documents DT, an accumulation function A(Sc, Sc−1, . . . , S1), and a stopping threshold tstop; constructing a score vector Sc using the classification model Mc(x)and the total set of documents DT; combining a current score vector Sc with previous score vectors (Sc−1, . . . , S1) using the accumulation function A(Sc, Sc−1, . . . , S1) to obtain a stability value (s); and comparing the stability value s to the stopping threshold tstop to determine whether tstop≤s which indicates that the stopping criteria has been met.
+32. The method of claim 31, further comprising: based on the determination that the stopping criteria has not been met, storing the score vector Sc to memory as a previous score vector Sc−1; and based on the determination that the stopping criteria has not been met, repeating each step.
+33. The method of claim 32, further comprising, based on the determination that the stopping criteria has been met, returning the updated classification model M(x).
+34. The method of claim 31, wherein the classification model M is a hyperplane.
+35. The method of claim 31, wherein the iteration of active learning is implemented using a support vector machine (SVM).
+36. The method of claim 31, wherein performing an iteration of active learning comprises: (i) selecting a new batch of unlabeled instances B c using the current classification model Mc(x), the unlabeled set of available documents D, and a batch size k; (ii) obtaining labels for the new batch of unlabeled instances B c; and (iii) adding the labeled new batch of instances Bc to a current version of the training data documents referred to as extended training data documents Dc.
+37. The method of claim 36, wherein the selecting of the new batch of unlabeled instances Bc, utilizes a biased probabilistic sampler process.
+38. The method of claim 36, wherein the selecting of the new batch of unlabeled instances Bc, utilizes a diversity sampler process.
+39. The method of claim 31, wherein the method is implemented in a technology-assisted document review.
+40. An apparatus configured to implement a accumulated history of scores process to determine stopping criteria, the apparatus comprising: a processor; and, a memory that stores processor-executable instructions, wherein the processor interfaces with the memory to execute the processor-executable instructions, whereby the processor is operable to: performing an iteration of active learning using a classification model Mc; obtaining a current version of the classification model Mc(x), an unlabeled set of available documents D and extended training data documents Dc collectively referred to as a total set of documents DT, an accumulation function A(Sc, Sc−1, . . . , S1), and a stopping threshold tstop; constructing a score vector Sc using the classification model Mc(x)and the total set of documents DT; combining a current score vector Sc with previous score vectors (Sc−1, . . . , S1) using the accumulation function A(Sc, Sc−1, . . . , S1) to obtain a stability value (s); and comparing the stability value s to the stopping threshold tstop to determine whether tstop≤s which indicates that the stopping criteria has been met.
+41. The apparatus of claim 40; further comprising: based on the determination that the stopping criteria has not been met, storing the score vector Sc to memory as a previous score vector Sc−1; and based on the determination that the stopping criteria has not been met, repeating each step.
+42. A method to implement a Cohen's kappa process to determine stopping criteria, comprising: by one or more computing devices: performing an iteration of active learning using a classification model Mc; constructing an updated classification model Mc(x) using extended training data documents Dc; obtaining a current version of the updated classification model Mc(x), an unlabeled set of available documents D and extended training data documents Dc collectively referred to as a total set of documents DT, and a stopping threshold tstop; constructing a score vector Sc using the current classification model Mc(x) and the total set of documents DT; retrieving a previous score vector Sc−1; obtaining a set of documents D+c from the documents DT that have a positive score in Sc; obtaining a set of documents D−c from the documents DT that have a negative score in Sc; obtaining a set of documents D+(c−1) from the documents DT that have a positive score in Sc−1; obtaining a set of documents D−(c−1) from the documents DT that have a negative score in Sc−1; obtaining a set of documents in common, D+, between D+c and D+(c−1); obtaining a set of documents in common, D−, between D−c and D−(c−1); obtaining a probability, P+, of a document having a positive score in both score vectors Sc and Sc−1 by counting a number of documents, N+, in D+ divided by the total number of documents, N, in D; obtaining a probability, P−, of a document having negative score in both score vectors Sc and Sc−1, by counting a number of documents, N−, in D− divided by the total number of documents, N, in D; obtaining a value Ao as P−+P−; obtaining a probability, P+c, by counting a number of documents, N+c, in D+c divided by the number of documents, N, in D; obtaining a probability, P−c, by counting a number of documents, N−c, in D−c divided by the number of documents, N, in D; obtaining a probability, P+(c−1), by counting a number of documents, N+(c−1), in D+(c−1) divided by the number of documents, N, in D; obtaining a probability, P−(c−1), by counting a number of documents, N-(c−1), in D−(c−1) divided by the number of documents, N, in D; obtaining a value Ae as a probability of obtaining a positive document, P+c*P+(c−1), plus a probability of obtaining a negative document, P−c*P−(c−1); obtaining a Kappa value L as Ao−Ae divided by (1−Ao); and comparing the Kappa value L to the stopping threshold tstop to determine whether tstop≤Ao−Ae/1−Ae which indicates that a stopping criteria has been met.
+43. The method of claim 42, further comprising: based on the determination that the stopping criteria has not been met, storing the score vector Sc to memory as a previous score vector Sc−1; and based on the determination that the stopping criteria has not been met, repeating each of the steps.
+44. The method of claim 43, further comprising, based on the determination that the stopping criteria has been met, returning the updated classification model M(x).
+45. The method of claim 42, wherein the classification model M(x) is a hyperplane.
+46. The method of claim 42, wherein the iteration of active learning is implemented using a support vector machine (SVM).
+47. The method of claim 42, wherein performing an iteration of active learning comprises: (i) selecting a new batch of unlabeled instances Bc using the current classification model Mc(x), the unlabeled set of available documents D, and a batch size k; (ii) obtaining labels for the new batch of unlabeled instances Bc; and (iii) adding the labeled new batch of instances Bc to a current version of the training data documents referred to as extended training data documents Dc.
+48. The method of claim 47, wherein the selecting of the new batch of unlabeled instances Bc, utilizes a biased probabilistic sampler process.
+49. The method of claim 47, wherein the selecting of the new batch of unlabeled instances Bc, utilizes a diversity sampler process.
+50. The method of claim 42, wherein the method is implemented in a technology-assisted document review.
+</claims>
+</document>

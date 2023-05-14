@@ -1,0 +1,68 @@
+<document>
+
+<filing_date>
+2019-04-18
+</filing_date>
+
+<publication_date>
+2020-03-19
+</publication_date>
+
+<priority_date>
+2018-09-17
+</priority_date>
+
+<ipc_classes>
+G06F16/903,G06F16/9035,G06F16/906,G06F16/908,G06F16/951,H04L29/08
+</ipc_classes>
+
+<assignee>
+YANDEX EUROPE
+</assignee>
+
+<inventors>
+AKULOV, YAROSLAV VICTOROVICH
+</inventors>
+
+<docdb_family_id>
+69774479
+</docdb_family_id>
+
+<title>
+METHOD AND SYSTEM FOR GENERATING PUSH NOTIFICATIONS RELATED TO DIGITAL NEWS
+</title>
+
+<abstract>
+A method and a system for determining an importance score associated with a digital news item, the importance score for determining push notifications to be provided to a user of an electronic device. The method comprises accessing a digital news item, the digital news item having been electronically published at a news item publication time by a digital news source, the digital news source being accessible via a communication network; determining a source weight of the digital news source; determining the importance score of the digital news item based on the news item publication time and the source weight of the corresponding digital news source; in response to the importance score of the digital news item being above an importance score threshold, generating a push notification based on the digital news item; and transmitting the push notification by the server to the electronic device.
+</abstract>
+
+<claims>
+1. A method for determining an importance score associated with a digital news item, the importance score for determining push notifications to be provided to a user of an electronic device, the method executable by a server, the server connectable to the electronic device via a communication network, the method comprising: accessing, by the server, a digital news item, the digital news item having been electronically published at a news item publication time by a digital news source, the digital news source being accessible via the communication network; determining a source weight of the digital news source; determining, by the server, the importance score of the digital news item based on the news item publication time and the source weight of the corresponding digital news source; in response to the importance score of the digital news item being above an importance score threshold, generating, by the server, a push notification based on the digital news item; and transmitting the push notification by the server to the electronic device.
+2. The method of claim 1, wherein the digital news item is one of a plurality of digital news items, and wherein the method further comprises: accessing, by the server, the plurality of digital news items; generating at least one digital news cluster each having at least a subset of the plurality of digital news items; determining, by the server, a respective importance score for each one of the plurality of digital news items, each importance score being determined for each one of the plurality of digital news items based on the respective news item publication time and source weight of the respective digital news source; determining, by the server, a respective importance rank of each of at least one digital news cluster based on respective importance scores of at least one digital news item associated therewith; and selecting a representative digital news item for the at least one digital news cluster; and wherein the generating the push notification is executed in response to the importance rank being above the importance rank threshold and the generating the push notification is based on the representative digital news item.
+3. The method of claim 2, wherein the selecting the representative digital news item is based on the time-freshness of the digital news items within the associated at least one digital news cluster.
+4. The method of claim 1, wherein the determining source weight comprises determining a number of users accessing the associated digital news source over a pre-determined past time interval.
+5. The method of claim 4, wherein the determining the number of users comprises receiving statistics from at least one of: browser logs installed on at least one user electronic device; web site metric application installed on the respective digital news source; and search engine logs data indicative of click information where clicks are directed to the respective digital news source from a search engine result page displayed to at least one search engine user.
+6. The method of claim 1, wherein the determining the importance score of the digital news item based on the news item publication time and the source weight of the corresponding digital news source comprises determining the importance score that is inverse to the news item publication time; and is proportionate to the source weight.
+7. The method of claim 1, wherein the determining the importance score of the digital news item based on the news item publication time and the source weight of the corresponding digital news source comprises: determining a publication time function F(t) based on the news item publication time of the digital news item; and determining the importance score r of the digital news item according to the formula:
+description="In-line Formulae" end="lead"?r=Ws* F(t),description="In-line Formulae" end="tail"? where Ws is the source weight of the corresponding digital news source of the digital news item.
+8. The method of claim 7, wherein the determining the publication time function F(t) comprises determining:
+description="In-line Formulae" end="lead"?F(t)=sigm (t0−tpubl),description="In-line Formulae" end="tail"? where sigm is a sigmoid function; and (t0−tpubl) is a difference between a sampling time t0 and the news item publication time tpubl.
+9. The method of claim 2, wherein the determining the importance rank of each of the at least one digital news cluster comprises: for each digital news cluster, determining a publication time function Fk(t) of each digital news item of a plurality of cluster digital news items within the digital news cluster based on the news item publication time of the digital news item, each of the digital news items being a k-th digital news item, k being an integer between 1 and a number of digital news items m within the digital news cluster; for each digital news cluster, determining the importance score rk of each digital news item according to the formula:
+description="In-line Formulae" end="lead"?rk=Wks*Fk(t),description="In-line Formulae" end="tail"? where WkS is the source weight of the corresponding digital news source of the k-th digital news item; and determining the importance rank of each of the at least one digital news cluster according to the formula:
+description="In-line Formulae" end="lead"?R=Σk=1mrk.description="In-line Formulae" end="tail"?
+10. The method of claim 9, wherein the determining the publication time function Fk(t) comprises determining:
+description="In-line Formulae" end="lead"?Fk(t)=sigm (t0−tpubl),description="In-line Formulae" end="tail"? where sigm is a sigmoid function; and (t0−tpubl) is a difference between a sampling time t0 and the news item publication time tkpubl.
+11. The method of claim 2, further comprising, prior to pushing the notification based on the representative digital news item, verifying whether the representative digital news has been already pushed within a threshold time interval.
+12. The method of claim 11, wherein the method further comprises maintaining a push notification database that includes a list of past push notifications: the verifying whether the representative digital news item has been already pushed further comprises comparing an identification of the push notification with indications of past push notifications in the push notification database; the transmitting the push notification is executed in response to the push notification not matching any of the indications of past push notifications stored in the push notification database; and wherein the method further comprises updating the push notification database after the transmitting the push notification with the indication of the push notification.
+13. The method of claim 2, wherein the generating at least one digital news cluster each having at least a subset of the plurality of digital news items comprises, after a pre-determined cluster determination delay: re-analyzing at least a portion of the plurality of digital news items to determine the at least one digital news cluster and the at least one digital news item associated therewith.
+14. The method of claim 2, wherein generating the at least one digital news cluster comprises for each digital news cluster, determining the digital news items published within a cluster publication time period.
+15. The method of claim 14, wherein the cluster publication time period is prior to a sampling time.
+16. The method of claim 2, wherein the push notification is one of a plurality of push notifications, and wherein the method further comprises: determining the importance rank threshold based on a target number of push notifications of the plurality of push notifications.
+17. The method of claim 1, wherein the determining a plurality of digital news sources further comprises determining each of the plurality of digital news sources is trustworthy.
+18. The method of claim 1, wherein the determining the importance score of the digital news item based on the news item publication time and the source weight of the corresponding digital news source comprises: analyzing, by the server, a concentration of a number of times the digital news item has been published around the news item publication time.
+19. The method of claim 18, wherein the analyzing further comprises taking into account a time span between the news item publication time and a current time.
+20. The method of claim 18, wherein the analyzing is executed at a current time, and wherein the method further comprises taking into account a time span between the news item publication time and a pre-determined past time point that occurred between the current time and the news publication time.
+21. The method of claim 20, wherein the pre-determined past time is a point in time associated with a spike in the concertation of the number of times the news item has been published for a given digital news item.
+22. A system for determining an importance score associated with a digital news item, the importance score for determining push notifications to be provided to a user of an electronic device, the system comprising a server, the server connectable to the electronic device via a communication network, the server configured to: access a digital news item, the digital news item having been electronically published at a news item publication time by a digital news source, the digital news source being accessible via the communication network; determine a source weight of the digital news source; determine the importance score of the digital news item based on the news item publication time and the source weight of the corresponding digital news source; in response to the importance score of the digital news item being above an importance score threshold, generate a push notification based on the digital news item; and transmit the push notification to the electronic device.
+</claims>
+</document>

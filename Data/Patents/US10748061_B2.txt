@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2016-12-19
+</filing_date>
+
+<publication_date>
+2020-08-18
+</publication_date>
+
+<priority_date>
+2016-12-19
+</priority_date>
+
+<ipc_classes>
+B25J9/16,G06N3/00,G06N3/04,G06N3/08,G06N7/00
+</ipc_classes>
+
+<assignee>
+FUTUREWEI TECHNOLOGIES
+</assignee>
+
+<inventors>
+JIANG, WEI
+WANG WEI
+</inventors>
+
+<docdb_family_id>
+62561802
+</docdb_family_id>
+
+<title>
+Simultaneous localization and mapping with reinforcement learning
+</title>
+
+<abstract>
+A robotic device is disclose as having deep reinforcement learning capability. The device includes non-transitory memory comprising instructions and one or more processors in communication with the memory. The instructions cause the one or more processors to receive a sensing frame, from a sensor, comprising an image. The processors then determine a movement transition based on the sensing frame and the deep reinforcement learning, wherein the deep reinforcement learning uses at least one of a map coverage reward, a map quality reward, or a traversability reward to determine the movement transition. The processors then update an area map based on the sensing frame and the deep reinforcement learning using a visual simultaneous localization and mapping (SLAM) process to determine the map updates.
+</abstract>
+
+<claims>
+1. A robotic device having a deep reinforcement learning capability, the robotic device comprising: non-transitory memory comprising instructions; and one or more processors in communication with the memory, wherein the one or more processors execute, during a training mode of the robotic device, the instructions to: receive a sensing frame, from a sensor, comprising an image; determine estimated Q-values of a Deep Q-Network (DQN) based on a plurality of pixels of the sensing frame; select, during a deep reinforcement learning process of the training mode, an action from a plurality of defined actions based on the estimated Q-values, each of the plurality of defined actions associated with a movement of the robotic device in an area map, the movement characterized by a moving direction and a moving step; cause execution of the selected action, during a visual simultaneous localization and mapping (SLAM) process of the training mode, the execution of the selected action resulting in movement of the robotic device according to the moving direction and the moving step associated with the selected action; determine, during the visual SLAM process, map updates based on a second sensing frame from the sensor; determine, during the deep reinforcement learning process of the training mode, a subsequent movement for the robotic device based on the second sensing frame, the second sensing frame obtained during the visual SLAM process and based on the execution of the selected action, wherein the deep reinforcement learning process further uses at least one of a map coverage reward, a map quality reward, or a traversability reward corresponding to the map updates to determine the subsequent movement; update the area map based on the map updates; and update the estimated Q-values of the DQN based on the determined subsequent movement.
+2. The robotic device of claim 1, wherein the sensor comprises at least one of an image sensor or a depth sensor.
+3. The robotic device of claim 1, wherein the one or more processors execute instructions to concatenate values of each of the plurality of pixels to generate a sensing input to the deep Q-network, wherein the deep Q-network is configured to generate the estimated Q-values based on the sensing input.
+4. The robotic device of claim 3, wherein the plurality of defined actions of the robotic device include moving right, moving left, moving forward, moving in reverse, or a combination thereof.
+5. The robotic device of claim 4, wherein the one or more processors execute instructions to generate the second sensing frame from the sensor subsequent to the sensing frame.
+6. The robotic device of claim 5, wherein the one or more processors execute instructions to determine a robotic camera location in a map environment associated with the area map based on the second sensing frame and using a 2D or 3D localization technique.
+7. The robotic device of claim 6, wherein the one or more processors execute instructions to determine the robotic camera location by using a particle filtering method or extracting salient points from the sensing frame and tracking the salient points in the second sensing frame.
+8. The robotic device of claim 6, wherein the one or more processors execute instructions to use the map updates to determine the robotic camera location.
+9. The robotic device of claim 1, wherein the one or more processors execute instructions for the deep reinforcement learning to: weighting the map coverage reward, the map quality reward, and the traversability reward using a plurality of empirically pre-assigned weighting factors to generated weighted rewards; and determine the subsequent movement based on a sum of the weighted rewards.
+10. A computer-implemented method for mapping with deep reinforcement learning in a robotic device, the method comprising: receiving a sensing frame, from one or more sensors, comprising an image; determining estimated Q-values of a Deep Q-Network (DQN) based on a plurality of pixels of the sensing frame; selecting, during a deep reinforcement learning process, an action from a plurality of defined actions based on the estimated Q-values, each of the plurality of defined actions associated with a movement of the robotic device in an area map, the movement characterized by a moving direction and a moving step; causing execution of the selected action, during a visual simultaneous localization and mapping (SLAM) process, the execution of the selected action causing movement of the robotic device according to the moving direction and the moving step associated with the selected action; determining, during the visual SLAM process, map updates based on a second sensing frame from the sensor; determining, during the deep reinforcement learning process, a subsequent movement for the robotic device based on the second sensing frame, the second sensing frame obtained during the visual SLAM process and based on the execution of the selected action, wherein the deep reinforcement learning process further uses a plurality of rewards associated with the area map to determine the subsequent movement; updating the area map based on the map updates; and updating the estimated Q-values of the DQN based on the determined subsequent movement.
+11. The computer-implemented method of claim 10, further comprising: determining a total reward based on a sum of a map coverage reward, a map quality reward, and a traversability reward; and determining a transition set associated with the subsequent movement, the transition set comprising a stochastic transition generated from the sensing frame, a stochastic transition generated from the second sensing frame, the action, and the total reward.
+12. The computer-implemented method of claim 11, further comprising randomly sampling at least one transition set from a plurality of transition sets corresponding to the determined transition set to generate a target loss.
+13. The computer-implemented method of claim 12, further comprising updating the deep Q-network based on the target loss.
+14. The computer-implemented method of claim 11, wherein the selected action is determined based on a total reward rt=αrc+βrq+γrv, wherein rc is the map coverage reward, rq is the map quality reward, rv is the traversability reward, and α, β, γ are reward weights.
+15. A non-transitory computer-readable media storing computer instructions for visual simultaneous localization and mapping with deep reinforcement learning in a robotic device, that when executed by one or more processors, cause the one or more processors to perform, during a training mode of the robotic device, the steps of: receive a sensing frame, from a sensor, comprising an image; determine estimated Q-values of a Deep Q-Network (DQN) based on a plurality of pixels of the sensing frame; select, during a deep reinforcement learning process of the training mode, an action from a plurality of defined actions based on the estimated Q-values, each of the plurality of defined actions associated with a movement of the robotic device in an area map, the movement characterized by a moving direction and a moving step; cause execution of the selected action, during a visual simultaneous localization and mapping (SLAM) process of the training mode, the execution of the selected action causing movement of the robotic device according to the moving direction and the moving step associated with the selected action; determine, during the visual SLAM process, map updates based on a second sensing frame from the sensor; determine, during the deep reinforcement learning process, a subsequent movement for the robotic device based on the second sensing frame, the second sensing frame obtained during the visual SLAM process and based on the execution of the selected action, wherein the deep reinforcement learning process further uses a total reward comprising a map coverage reward, a map quality reward, and a traversability reward associated with the area map to determine the subsequent movement of the robotic device; update the area map based on the map updates; and update the estimated Q-values of the DQN based on the determined subsequent movement.
+16. The non-transitory computer-readable media of claim 15, wherein the computer instructions further cause the one or more processors to: concatenate values of each of the plurality of pixels of the sensing frame to generate a sensing input to the deep Q-network; and generate the estimated Q-values for possible actions of the robotic device based on the sensing input, wherein the possible actions are based on discretization of possible moving directions in a coordinate system representing an environment map.
+17. The non-transitory computer-readable media of claim 16, wherein the computer instructions further cause the one or more processors to locate the sensor by: extraction of salient feature points from the sensing frame; tracking of the salient feature points in the second sensing frame by matching the salient feature points to salient feature points from the second sensing frame; and determining a sensor pose space and location in a three dimensional map.
+18. The non-transitory computer-readable media of claim 17, wherein the salient feature points are represented by a set of descriptors.
+19. The non-transitory computer-readable media of claim 18, wherein the set of descriptors comprise Scale-Invariant Feature Transform (SIFT) descriptors, Speeded UP Robust Features (SURF) descriptors, Oriented Features from Accelerated Segment Test (FAST) or Rotated Binary Robust Independent Element Features (BRIEF) (ORB) descriptors.
+20. The non-transitory computer-readable media of claim 17, wherein the computer instructions further cause the one or more processors to locate the sensor by input from inertial motion sensors of the robotic device.
+</claims>
+</document>

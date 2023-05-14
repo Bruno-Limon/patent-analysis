@@ -1,0 +1,46 @@
+<document>
+
+<filing_date>
+2019-07-12
+</filing_date>
+
+<publication_date>
+2020-11-26
+</publication_date>
+
+<priority_date>
+2019-01-14
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/08,G06N5/02,G09B19/16,G09B9/05
+</ipc_classes>
+
+<assignee>
+Polixir Technologies Limited
+</assignee>
+
+<inventors>
+QIN, Rongjun
+</inventors>
+
+<docdb_family_id>
+66453751
+</docdb_family_id>
+
+<title>
+TRAINING SYSTEM FOR AUTONOMOUS DRIVING CONTROL POLICY
+</title>
+
+<abstract>
+The invention discloses a training system for autonomous driving control policy, which comprises a simulator construction module based on machine learning, a driving control policy search module based on confrontation learning, and a driving control policy model transfer module.
+</abstract>
+
+<claims>
+1. A training system for an autonomous driving control policy, comprising three modules of a construction of a simulator, a policy search, and a policy transfer; the construction of the simulator: a simulation to static factors such as power systems of vehicles and driving roads as well as a simulation to dynamic factors such as pedestrians, non-motor vehicles, and surrounding vehicles are involved; the policy search: in the simulator which is constructed, a driving objective function is set, and a driving control policy of an optimal objective function is searched for by means of a machine learning method; and the policy transfer: the policy searched out in the simulator is retrained according to data acquired by an unmanned vehicle entity to obtain a driving control policy used for the unmanned vehicle entity, wherein the policy transfer comprises: initialization of a transfer model: a control policy model is run in an unmanned vehicle entity with an autonomous driving control policy model obtained through training in the simulator as a starting point, and is updated by means of obtained data; a simulator transition correction and transfer: firstly, a control action sequence (a1, a2, a3, . . . , an) is executed on the unmanned vehicle entity, and perception states (s0, s1, s2, s3, . . . , sn) of all executed action are collected; secondly, in the simulator, an initial state is set as s0, and a same action sequence (a1, a2, a3, . . . , an) is executed; and perception states (s0, u1, u2, u3, . . . , un) are collected; thirdly, in the simulator, a transition correction function g is constructed, an action a from a current state s and a control policy π is input to the g, and a correction action a′ replacing the action a is output from the g and is actually executed in the environment, wherein a′=g(s, π(s)); and fourthly, the g is trained by means of an evolutionary algorithm or a reinforcement learning method to make sure that data from the unmanned vehicle entity is similar to data from the simulator as far as possible, wherein Σi(si−ui)2 is minimized; after the simulator transition correction and transfer, the control policy π obtained through training in the simulator is directly used for the unmanned vehicle entity.
+2. The training system for the autonomous driving control policy according to claim 1, wherein the dynamic factors are simulated in the simulator through the following solution: firstly, road videos are captured; secondly, the dynamic factors in the road videos are detected; thirdly, surrounding information S(o,t) and position information L(o,t) of each dynamic factor o at all times t are extracted, the surrounding information S(o,t) and position movement information L(o,t)−L(o,t−1) are paired, wherein the S(o,t) is marked as the L(o,t)−L(o,t−1), and a labeled data set including all the dynamic factors at all the times is constructed; fourthly, a prediction model H which inputs a prediction value of the S(o,t) and outputs a prediction value of the L(o,t)−L(o,t−1) is trained from the labeled data set by means of a supervised learning method; and finally, in the simulator, surrounding information S(o) and position information L(o) of each said dynamic factor o are extracted, a prediction model H(S(o)) is called to obtain a value v, and accordingly, L(o)+v is a next position of the dynamic factor.
+3. The training system for the autonomous driving control policy according to claim 1, wherein in the policy search: an autonomous driving control policy aims to perform continuous control according to continuously input perceptual information to form a driving process; firstly, according to a requirement of a system user for a driving policy, an objective function is designed; secondly, parameters of a policy model are designed, a multi-layer feedforward neural network, a convolution neural network, or a residual network is used as an implementation model of a control policy, and control policy parameters are determined as connection weights among units of the neural network through training; and thirdly, as for the objective function, the parameters of the policy model having a maximum evaluation value are searched for by means of an evolutionary algorithm or a reinforcement learning algorithm in a space defined by the parameters of the policy model.
+4. The training system for the autonomous driving control policy according to claim 3, wherein a search process comprises the following steps: (1) setting k=0; (2) generating random control policy parameters to obtain an initial control policy πk; (3) running the initial control policy πk in the simulator to obtain a motion trajectory of an unmanned vehicle in the simulator and to respectively evaluate a destination determination value, a safety determination value, a compliance determination value, and a comfort determination value of the motion trajectory, and adding these values together to obtain a result of an evaluation index after running the control policy; (4) updating a population by means of the evolutionary algorithm according to the result obtained in the Step (3); or, updating a driving policy model by means of a reinforcement learning method; (5) after the update, obtaining the driving policy model to be executed next time, and setting k=k+1; and (6) repeating the Step (2) until all cycles are completed.
+5. (canceled)
+</claims>
+</document>

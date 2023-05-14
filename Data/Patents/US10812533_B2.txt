@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-07-03
+</filing_date>
+
+<publication_date>
+2020-10-20
+</publication_date>
+
+<priority_date>
+2017-05-12
+</priority_date>
+
+<ipc_classes>
+G06F16/242,G06F21/00,G06F21/34,G06N20/00,H04L29/06
+</ipc_classes>
+
+<assignee>
+SAP
+</assignee>
+
+<inventors>
+POVALYAYEV, VIKTOR
+BAUMGART, MARVIN
+HU, DAVID C.
+</inventors>
+
+<docdb_family_id>
+64096780
+</docdb_family_id>
+
+<title>
+Positionally-encoded string representations, including their use in machine learning
+</title>
+
+<abstract>
+String comparison, including comparing strings with a rule, can be time consuming, and strings may not be suitable for analysis using machine learning algorithms. The present disclosure provides positionally-encoded representations of strings, such as binary matrices or arrays, that provide an encoded representation of the string. The encoding, and decoding, can be facilitated by an encoding schema, such as an encoding schema stored in the memory of a computer device. The encoding schema associates particular characters with particular positions in an array. The positionally-encoded string representations can be used for security applications, such as to determine whether an authorization token that includes at least one string complies with an authorization rule. The authorization rule can be specified as a positionally-encoded representation that defines a set of strings that comply with the rule.
+</abstract>
+
+<claims>
+1. In a computing system comprising at least one memory and one or more processors, a method comprising: receiving a request to determine whether a value comprising at least one character string complies with at least one rule; converting at least a portion of the character string to a first positionally-encoded string representation, the converting comprising, for each of a plurality of characters of the character string: comparing the character to an encoding schema, the encoding schema comprising an array of a plurality of unique characters, the array having a length, and each unique character having a unique position in the array; providing a number of elements in a data structure equal to the length of the array of unique characters, the number of elements having an initial position; determining a unique character that is the same as the character of the character string; determining the position of the unique character in the array of unique characters, the position being an index value compared with an initial position of the array of unique characters; determining a position in the data structure that is equal to the initial position plus the index value; and setting a value of the determined position of the data structure to indicate that the character of the character string is the determined unique character, wherein elements of the data structure that are not the unique character have a value that indicates that the unique character at the corresponding position in the array of unique characters is not the character of the character string; comparing at least a portion of the first positionally-encoded string representation with at least a portion of at least a second positionally-encoded string representation to determine whether the at least a first positionally-encoded string representation complies with the at least one rule; determining a rule compliance result based on the comparing; and returning the compliance result in response to the request.
+2. The method of claim 1, wherein the character string comprises at least one wildcard indicator, the converting the at least a portion of the character string to a first positionally-encoded string representation further comprising: setting values of data structures for positions in the character string corresponding to the wildcard indicator and after the wildcard indicator to indicate that all characters in the encoding schema are present at the given position.
+3. The method of claim 1, wherein determining if the comparing satisfies the at least one rule comprises interpreting numerical characters as numbers.
+4. The method of claim 3, wherein numerical characters between an end point of the character string and an alphabetic character, or numerical characters between a pair of alphabetic characters, are treated as a single number.
+5. A computing system that implements an analysis engine, the computing system comprising: one or more memories; one or more processing units coupled to the one or more memories; and one or more computer readable storage media storing instructions that, when loaded into the memories, cause the one or more processing units to perform operations for: receiving a request to determine whether at least a first string complies with a rule; creating a positionally-encoded representation of the at least a first string by encoding a data structure based on the positions of a plurality of characters of at least a portion of the at least a first string in an encoding schema; comparing the positionally-encoded representation of the at least a first string with a positionally-encoded representation of at least a second string; determining if the comparing satisfies the rule; and returning in response to the request an indication as to whether the rule is satisfied for the at least a first string.
+6. The system of claim 5, wherein the positionally-encoded representation of the at least a first string comprises a matrix, the matrix having a first dimension at least as large as the number of the plurality of characters of the at least a portion of the at least a first string and a second dimension equal to a length of an encoding schema array of the encoding schema.
+7. The system of claim 5, wherein the positionally-encoded representation of the at least a second string comprises a third string portion and a fourth string portion, the operations further comprising: forming a cube from the third string portion and the fourth string portion, wherein the third and fourth string portions form different layers of the cube.
+8. The system of claim 7, wherein the third string portion and the fourth string portion define an interval, wherein compliance with the rule is determined by determining if a value of the positionally-encoded representation of the at least a first string is within the interval.
+9. The system of claim 5, wherein comparing the positionally-encoded representation of the at least a first string with the rule comprises providing the positionally-encoded representation of the at least a first string and the positionally-encoded representation of the at least a second string to a machine learning algorithm.
+10. The system of claim 5, wherein the rule comprises determining whether the at least a first string is the same as the at least a second string.
+11. The system of claim 5, wherein the rule comprises determining whether the at least a first string represents a subset of the at least a second string.
+12. The system of claim 5, wherein the at least a first string comprises at least one wildcard indicator, the operations comprising a wildcard resolving routine comprising: for character positions after the wildcard indicator in the at least a first string, determining whether a value of the positionally-encoded representation of the character position of the first string matches a value of a corresponding character position of the positionally-encoded representation of the at least a second string.
+13. The system of claim 12, the operations further comprising: determining that a character position value of a character position after the wildcard indicator in the at least a first string comprises another wildcard indicator and executing the wildcard resolving routine for the another wildcard indicator.
+14. The method of claim 5, wherein the at least a first string is of a non-numerical datatype.
+15. The system of claim 5, wherein the at least a first string comprises a first third string and a fourth string, the third string and the fourth string specifying a range of string values.
+16. The system of claim 15, wherein the encoding schema identifies an order in a character set used to define strings, and the third string specifies a first character in the sequence, the fourth string specifies a second character in the sequence, and the range comprises characters positionally located between the first and second characters.
+17. The system of claim 16, wherein the third string and the fourth string form layers in a positionally-encoded cube.
+18. One or more tangible computer-readable storage media storing: computer-executable instructions receiving a request to analyze a character string; computer-executable instructions converting at least a portion of the character string to a first positionally-encoded string representation, the converting comprising, for each of a plurality of characters of the character string: computer-executable instructions comparing the character to an encoding schema, the encoding schema comprising an array of a plurality of unique characters, the array having a length, and each unique character having a unique position in the array; computer-executable instructions providing a number of elements in a data structure equal to the length of the array of unique characters, the number of elements having an initial position; computer-executable instructions determining a unique character that is the same as the character of the character string; computer-executable instructions determining the position of the unique character in the array of unique characters, the position being an index value compared with an initial position of the array of unique characters; computer-executable instructions determining a position in the data structure that is equal to the initial position plus the index value; and computer-executable instructions setting a value of the determined position of the data structure to indicate that the character of the character string is the determined unique character, wherein elements of the data structure that are not the unique character have a value that indicates that the unique character at the corresponding position in the array of unique characters is not the character of the character string; computer-executable instructions conducting the requested analysis using the first positionally-encoded string representation; and computer-executable instructions returning analysis results in response to the request.
+19. The one or more tangible computer-readable storage media of claim 18, wherein the computer-executable instructions conducting the requested analysis comprise submitting the first positionally-encoded string representation to a machine learning algorithm.
+20. The one or more tangible computer-readable storage media of claim 19, wherein the machine learning algorithm is a classification algorithm or a clustering algorithm and the analysis results comprise a classification or a cluster identifier.
+</claims>
+</document>

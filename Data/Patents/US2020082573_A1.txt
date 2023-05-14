@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2019-07-16
+</filing_date>
+
+<publication_date>
+2020-03-12
+</publication_date>
+
+<priority_date>
+2018-09-10
+</priority_date>
+
+<ipc_classes>
+G06T9/00
+</ipc_classes>
+
+<assignee>
+BAIDU ON-LINE NETWORK TECHNOLOGY (BEIJING) COMPANY
+</assignee>
+
+<inventors>
+YANG, CHEN
+LUO, DUN
+DONG, FANGFANG
+SUN, QINGRUI
+MAO, JIMING
+ZHANG, JUNFEI
+</inventors>
+
+<docdb_family_id>
+64987918
+</docdb_family_id>
+
+<title>
+Method and Apparatus for Generating Simulation Scene
+</title>
+
+<abstract>
+Embodiments of the present disclosure provide a method and an apparatus for generating a simulation scene. The method includes: acquiring scene parameters of a benchmark scene, where a dimensionality of the scene parameters of the benchmark scene is M; inputting the scene parameters of the benchmark scene into an encoder that is trained, and acquiring encoding parameters according to an output result of the encoder, where a dimensionality of the encoding parameters is N, and N<M; adjusting the encoding parameters to obtain adjusted encoding parameters, and inputting respectively the adjusted encoding parameters into a decoder that is trained; and generating a simulation scene according to the scene parameters of the reconstructed scene that are output by the decoder. According to the method, generating massive simulation scenes similar to the benchmark scene based on the benchmark scene can be achieved, which meets the diversity requirements for the simulation scenes.
+</abstract>
+
+<claims>
+1. A method for generating a simulation scene, comprising: acquiring scene parameters of a benchmark scene, wherein a dimensionality of the scene parameters of the benchmark scene is M; inputting the scene parameters of the benchmark scene into an encoder that is trained, and acquiring encoding parameters according to an output result of the encoder, wherein a dimensionality of the encoding parameters is N, and N<M; adjusting the encoding parameters to obtain adjusted encoding parameters, and inputting respectively the adjusted encoding parameters into a decoder that is trained, wherein the decoder is configured to acquire scene parameters of a reconstructed scene according to the adjusted encoding parameters, wherein a dimensionality of the scene parameters of the reconstructed scene is the same as the dimensionality of the scene parameters of the benchmark scene; and generating a simulation scene according to the scene parameters of the reconstructed scene that are output by the decoder.
+2. The method according to claim 1, wherein the adjusting the encoding parameters to obtain adjusted encoding parameters comprises: determining K dimensions of the encoding parameters, and adjusting parameters of other N-K dimensions than the K dimensions in the encoding parameters to obtain the adjusted encoding parameters, wherein 1<=K<N.
+3. The method according to claim 1, wherein after the generating a simulation scene according to the scene parameters of the reconstructed scene that are output by the decoder, the method further comprises: determining whether the simulation scene is reasonable according to a preset strategy.
+4. The method according to claim 1, wherein before the inputting the scene parameters of the benchmark scene into an encoder that is trained, the method further comprises: acquiring scene parameters of at least one to-be-trained scene, wherein a dimensionality of the scene parameters of the to-be-trained scene is M; inputting the scene parameters of the to-be-trained scene into an encoder to be trained, and acquiring encoding parameters according to an output result of the encoder, wherein a dimensionality of the encoding parameters is N; inputting the encoding parameters into a decoder to be trained, and acquiring scene parameters of a reconstructed scene that are output by the decoder; and training the encoder and the decoder that are to be trained according to a difference between the to-be-trained scene and the reconstructed scene, to obtain the encoder and the decoder that are trained.
+5. The method according to claim 4, wherein the acquiring encoding parameters according to an output result of the encoder comprises: adding a noise with preset distribution to the output result of the encoder to obtain the encoding parameters.
+6. The method according to claim 5, wherein the noise with preset distribution is a normally distributed noise.
+7. The method according to claim 6, wherein before the training the encoder and the decoder that are to be trained according to a difference between the to-be-trained scene and the reconstructed scene, the method further comprises: acquiring a reconstruction loss according to the scene parameters of the to-be-trained scene and the scene parameters of the reconstructed scene; acquiring a normal distribution error according to the output result of the encoder; and acquiring the difference between the to-be-trained scene and the reconstructed scene according to the reconstruction loss and the normal distribution error.
+8. The method according to claim 7, wherein: the acquiring a reconstruction loss according to the scene parameters of the to-be-trained scene and the scene parameters of the reconstructed scene comprises: acquiring the reconstruction loss according to a Euclidean distance between the scene parameters of the to-be-trained scene and the scene parameters of the reconstructed scene; and the acquiring a normal distribution error according to the output result of the encoder comprises: acquiring the normal distribution error according to a mean value and a variance of the output result of the encoder, wherein dimensionalities of both the mean value and the variance are N.
+9. The method according to claim 1, wherein the encoder and the decoder are deep neural network models.
+10. An apparatus for generating a simulation scene, comprising at least one processor and a memory storing instructions thereon, the processor when executing the instructions, being configured to: acquire scene parameters of a benchmark scene, wherein a dimensionality of the scene parameters of the benchmark scene is M; input the scene parameters of the benchmark scene into an encoder that is trained and acquire encoding parameters according to an output result of the encoder, wherein a dimensionality of the encoding parameters is N, and N<M; adjust the encoding parameters to obtain adjusted encoding parameters; input respectively the adjusted encoding parameters into a decoder that is trained, wherein the decoder is configured to acquire scene parameters of a reconstructed scene according to the adjusted encoding parameters, wherein a dimensionality of the scene parameters of the reconstructed scene is the same as the dimensionality of the scene parameters of the benchmark scene; and generate a simulation scene according to the scene parameters of the reconstructed scene that are output by the decoder.
+11. The apparatus according to claim 10, wherein the processor is configured to: determine K dimensions of the encoding parameters, and adjust parameters of other N-K dimensions than the K dimensions in the encoding parameters to obtain the adjusted encoding parameters, wherein 1<=K<N.
+12. The apparatus according to claim 10, wherein the processor is further configured to determine whether the simulation scene is reasonable according to a preset strategy.
+13. The apparatus according to claim 10, wherein the processor is further configured to: acquire scene parameters of at least one to-be-trained scene, wherein a dimensionality of the scene parameters of the to-be-trained scene is M; input the scene parameters of the to-be-trained scene into an encoder to be trained, and acquire encoding parameters according to an output result of the encoder, wherein a dimensionality of the encoding parameters is N; input the encoding parameters into a decoder to be trained, and acquire scene parameters of a reconstructed scene that are output by the decoder; and train the encoder and the decoder that are to be trained according to a difference between the to-be-trained scene and the reconstructed scene, to obtain the encoder and the decoder that are trained.
+14. The apparatus according to claim 13, wherein the processor is configured to: add a noise with preset distribution to the output result of the encoder to be trained to obtain the encoding parameters.
+15. The apparatus according to claim 14, wherein the noise with preset distribution is a normally distributed noise.
+16. The apparatus according to claim 15, wherein the processor is further configured to: acquire a reconstruction loss according to the scene parameters of the to-be-trained scene and the scene parameters of the reconstructed scene; acquire a normal distribution error according to the output result of the encoder; and acquire the difference between the to-be-trained scene and the reconstructed scene according to the reconstruction loss and the normal distribution error.
+17. The apparatus according to claim 16, wherein the processor is configured to: acquire the reconstruction loss according to a Euclidean distance between the scene parameters of the to-be-trained scene and the scene parameters of the reconstructed scene; and acquire the normal distribution error according to a mean value and a variance of the output result of the encoder, wherein dimensionalities of both the mean value and the variance are N.
+18. The apparatus according to claim 10, wherein the encoder and the decoder are deep neural network models.
+19. A computer readable storage medium, wherein the computer readable storage medium stores a computer-executed instruction, and the computer-executed instruction, when executed by a processor, implements the method for generating a simulation scene according to claim 1.
+</claims>
+</document>

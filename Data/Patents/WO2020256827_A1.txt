@@ -1,0 +1,98 @@
+<document>
+
+<filing_date>
+2020-04-26
+</filing_date>
+
+<publication_date>
+2020-12-24
+</publication_date>
+
+<priority_date>
+2019-06-17
+</priority_date>
+
+<ipc_classes>
+G06F16/953,G06N3/04
+</ipc_classes>
+
+<assignee>
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+CHAKRABORTY, DORAN
+WU, Xiaojian
+SEO, Hyun-Ju
+LIN, Sina
+VENKATASUBRAMANIAN, Gangadharan
+</inventors>
+
+<docdb_family_id>
+70775487
+</docdb_family_id>
+
+<title>
+CONSTRUCTING ANSWERS TO QUERIES THROUGH USE OF A DEEP MODEL
+</title>
+
+<abstract>
+Various technologies relating to constructing an answer to a query are described herein, wherein the answer is in list form. The answer includes a header and a list element. A deep model receives content of a webpage that is deemed relevant to the query by a search engine and constructs the answer to the webpage upon receipt of the query.
+</abstract>
+
+<claims>
+1. A method performed by at least one processor when the processor executes a search engine, the method comprising:
+based upon a query received from a client computing device that is in network communication with the at least one processor, identifying a webpage as being relevant to the query;
+retrieving the webpage in response to identifying the webpage;
+constructing an answer from content of the webpage, wherein the answer is in list form, wherein the answer comprises:
+a first element that comprises first text of the webpage; and a second element that comprises second text of the webpage, wherein the first text and the second text are adjacent in the answer but are separated by third text in the webpage; and
+transmitting the answer to the client computing device, wherein the client computing device is configured to present the answer to a user thereof by way of an output interface associated with the client computing device.
+2. The method of claim 1, further comprising:
+in response to retrieving the webpage and prior to constructing the answer, generating a first representation of the webpage and a second representation of the webpage, wherein the first representation of the webpage and the second representation of the webpage are different from one another;
+providing the first representation of the webpage to a first computer-implemented deep model that is configured to construct answers to queries based upon text of webpage representations provided to the first computer-implemented deep model; and
+providing the second representation of the webpage to a second computerimplemented deep model that is configured to construct answers to queries based upon text of webpage representations provided to the second computer-implemented deep model, wherein the answer is constructed by the first computer-implemented deep model based upon the first representation of the webpage.
+3. The method of claim 2, wherein generating the first representation and the second representation of the webpage comprises:
+delineating a boundary between a first fragment and a second fragment in the webpage, wherein the first fragment is included in the first representation and the second fragment is included in the second representation.
+4. The method of claim 2, wherein generating the first representation and the second representation of the webpage comprises:
+identifying a list tag in HTML code of the webpage, wherein the first
+representation is generated based upon the list tag being identified in the HTML code.
+5. The method of claim 2, wherein the second computer-implemented deep model constructs a second answer based upon the second representation of the webpage, wherein the second answer differs from the first answer, the method further comprising:
+computing a first score for the answer;
+computing a second score for the second answer; and
+selecting the answer based upon the first score relative to the second score.
+6. The method of claim 2, wherein the first representation of the webpage comprises a first fragment and a second fragment, wherein the first fragment is the first text and has a first plurality of words and the second fragment is the second text and has a second plurality of words, and further wherein constructing the answer from the text of the webpage comprises:
+encoding the first fragment as a first vector, wherein the first vector represents semantic meaning of the first fragment; and
+encoding the second fragment as a second vector, wherein the second vector represents semantic meaning of the second fragment, wherein the first vector and the second vector are of a same length, and further wherein the answer is constructed based upon the first vector and the second vector.
+7. The method of claim 6, wherein constructing the answer from the text of the webpage further comprises:
+providing the first vector and the second vector as sequential input to a recurrent neural network (RNN); and
+generating, by the RNN, sequential output that includes a third vector and a fourth vector, wherein the third vector represents the first fragment and the fourth vector represents the second fragment, and further wherein the answer is constructed based upon the third vector and the fourth vector.
+8. The method of claim 7, wherein constructing the answer from the text of the webpage further comprises:
+providing the third vector and the fourth vector as sequential input to a second RNN, wherein the second RNN attends to an encoding of the query; and
+generating, by the second RNN, sequential output that includes a fifth vector and a sixth vector, wherein the fifth vector represents the first fragment and the sixth vector represents the second fragment, and further wherein the answer is constructed based upon the fifth vector and the sixth vector.
+9. The method of claim 8, wherein constructing the answer from the text of the webpage further comprises:
+providing the fifth vector and the sixth vector as sequential input to a third RNN, wherein self attention is employed in the third RNN; and
+generating, by the third RNN, sequential output that includes a seventh vector and an eighth vector, wherein the seventh vector represents the first fragment and the eighth vector represents the second fragment, and further wherein the answer is constructed based upon the seventh vector and the eighth vector.
+10. A computing system that is configured to construct an answer to a query from text of a webpage, wherein the computing system receives the query from a client computing device, the computing system comprising:
+at least one processor; and
+memory storing instructions that, when executed by the at least one processor, cause the at least one processor to perform acts comprising:
+receiving a ranked list of webpages from a search engine, wherein the search engine has generated the ranked list of webpages in response to receipt of the query;
+selecting a webpage from the ranked list of webpages due to the webpage being amongst a predefined threshold number of most highly ranked webpages in the ranked list of webpages, wherein the webpage comprises text;
+in response to selecting the webpage from the ranked list of webpages, retrieving the webpage from a web server that hosts the webpage;
+constructing the answer to the query based upon the text of the webpage, wherein the answer comprises a list that comprises a first list entry and a second list entry adjacent to the first list entry in the list, wherein the text of the webpage comprises the first list entry and the second list entry, and further wherein the first list entry and the second list entry are separated by intermediate text in the webpage; and
+generating a search engine results page, wherein the search engine results page comprises the ranked list of webpages, and further wherein the search engine results page comprises the answer to the query.
+11. The computing system of claim 10, wherein the webpage comprises a table, wherein the table comprises the first list entry and the second list entry.
+12. The computing system of claim 10, wherein constructing the query based upon the text of the webpage comprises:
+generating a first representation of the webpage based upon a first partitioning rule; generating a second representation of the webpage based upon a second partitioning rule, wherein the first representation of the webpage and the second representation of the webpage are different from one another;
+constructing, from text of the first representation, a first answer to the query;
+in parallel with constructing the first answer to the query, constructing, from text of the second representation, a second answer to the query;
+computing a first score for the first answer;
+computing a second score for the second answer; and
+selecting the first answer to the query as being the answer to the query to include in the search engine results page based upon a difference between the first score and the second score.
+13. The computing system of claim 10, wherein constructing the answer to the query based upon the text of the webpage comprises:
+identifying a plurality of list tags in HTML code of the webpage, wherein the plurality of list tags have a plurality of list elements respectively corresponding thereto; constructing a representation of the webpage, wherein the representation of the webpage comprises the plurality of list elements; and
+constructing the answer to the query based upon the representation of the webpage.
+14. The computing system of claim 10, wherein constructing the answer to the query based upon the text of the webpage comprises:
+generating a representation of the webpage based upon a partitioning rule; and providing the representation of the webpage and the query to a deep network, wherein the deep network is configured to construct the answer to the query based upon the representation of the webpage and the query.
+15. The computing system of claim 10, wherein the answer further comprises a header, wherein the header is followed by the first list element and the second list element in the answer.
+</claims>
+</document>

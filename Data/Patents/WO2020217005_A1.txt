@@ -1,0 +1,61 @@
+<document>
+
+<filing_date>
+2020-04-21
+</filing_date>
+
+<publication_date>
+2020-10-29
+</publication_date>
+
+<priority_date>
+2019-04-23
+</priority_date>
+
+<ipc_classes>
+G06F21/62,G06N3/04,G06N3/08,H04L9/00,H04L9/30
+</ipc_classes>
+
+<assignee>
+CEA (COMMISSARIAT A L'ENERGIE ATOMIQUE)
+</assignee>
+
+<inventors>
+CARPOV, SERGIU
+SIRDEY, RENAUD
+</inventors>
+
+<docdb_family_id>
+68138245
+</docdb_family_id>
+
+<title>
+METHOD AND SYSTEM FOR CONFIDENTIAL CLASSIFICATION OF DATA
+</title>
+
+<abstract>
+The present invention relates to a computer platform (100) and a method for confidential classification of data. The computer platform comprises an artificial neural network (110) as well as a classifier (130). The artificial neural network is capable, after a learning phase, of transforming an input data vector into a discriminating feature vector having a smaller dimension. A user then generates, from a plurality of reference data vectors, the same plurality of reference feature vectors, which are encrypted in an encryption module (140) by the user using the public key of a homomorphic cryptosystem and stored in a reference database (120) of the platform. When the user subsequently requests the classification of an input data vector, the artificial neural network, or a copy thereof, provides the classifier (130) with a corresponding discriminating feature vector (y). The distances from said vector to the different reference feature vectors of the reference database are calculated in the homomorphic domain and the index of the reference feature vector closest to y, i.e. the identifier i 0 of the class to which it belongs, is returned to the user.
+</abstract>
+
+<claims>
+1. Plateforme de classification confidentielle de données comprenant un réseau neuronal artificiel (110, 310) en cascade avec un classifieur (130, 230), le réseau neuronal artificiel étant adapté à être entraîné pendant une phase d'apprentissage sur des vecteurs de données d'une base de données d'apprentissage (150, 350) et à transformer, dans une phase opérationnelle, des vecteurs de données d'entrée en des vecteurs de caractéristiques discriminantes, lesdits vecteurs de caractéristiques discriminantes étant fournis au classifieur et possédant une taille inférieure à la celle des vecteurs de données, ladite plateforme de classification étant caractérisée en ce que :
+elle comprend une base de référence (120,320) dans laquelle sont stockés, lors d'une phase d'initialisation du classifieur, des vecteurs de caractéristiques de référence, obtenus par transformation, au moyen du réseau neuronal artificiel (110, 310) ou d'une copie (110') de celui-ci, de vecteurs de données de référence, les vecteurs de caractéristiques de référence étant stockés sous forme chiffrée par une clé publique d'un cryptosystème homomorphe dudit utilisateur ; et qu'après cette phase d'initialisation, lorsque l'utilisateur requiert de la plateforme de classification (100, 300) la classification d'un vecteur de données d'entrée ( x ), le classifieur (130, 330) évalue une fonction de classification dans le domaine homomorphe, à partir du vecteur de caractéristiques discriminantes ( y ) fourni par le réseau neuronal artificiel (110, 310) ou ladite copie (110') de celui-ci, et des vecteurs de caractéristiques de référence stockés sous forme chiffrée dans la base de référence i = 1,...,N ) et transmet à l'utilisateur le résultat de ladite évaluation.
+2. Plateforme de classification confidentielle de données selon la revendication 1, caractérisée en ce que le réseau de neurones artificiel est un auto encodeur. 3. Plateforme de classification confidentielle de données selon la revendication 1, caractérisée en ce que le système homomorphe est additif.
+4. Plateforme de classification confidentielle de données selon la revendication 1 ou 2, caractérisée en ce que le système homomorphe est un système SHE ou FHE.
+5. Plateforme de classification confidentielle de données selon l'une des revendications précédentes, caractérisée en ce que l'utilisateur télécharge de la plateforme une copie (110') du réseau neuronal artificiel au terme de la phase d'apprentissage, et que ladite copie du réseau neuronal est configurée pour fournir, lors de la phase d'initialisation, les vecteurs de caractéristiques de référence à partir des vecteurs de données de référence, l'utilisateur disposant d'un module de chiffrement homomorphe (140) par ladite clé publique, configuré pour chiffrer en homomoprhe lesdits vecteurs de caractéristiques de référence et les transmettre à la plateforme où ils sont stockés dans la base de référence (120).
+6. Plateforme de classification confidentielle de données selon l'une des revendications 1 à 4, caractérisée en ce que la plateforme comprend en outre un second réseau neuronal artificiel (315) configuré pour effectuer dans le domaine homomorphe une opération de transformation équivalente à celle effectuée par le réseau neuronal artificiel dans le domaine des clairs, l'utilisateur disposant d'un module de chiffrement homomorphe (340) par ladite clé publique configuré pour chiffrer lesdits vecteurs de données de référence et les transmettre à la plateforme où ils sont transformés par le second réseau neuronal (315) en des vecteurs de caractéristiques de référence chiffrés dans le domaine homomorphe avant d'être stockés dans la base de référence (320)
+7. Plateforme de classification confidentielle selon la revendication 5 ou 6, caractérisée en ce que le classifieur est configuré pour calculer dans le domaine homomorphe, le produit scalaire du vecteur de caractéristiques discriminantes, y , avec les vecteurs de caractéristiques de référence, à partir des composantes en clair (Y1, ···,yM ) du vecteur de caractéristiques discriminantes, et des composantes chiffrées des vecteurs de caractéristiques de référence, au moyen de où est l'opération
+d'addition interne dans le domaine homomorphe et est l'opération de multiplication
+externe entre un élément du domaine homomorphe et un clair.
+8. Plateforme de classification confidentielle selon la revendication 7, caractérisée en ce que ledit produit scalaire est calculé au moyen d'un traitement par lots, en regroupant les différentes composantes de chaque vecteur de caractéristiques de référence au sein d'un premier message composite en clair, ledit premier message composite en clair étant ensuite chiffré en homomorphe, pour obtenir un premier message composite chiffré, et en regroupant les différentes composantes du vecteur de caractéristiques discriminantes au sein d'un second message composite en clair, ledit traitement par lots comprenant une multiplication externe du premier message composite chiffré avec le second message composite en clair.
+9. Plateforme de classification confidentielle de données selon la revendication 7 ou 8, caractérisée en ce que l'utilisateur fournit au classifieur la clé publique HE.pk de son cryptosystème homomorphe et que celui-ci est en outre configuré pour calculer le chiffré de la norme du vecteur de caractéristiques discriminantes,
+10. Plateforme de classification confidentielle de données selon la revendication 9, caractérisée en ce que le classifieur est en outre configuré pour calculer, dans le domaine homomorphe, les distances euclidiennes entre le vecteur de caractéristiques discriminantes ( y ) et les vecteurs de caractéristiques de référence
+, i = 1,..,N ) , à partir de la norme chiffrée du vecteur de caractéristiques discriminantes, des normes chiffrées des vecteurs de caractéristiques de référence et des produits scalaires respectifs entre le vecteur de caractéristiques discriminantes et les vecteurs de caractéristiques de référence.
+11. Plateforme de classification confidentielle de données selon la revendication 10, caractérisée en ce que le classifieur compare lesdites distances euclidiennes dans le domaine homomorphe et retourne à l'utilisateur l'indice du vecteur de données de référence correspondant à la plus faible distance euclidienne.
+12. Plateforme de classification confidentielle de données selon la revendication 10, caractérisée en ce que le classifieur retourne à l'utilisateur lesdites distances euclidiennes obtenues dans le domaine homomorphe et que l'utilisateur en déduit au moyen de la clé privée de son cryptosystème homomorphe, les probabilités respectives que le vecteur de données d'entrée corresponde aux vecteurs de données de référence.
+13. Méthode de classification confidentielle de données au moyen d'un réseau neuronal artificiel (110, 310) et un classifieur (130, 330), dans laquelle le réseau neuronal artificiel est entraîné pendant une phase d'apprentissage sur des vecteurs de données d'une base d'apprentissage et que le réseau neuronal artificiel ou une copie de celui-ci transforme, dans une phase opérationnelle, des vecteurs de données d'entrée en des vecteurs de caractéristiques discriminantes, lesdits vecteurs de caractéristiques discriminantes étant fournis au classifieur (130) et possédant une taille inférieure à la celle des vecteurs de données, ladite méthode comprenant :
+lors d'une phase d'initialisation du classifieur, le stockage dans une base de référence (120, 320) de vecteurs de caractéristiques de référence, obtenus par transformation, au moyen du réseau neuronal artificiel ou de ladite copie, de vecteurs de données de référence, les vecteurs de caractéristiques de référence étant stockés sous forme chiffrée par une clé publique d'un cryptosystème homomorphe dudit utilisateur ; et qu'après cette phase d'initialisation,
+lorsque l'utilisateur requiert de la plateforme de classification la classification d'un vecteur de données d'entrée ( x ) , une fonction de classification ( / ) est évaluée par le classifieur dans le domaine homomorphe, à partir du vecteur de caractéristiques discriminantes ( y ) fourni par le réseau neuronal artificiel et des vecteurs de référence stockés sous forme chiffrée dans la base de référence
+i = 1 ,...,N ), le résultat de ladite évaluation étant transmis à l'utilisateur.
+</claims>
+</document>

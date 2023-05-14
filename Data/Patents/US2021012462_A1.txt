@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2020-06-09
+</filing_date>
+
+<publication_date>
+2021-01-14
+</publication_date>
+
+<priority_date>
+2019-07-10
+</priority_date>
+
+<ipc_classes>
+G06T5/00
+</ipc_classes>
+
+<assignee>
+SAMSUNG ELECTRONICS COMPANY
+</assignee>
+
+<inventors>
+GUO, KAI
+KIM, TAE-UI
+</inventors>
+
+<docdb_family_id>
+74102437
+</docdb_family_id>
+
+<title>
+IMAGE PROCESSING METHOD AND IMAGE PROCESSING SYSTEM
+</title>
+
+<abstract>
+An image correction method is provided. The image correction method includes receiving an input image from a first camera; receiving a guide image from a second camera; generating a corrected image by performing image correction on the input image using the guide image, the image correction being performed by an image generation unit having a pre-learned image generation parameter learned using a training image; generating a quality value of the corrected image by an image evaluation unit having an pre-learned image evaluation parameter learned using the training image; and performing the image correction on the corrected image again when the quality value of the corrected image is less than a set value, and outputting the corrected image as a final image when the quality value of the corrected image is greater than the set value.
+</abstract>
+
+<claims>
+1. An image correction method comprising: receiving an input image from a first camera; receiving a guide image from a second camera; generating a corrected image by performing image correction on the input image using the guide image, the image correction being performed by an image generation unit having a pre-learned image generation parameter learned using a training image; generating a quality value of the corrected image by an image evaluation unit having a pre-learned image evaluation parameter learned using the training image; and performing the image correction on the corrected image again when the quality value of the corrected image is less than a set value, and outputting the corrected image as a final image when the quality value of the corrected image is greater than the set value.
+2. The image correction method of claim 1, wherein the generating of the quality value of the corrected image comprises generating the quality value using the guide image, the input image, and the pre-learned image evaluation parameter.
+3. The image correction method of claim 1, wherein the training image comprises a training guide image, a training input image, and a predetermined image, and the image correction method further comprises: generating a training corrected image by receiving the training guide image and the training input image and correcting the training input image; and calculating a loss of the image output from the image generation unit using the training corrected image and the predetermined image, the loss including a difference between the training corrected image and the predetermined image, wherein the generating the training corrected image and the calculating the loss of the image output from the image generation unit are repeatedly performed a set number of times using the training corrected image as a training input image.
+4. The image correction method of claim 3, further comprising: after repeatedly performing the generating the training corrected image and the calculating the loss of the image output from the image generation unit the set number of times, calculating a total loss of the image generation unit using losses of the images output from the image generation unit calculated the set number of times and a weight; and updating the pre-learned image generation parameter, based on the total loss of the image generation unit.
+5. The image correction method of claim 4, wherein the weight is differently set according to the set number of times.
+6. The image correction method of claim 3, further comprising: generating a quality value of the training corrected image by receiving the training corrected image; and calculating a loss of the image evaluation unit using the training corrected image and the predetermined image, the loss of the image evaluation unit including a difference between the training corrected image and the predetermined image, wherein the generating the quality value of the training corrected image and the calculating a loss of the image evaluation unit are repeatedly performed the set number of times using the training corrected image as a training input image.
+7. The image correction method of claim 6, further comprising: after repeatedly performing the generating the quality value of the training corrected image and the calculating a loss of the image evaluation unit the set number of times, calculating a total loss of the image evaluation unit using losses of the image evaluation unit calculated the set number of times and a weight.
+8. The image correction method of claim 3, further comprising: generating a quality value of a training corrected image by receiving the training corrected image; and calculating a loss of the image evaluation unit using the training input image, the training corrected image and the predetermined image, the loss of the image evaluation unit including a difference between the quality value of the training corrected image and a quality value of the predetermined image, wherein the generating a quality value of the training corrected image and the calculating a loss of the image evaluation unit are repeatedly performed the set number of times by receiving the training corrected image.
+9. The image correction method of claim 8, further comprising: after repeatedly performing the generating a quality value of the training corrected image and the calculating a loss of the image evaluation unit the set number of times, calculating a total loss of the image evaluation unit using losses of the image evaluation unit calculated the set number of times and a weight.
+10. An image correction system comprising: an image generation unit comprising: an image generation parameter storage configured to store a pre-learned image generation parameter; and an image generator configured to receive a guide image and an input image and generate a corrected image by correcting the input image using the pre-learned image generation parameter and the guide image; an image evaluation unit comprising: an image evaluation parameter storage storing a pre-learned image evaluation parameter; and an image evaluator configured to receive the corrected image and generate a quality value of the corrected image using the pre-learned image evaluation parameter; and a determiner configured to output the corrected image when it is determined that the quality value is greater than a set value and input the corrected image as an input image to the image generation unit when it is determined that the quality value is less than the set value.
+11. The image correction system of claim 10, wherein the image evaluator further receives the guide image and the input image and generates the quality value using the guide image and the input image.
+12. The image correction system of claim 11, wherein the image generation parameter is determined by generating a training corrected image through correction of the training input image by providing a training guide image and a training input image to the image generator, and calculating a loss of the image generation unit, which includes a difference between the training corrected image and a predetermined image on the basis of the calculated loss of the image generation unit.
+13. The image correction system of claim 12, wherein the image generation parameter is determined by repeatedly performing the generation of the training corrected image as a training input image and the calculation of the loss of the image generation unit a set number of times.
+14. The image correction system of claim 13, wherein the image evaluation parameter is determined by generating the quality value of the training corrected image by providing training guide image, the training input image, and the training corrected image to the image evaluator, calculating a loss of the image evaluator which includes a difference between the training corrected image and the predetermined image on the basis of the calculated loss of the image evaluator.
+15. The image correction system of claim 14, wherein the image evaluation parameter is determined by repeatedly performing the generation of the quality value of the training corrected image and the calculation of the loss of the image evaluator the set number of times.
+16. The image correction system of claim 10, wherein the image generation parameter is determined by generating a training corrected image through correction of the input image by providing a training guide image and a training input image to the image generator, calculating a loss of the image generation unit, which includes a difference between the training corrected image and a predetermined image on the basis of the calculated loss of the image generation unit.
+17. The image correction system of claim 16, wherein the image generation parameter is determined by repeatedly performing the generation of the training corrected image as the training input image and the calculation of the loss of the image generation unit a set number of times.
+18. The image correction system of claim 17, wherein the image evaluation parameter is determined by generating a quality value of the training corrected image by inputting the training corrected image to the image evaluator, calculating a loss of the image evaluator, which includes a difference between the training corrected image and the predetermined image on the basis of the calculated loss of the image evaluation unit.
+19. The image correction system of claim 18, wherein the image evaluation parameter is determined by repeatedly performing the generation of the quality value of the training corrected image and the calculation of the loss of the image evaluator the set number of times.
+20. An electronic device comprising: a memory storing an image correction program; and at least one processor configured to execute the image correction program stored in the memory, wherein the image correction program is configured to generate, by the at least one processor, a corrected image from an input image using a guide image, generate a quality value of the corrected image, and perform image correction on the corrected image using the guide image until the quality value becomes greater than a set value, wherein the generation of the corrected image comprises generating the corrected image using an image generation parameter learned using a training image.
+</claims>
+</document>

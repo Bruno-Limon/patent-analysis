@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2019-12-16
+</filing_date>
+
+<publication_date>
+2020-11-19
+</publication_date>
+
+<priority_date>
+2017-12-29
+</priority_date>
+
+<ipc_classes>
+G06F13/10,G06F13/38,G06F13/42
+</ipc_classes>
+
+<assignee>
+INTEL CORPORATION
+</assignee>
+
+<inventors>
+COHN, DANIEL
+DAVIDSON, TAL
+GLIK, MICHAEL
+LEVY, ELAD
+</inventors>
+
+<docdb_family_id>
+65231594
+</docdb_family_id>
+
+<title>
+TECHNOLOGIES FOR FAST MAUSB ENUMERATION
+</title>
+
+<abstract>
+Technologies for improving enumeration of universal serial bus (USB) devices over a media agnostic USB (MAUSB) connection are disclosed. In the illustrative embodiment, an MAUSB device may send USB configuration data to a host compute device. The host compute device may then perform a virtual enumeration of the USB devices based on the USB configuration data without necessarily communicating with the USB devices. The MAUSB device may perform an enumeration of the USB devices on behalf of the host compute devices without necessarily communicating with the host compute device. The USB devices may not be aware or have any indication that the USB device is not communicating with the host compute device during the enumeration process. Such an approach may improve the latency of USB enumeration over an MAUSB connection.
+</abstract>
+
+<claims>
+1. 1-19. (canceled)
+20. A media agnostic universal serial bus (MAUSB) device for enumerating universal serial bus (USB) devices, the MAUSB device comprising: an MAUSB session manager to establish an MAUSB session with a host compute device; and a USB manager to: send an indication of USB configuration data stored on the MAUSB device to the host compute device without sending all of the USB configuration data corresponding to the indication of USB configuration data; and enumerate, by the MAUSB device, one or more USB devices connected to the MAUSB device without sending all of the USB configuration data corresponding to the indication of USB configuration data to the host compute device.
+21. The MAUSB device of claim 20, wherein to send the indication of the USB configuration data to the host compute device comprises to send a hash of the USB configuration data to the host compute device.
+22. The MAUSB device of claim 20, wherein the USB manager is further to: receive a read or write request for one of the one or more USB devices prior to completion of enumeration of the one of the one or more USB devices; store the read or write request until completion of enumeration of the one of the one or more USB devices; and process the read or write request after completion of enumeration of the one of the one or more USB devices.
+23. The MAUSB device of claim 20, wherein to enumerate the one or more USB devices comprises to send one or more commands to each of the one or more USB devices without receipt of corresponding commands from the host compute device.
+24. The MAUSB device of claim 20, wherein to send the indication of USB configuration data stored on the MAUSB device to the host compute device comprises to send the configuration data before enumeration of the one or more USB devices connected to the MAUSB device.
+25. The MAUSB device of claim 20, wherein the USB manager is further to: determine, during enumeration of the one or more USB devices, that an additional USB device connected to the MAUSB device does not have an entry in the USB configuration data; and notify the host compute device that the additional USB device does not have an entry in the USB configuration data.
+26. The MAUSB device of claim 25, wherein the USB manager is further to pass enumeration messages between additional USB device and the host compute device.
+27. The MAUSB device of claim 20, wherein the USB manager is further to: determine that an entry in the USB configuration data corresponds to a USB device that is not connected to the MAUSB device as of the time of establishment of the MAUSB session; notify the host compute device that the entry corresponds to a USB device that is not connected to the MAUSB device; and update the USB configuration data to remove the entry.
+28. A host compute device for enumerating universal serial bus (USB) devices, the host compute device comprising: an MAUSB session manager to establish a media agnostic USB (MAUSB) session with an MAUSB device; and a USB manager to: receive an indication of USB configuration data stored on the MAUSB device from the MAUSB device without receipt of all of the USB configuration data corresponding to the indication of USB configuration data; access the USB configuration data stored on the host compute device based on the indication of the USB configuration data; and perform, based on the USB configuration data, a virtual enumeration of one or more USB devices connected to the MAUSB device without receipt of all of the USB configuration data corresponding to the indication of USB configuration data from the MAUSB device.
+29. The host compute device of claim 28, wherein the USB configuration data includes information necessary to perform a virtual enumeration of the one or more USB devices connected to the MAUSB device, wherein the USB configuration data is stored on the MAUSB device prior to establishment of the MAUSB session with the MAUSB device, wherein to receive the indication of the USB configuration from the MAUSB device comprises to receive a hash of the USB configuration data from the MAUSB device.
+30. The host compute device of claim 28, wherein to perform the virtual enumeration of the one or more USB devices comprises to perform a virtual enumeration of the one or more USB devices without communication with the MAUSB device regarding the enumeration of the one or more USB devices.
+31. The host compute device of claim 28, wherein the USB manager is further to load device drivers for the one or more USB devices without communication with the MAUSB device regarding enumeration of the one or more USB devices.
+32. The host compute device of claim 28, wherein the USB manager is further to send a read or write request for one of the one or more USB devices to the MAUSB device without communication with the MAUSB device regarding enumeration of the one of the one or more USB devices.
+33. One or more non-transitory computer-readable media comprising a plurality of instructions stored thereon that, when executed, causes a media agnostic universal serial bus (MAUSB) device to: establish an MAUSB session with a host compute device; and send an indication of USB configuration data stored on the MAUSB device to the host compute device without sending all of the USB configuration data corresponding to the indication of USB configuration data; and enumerate, by the MAUSB device, one or more USB devices connected to the MAUSB device without sending all of the USB configuration data corresponding to the indication of USB configuration data to the host compute device.
+34. The one or more non-transitory computer-readable media of claim 33, wherein to send the indication of the USB configuration data to the host compute device comprises to send a hash of the USB configuration data to the host compute device.
+35. The one or more non-transitory computer-readable media of claim 33, wherein the plurality of instructions further causes the MAUSB device to: receive a read or write request for one of the one or more USB devices prior to completion of enumeration of the one of the one or more USB devices; store the read or write request until completion of enumeration of the one of the one or more USB devices; and process the read or write request after completion of enumeration of the one of the one or more USB devices.
+36. The one or more non-transitory computer-readable media of claim 33, wherein to enumerate the one or more USB devices comprises to enumerate the one or more USB devices without communication with the host compute device regarding enumeration of the one or more USB devices.
+37. The one or more non-transitory computer-readable media of claim 33, wherein the plurality of instructions further causes the MAUSB device to: determine, during enumeration of the one or more USB devices, an additional USB device connected to the MAUSB device does not have an entry in the USB configuration data; and notify the host compute device that the additional USB device does not have an entry in the USB configuration data.
+38. The one or more non-transitory computer-readable media of claim 32, wherein the plurality of instructions further causes the MAUSB device to pass enumeration messages between the additional USB device and the host compute device.
+39. The one or more non-transitory computer-readable media of claim 33, wherein the plurality of instructions further causes the MAUSB device to: determine that an entry in the USB configuration data corresponds to a USB device that is not connected to the MAUSB device as of the time of establishment of the MAUSB session; notify the host compute device that the entry corresponds to a USB device that is not connected to the MAUSB device; and update the USB configuration data to remove the entry.
+</claims>
+</document>

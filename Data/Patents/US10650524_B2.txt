@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2018-02-02
+</filing_date>
+
+<publication_date>
+2020-05-12
+</publication_date>
+
+<priority_date>
+2017-02-03
+</priority_date>
+
+<ipc_classes>
+G06K9/34,G06T7/11,G06T7/162,G06T7/187,G06T7/90
+</ipc_classes>
+
+<assignee>
+DISNEY ENTERPRISES
+ETH ZURUCH (EIDGENOSSISCHE TECHNISCHE HOCHSCHULE ZURICH)
+</assignee>
+
+<inventors>
+AKSOY, YAGIZ
+AYDIN, TUNC OZAN
+</inventors>
+
+<docdb_family_id>
+63037791
+</docdb_family_id>
+
+<title>
+Designing effective inter-pixel information flow for natural image matting
+</title>
+
+<abstract>
+Embodiments can provide a strategy for controlling information flow both from known opacity regions to unknown regions, as well as within the unknown region itself. This strategy is formulated through the use and refinement of various affinity definitions. As a result of this strategy, a final linear system can be obtained, which can be solved in closed form. One embodiment pertains to identifying opacity information flows. The opacity information flow may include one or more of flows from pixels in the image that have similar colors to a target pixel, flows from pixels in the foreground and background to the target pixel, flows from pixels in the unknown opacity region in the image to the target pixel, flows from pixels immediately surrounding the target pixels in the image to the target pixel, and any other flow.
+</abstract>
+
+<claims>
+1. A method for estimating opacity for a pixel in an image, the method being implemented by a processor configured to execute computer programs, the method comprising: obtaining regions in the image, the regions including a foreground region, a background region, and an unknown region, wherein the foreground region is fully opaque, the background region is fully transparent and individual pixels the unknown region has an unknown opacity; and for each target pixel in the unknown region, estimating opacity for the target pixel by propagating opacity information from other pixels in the image to the pixel, wherein the opacity estimation comprises: identifying a first set of pixels that have colors similar to the target pixel; determining a first amount of opacity information flow from the first set of pixels to the target pixel; and estimating the opacity for the target pixel based on the first amount of opacity information flow.
+2. The method of claim 1, wherein identifying the first set of pixels comprises: performing, in the image, a K-nearest neighbor search with respect to the target pixel to obtain the first set of pixels.
+3. The method of claim 1, wherein determining the first amount of opacity information flow from the first set of pixels to the target pixel comprises: for each pixel in the first set of pixels, determining a weight of the pixel with respect to its color contribution to a color to the target pixel; combining the weights determined for the pixels in the first set of pixels to obtain a combined weight; and determining the first amount of opacity information flow based on the combined weights.
+4. The method of claim 1, wherein the opacity estimation further comprises: identifying a second set of pixels and a third set of pixels, the second set of pixels are from pixels within the foreground region and have colors similar to the target pixel, and the third set of pixels are from the background region and have colors similar to the target pixel; and determining a second amount of opacity information flow from the second set of pixels and third set of pixels to the target pixel; and, wherein estimating the opacity for the target pixel is further based on the second amount of opacity information flow.
+5. The method of claim 4, wherein identifying the second set of pixels comprises: performing, in the foreground region, a K-nearest neighbor search with respect to the target pixel to obtain the second set of pixels; and, wherein identifying the third set of pixels comprises: performing, in the background region, a K-nearest neighbor search with respect to the target pixel to obtain the second set of pixels.
+6. The method of claim 4, wherein determining the second amount of opacity information flow comprises: obtaining a first combined weight based on the second set of pixels, the first combined weight indicating a color mixture relationship between the pixels in the second set of pixels and the target pixel; obtaining a second combined weight based on the second set of pixels, the second combined weight indicating a color mixture relationship between the pixels in the second set of pixels and the target pixel; and determining the second amount of opacity information flow based on the first combined weight and second combined weight.
+7. The method of claim 1, wherein the opacity estimation further comprises: identifying a fourth set of pixels from the unknown region, wherein the fourth set of pixels have colors similar to the target pixel; and determining a third amount of opacity information flow from the fourth set of pixels to the target pixel; and, wherein estimating the opacity for the target pixel is further based on the third amount of opacity information flow.
+8. The method of claim 7, wherein identifying the fourth set of pixels comprises performing, in the unknown region, a K-nearest neighbor search with respect to the target pixel to obtain the fourth set of pixels.
+9. The method of claim 7, wherein determining the third amount of opacity information flow comprises obtaining a combined weight based on the fourth set of pixels, the combined weight indicating a color mixture relationship between the fourth set of pixels and the target pixel.
+10. The method of claim 1, wherein the opacity estimation further comprises: identifying a fifth set of pixels from the unknown region, wherein the fifth set of pixels are immediate neighbors to the target pixel; and determining a fourth amount of opacity information flow from the fifth set of pixels to the target pixel; and, wherein estimating the opacity for the target pixel is further based on the fourth amount of opacity information flow.
+11. A system for estimating opacity for a pixel in an image, the system comprising a processor configured to execute computer programs such that when the computer programs are executed, the system is caused to perform: obtaining regions in the image, the regions including a foreground region, a background region, and an unknown region, wherein the foreground region is fully opaque, the background region is fully transparent and individual pixels the unknown region has an unknown opacity; and for each target pixel in the unknown region, estimating opacity for the target pixel by propagating opacity information from other pixels in the image to the pixel, wherein the opacity estimation comprises: identifying a first set of pixels that have colors similar to the target pixel; determining a first amount of opacity information flow from the first set of pixels to the target pixel; and estimating the opacity for the target pixel based on the first amount of opacity information flow.
+12. The system of claim 11, wherein identifying the first set of pixels comprises performing, in the image, a K-nearest neighbor search with respect to the target pixel to obtain the first set of pixels.
+13. The system of claim 11, wherein determining the first amount of opacity information flow from the first set of pixels to the target pixel comprises: for each pixel in the first set of pixels, determining a weight of the pixel with respect to its color contribution to a color to the target pixel; combining the weights determined for the pixels in the first set of pixels to obtain a combined weight; and determining the first amount of opacity information flow based on the combined weights.
+14. The system of claim 11, wherein the opacity estimation further comprises: identifying a second set of pixels and a third set of pixels, the second set of pixels are from pixels within the foreground region and have colors similar to the target pixel, and the third set of pixels are from the background region and have colors similar to the target pixel; and determining a second amount of opacity information flow from the second set of pixels and third set of pixels to the target pixel; and, wherein estimating the opacity for the target pixel is further based on the second amount of opacity information flow.
+15. The system of claim 14, wherein identifying the second set of pixels comprises: performing, in the foreground region, a K-nearest neighbor search with respect to the target pixel to obtain the second set of pixels; and, wherein identifying the third set of pixels comprises: performing, in the background region, a K-nearest neighbor search with respect to the target pixel to obtain the second set of pixels.
+16. The system of claim 14, wherein determining the second amount of opacity information flow comprises: obtaining a first combined weight based on the second set of pixels, the first combined weight indicating a color mixture relationship between the pixels in the second set of pixels and the target pixel; obtaining a second combined weight based on the second set of pixels, the second combined weight indicating a color mixture relationship between the pixels in the second set of pixels and the target pixel; and determining the second amount of opacity information flow based on the first combined weight and second combined weight.
+17. The system of claim 11, wherein the opacity estimation further comprises: identifying a fourth set of pixels from the unknown region, wherein the fourth set of pixels have colors similar to the target pixel; and determining a third amount of opacity information flow from the fourth set of pixels to the target pixel; and, wherein estimating the opacity for the target pixel is further based on the third amount of opacity information flow.
+18. The system of claim 17, wherein identifying the fourth set of pixels comprises performing, in the unknown region, a K-nearest neighbor search with respect to the target pixel to obtain the fourth set of pixels.
+19. The system of claim 17, wherein determining the third amount of opacity information flow comprises obtaining a combined weight based on the fourth set of pixels, the combined weight indicating a color mixture relationship between the fourth set of pixels and the target pixel.
+20. The system of claim 11, wherein the opacity estimation further comprises: identifying a fifth set of pixels from the unknown region, wherein the fifth set of pixels are immediate neighbors to the target pixel; and determining a fourth amount of opacity information flow from the fifth set of pixels to the target pixel; and, wherein estimating the opacity for the target pixel is further based on the fourth amount of opacity information flow.
+</claims>
+</document>

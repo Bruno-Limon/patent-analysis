@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2018-12-20
+</filing_date>
+
+<publication_date>
+2020-06-25
+</publication_date>
+
+<priority_date>
+2018-12-20
+</priority_date>
+
+<ipc_classes>
+G06F12/10,G06F3/06
+</ipc_classes>
+
+<assignee>
+EMC IP HOLDING COMPANY
+</assignee>
+
+<inventors>
+DANILOV, MIKHAIL
+ALTAYE, YOHANNES
+</inventors>
+
+<docdb_family_id>
+71097603
+</docdb_family_id>
+
+<title>
+Logical Compaction of a Degraded Chunk in a Geographically Diverse Data Storage System
+</title>
+
+<abstract>
+Generating, in a geographically diverse storage system, a degraded convolved chunk that consumes less storage space than a convolved chunk that is not a degraded chunk is disclosed. The degraded convolved chunk can be generated at a third zone of the storage system and be based on a compressed representation of a first chunk from a first zone of the storage system and a second chunk from a second zone of the storage system, wherein the first chunk is a degraded chunk that comprises at least one non-relevant chunk fragment. In an embodiment, the compressed representation can be generated at the first zone. In another embodiment the compressed representation can be generated at the third zone. In an aspect, mapping data corresponding a logical compression of first chunk fragments to physical storage locations of the first chunk fragments can be employed in data operations of the storage system.
+</abstract>
+
+<claims>
+1. A system, comprising: a processor; and a memory that stores executable instructions that, when executed by the processor, facilitate performance of operations, comprising: in response to determining that a first chunk comprises a first fragment of relevant data and a second fragment of non-relevant data, determining a mapping of first chunk fragments comprising the first fragment and the second fragment that results in logically grouping first chunk relevant data fragments comprising the first fragment into a first group and logically grouping first chunk non-relevant fragments comprising the second fragment in to a second group, wherein the first group is aligned at a first index of a logical data structure and the second group is aligned at a second index of the logical data structure, wherein the first group does not overlap the second group in the logical data structure, wherein the first chunk is stored on a first storage device of a geographically diverse data storage system, and wherein the mapping correlates indexes of the logical data structure to storage locations of the first chunk fragments on the first storage device of the geographically diverse data storage system; and generating a convolved chunk based on a second chunk stored on a second storage device of the geographically diverse data storage system, at least the first chunk relevant data fragments according to the first group, and the mapping of the first chunk fragments.
+2. The system of claim 1, wherein the first storage device is comprised in a first zone of the geographically diverse data storage system, wherein the second storage device is comprised in a second zone of the geographically diverse data storage system, and wherein the first zone is a different zone than the second zone.
+3. The system of claim 2, wherein the convolved chunk is stored on a third storage device comprised in a third zone of the geographically diverse data storage system that is a different zone than the first zone and a is different zone than the second zone.
+4. The system of claim 1, wherein, based on the mapping of the first chunk fragments, the convolved chunk is subsequently deconvolved to generate a representation of the first chunk.
+5. The system of claim 1, wherein the operations further comprise generating, at the first zone, a compressed representation of the first chunk relevant data fragments based on the mapping, and wherein the compressed representation consumes less storage space than the first chunk.
+6. The system of claim 1, wherein the operations further comprise generating, at a third zone that is a different zone than the first zone, a compressed representation of the first chunk relevant data fragments based on the mapping, wherein the compressed representation consumes less storage space than the first chunk, and wherein the generating the convolved chunk generates the convolved chunk at a third storage device of the third zone.
+7. The system of claim 1, wherein the generating the convolved chunk comprises generating the convolved chunk at a third storage device of a third zone that is a different zone than the first zone and a different zone than the second zone, wherein the third zone comprises a storage buffer, wherein the storage buffer stores a first representation of the first chunk according to the mapping of the first chunk fragments and a second representation of the second chunk, and wherein the first representation and the second representation are selected to be convolved in response to determining that a first selection rule related to comparing the size of the first representation and the second representation has been satisfied.
+8. The system of claim 7, wherein the first representation and the second representation are selected to be convolved in response to further determining that a second selection rule related to an elapsed time that the first representation has been stored in the buffer has been satisfied.
+9. The system of claim 7, wherein the first representation and the second representation are selected to be convolved in response to further determining that a third selection rule related to a level of importance attributed to the data represented in the first representation has been satisfied.
+10. The system of claim 1, wherein the mapping of the first chunk fragments is a first mapping, and wherein the generating the convolved chunk comprises generating the convolved chunk based on second chunk relevant data fragments of the second chunk, the first chunk relevant data fragments, the first mapping, and a second mapping of the second chunk data fragments.
+11. The system of claim 10, wherein the first mapping corresponds to a first compressed representation of the first chunk and wherein the second mapping corresponds to a second compressed representation of the second chunk.
+12. A method, comprising: determining, by a system comprising processor and a memory, a first compressed representation of first relevant fragments of a first chunk stored at a first zone of a geographically diverse data storage system, wherein the first compressed representation is a first logical grouping of the first relevant fragments of the first chunk, wherein the first logical grouping maps to physical storage locations of the first relevant fragments of the first chunk according to first mapping information, and wherein the first chunk comprises at least one non-relevant fragment; determining, by the system, a second compressed representation of second relevant fragments of a second chunk stored at a second zone of the geographically diverse data storage system, wherein the second compressed representation is a second logical grouping of the second relevant fragments of the second chunk, wherein the second logical grouping maps to physical storage locations of the second relevant fragments of the second chunk according to second mapping information, and wherein the second zone is a different zone than the first zone; and generating, by the system, a convolved chunk based on the first compressed representation and the second compressed representation, wherein the convolved chunk is stored at a third zone of the geographically diverse data storage system that is a different zone than the first zone and is a different zone than the third zone.
+13. The method of claim 12, wherein the second chunk comprises at least one non-relevant fragment, and wherein the generating the convolved chunk based on the first compressed representation and the second compressed representation therefore result in the convolved chunk comprising at least one non-relevant fragment.
+14. The method of claim 13, further comprising truncating, by the system, the convolved chunk by not storing the at least one non-relevant fragment resulting in a truncated convolved chunk that consumes less storage space than the convolved chunk, wherein the convolved chunk consumes less storage space than consumed by the first and second compressed representations.
+15. The method of claim 12, wherein the determining a first compressed representation of first relevant fragments is performed at the first zone of a geographically diverse data storage system.
+16. The method of claim 12, wherein the determining a first compressed representation of first relevant fragments is performed at the third zone of a geographically diverse data storage system.
+17. The method of claim 12, wherein the first mapping information enables later deconvolution, by the system, of the convolved chunk into a duplicate of the first relevant fragments of the first chunk.
+18. A machine-readable storage medium, comprising executable instructions that, when executed by a processor, facilitate performance of operations, comprising: generating a first compressed representation comprising a first logical representation of first physical storage locations of first relevant fragments of a first chunk stored at a first zone of a geographically diverse data storage system, wherein the first logical representation maps to the first physical storage locations according to first mapping information, and wherein the first chunk comprises at least one non-relevant fragment; generating a second compressed representation comprising a second logical representation of second physical storage locations of second relevant fragments of a second chunk stored at a second zone of the geographically diverse data storage system, wherein the second logical representation maps to the second physical storage locations according to second mapping information, and wherein the second zone is a different zone than the first zone; and generating, by the system, a convolved chunk based on the first compressed representation and the second compressed representation, wherein the convolved chunk is stored at a third zone of the geographically diverse data storage system that is a different zone than the first zone and is a different zone than the third zone, and wherein the first mapping information enables later deconvolution of the convolved chunk into a duplicate of the first relevant fragments according to the first physical storage locations.
+19. The machine-readable storage medium of claim 18, wherein the convolved chunk comprises at least one non-relevant fragment.
+20. The machine-readable storage medium of claim 18, wherein the convolved chunk is a truncated convolved chunk that consumes less storage space than a full convolved chunk based on the first chunk and the second chunk.
+</claims>
+</document>

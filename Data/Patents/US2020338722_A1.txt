@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2018-06-28
+</filing_date>
+
+<publication_date>
+2020-10-29
+</publication_date>
+
+<priority_date>
+2017-06-28
+</priority_date>
+
+<ipc_classes>
+B25J9/16,G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+JANG, ERIC
+LEVINE, SERGEY
+PASTOR SAMPEDRO, PETER
+VIJAYANARASIMHAN, SUDHEENDRA
+Ibarz, Julian
+</inventors>
+
+<docdb_family_id>
+62976267
+</docdb_family_id>
+
+<title>
+MACHINE LEARNING METHODS AND APPARATUS FOR SEMANTIC ROBOTIC GRASPING
+</title>
+
+<abstract>
+Deep machine learning methods and apparatus related to semantic robotic grasping are provided. Some implementations relate to training a training a grasp neural network, a semantic neural network, and a joint neural network of a semantic grasping model. In some of those implementations, the joint network is a deep neural network and can be trained based on both: grasp losses generated based on grasp predictions generated over a grasp neural network, and semantic losses generated based on semantic predictions generated over the semantic neural network. Some implementations are directed to utilization of the trained semantic grasping model to servo, or control, a grasping end effector of a robot to achieve a successful grasp of an object having desired semantic feature(s).
+</abstract>
+
+<claims>
+1. A method implemented by one or more processors, comprising: identifying a desired object semantic feature; generating a candidate end effector motion vector defining motion to move a grasping end effector of a robot from a given pose to an additional pose; identifying an image captured by a vision component of the robot, the image capturing the grasping end effector and an object in an environment of the robot; applying the image and the candidate end effector motion vector as input to a trained joint neural network; generating a joint output based on the application of the image and the end effector motion vector to the trained joint neural network, wherein the trained joint neural network is trained based on: grasp losses generated based on grasp predictions generated over a grasp neural network based on training outputs generated using the joint neural network, and semantic losses generated based on semantic predictions generated over a semantic neural network based on training outputs generated using the joint neural network; applying the joint output to a trained version of the semantic neural network; generating, using the trained version of the semantic neural network based on the joint output, semantic neural network output that indicates whether the object includes the desired object semantic feature; generating a grasp success measure, generating the grasp success measure comprising: generating the grasp success measure based on application of the joint output to a trained version of the grasp neural network, or generating the grasp success measure based on application of the current image and the end effector motion vector to an additional trained grasp neural network; generating an end effector command based on the grasp success measure and the semantic model output that indicates whether the object includes the desired object semantic feature; and providing the end effector command to one or more actuators of the robot.
+2. The method of claim 1, wherein generating the grasp success measure comprises generating the grasp success measure based on application of the joint output to the trained version of the grasp neural network.
+3. The method of claim 1, wherein generating the grasp success measure comprises generating the grasp success measure based on application of the image and the end effector motion vector to the additional trained grasp neural network.
+4. The method of claim 3, wherein the additional trained grasp neural network is trained independently of the grasp neural network, the joint neural network, and the semantic neural network.
+5. The method of claim 1, wherein the image is not applied directly as input to the semantic neural network in generating the semantic model output.
+6. The method of claim 1, wherein the joint output is the only input applied to the semantic neural network in generating the semantic model output.
+7. The method of claim 1, wherein in training the joint neural network based on the grasp losses generated based on the grasp predictions generated over the grasp neural network, the grasp neural network is also trained based on the grasp losses, without training of the semantic neural network based on the grasp losses.
+8. The method of claim 1, wherein in training the joint neural network based on the semantic losses generated based on the semantic predictions generated over the semantic neural network, the semantic neural network is also trained based on the semantic losses, without training of the grasp neural network based on the semantic losses.
+9. The method of claim 1, wherein the desired object semantic feature defines an object classification.
+10. The method of claim 1, wherein the semantic model output indicates, for each of a plurality of object classifications, a likelihood that the object has a corresponding one of the object classifications.
+11. The method of claim 1, further comprising: receiving user interface input from a user interface input device; wherein identifying the desired object semantic feature is based on the user interface input.
+12. The method of claim 1, further comprising: determining a current grasp success measure of the object without application of the motion; wherein generating the end effector command based on the grasp success measure comprises generating the end effector command based on comparison of the grasp success measure to the current grasp success measure.
+13. The method of claim 1, wherein the end effector command is an end effector motion command and wherein generating the end effector motion command comprises generating the end effector motion command to conform to the candidate end effector motion vector.
+14. The method of claim 13, wherein generating the end effector command is in response to: determining, based on the semantic neural network output, a likelihood that the object includes the desired object feature; and determining that the likelihood satisfies one or more criteria and that the grasp success measure satisfies one or more criteria.
+15. The method of claim 13, wherein generating the end effector command is in response to: determining, based on the semantic neural network output, a likelihood that the object includes the desired object feature; generating a value as a function of the likelihood and the grasp success measure; and determining that the value satisfies a threshold.
+16. A method implemented by one or more processors, comprising: identifying a desired object semantic feature; generating a candidate end effector motion vector defining motion to move a grasping end effector of a robot from a given pose to an additional pose; identifying an image captured by a vision component of the robot, the image capturing the grasping end effector and an object in an environment of the robot; applying the image and the candidate end effector motion vector as input to a trained joint neural network; generating a joint output based on the application of the image and the end effector motion vector to the trained joint neural network; applying the joint output to a trained semantic neural network; generating, using the trained semantic neural network based on the joint output, semantic neural network output that indicates whether the object includes the desired object semantic feature; applying the joint output to a trained grasp neural network; generating, using the trained grasp neural network based on the joint output, a grasp success measure; generating an end effector command based on the grasp success measure and the semantic model output that indicates whether the object includes the desired object semantic feature; and providing the end effector command to one or more actuators of the robot.
+17. The method of claim 16, wherein during training of the trained grasp neural network, grasp losses generated based on grasp predictions generated over the grasp neural network are utilized to update the grasp neural network and the joint prediction model, without being utilized to update the semantic neural network.
+18. The method of claim 16, wherein during training of the trained semantic neural network, grasp losses generated based on semantic predictions generated over the semantic neural network are utilized to update the semantic neural network and the joint prediction model, without being utilized to update the grasp neural network.
+19. 19-20. (canceled)
+21. A method, comprising: identifying, by one or more processors, a plurality of semantic grasp training examples generated based on sensor output from one or more robots during a plurality of grasp attempts by the robots, each of the semantic grasp training examples including training example input comprising: an image for a corresponding instance of time of a corresponding grasp attempt of the grasp attempts, the image capturing a robotic end effector and one or more environmental objects at the corresponding instance of time, an end effector motion vector defining motion of the end effector to move from an instance of time pose of the end effector at the corresponding instance of time to a final pose of the end effector for the corresponding grasp attempt, and each of the semantic grasp training examples including training example output comprising: at least one grasped object label indicating a semantic feature of an object grasped by the corresponding grasp attempt, and a grasp success label indicating whether the corresponding grasp attempt was successful; and training, by one or more of the processors, neural networks of a semantic grasping model based on the semantic grasp training examples, wherein training the neural networks of the semantic grasping model based on a given semantic grasp training example of the training examples comprises: applying the image and the end effector motion vector of the given training example as input to a joint neural network; generating joint output over the joint neural network based on the applied input and current parameters of the joint neural network; applying the joint output to a grasp neural network and to a semantic neural network; generating a predicted grasp success measure using a grasp neural network based on the joint output; generating predicted object semantic features using a semantic neural network based on the joint output; generating a grasp loss based on the predicted grasp success measure and the grasp success label of the given training example; generating a semantic loss based on the predicted object semantic features and the grasped object label of the given training example; updating the joint neural network based on the grasp loss without updating the semantic neural network based on the grasp loss; and updating the joint neural network based on the semantic loss without updating the grasp neural network based on the semantic loss.
+22. 22-24. (canceled)
+</claims>
+</document>

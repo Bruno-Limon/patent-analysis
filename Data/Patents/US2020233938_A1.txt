@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2020-04-03
+</filing_date>
+
+<publication_date>
+2020-07-23
+</publication_date>
+
+<priority_date>
+2017-09-11
+</priority_date>
+
+<ipc_classes>
+G06F21/12,G06F21/60,H04L29/06
+</ipc_classes>
+
+<assignee>
+ARCHITECTURE TECHNOLOGY CORPORATION
+</assignee>
+
+<inventors>
+DONOVAN, MATTHEW
+SIRIANNI, JOSEPH
+</inventors>
+
+<docdb_family_id>
+70285309
+</docdb_family_id>
+
+<title>
+PERMISSION REQUEST SYSTEM AND METHOD
+</title>
+
+<abstract>
+A method for detecting, identifying, and mitigating advanced persistent threats in a computer network having one or more computers includes a processor in the computer network: receiving a request to access a resource in the computer network; identifying the request as originating from an application executing on the computer network; executing an anomaly operation to determine a behavior of the application is one of anomalous and not anomalous; executing a privilege operation to determine the request is one of permanently allowed and not-permanently allowed; granting access to the resource for both a non-anomalous-behaving application and a permanently allowed request; and generating and displaying, on a graphical user interface of the computer network, and prompt for either an anomalous-behaving application or a not-permanently allowed request.
+</abstract>
+
+<claims>
+We claim:
+1. In a computer network, a system to detect and mitigate malware attacks, comprising: a processor; and a non-transitory computer-readable storage medium having encoded thereon machine instructions that when executed, cause the processor to: intercept application-initiated system call requests from an application executing on the computer network and stop resource access by the intercepted system call requests, perform an anomaly operation to detect anomalous behavior in the intercepted system call request, wherein the processor: examines behavior of the application; identifies an existing error condition; and generates an error signal for any existing error condition, and cause display of the error signal on a graphical user interface in communication with the processor.
+2. The system of claim 1, comprising determining an existence of an intercepted system call request match with an existing, stored system call request for the application, wherein the processor: compares the intercepted system call request to objects stored in an agnostic access control list (ACL), the objects comprising: action objects, and group objects; determines a match exists for one of an action object and a group action; determines a match does not exist for neither of the action object and the group action.
+3. The system of claim 2, wherein a match exists, and the processor: grants access to the resources; and stops the anomaly operation.
+4. The system of claim 2, wherein the processor: compares the intercepted system call request to a privilege profile for the application; and determines the intercepted system call request is one of permanently allowed and not-permanently allowed.
+5. The system of claim 4, wherein the system call request is not permanently allowed, and the processor: generates a volatile ACL for the not-permanently-allowed system call request, provides a system call request prompt comprising a plurality of actions on the graphical user interface; receives an action selection by way of the graphical user interface; performs a privilege operation for the system call request based on the received action; and stores the privilege operation for the system call request in a privilege profile for the application
+6. The system of claim 4, wherein the system call request is a permanently allowed system call request, and the processor: invokes a persistent ACL; grants access to the resources; and stores the access grant in a privilege profile for the application.
+7. The system of claim 1, wherein to detect anomalous behavior in the intercepted call request, the processor invokes a behavior model to classify the application as misbehaving.
+8. The system of claim 7, wherein the processor trains the behavior model to classify anomalous behavior, comprising the processor: uses an error correlation technique to generate a fault classifier based on error-correlated properties; in a first, training phase, automatically generates the fault classifier from a set of application instances with known errors (a priori) and corrected application instances; generates properties of applications with faults, and properties of applications with those faults removed; performs an application analysis to generate expected runtime properties, wherein the expected runtime properties are likely application properties, each expected runtime property comprising a mathematical description of observed relationships among the expected runtime properties, and wherein the expected runtime properties form an operational abstraction that is syntactically identical to a formal specification, including preconditions, postconditions, and objects.
+9. The system of claim 8, wherein the processor determines the expected runtime property is a likely application property based on adequate statistical evidence for the expected runtime property, comprising: determining a number of observations exceeds a user-defined value; computing a probability that the expected runtime property would appear by chance in a random set of samples; and designating the expected runtime property as a likely application property when the probability is smaller than a user-defined value.
+10. The system of claim 9 wherein the processor applies a machine learning algorithm to produce the behavior model, comprising: converting each likely application property to a characteristic vector that is labeled as one of fault-revealing and non-fault-revealing, wherein: likely application properties that are present only in faulty applications are labeled as fault-revealing, likely application properties that appear only in non-faulty applications are labeled as non-fault-revealing, likely application properties that appear in both faulty and non-fault applications are not used during the training phase.
+11. The system of claim 10, wherein the processor uses only one fault-revealing property to generate the error signal.
+12. The system of claim 1, wherein to detect anomalous behavior in the intercepted system call request, the processor: analyzes the intercepted system call request to identify properties of an associated application making the intercepted system call request; compares the identified properties to a list of known fault-revealing properties; ranks properties matching known fault-revealing properties; and examines the ranked properties to determine an existence of an error.
+13. The system of claim 1, wherein the malware is generated by an advanced persistent threat.
+14. In a computer network, a method for to detecting and mitigating advanced persistent threat attacks, comprising: a processor intercepting application-initiated system call requests from an application executing on the computer network and stop resource access by the intercepted system call requests, performing an anomaly operation to detect anomalous behavior in the intercepted system call request, comprising: examining behavior of the application; identifies an existing error condition; and generating an error signal for any existing error condition, and causing display of the error signal on a graphical user interface in communication with the processor.
+15. The method of claim 14, wherein to detect anomalous behavior in the intercepted call request, the processor invokes a behavior model to classify the application as misbehaving.
+16. The method of claim 15, comprising: the processor training the behavior model to classify anomalous behavior, comprising: using an error correlation technique to generate a fault classifier based on error-correlated properties; in a first, training phase, automatically generating the fault classifier from a set of application instances with known errors (a priori) and corrected application instances; generating properties of applications with faults, and properties of applications with those faults removed; and performing an application analysis to generate expected runtime properties, wherein the expected runtime properties are likely application properties, each expected runtime property comprising a mathematical description of observed relationships among the expected runtime properties, and wherein the expected runtime properties form an operational abstraction that is syntactically identical to a formal specification, including preconditions, postconditions, and objects.
+17. The method of claim 16, comprising: the processor determines the expected runtime property is a likely application property based on adequate statistical evidence for the expected runtime property, comprising: determining a number of observations exceeds a user-defined value, computing a probability that the expected runtime property would appear by chance in a random set of samples, and designating the expected runtime property as a likely application property when the probability is smaller than a user-defined value; the processor applies a machine learning algorithm to produce the behavior model, comprising: converting each likely application property to a characteristic vector that is labeled as one of fault-revealing and non-fault-revealing, wherein: likely application properties that are present only in faulty applications are labeled as fault-revealing; likely application properties that appear only in non-faulty applications are labeled as non-fault-revealing; likely application properties that appear in both faulty and non-fault applications are not used during the training phase; and the processor uses only one fault-revealing property to generate the error signal.
+18. A method for detecting, identifying, and mitigating advanced persistent threats in a computer network comprising one or more computers, the method, comprising: a processor in the computer network receiving a request to access a resource in the computer network; identifying the request as originating from an application executing on the computer network; executing an anomaly operation to determine a behavior of the application is one of anomalous and not anomalous; executing a privilege operation to determine the request is one of permanently allowed and not-permanently allowed; granting access to the resource for both a non-anomalous-behaving application and a permanently allowed request; and generating and displaying, on a graphical user interface of the computer network, and prompt for either an anomalous-behaving application or a not-permanently allowed request.
+19. The method of claim 18, comprising: determining, by a processor, a request as one of permanently allowed and not permanently allowed comprises consulting a privilege profile for the application; for a not permanently allowed request; generating, by the processor, a volatile access control list for the not-permanently-allowed request, providing the prompt comprising a plurality of actions, receiving, by the processor, an action selection by way of the graphical user interface, and storing the action selection for the request in the privilege profile for the application; and for a permanently allowed request: invoking a persistent access control list privilege operation, and storing the access control list privilege operation in the privilege profile for the application.
+20. The method of claim 19, comprising: the processor generates the volatile access control list for the request when the request status is one of temporarily allowed, denied, and not in the privilege profile.
+</claims>
+</document>

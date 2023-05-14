@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2018-12-21
+</filing_date>
+
+<publication_date>
+2020-06-25
+</publication_date>
+
+<priority_date>
+2018-12-21
+</priority_date>
+
+<ipc_classes>
+G06F16/11,G06F16/17,G06F16/901,G06F17/10
+</ipc_classes>
+
+<assignee>
+EMC IP HOLDING COMPANY
+</assignee>
+
+<inventors>
+DANILOV, MIKHAIL
+GUSAKOV, KIRILL
+</inventors>
+
+<docdb_family_id>
+71098567
+</docdb_family_id>
+
+<title>
+SYSTEM AND METHOD THAT DETERMINES A SIZE OF METADATA-BASED SYSTEM SNAPSHOTS
+</title>
+
+<abstract>
+A size of a metadata-based system snapshot is determined based on performing incremental calculations in background mode to assure accurate size reporting without producing considerable workload. Snapshot sizes are relative to each other. For example, a size of a first snapshot is set when a second snapshot is generated. Moreover, a size of the latest snapshot is relative to a current tree version and a size of an older snapshot is relative to a snapshot that follows it. An aggregated size of all system snapshots can be determined by adding the individual snapshot sizes. This provides simplicity during snapshot management.
+</abstract>
+
+<claims>
+1. A system, comprising: a processor; and a memory that stores executable instructions that, when executed by the processor, facilitate performance of operations, comprising: generating, at a first time, a first snapshot of first roots of respective object table trees of a storage system, wherein the respective object table trees comprise metadata representing respective states of the storage system at the first time; incrementally increasing a cached size value based on journal data that references data updates associated with the respective object table trees; and in response to determining that a second snapshot of second roots of the respective object table trees has been generated at a second time, determining size data indicative of a size of the first snapshot based on the cached size value at the second time.
+2. The system of claim 1, wherein the operations further comprise: tracking the journal data that comprises a stream of records associated with the data updates.
+3. The system of claim 2, wherein the records comprise at least one minus record associated with a data removal operation.
+4. The system of claim 3, wherein the incrementally increasing comprises increasing the cached size value based on a size of the at least one minus record.
+5. The system of claim 1, wherein the operations further comprise: determining total size data indicative of a total size of system snapshots based on adding the size of the first snapshot, with sizes of other snapshots generated at other times.
+6. The system of claim 5, wherein the operations further comprise: based on the total size data, defining policy data indicative of a policy associated with a lifecycle of the system snapshots.
+7. The system of claim 1, wherein the operations further comprise: updating the cached size value in response to determining that a revised version of at least one of the respective object table trees has been generated.
+8. The system of claim 1, wherein the operations further comprise: determining that there is at least one minus record created during an interval between a generation of a latest revised version of at least one of the respective object table trees and the second time, wherein the at least one minus record is a journal record associated with a data removal operation.
+9. The system of claim 8, wherein the size is a first size and the operations further comprise: in response to the determining that there is the at least one minus record, adding, to a second size of the second snapshot, a third size of the minus record.
+10. The system of claim 1, wherein the incrementally increasing comprises incrementally increasing via a background operation.
+11. A method, comprising: during a first time period, generating, by a system comprising a processor, first snapshot data indicative of a first snapshot of first roots of respective object table trees of a storage system, wherein the respective object table trees comprise metadata representing respective states of the storage system during the first time period; storing a cached size value associated with the first snapshot data; based on journal data that references data updates associated with the respective object table trees, incrementally increasing the cached size value; and in response to determining that a second snapshot of second roots of the respective object table trees has been generated during a second time period, assigning, as a size of the first snapshot, the cached size value during the second time period.
+12. The method of claim 11, further comprising: subsequent to the assigning, resetting the cached size value.
+13. The method of claim 11, further comprising: monitoring the journal data that comprises a stream of records associated with the data updates.
+14. The method of claim 13, wherein the monitoring comprises determining a set of the records that are associated with a data removal operation.
+15. The method of claim 14, wherein the incrementally increasing comprises increasing the cached size value based on a size of the set of the records.
+16. The method of claim 11, further comprising: determining total size data indicative of a total size of system snapshots associated with the storage system based on aggregating the size of the first snapshot with sizes of disparate snapshots generated during disparate time periods.
+17. The method of claim 16, further comprising: based on the total size data, determining policy data indicative of a policy associated with a lifecycle of the system snapshots.
+18. A computer-readable storage medium comprising instructions that, in response to execution, cause a server device comprising a processor to perform operations, comprising: during a first time period, generating, first snapshot data indicative of a first snapshot of first roots of respective object table trees of a storage system, wherein the respective object table trees comprise metadata representing respective states of the storage system during the first time period; storing a cached size value associated with the first snapshot data; based on journal data that references data updates associated with the respective object table trees, incrementally increasing the cached size value; and in response to determining that a second snapshot of second roots of the respective object table trees has been generated during a second time period, assigning, as a size of the first snapshot, the cached size value during the second time period.
+19. The computer-readable storage medium of claim 18, wherein the size is a first size and the operations further comprise: in response to determining that there is at least one minus record created during an interval between a generation of a latest revised version of at least one of the respective object table trees and the second time period, adding, to a second size of the second snapshot, a third size of the at least one minus record, and wherein the at least one minus record is a journal record associated with a data removal operation.
+20. The computer-readable storage medium of claim 19, wherein the operations further comprise: in response to determining that there is no minus record created during the interval, resetting the cached size value to zero.
+</claims>
+</document>

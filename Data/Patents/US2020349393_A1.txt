@@ -1,0 +1,61 @@
+<document>
+
+<filing_date>
+2019-08-02
+</filing_date>
+
+<publication_date>
+2020-11-05
+</publication_date>
+
+<priority_date>
+2019-04-30
+</priority_date>
+
+<ipc_classes>
+G06K9/62,G06N20/00,G06T3/40,G06T5/00
+</ipc_classes>
+
+<assignee>
+AGORA LAB
+</assignee>
+
+<inventors>
+ZHONG, SHENG
+</inventors>
+
+<docdb_family_id>
+73017593
+</docdb_family_id>
+
+<title>
+Optimizing Supervised Generative Adversarial Networks via Latent Space Regularizations
+</title>
+
+<abstract>
+A method of training a generator G of a Generative Adversarial Network (GAN) includes receiving, by an encoder E, a target data Y; receiving, by the encoder E, an output G(Z) of the generator G, where the generator G generates the output G(Z) in response to receiving a random sample Z that is a noisy sample, and where a discriminator D of the GAN is trained to distinguish which of the G(Z) and the target data Y is real data; training the encoder E to minimize a difference between a first latent space representation E(G(Z)) of the output G(Z) and a second latent space representation E(Y) of the target data Y, where the output G(Z) and the target data Y are input to the encoder E; and using the first latent space representation E(G(Z)) and the second latent space representation E(Y) to constrain the training of the generator G.
+</abstract>
+
+<claims>
+1. A method of training a generator G of a Generative Adversarial Network (GAN), comprising: receiving, by an encoder E, a target data Y; receiving, by the encoder E, an output G(Z) of the generator G, wherein the generator G generates the output G(Z) in response to receiving a random sample Z that is a noisy sample, and wherein a discriminator D of the GAN is trained to distinguish which of the G(Z) and the target data Y is real data; training the encoder E to minimize a difference between a first latent space representation E(G(Z)) of the output G(Z) and a second latent space representation E(Y) of the target data Y, wherein the output G(Z) and the target data Y are input to the encoder E; and using the first latent space representation E(G(Z)) and the second latent space representation E(Y) to constrain the training of the generator G.
+2. The method of claim 1, further comprising: updating the encoder E by descending, for m samples, a gradient wherein the m samples comprising m noise samples {z1, z2, . . . , zm} selected from a distribution p(z) and m corresponding target data {y1, y2, . . . , ym}, wherein EθE(yi) is a first output of the encoder E given first current weight values θE of the encoder E and a first input yi, wherein GθG(zi) is a second output of the of the generator G given second current weight values θG of the generator G and a second input zi, and wherein EθE(GθG(zi)) is a third output of the of the encoder E given the first current weight values θE of the encoder E and GθG(zi) as input.
+3. The method of claim 1, wherein the target data Y corresponds to the output G(Z).
+4. The method of claim 1, wherein the generator G is trained by applying a Lipschitz condition so as to upper bound a first difference between the output G(Z) and the target data Y to a second difference between the first latent space representation E(G(Z)) and the second latent space representation E(Y).
+5. The method of claim 1, wherein the encoder E is a neural network comprising an upscaling layer, and wherein each of the outputs E(G(Z)) and E(Y) of the encoder E having a first size equal to a second size of Z.
+6. The method of claim 1, wherein the random sample Z is a multi-dimensional vector of values selected from a distribution p(z).
+7. The method of claim 1, wherein using the first latent space representation E(G(Z)) and the second latent space representation E(Y) to constrain the training of the generator G, comprising: updating the generator G by descending, for m samples, a gradient wherein θD, θG, and θE are, respectively, weights of the discriminator D, the generator G, and the encoder E, wherein GθG(zi) is an output of the generator G for an input zi, wherein DθD(GθD(zi)) and EθE(GθG(zi)) are, respectively, outputs of the discriminator D and the encoder E when GθG(zi) is used as input, wherein EθE(yi) is an encoder E output for a target datum yi, and wherein μ1 and μ2 are hyperparameters.
+8. An apparatus for training a generator G of a Generative Adversarial Network (GAN), comprising: a memory; and a processor, the processor is configured to execute instructions stored in the memory to: input, to an encoder E, a target data Y; input, to the encoder E, an output G(Z) of the generator G, wherein the generator G generates the output G(Z) in response to receiving a random sample Z, and wherein a discriminator D of the GAN is trained to distinguish which of the G(Z) and the target data Y is real data; train the encoder E to minimize a difference between a first latent space representation E(G(Z)) of the output G(Z) and a second latent space representation E(Y) of the target data Y, wherein the output G(Z) and the target data Y are input to the encoder E; and use the first latent space representation E(G(Z)) and the second latent space representation E(Y) to constrain the training of the generator G.
+9. The apparatus of claim 8, wherein the instructions further comprise instructions to: update the encoder E by descending, for m samples, a gradient wherein the m samples comprise m noise samples {z1, z2, . . . , zm} selected from a distribution p(z) and m corresponding target data {y1, y2, . . . , ym}, wherein EθE(yi) is a first output of the encoder E given first current weight values θE of the encoder E and a first input yi, wherein GθG(zi) is a second output of the of the generator G given second current weight values θG of the generator G and a second input zi, and wherein EθE(GθG(zi)) is a third output of the of the encoder E given the first current weight values θE of the encoder E and GθG(zi) as input.
+10. The apparatus of claim 8, wherein the target data Y corresponds to the output G(Z).
+11. The apparatus of claim 8, wherein the encoder E comprises a neural network.
+12. The apparatus of claim 11, wherein the encoder E further comprises an upscaling layer, and wherein each of the outputs E(G(Z)) and E(Y) of the encoder E having a first size equal to a second size of Z.
+13. The apparatus of claim 8, wherein the random sample Z is a multi-dimensional vector of values selected from a distribution p(z).
+14. The apparatus of claim 8, wherein to use the first latent space representation E(G(Z)) and the second latent space representation E(Y) to constrain the training of the generator G, comprises to: updating the generator G by descending, for m samples, a gradient
+15. A method for generating a super resolution image, comprising: receiving, by a generator G, an input corresponding to a low resolution image; and outputting, from the generator G, a super resolution image corresponding to the low resolution image, wherein the generator is trained using a Generative Adversarial Network (GAN) comprising: the generator G; an encoder E; and a discriminator D, wherein outputs of the encoder E are used to constrain the training of the generator G.
+16. The method of claim 15, wherein the outputs of the encoder comprising: a first latent space representation E(G(Z)) of an output G(Z) of the generator G, wherein Z corresponds to a training low-resolution image and G(Z) corresponds to a generated high-resolution image; and a second latent space representation E(Y) of a training high-resolution image Y.
+17. The method of claim 15, wherein the encoder E is trained to minimize a difference between the first latent space representation E(G(Z)) and the second latent space representation E(Y).
+18. The method of claim 17, wherein the encoder E is trained by descending, for m samples, a gradient
+19. The method of claim 17, wherein the generator G is trained by applying a Lipschitz condition so as to upper bound a first difference between the generated high-resolution image and the training high-resolution image Y to a second difference between the first latent space representation E(G(Z)) and the second latent space representation E(Y).
+20. The method of claim 15, wherein the encoder E comprises a VGG network.
+</claims>
+</document>

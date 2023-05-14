@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2020-04-27
+</filing_date>
+
+<publication_date>
+2020-10-29
+</publication_date>
+
+<priority_date>
+2019-04-25
+</priority_date>
+
+<ipc_classes>
+A61B34/10,G06T1/20,G06T1/60,G06T7/10
+</ipc_classes>
+
+<assignee>
+SURGICAL SAFETY TECHNOLOGIES
+</assignee>
+
+<inventors>
+GRANTCHAROV, TEODOR PANTCHEV
+SAUN, Tomas Jaan
+CHAUDHRY, Amar S.
+DE LA VEGA FERNANDEZ, Juliana
+</inventors>
+
+<docdb_family_id>
+72921980
+</docdb_family_id>
+
+<title>
+BODY-MOUNTED OR OBJECT-MOUNTED CAMERA SYSTEM
+</title>
+
+<abstract>
+An object or body-mounted camera apparatus for recording surgery is provided that is adapted for tracking a relevant visual field of an on-going operation. To help maintain visibility and/or focus of the visual field, specific machine learning approaches are proposed in combination with control commands to shift a physical positioning or a perspective of the camera apparatus. Additional variations are directed to tracking obstructions based on the visual field of the camera, which can be utilized for determining a primary recording for use when there are multiple cameras being used in concert.
+</abstract>
+
+<claims>
+1. A recording device for generating one or more recordings of a surgical procedure, the recording device comprising: an imaging sensor residing within a housing; a computer processor coupled with computer memory, the computer processor configured to: receive a stream of image frames from the imaging sensor; continuously identify, using a trained machine learning data model architecture processing the stream of image frames, a visual region of interest within a field of view of the imaging sensor from the stream of image frames, the visual region of interest based on tracking a physical object relating to the surgical procedure in the field of view, the visual region of interest including a centroid; generate a displacement vector data structure when the centroid of the visual region of interest has been displaced between temporally proximate frames of the stream of image frames, the displacement vector data structure representative of a directional shift; and generate a control signal requesting movement of the imaging sensor or the housing in a direction based at least on the displacement vector data structure.
+2. The recording device of claim 1, wherein the trained machine learning data model architecture is a Convolutional Neural Network (CNN) that is adapted for detection of the object and instance segmentation.
+3. The recording device of claim 2, wherein the CNN is adapted to predict, for each pixel of an image frame of the stream of frames, a corresponding segmentation mask selected from a plurality of potential segmentation masks, and wherein the visual region of interest is derived at least from the associated segmentation mask corresponding to each pixel.
+4. The recording device of claim 3, wherein the plurality of potential segmentation masks includes a first segmentation mask tracking the physical object relating to the surgical procedure in the field of view and one or more additional segmentation masks tracking one or more corresponding obstructions; wherein the CNN is adapted to utilize the first segmentation mask and the one or more additional segmentation masks together to identify an overall obstruction amount for a particular frame of the stream of frames; and wherein the processor is further configured to annotate the stream of image frames with additional metadata indicative of the overall obstruction amount for each frame of the stream of image frames.
+5. The recording device of claim 2, wherein the CNN is pre-trained on a large scale object detection, segmentation, and captioning data set such that the CNN is initialized with weights derived from the pre-training to apply transfer learning where training on previously learned tasks is used to enhance learning of a similar but different task.
+6. The recording device of claim 4, wherein training parameters for the CNN include a decreasing stepwise learning rate as training progresses through staged epochs.
+7. The recording device of claim 1, wherein the visual region of interest is used to crop the stream of image frames, and wherein the computer processor is further configured to store a cropped stream of image frames onto a data storage.
+8. The recording device of claim 1, wherein the housing is mounted on or positioned proximate to an individual's shoulder; wherein the housing is coupled with a gimbal having actuators thereon for controlling a gimbal roll axis, a gimbal pitch axis and a gimbal yaw axis; and wherein the displacement vector data structure is transformed into a corrective gimbal actuator command for physically repositioning of the imaging sensor or the housing.
+9. The recording device of claim 1, wherein the control signal is converted into a user interface output requesting an individual physically reposition the imaging sensor or the housing in accordance with the displacement vector data structure representative of the directional shift.
+10. The recording device of claim 1, wherein the recording device is mounted into or positioned proximate to a repositionable overhead light.
+11. The recording device of claim 1, wherein the housing is a wearable harness.
+12. The recording device of claim 11, wherein the wearable harness is mounted on a body of a person, and the recording device is coupled to a mountable on the housing such that the recording device is positioned on a shoulder of the person, the wearable harness adapted to be worn on top of a sterile surgical gown.
+13. The recording device of claim 1, wherein the housing is mountable onto a fixed mounting point.
+14. The recording device of claim 1, wherein the housing is mountable onto a fixed track such that the housing is conveyable across an axis provided by the fixed track through operation of a motor coupled to the fixed track.
+15. A method for generating one or more recordings of a surgical procedure using an imaging sensor residing within a housing, the method comprising: receiving a stream of image frames from the imaging sensor; continuously identifying, using a trained machine learning data model architecture processing the stream of image frames, a visual region of interest within a field of view of the imaging sensor from the stream of image frames, the visual region of interest based on tracking a physical object relating to the surgical procedure in the field of view, the visual region of interest including a centroid; generating a displacement vector data structure when the centroid of the visual region of interest has been displaced between temporally proximate frames of the stream of image frames, the displacement vector data structure representative of a directional shift; and generating a control signal requesting movement of the imaging sensor or the housing in a direction based at least on the displacement vector data structure.
+16. The method of claim 15, wherein the trained machine learning data model architecture is a Mask Region-based Convolutional Neural Network (R-CNN) that is adapted for detection of the object and instance segmentation; wherein the Mask R-CNN is adapted to predict, for each pixel of an image frame of the stream of frames, a corresponding segmentation mask selected from a plurality of potential segmentation masks, and wherein the visual region of interest is derived at least from the associated segmentation mask corresponding to each pixel, wherein the plurality of potential segmentation masks includes a first segmentation mask tracking the physical object relating to the surgical procedure in the field of view and one or more additional segmentation masks tracking one or more corresponding obstructions; and wherein the Mask R-CNN is adapted to utilize the first segmentation mask and the one or more additional segmentation masks together to identify an overall obstruction amount for a particular frame of the stream of frames; and the method further comprises: annotating the stream of image frames with additional metadata indicative of the overall obstruction amount for each frame of the stream of image frames.
+17. The method of claim 16, wherein the Mask R-CNN is pre-trained on a large scale object detection, segmentation, and captioning data set such that the Mask R-CNN is initialized with weights derived from the pre-training to apply transfer learning where training on previously learned tasks is used to enhance learning of a similar but different task.
+18. The method of claim 15, wherein the housing is mounted on or positioned proximate to an individual's shoulder; wherein the housing is coupled with a gimbal having actuators thereon for controlling a gimbal roll axis, a gimbal pitch axis and a gimbal yaw axis; and wherein the displacement vector data structure is transformed into a corrective gimbal actuator command for physically repositioning the imaging sensor or the housing.
+19. The method of claim 15, wherein the control signal is converted into a user interface output requesting an individual physically reposition the imaging sensor or the housing in accordance with the displacement vector data structure representative of the directional shift.
+20. A non-transitory computer readable medium storing machine interpretable instructions, which when executed by a processor, cause the processor to perform a method for generating one or more recordings of a surgical procedure using an imaging sensor residing within a housing, the method comprising: receiving a stream of image frames from the imaging sensor; continuously identifying, using a trained machine learning data model architecture processing the stream of image frames, a visual region of interest within a field of view of the imaging sensor from the stream of image frames, the visual region of interest based on tracking a physical object relating to the surgical procedure in the field of view, the visual region of interest including a centroid; generating a displacement vector data structure when the centroid of the visual region of interest has been displaced between temporally proximate frames of the stream of image frames, the displacement vector data structure representative of a directional shift; and generating a control signal requesting movement of the imaging sensor or the housing in a direction based at least on the displacement vector data structure.
+</claims>
+</document>

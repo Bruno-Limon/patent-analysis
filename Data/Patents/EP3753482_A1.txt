@@ -1,0 +1,68 @@
+<document>
+
+<filing_date>
+2020-05-19
+</filing_date>
+
+<publication_date>
+2020-12-23
+</publication_date>
+
+<priority_date>
+2019-05-21
+</priority_date>
+
+<ipc_classes>
+A61B5/00,A61B5/0205,A61B5/024,A61B5/04,A61B5/08,A61B5/11
+</ipc_classes>
+
+<assignee>
+FIRSTBEAT ANALYTICS
+</assignee>
+
+<inventors>
+SAALASTI, SAMI
+RUHANEN, TUUKKA
+</inventors>
+
+<docdb_family_id>
+70779509
+</docdb_family_id>
+
+<title>
+METHOD AND APPARATUS FOR DETECTING A SLEEP STATE
+</title>
+
+<abstract>
+The object of the invention is a method and device for detecting a sleep state by means of heart-rate and movement data. By means of neural network software, a sleep state is detected using as input data movement data (move_count) and data derived from heart-rate data and/or data derived from inter-beat interval data such as (MAD) and respiration data (RESP). In the method, at least a portion of the variables (HRD, MHR, MAD, Resp, GRD) derived from the heart-rate data/inter-beat interval data are further modified by means of one, most preferably 2-4, artificial average functions and the cumulative sleep time is one input datum.
+</abstract>
+
+<claims>
+1. Computer implemented method for detecting a sleep state by means of heart-rate and movement data using a device with a CPU (32), ROM and RAM memory (31.1, 31.2) and software, in which method heart rate data including inter-beat interval data is measured by a first sensor and movement data is measured by a second sensor, a correlation function is used for detecting a sleep state having input variables, which includes first variable derived from heart rate data in terms of beats per minute, such as heart rate deviation (HRD), and second variable derived from movement data, characterized in that the correlation function has further inputs - at least one variable as third variable derived from inter-beat interval data in terms of milliseconds, such as mean absolute difference between successive RR-intervals (MAD), - a fourth variable depicting cumulative sleep time, and - said variable derived from heart rate data includes at least one of the following: heart rate deviation (HRD) and heart rate difference (from minimum HR) (MHR),
+variables derived from the heart-rate and/or inter-beat interval data (such as HRD, MHR, MAD) are further modified by 0-4 artificial average functions having different weightings, and
+the total number of inputs for the correlation function is 7 - 28, preferably 17 - 23.
+2. Method according to claim 1, characterized in that neural network software is used for detecting a sleep state and the input data are movement data (move_count) and data derived from heart-rate data and data derived from inter-beat interval data and respiration data (RESP), wherein
+the time changing variables used as input data for the neural network software are - move count - heart rate deviation (HRD) - heart rate difference (from minimum HR) (MHR) - mean absolute difference between successive RR-intervals (MAD) - respiration (Resp) - gradient of the heart rate difference (GRD), - cumulative sleep time, and
+at least a portion of the variables (HRD, MHR, MAD, Resp, GRD) derived from the heart-rate and/or inter-beat interval data are further modified by 2-4 artificial average functions, which have the form f_ma(t)= (c*f_ma(t-1+ input(t))/(c+1), where c is 20-80 with a sample window of 5s and input is the input data to be averaged.
+3. Method according to claim 1, characterized in that respiration (Resp) data modified by 0-4 artificial average functions having different weightings is also used as input data for the correlation function.
+4. Method according to claim 1 or 3, characterized in that gradient data of the heart rate difference (GRD) modified by 0-4 artificial average functions having different weightings is also used as input data for the correlation function.
+5. Method according to claims 1 or 3 - 4, characterized in that the average function has the form f_ma(t)=(c*f_ma(t-1+input(t))/(c+1), where c is typically 20 - 80 with a sample window of 5 s and input is the input data to be averaged.
+6. Method according to claims 1 or 3 - 5, characterized in that the correlation function is a neural network, preferably a feed-forward neural network.
+7. Method according to claims 1-6, characterized in that the correlation function includes at least two subfunctions where the first subfunction detects only sleep states "sleep" & "non-sleep", and where the rest of the subfunctions handle said sleep states consisting several different states.
+8. Method according to claims 1-7, characterized in that the heart-rate data and night-time inter-beat interval data are generated with a PPG device.
+9. Method according to claims 1-8, characterized in that in addition to the real-time detection of the method, a correction is calculated during a dynamic delay so that a time window of a selected length, e.g. a five-minute time window, is applied to the incoming signal, whereupon an auxiliary logic corrects the incoming signal in accordance with predetermined rules so that the episodes constituting the bulk of one sleep state are first sought in the incoming signals, that part is selected in accordance with a main rule, e.g. 80% of the episodes, and, apart from previously defined exceptions, the whole episode is modified in accordance with the bulk of the sleep state.
+10. Method in accordance with claim 9, characterized in that, as a special rule, AWAKE states are not modified in accordance with the bulk of the state.
+11. Method according to claims 1-10, characterized in that
+the calculation of the night-time averages of the heart-rate variability variables occurs in the method in such a way that two neural models are implemented as follows:
+during the measurement the first night, a less accurate neural model is used for the detection of a sleep state and an average of the heart-rate variability variables is stored in real time, e.g. the first 4h of the night are a sufficient sample for the variables to stabilize, after which it is possible to switch to using a neural model that utilizes these averages.
+12. Method according to claim 11, characterized in that the values of the heart-rate variability variables are distributed in the calculation by means of the average night-time heart-rate variability.
+13. Method according to claim 11 or 12, characterized in that the method includes two different neural models for the detection, of which the first (the less accurate) is used when the night-time background parameters have not yet been calculated and the subsequent method is used when the background parameters have been calculated.
+14. An apparatus for detecting a sleep state of a user, the apparatus including a software-operating system, comprising a CPU (32), RAM and ROM memory (31.1, 31.2), heart-rate sensor (12), accelerometer (70), input unit (31) for receiving heart-rate data and movement data, an output unit (34) and a software including a correlation function, said software being arranged to monitor sleep of the user using data provided by the heart-rate sensor (12) and accelerometer (70) and to calculate the sleep state using the correlation function, said RAM memory (31.1) including - a result register for storing sleep states during selected time period, - a sum register for storing cumulative sleep time,
+characterized in that the input data for the correlation function are - movement data (move count), - at least one variable derived from heart-rate data, such as heart rate deviation (HRD) and heart rate difference (from minimum HR) (MHR), - at least one variable derived from inter-beat interval data, such as mean absolute difference between successive RR-intervals (MAD), - cumulative sleep time, and
+variables derived from the heart-rate and/or inter-beat interval data (such as HRD, MHR, MAD) are further modified by 0-4 artificial average functions having different weightings, and
+the total number of inputs for the correlation function is 7 - 28, preferably 17 - 23, and software further being arranged - to sum the detected sleep time and store it to said sum register, - to set input data to the said correlation function, and - to calculate the resulting sleep state.
+15. Apparatus according to claim 14, characterized in that the apparatus includes a PPG wrist device as its only source of heart-rate data.
+16. Apparatus according to claim 14 or 15, characterized in that the apparatus includes an ECG device as its only source of heart-rate data.
+17. Apparatus according to claims 14 - 16, characterized in that the apparatus comprises a buffer memory to temporarily store sleep state data and a register to store auxiliary logic that corrects the last periods of sleep states in accordance with predetermined rules.
+</claims>
+</document>

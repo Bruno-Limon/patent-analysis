@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-01-21
+</filing_date>
+
+<publication_date>
+2020-07-16
+</publication_date>
+
+<priority_date>
+2013-04-28
+</priority_date>
+
+<ipc_classes>
+G06F16/22,G06F16/2457,G06F16/332,G06F16/9535
+</ipc_classes>
+
+<assignee>
+HITHINK ROYALFLUSH INFORMATION NETWORK COMPANY
+</assignee>
+
+<inventors>
+YI, ZHENG
+TAO, ZHIWEI
+XIA, WEI
+</inventors>
+
+<docdb_family_id>
+48837051
+</docdb_family_id>
+
+<title>
+QUERY SELECTION METHOD AND SYSTEM
+</title>
+
+<abstract>
+A system and method for query selection are provided. The method may include acquiring a natural language sentence, pre-processing to obtain a standard node sequence, constructing a node tree based on the relationship between an index node and other nodes, generating a data query command based on the node tree, querying data using the data query command, and filtering the results. The standard node sequence may include at least an index node and a condition node. The node tree may be used to characterize the index-condition combination. The system may include an acquisition unit, a pre-processing unit, a node tree construction unit, a translation unit, and a querying and filtering unit.
+</abstract>
+
+<claims>
+1. A query selection method specifically for querying data from one or more databases, implemented on a hardware which has at least one processor and a storage device, comprising: obtaining, by the at least one processor, a natural sentence; generating, by the at least one processor, a standard node sequence based on the natural sequence, the standard node sequence including multiple index nodes and at least one condition node, wherein the multiple index nodes corresponds to indexes of the one or more database, the at least one condition node including at least one of a number node, a date node, or a character string node; constructing, by the at least one processor, a node tree according to the standard node sequence, wherein the node tree is structured to include the multiple index nodes, the at least one condition node, a first relationship between a first index node of the multiple index nodes and a second index node of the multiple index nodes, and a second relationship between at least one index node of the multiple index nodes and the at least one condition node; generating, by the at least one processor, a data query command according to the node tree; querying, by the at least one processor, data using the data query command from the one or more databases to obtain a query result; and filtering the query result based on the node tree to obtain a filtered result.
+2. The method of claim 1, wherein the obtaining a natural sentence comprises: receiving audio information inputted by a user via a voice input device; and performing a speech recognition on the audio information to obtain the natural sentence.
+3. The method of claim 2, wherein the obtaining a natural sentence further comprises: determining a user status indicator by detecting, via an electric sensor, a user status of the user when the user is inputting the audio information, wherein: the user status relates to at least one of an activity, a physical or mental state, an environment, or a location of the user when the user is inputting the audio information; and the speech recognition is performed based on the user status indicator.
+4. The method of claim 2, wherein the speech recognition is performed based on historical activity information of the user.
+5. The method of claim 1, wherein the generating a standard node sequence based on the natural sequence comprises: obtaining, by the at least one processor, multiple words or phrases by performing word segmentation on the natural sentence; obtaining, by the at least one processor, a raw node sequence corresponding to the natural sentence, the raw node sequence including at least one node, each node of the at least one node in the raw node sequence including a word or a phrase of the multiple words or phrases; determining, by the at least one processor, that the raw node sequence is non-standard by examining index key words or matching characteristics of specific phrasing; and converting, by the at least one processor, the non-standard raw node sequence to the standard node sequence.
+6. The method of claim 5, wherein the converting the non-standard raw node sequence to the standard node sequence is based on a machine learning algorithm.
+7. The method of claim 6, further comprising: identifying a category of the user based on the identity information of the user, wherein the machine learning algorithm further takes the category of the user as a part of its input
+8. The method of claim 5, wherein the converting the non-standard raw node sequence to the standard node sequence is according to a conversion rule set.
+9. The method of claim 8, further comprising: determining a category of the user based on identity information of the user; and selecting, in response to the category of the user, an identity related rule from the conversion rule set, wherein the non-standard raw node sequence is converted to the standard node sequence based at least in part on the identity related rule.
+10. The method of claim 1, further comprising displaying the filtered result via an interface by: identifying a first index corresponding to an index node of the standard node sequence; and displaying, via the interface, first data of items of the filtered result corresponding to the first index.
+11. The method of claim 10, wherein the displaying the filtered result further comprises: selecting, from the indexes of the one or more databases, one or more second indexes based on correlation indicators of the indexes of the one or more databases with respect to the first index, wherein each of the correlation indicators indicates a correlation between a corresponding index of the indexes of the one or more databases and the first index; and displaying, via the interface, second data of items of the filtered result corresponding to the one or more second indexes, wherein the standard node sequence includes no node corresponding to the one or more second indexes.
+12. The method of claim 11, further comprising: further displaying, via the interface, third data of items of the filtered result corresponding to a third index in response to an operation of a user; and updating the correlation indicator of the third index.
+13. The method of claim 1, further comprising: further displaying, via an interface, fourth data of items of the filtered result corresponding to a fourth index in response to an operation of a user.
+14. The method of claim 13, wherein the fourth index is not included in the indexes of the one or more databases, and the method further comprises: retrieving a computing mean for computing data of the fourth index based at least in part on data of a fifth index included in the indexes of the one or more databases; and computing the fourth data based at least in part on fifth data of items of the filtered result corresponding to the fifth index using the computing mean.
+15. The method of claim 1, further comprising updating the standard node sequence by: identifying a first update node included in an original version of the standard node sequence, the first update node indicating an update of the standard node sequence to be performed; identifying an index/condition node to be updated in the original version of the standard node according to nodes within a first distance from the first update node; identifying a second update node within a second distance from the first update node, the second update node indicating how to update the index/condition node to be updated; updating the index/condition node to be updated according to the second update node; and removing at least the first update node and the second update node from the original version of the standard node.
+16. The method of claim 1, further comprising: obtaining a third natural sentence; generating a second standard node sequence based at least in part on the third natural sentence; constructing a second node tree based on the second standard node sequence; and filtering the filtered result based on the second node tree to obtain a second filtered result.
+17. The method of claim 16, the generating a second standard node sequence comprising: constructing a preliminary standard node sequence based on the third natural sentence; identifying one or more missing nodes of the preliminary standard node sequence; identifying target nodes of the first standard node sequence corresponding to the one or more missing nodes of the second standard node sequence; and generating the second standard node sequence based on the target nodes of the first standard node sequence and the preliminary standard node sequence.
+18. The method of claim 1, further comprising: obtaining a fourth natural sentence; generating a fourth standard node sequence based on the fourth natural sentence, the fourth standard node tree including an operation node and one or more object nodes, the operation node corresponding to a desired operation, and the one or more object nodes indicating one or more items of the filtered result; generating an operation command according to the operation node and the one or more object nodes; and causing, according to the operation command, the desired operation to be performed on the one or more items of the first filtered result.
+19. A query selection system specifically configured to query data from one or more databases, including a storage device storing a set of instructions, and at least one processor when executing the instructions causing the system to: obtain a natural sentence; generate a standard node sequence based on the natural sequence, the standard node sequence including multiple index nodes and at least one condition node, wherein the multiple index nodes corresponds to indexes of the one or more database, the at least one condition node including at least one of a number node, a date node, or a character string node; construct a node tree according to the standard node sequence, wherein the node tree is structured to include the multiple index nodes, the at least one condition node, a first relationship between a first index node of the multiple index nodes and a second index node of the multiple index nodes, and a second relationship between at least one index node of the multiple index nodes and the at least one condition node; generate a data query command according to the node tree; query data using the data query command from the one or more databases to obtain a query result; and filter the query result based on the node tree to obtain a filtered result.
+20. A non-transitory computer readable medium, storing instructions compatible for querying data from one or more databases, wherein when executed by a processor, the instructions causes the processor to execute operations comprising: obtaining a natural sentence; generating a standard node sequence based on the natural sequence, the standard node sequence including multiple index nodes and at least one condition node, wherein the multiple index nodes corresponds to indexes of the one or more database, the at least one condition node including at least one of a number node, a date node, or a character string node; constructing a node tree according to the standard node sequence, wherein the node tree is structured to include the multiple index nodes, the at least one condition node, a first relationship between a first index node of the multiple index nodes and a second index node of the multiple index nodes, and a second relationship between at least one index node of the multiple index nodes and the at least one condition node; generating a data query command according to the node tree; querying data using the data query command from the one or more databases to obtain a query result; and filtering the query result based on the node tree to obtain a filtered result.
+</claims>
+</document>

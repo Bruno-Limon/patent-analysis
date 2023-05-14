@@ -1,0 +1,70 @@
+<document>
+
+<filing_date>
+2019-03-27
+</filing_date>
+
+<publication_date>
+2020-07-02
+</publication_date>
+
+<priority_date>
+2018-12-28
+</priority_date>
+
+<ipc_classes>
+G06T1/60,G06T15/06,G06T17/00,G06T9/40
+</ipc_classes>
+
+<assignee>
+INTEL CORPORATION
+</assignee>
+
+<inventors>
+BENTHIN, CARSTEN
+WOOP, SVEN
+VAIDYANATHAN, KARTHIK
+</inventors>
+
+<docdb_family_id>
+68165451
+</docdb_family_id>
+
+<title>
+Apparatus and method for efficiently storing ray traversal data
+</title>
+
+<abstract>
+Apparatus and method for preventing re-traversal of a prior path on a restart. For example, one embodiment of an apparatus comprises: a ray generator to generate a plurality of rays in a first graphics scene; a bounding volume hierarchy (BVH) generator to construct a BVH comprising a plurality of hierarchically arranged nodes, wherein the BVH comprises a specified number of child nodes at a current BVH level beneath a parent node in the hierarchy; traversal/intersection circuitry to traverse one or more of the rays through the hierarchically arranged nodes of the BVH to form a current traversal path and intersect the one or more rays with primitives contained within the nodes; and traversal tracking circuitry to maintain a path encoding array to store path data related to the current traversal path, the path data comprising an index of a currently traversed child node; wherein the traversal/intersection circuitry is to prevent one or more subsequent rays from re-intersecting primitives from which they originated and/or avoid re-traversing the current traversal path based on the path data in the path encoding array.
+</abstract>
+
+<claims>
+1. An apparatus comprising: a ray generator to generate a plurality of rays in a first graphics scene; a bounding volume hierarchy (BVH) generator to construct a BVH comprising a plurality of hierarchically arranged nodes, wherein the BVH comprises a specified number of child nodes at a current BVH level beneath a parent node in the hierarchy; traversal/intersection circuitry to traverse one or more of the rays through the hierarchically arranged nodes of the BVH to form a current traversal path and intersect the one or more rays with primitives contained within the nodes; and traversal tracking circuitry to maintain a path encoding array to store path data related to the current traversal path, the path data comprising an index of a currently traversed child node; wherein the traversal/intersection circuitry is to prevent one or more subsequent rays from re-intersecting primitives from which they originated and/or avoid re-traversing the current traversal path based on the path data in the path encoding array.
+2. The apparatus of claim 1 wherein the path data comprises an index of one or more additional child nodes and wherein the child nodes are not sorted by a hit distance from a current ray origin.
+3. The apparatus of claim 1 further comprising: a short traversal stack of a fixed size comprising a specified number of entries fewer than the number of child nodes beneath the parent node, each entry associated with a child node at the current BVH level, the entries ordered from top to bottom within the short traversal stack based on a sorted distance of each respective child node, wherein each entry includes a field to indicate whether that entry is associated with a final child in the current BVH level; wherein the traversal/intersection circuitry is to process entries from the top of the traversal stack, removing entries as they are processed, the traversal/intersection circuitry to determine that a current entry is associated with the final child node at the current BVH level by reading a first value in the field.
+4. The apparatus of claim 3 wherein the value comprises a single bit value, the single bit value set to 1 to indicate that the entry is associated with the final child node in the current BVH level.
+5. The apparatus of claim 4 wherein the traversal/intersection circuitry is to move to a new set of nodes of the BVH after determining that the current entry is associated with the final child node a the current BVH level.
+6. The apparatus of claim 3 further comprising: sorting circuitry and/or logic to sort the child nodes at the current BVH level based on distance of the child nodes from an origin of the ray; and indexing circuitry and/or logic to maintain a child index array having a number of index entries equal to a depth of the BVH, wherein each entry identifies a child subtree that is currently being traversed at a particular level of the BVH.
+7. The apparatus of claim 6 wherein an index value in an index entry is increased as the traversal/intersection circuitry completes processing a given child node at an associated BVH level.
+8. The apparatus of claim 7 wherein child nodes associated with index values smaller than a current index value in the index entry have been processed by the traversal/intersection circuitry.
+9. The apparatus of claim 8 wherein in the event of a restart, the traversal/intersection circuitry is to restart at the child node associated with the current index value and is to avoid re-processing those child nodes associated with index values smaller than the current index value and is further to avoid re-traversing the current traversal path based on the path data in the path encoding array.
+10. A method comprising: generating a plurality of rays in a first graphics scene; constructing a bounding volume hierarchy (BVH) comprising a plurality of hierarchically arranged nodes, wherein the BVH comprises a specified number of child nodes at a current BVH level beneath a parent node in the hierarchy; traversing one or more of the rays through the hierarchically arranged nodes of the BVH to form a current traversal path; intersecting the one or more rays with primitives contained within the nodes; and maintaining a path encoding array to store path data related to the current traversal path, the path data comprising an index of a currently traversed child node; evaluating the path data in the path encoding array to prevent one or more subsequent rays from re-intersecting primitives from which they originated and/or avoid re-traversing the current traversal path.
+11. The method of claim 10 wherein the path data comprises an index of one or more additional child nodes and wherein the child nodes are not sorted by a hit distance from a current ray origin.
+12. The method of claim 10 further comprising: providing a short traversal stack of a fixed size comprising a specified number of entries fewer than the number of child nodes beneath the parent node, each entry associated with a child node at the current BVH level, the entries ordered from top to bottom within the short traversal stack based on a sorted distance of each respective child node; wherein each entry includes a field to indicate whether that entry is associated with a final child in the current BVH level; wherein entries are to be processed from the top of the traversal stack and removed as they are processed, a current entry to be identified as associated with the final child node at the current BVH level by reading a first value from the field.
+13. The method of claim 12 wherein the value comprises a single bit value, the single bit value set to 1 to indicate that the entry is associated with the final child node in the current BVH level.
+14. The method of claim 12 wherein a new set of nodes of the BVH are to be processed after determining that the current entry is associated with the final child node a the current BVH level.
+15. The method of claim 12 further comprising: sorting the child nodes at the current BVH level based on distance of the child nodes from an origin of the ray; and generating and updating a child index array having a number of index entries equal to a depth of the BVH, wherein each entry identifies a child subtree that is currently being traversed at a particular level of the BVH.
+16. The method of claim 15 wherein an index value in an index entry is increased as the traversal/intersection circuitry completes processing a given child node at an associated BVH level.
+17. The method of claim 16 wherein child nodes associated with index values smaller than a current index value in the index entry have been processed by the traversal/intersection circuitry.
+18. The method of claim 17 further comprising: responsive to a restart event, restarting at the child node associated with the current index value, avoiding re-processing those child nodes associated with index values smaller than the current index value, and avoid re-traversing the current traversal path based on the path data in the path encoding array.
+19. A non-transitory machine-readable medium having program code stored thereon which, when executed by a machine, causes the machine to perform the operations of: generating a plurality of rays in a first graphics scene; constructing a bounding volume hierarchy (BVH) comprising a plurality of hierarchically arranged nodes, wherein the BVH comprises a specified number of child nodes at a current BVH level beneath a parent node in the hierarchy; traversing one or more of the rays through the hierarchically arranged nodes of the BVH to form a current traversal path; intersecting the one or more rays with primitives contained within the nodes; and maintaining a path encoding array to store path data related to the current traversal path, the path data comprising an index of a currently traversed child node; evaluating the path data in the path encoding array to prevent one or more subsequent rays from re-intersecting primitives from which they originated and/or avoid re-traversing the current traversal path.
+20. The non-transitory machine-readable medium of claim 19 wherein the path data comprises an index of one or more additional child nodes and wherein the child nodes are not sorted by a hit distance from a current ray origin.
+21. The non-transitory machine-readable medium of claim 19 further comprising: providing a short traversal stack of a fixed size comprising a specified number of entries fewer than the number of child nodes beneath the parent node, each entry associated with a child node at the current BVH level, the entries ordered from top to bottom within the short traversal stack based on a sorted distance of each respective child node; wherein each entry includes a field to indicate whether that entry is associated with a final child in the current BVH level; wherein entries are to be processed from the top of the traversal stack and removed as they are processed, a current entry to be identified as associated with the final child node at the current BVH level by reading a first value from the field.
+22. The non-transitory machine-readable medium of claim 21 wherein the value comprises a single bit value, the single bit value set to 1 to indicate that the entry is associated with the final child node in the current BVH level.
+23. The non-transitory machine-readable medium of claim 21 wherein a new set of nodes of the BVH are to be processed after determining that the current entry is associated with the final child node a the current BVH level.
+24. The non-transitory machine-readable medium of claim 21 further comprising: sorting the child nodes at the current BVH level based on distance of the child nodes from an origin of the ray; and generating and updating a child index array having a number of index entries equal to a depth of the BVH, wherein each entry identifies a child subtree that is currently being traversed at a particular level of the BVH.
+25. The non-transitory machine-readable medium of claim 24 wherein an index value in an index entry is increased as the traversal/intersection circuitry completes processing a given child node at an associated BVH level.
+26. The non-transitory machine-readable medium of claim 25 wherein child nodes associated with index values smaller than a current index value in the index entry have been processed by the traversal/intersection circuitry.
+27. The non-transitory machine-readable medium of claim 26 further comprising: responsive to a restart event, restarting at the child node associated with the current index value, avoiding re-processing those child nodes associated with index values smaller than the current index value, and avoid re-traversing the current traversal path based on the path data in the path encoding array.
+</claims>
+</document>

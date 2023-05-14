@@ -1,0 +1,98 @@
+<document>
+
+<filing_date>
+2020-04-24
+</filing_date>
+
+<publication_date>
+2020-12-03
+</publication_date>
+
+<priority_date>
+2019-05-31
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/063,G06N3/08
+</ipc_classes>
+
+<assignee>
+APPLE
+</assignee>
+
+<inventors>
+AVERY, KEITH P.
+JEONG, MINWOO
+PAEK, TIMOTHY S.
+ROSSI, FRANCESCO
+SHI XIAOJIN
+WESTING, BRANDT M.
+KAUR, Harveen
+DHANANI, Jamil
+</inventors>
+
+<docdb_family_id>
+73551527
+</docdb_family_id>
+
+<title>
+COMPILING CODE FOR A MACHINE LEARNING MODEL FOR EXECUTION ON A SPECIALIZED PROCESSOR
+</title>
+
+<abstract>
+The subject technology receives a neural network model in a model format, the model format including information for a set of layers of the neural network model, each layer of the set of layers including a set of respective operations. The subject technology generates neural network (NN) code from the neural network model, the NN code being in a programming language distinct from the model format, and the NN code comprising a respective memory allocation for each respective layer of the set of layers of the neural network model, where the generating comprises determining the respective memory allocation for each respective layer based at least in part on a resource constraint of a target device. The subject technology compiles the NN code into a binary format. The subject technology generates a package for deploying the compiled NN code on the target device.
+</abstract>
+
+<claims>
+What is claimed is:
+1. A method comprising:
+receiving a neural network model in a model format, the model format including information for a set of layers of the neural network model, each layer of the set of layers including a set of respective operations;
+generating neural network (NN) code from the neural network model, the NN code being in a programming language distinct from the model format, and the NN code comprising a respective memory allocation for each respective layer of the set of layers of the neural network model, wherein the generating comprises determining the respective memory allocation for each respective layer based at least in part on a resource constraint of a target device;
+compiling the NN code into a binary format; and
+generating a package for deploying the compiled NN code on the target device.
+2. The method of claim 1, wherein the model format comprises a NN model document file in a particular specification for a neural network, and the programming language is an imperative programming language.
+3. The method of claim 1, wherein compiling the NN code into a binary format further includes:
+pruning a set of non-used configurations of operations of the neural network model, wherein the package is executed by the target device on a specialized processor without utilizing a machine learning framework.
+4. The method of claim 1, wherein generating the NN code further comprises: determining dependencies between intermediate layers of the neural network model; determining dimensions of the intermediate layers in the neural network model; determining a minimum number of memory allocation portions for executing the neural network model based on the dependencies;
+determining a memory allocation size for each respective memory allocation portion of the memory allocation portions based on the dimensions and dependencies; and generating code for allocating memory on the target device for each memory allocation portion based at least in part on the respective determined memory allocation size.
+5. The method of claim 1, wherein generating the NN code further comprises generating a set of compiler flags or a set of testing data for including in the compiled NN code.
+6. The method of claim 1 , wherein generating neural network (NN) code from the neural network model further comprises:
+determining a set of operations to execute in a sequential manner in an execution flow of the neural network model, the set of operations being determined based on a lack of dependency among the set of operations; and
+combining the set of operations for compiling.
+7. The method of claim 1, wherein the set of layers includes a set of intermediate data layers, and for each respective intermediate data layer of the set of intermediate data layers:
+generating respective code allocating a respective portion of memory for the respective intermediate data layer, wherein allocating the respective portion of memory is based on which intermediate layers will be concurrently executing on the target device at a particular time as the respective intermediate data layer.
+8. The method of claim 7, wherein a first portion of memory is allocated for a first intermediate data layer and a second portion of memory is allocated for a second intermediate data layer.
+9. The method of claim 1 , wherein generating NN code from the neural network model further comprises:
+quantizing operations with higher precision into respective operations with lower precisions based at least in part on the resource constraint of the target device.
+10. The method of claim 1, wherein the target device includes a runtime environment that utilizes a specialized processor, the specialized processor utilizing less power than a main processor of the target device, the specialized processor having less computing ability than the main processor, and the specialized processor being always powered on, wherein the package is loaded into memory of the target device for execution by the specialized processor.
+11. A system comprising;
+a processor;
+a memory device containing instructions, which when executed by the processor cause the processor to:
+receive a neural network model in a model format, the model format including information for a set of layers of the neural network model, each layer of the set of layers including a set of respective operations;
+generate neural network (NN) code from the neural network model, the NN code being in a programming language distinct from the model format, and the NN code comprising a respective memory allocation for each respective layer of the set of layers of the neural network model, wherein to generate the NN code comprises determining the respective memory allocation for each respective layer based at least in part on a resource constraint of a target device;
+compile the NN code into a binary format; and
+generate a package for deploying the compiled NN code on the target device.
+12. The system of claim 11, wherein the model format comprises a NN model document file in a particular specification for a neural network, and the programming language is an imperative programming language.
+13. The system of claim 11, wherein to generate the NN code further causes the processor to:
+determine dependencies between intermediate layers of the neural network model; determine dimensions of the intermediate layers in the neural network model;
+determine a minimum number of memory allocation portions for executing the neural network model based on the dependencies;
+determine a memory allocation size for each respective memory allocation portion of the memory allocation portions based on the dimensions and dependencies; and
+generate code for allocating memory on the target device for each memory allocation portion based at least in part on the respective determined memory allocation size.
+14. The system of claim 11, wherein to generate the NN code further causes the processor to:
+generate a set of compiler flags or a set of testing data for including in the compiled NN code.
+15. The system of claim 11, wherein to generate the NN code from the neural network model further comprises:
+quantize operations with higher precision into respective operations with lower precisions
+16. The system of claim 11, wherein to generate the NN code further causes the processor to:
+determine a set of operations to execute in a sequential manner in an execution flow of the neural network model, the set of operations being determined based on a lack of dependency among the set of operations; and
+combine the set of operations for compiling.
+17. The system of claim 11, wherein the set of layers includes a set of intermediate layers, and for each respective intermediate data layer of the set of intermediate layers, further causes the processor to:
+generate respective code allocating a respective portion of memory for the respective intermediate data layer, wherein allocating the respective portion of memory is based on which intermediate layers will be concurrently executing on the target device at a particular time as the respective intermediate data layer.
+18. The system of claim 17, wherein a first portion of memory is allocated for a first intermediate data layer and a second portion of memory is allocated for a second intermediate data layer.
+19. The system of claim 11, wherein the target device includes a runtime environment that utilizes a specialized processor, the specialized processor utilizing less power than a main processor of the target device, the specialized processor having less computing ability than the main processor, and the specialized processor being always powered on.
+20. A non-transitory computer-readable medium comprising instructions, which when executed by a computing device, cause the computing device to perform operations comprising:
+receiving a neural network model in a model format, the model format including information for a set of layers of the neural network model, each layer of the set of layers including a set of respective operations;
+generating neural network (NN) code from the neural network model, the NN code being in a programming language distinct from the model format, and the NN code comprising a respective memory allocation for each respective layer of the set of layers of the neural network model, wherein the generating comprises determining the respective memory allocation for each respective layer based at least in part on a resource constraint of a target device;
+compiling the NN code into a binary format; and
+generating a package for deploying the compiled NN code on the target device.
+</claims>
+</document>

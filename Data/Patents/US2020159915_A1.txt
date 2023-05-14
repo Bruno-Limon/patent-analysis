@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2019-11-14
+</filing_date>
+
+<publication_date>
+2020-05-21
+</publication_date>
+
+<priority_date>
+2018-11-15
+</priority_date>
+
+<ipc_classes>
+G06F21/54,G06F21/55
+</ipc_classes>
+
+<assignee>
+WEBROOT
+</assignee>
+
+<inventors>
+KLONOWSKI, ERIC
+STRAWSER, IRA
+</inventors>
+
+<docdb_family_id>
+70727677
+</docdb_family_id>
+
+<title>
+Selective Import/Export Address Table Filtering
+</title>
+
+<abstract>
+Examples of the present disclosure describe systems and methods for selective export address table filtering. In aspects, when an executable program is loaded in an operating system's execution environment, an address table filtering (ATF) module is loaded into the address space of a target process associated with the executable program. The ATF module may iterate a list of system library files to identify exported function names. The relative virtual address (RVA) of the exported function names may be modified to point to a protected memory location. An exception handler may be registered to process exceptions relating to access violations of the protected memory location. If the exception handler determines that an access violation caused the detected exception, the instruction pointer of the exception may be compared to the expected system library addresses boundaries. If the instruction pointer address is outside the boundaries, remedial action may occur.
+</abstract>
+
+<claims>
+1. A system comprising: one or more processors; and memory coupled to at least one of the one or more processors, the memory comprising computer executable instructions that, when executed by the at least one processor, performs a method comprising: scanning for exportable functions accessible to an executing program; modifying the relative virtual address (RVA) of one or more of the exportable function name strings to point to an access-restricted memory location; registering an exception handler to process exceptions occurring in response to attempted access of the access-restricted memory location; and processing a received exception, wherein the processing comprises determining whether a memory address of the exception is within an expected address range.
+2. The system of claim 1, wherein scanning for the exportable functions is performed by an address table filtering module loaded into a memory address space of a target process associated with the executable program.
+3. The system of claim 2, wherein the address table filtering module scans a list of preselected system libraries located in one or more address tables associated with the executable program.
+4. The system of claim 1, wherein the RVA refers to a memory address of an object in an image file after the object is loaded into memory, minus a base address of the image file.
+5. The system of claim 1, wherein modifying the RVA comprises: storing an original function name RVA of a function in a data structure; assigning an alternate memory address to the function; and storing the alternate memory address in the data structure.
+6. The system of claim 1, wherein the modifying the RVA of one or more of the exportable function name strings comprises modifying only a first function name string listed first in an address table and a second function name string listed last in the address table.
+7. The system of claim 1, wherein processing the received exception further comprises determining, by the exception handler, whether the memory address of the exception corresponds to the RVA of one or more of the exportable function name strings.
+8. The system of claim 1, wherein determining whether the memory address of the exception is within the expected address range comprises comparing an address of an instruction pointer associated with the received exception to a memory address boundary of the exportable function name strings.
+9. The system of claim 1, wherein, when a memory address of the exception is determined to be within the expected address range, a thread context of a target process associated with the executable program is updated to point to a modified RVA.
+10. The system of claim 1, wherein, when a memory address of the exception is determined to be outside the expected address range, a remedial action is performed.
+11. The system of claim 10, wherein the remedial action is at least one of: generating a warnings, terminating one or more processes associated with the executing process, modifying one or more permission, quarantining one or more files, or performing an anti-exploit action.
+12. The system of claim 1, wherein processing the received exception further comprises evaluating the received exception using at least one of regular expressions or fuzzy logic.
+13. A method comprising: scanning for exportable functions accessible to an executing program; modifying the relative virtual address (RVA) of one or more of the exportable function name strings to point to an access-restricted memory location; registering an exception handler to process exceptions occurring in response to attempted access of the access-restricted memory location; and processing a received exception, wherein the processing comprises determining whether a memory address of the exception is within an expected address range.
+14. The method of claim 13, further comprising: loading the executable program in an execution environment of an operating system; and in response to loading the executable program, loading an address table filtering module into a memory address space of a target process associated with the executable program.
+15. The method of claim 13, wherein scanning for exportable functions comprises evaluating one or more data sources accessible to the executable program, the one or more data sources including at least one of a library file and an address table.
+16. The method of claim 15, wherein the one or more data sources are dynamically determined during execution of the executing program based on at least one of program identifier, program type, program operational capabilities, or program memory footprint.
+17. The method of claim 15, wherein the one or more data sources are defined prior to execution of the executing program.
+18. The method of claim 13, wherein scanning for exportable functions comprises: identifying function data comprising a function name, a function address, and a function ordinal number; and storing the function data in temporary address table.
+19. The method of claim 13, wherein the expected address range corresponds to memory address boundaries of a whitelisted system binary.
+20. A computer-readable storage device storing computer executable instructions that when executed cause a computing system to perform a method comprising: scanning for exportable functions accessible to an executing program; modifying the relative virtual address (RVA) of one or more of the exportable function name strings to point to an access-restricted memory location; registering an exception handler to process exceptions occurring in response to attempted access of the access-restricted memory location; and processing a received exception, wherein the processing comprises determining whether a memory address of the exception is within an expected address range.
+</claims>
+</document>

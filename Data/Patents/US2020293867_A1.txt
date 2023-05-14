@@ -1,0 +1,73 @@
+<document>
+
+<filing_date>
+2019-11-04
+</filing_date>
+
+<publication_date>
+2020-09-17
+</publication_date>
+
+<priority_date>
+2019-03-12
+</priority_date>
+
+<ipc_classes>
+G06F17/16,G06F9/38,G06N3/063,G06N3/08
+</ipc_classes>
+
+<assignee>
+NVIDIA CORPORATION
+</assignee>
+
+<inventors>
+KECKLER, STEPHEN, W.
+EMER, JOEL
+KHAILANY, BRUCEK
+SHAO, YAKUN
+DALLY, WILLIAM JAMES
+VENKATESAN, RANGHARAJAN
+Smith, Daniel
+Wang, Miaorong
+</inventors>
+
+<docdb_family_id>
+72423013
+</docdb_family_id>
+
+<title>
+EFFICIENT NEURAL NETWORK ACCELERATOR DATAFLOWS
+</title>
+
+<abstract>
+A distributed deep neural net (DNN) utilizing a distributed, tile-based architecture includes multiple chips, each with a central processing element, a global memory buffer, and a plurality of additional processing elements. Each additional processing element includes a weight buffer, an activation buffer, and vector multiply-accumulate units to combine, in parallel, the weight values and the activation values using stationary data flows.
+</abstract>
+
+<claims>
+1. A data processor comprising: a plurality of processing elements, each comprising: a weight buffer; an activation buffer; an accumulation memory buffer; a plurality of vector multiply-accumulate units configured to compute in parallel a convolution of weights from the weight buffer and activations from the activation buffer, each of the vector multiply-accumulate units comprising: a first collector disposed between the vector multiply-accumulate unit and the weight buffer; and a second collector disposed between the vector multiply-accumulate unit and the accumulation memory buffer; and logic to configure a depth of the collectors to adjust a level of data-stationary computation of the convolution.
+2. The data processor of claim 1, further comprising: the logic to configure a depth of the first collector on each vector multiply-accumulate unit to adjust a level of weight-stationary computation of the convolution.
+3. The data processor of claim 1, further comprising: the logic to configure a depth of the second collector on each vector multiply-accumulate unit to adjust a level of output-stationary computation of the convolution.
+4. The data processor of claim 1, further comprising: the logic to configure one or both of a depth of the first collector and a depth of the second collector on each vector multiply-accumulate unit to implement one or more of multi-level weight-stationary and output-stationary computation of the convolution.
+5. The data processor of claim 1, each of the processing elements further comprising: a third collector disposed between the activation buffer and the vector multiply-accumulate units.
+6. The data processor of claim 5, further comprising: the logic to configure a depth of the third collector to adjust a level of input-stationary computation of the convolution.
+7. The data processor of claim 5, further comprising: the logic to configure one or more of a depth of the first collector, a depth of the second collector, and a depth of the third collector of each vector multiply-accumulate unit to implement one or more of multi-level weight-stationary, output-stationary, and input stationary computation of the convolution.
+8. The data processor of claim 1, further comprising: a global memory buffer accessible to the plurality of processing elements; and the logic to configure the processing elements to utilize the global memory buffer to store activations received from the processing elements and applied between layers of a neural network.
+9. The data processor of claim 1, further comprising: the logic to configure each of the vector multiply-accumulate units to compute a portion of the convolution as a partial result and forward the partial result from the accumulation memory buffer to neighboring processing elements.
+10. The data processor of claim 1, further comprising: the logic to distribute the weights and the activations among the processing elements spatially by a depth of an input of a neural network, and temporally by a height and a width of the input to the neural network.
+11. The data processor of claim 1, further comprising: the logic to distribute the weights and the activations among the processing elements spatially and temporally by configurable combinations of input dimensions of a neural network and the dimensions of the weights.
+12. A semiconductor neural network accelerator comprising a plurality of chips, each chip comprising: a controller; a global memory buffer; a plurality of processing elements, each comprising a plurality of vector multiply-accumulate units; and logic to configure a depth of at least one collector comprised by each vector multiply-accumulate unit to implement a stationary data flow by the vector multiply-accumulate unit during computation of a convolution.
+13. The semiconductor neural network accelerator of claim 12, wherein the logic configures at least two or more of the processing elements to: compute a portion of the convolution and forward the portion to neighboring processing elements for completion; and communicate results of completion of the convolution to the global memory buffer.
+14. The semiconductor neural network accelerator of claim 13, wherein results of completion of the convolution are staged in the global memory buffer for communication between layers of the neural network.
+15. The semiconductor neural network accelerator of claim 12, each vector multiply-accumulate unit comprising: a weight collector disposed between a weight buffer and the vector multiply-accumulate unit; and the logic to configure a depth of the weight collector to adjust a stationary level of weights from the weight buffer during computation of the convolution by the vector multiply-accumulate unit.
+16. The semiconductor neural network accelerator of claim 12, each vector multiply-accumulate unit comprising: an output collector disposed between each vector multiply-accumulate unit and an accumulation memory buffer; and the logic to configure a depth of the output collector to adjust a stationary level of computation results of the vector multiply-accumulate unit during the computation of the convolution.
+17. The semiconductor neural network accelerator of claim 12, further comprising: each vector multiply-accumulate unit comprising a plurality of collectors; and the logic to configure a depth of one or both of the collectors to implement multi-level weight stationary/output stationary data flows for the convolution.
+18. The semiconductor neural network accelerator of claim 12, further comprising: each vector multiply-accumulate unit comprising a plurality of collectors; and the logic to configure a depth of one or more of the collectors to implement one or more of multi-level weight stationary, output stationary, and input stationary data flows for the convolution.
+19. The semiconductor neural network accelerator of claim 12, each processing element further comprising: an input activation collector disposed between an activation buffer and the vector multiply-accumulate units.
+20. The semiconductor neural network accelerator of claim 19, further comprising: the logic to configure a depth of the input activation collector to adjust a stationary level of input activations during computation of the convolution by the vector multiply-accumulate units.
+21. A neural network computation method comprising: distributing weight values and activation values for a neural network computation among a plurality of processing elements spatially by a depth of an input to the neural network, and temporally by a height and a width of the input to the neural network; configuring a depth of at least one collector of each of a plurality of vector multiply-accumulate units of each of the processing elements to implement a stationary data flow by the vector multiply-accumulate units during the neural network computation.
+22. The neural network computation method of claim 21, wherein the stationary data flow is a weigh-stationary data flow.
+23. The neural network computation method of claim 21, wherein the data flow is an output-stationary data flow.
+24. A neural network computation method comprising: distributing weight values and activation values for a neural network computation among a plurality of processing elements spatially and temporally by configurable combinations of different dimensions of inputs of the neural network and weights of the neural network; and configuring a depth of at least one collector of each of a plurality of vector multiply-accumulate units of each of a plurality of processing elements to implement a stationary data flow by the vector multiply-accumulate units during the neural network computation.
+25. A semiconductor neural network accelerator comprising: a plurality of processor units, each comprising: a register file; a shared memory; a multi-level cache hierarchy; a plurality of tensor core units configured to compute in parallel a convolution of (a) weights from one or more of the register file, the shared memory, and the multi-level cache hierarchy, and (b) activations from one or more of the register file, the shared memory, and multi-level cache, each of the tensor core units comprising: a plurality of vector multiply-accumulate units; a first collector disposed between the vector multiply-accumulate units and the register file, the shared memory, and the multi-level cache hierarchy to enable weight reuse; and a second collector disposed between the vector multiply-accumulate units and the register file, shared memory, and multi-level cache hierarchy to enable output reuse; and a third collector disposed between the vector multiply-accumulate units and the register file, the shared memory, and the multi-level cache to enable input reuse; and logic to configure a depth of the collectors to adjust a level of data-stationary computation of a convolution.
+</claims>
+</document>

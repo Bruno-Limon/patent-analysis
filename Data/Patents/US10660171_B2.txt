@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2018-09-28
+</filing_date>
+
+<publication_date>
+2020-05-19
+</publication_date>
+
+<priority_date>
+2017-09-29
+</priority_date>
+
+<ipc_classes>
+G03B21/20,H05B41/16,H05B41/288,H05B41/292,H05B41/39,H05B41/392
+</ipc_classes>
+
+<assignee>
+SEIKO EPSON CORPORATION
+</assignee>
+
+<inventors>
+KONO, MASARU
+SATO SHUN
+SUZUKI, JUNICHI
+</inventors>
+
+<docdb_family_id>
+63833777
+</docdb_family_id>
+
+<title>
+Discharge lamp drive device, light source device, projector, and discharge lamp drive method
+</title>
+
+<abstract>
+A discharge lamp drive device includes a discharge lamp driver adapted to supply a drive current to a discharge lamp having a first electrode and a second electrode, a control section adapted to control the discharge lamp driver, and a storage section adapted to store a plurality of drive patterns of the drive current. The control section is configured to select one drive pattern of the plurality of drive patterns based on machine learning, and execute the selected drive pattern. In a case in which a predetermined condition is fulfilled, the control section executes a predetermined drive pattern of the plurality of drive patterns without selecting and executing the drive pattern based on the machine learning.
+</abstract>
+
+<claims>
+1. A discharge lamp drive device comprising: a discharge lamp driver adapted to supply a drive current to a discharge lamp having a first electrode and a second electrode; a control section adapted to control the discharge lamp driver; and a storage section adapted to store a plurality of drive patterns of the drive current, wherein the control section is configured to select one drive pattern of the plurality of drive patterns based on machine learning, and execute the selected drive pattern, and wherein in a case in which a predetermined condition is fulfilled, the control section executes a predetermined drive pattern of the plurality of drive patterns without selecting and executing the drive pattern based on the machine learning.
+2. The discharge lamp drive device according to claim 1, further comprising: a voltage detection section adapted to detect an inter-electrode voltage of the discharge lamp, wherein in a case in which the predetermined condition is not fulfilled, the control section controls the discharge lamp driver so that a mixed period is provided, the mixed period in which a first period in which AC current is supplied to the discharge lamp and a second period in which DC current is supplied to the discharge lamp are alternately repeated, wherein the predetermined condition includes that the inter-electrode voltage is lower than a first predetermined voltage value, wherein in a case in which the inter-electrode voltage is lower than the first predetermined voltage value, the control section executes a drive pattern including a low-frequency period as the predetermined drive pattern, and wherein in the low-frequency period, the AC current having a frequency lower than a frequency of the AC current supplied in the first period is supplied to the discharge lamp.
+3. The discharge lamp drive device according to claim 2, wherein the predetermined condition includes a condition that the inter-electrode voltage is lower than the first predetermined voltage value and a drive power supplied to the discharge lamp is higher than a predetermined power value, wherein in a case in which the inter-electrode voltage is lower than the first predetermined voltage value and in a case in which the drive power is higher than the predetermined electrical power value, the control section executes a drive pattern including the low-frequency period and a third period as the predetermined drive pattern, wherein the third period alternately including a first DC period in which DC current is supplied to the discharge lamp and a second DC period in which DC current having an opposite polarity to a polarity of the DC current supplied in the first DC period is supplied to the discharge lamp, wherein a length of the second DC period is shorter than 0.5 ms, and wherein a sum of the lengths of the first DC periods in the third period is larger than a length of the second period.
+4. The discharge lamp drive device according to claim 2, wherein the low-frequency period has a first AC period and a second AC period, and wherein a frequency of AC current supplied in the first AC period and a frequency of AC current supplied in the second AC period are different from each other.
+5. The discharge lamp drive device according to claim 1, wherein the predetermined condition includes a condition that a proportion of a change of a drive power supplied to the discharge lamp is a proportion no lower than a predetermined proportion.
+6. The discharge lamp drive device according to claim 5, wherein in a case in which the predetermined condition is not fulfilled, the control section controls the discharge lamp driver to execute a first drive pattern so that a mixed period is provided, the mixed period in which a first period in which AC current having a frequency is supplied to the discharge lamp and a second period in which DC current is supplied to the discharge lamp are alternately repeated, wherein in a case in which the proportion of the change of the drive power is no lower than the predetermined proportion, the control section executes a second drive pattern different from the first drive pattern as the predetermined drive pattern, wherein the second drive pattern includes the mixed period, wherein a length of the first period in the second drive pattern is larger than a length of the first period in the first drive pattern, and wherein a frequency of the AC current in the first period in the second drive pattern is higher than a frequency of the AC current in the first period in the first drive pattern.
+7. The discharge lamp drive device according to claim 6, wherein a length of the second period in the second drive pattern is smaller than a length of the second period in the first drive pattern.
+8. The discharge lamp drive device according to claim 6, wherein the first drive pattern and the second drive pattern each include a third period alternately including a first DC period in which DC current is supplied to the discharge lamp, and a second DC period in which DC current having an opposite polarity to a polarity of the DC current supplied in the first DC period is supplied to the discharge lamp, wherein a length of the first DC period is larger than a length of the second DC period, wherein the length of the second DC period is shorter than 0.5 ms, wherein a sum of the lengths of the first DC periods in the third period is larger than a length of the second period, and wherein a length of the third period in the second drive pattern is smaller than a length of the third period in the first drive pattern.
+9. The discharge lamp drive device according to claim 6, further comprising: a voltage detection section adapted to detect an inter-electrode voltage of the discharge lamp, wherein the control section switches from the second drive pattern to the drive pattern based on the machine learning, based on one of a length of an execution time of the second drive pattern and the inter-electrode voltage.
+10. The discharge lamp drive device according to claim 9, wherein in a case in which the inter-electrode voltage decreases by a predetermined value or more after starting an execution of the second drive pattern, the control section switches from the second drive pattern to the drive pattern based on the machine learning.
+11. The discharge lamp drive device according to claim 6, wherein the predetermined condition includes a condition that an input section adapted to receive an execution input of the second drive pattern has received the execution input of the second drive pattern, and wherein in a case in which the input section has received the execution input of the second drive pattern, the control section switches from the drive pattern presently executed to the second drive pattern.
+12. The discharge lamp drive device according to claim 1, wherein the predetermined condition includes a condition that an input section adapted to receive a switching input of the drive pattern has received the switching input of the drive pattern, and wherein in a case in which the input section has received the switching input of the drive pattern, the control section switches from the drive pattern presently executed to another drive pattern.
+13. The discharge lamp drive device according to claim 11, wherein the control section is configured to prevent the execution of the drive pattern having been executed immediately before switching of the drive pattern for a given time from the switching of the drive pattern based on the input received by the input section.
+14. The discharge lamp drive device according to claim 1, wherein the predetermined condition includes a condition that short-term lighting in which a lighting time of one lighting operation of the discharge lamp is no more than a first predetermined time is executed continuously a predetermined number of times, and the short-term lighting is performed in a proportion no smaller than a predetermined proportion to a total lighting time of the discharge lamp, wherein in a case in which the predetermined condition is not fulfilled, the control section executes the first drive pattern, and wherein in a case in which the short-term lighting has been performed continuously the predetermined number of times, or a case in which the short-term lighting has been performed in the proportion no smaller than the predetermined proportion, the control section executes a drive pattern for a second predetermined time, the drive pattern having a higher thermal load applied to the first electrode and the second electrode than that in the first drive pattern.
+15. A projector comprising a discharge lamp adapted to emit light; the discharge lamp drive device according to claim 1; a light modulation device adapted to modulate light emitted from the discharge lamp in accordance with an image signal; and a projection optical system adapted to project the light modulated by the light modulation device.
+16. A projector comprising a discharge lamp adapted to emit light; the discharge lamp drive device according to claim 2; a light modulation device adapted to modulate light emitted from the discharge lamp in accordance with an image signal; and a projection optical system adapted to project the light modulated by the light modulation device.
+17. A projector comprising a discharge lamp adapted to emit light; the discharge lamp drive device according to claim 5; a light modulation device adapted to modulate light emitted from the discharge lamp in accordance with an image signal; and a projection optical system adapted to project the light modulated by the light modulation device.
+18. A projector comprising a discharge lamp adapted to emit light; the discharge lamp drive device according to claim 12; a light modulation device adapted to modulate light emitted from the discharge lamp in accordance with an image signal; and a projection optical system adapted to project the light modulated by the light modulation device.
+19. A projector comprising: a discharge lamp adapted to emit light; the discharge lamp drive device according to claim 14; a light modulation device adapted to modulate light emitted from the light source device in accordance with an image signal; and a projection optical system adapted to project the light modulated by the light modulation device.
+20. A discharge lamp drive method adapted to supply a drive current to a discharge lamp having a first electrode and a second electrode to drive the discharge lamp, the method comprising: selecting one drive pattern of a plurality of drive patterns of the drive current based on machine learning; executing the selected drive pattern; and executing, in a case in which a predetermined condition is fulfilled, a predetermined drive pattern of the plurality of drive patterns without selecting and executing the drive pattern based on the machine learning.
+</claims>
+</document>

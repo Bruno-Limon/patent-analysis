@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2020-01-24
+</filing_date>
+
+<publication_date>
+2020-07-30
+</publication_date>
+
+<priority_date>
+2019-01-24
+</priority_date>
+
+<ipc_classes>
+G06K9/62,G06N3/08,H04L29/06
+</ipc_classes>
+
+<assignee>
+DEEPMIND TECHNOLOGIES
+</assignee>
+
+<inventors>
+JADERBERG, MAXWELL ELLIOT
+SILVER, DAVID
+VINYALS, ORIOL
+</inventors>
+
+<docdb_family_id>
+69232860
+</docdb_family_id>
+
+<title>
+MULTI-AGENT REINFORCEMENT LEARNING WITH MATCHMAKING POLICIES
+</title>
+
+<abstract>
+Methods, systems, and apparatus, including computer programs encoded on a computer storage medium, for training a policy neural network having a plurality of policy parameters and used to select actions to be performed by an agent to control the agent to perform a particular task while interacting with one or more other agents in an environment. In one aspect, the method includes: maintaining data specifying a pool of candidate action selection policies; maintaining data specifying respective matchmaking policy; and training the policy neural network using a reinforcement learning technique to update the policy parameters. The policy parameters define policies to be used in controlling the agent to perform the particular task.
+</abstract>
+
+<claims>
+1. A method of training a policy neural network having a plurality of policy parameters and used to select actions to be performed by an agent to control the agent to perform a particular task while interacting with one or more other agents in an environment, the method comprising: maintaining data specifying a pool of candidate action selection policies, the pool of candidate action selection policies comprising: (i) a plurality of learner polices for controlling the agent, each learner policy defined by a respective set of values for the policy parameters of the policy neural network, and (ii) one or more fixed policies for controlling the agent; maintaining, for each of the learner policies, data specifying a respective matchmaking policy for the learner policy that defines a distribution over the pool of candidate action selection policies; at each of a plurality of training iterations: for each of one or more of the learner policies: selecting one or more policies from the pool of candidate action selection policies using the matchmaking policy for the learner policy; generating training data for the learner policy by causing a first agent controlled using the learner policy to perform the particular task while interacting with one or more second agents, each second agent controlled by a respective one of the selected policies; and updating the respective set of policy parameters that define the learner policy by training the learner policy on the training data through reinforcement learning to optimize a reinforcement learning loss function for the learner policy.
+2. The method of claim 1, wherein the matchmaking policies for two or more of the learner policies are different.
+3. The method of claim 2, wherein the learner policies are each assigned a respective type from a plurality of types, wherein each type is associated with a different matchmaking policy from each other type, and wherein each learner policy has the matchmaking policy that is associated with the type to which the learner policy is assigned.
+4. The method of claim 1, wherein the matchmaking policy for at least one learner policy is uniform across one or more learner policies that are assigned a particular type and zero for all of the learner policies that are assigned different types and all of the fixed policies.
+5. The method of claim 1, wherein the matchmaking policy for at least one learner policy is uniform across all of the learner policies and zero for all of the fixed policies.
+6. The method of claim 1, wherein the matchmaking policy for at least one learner policy is uniform across all policies in the pool.
+7. The method of claim 1, wherein the reinforcement learning loss function depends on a plurality of hyperparameters, and wherein values for the plurality of hyperparameters are different for two or more of the learner policies.
+8. The method of claim 7, wherein the hyperparameters include one or more hyperparameters of a reinforcement learning algorithm used in the training.
+9. The method of claim 7, wherein the hyperparameters include one or more internal reward hyperparameters that define whether the reinforcement learning loss function depends on an internal reward and, if so, how the internal reward is computed based on observations received by the agent during performance of the task.
+10. The method of claim 1, wherein the one or more fixed policies include a first fixed policy that is defined by values of the policy parameters that have been determined through supervised learning on labeled task instances.
+11. The method of claim 10, wherein the supervised learning comprises a first supervised learning using first training data and a second supervised learning using only a selected portion of the first training data that includes only labeled task instances performed by agents that have attained at least a threshold level of performance on the particular task.
+12. The method of claim 1, further comprising, at a particular training iteration of the plurality of training iterations: determining that criteria for converting a particular one of the plurality of learner policies into a fixed policy have been satisfied; and in response, generating a new fixed policy that is represented by the same parameter values as the particular learner policy.
+13. The method of claim 12, wherein determining that criteria have been satisfied comprises determining that a predetermined number of training iterations have been completed.
+14. The method of claim 12, further comprising: in response: setting the values of the policy parameters that define the particular learner policy to new values that are based on the current values for one or more of the other policies in the pool.
+15. The method of claim 14, wherein setting the values of the policy parameters that define the particular learner policy to new values that are based on the current values for one or more of the other policies in the pool comprises: setting the values of the policy parameters to values that define one of the fixed policies.
+16. The method of claim 15, further comprising: in response: modifying hyperparameters of the reinforcement learning loss function for the particular learning policy.
+17. The method of claim 16, further comprising: in response: modifying the matchmaking policy for the particular learning policy.
+18. The method of claim 1, further comprising, for at least one of the selected policies: updating the respective set of policy parameters that define the selected policy by training the selected policy on the training data through reinforcement learning to optimize a reinforcement learning loss function for the selected policy.
+19. The method of claim 12, wherein determining that criteria have been satisfied comprises determining that the agent controlled by a particular leaner policy has attained a threshold level of performance on the particular task.
+20. The method of claim 1, wherein the matchmaking policy for at least one learner policy specifies that the learner policies controlling respective agents to have attained higher levels of performance on the particular task are more likely to be selected.
+21. One or more computer-readable storage media storing instructions that when executed by one or more computers cause the one or more computers to perform operations for training a policy neural network having a plurality of policy parameters and used to select actions to be performed by an agent to control the agent to perform a particular task while interacting with one or more other agents in an environment, the operations comprising: maintaining data specifying a pool of candidate action selection policies, the pool of candidate action selection policies comprising: (i) a plurality of learner polices for controlling the agent, each learner policy defined by a respective set of values for the policy parameters of the policy neural network, and (ii) one or more fixed policies for controlling the agent; maintaining, for each of the learner policies, data specifying a respective matchmaking policy for the learner policy that defines a distribution over the pool of candidate action selection policies; at each of a plurality of training iterations: for each of one or more of the learner policies: selecting one or more policies from the pool of candidate action selection policies using the matchmaking policy for the learner policy; generating training data for the learner policy by causing a first agent controlled using the learner policy to perform the particular task while interacting with one or more second agents, each second agent controlled by a respective one of the selected policies; and updating the respective set of policy parameters that define the learner policy by training the learner policy on the training data through reinforcement learning to optimize a reinforcement learning loss function for the learner policy.
+22. A system comprising one or more computers and one or more storage devices storing instructions that when executed by one or more computers cause the one or more computers to perform operations for training a policy neural network having a plurality of policy parameters and used to select actions to be performed by an agent to control the agent to perform a particular task while interacting with one or more other agents in an environment, the operations comprising: maintaining data specifying a pool of candidate action selection policies, the pool of candidate action selection policies comprising: (i) a plurality of learner polices for controlling the agent, each learner policy defined by a respective set of values for the policy parameters of the policy neural network, and (ii) one or more fixed policies for controlling the agent; maintaining, for each of the learner policies, data specifying a respective matchmaking policy for the learner policy that defines a distribution over the pool of candidate action selection policies; at each of a plurality of training iterations: for each of one or more of the learner policies: selecting one or more policies from the pool of candidate action selection policies using the matchmaking policy for the learner policy; generating training data for the learner policy by causing a first agent controlled using the learner policy to perform the particular task while interacting with one or more second agents, each second agent controlled by a respective one of the selected policies; and updating the respective set of policy parameters that define the learner policy by training the learner policy on the training data through reinforcement learning to optimize a reinforcement learning loss function for the learner policy.
+</claims>
+</document>

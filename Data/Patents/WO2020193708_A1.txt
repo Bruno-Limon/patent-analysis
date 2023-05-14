@@ -1,0 +1,90 @@
+<document>
+
+<filing_date>
+2020-03-26
+</filing_date>
+
+<publication_date>
+2020-10-01
+</publication_date>
+
+<priority_date>
+2019-03-28
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/46,G06K9/62,G06N3/04,G06N3/08,G06T7/00,G16H30/40
+</ipc_classes>
+
+<assignee>
+ROCHE
+ROCHE
+</assignee>
+
+<inventors>
+KLAIMAN, ELDAD
+GILDENBLAT, Jacob
+</inventors>
+
+<docdb_family_id>
+66001073
+</docdb_family_id>
+
+<title>
+MACHINE LEARNING USING DISTANCE-BASED SIMILARITY LABELS
+</title>
+
+<abstract>
+The invention relates to a computer-implemented self-supervised learning method for digital pathology. The method comprises: Receiving (102) a plurality of digital images each depicting a tissue sample; Splitting (104) each of the received images into a plurality of tiles; automatically generating (106) tile pairs (312, 313, 314, 315, 422), each tile pair having assigned a label (403) being indicative of the degree of similarity of two tissue patterns depicted in the two tiles of the pair, wherein the degree of similarity is computed as a function of the spatial proximity (d1, d2, d3, d4) of the two tiles in the pair, wherein the distance positively correlates with dis- similarity; and training a machine learning module - MLM - (400, 402, 403, 600) using the labeled tile pairs as training data to generate a trained MLM, the trained MLM being adapted for performing an image analysis of digital histopathology im- ages.
+</abstract>
+
+<claims>
+C l a i m s
+1. A computer-implemented self-supervised learning method for digital pathology, comprising:
+- Receiving (102) a plurality of digital images each depicting a tissue sample;
+- Splitting (104) each of the received images into a plurality of tiles;
+- automatically generating (106) tile pairs (312, 313, 314, 315, 422) , each tile pair having assigned a label (403) being indicative of the degree of similarity of two tissue patterns depicted in the two tiles of the pair, wherein the degree of similarity is computed as a function of the spatial proximity (d1 , d2, d3, d4) of the two tiles in the pair, wherein the distance positively correlates with dis similarity, wherein at least a subset of the tile pairs (313, 315) comprise tile pairs depicting two tissue regions contained in two different tissue slices of a stack of adjacent tissue slices, each of the tissue slices being the tissue sam ple depicted in a respective one of the received digital images (300, 332,
+334), wherein the received images depicting tissue slices of a stack of adja cent tissue slices are aligned with each other in a 3D coordinate system and wherein the distance (d3, d4) between the tiles of the tile pairs of the subset is computed within the 3D coordinate system;
+- training a machine learning module - MLM - (400, 402, 403, 600) using the labeled tile pairs as training data to generate a trained MLM, the trained MLM being adapted for performing an image analysis of digital histopathology im ages.
+2. The computer-implemented method of claim 1 ,
+- where in at least some of the tile pairs (312, 314) depict two tissue regions contained in the same tissue slice, each of the tissue slices being depicted in a respective one of the received digital images, wherein the distance be tween tiles is computed within a 2D coordinate system defined by the xand y-dimension of the received digital image (300) from which the tiles in the pair have been derived.
+3. The computer-implemented method of any one of the previous claims,
+- wherein at least a further subset of the tile pairs (313, 315) comprise tile pairs depicting two tissue regions of the same tissue slice, wherein the distance (d1 , d2) between the tiles of the tile pairs of the further subset is computed based on the same function of the spatial proximity as the distance between the tile pairs of the subset of tile pairs derived depicting different tissue slices..
+4. The computer-implemented method of any one of the previous claims, each tile depicting a tissue or background region having a maximum edge length of less than 0.5 mm, preferably less than 0.3 mm.
+5. The computer-implemented method of any one of the previous claims, the au tomatic generation of the tile pairs comprising:
+- generating a first set of tile pairs (312, 313) using a first spatial proximity threshold (308, 336), wherein the two tissue regions depicted by the two tiles of each tile pair in the first set are separated from each other by a distance smaller than the first spatial proximity threshold;
+- generating a second set of tile pairs (314, 315) using a second spatial prox imity threshold (310, 338), wherein the two tissue regions depicted by the two tiles of each tile pair in the second set are separated from each other by a distance larger than the second spatial proximity threshold;
+6. The computer-implemented method of claim 5, the second spatial proximity threshold being at least 2 mm larger than the first spatial proximity threshold.
+7. The computer-implemented method of any one of the preceding claims 5-6,
+- wherein the first spatial proximity threshold is a distance smaller than 2 mm, preferably smaller than 1.5 mm, in particular 1.0 mm, and/or
+- wherein the second spatial proximity threshold is a distance larger than 4 mm, preferably larger than 8 mm, in particular 10.0 mm.
+8. The computer-implemented method of any one of the preceding claims, - wherein the MLM is a Siamese neuronal network (400) comprising two identi cal neuronal sub-networks (402, 403) joined by a common output layer (424), each of the two neural sub-networks being adapted to extract a feature-vec tor (410, 420) from a respective one of the two tiles (404, 414) of a tile pair (422) provided as input to the MLM,
+- wherein the output layer of the trained Siamese neuronal network (400') is adapted to compute a label (508) for each tile pair (502) provided as input as a function of the two feature vectors (410, 420), the label being indicative of a predicted similarity of the two tissue patterns depicted in the tile pair (502) provided as input.
+9. The computer-implemented method according to any one of the previous
+claims,
+- wherein the MLM is or comprises a vector-output MLM (600), the vector-output MLM being a MLM that is adapted to receive a single digital image or tile as input and that is adapted to output a feature vector extracted from said im age or tile,
+- whereby the training of the MLM on the labeled tile pairs comprises a backpropagation operation and wherein during backpropagation a predictive model of the MLM is changed such that the features in the vector extracted by the MLM comprises features that are characteristic for a particular tissue pattern and that enable a vector-comparison based identification of similar and dissimilar image pairs.
+10. The computer-implemented method of claims 8 and 9, wherein the MLM is the Siamese network, the method further comprising providing the vector-output MLM (600), the providing of the vector-output-MLM comprising:
+- storing one (402) of the sub-networks of the trained Siamese network (400') separately on a storage medium; and
+- using the stored sub-network as the vector-output MLM (600).
+11. The computer-implemented method according to any one of the previous
+claims 9-10, further comprising: - Providing a digital search image as input of the vector-output-MLM, the search image depicting a tissue sample or a sub-region thereof;
+- Extracting, by the vector-output-MLM, a search feature vector from the search image;
+- Performing, by a similarity search engine (708), a similarity search in an image database (710) of digital tissue sample images, the similarity search engine determining the similarity of the search feature vector with feature vectors extracted by the vector-output-MLM for each of the images in the image database; and
+- Returning the ones of the images in the database whose feature vec tors are the most similar to the search feature vector as a result of the similarity search.
+12. The computer-implemented method according to any one of the previous
+claims 9-11 , further comprising:
+- Providing a digital image (804) as input of the vector-output-MLM, the digital image depicting a whole slide tissue sample or a sub-region thereof;
+- Splitting the provided digital image (804) into a plurality of tiles (808);
+- Extracting, by the vector-output-MLM, a feature vector from each of the tiles (808);
+- Clustering, by a clustering engine (812), the feature vectors extracted from the plurality of tiles, thereby creating clusters of similar feature vectors;
+- Grouping the plurality of tiles into clusters of tiles in accordance with the clusters computed for the tiles' feature vectors; and
+- Outputting, via a graphical user interface, the clusters of tiles.
+13. The computer-implemented method according to claim 12, further comprising:
+- Identifying segments in the provided digital image (804), wherein each segment is a group of adjacent tiles and wherein all tiles within each segment belong to the same one of the identified clusters of tiles; and Outputting, via the graphical user interface, an optical indication of the identified segments in the provided digital image (804).
+14. A non-volatile storage medium comprising computer-interpretable instructions which, when executed, instantiate and/or execute a trained machine learning module - MLM - (400, 402, 403, 600) generated by a computer-implemented method according to any one of claims 1-13.
+15. An image analysis system (700, 800, 900) comprising:
+- at least one processor (714, 824, 902);
+- a volatile or non-volatile storage medium, the storage medium comprising a trained a trained machine learning module - MLM - (400', 402, 403, 600) generated by a computer-implemented method according to any one of claims 1 -13.
+</claims>
+</document>

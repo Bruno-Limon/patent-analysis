@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2017-10-11
+</filing_date>
+
+<publication_date>
+2020-10-27
+</publication_date>
+
+<priority_date>
+2017-10-11
+</priority_date>
+
+<ipc_classes>
+G06F11/14,G06F3/06
+</ipc_classes>
+
+<assignee>
+EMC IP HOLDING COMPANY
+</assignee>
+
+<inventors>
+BORISOV, MIKHAIL
+DANILOV, MIKHAIL
+</inventors>
+
+<docdb_family_id>
+72944750
+</docdb_family_id>
+
+<title>
+Migration of versioned data between storage devices
+</title>
+
+<abstract>
+Facilitating migration of versioned data in a reverse chronological order is provided herein. A system can comprise a processor and a memory that stores executable instructions that, when executed by the processor, facilitate performance of operations. The operations can comprise initiating a migration of information from a source storage device to a target storage device. The information can comprise a current object version of data and previous object versions of the data. The current object version of data can comprise portions of the previous object versions of the data. The operations can also comprise facilitating a first migration of the current object version prior to the migration of the previous object versions. Further, the operations can comprise facilitating a second migration of the previous object versions in a reverse migration order.
+</abstract>
+
+<claims>
+1. A method, comprising: determining, by a system comprising a processor, that data of a first storage device is scheduled to be migrated to a second storage device, wherein the first storage device and the second storage device are distributed storage devices, wherein the data is represented according to a first version, a second version, and a third version, and wherein the first version was created prior to the second version, wherein the first version comprises a first portion and a second portion, wherein first content of the first portion is different than second content of the second version, and wherein third content of the second portion is the same as the second content of the second version; facilitating, by the system, a first migration of the second version, as a single piece of data, from the first storage device to the second storage device; and based on a determination that the first migration of the second version has completed, facilitating, by the system, a second migration of the first portion of the first version from the first storage device to the second storage device, wherein the second portion of the first version is not moved during the second migration, designating, by the system, the second version as an unchangeable data portion; and adding, by the system, the third version to the second storage device, wherein the third version comprises an updated data increment to the second version.
+2. The method of claim 1, wherein the facilitating the first migration comprises storing, by the system, the second version as the single piece of data.
+3. The method of claim 1, further comprising: determining, by the system, a change between the second version and the first version prior to the facilitating the second migration of the first version, wherein the first portion is not included in the second version, and wherein the second portion of the first version is included in the second version and is not included in the second migration of the first version.
+4. The method of claim 1, wherein the facilitating the first migration and the facilitating the second migration comprises migrating the first version and the second version in a last in-first out order.
+5. The method of claim 1, wherein the third version comprises a reference to two data portions, wherein a first data portion of the two data portions comprises the second version, and wherein a second data portion of the two data portions comprises updated data appended to the second version.
+6. The method of claim 1, wherein the first version is not updated in response to the third version being added to the second version.
+7. The method of claim 1, further comprising: identifying, by the system, the first version by an object identifier and a first version identifier; and identifying, by the system, the second version by the object identifier and a second version identifier.
+8. The method of claim 1, wherein the facilitating the first migration and the facilitating the second migration comprises facilitating an increase in a defined measure of input-output performance of the second storage device.
+9. The method of claim 1, wherein the facilitating the first migration and the facilitating the second migration comprises facilitating a reduction of a defined measure of a per-object capacity overhead of the second storage device.
+10. A system, comprising: a processor; and a memory that stores executable instructions that, when executed by the processor, facilitate performance of operations, comprising: initiating a migration of information from a source storage device to a target storage device, wherein the information comprises a current object version of data and previous object versions of data, wherein the current object version of data comprises portions of the previous object versions of data; facilitating a first migration of the current object version of data as a single segment of data prior to the migration of the previous object versions of data; determining that respective first portions of the previous object versions are not included in the current object version of data and that respective second portions of the previous object versions are included in the current object version of data; and determining a first difference between the current object version of data and a most recent previous object version of the previous object version of data; facilitating a second migration of the respective first portions of the previous object versions of data in a reverse migration order, wherein the facilitating the second migration comprises facilitating a first movement of a first selected portion of the most recent previous object version from the source storage device to the target storage device, and wherein the first movement comprises the first different, and wherein the respective second portions of the previous object versions of data are not moved during the second migration.
+11. The system of claim 10, wherein the operations further comprise: determining a second difference between the most recent previous object version and a next most recent previous object version of the previous object versions of data, wherein the facilitating the second migration comprises facilitating a second movement of a second selected portion of the next most recent previous object version from the source storage device to the target storage device, and wherein the second movement comprises the second difference.
+12. The system of claim 10, wherein the operations further comprise setting the current object version of data as an immutable data portion.
+13. The system of claim 12, wherein the operations further comprise adding a further version of data to the target storage device, and wherein the further version of data comprises a data change to the current object version of data.
+14. The system of claim 13, wherein the further version of data comprises a first data portion that comprises the current object version of data and a second data portion that comprises the data change.
+15. The system of claim 13, wherein the previous object versions of data remain unchanged when the further version of data is added to the target storage device.
+16. The system of claim 10, wherein the facilitating the first migration and the facilitating the second migration comprises migrating the current object version of data and the previous object versions of data in a last in-first out order.
+17. The system of claim 10, wherein the facilitating the first migration and the facilitating the second migration comprises facilitating an increase in a defined measure of input-output performance of the target storage device.
+18. The system of claim 10, wherein the facilitating the first migration and the facilitating the second migration comprises facilitating a reduction of a defined measure of a per-object capacity overhead of the target storage device.
+19. A non-transitory computer-readable storage medium comprising instructions that, in response to execution, cause a system comprising a processor to perform operations, comprising: mapping a first device to a second device based on a first determination that data contained in the first device is to be migrated to the second device, wherein the data comprises an original object version and modified object versions; facilitating a first migration of a last modified object version of the modified object versions as a single piece of data; facilitating a second migration of a first portion of a second last modified object version of the modified object versions, wherein the first portion comprises a first difference between the last modified object version and the second last modified object version, and wherein first other portions of the second last modified object version, other than the first portion, are not included in the second migration; and facilitating a third migration of a second portion of the original object version based on a second determination that migration of the modified object versions has completed, wherein the second portion comprises a second difference between the second last modified object version and the original object version, and wherein second other portions of the original object version are not included in the third migration; determining a first delta between the last modified object version and the second last modified object version, the first delta comprises first content, wherein the facilitating the second migration comprises facilitating a first movement of the first content as the first portion; and determining a second delta between the second last modified object version and the original object version, the second delta comprises second content, wherein the facilitating the third migration comprises facilitating a second movement of the second content as the second portion.
+20. The non-transitory computer-readable storage medium of claim 19, wherein the operations further comprise: designating, by the system, the last modified object version of the data as an unchangeable data portion; and adding, by the system, an updated version of the data to the second device, wherein the updated version comprises an incremental data change to the last modified object version.
+</claims>
+</document>

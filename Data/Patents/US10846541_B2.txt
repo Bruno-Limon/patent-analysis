@@ -1,0 +1,72 @@
+<document>
+
+<filing_date>
+2017-06-21
+</filing_date>
+
+<publication_date>
+2020-11-24
+</publication_date>
+
+<priority_date>
+2017-01-04
+</priority_date>
+
+<ipc_classes>
+G01B11/30,G01C21/16,G01C22/00,G06K9/00,G06K9/62
+</ipc_classes>
+
+<assignee>
+QUALCOMM
+</assignee>
+
+<inventors>
+CHARI, MURALI
+JOSHI, AVDHUT
+RAMANANDAN, ARVIND
+</inventors>
+
+<docdb_family_id>
+62711777
+</docdb_family_id>
+
+<title>
+Systems and methods for classifying road features
+</title>
+
+<abstract>
+An electronic device is described. The electronic device includes a memory and a processor in communication with the memory. The memory is configured to store precalibration data for a camera mounted on a vehicle, the precalibration data including a camera height determined relative to a road plane the vehicle is configured to contact during operation. The processor is configured to receive a plurality of images. The processor is also configured to classify one or more features in the plurality of images as road features based on the precalibration data.
+</abstract>
+
+<claims>
+1. An electronic device, comprising: a memory storing precalibration data for a camera mounted on a vehicle, the precalibration data including a camera height determined relative to a road plane the vehicle is configured to contact during operation; and a processor in communication with the memory, the processor configured to: receive a plurality of images captured by the camera; receive inertial measurement data from an inertial measurement unit, wherein the inertial measurement data includes data from a three-axis accelerometer and data from a three-axis gyroscopic sensor; classify one or more features in the plurality of images as road features based on the precalibration data; and determine a camera pose by combining a first contribution with a second contribution in a visual inertial odometry (VIO) system, the first contribution being based on the classified one or more features in the plurality of images captured by the camera, and the second contribution being based on the inertial measurement data, wherein the VIO system combines a depth determined from the classified one or more features with the inertial measurement data.
+2. The electronic device of claim 1, wherein the camera height includes a perpendicular distance between an optical axis of the camera and the road plane.
+3. The electronic device of claim 2, wherein the precalibration data further includes a pitch of the camera about a first dimension that is orthogonal to the optical axis of the camera.
+4. The electronic device of claim 3, wherein the precalibration data further includes a roll of the camera about the optical axis of the camera.
+5. The electronic device of claim 1, wherein classifying the one or more features in the plurality of images as road features comprises: determining features that lie below a horizon based on a pitch of the camera; performing an inverse projection of the features that lie below the horizon using a relative transform between an optical axis of the camera and the road plane based on the precalibration data; and classifying a feature as a road feature if the feature is located within a predefined range in the road plane.
+6. The electronic device of claim 5, wherein the predefined range comprises a lateral range and a depth range with respect to the road plane.
+7. The electronic device of claim 6, wherein the depth range is oriented along the optical axis of the camera as transformed to the road plane and the lateral range is oriented along a first dimension that is orthogonal to the optical axis of the camera as transformed to the road plane.
+8. The electronic device of claim 5, wherein classifying the one or more features in the plurality of images as road features further comprises aligning an image patch normal to a road plane normal.
+9. The electronic device of claim 1, wherein classifying the one or more features in the plurality of images as road features comprises: applying intensity information and location information of a feature to a machine learning model.
+10. The electronic device of claim 1, wherein the processor is further configured to: compute a depth of the road features using an inverse projection of the features; update a feature inverse depth based on the computed depth; and update a visual inertial odometry (VIO) extended Kalman filter (EKF) based on the updated feature inverse depth.
+11. The electronic device of claim 10, wherein the processor is further configured to update the VIO EKF based on an uncertainty of road model depth standard deviation.
+12. A method, comprising: storing precalibration data for a camera mounted on a vehicle, the precalibration data including a camera height determined relative to a road plane the vehicle is configured to contact during operation; receiving a plurality of images captured by the camera; receiving inertial measurement data from an inertial measurement unit, wherein the inertial measurement data includes data from a three-axis accelerometer and data from a three-axis gyroscopic sensor; classifying one or more features in the plurality of images as road features based on the precalibration data; and determining a camera pose by combining a first contribution with a second contribution in a visual inertial odometry (VIO) system, the first contribution being based on the classified one or more features in the plurality of images captured by the camera, and the second contribution being based on the inertial measurement data, wherein the VIO system combines a depth determined from the classified one or more features with the inertial measurement data.
+13. The method of claim 12, wherein the camera height includes a perpendicular distance between an optical axis of the camera and the road plane.
+14. The method of claim 13, wherein the precalibration data further includes a pitch of the camera about a first dimension that is orthogonal to the optical axis of the camera.
+15. The method of claim 12, wherein classifying the one or more features in the plurality of images as road features comprises: determining features that lie below a horizon based on a pitch of the camera; performing an inverse projection of the features that lie below the horizon using a relative transform between an optical axis of the camera and the road plane based on the precalibration data; and classifying a feature as a road feature if the feature is located within a predefined range in the road plane.
+16. The method of claim 15, wherein the predefined range comprises a lateral range and a depth range with respect to the road plane.
+17. The method of claim 12, wherein classifying the one or more features in the plurality of images as road features comprises: applying intensity information and location information of a feature to a machine learning model.
+18. The method of claim 12, further comprising: computing a depth of the road features using an inverse projection of the features; updating a feature inverse depth based on the computed depth; and updating a visual inertial odometry (VIO) extended Kalman filter (EKF) based on the updated feature inverse depth.
+19. A non-transitory computer readable medium storing computer executable code, comprising: code for causing an electronic device to store precalibration data for a camera mounted on a vehicle, the precalibration data including a camera height determined relative to a road plane the vehicle is configured to contact during operation; code for causing the electronic device to receive a plurality of images captured by the camera; code for causing the electronic device to receive inertial measurement data from an inertial measurement unit, wherein the inertial measurement data includes data from a three-axis accelerometer and data from a three-axis gyroscopic sensor; code for causing the electronic device to classify one or more features in the plurality of images as road features based on the precalibration data; and code for causing the electronic device to determine a camera pose by combining a first contribution with a second contribution in a visual inertial odometry (VIO) system, the first contribution being based on the classified one or more features in the plurality of images captured by the camera, and the second contribution being based on the inertial measurement data, wherein the VIO system combines a depth determined from the classified one or more features with the inertial measurement data.
+20. The computer readable medium of claim 19, wherein the camera height includes a perpendicular distance between an optical axis of the camera and the road plane.
+21. The computer readable medium of claim 19, wherein the code for causing the electronic device to classify the one or more features in the plurality of images as road features comprises: code for causing the electronic device to determine features that lie below a horizon based on a pitch of the camera; code for causing the electronic device to perform an inverse projection of the features that lie below the horizon using a relative transform between an optical axis of the camera and the road plane based on the precalibration data; and code for causing the electronic device to classify a feature as a road feature if the feature is located within a predefined range in the road plane.
+22. The computer readable medium of claim 21, wherein the predefined range comprises a lateral range and a depth range with respect to the road plane.
+23. The computer readable medium of claim 19, wherein code for causing the electronic device to classify the one or more features in the plurality of images as road features comprises: code for causing the electronic device to apply intensity information and location information of a feature to a machine learning model.
+24. The computer readable medium of claim 19, further comprising: code for causing the electronic device to compute a depth of the road features using an inverse projection of the features; code for causing the electronic device to update a feature inverse depth based on the computed depth; and code for causing the electronic device to update a visual inertial odometry (VIO) extended Kalman filter (EKF) based on the updated feature inverse depth.
+25. An apparatus, comprising: means for storing precalibration data for a camera mounted on a vehicle, the precalibration data including a camera height determined relative to a road plane the vehicle is configured to contact during operation; means for receiving a plurality of images captured by the camera; means for receiving inertial measurement data from an inertial measurement unit, wherein the inertial measurement data includes data from a three-axis accelerometer and data from a three-axis gyroscopic sensor; means for classifying one or more features in the plurality of images as road features based on the precalibration data; and means for determining a camera pose by combining a first contribution with a second contribution in a visual inertial odometry (VIO) system, the first contribution being based on the classified one or more features in the plurality of images captured by the camera, and the second contribution being based on the inertial measurement data, wherein the VIO system combines a depth determined from the classified one or more features with the inertial measurement data.
+26. The apparatus of claim 25, wherein the means for classifying the one or more features in the plurality of images as road features comprise: means for determining features that lie below a horizon based on a pitch of the camera; means for performing an inverse projection of the features that lie below the horizon using a relative transform between an optical axis of the camera and the road plane based on the precalibration data; and means for classifying a feature as a road feature if the feature is located within a predefined range in the road plane.
+27. The apparatus of claim 26, wherein the predefined range comprises a lateral range and a depth range with respect to the road plane.
+28. The apparatus of claim 25, wherein the means for classifying the one or more features in the plurality of images as road features comprises: means for applying intensity information and location information of a feature to a machine learning model.
+29. The apparatus of claim 25, further comprising: means for computing a depth of the road features using an inverse projection of the features; means for updating a feature inverse depth based on the computed depth; and means for updating a visual inertial odometry (VIO) extended Kalman filter (EKF) based on the updated feature inverse depth.
+</claims>
+</document>

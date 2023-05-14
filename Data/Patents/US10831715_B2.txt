@@ -1,0 +1,60 @@
+<document>
+
+<filing_date>
+2016-12-30
+</filing_date>
+
+<publication_date>
+2020-11-10
+</publication_date>
+
+<priority_date>
+2015-01-30
+</priority_date>
+
+<ipc_classes>
+G06F16/178,G06F17/30,H04L29/06,H04L29/08
+</ipc_classes>
+
+<assignee>
+DROPBOX
+</assignee>
+
+<inventors>
+NEWHOUSE, BENJAMIN ZEIS
+</inventors>
+
+<docdb_family_id>
+58523486
+</docdb_family_id>
+
+<title>
+Selective downloading of shared content items in a constrained synchronization system
+</title>
+
+<abstract>
+A content management system synchronizes content items across client computing systems connected by a network. If a storage allocation for shared content items on a client device is exceeded by the request to add or edit a content item such that it is enlarged, a client application or the host of content management system selects content items to remove from residence on the client device but keep remotely on content management system. Upon removal of the selected content items, the client application creates shadow items, representing the content item but only containing the metadata of the content item. This creates sufficient space while maintaining user access to all synchronized shared content items. When a shadow item is requested by an application running on the client device the client application may approve or deny the request based on process or application access date collected from honeypots saved on the client device.
+</abstract>
+
+<claims>
+1. A computer-implemented method comprising: receiving, by a content management system from a client device, access data including at least a process name and a timestamp of a process requesting access to a honeypot of one or more honeypots on the client device, wherein each of the one or more honeypots corresponds to a respective file located in a hidden directory on the client device and has metadata indicating a particular file type; responsive to receiving the access data indicative of the process requesting access to the honeypot on the client device, comparing, by the content management system, the process name to a list of known process names corresponding to processes monitored by the content management system that have run on the client device; responsive to determining that the process name is not included in the list of known process names: adding the process name to the list of known process names; maintaining one or more access metrics for the process name based upon the received access data indicative of the process requesting access to the honeypot; and adding the process name into a list of restricted processes responsive to the maintained access metrics for the process name satisfying one or more thresholds according to a process listing model; and sending the list of restricted processes to the client device.
+2. The method of claim 1, wherein the access data also includes an identifier of the honeypot to which the process requested access.
+3. The method of claim 1, wherein the one or more honeypots are a plurality of honeypots are located on the client device in the hidden directory, each of the plurality of honeypots having metadata indicating a separate file type.
+4. The method of claim 3, wherein access data further includes a honeypot identifier, the honeypot identifier indicating the honeypot of the plurality of honeypots located on the client device that received an access request from the process.
+5. The method of claim 4, wherein access data further includes a plurality of access records, each access record indicating at least a honeypot identifier identifying a honeypot that received an access request, the process name of the requesting process, and a timestamp of the requesting process.
+6. The method of claim 3, wherein the plurality of honeypots have metadata representing file attributes of content items stored on the client device.
+7. The method of claim 3, wherein the plurality of honeypots have metadata representing a variety of file properties.
+8. The method of claim 1, wherein the one or more access metrics includes at least one of: a binary value indicating an access to a particular honeypot of the one or more honeypots, an access delay time, an access frequency, a directory open delay, or a categorical value indicating retry behavior.
+9. The method of claim 1, wherein adding the process name into a list of restricted process further comprises categorizing the process name into one of: a list of approved processes, a list of restricted processes, a list of streaming processes, and a list of partial access processes.
+10. The method of claim 1, wherein the process listing model is a supervised learning model trained on previously collected access data and process categorizations.
+11. A computer implemented method comprising: creating on a client device one or more honeypot files in a hidden directory on the client device, each of the one or more honeypots file having metadata indicating a particular file type; responsive to receiving access data for a process executing on the client device, the access data including a process name and a timestamp indicating a time that the process requested access to a honeypot file of the one or more honeypot files on the client device, providing the access data by the client device to a content management system; receiving by the client device from the content management system an indication of whether the process is a restricted process, based on one or more access metrics for the process calculated by the content management system based upon the provided access data for the process indicative of the process requesting access to the honeypot file, wherein the indication indicates that the process is a restricted process responsive to the maintained access metrics for the process satisfying one or more thresholds according to a process listing model maintained by the content management system; receiving by the client device a request from the process to access a shadow item stored in a shared content directory on the client device, the shadow item corresponding to a content item stored on the content management system, wherein the shadow item contains metadata representing the content item without the content data of the represented content item; determining whether the process is a restricted process based on the indication from the content management system; responsive to the process being a restricted process, denying the process access to the content item in the content management system corresponding to the shadow item; and responsive to the process not being a restricted process, replacing by the client device the shadow item in the shared content directory on the client device with the content item from the content management system corresponding to the shadow item.
+12. A computer-implemented method comprising: maintaining in a memory of a client device a list of a plurality of restricted processes on the client device; creating on one or more honeypot files in a hidden directory on the client device, each of the one or more honeypots file having metadata indicating a particular file type; responsive to receiving access data for a selected process executing on the client device, the access data including a process name and a timestamp indicating a time that the process requested access to a honeypot file of the one or more honeypot files on the client device, providing the access data by the client device to a content management system; receiving by the client device from the content management system an updated list of restricted processes, the updated list including the selected process, the selected process included in the updated list of restricted processed based on one or more access metrics for the process calculated by the content management system based upon the provided access data for the selected process indicative of the process requesting access to the honeypot file, wherein the selected process was added to the updated list responsive to the one or more access metrics satisfying one or more thresholds according to a process listing model maintained by the content management system; receiving by the client device a request from the selected process to access a shadow item stored in a shared content directory on the client device, the shadow item corresponding to a content item stored on the content management system, wherein the shadow item contains metadata representing the content item without the content data of the represented content item; determining by the client device that selected process is included in the updated list of restricted processes; and responsive to determining that the selected process is included in the updated list of restricted processes, denying selected process access to the content item corresponding to the shadow item.
+13. The method of claim 1, further comprising adding a requesting application associated with the process name into a list of restricted applications based on the maintained access metrics according to the process listing model.
+14. The method of claim 11, wherein the access data also includes an identifier of the honeypot to which the process requested access.
+15. The method of claim 11, wherein the one or more honeypots are a plurality of honeypots are located on the client device in the hidden directory, each of the plurality of honeypots having metadata indicating a separate file type.
+16. The method of claim 11, wherein the one or more honeypots have metadata representing file attributes of content items stored on the client device.
+17. The method of claim 12, The method of claim 11, wherein the access data also includes an identifier of the honeypot to which the process requested access.
+18. The method of claim 12, wherein the one or more honeypots are a plurality of honeypots are located on the client device in the hidden directory, each of the plurality of honeypots having metadata indicating a separate file type.
+19. The method of claim 12, wherein the one or more honeypots have metadata representing file attributes of content items stored on the client device.
+</claims>
+</document>

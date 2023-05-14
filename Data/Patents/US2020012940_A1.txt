@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2018-03-16
+</filing_date>
+
+<publication_date>
+2020-01-09
+</publication_date>
+
+<priority_date>
+2017-03-17
+</priority_date>
+
+<ipc_classes>
+G06N20/10,G06N3/08,G06T3/40
+</ipc_classes>
+
+<assignee>
+PORTLAND STATE UNIVERSITY
+</assignee>
+
+<inventors>
+LIU FENG
+NIKLAUS, SIMON
+MAI, LONG
+</inventors>
+
+<docdb_family_id>
+63522622
+</docdb_family_id>
+
+<title>
+FRAME INTERPOLATION VIA ADAPTIVE CONVOLUTION AND ADAPTIVE SEPARABLE CONVOLUTION
+</title>
+
+<abstract>
+Systems, methods, and computer-readable media for context-aware synthesis for video frame interpolation are provided. A convolutional neural network (ConvNet) may, given two input video or image frames, interpolate a frame temporarily in the middle of the two input frames by combining motion estimation and pixel synthesis into a single step and formulating pixel interpolation as a local convolution over patches in the input images. The ConvNet may estimate a convolution kernel based on a first receptive field patch of a first input image frame and a second receptive field patch of a second input image frame. The ConvNet may then convolve the convolutional kernel over a first pixel patch of the first input image frame and a second pixel patch of the second input image frame to obtain color data of an output pixel of the interpolation frame. Other embodiments may be described and/or claimed.
+</abstract>
+
+<claims>
+1. 1-8. (canceled)
+9. A computer system comprising: processor circuitry communicatively coupled with memory circuitry, the memory circuitry to store program code of a convolutional neural network (ConvNet) and the processor circuitry is to operate the ConvNet to: obtain, as an input, a first image frame and a second image frame; estimate a convolutional kernel based on a first receptive field patch of the first image frame and a second receptive field patch of a second image frame; convolve the convolutional kernel over a first pixel patch of the first input image frame and a second pixel patch of the second input image frame to obtain a color of an output pixel of an interpolation frame; and output the interpolation frame with the output pixel having the obtained color.
+10. The computer system of claim 9, wherein the processor circuitry is to operate the ConvNet to: output of the output pixel in the interpolation frame co-centered at a same location as the first receptive field patch and the second receptive field patch in the first input image and the second input image, respectively.
+11. The computer system of claim 10, wherein the first receptive field patch and the second receptive field patch are centered in the input image frame, and wherein the first pixel patch is centered within the first receptive field patch and the second pixel patch is centered within the second receptive field patch.
+12. The computer system of claim 9, wherein the ConvNet comprises: an input layer comprising raw pixel data of a plurality of input image frames, wherein the first image frame and the second image frame are among the plurality of input image frames; a plurality of convolutional layers comprising a corresponding one of a plurality of estimated kernels; a plurality of down-convolutional layers, wherein the down-convolutional layers are disposed between some convolutional layers of the plurality of convolutional layers; and an output layer comprising a feature map comprising a data structure that is representative of the output pixel and the obtained color.
+13. The computer system of claim 9, wherein the ConvNet comprises: a contracting component comprising a first plurality of convolution layers and a plurality of pooling layers, wherein one or more convolution layers of the first plurality of convolution layers are grouped with a corresponding one of the plurality of pooling layers; an expanding component comprises a second plurality of convolution layers and a plurality of upsampling layers, wherein one or more convolution layers of the second plurality of convolution layers are grouped with a corresponding one of the plurality of upsampling layers; and a plurality of subnetworks, wherein each subnetwork of the plurality of subnetworks comprises a set of convolution layers and an upsampling layer.
+14. The computer system of claim 13, wherein the processor circuitry is to operate the ConvNet to: operate each subnetwork to estimate a corresponding one dimensional kernel for each pixel in the interpolation frame, wherein each of the corresponding one dimensional kernels is part of a pair of one dimensional kernels, and each pair of one dimensional kernels is used to compute a two dimensional kernel.
+15. The computer system of claim 13, wherein the processor circuitry is to operate the ConvNet to: operate the contracting component to extract features from the first and second image frames; and operate the expanding component to perform dense predictions on the extracted features.
+16. The computer system of claim 13, wherein the processor circuitry is to operate each of the plurality of upsampling layers to perform a corresponding transposed convolution operation, a sub-pixel convolution operation, a nearest-neighbor operation, or a bilinear interpolation operation.
+17. The computer system of claim 13, wherein the processor circuitry is to operate each of the plurality of pooling layers to perform a downsampling operation.
+18. One or more non-transitory computer-readable media (NTCRM) including program code of a convolutional neural network (ConvNet) wherein execution of the program code by one or more processors is to cause a computer system to: obtain, as an input, a first image frame and a second image frame; estimate a convolutional kernel based on a first receptive field patch of the first image frame and a second receptive field patch of a second image frame; convolve the convolutional kernel over a first pixel patch of the first input image frame and a second pixel patch of the second input image frame to obtain a color of an output pixel of an interpolation frame; and output the interpolation frame with the output pixel having the obtained color.
+19. The one or more NTCRM of claim 18, wherein execution of the program code is to cause the computer system to: output of the output pixel in the interpolation frame co-centered at a same location as the first receptive field patch and the second receptive field patch in the first input image and the second input image, respectively.
+20. The one or more NTCRM of claim 19, wherein the first receptive field patch and the second receptive field patch are centered in the input image frame, and wherein the first pixel patch is centered within the first receptive field patch and the second pixel patch is centered within the second receptive field patch.
+21. The one or more NTCRM of claim 18, wherein the ConvNet comprises: an input layer comprising raw pixel data of a plurality of input image frames, wherein the first image frame and the second image frame are among the plurality of input image frames; a plurality of layers comprising a corresponding one of a plurality of convolutional layers, pooling layers, and/or Batch Normalization layers; a plurality of down-convolutional layers, wherein the down-convolutional layers are disposed between some convolutional layers of the plurality of convolutional layers; and an output layer comprising a feature map comprising kernels that are used to produce the color of the output pixel.
+22. The one or more NTCRM of claim 18, wherein the ConvNet comprises: a contracting component comprising a first plurality of convolution layers and a plurality of pooling layers, wherein one or more convolution layers of the first plurality of convolution layers are grouped with a corresponding one of the plurality of pooling layers; an expanding component comprises a second plurality of convolution layers and a plurality of upsampling layers, wherein one or more convolution layers of the second plurality of convolution layers are grouped with a corresponding one of the plurality of upsampling layers; and a plurality of subnetworks, wherein each subnetwork of the plurality of subnetworks comprises a set of convolution layers and an upsampling layer.
+23. The one or more NTCRM of claim 22, wherein execution of the program code is to cause the computer system to: operate each subnetwork to estimate a corresponding one dimensional kernel for each pixel in the interpolation frame, each one dimensional kernel being part of a pair of one dimensional kernels, and each pair of one dimensional kernels is used to compute a two dimensional kernel.
+24. The one or more NTCRM of claim 22, wherein execution of the program code is to cause the computer system to: operate the contracting component to extract features from the first and second image frames; and operate the expanding component to perform dense predictions on the extracted features.
+25. The one or more NTCRM of claim 22, wherein execution of the program code is to cause the computer system to: operate each of the plurality of upsampling layers to perform a corresponding transposed convolution operation, a sub-pixel convolution operation, a nearest-neighbor operation, or a bilinear interpolation operation; and operate each of the plurality of pooling layers to perform a downsampling operation.
+26. A method comprising: estimating a convolutional kernel based on a first receptive field patch of a first input image frame and a second receptive field patch of a second input image frame; and convolving the convolutional kernel over a first pixel patch of the first input image frame and a second pixel patch of the second input image frame to obtain a color of an output pixel of an interpolation frame.
+27. The method of claim 26, further comprising: accepting, as an input, the first receptive field patch and the second receptive field patch, wherein the first pixel patch is centered within the first receptive field patch and the second pixel patch is centered within the second receptive field patch; performing a plurality of convolution operations of corresponding convolutional layers; and performing or causing to perform a plurality of down-convolution operations of corresponding down-convolution layers; and outputting two pairs of one dimensional kernels to compute the color for the output pixel that are co-centered at a same location as the first receptive field patch in the first input frame and the second receptive field patch in the second input frame, wherein at least one of the two pairs of one dimensional kernels includes the convolved kernel and another convolved kernel, and each of the two pairs of one dimensional kernels is a two dimensional kernel.
+28. The method of claim 26, further comprising: extracting features from the first and second input frames, wherein extracting the features comprises downsampling data of convolution layers; and performing dense predictions at the resolution of the input frames, wherein performing the dense predictions comprises performing transposed convolution, sub-pixel convolution, nearest-neighbor, and bilinear interpolation, and wherein the estimating comprises estimating two pairs of one dimensional kernels for each pixel in the interpolation frame, wherein each of the two pairs of one dimensional kernels is an estimate of a corresponding two dimensional kernel.
+</claims>
+</document>

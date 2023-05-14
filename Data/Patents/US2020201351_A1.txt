@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2018-12-19
+</filing_date>
+
+<publication_date>
+2020-06-25
+</publication_date>
+
+<priority_date>
+2018-12-19
+</priority_date>
+
+<ipc_classes>
+B60W10/04,B60W10/20,B60W30/18,G05D1/00,G05D1/02,H04Q9/00
+</ipc_classes>
+
+<assignee>
+WAYMO
+</assignee>
+
+<inventors>
+MORTON, PETER
+MCCLOSKEY, SCOTT
+ARMSTRONG-CREWS, NICHOLAS
+LAUTERBACH, CHRISTIAN
+</inventors>
+
+<docdb_family_id>
+71096846
+</docdb_family_id>
+
+<title>
+Model for Excluding Vehicle from Sensor Field Of View
+</title>
+
+<abstract>
+The technology relates to developing a highly accurate understanding of a vehicle's sensor fields of view in relation to the vehicle itself. A training phase is employed to gather sensor data in various situations and scenarios, and a modeling phase takes such information and identifies self-returns and other signals that should either be excluded from analysis during real-time driving or accounted for to avoid false positives. The result is a sensor field of view model for a particular vehicle, which can be extended to other similar makes and models of that vehicle. This approach enables a vehicle to determine when sensor data is of the vehicle or something else. As a result, the detailed modeling allowing the on-board computing system to make driving decisions and take other actions based on accurate sensor information.
+</abstract>
+
+<claims>
+1. A method for generating a sensor field of view (FOV) model for a vehicle, the method comprising: obtaining, from one or more sensors mounted on the vehicle, sensor data for an environment external to the vehicle; filtering out the sensor data that does not satisfy a predetermined range condition to obtain resultant sensor data; projecting, by one or more processors, the resultant sensor data into a range image, wherein data in the range image includes a plurality of points, each of the plurality of points having a respective range value associated therewith; aggregating, by the one or more processors, the sensor data associated with different sets of obtained sensor data; and creating, by the one or more processors, a 3D mesh representation for each of the one or more sensors, the 3D mesh representation being based on the range image.
+2. The method of claim 1, wherein the 3D mesh representation for each of the one or more sensors is also encompassed by points not exceeding a coarse bounding box vehicle model.
+3. The method of claim 1, further comprising: transforming the 3D mesh representation from a vehicle frame to a sensor frame using a vehicle-specific extrinsic transform; and projecting 3D coordinates into the sensor frame to create a model range image.
+4. The method of claim 3, further comprising: for each new 3D point obtained by a given sensor, projecting that new 3D point onto the model range image; and filtering out one or more selected points if a range for the one or more selected points does not fall within a given range.
+5. The method of claim 1, further comprising generating a model of the vehicle from a combination of the 3D mesh representations for each of the one or more sensors, wherein the vehicle model is arranged to exclude the 3D mesh representation when detecting objects external to the vehicle.
+6. The method of claim 1, wherein obtaining the sensor data includes: operating the vehicle in a real-word environment under one or more scenarios; and gathering the sensor data of the environment external to the vehicle during operation under the one or more scenarios.
+7. The method of claim 6, wherein the one or more scenarios includes at least one of: a turning scenario in which one or more wheels of the vehicle are turned to a maximal extent; a stationary scenario in which at least one of a door, trunk or hood of the vehicle is placed in a partially or fully open position; or a scenario in which at least one window of the vehicle is open and an object is extended out the window.
+8. The method of claim 1, wherein creating the 3D mesh representation for each of the one or more sensors includes performing a transformation from sensor frame coordinates to vehicle frame coordinates.
+9. The method of claim 1, further comprising incorporating an intensity channel into the 3D mesh representation to account for different colors or lighting ranges of the obtained sensor data.
+10. The method of claim 9, further comprising applying the intensity channel to evaluate whether a sensor on the vehicle is covered by debris, is damaged, or is waterlogged.
+11. The method of claim 5, further comprising applying the vehicle model to a common vehicle make or model to obtain a common vehicle model.
+12. The method of claim 11, further comprising transmitting the common vehicle model to a fleet of vehicles for use during driving operations in an autonomous driving mode.
+13. A processing system comprising: memory configured to store obtained sensor data; and one or more processors operatively coupled to the memory, the one or more processors being configured to: receive, from one or more sensors of a vehicle, sensor data for an environment external to the vehicle; filter out the sensor data that does not satisfy a predetermined range condition to obtain resultant sensor data; project the resultant sensor data into a range image, wherein data in the range image includes a plurality of points, each of the plurality of points having a respective range value associated therewith; aggregate the sensor data associated with different sets of obtained sensor data; and create a 3D mesh representation for each of the one or more sensors, the 3D mesh representation being based on the range image.
+14. The processing system of claim 13, wherein the 3D mesh representation for each of the one or more sensors is also encompassed by points not exceeding a coarse bounding box vehicle model.
+15. The processing system of claim 13, wherein the one or more processors are further configured to: transform the 3D mesh representation to a sensor frame using a vehicle-specific extrinsic transform; and project 3D coordinates into the sensor frame to create a model range image.
+16. The processing system of claim 15, wherein the one or more processors are further configured to: for each new 3D point obtained by a given sensor, project that new 3D point onto the model range image; and filter out one or more selected points if a range for the one or more selected points does not fall within a given range.
+17. The processing system of claim 13, wherein the one or more processors are further configured to incorporate an intensity channel into the 3D mesh representation to account for different colors or lighting ranges of the obtained sensor data.
+18. The processing system of claim 13, wherein the one or more processors are further configured to generate a model of the vehicle from a combination of the 3D mesh representations for each of the one or more sensors, wherein the vehicle model is arranged to exclude the 3D mesh representation when detecting objects external to the vehicle.
+19. The processing system of claim 18, wherein the one or more processors are further configured to apply the vehicle model to a common vehicle make or model to obtain a common vehicle model.
+20. A vehicle comprising: a driving system including a steering subsystem, an acceleration subsystem and a deceleration subsystem to control driving of the vehicle; a plurality of wheels configured to contact a driving surface; a perception system including one or more sensors disposed along the vehicle, at least one of the one or more sensors having a respective detection field of view (FOV); and a control system including one or more processors, the control system operatively coupled to the driving system and the perception system, the control system being configured to: operate the vehicle along the driving surface under one or more scenarios; obtain, from the one or more sensors during operation under the one or more scenarios, sensor data for an environment external to the vehicle; transmit the obtained sensor data to a remote system; receive, from the remote system, a model of the vehicle according to the fields of view of the one or more sensors; and operate the vehicle along a roadway in response to the received vehicle model.
+21. The vehicle of claim 20, wherein the one or more scenarios includes at least one of: a turning scenario in which one or more wheels of the vehicle are turned to a maximal extent; a stationary scenario in which at least one of a door, trunk or hood of the vehicle is placed in a partially or fully open position; or at least one window of the vehicle is open and an object is extended out the window.
+</claims>
+</document>

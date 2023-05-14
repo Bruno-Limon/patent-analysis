@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2019-06-14
+</filing_date>
+
+<publication_date>
+2020-12-17
+</publication_date>
+
+<priority_date>
+2019-06-14
+</priority_date>
+
+<ipc_classes>
+G06F16/51,G06F16/583,G06K9/00,G06K9/62,G06N3/08
+</ipc_classes>
+
+<assignee>
+IBM (INTERNATIONAL BUSINESS MACHINES CORPORATION)
+</assignee>
+
+<inventors>
+Ahmed, Mohamed Nooman
+Woo, Samuel H.
+</inventors>
+
+<docdb_family_id>
+73745131
+</docdb_family_id>
+
+<title>
+CLASSIFYING A MATERIAL INSIDE A COMPARTMENT AT SECURITY CHECKPOINTS
+</title>
+
+<abstract>
+A system and method for automatically detecting prohibited materials in a compartment at a security checkpoint includes receiving a three-dimensional representation of a compartment from an imaging device connected to the computing system, and classifying each voxel of the three-dimensional representation using a trained neural network to determine whether any voxel classifications of the three-dimensional representation correspond to a voxel classification of a prohibited material.
+</abstract>
+
+<claims>
+1. A method for automatically detecting prohibited materials in a compartment at a security checkpoint, comprising: receiving, by a processor of a computing system, a three-dimensional representation of a compartment from an imaging device connected to the computing system; and classifying, by the processor, each voxel of the three-dimensional representation using a trained neural network to determine whether any voxel classifications of the three-dimensional representation correspond to a voxel classification of a prohibited material.
+2. The method of claim 1, wherein the three-dimensional representation is a set of images in sequence of an interior region of the compartment, output by a computed topography (CT) scanner, further wherein each image in the set of images has a width and a height, and when stacked together, form a depth.
+3. The method of claim 1, wherein the trained neural network is trained by: isolating, by the processor, a sub-volume around a voxel of a three-dimensional representation of a known prohibited material, for each voxel of the three-dimensional representation of the known prohibited material; extracting, by the processor, three central orthogonal planes inside the sub-volume, the three central orthogonal planes passing through a center of the voxel; stacking, by the processor, the three central orthogonal planes into a single, two-dimensional image; and feeding, by the processor, the single two-dimensional image into the trained neural network so that the trained neural network learns that the single, two-dimensional image fed into the trained neural network corresponds to a voxel classification of the known prohibited material.
+4. The method of claim 3, wherein the trained neural network automatically detects that the compartment contains the prohibited material in response to a determination that at least one voxel classification of the three-dimensional representation corresponds to the voxel classification of the known prohibited material.
+5. The method of claim 3, wherein the trained neural network automatically detects that the compartment does not contain the prohibited material in response to a determination that none of the voxel classifications of the three-dimensional representation correspond to the voxel classification of the known prohibited material.
+6. The method of claim 5, wherein the trained neural network is a two-dimensional convolutional neural network (CNN) that detects a presence of the prohibited in the compartment based on a voxel classification of the three-dimensional representation, without requiring human inspection of an output of the imaging device.
+7. The method of claim 1, wherein the two-dimensional CNN is a tri-planar convolutional neural network (TCN).
+8. The method of claim 1, wherein the trained neural network is trained by: isolating, by the processor, sub-volumes of different sizes around a voxel of a three-dimensional representation of a known prohibited material, for each voxel of the three-dimensional representation of the known prohibited material; applying, by the processor, three-dimensional convolutions on the sub-volumes of different sizes; and feeding, by the processor, the three-dimensional convolutions into the trained neural network so that the trained neural network learns that the convoluted sub-volumes fed into the trained neural network corresponds to a voxel classification of the known prohibited material.
+9. The method of claim 8, wherein the trained neural network automatically detects that the compartment contains the prohibited material in response to a determination that at least one voxel classification of the three-dimensional representation corresponds to the voxel classification of the known prohibited material.
+10. The method of claim 8, wherein the trained neural network automatically detects that the compartment does not contain the prohibited material in response to a determination that none of the voxel classifications of the three-dimensional representation correspond to the voxel classification of the known prohibited material
+11. The method of claim 10, wherein the trained neural network is a three-dimensional convolutional neural network (CNN) that detects a presence of the prohibited material in the compartment based on a voxel classification of the three-dimensional representation using an entire sub-volume isolated around each voxel, without requiring human inspection of an output of the imaging device.
+12. The method of claim 1, wherein the three-dimensional CNN is a sub-volume convolutional neural network (SCN).
+13. The method of claim 1, wherein the prohibited material is malleable such that the prohibited material has no consistent shape to base a classification on to detect a presence of the prohibited material inside the compartment.
+14. The method of claim 1, further comprising: labeling, by the processor, each of the voxels determined to have a same voxel classification as a known prohibited material; and generating, by the processor, a three-dimensional rendering of the labeled voxels to visualize a location of the prohibited material within the compartment.
+15. A computing system, comprising: a processor; a memory device coupled to the processor; and a computer readable storage device coupled to the processor, herein the storage device contains program code executable by the processor via the memory device to implement a method for automatically detecting prohibited materials in a compartment at a security checkpoint comprising: receiving, by a processor of a computing system, a three-dimensional representation of a compartment from an imaging device connected to the computing system; and classifying, by the processor, each voxel of the three-dimensional representation using a trained neural network to determine whether any voxel classifications of the three-dimensional representation correspond to a voxel classification of a prohibited material.
+16. The computing system of claim 15, wherein the trained neural network is trained by: isolating, by the processor, a sub-volume around a voxel of a three-dimensional representation of a known prohibited material, for each voxel of the three-dimensional representation of the known prohibited material; extracting, by the processor, three central orthogonal planes inside the sub-volume, the three central orthogonal planes passing through a center of the voxel; stacking, by the processor, the three central orthogonal planes into a single, two-dimensional image; and feeding, by the processor, the single two-dimensional image into the trained neural network so that the trained neural network learns that the single, two-dimensional image fed into the trained neural network corresponds to a voxel classification of the known prohibited material.
+17. The computing system of claim 15, wherein the trained neural network automatically detects that the compartment contains the prohibited material in response to a determination that at least one voxel classification of the three-dimensional representation corresponds to the voxel classification of the known prohibited material, and the trained neural network automatically detects that the compartment does not contain the prohibited material in response to a determination that none of the voxel classifications of the three-dimensional representation correspond to the voxel classification of the known prohibited material.
+18. A computer program product, comprising a computer readable hardware storage device storing a computer readable program code, the computer readable program code comprising an algorithm that when executed by a computer processor of a computing system implements a method for automatically detecting prohibited materials in a compartment at a security checkpoint comprising: receiving, by a processor of a computing system, a three-dimensional representation of a compartment from an imaging device connected to the computing system; and classifying, by the processor, each voxel of the three-dimensional representation using a trained neural network to determine whether any voxel classifications of the three-dimensional representation correspond to a voxel classification of a prohibited material.
+19. The computer program product of claim 18, wherein the trained neural network is trained by: isolating, by the processor, a sub-volume around a voxel of a three-dimensional representation of a known prohibited material, for each voxel of the three-dimensional representation of the known prohibited material; extracting, by the processor, three central orthogonal planes inside the sub-volume, the three central orthogonal planes passing through a center of the voxel; stacking, by the processor, the three central orthogonal planes into a single, two-dimensional image; and feeding, by the processor, the single two-dimensional image into the trained neural network so that the trained neural network learns that the single, two-dimensional image fed into the trained neural network corresponds to a voxel classification of the known prohibited material.
+20. The computer program product of claim 18, wherein the trained neural network automatically detects that the compartment contains the prohibited material in response to a determination that at least one voxel classification of the three-dimensional representation corresponds to the voxel classification of the known prohibited material, and the trained neural network automatically detects that the compartment does not contain the prohibited material in response to a determination that none of the voxel classifications of the three-dimensional representation correspond to the voxel classification of the known prohibited material.
+</claims>
+</document>

@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2020-03-09
+</filing_date>
+
+<publication_date>
+2020-09-17
+</publication_date>
+
+<priority_date>
+2019-03-11
+</priority_date>
+
+<ipc_classes>
+G06F8/41,H04L29/06
+</ipc_classes>
+
+<assignee>
+NEC LABORATORIES AMERICA
+</assignee>
+
+<inventors>
+CHAKRADHAR, SRIMAT
+SANKARADAS, MURUGAN
+Rao, Kunal
+Yang, Yi
+Feng, Min
+COVIELLO, GIUSEPPE
+</inventors>
+
+<docdb_family_id>
+72423651
+</docdb_family_id>
+
+<title>
+SPECIFICATION AND EXECUTION OF REAL-TIME STREAMING APPLICATIONS
+</title>
+
+<abstract>
+Systems and methods to specify and execute real-time streaming applications are provided. The method includes specifying an application topology for an application including spouts, bolts, connections, a global hash table, and a topology manager. Each spout receives input data and each bolt transforms the input data, the global hash table allows in memory communication between each spout and bolt to others of the spouts and the bolts. The topology manager manages the application topology. The method includes compiling the application into a shared or static library for applications, and exporting a special symbol associated with the application. The runtime system can be used to retrieve the application topology from the shared or static library based on the special symbol and execute the application topology on a single node or distribute across multiple nodes.
+</abstract>
+
+<claims>
+1. A method for specifying and compiling real-time streaming applications, comprising: specifying an application topology for an application including at least one spout, at least one bolt, at least one connection, a global hash table, and a topology manager, wherein each at least one spout receives input data and each at least one bolt transforms the input data, the global hash table allows in memory communication between each of the at least one spout and the at least one bolt to others of the at least one spout and the at least one bolt, and the topology manager manages the application topology; compiling the application into a shared or static library for applications, wherein the runtime system can be used to run the application topology on a single node or distribute across multiple nodes; and exporting a special symbol associated with the application, wherein the application and the application topology are configured to be retrieved from the shared or static library for execution based on the special symbol.
+2. The method as recited in claim 1, further comprising, executing the application topology by: determining at runtime, based on node information in a runtime-request, whether to deploy and execute the application topology within a single process consisting of multiple threads on the single node or deploy and execute the application topology using multiple processes distributed across the multiple nodes. retrieving the application topology from the shared or static library for execution based on the special symbol; using low-level, topology-aware, inter-process communication mechanism between spouts and bolts; and processing at least one request based on the at least one spout, the at least one bolt and the at least one connection.
+3. The method as recited in claim 2, further comprising: after creation of the application topology, checking if any spout is present in the application topology, if there are no spouts present in the application topology, determining that there is no input data and exiting the application topology; and if there are spouts present in the application topology, calculating and creating a total number of executors, wherein the total number of executors corresponds to a total number of spout/bolt instances to be created.
+4. The method as recited in claim 3, further comprising: after the executors are created, assigning each task associated with each spout/bolt instance to an executor; starting the bolt instances; and following by starting all the spout instances.
+5. The method as recited in claim 2, wherein determining and executing the application topology further comprises: determining the application topology based on a programming model; and enabling execution of a same code on multiple platforms using the application topology.
+6. The method as recited in claim 2, further comprising: collecting metrics whenever a time interval between a previous collection and a current time has reached or exceeded a pre-defined time limit; and monitoring a status of executors if no request is received.
+7. The method as recited in claim 2, further comprising: checking if a request is to obtain an address of a destination where a data item belonging to a tag is to be sent; if the request is to obtain the address, returning the address of the destination for the tag if the address was previously assigned; and if the address was not previously assigned, assigning a new destination for the tag and sending a newly assigned destination address.
+8. The method as recited in claim 2, further comprising: implementing the application topology as a hybrid topology that includes at least one single process with multiple threads on a single node and at least a plurality of processes that each have multiple threads across a plurality of nodes.
+9. The method as recited in claim 1, wherein the at least one spout includes at least one of: a time out spout that invokes and emits a user-defined data item at a periodic time interval; an asynchronous messaging tuple receiver spout that receives a data item over an asynchronous messaging queue; an asynchronous messaging video receiver spout that receives and decodes data items containing video frames over an asynchronous messaging queue; and a user-defined spout providing logic within setup( ) and execute( ) functions.
+10. The method as recited in claim 1, wherein the at least one bolt includes at least one of: an asynchronous messaging tuple publisher bolt that publishes at least one data item over an asynchronous messaging queue; a filter bolt that filters particular data items and conditionally emits the particular data items to successive bolts in a chain, based on at least one condition specified in a filter; a typed bolt that can be used for specific input data type and output data type; a tuple windowing bolt that can be used when data items are to be aggregated over a particular window size and emitted to the successive bolts in the chain; and a user-defined bolt providing logic within setup( ) and execute( ) functions.
+11. The method as recited in claim 1, wherein the at least one connection includes at least one of: a shuffle connection that takes a tuple from a producer and sends the tuple to a randomly chosen consumer; a tag connection that allows a user to control how tuples are sent to bolts based on at least one tag in the tuple; and a broadcast connection that sends the tuple to all instances of all receiving bolts.
+12. A computer system for specifying and compiling real-time streaming applications, comprising: a processor device operatively coupled to a memory device, the processor device being configured to: specify an application topology for an application including at least one spout, at least one bolt, at least one connection, a global hash table, and a topology manager, wherein each at least one spout receives input data and each at least one bolt transforms the input data, the global hash table allows in memory communication between each of the at least one spout and the at least one bolt to others of the at least one spout and the at least one bolt, and the topology manager manages the application topology; compile the application into a shared or static library for applications, wherein the runtime system can be used to run the application topology on a single node or distribute across multiple nodes; and export a special symbol associated with the application, wherein the application and the application topology are configured to be retrieved from the shared or static library for execution based on the special symbol.
+13. The system as recited in claim 12, wherein the processor device, during execution of the application topology, is further configured to: determine at runtime, based on node information in a runtime-request, whether to deploy and execute the application topology within a single process consisting of multiple threads on the single node or deploy and execute the application topology using multiple processes distributed across the multiple nodes. retrieve the application topology from the shared or static library for execution based on the special symbol; use low-level, topology-aware, inter-process communication mechanism between spouts and bolts; and process at least one request based on the at least one spout, the at least one bolt and the at least one connection.
+14. The system as recited in claim 13, wherein the processor device is further configured to: after creation of the application topology, check if any spout is present in the application topology; if there are no spouts present in the application topology, determine that there is no input data and exiting the application topology; and if there are any spouts present in the application topology, calculate and create a total number of executors, wherein the total number of executors corresponds to a total number of spout/bolt instances to be created.
+15. The system as recited in claim 13, wherein the processor device is further configured to: after the executors are created, assign each task associated with each spout/bolt instance to an executor; start the bolt instances; and follow by starting all the spout instances.
+16. The system as recited in claim 13, wherein, when determining and executing the application topology, the processor device is further configured to: determine the application topology based on a programming model; and enable execution of a same code on multiple platforms using the application topology.
+17. The system as recited in claim 12, wherein the at least one spout includes at least one of: a time out spout that invokes and emits a user-defined data item at a periodic time interval; an asynchronous messaging tuple receiver spout that receives a data item over an asynchronous messaging queue; an asynchronous messaging video receiver spout that receives and decodes data items containing video frames over an asynchronous messaging queue; and a user-defined spout providing logic within setup( ) and execute( ) functions.
+18. The system as recited in claim 12, wherein the at least one bolt includes at least one of: an asynchronous messaging tuple publisher bolt that publishes at least one data item over an asynchronous messaging queue; a filter bolt that filters particular data items and conditionally emits the particular data items to successive bolts in a chain, based on at least one condition specified in a filter; a typed bolt that can be used for specific input data type and output data type; a tuple windowing bolt that can be used when data items are to be aggregated over a particular window size and emitted to the successive bolts in the chain; and a user-defined bolt providing logic within setup( ) and execute( ) functions.
+19. The system as recited in claim 12, wherein the at least one connection includes at least one of: a shuffle connection that takes a tuple from a producer and sends the tuple to a randomly chosen consumer; a tag connection that allows a user to control how tuples are sent to bolts based on at least one tag in the tuple; and a broadcast connection that sends the tuple to all instances of all receiving bolts.
+20. A computer program product for specifying and compiling real-time streaming applications, the computer program product comprising a non-transitory computer readable storage medium having program instructions embodied therewith, the program instructions executable by a computing device to cause the computing device to perform the method comprising: specifying an application topology for an application including at least one spout, at least one bolt, at least one connection, a global hash table, and a topology manager, wherein each at least one spout receives input data and each at least one bolt transforms the input data, the global hash table allows in memory communication between each of the at least one spout and the at least one bolt to others of the at least one spout and the at least one bolt, and the topology manager manages the application topology; compiling the application into a shared or static library for applications, wherein the runtime system can be used to run the application topology on a single node or distribute across multiple nodes; and exporting a special symbol associated with the application, wherein the application and the application topology are configured to be retrieved from the shared or static library for execution based on the special symbol.
+</claims>
+</document>

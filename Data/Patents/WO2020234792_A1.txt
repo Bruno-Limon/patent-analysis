@@ -1,0 +1,96 @@
+<document>
+
+<filing_date>
+2020-05-20
+</filing_date>
+
+<publication_date>
+2020-11-26
+</publication_date>
+
+<priority_date>
+2019-05-21
+</priority_date>
+
+<ipc_classes>
+G06F9/50
+</ipc_classes>
+
+<assignee>
+POLITECNICO DI MILANO
+</assignee>
+
+<inventors>
+SANTAMBROGIO MARCO DOMENICO
+BRONDOLIN ROLANDO
+BACIS MARCO
+</inventors>
+
+<docdb_family_id>
+66793754
+</docdb_family_id>
+
+<title>
+AN FPGA-AS-A-SERVICE SYSTEM FOR ACCELERATED SERVERLESS COMPUTING
+</title>
+
+<abstract>
+The present invention proposes a hardware accelerators management system (1) for containerized and serverless environments. The system (1) at least comprises a domain layer on which a plurality of application containers and functions (60, 61) are implemented, a hardware layer in which a set of hardware accelerators are implemented and a software layer configured for abstracting the application containers and the functions (60, 61) of the domain layer from the hardware layer, wherein the system (1) comprises a hardware interface (80, 90) to send tasks to and reconfigure at least a portion of the processing means (70) implemented in the hardware layer. The system (1) also comprises a software structure (40, 50, 63) that shares hardware accelerators of the hardware layer between application containers and functions (60, 61) of the domain layer. Advantageously, the software structure (40, 50, 63) performs scheduling and optimization algorithms on the resource allocations of the hardware accelerators of the hardware layer for the application containers and functions (60, 61) of the domain layer in terms of device time and/or space slot of utilization. In detail, the scheduling and optimization algorithms comprises a monitoring structure interfacing with processing means and with the software layer for reading performance metrics of at least one processing means (70). Advantageously, the software structure comprises at least one device manager (50) component connected with the hardware interface (80, 90) and at least one remote library (63) component to interface each application container and function (60, 61) with the at least one device manager (50) component concurrently.
+</abstract>
+
+<claims>
+1. A hardware accelerators management system (1) for containerized and serverless environments at least comprising
+a domain layer on which a plurality of application containers and functions (60, 61) are implemented,
+a hardware layer in which a set of hardware accelerators are implemented and
+a software layer configured for abstracting the application containers and the functions (60, 61) of the domain layer from the hardware layer,
+wherein the system (1) comprises a hardware interface (80, 90) to send tasks to and reconfigure at least a portion of the processing means (70) implemented in the hardware layer,
+wherein the system (1) comprises a software structure (40, 50, 63) that shares hardware accelerators of the hardware layer between application containers and functions (60, 61) of the domain layer,
+wherein the software structure (40, 50, 63) performs scheduling and optimization algorithms on the resource allocations of the hardware accelerators of the hardware layer for the application containers and functions (60, 61) of the domain layer in terms of device time and/or space slot of utilization,
+wherein the scheduling and optimization algorithms comprises a monitoring structure interfacing with processing means and with the software layer for reading performance metrics of at least one processing means (70), and
+wherein the software structure comprises at least one device manager (50) component connected with the hardware interface (80, 90) and at least one remote library (63) component to interface each application container and function (60, 61) with the at least one device manager (50) component concurrently.
+2. The hardware accelerators management system of claim 1 , wherein the hardware interface is configured to communicate with at least a portion of the processing means of the hardware layer, including Field-Programmable-Gate-Array (FPGA), Application-Specific-Integrated-Circuits (ASIC), Digital Signal Processor (DSP) and Graphic Processing Unit (GPU) boards.
+3. The hardware accelerators management system of claim 1 or 2, wherein the at least one remote library (63) is configured for receiving method calls performed by an application and/or a function (60, 61 ) implemented in the domain layer and forward such method call in an asynchronous manner to a service endpoint exposed by the at least one device manager (50).
+4. The hardware accelerators management system of claim 3, wherein the at least one device manager (50) receives a plurality of method calls that requires hardware accelerators to be performed from the at least one Remote Library (63) associated with a corresponding application and/or function, and wherein the at least one device manager (50) is configured to:
+- create at least one task, the at least one task comprising a minimum sequence of called method to be performed in a predetermined order, and
+- forward the at least one task to the hardware interface (80, 90).
+5. The hardware accelerators management system of claim 4, wherein the at least one device manager (50) is configured to sequentially adding method to be performed in the at least one task until a blocking method or an explicit finish/flush/barrier command is added.
+6. The hardware accelerators management system of claim 4 or 5, wherein the at least one device manager (50) is configured to inserting the at least one task queue (57) once created, and wherein the device manager (50) further comprises at least one worker thread (55) configured to pull and execute on the hardware accelerator tasks comprised in the task queue.
+7. The hardware accelerators management system of claim 6, wherein the worker thread (55) is configured to select which task pull from the task queue (57) based on at least one of the following metrics associated with the hardware accelerator:
+- number of requests received/executed by the device,
+- number of in-flight requests,
+- allocated memory,
+- number of allocated buffers,
+- hardware accelerator utilization,
+- number of connected applications and instances.
+8. The hardware accelerators management system of any one of the preceding claims 3 to
+7, wherein the device manager (50) component interfaces with the hardware interface (80, 90) to send multiple tasks in parallel to different hardware accelerators and/or to reconfigure the processing means.
+9. The hardware accelerators management system of any one of the preceding claims 3 to
+8, wherein a respective remote library (63) is implemented in each application container or function (60, 61) implemented in the domain layer.
+10. The hardware accelerators management system according to any one of preceding claims, wherein the at least one device manager (50) and the at least one remote library (63) are configured to communicate via a network connection, or via a shared memory area of the hardware layer on which is deployed the software layer implementing both the device manager (50) and the at least one remote library (63).
+11. The hardware accelerators management system according to claim 10, wherein the at least one device manager (50) and the at least one remote library (63) are configured to are configured to expose at least one of the following service: application containers and functions (60, 61) registration and disconnection;
+hardware accelerator information gathering;
+reconfiguration requests;
+buffers manipulation;
+accelerator-related methods, and
+command queue operations.
+12. The hardware accelerators management system according to any one of preceding claims, wherein the software structure may comprise a central management component (40) interfacing with the at least one device manager (50) and the at least one remote library (63) components to perform scheduling and optimization algorithms on the resource allocations of the hardware accelerators of the hardware layer.
+13. The hardware accelerators management system of claim 12, wherein the central management component (40) is configured to:
+receive request of instantiation of functions and/or applications, and
+for each function or application:
+assign a domain layer resource for instantiating the function or application, and assign at least one device manager (50) to the function or application, the device manger (50) with the hardware interface (80, 90) associated with a hardware accelerator requested by the function or application.
+14. The hardware accelerators management system of claim 12 or 113, wherein the scheduling and optimization algorithms performed by the central management component (40) use system runtime performance indicators to efficiently allocate the resources of the hardware layer to the application containers and functions (60, 61), such runtime performance indicators comprising at least one among:
+- number of requests received;
+- number of in-flight requests;
+- allocated memory, and
+- current workload,
+related to the hardware layer, one or more hardware accelerators implemented in the hardware layer or one or more processing means of the hardware layer.
+15. The hardware accelerators management system according to any one of preceding claims 12 to 14, wherein the at least one device manager (50) and the central management component (40) are configured to communicate via a network connection to exchange network message/methods called comprising at least one among:
+hardware accelerator registration and removal from the central management component reconfiguration request and validation of the hardware accelerator;
+metrics pushing from the device manager (50) to the central management component (40), and
+periodic polling from the device manager (50) to the central management component (40) and viceversa.
+16. The hardware accelerators management system according to any one of preceding claims 12 to 15, wherein the at least remote Library (63) and the central management component (40) are configured to communicate via a network connection to exchange network message/methods called comprising at least one among:
+- application containers and functions (60, 61) registration and removal from the central management component (40);
+Instances of the application containers and functions (60, 61 ) registration and removal from the central management component (40), and
+hardware accelerator reconfiguration request and validation.
+</claims>
+</document>

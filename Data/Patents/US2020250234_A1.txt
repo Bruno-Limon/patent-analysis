@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2019-02-04
+</filing_date>
+
+<publication_date>
+2020-08-06
+</publication_date>
+
+<priority_date>
+2019-02-04
+</priority_date>
+
+<ipc_classes>
+G06F16/185,G06F16/901,G06F16/903,G06K9/62
+</ipc_classes>
+
+<assignee>
+ADOBE
+</assignee>
+
+<inventors>
+TEOFILI, TOMMASO
+SANSO, ANTONIO
+</inventors>
+
+<docdb_family_id>
+71836470
+</docdb_family_id>
+
+<title>
+ORGANIZING HIERARCHICAL DATA FOR IMPROVED DATA LOCALITY
+</title>
+
+<abstract>
+A computer system generates a similarity-optimized hierarchy for hierarchical data to improve data access performance and content discovery. An example method includes receiving hierarchical data in an original hierarchy having a plurality of nodes and a depth of d, generating a respective embedding for each node of the plurality of nodes, and determining, for each node of the plurality of nodes, respective k-nearest neighbors based on the respective embedding. Starting with nodes at depth din the original hierarchy, the method includes generating sibling groups, each sibling group having at least one node at depth d, identifying, for each node at depth d, a similarity-optimized parent from depth d−1, and associating each node at depth d with its respective similarity-optimized parent in a similarity-optimized hierarchy. The method also includes completing the similarity-optimized hierarchy by repeating the generating, identifying and associating with nodes at depth d−1 until reaching the hierarchy root.
+</abstract>
+
+<claims>
+1. A computer-implemented method for storing hierarchical data in memory based on similarity comprising: generating, by at least one processor, a respective embedding for each node of a plurality of nodes representing hierarchical data having an original hierarchy of depth of d; determining, by the at least one processor and for each node of the plurality of nodes, respective k-nearest neighbors based on the embeddings; starting with nodes at the depth din the original hierarchy: generating sibling groups, each sibling group having at least one node at depth d, the sibling groups being mutual k-nearest neighbors, identifying, for each node at depth d, a similarity-optimized parent from depth d−1, and associating each node at depth d with its respective similarity-optimized parent in a similarity-optimized hierarchy; completing, by the at least one processor, the similarity-optimized hierarchy by repeating, with nodes at decreasing depths until reaching a root of the hierarchy, the generating, identifying, and associating; and storing the hierarchical data according to the similarity-optimized hierarchy in the memory.
+2. The method of claim 1, wherein identifying the similarity-optimized parent for a node at depth d includes: identifying a node at depth d−1 in the original hierarchy that is most similar to the node.
+3. The method of claim 1, wherein identifying, for each node at depth d, the similarity-optimized parent includes: determining respective potential parents for each node at depth d, where potential parents are the k-nearest neighbors of the node from the nodes at depth d−1; for each node at depth d, assigning the top-scoring node from the potential parents as the similarity-optimized parent; and for each sibling group: identifying a first parent node common to the potential parents of at least a first node in the sibling group and the potential parents a second node in the sibling group, determining that the first parent node is more similar to the first node than the second node is to its similarity-optimized parent, and assigning the first parent node to the second node as its similarity-optimized parent.
+4. The method of claim 1, further comprising: preserving a view of the original hierarchy.
+5. The method of claim 1, further comprising: using the similarity-optimized hierarchy for navigation of the hierarchical data.
+6. The method of claim 1, further comprising: using the similarity-optimized hierarchy to identify related hierarchical data based on similarity.
+7. The method of claim 1, wherein the embeddings are in hyperbolic space.
+8. The method of claim 1, further comprising: receiving a query; and accessing nodes of the hierarchy that are responsive to the query via the memory, wherein at least two of the nodes responsive to the query are siblings in the similarity-optimized hierarchy and in different subtrees in the original hierarchy.
+9. A computer system for storing hierarchical data based on similarity, the computer system comprising: a memory storing instructions; at least one memory storing hierarchical data in an original hierarchy, the original hierarchy having a plurality of nodes and a depth of d; and at least one processor that is operably coupled to the memory storing instructions and that is arranged and configured to execute the instructions to cause the at least one processor to implement an application, the application comprising: a hierarchy optimization engine that is arranged and configured to: generate a respective embedding for each node of the plurality of nodes; determine, for each node of the plurality of nodes, respective k-nearest neighbors based on the respective embedding; generate a similarity-optimized hierarchy for the hierarchical data by iteratively, starting from nodes at depth din the original hierarchy and moving the up original hierarchy to a root of the hierarchy, repeating the operations of: generating sibling groups, each sibling group having at least one node at depth d, identifying, for each node at depth d, a similarity-optimized parent from depth d−1, and associating each node at depth d with its respective similarity-optimized parent in the similarity-optimized hierarchy; and reorganize the hierarchical data in the at least one memory according to the similarity-optimized hierarchy, so that siblings at depth d are adjacent in the at least one memory.
+10. The system of claim 9, wherein the hierarchy optimization engine is further arranged and configured to: receive the hierarchical data from a requesting process and store the hierarchical data in the at least one memory.
+11. The system of claim 10, wherein the hierarchy optimization engine is further arranged and configured to: provide the reorganized hierarchical data to the requesting process.
+12. The system of claim 9, wherein generating the sibling groups include: forming a sibling group from nodes that include each other in respective k-nearest neighbors.
+13. The system of claim 12, wherein generating the sibling groups further includes: determining that another node not in the sibling group has as its nearest neighbor a node in the sibling group; and responsive to the determining, adding the other node to the sibling group.
+14. The system of claim 9, wherein identifying the similarity-optimized parent for a node at depth d includes: identifying a node at depth d−1 in the original hierarchy that is most similar to the node.
+15. The system of claim 9, wherein identifying, for each node at depth d, the similarity-optimized parent includes: determining respective potential parents for each node at depth d, where potential parents are the k-nearest neighbors of the node from the nodes at depth d−1; for each node at depth d, assigning the top-scoring node from the potential parents as the similarity-optimized parent; and for each sibling group: identifying a first parent node common to the potential parents of at least a first node in the sibling group and the potential parents a second node in the sibling group, determining that the first parent node is more similar to the first node than the second node is to its similarity-optimized parent, and assigning the first parent node to the second node as its similarity-optimized parent.
+16. A computer program product for generating a similarity-optimized hierarchy for hierarchical data, the computer program product being tangibly embodied on a nontransitory computer-readable storage medium and comprising instructions that, when executed by at least one computing device, are configured to cause the at least one computing device to: receive, from a requesting process, hierarchical data in an original hierarchy, the original hierarchy having a plurality of nodes and a depth of d; generate a respective embedding for each node of the plurality of nodes; determine, for each node of the plurality of nodes, respective k-nearest neighbors based on the respective embedding; starting with nodes at depth din the original hierarchy: generate sibling groups, each sibling group having at least one node at depth d, identify, for each node at depth d, a similarity-optimized parent from depth d−1, and associate ach node at depth d with its respective similarity-optimized parent in a similarity-optimized hierarchy; complete the similarity-optimized hierarchy by repeating, with nodes at depth d−1 until reaching a root of the hierarchy, the generating, identifying, and associating; and provide, via a network, the similarity-optimized hierarchy to the requesting process.
+17. The computer program product of claim 16, wherein receiving the hierarchical data includes receiving a location of the data.
+18. The computer program product of claim 17, wherein providing the similarity-optimized hierarchy includes reorganizing the hierarchical data at the location.
+19. The computer program product of claim 16, wherein providing the similarity-optimized hierarchy includes providing a reorganized copy of the hierarchical data to the requesting process.
+20. The computer program product of claim 16, wherein providing the similarity-optimized hierarchy includes providing a view of the hierarchical data to the requesting process.
+</claims>
+</document>

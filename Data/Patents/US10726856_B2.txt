@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2018-08-16
+</filing_date>
+
+<publication_date>
+2020-07-28
+</publication_date>
+
+<priority_date>
+2018-08-16
+</priority_date>
+
+<ipc_classes>
+G10L19/00,G10L19/032,G10L21/02,G10L21/0272
+</ipc_classes>
+
+<assignee>
+MITSUBISHI ELECTRIC RESEARCH LABORATORIES
+</assignee>
+
+<inventors>
+HERSHEY, JOHN
+LE ROUX, JONATHAN
+WATANABE, SHINJI
+WICHERN, GORDON
+</inventors>
+
+<docdb_family_id>
+66092375
+</docdb_family_id>
+
+<title>
+Methods and systems for enhancing audio signals corrupted by noise
+</title>
+
+<abstract>
+Systems and methods for audio signal processing including an input interface to receive a noisy audio signal including a mixture of target audio signal and noise. An encoder to map each time-frequency bin of the noisy audio signal to one or more phase-related value from one or more phase quantization codebook of phase-related values indicative of the phase of the target signal. Calculate, for each time-frequency bin of the noisy audio signal, a magnitude ratio value indicative of a ratio of a magnitude of the target audio signal to a magnitude of the noisy audio signal. A filter to cancel the noise from the noisy audio signal based on the phase-related values and the magnitude ratio values to produce an enhanced audio signal. An output interface to output the enhanced audio signal.
+</abstract>
+
+<claims>
+1. An audio signal processing system, comprising: an input interface to receive a noisy audio signal including a mixture of a target audio signal and noise; an encoder to map each time-frequency bin of the noisy audio signal to one or more phase-related values from one or more phase quantization codebooks of phase-related values indicative of the phase of the target signal, and to calculate, for each time-frequency bin of the noisy audio signal, a magnitude ratio value indicative of a ratio of a magnitude of the target audio signal to a magnitude of the noisy audio signal; a filter to cancel the noise from the noisy audio signal based on the one or more phase-related values and the magnitude ratio values to produce an enhanced audio signal; and an output interface to output the enhanced audio signal.
+2. The audio signal processing system of claim 1, wherein one of the one or more phase-related values represents an approximate value of the phase of a target signal in each time-frequency bin.
+3. The audio signal processing system of claim 1, wherein one of the one or more phase-related values represents an approximate difference between the phase of a target signal in each time-frequency bin and a phase of the noisy audio signal in the corresponding time-frequency bin.
+4. The audio signal processing system of claim 1, wherein one of the one or more phase-related values represents an approximate difference between the phase of a target signal in each time-frequency bin and the phase of a target signal in a different time-frequency bin.
+5. The audio signal processing system of claim 1, further comprising a phase-related-value weights estimator, wherein the phase-related-value weights estimator estimates phase-related-value weights for each time-frequency bin, and the phase-related-value weights are used to combine the different phase-related values.
+6. The audio signal processing system of claim 1, wherein the encoder includes parameters that determine the mappings of the time-frequency bins to the one or more phase-related values in the one or more phase quantization codebook.
+7. The audio signal processing system of claim 6, wherein, given a predetermined set of phase values for the one or more phase quantization codebook, the parameters of the encoder are optimized so as to minimize an estimation error between training enhanced audio signal and corresponding training target audio signal on a training dataset of pairs of training noisy audio signal and training target audio signal.
+8. The audio signal processing system of claim 6, wherein the phase values of the first quantization codebook are optimized together with the parameters of the encoder in order to minimize an estimation error between training enhanced audio signal and corresponding training target audio signal on a training dataset of pairs of training noisy audio signal and training target audio signal.
+9. The audio signal processing system of claim 1, wherein the encoder maps each time-frequency bin of the noisy speech to a magnitude ratio value from a magnitude quantization codebook of magnitude ratio values indicative of quantized ratios of magnitudes of the target audio signal to magnitudes of the noisy audio signal.
+10. The audio signal processing system of claim 9, wherein the magnitude quantization codebook includes multiple magnitude ratio values including at least one magnitude ratio value greater than one.
+11. The audio signal processing system of claim 9, further comprising: a memory to store the first quantization codebook and the second quantization codebook, and to store a neural network trained to process the noisy audio signal to produce a first index of the phase value in the phase quantization codebook and a second index of the magnitude ratio value in the magnitude quantization codebook, wherein the encoder determines the first index and the second index using the neural network, and retrieves the phase value from the memory using the first index, and retrieves the magnitude ratio value from the memory using the second index.
+12. The audio signal processing system of claim 9, wherein the phase values and the magnitude ratio values are optimized together with the parameters of the encoder in order to minimize an estimation error between training enhanced speech and corresponding training target speech.
+13. The audio signal processing system of claim 9, wherein the first quantization codebook and the second quantization codebook form a joint quantization codebook with combinations of the phase values and the magnitude ratio values, such that the encoder maps each time-frequency bin of the noisy speech to the phase value and the magnitude ratio value forming a combination in the joint quantization codebook.
+14. The audio signal processing system of claim 13, wherein the phase values and the magnitude ratio values are combined such that the joint quantization codebook includes a subset of all possible combinations of phase values and magnitude ratio values.
+15. The audio signal processing system of claim 13, wherein the phase values and the magnitude ratio values are combined, such that the joint quantization codebook includes all possible combinations of phase values and magnitude ratio values.
+16. A method for audio signal processing that includes a hardware processor coupled with a memory, wherein the memory has stored instructions and other data, the method comprising: accepting by an input interface, a noisy audio signal including a mixture of target audio signal and noise; mapping by the hardware processor, each time-frequency bin of the noisy audio signal to one or more phase-related values from one or more phase quantization codebook of phase-related values indicative of the phase of the target signal; calculating by the hardware processor, for each time-frequency bin of the noisy audio signal, a magnitude ratio value indicative of a ratio of a magnitude of the target audio signal to a magnitude of the noisy audio signal; cancelling using a filter, the noise from the noisy audio signal based on the phase values and the magnitude ratio values to produce an enhanced audio signal; and outputting by an output interface, the enhanced audio signal.
+17. The method of claim 16, wherein the cancelling further comprising: updating time-frequency coefficients of the filter using the one or more phase values and the magnitude ratio values determined by the hardware processor for each time-frequency bin and to multiply the time-frequency coefficients of the filter with a time-frequency representation of the noisy audio signal to produce a time-frequency representation of the enhanced audio signal.
+18. The method of claim 16, wherein the stored other data includes a first quantization codebook, a second quantization codebook, and a neural network trained to process the noisy audio signal to produce a first index of the phase value in the first quantization codebook and a second index of the magnitude ratio value in the second quantization codebook, wherein the hardware processor determines the first index and the second index using the neural network, and retrieves the phase value from the memory using the first index, and retrieves the magnitude ratio value from the memory using the second index.
+19. The method of claim 18, wherein the first quantization codebook and the second quantization codebook form a joint quantization codebook with combinations of the phase values and the magnitude ratio values, such that the hardware processor maps each time-frequency bin of the noisy speech to the phase value and the magnitude ratio value forming a combination in the joint quantization codebook.
+20. A non-transitory computer readable storage medium embodied thereon a program executable by a hardware processor for performing a method, the method comprising: accepting a noisy audio signal including a mixture of target audio signal and noise; mapping each time-frequency bin of the noisy audio signal to a phase value from a first quantization codebook of phase values indicative of quantized phase differences between phases of the noisy audio signal and phases of the target audio signal; mapping by the hardware processor, each time-frequency bin of the noisy audio signal to one or more phase-related values from one or more phase quantization codebook of phase-related values indicative of the phase of the target signal; calculating by the hardware processor, for each time-frequency bin of the noisy audio signal, a magnitude ratio value indicative of a ratio of a magnitude of the target audio signal to a magnitude of the noisy audio signal; cancelling using a filter, the noise from the noisy audio signal based on the phase values and the magnitude ratio values to produce an enhanced audio signal; and outputting by an output interface, the enhanced audio signal.
+</claims>
+</document>

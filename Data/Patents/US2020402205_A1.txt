@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2020-06-18
+</filing_date>
+
+<publication_date>
+2020-12-24
+</publication_date>
+
+<priority_date>
+2019-06-18
+</priority_date>
+
+<ipc_classes>
+G06N3/08,G06N5/04,G06T3/40,G06T5/00,G06T5/20,G06T5/50
+</ipc_classes>
+
+<assignee>
+HUAWEI TECHNOLOGIES COMPANY
+</assignee>
+
+<inventors>
+SU, WEI
+SUN, HONGYU
+ZHANG, FAN
+ZHU, XIAOXING
+Liu, Xin
+</inventors>
+
+<docdb_family_id>
+67145877
+</docdb_family_id>
+
+<title>
+REAL-TIME VIDEO ULTRA RESOLUTION
+</title>
+
+<abstract>
+A computer-implemented method for increasing the image resolution of a digital image is provided. The method includes performing bicubic upsampling of the digital image to generate a base high-resolution (HR) image. The digital image is converted from a red-green-blue (RGB) color space to a Luma (Y), Chroma Blue Difference (Cb), and Chroma Red Difference (Cr) (YCbCr) color space to generate a low-resolution (LR) residual image. A plurality of convolutional layers of a neural network model is applied to the LR residual image to convert it to a plurality of HR residual sub-images corresponding to the digital image. An HR image corresponding to the digital image is generated using the base HR image and the plurality of HR residual sub-images.
+</abstract>
+
+<claims>
+1. A computer-implemented method for increasing image resolution of a digital image, the method comprising: performing bicubic upsampling of the digital image to generate a base high-resolution (HR) image; converting the digital image from a red-green-blue (RGB) color space to a Luma (Y), Chroma Blue Difference (Cb), and Chroma Red Difference (Cr) (YCbCr) color space to generate a low-resolution (LR) residual image; converting, using a plurality of convolutional layers of a neural network model, the LR residual image into a plurality of HR residual sub-images corresponding to the digital image; and generating an HR image corresponding to the digital image, using the base HR image and the plurality of HR residual sub-images.
+2. The computer-implemented method of claim 1, further comprising: pixel shifting the plurality of HR residual sub-images to generate an HR residual image; and wherein the generating of the HR image corresponding to the digital image comprises combining the HR residual image and the base HR image.
+3. The computer-implemented method of claim 1, wherein the neural network model comprises an input layer, and the plurality of convolutional layers comprises four convolutional layers that are separate from the input layer.
+4. The computer-implemented method of claim 3, wherein the input layer is configured to receive the digital image, and an output layer of the four convolutional layers is configured to output the plurality of HR residual sub-images.
+5. The computer-implemented method of claim 3, wherein: a first layer of the plurality of convolutional layers is configured with 3×3 pixel kernels and 8 channels; a second layer of the plurality of convolutional layers is configured with 3×3 pixel kernels and 6 channels; a third layer of the plurality of convolutional layers is configured with 3×3 pixel kernels and 4 channels; and a fourth layer of the plurality of convolutional layers is configured with 4 channels.
+6. The computer-implemented method of claim 1, further comprising: training the neural network model with a plurality of training image sets derived from a training image, each training image set of the plurality of training image sets comprising: an LR image corresponding to the training image, the LR image having a degraded image quality and configured as an input to the neural network model; and a plurality of HR residual sub-images corresponding to the training image and configured as a target output of the neural network model.
+7. The computer-implemented method of claim 6, wherein training the neural network model further comprises: filtering the training image using a low-pass filter to generate a filtered image; downsampling the filtered image to generate a downsampled LR image; and degrading image quality of the downsampled LR image by adding noise and artifacts, to generate the LR image corresponding to the training image.
+8. The computer-implemented method of claim 7, wherein training the neural network model further comprises: applying an unbalanced unsharp mask to the training image to generate a contrast-enhanced image; and subtracting an upsampled version of the downsampled LR image from the contrast-enhanced image to generate an HR residual image corresponding to the training image.
+9. The computer-implemented method of claim 8, wherein training the neural network model further comprises: splitting the HR residual image corresponding to the training image to generate the plurality of HR residual sub-images corresponding to the training image.
+10. A system comprising: a memory storing instructions; and one or more processors in communication with the memory, wherein the one or more processors execute the instructions to: perform bicubic upsampling of a digital image to generate a base high-resolution (HR) image; convert the digital image from a red-green-blue (RGB) color space to a Luma (Y), Chroma Blue Difference (Cb), and Chroma Red Difference (Cr) (YCbCr) color space to generate a low-resolution (LR) residual image; convert, using a plurality of convolutional layers of a neural network model, the LR residual image into a plurality of HR residual sub-images corresponding to the digital image; and generate an HR image corresponding to the digital image, using the base HR image and the plurality of HR residual sub-images.
+11. The system of claim 10, wherein the one or more processors execute the instructions to: shift pixels of the plurality of HR residual sub-images to generate an HR residual image; and combine the HR residual image and the base HR image to generate the HR image corresponding to the digital image.
+12. The system of claim 10, wherein: the neural network model comprises an input layer, and the plurality of convolutional layers comprises four convolutional layers; the input layer is configured to receive the digital image; and an output layer of the four convolutional layers is configured to output the plurality of HR residual sub-images.
+13. The system of claim 12, wherein: a first layer of the plurality of convolutional layers is configured with 3×3 pixel kernels and 8 channels; a second layer of the plurality of convolutional layers is configured with 3×3 pixel kernels and 6 channels; a third layer of the plurality of convolutional layers is configured with 3×3 pixel kernels and 4 channels; and a fourth layer of the plurality of convolutional layers is configured with 4 channels.
+14. The system of claim 10, wherein the one or more processors execute the instructions to: train the neural network model with a plurality of training image sets, each training image set of the plurality of training image sets comprising: an LR image corresponding to a training image, the LR image having a degraded image quality and configured as an input to the neural network model; and a plurality of HR residual sub-images corresponding to the training image and configured as a target output of the neural network model.
+15. The system of claim 14, wherein to train the neural network model, the one or more processors execute the instructions to: filter the training image using a low-pass filter to generate a filtered image; downsample the filtered image to generate a downsampled LR image; and degrade image quality of the downsampled LR image by adding noise and artifacts, to generate the LR image corresponding to the training image.
+16. The system of claim 15, wherein to train the neural network model, the one or more processors execute the instructions to: apply an unbalanced unsharp mask to the training image to generate a contrast-enhanced image; and subtract an upsampled version of the downsampled LR image from the contrast-enhanced image to generate an HR residual image corresponding to the training image.
+17. The system of claim 16, wherein to train the neural network model, the one or more processors execute the instructions to: split the HR residual image corresponding to the training image to generate the plurality of HR residual sub-images corresponding to the training image.
+18. A computer-readable medium storing computer instructions for increasing image resolution of a digital image, wherein the instructions when executed by one or more processors, cause the one or more processors to perform steps comprising: performing bicubic upsampling of the digital image to generate a base high-resolution (HR) image; converting the digital image from a red-green-blue (RGB) color space to a Luma (Y), Chroma Blue Difference (Cb), and Chroma Red Difference (Cr) (YCbCr) color space to generate a low-resolution (LR) residual image; converting, using a plurality of convolutional layers of a neural network model, the LR residual image into a plurality of HR residual sub-images corresponding to the digital image; and generating an HR image corresponding to the digital image, using the base HR image and the plurality of HR residual sub-images.
+19. The computer-readable medium of claim 18, wherein the instructions further cause the one or more processors to perform steps comprising: training the neural network model with a plurality of training image sets, each training image set of the plurality of training image sets comprising: an LR image corresponding to a training image, the LR image having a degraded image quality and configured as an input to the neural network model; and a plurality of HR residual sub-images corresponding to the training image and configured as a target output of the neural network model.
+20. The computer-readable medium of claim 19, wherein the instructions further cause the one or more processors to perform steps comprising: filtering the training image using a low-pass filter to generate a filtered image; downsampling the filtered image to generate a downsampled LR image; degrading image quality of the downsampled LR image by adding noise and artifacts, to generate the LR image corresponding to the training image; applying an unbalanced unsharp mask to the training image to generate a contrast-enhanced image; subtracting an upsampled version of the downsampled LR image from the contrast-enhanced image to generate an HR residual image corresponding to the training image; and splitting the HR residual image corresponding to the training image to generate the plurality of HR residual sub-images corresponding to the training image.
+</claims>
+</document>

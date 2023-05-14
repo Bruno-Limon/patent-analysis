@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2019-04-05
+</filing_date>
+
+<publication_date>
+2020-09-15
+</publication_date>
+
+<priority_date>
+2019-04-05
+</priority_date>
+
+<ipc_classes>
+G06F8/65,G06N20/00
+</ipc_classes>
+
+<assignee>
+SAP
+</assignee>
+
+<inventors>
+HOPRICH, WIELAND
+Hagemann, Mirja
+</inventors>
+
+<docdb_family_id>
+72425890
+</docdb_family_id>
+
+<title>
+PREDICTING DOWNTIMES FOR SOFTWARE SYSTEM UPGRADES
+</title>
+
+<abstract>
+Techniques for predicting the downtime of a software system due to an upgrade of the system are provided. In one set of embodiments, a computer system can receive training data comprising (1) measured downtimes, (2) upgrade object information, (3) upgrade configuration information, and (4) system hardware information for past upgrades of the software system across different operating environments. Using this training data, the computer system can train a machine learning (ML) model to predict (1) based on (2), (3), and (4). The computer system can then receive a query comprising upgrade object information for a future upgrade U, upgrade configuration information for upgrade U, and system hardware information for an operating environment E. Based on these inputs, the computer system can use the ML model to generate a downtime value indicating the predicted downtime that will be experienced by the software system when upgrade U is applied to the system in operating environment E.
+</abstract>
+
+<claims>
+1. A method comprising: training, by a computer system, a machine learning (ML) model to predict upgrade downtimes of a software system, the training comprising: receiving training data pertaining to at least one prior upgrade of the software system in a first operating environment, the training data including object information for the prior upgrade, configuration information for the prior upgrade, system hardware information for the first operating environment, and a measured downtime of the software system due to the prior upgrade; and modifying one or more weight factors of the ML model based on the training data; receiving, by the computer system, a request for a predicted downtime of the software system due to a future upgrade of the software system in a second operating environment, the request comprising query data that includes object information for the future upgrade, configuration information for the future upgrade, and system hardware information for the second operating environment; and generating, by the computer system, the predicted downtime using the trained ML model and the query data.
+2. The method of claim 1 wherein the object information for the prior upgrade identifies one or more software and/or data objects deployed as part of the prior upgrade.
+3. The method of claim 1 wherein the configuration information for the prior upgrade identifies one or more configuration parameters pertaining to the prior upgrade.
+4. The method of claim 3 wherein the one or more configuration parameters include a number of phases of the prior upgrade.
+5. The method of claim 3 wherein the one or more configuration parameters include a number of parallel processes used during the prior upgrade.
+6. The method of claim 3 wherein the one or more configuration parameters include a number of clients associated with the software system in the first operating environment.
+7. The method of claim 3 wherein the one or more configuration parameters include a number of installed languages for the software system in the first operating environment.
+8. The method of claim 1 wherein the system hardware information for the first operating environment identifies performance and/or capability characteristics of hardware deployed in the first operating environment.
+9. The method of claim 1 wherein the one or more weight factors that are modified based on the training data includes weight factors indicating an extent to which each phase of the prior upgrade is dependent on various hardware performance indicators derived from the system hardware information for the first operating environment.
+10. The method of claim 1 wherein the one or more weight factors are modified in a manner that causes the ML model to arrive at the measured downtime based on the object information for the prior upgrade, the configuration information for the prior upgrade, and the system hardware information for the first operating environment.
+11. The method of claim 1 wherein generating the predicted downtime using the trained ML model and the query data comprises converting the object information for the future upgrade into a vector vst of m+1 dimensions, wherein m equals a total number of software and/or data object types identified in said object information.
+12. The method of claim 11 wherein a first component of the vector vst is set to a value of 1.
+13. The method of claim 12 wherein each component of the vector vst after the first component is set to a value quantifying a number of software and/or data objects included in the future upgrade for the corresponding object type dimension.
+14. The method of claim 1 wherein generating the predicted downtime using the trained ML model and the query data comprises converting the system hardware information for the second operating environment into a vector p of k dimensions, wherein each dimension corresponds to a hardware performance or capability indicator for the second operating environment, and wherein each component of the vector p quantifies a value for the corresponding hardware performance or capability indicator.
+15. The method of claim 1 further comprising: analyzing the predicted downtime that is generated using the trained ML model and the query data; and invoking one or more actions based on the analyzing.
+16. The method of claim 15 wherein the one or more actions include: initiating or scheduling the future upgrade in the second operating environment if the predicted downtime is less than a preconfigured lower threshold; signaling an alert or escalation if the predicted downtime exceeds a preconfigured upper threshold; or determining and providing one or more recommendations for reducing the predicted downtime.
+17. A non-transitory computer readable medium having stored thereon program code executable by a computer system, the program code comprising: code that causes the computer system to predict, using a trained machine learning (ML) model and query data pertaining a future upgrade of a software system in an operating environment, a likely downtime of the software system due to the future upgrade, the query data including object information identifying one or more software and/or data objects to be deployed as part of the future upgrade, configuration information identifying one or more configuration parameters associated with the future upgrade, and system hardware information identifying one or more performance and/or capability characteristics of hardware in the operating environment; code that causes the computer system to analyze the predicted downtime of the software system; and code that causes the computer system to invoke one or more actions based on the analyzing of the predicted downtime.
+18. The non-transitory computer readable medium of claim 17 wherein the one or more actions include: initiating or scheduling the future upgrade in the operating environment if the predicted downtime is less than a preconfigured lower threshold; signaling an alert or escalation if the predicted downtime exceeds a preconfigured upper threshold; or determining and providing one or more recommendations for reducing the predicted downtime.
+19. A computer system comprising: a processor; and a memory having stored thereon program code that, when executed by the processor, causes the processor to: receive a request to predict a downtime of a software system due to a future upgrade of the software system in an operating environment, the request comprising query data that includes: object information identifying software and/or data objects to be deployed in the future upgrade; configuration information identifying one or more configuration parameters associated with the future upgrade; and system hardware information for the operating environment identifying performance and/or capability indicators of hardware in the operating environment; convert the object information into a vector vst of m+1 dimensions, wherein m equals a total number of types of the software and/or data objects; convert the system hardware information into a vector p of k dimensions, wherein each dimension in the vector p corresponds to one of the performance and/or capability indicators; and generate the predicted downtime by: populating a trained machine learning (ML) model with the vector vst, the vector p, and the one or more configuration parameters; and executing the trained ML model.
+20. The computer system of claim 19 wherein the one or more configuration parameters include a number of parallel processes via which the future upgrade is configured to be executed.
+</claims>
+</document>

@@ -1,0 +1,107 @@
+<document>
+
+<filing_date>
+2019-09-13
+</filing_date>
+
+<publication_date>
+2020-03-19
+</publication_date>
+
+<priority_date>
+2018-09-14
+</priority_date>
+
+<ipc_classes>
+G06Q10/08
+</ipc_classes>
+
+<assignee>
+WALMART APOLLO
+</assignee>
+
+<inventors>
+MAHALANOBISH, OMKER
+</inventors>
+
+<docdb_family_id>
+69773691
+</docdb_family_id>
+
+<title>
+SYSTEM AND METHOD FOR PREDICTING AVERAGE INVENTORY WITH NEW ITEMS
+</title>
+
+<abstract>
+An example method for predicting average inventory with newly added items can include: aggregating sales data of a plurality of items, the items comprising training items and new items; identifying, using a set of predefined rules, a data set of similar items on the training items for each of the new items, the set of predefined rules comprising a first stage similarity module, a second stage similarity module, and a second stage classification module; obtaining target metrics for each of the new items, the target metrics being turn predictions from the data set of the similar items; calculating mean errors of the turn predictions to identify a set of turn predictions with mean errors lower than a dynamic threshold; obtaining an ultimate turn prediction for each new item by averaging the set of turn predictions; and predicting an average inventory for each new item based on the ultimate turn prediction.
+</abstract>
+
+<claims>
+What is claimed is:
+1. A computerimplemented method, comprising:
+aggregating, by a processor of a computing device, sales data of a plurality of items in a category from a database, the items comprising training items and new items, the sales data of each of the items comprising attributes and an item-based Point-of-Sale (PoS) data;
+identifying, by the processor using a set of predefined rules, a data set of similar items on the training items for each of the new items, the set of predefined rules comprising a first stage similarity module, a second stage similarity module, and a second stage classification module;
+obtaining target metrics for each of the new items, the target metrics being turn predictions from the data set of the similar items;
+calculating mean errors of the turn predictions to identify a set of turn predictions with mean errors lower than a dynamic threshold;
+obtaining an ultimate turn prediction for each of the new items by averaging the set of turn predictions; and
+predicting an average inventory for each of the new item based on the ultimate turn prediction.
+2. The method of claim 1 , wherein the identifying the similar items using the first stage similarity module comprises performing a K-Nearest Neighbors to obtain the data set of the similar items.
+3. The method of claim 2, wherein the identifying the similar items using the second stage similarity module comprises:
+performing a 50-Nearest Neighbors algorithm for each of the new items using the attributes to obtain the data set of the similar items; and
+performing a 30-Nearest Neighbors algorithm to further filter down the data set of the similar items by using the PoS data.
+4. The method of claim 1 , wherein the identifying the similar items using the second stage classification module further comprises:
+randomly choose 50% of the new items;
+performing a 30-Nearest Neighbors algorithm for each of the new items using both the attributes and the POS data to identify the similar items;
+predicting a turn value for each of the new items based on a data set of identified similar items;
+comparing the turn value with an observed turn to obtain an error in a turn prediction for each of the new items; and
+storing the data set of the similar items, their comparison turn values, and the error in turn prediction.
+5. The method of claim 4, further comprising:
+creating a decision tree based on comparisons of turn values of the similar items by iterating a number of simulations;
+filtering out the similar items which lead to an erroneous prediction;
+performing a 30-Nearest Neighbors algorithm on an entire data set of the new items; and
+updating the similar items based on the decision tree.
+6. The method of claim 1 , wherein the defining the target metrics for each of the new items further comprises calculating a weight mean of similarities on the data set of the similar items.
+7. The method of claim 1 , wherein the turn predictions of the target metrics are obtained by performing linear regression on the data set of the similar items, and wherein the target metrics are dependent variables and the item-based PoS data are predictors.
+8. The method of claim 1, wherein the dynamic threshold is 1.2 times of a minimum of the mean errors of the predictions.
+9. The method of claim 1 , wherein the set of predefined rules comprises Gower's distance measures.
+10. A system for predicting a stock on hand for predefined markdown plans, comprising:
+a processor; and
+a non-transitory computer-readable storage medium having instructions stored which, when executed by the processor, cause the processor to perform operations comprising:
+aggregating, by a processor of a computing device, sales data of a plurality of items in a category from a database, the items comprising training items and new items, and the sales data of each of the items comprising attributes and an item-based Point-ofSale (PoS) data;
+identifying, by the processor using a set of predefined rules, a data set of similar items on the training items for each of the new items, the set of predefined rules comprising a first stage similarity module, a second stage similarity module, and a second stage classification module;
+obtaining target metrics for each of the new items, the target metrics being turn predictions from the data set of the similar items;
+calculating mean errors of the turn predictions to identify a set of turn predictions with mean errors lower than a dynamic threshold;
+obtaining an ultimate turn prediction for each of the new items by averaging the set of turn predictions; and
+predicting an average inventory for each of the new items based on the ultimate turn prediction.
+11. The system of claim 10, wherein the identifying the similar items using the first stage similarity module comprises performing a K-Nearest Neighbors to obtain the data set of the similar items.
+12. The system of claim 10, wherein the identifying the similar items using the second stage similarity module comprises:
+performing a 50-Nearest Neighbors algorithm for each of the new items using the attributes to obtain the data set of the similar items; and performing a 30-Nearest Neighbors algorithm to further filter down the data set of the similar items by using the PoS data.
+13. The system of claim 12, wherein the identifying the similar items using the second stage classification module further comprises:
+randomly choose 50% of the new items;
+performing a 30-Nearest Neighbors algorithm for each of the new items using both the attributes and the POS data to identify the similar items;
+predicting a turn value for each of the new items based on a data set of identified similar items;
+comparing the turn value with an observed turn to obtain an error in a turn prediction for each of the new items; and
+storing the data set of the similar items, their comparison turn values, and the error in turn prediction.
+14. The system of claim 13, wherein the identifying the similar items using the second stage classification module further comprises:
+creating a decision tree based on comparisons of turn values of the similar items by iterating 200 simulations;
+filtering out the similar items which lead to an erroneous turn prediction;
+performing a 30-Nearest Neighbors algorithm on an entire data set of the new items; and
+updating the similar items based on the decision tree.
+15. The system of claim 10, wherein defining the target metrics for each of the new items further comprises calculating a weight mean of similarities on the data set of the similar items.
+16. The system of claim 10, wherein the turn predictions of the target metrics are obtained by performing linear regression on the data set of the similar items, and wherein the target metrics are dependent variables and the item-based PoS data are predictors.
+17. The system of claim 10, wherein the dynamic threshold is 1.2 times of a minimum of the mean errors of the predictions.
+18. The system of claim 10, wherein the set of predefined rules comprises Gower's distance measures.
+19. A non-transitory computer-readable storage medium having instructions stored which, when executed by a computing device, cause the computing device to perform operations comprising:
+aggregating, by a processor of a computing device, sales data of a plurality of items in a category from a database, the items comprising training items and new items, and the sales data of each of the items comprising attributes and an item-based Point-ofSale (PoS) data;
+identifying, by the processor using a set of predefined rules, a data set of similar items on the training items for each of the new items, the set of predefined rules comprising a first stage similarity module, a second stage similarity module, and a second stage classification module;
+obtaining target metrics for each of the new items, the target metrics being turn predictions from the data set of the similar items;
+calculating mean errors of the turn predictions to identify a set of turn predictions with mean errors lower than a dynamic threshold;
+obtaining an ultimate turn prediction for each of the new items by averaging the set of turn predictions; and
+predicting an average inventory for each of the new items based on the ultimate turn prediction.
+20. The non-transitory computer-readable storage medium of claim 19, wherein identifying the data set of similar items using the second stage classification module comprises a plurality of operations, the plurality of operations comprises:
+randomly choose 50% of the new items;
+performing a 30-Nearest Neighbors algorithm for each of the new items using both the attributes and the POS data to identify the data set the similar items; predicting a turn value for each of the new items based on the data set of similar items;
+comparing the turn value with an observed turn to obtain an error in a turn prediction for each of the new items; and
+storing the data set of the similar items, their comparison turn values, and the error in turn prediction.
+</claims>
+</document>

@@ -1,0 +1,60 @@
+<document>
+
+<filing_date>
+2018-03-08
+</filing_date>
+
+<publication_date>
+2020-04-15
+</publication_date>
+
+<priority_date>
+2017-07-07
+</priority_date>
+
+<ipc_classes>
+G06F17/16,G06F7/523
+</ipc_classes>
+
+<assignee>
+HUAWEI TECHNOLOGIES COMPANY
+</assignee>
+
+<inventors>
+WANG, HAO
+LIAO, HENG
+LIU, HU
+</inventors>
+
+<docdb_family_id>
+64949706
+</docdb_family_id>
+
+<title>
+OPERATIONAL ACCELERATOR
+</title>
+
+<abstract>
+The present invention relates to the field of data calculation technologies, and discloses an operation accelerator, to reduce time for performing a multiplication operation on two N<sup>∗</sup>N matrices. The operation accelerator includes: a first memory, a second memory, an operation circuit, and a controller. The operation circuit may perform data communication with the first memory and the second memory by using a bus. The operation circuit is configured to: extract matrix data from the first memory and the second memory, and perform a multiplication operation. The controller is configured to control, according to a preset program or instruction, the operation circuit to complete the multiplication operation. The operation accelerator may be configured to perform a multiplication operation on two matrices.
+</abstract>
+
+<claims>
+1. An operation accelerator, comprising: a first memory, configured to store a first matrix, wherein the first matrix is an M∗N matrix; a second memory, configured to store a second matrix, wherein the second matrix is an N∗K matrix; an operation circuit connected to the first memory and the second memory, wherein the operation circuit comprises a matrix multiplying circuit and an adder circuit; the matrix multiplying circuit comprises M operation groups consisting of operation blocks, each operation group comprises K operation blocks, each operation block comprises N operation units, the operation unit is provided with two inputs that are respectively used to receive data sent by the first memory and the second memory, and the operation unit multiplies the two pieces of data; and the adder circuit is configured to add calculation results of operation units belonging to a same operation block to obtain a calculation result of each operation block; and a controller connected to the operation circuit, wherein the controller is configured to perform the following actions: respectively writing K column vectors of the second matrix into the K operation blocks of each operation group, wherein a jth piece of data in a gth column of vectors of the second matrix is written into a jth operation unit in a gth operation block in the K operation blocks; respectively sending M row vectors of the first matrix to the M operation groups, wherein an ith row vector of the first matrix is sent to an ith operation group in the M operation groups, and a jth operation unit in each operation block in the ith operation group receives a jth piece of data in the ith row vector; and so that each operation unit in the M operation groups performs a multiplication operation on two pieces of data received by the operation unit, and the adder circuit adds calculation results of operation units in each operation block to obtain a third matrix, wherein the third matrix is a product of the first matrix and the second matrix, an element in a row i and a column g in the third matrix is a calculation result of a gth operation block in the ith operation group, M, N, and K are integers greater than 0, i is an integer greater than 0 and less than M+1, g is an integer greater than 0 and less than K+1, and j is an integer greater than 0 and less than N+1.
+2. The operation accelerator according to claim 1, wherein the adder circuit comprises M∗K adder trees, one adder tree is corresponding to one operation block, the adder tree is connected to N operation units in the corresponding operation block, and the adder tree is configured to add calculation results of the N operation units connected to the adder tree.
+3. The operation accelerator according to claim 1 or 2, wherein the operation unit comprises: a storage unit, configured to store data written into the storage unit; and a multiplying circuit connected to the storage unit, configured to calculate a product of received data and the data stored in the storage unit.
+4. The operation accelerator according to claim 1 or 2, wherein the operation unit comprises a plurality of storage units, a multiplying circuit, a first selection circuit connected to the plurality of storage units, and a second selection circuit connected to the plurality of storage units and the multiplying circuit, wherein the plurality of storage units are configured to store data;
+the first selection circuit is configured to: before the multiplying circuit performs a multiplication operation, select, from the plurality of storage units, a storage unit for storing data used when the multiplying circuit performs the multiplication operation;
+the second selection circuit is configured to: when the multiplying circuit performs the multiplication operation, select a storage unit for storing data used when the multiplying circuit performs the multiplication operation; and
+the multiplying circuit is configured to calculate a product of received data and the data stored in the storage unit selected by the second selection circuit.
+5. The operation accelerator according to any one of claims 1 to 4, wherein the first memory is connected to the operation circuit by using a first bus, and a bit width of the first bus is Wi∗N∗M; the second memory is connected to the operation circuit by using a second bus, and a bit width of the second bus is Wi∗N; and Wi is a maximum bit width that is of input data and that is allowed by the operation unit.
+6. The operation accelerator according to any one of claims 1 to 5, wherein the operation accelerator further comprises a storage unit access controller connected to the first memory, the second memory, and the controller, wherein
+the storage unit access controller is configured to: obtain, under control of the controller, the first matrix and the second matrix, save the first matrix to the first memory, and save the second matrix to the second memory.
+7. The operation accelerator according to any one of claims 1 to 5, wherein the operation accelerator further comprises: a third memory, configured to store source data of the first matrix; a storage unit access controller connected to the first memory, the second memory, the third memory, and the controller, wherein the storage unit access controller is configured to: obtain, under control of the controller, the source data of the first matrix and the second matrix, save the source data of the first matrix to the third memory, and save the second matrix to the second memory; and a vector calculation unit connected to the first memory, the third memory, and the controller, wherein the vector calculation unit is configured to: convert, under control of the controller, the source data of the first matrix into the first matrix, and save the first matrix to the first memory.
+8. The operation accelerator according to claim 7, wherein the third memory is connected to the operation circuit, and the third memory is further configured to store the third matrix.
+9. The operation accelerator according to claim 7, wherein the operation accelerator further comprises an accumulator connected to the operation circuit, the vector calculation unit, and the controller, wherein
+the accumulator is configured to add elements at corresponding positions in the third matrix and a fourth matrix under control of the controller, to obtain a fifth matrix; and
+the vector calculation unit is further configured to save the fifth matrix to the third memory under control of the controller, wherein
+the third matrix is the product of the first matrix and the second matrix, the first matrix comprises a first part of a first to-be-calculated matrix, the first part of the first to-be-calculated matrix is elements in 1st to Nth columns of the first to-be-calculated matrix, the second matrix is a first part of a second to-be-calculated matrix, the first part of the second to-be-calculated matrix is elements in 1st to Nth rows of the second to-be-calculated matrix, the first to-be-calculated matrix comprises M rows of elements, the second to-be-calculated matrix comprises K columns of elements, the fourth matrix is a product of a second part of the first to-be-calculated matrix and a second part of the second to-be-calculated matrix, the second part of the first to-be-calculated matrix is a part other than the first part in the first to-be-calculated matrix, and the second part of the second to-be-calculated matrix is a part other than the first part in the second to-be-calculated matrix.
+10. The operation accelerator according to any one of claims 1 to 9, wherein the operation accelerator further comprises: an instruction fetch buffer connected to the controller, configured to store an instruction used by the controller; and a bus interface unit connected to the instruction fetch buffer, the storage unit access controller, and an external memory, used by the instruction fetch buffer to obtain the instruction from the external memory, and further used by the storage unit access controller to obtain at least one of the source data of the first matrix, the first matrix, and the second matrix from the external memory.
+</claims>
+</document>

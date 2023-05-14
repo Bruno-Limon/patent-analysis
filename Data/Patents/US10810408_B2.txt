@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2018-09-13
+</filing_date>
+
+<publication_date>
+2020-10-20
+</publication_date>
+
+<priority_date>
+2018-01-26
+</priority_date>
+
+<ipc_classes>
+G01J3/10,G01N21/25,G01N21/35,G01N21/359,G06K9/00,G06K9/20,G06K9/62,G06N20/00,G16C20/20,G16C20/70
+</ipc_classes>
+
+<assignee>
+VIAVI SOLUTIONS
+</assignee>
+
+<inventors>
+PEDERSON, CHRISTOPHER G.
+HSIUNG, CHANGMENG
+VON GUNTEN, MARC K.
+SUN, LAN
+</inventors>
+
+<docdb_family_id>
+64949198
+</docdb_family_id>
+
+<title>
+Reduced false positive identification for spectroscopic classification
+</title>
+
+<abstract>
+A device may receive information identifying results of a set of spectroscopic measurements of a training set of known samples and a validation set of known samples. The device may generate a classification model based on the information identifying the results of the set of spectroscopic measurements, wherein the classification model includes at least one class relating to a material of interest for a spectroscopic determination, and wherein the classification model includes a no-match class relating to at least one of at least one material that is not of interest or a baseline spectroscopic measurement. The device may receive information identifying a particular result of a particular spectroscopic measurement of an unknown sample. The device may determine whether the unknown sample is included in the no-match class using the classification model. The device may provide output indicating whether the unknown sample is included in the no-match class.
+</abstract>
+
+<claims>
+1. A device, comprising: one or more memories; and one or more processors, communicatively coupled to the one or more memories, to: receive information identifying results of a set of spectroscopic measurements of a training set of known samples and a validation set of known samples; generate a classification model based on the information identifying the results of the set of spectroscopic measurements, the classification model including at least one class relating to a material of interest for a spectroscopic determination, the classification model including a no-match class relating to at least one of at least one material that is not of interest or a baseline spectroscopic measurement; receive information identifying a particular result of a particular spectroscopic measurement of an unknown sample; determine whether the unknown sample is included in the no-match class using the classification model; and provide output indicating whether the unknown sample is included in the no-match class.
+2. The device of claim 1, where the one or more processors, when determining whether the unknown sample is included in the no-match class, are to: determine that the unknown sample is included in the no-match class based on the classification model; and where the one or more processors, when providing output indicating whether the unknown sample is included in the no-match class, are to: provide output indicating that the unknown sample is included in the no-match class.
+3. The device of claim 1, where the one or more processors, when determining whether the unknown sample is included in the no-match class, are to: determine that the unknown sample is not included in the no-match class based on the classification model; determine a classification of the unknown sample using the classification model and based on determining that the unknown sample is not included in the no-match class; and where the one or more processors, when providing output indicating whether the unknown sample is included in the no-match class, are to: provide output identifying the classification of the unknown sample.
+4. The device of claim 1, where the one or more processors, when receiving the information identifying the results of the set of spectroscopic measurements, are to: receive information identifying a set of baseline spectroscopic measurements; and where the one or more processors, when generating the classification model, are to: train the no-match class for the classification model based on the set of baseline spectroscopic measurements.
+5. The device of claim 4, where the set of baseline spectroscopic measurements are associated with at least one of: a measurement performed using an incorrect measurement distance, a measurement performed using an incorrect measurement background, a measurement performed using an incorrect measurement illumination, or a measurement performed without a sample present.
+6. The device of claim 1, where the one or more processors, when receiving the information identifying the results of the set of spectroscopic measurements, are to: receive information identifying the at least one material that is not of interest; and where the one or more processors, when generating the classification model, are to: train the no-match class for the classification model based on the information identifying the at least one material that is not of interest.
+7. The device of claim 1, where the one or more processors, when determining whether the unknown sample is included in the no-match class using the classification model, are to: use a support vector machine based confidence metric to determine whether the unknown sample is included in the no-match class.
+8. The device of claim 7, where the confidence metric is at least one of: a probability estimate, or a decision value.
+9. The device of claim 1, where the classification model is a first classification model; and where the one or more processors, when determining whether the unknown sample is included in the no-match class, are to: perform, using the first classification model, a first classification to identify a set of local classes, of the first classification model, for the particular spectroscopic measurement; generate a second classification model based on the set of local classes, the second classification model including the no-match class; and perform a second classification to determine whether the unknown sample is included in the no-match class.
+10. A non-transitory computer-readable medium storing instructions, the instructions comprising: one or more instructions that, when executed by one or more processors, cause the one or more processors to: receive information identifying results of a spectroscopic measurement performed on an unknown sample; aggregate a plurality of classes of a classification model to generate an aggregated classification model; determine that the spectroscopic measurement is performed accurately using the aggregated classification model; determine, based on determining that the spectroscopic measurement is performed accurately and using the classification model, that the unknown sample is not included in a no-match class of the classification model, the no-match class relating to material that is not of interests or baseline spectroscopic measurements; perform, based on determining that the unknown sample is not included in the no-match class, a spectroscopic classification of the unknown sample; and provide information identifying the unknown sample based on performing the spectroscopic classification of the unknown sample.
+11. The non-transitory computer-readable medium of claim 10, where the one or more instructions, that cause the one or more processors to determine that the unknown sample is not included in the no-match class, cause the one or more processors to: determine that the unknown sample is not included in the no-match class based on a confidence metric associated with the classification model satisfying a threshold.
+12. The non-transitory computer-readable medium of claim 11, where the one or more instructions, when executed by the one or more processors, further cause the one or more processors to: determine the confidence metric based on dividing the classification model into a plurality of sub-models using a one-versus-all technique or an all-pairs technique.
+13. The non-transitory computer-readable medium of claim 11, where the classification model includes greater than a threshold quantity of classes; and where the one or more instructions, that cause the one or more processors to perform the spectroscopic classification, cause the one or more processors to: perform a first spectroscopic classification of the unknown sample based on the classification model; generate another classification model using a subset of classes of the classification model based on performing the first spectroscopic classification; determine that the unknown sample is not included in the no-match class based on the other classification model; and perform a second classification to identify the unknown sample.
+14. A method, comprising: obtaining, by a device, results of a set of spectroscopic measurements; generating, by the device, a support vector machine (SVM)-based classification model based on the results of the set of spectroscopic measurements, the classification model including a plurality of classes corresponding to a plurality of materials of interest for classification, the set of spectroscopic measurements including a threshold quantity of measurements of samples of the plurality of materials of interest, the classification model including a particular class not corresponding to the plurality of materials of interest for classification, the set of spectroscopic measurements including less than the threshold quantity of measurements of samples relating to the particular class; classifying, by the device, a particular spectroscopic measurement of a particular sample to the particular class using the classification model; and providing, by the device, information indicating that the particular sample is assigned to the particular class based on classifying the particular spectroscopic measurement.
+15. The method of claim 14, where classifying the particular spectroscopic measurement comprises: dividing the classification model into a plurality of sub-models, each sub-model, of the plurality of sub-models, corresponding to a comparison between a corresponding class of the classification model and each other class of the classification model; determining a plurality of decision values corresponding to the plurality of sub-models; and selecting the particular class for the particular sample based on the plurality of decision values.
+16. The method of claim 14, where classifying the particular spectroscopic measurement comprises: dividing the classification model into a plurality of sub-models, the plurality of sub-models corresponding to a comparison between each class of the classification model; determining a plurality of decision values corresponding to the plurality of sub-models; and selecting the particular class for the particular sample based on the plurality of decision values.
+17. The method of claim 14, where classifying the particular spectroscopic measurement comprises: classifying the particular spectroscopic measurement using a radial basis function type of kernel function or a linear kernel type of kernel function.
+18. The method of claim 14, where the set of spectroscopic measurements includes baseline spectroscopic measurements and material that is not of interest spectroscopic measurements; and where the baseline spectroscopic measurements and the material that is not of interest spectroscopic measurements are classified into the particular class.
+19. The method of claim 14, where classifying the particular spectroscopic measurement comprises: classifying the particular spectroscopic measurement using an in situ local classification model generated based on the classification model.
+20. The method of claim 14, where classifying the particular spectroscopic measurement comprises: aggregating classes of the classification model into a single class; and classifying the particular spectroscopic measurement based on the single class.
+</claims>
+</document>

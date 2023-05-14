@@ -1,0 +1,57 @@
+<document>
+
+<filing_date>
+2019-05-24
+</filing_date>
+
+<publication_date>
+2020-04-30
+</publication_date>
+
+<priority_date>
+2018-10-31
+</priority_date>
+
+<ipc_classes>
+G06K9/62,G06T5/00,G06T5/50,H04N1/60
+</ipc_classes>
+
+<assignee>
+BOE TECHNOLOGY GROUP COMPANY
+</assignee>
+
+<inventors>
+ZHANG LIJIE
+LIU, HANWEN
+</inventors>
+
+<docdb_family_id>
+65666598
+</docdb_family_id>
+
+<title>
+IMAGE STYLE CONVERSION METHOD, APPARATUS AND DEVICE
+</title>
+
+<abstract>
+The present disclosure relates to a method, an apparatus and a device for converting a style of an image, wherein the method comprises: acquiring a luminance component (Y) and chrominance components (U, V) in a YUV space of an image to be processed; performing a group convolution processing on the luminance component (Y) and the chrominance components (U, V) in the YUV space of the image to be processed to obtain content features and style features of the image to be processed; and performing a fusion processing on the content features, the style features and target style features of the image to be processed to convert the image to be processed into an image of a target style.
+</abstract>
+
+<claims>
+1. A method for converting a style of an image, comprising: acquiring a luminance component (Y) and chrominance components (U, V) in a YUV space of an image to be processed; performing a group convolution processing on the luminance component (Y) and the chrominance components (U, V) in the YUV space of the image to be processed to obtain content features and style features of the image to be processed; and performing a fusion processing on the content features, the style features and target style features of the image to be processed to convert the image to be processed into an image of a target style.
+2. The method according to claim 1, wherein, before performing the group convolution processing on the luminance component (Y) and the chrominance components (U, V) in the YUV space of the image to be processed, the method further comprises: performing a chrominance sampling processing on the chrominance components (U, V) in the YUV space of the image to be processed, wherein sampling rates of the chrominance components (U, V) are different.
+3. The method according to claim 2, wherein performing the chrominance sampling processing on the chrominance components (U, V) in the YUV space of the image to be processed comprises: performing the chrominance sampling processing on the chrominance components (U, V) in the YUV space of the image to be processed according to one of formats of YUV420, YUV444, YUV422 or YUV411.
+4. The method according to claim 1, wherein performing the group convolution processing on the luminance component (Y) and the chrominance components (U, V) in the YUV space of the image to be processed comprises: performing a depth convolution processing on the luminance component (Y) in the YUV space of the image to be processed to obtain a structural feature vector at a first depth of the image to be processed; performing a down-sampling processing on the structural feature vector at the first depth of the image to be processed to obtain a structural feature vector at a second depth of the image to be processed; and performing the group convolution processing on the structural feature vector at the second depth and the chrominance components (U, V) in the YUV space of the image to be processed to obtain the content features and the style features of the image to be processed.
+5. The method according to claim 1, wherein performing the fusion processing on the content features, the style features and the target style features of the image to be processed comprises: performing the fusion processing on the content features, the style features and the target style features of the image to be processed to generate the luminance component (Y) and the chrominance components (U, V) in the YUV space of the image to be processed in the target style; determining, according to the luminance component (Y) and the chrominance components (U, V) in the YUV space of the image to be processed in the target style, components of respective color channels in an RGB space of the image of the target style; and outputting, according to the components of the respective color channels in the RGB space of the image of the target style, the image of the target style converted from the image to be processed.
+6. The method according to claim 1, further comprising: acquiring a set of training samples, wherein each training sample in the set of training samples includes an image of an original style and the image of the target style which have a same content; and training an initial group convolutional neural network with the set of training samples to generate a group convolutional neural network for converting the style of the image to the target style.
+7. An apparatus for converting a style of an image, comprising: a first acquiring circuit for acquiring a luminance component (Y) and chrominance components (U, V) in a YUV space of an image to be processed; a second acquiring circuit for performing a group convolution processing on the luminance component (Y) and the chrominance components (U, V) in the YUV space of the image to be processed to obtain content features and style features of the image to be processed; and a fusion processing circuit for performing a fusion processing on the content features, the style features and target style features of the image to be processed to convert the image to be processed into an image of a target style.
+8. The apparatus according to claim 7, further comprises: a sampling processing circuit for performing a chrominance sampling processing on the chrominance components (U, V) in the YUV space of the image to be processed, wherein sampling rates of the chrominance components (U, V) are different.
+9. The apparatus according to claim 8, wherein the sampling processing circuit performs the chrominance sampling processing on the chrominance components (U, V) in the YUV space of the image to be processed according to one of formats of YUV420, YUV444, YUV422 or YUV411.
+10. The apparatus according to claim 7, wherein the second acquiring circuit comprises: a first acquiring sub-circuit for performing a depth convolution processing on the luminance component (Y) in the YUV space of the image to be processed to obtain a structural feature vector at a first depth of the image to be processed; a second acquiring sub-circuit for performing a down-sampling processing on the structural feature vector at the first depth of the image to be processed to obtain a structural feature vector at a second depth of the image to be processed; and a third acquiring sub-circuit for performing the group convolution processing on the structural feature vector at the second depth and the chrominance components (U, V) in the YUV space of the image to be processed to obtain the content features and the style features of the image to be processed.
+11. The apparatus according to claim 7, wherein the fusion processing circuit comprises: a fusion processing sub-circuit for performing the fusion processing on the content features, the style features and the target style features of the image to be processed to generate the luminance component (Y) and the chrominance components (U, V) in the YUV space of the image to be processed in the target style; a determining sub-circuit for determining, according to the luminance component (Y) and the chrominance components (U, V) in the YUV space of the image to be processed in the target style, components of respective color channels in an RGB space of the image of the target style; and an outputting sub-circuit for outputting, according to the components of the respective color channels in the RGB space of the image of the target style, the image of the target style converted from the image to be processed.
+12. The apparatus according to claim 7, further comprising: a third acquiring circuit for acquiring a set of training samples, wherein each training sample in the set of training samples includes an image of an original style and the image of the target style which have a same content; and a training circuit for training an initial group convolutional neural network with the set of training samples to generate a group convolutional neural network for converting the style of the image to the target style.
+13. A computer device, comprising: a memory; and a processor, wherein the memory is configured to a store computer program executable on the processor, the computer program, when executed by the processor, causes the processor to perform operations of: acquiring a luminance component (Y) and chrominance components (U, V) in a YUV space of an image to be processed; performing a group convolution processing on the luminance component (Y) and the chrominance components (U, V) in the YUV space of the image to be processed to obtain content features and style features of the image to be processed; and performing a fusion processing on the content features, the style features and target style features of the image to be processed to convert the image to be processed into an image of a target style.
+14. A non-transitory computer-readable storage medium on which a computer program is stored, wherein the computer program, when executed by a processor, causes the processor to perform operations of: acquiring a luminance component (Y) and chrominance components (U, V) in a YUV space of an image to be processed; performing a group convolution processing on the luminance component (Y) and the chrominance components (U, V) in the YUV space of the image to be processed to obtain content features and style features of the image to be processed; and performing a fusion processing on the content features, the style features and target style features of the image to be processed to convert the image to be processed into an image of a target style.
+15. A computer program product comprising instructions, wherein the instructions, when executed by a processor, causes the processor to perform operations of: acquiring a luminance component (Y) and chrominance components (U, V) in a YUV space of an image to be processed; performing a group convolution processing on the luminance component (Y) and the chrominance components (U, V) in the YUV space of the image to be processed to obtain content features and style features of the image to be processed; and performing a fusion processing on the content features, the style features and target style features of the image to be processed to convert the image to be processed into an image of a target style.
+</claims>
+</document>

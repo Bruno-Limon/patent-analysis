@@ -1,0 +1,57 @@
+<document>
+
+<filing_date>
+2016-11-08
+</filing_date>
+
+<publication_date>
+2020-09-08
+</publication_date>
+
+<priority_date>
+2015-11-09
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+DEAN, JEFFREY, ADGATE
+YU YUAN
+</inventors>
+
+<docdb_family_id>
+72290069
+</docdb_family_id>
+
+<title>
+Processing loops in computational graphs
+</title>
+
+<abstract>
+Systems and methods for processing loops in computational graphs representing machine learning models are disclosed. An example method begins with obtaining data representing a computational graph. Data identifying an allocation of the computational graph across devices is obtained. Additionally, one or more nodes in the computational graph that represent a respective control flow statement are identified. For each identified node, a structure of nodes and edges that represents an operation that provides a current state of recursion or iteration in the respective control flow statement is generated. This structure is inserted into the computational graph and the allocation of nodes to devices is modified to assign the structure to a device.
+</abstract>
+
+<claims>
+1. A method comprising: obtaining data representing a computational graph, the computational graph comprising a plurality of nodes and directed edges, wherein each node represents a respective operation, and wherein each directed edge connects a respective first node to a respective second node that represents an operation that receives, as input, an output of an operation represented by the respective first node; obtaining data identifying an allocation of the computational graph across a plurality of devices, wherein the allocation assigns each node in the computational graph to a respective device of the plurality of devices; identifying a set of nodes in the computational graph that: (i) represents a control flow statement, (ii) includes one or more first nodes assigned to a first device that represent one or more first operations of the control flow statement that are to be conditionally executed, and (iii) includes one or more second nodes assigned to a second device that represent one or more second operations that determine how many times the one or more first operations are to be recursively or iteratively executed; generating a control flow state structure of nodes and directed edges, wherein generating the control flow state structure comprises: generating nodes representing the one or more second operations that determine how many times the one or more first operations are to be recursively or iteratively executed, and that are assigned to the second device, and adding the nodes into the control flow state structure; inserting the control flow state structure between the one or more first nodes and the one or more second nodes in the computational graph; and modifying the allocation to assign the one or more first nodes and the control flow state structure to the first device while still assigning the one or more second nodes that represent the one or more second operations to the second device.
+2. The method of claim 1, wherein the one or more second operations represented by the one or more second nodes provide a Boolean value as output.
+3. The method of claim 2, wherein the Boolean value indicates whether recursion or iteration of the control flow statement is to continue or terminate.
+4. The method of claim 2, further comprising: inserting a directed edge between the one or more second nodes and the control flow state structure that enables the operations represented by the nodes of the control flow state structure to receive, as input, the Boolean value output by the one or more second operations represented by the one or more second nodes.
+5. The method of claim 1, further comprising: executing the computational graph across the plurality of devices, wherein as a consequence of executing the computational graph, the first device and the second device independently perform the one or more second operations.
+6. A system comprising: one or more computers; and one or more storage devices storing instructions that are operable, when executed by the one or more computers, to cause the one or more computers to perform operations comprising: obtaining data representing a computational graph, the computational graph comprising a plurality of nodes and directed edges, wherein each node represents a respective operation, and wherein each directed edge connects a respective first node to a respective second node that represents an operation that receives, as input, an output of an operation represented by the respective first node; obtaining data identifying an allocation of the computational graph across a plurality of devices, wherein the allocation assigns each node in the computational graph to a respective device of the plurality of devices; identifying a set of nodes in the computational graph that: (i) represents a control flow statement, (ii) includes one or more first nodes assigned to a first device that represent one or more first operations of the control flow statement that are to be conditionally executed, and (iii) includes one or more second nodes assigned to a second device that represent one or more second operations that determine how many times the one or more first operations are to be recursively or iteratively executed; generating a control flow state structure of nodes and directed edges, wherein generating the control flow state structure comprises: generating nodes representing the one or more second operations that determine how many times the one or more first operations are to be recursively or iteratively executed, and that are assigned to the second device, and adding the nodes into the control flow state structure; inserting the control flow state structure between the one or more first nodes and the one or more second nodes in the computational graph; and modifying the allocation to assign the one or more first nodes and the control flow state structure to the first device while still assigning the one or more second nodes that represent the one or more second operations to the second device.
+7. The system of claim 6, wherein the one or more second operations represented by the one or more second nodes provide a Boolean value as output.
+8. The system of claim 6, wherein a Boolean value indicates whether recursion or iteration of the control flow statement is to continue or terminate.
+9. The system of claim 6, the operations further comprising: inserting a directed edge between the one or more second nodes and the control flow state structure that enables the operations represented by the nodes of the control flow state structure to receive, as input, the Boolean value output by the one or more second operations represented by the one or more second nodes.
+10. The system of claim 6, wherein the operations further comprise: executing the computational graph across the plurality of devices, wherein as a consequence of executing the computational graph, the first device and the second device independently perform the one or more second operations.
+11. A non-transitory computer-readable storage medium comprising instructions stored thereon that are executable by a processing device and upon such execution cause the processing device to perform operations comprising: obtaining data representing a computational graph, the computational graph comprising a plurality of nodes and directed edges, wherein each node represents a respective operation, and wherein each directed edge connects a respective first node to a respective second node that represents an operation that receives, as input, an output of an operation represented by the respective first node; obtaining data identifying an allocation of the computational graph across a plurality of devices, wherein the allocation assigns each node in the computational graph to a respective device of the plurality of devices; identifying a set of nodes in the computational graph that: (i) represents a control flow statement, (ii) includes one or more first nodes assigned to a first device that represent one or more first operations of the control flow statement that are to be conditionally executed, and (iii) includes one or more second nodes assigned to a second device that represent one or more second operations that determine how many times the one or more first operations are to be recursively or iteratively executed; generating a control flow state structure of nodes and directed edges, wherein generating the control flow state structure comprises: generating nodes representing the one or more second operations that determine how many times the one or more first operations are to be recursively or iteratively executed, and that are assigned to the second device, and adding the nodes into the control flow state structure; inserting the control flow state structure between the one or more first nodes and the one or more second nodes in the computational graph; and modifying the allocation to assign the one or more first nodes and the control flow state structure to the first device while still assigning the one or more second nodes that represent the one or more second operations to the second device.
+12. The non-transitory computer readable storage medium of claim 11, wherein the one or more second operations represented by the one or more respective second nodes provide a Boolean value as output.
+13. The non-transitory computer readable storage medium of claim 11, wherein a Boolean value indicates whether recursion or iteration of the control flow statement is to continue or terminate.
+14. The non-transitory computer readable storage medium of claim 11, the operations further comprising: inserting a directed edge between the one or more second nodes and the control flow state structure that enables the operations represented by the nodes of the control flow state structure to receive, as input, the Boolean value output by the one or more second operations represented by the one or more second nodes.
+15. The non-transitory computer readable storage medium of claim 11, wherein the operations further comprise: executing the computational graph across the plurality of devices, wherein as a consequence of executing the computational graph, the first device and the second device independently perform the one or more second operations.
+</claims>
+</document>

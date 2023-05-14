@@ -1,0 +1,113 @@
+<document>
+
+<filing_date>
+2019-11-28
+</filing_date>
+
+<publication_date>
+2020-06-18
+</publication_date>
+
+<priority_date>
+2018-12-10
+</priority_date>
+
+<ipc_classes>
+G06F16/00
+</ipc_classes>
+
+<assignee>
+IBM (CHINA) INVESTMENT COMPANY
+IBM (INTERNATIONAL BUSINESS MACHINES CORPORATION)
+IBM UNITED KINGDOM
+</assignee>
+
+<inventors>
+BHIDE, MANISH
+LOHIA, PRANAY
+NATESAN RAMAMURTHY, KARTHIKEYAN
+PURI, RUCHIR
+SAHA, DIPTIKALYAN
+VARSHNEY, KUSH
+</inventors>
+
+<docdb_family_id>
+70970227
+</docdb_family_id>
+
+<title>
+POST-HOC IMPROVEMENT OF INSTANCE-LEVEL AND GROUP-LEVEL PREDICTION METRICS
+</title>
+
+<abstract>
+A post-processing method, system, and computer program product for post-hoc improvement of instance-level and group-level prediction metrics, including training a bias detector that learns to detect a sample that has an individual bias greater than a predetermined individual bias threshold value with constraints on a group bias, applying the bias detector on a run-time sample to select a biased sample in the run-time sample having a bias greater than the predetermined individual bias threshold bias value, and suggesting a de-biased prediction for the biased sample.
+</abstract>
+
+<claims>
+1. A post-processing computer-implemented method for post-hoc improvement of instance-level and grouplevel prediction metrics, the post-processing method comprising:
+training a bias detector that learns to detect a sample that has an individual bias greater than a predetermined individual bias threshold value with constraints on a group bias;
+applying, in a run-time, the bias detector on a run-time sample to select a biased sample in the run-time sample having an individual bias greater than the predetermined individual bias threshold value; and
+suggesting, in the run-time, a de-biased prediction for the biased sample.
+2. The post-processing computer-implemented method of claim 1, wherein the applying and the suggesting operate in a post-processing and targets the biased sample with individual bias for remediation in order to change bias of the biased sample based both on individual and group fairness metrics.
+3. The post-processing computer-implemented method of claim 1, wherein the individual bias detector is trained by:
+perturbing a protected attribute in a training set having the sample;
+for each sample point in the training set, obtaining an average individual bias after multiple perturbations;
+obtaining a difference in the individual bias for a favorable class;
+for an unprivileged group, setting the individual bias as the average individual bias; and
+sorting samples in the training set by descending order of the difference in the individual bias to the favorable class.
+4. The post-processing computer-implemented method of claim 1, wherein the suggesting the de-biased prediction is performed by:
+perturbing a protected attribute in a training set;
+running the perturbed results through a customer model;
+picking a most likely prediction for the perturbed results run through the customer model; and changing to the most likely prediction for the perturbed results for an unprivileged group member if this outcome belongs to the favorable class.
+5. The post-processing computer-implemented method of claim 1, wherein a detected individual bias sample among an unprivileged group predicted by the bias detector is prioritized for a correction by the suggesting, wherein the suggesting performs a correction to fix the bias by running perturbed samples through a customer model and picking a most likely prediction, and wherein a user decides whether to choose an original value of the bias or the suggested de-biased prediction.
+6. The post-processing computer-implemented method of claim 5, wherein the perturbations are performed across protected attributes and an aggregate outcome is determined.
+7. The post-processing computer-implemented method of claim 5, wherein an outcome among multiple classes is chosen by one of:
+looking at an aggregate prediction for each class after perturbations; and
+finding a most likely predicted outcome after the perturbations.
+8. The post-processing computer-implemented method of claim 1 , wherein, during the training, the bias detector is trained by:
+implementing an individual bias checker that perturbs a protected attribute in payload data for unprivileged group samples;
+computes individual bias scores for unprivileged group samples by finding a difference between a probability of a favorable outcome for the perturbed and original data;
+flagging the unprivileged group samples that have the individual bias greater than the predetermined individual bias threshold value; and
+training the bias detector to discriminate between the flagged samples and un-flagged samples.
+9. The post-processing computer-implemented method of claim 1 , wherein, during the run-time:
+the applying applies the bias detector on each unprivileged group sample in the run-time to compute a likelihood of the individual bias;
+further testing the individually biased sample by perturbing a protected attribute and checking the outcome after perturbation; and
+if the outcome after the perturbation is different from an original outcome, suggesting an individually biased sample as a de-biased prediction to an arbiter, which can choose between the original value of the bias and a debiased prediction.
+10. The post-processing computer-implemented method of claim 1 , embodied in a cloud-computing environment.
+11. A post-processing computer program product for post-hoc improvement of instance-level and group-level prediction metrics, the computer program product comprising a computer-readable storage medium having program instructions embodied therewith, the program instructions executable by a computer to cause the computer to perform:
+training a bias detector that learns to detect a sample that has an individual bias greater than a predetermined individual bias threshold value with constraints on a group bias;
+applying, in a run-time, the bias detector on a run-time sample to select a biased sample in the run-time sample having an individual bias greater than the predetermined individual bias threshold value; and
+suggesting, in the run-time, a de-biased prediction for the biased sample.
+12. The post-processing computer program product of claim 11, wherein the applying and the suggesting operate in a post-processing that targets the biased sample with individual bias for remediation in order to change bias of the biased sample based both on individual and group fairness metrics.
+13. The post-processing computer program product of claim 11, wherein the individual bias detector is trained by:
+perturbing a protected attribute in a training set having the sample;
+for each sample point in the training set, obtaining an average individual bias after multiple perturbations; obtaining a difference in the individual bias for a favorable class;
+for the privileged group, setting the individual bias as the original detected individual bias;
+for an unprivileged group, setting the individual bias as the average individual bias; and
+sorting samples in the training set by descending order of the difference in the individual bias to the favorable class.
+14. The post-processing computer program product of claim 11, wherein the suggesting the de-biased prediction is performed by:
+perturbing a protected attribute in a training set;
+running the perturbed results through a customer model;
+picking a most likely prediction for the perturbed results run through the customer model; and changing the most likely prediction for the perturbed results for an unprivileged group member to a result for a favorable class.
+15. The post-processing computer program product of claim 11 , wherein, if the bias detector returns that a particular sample has bias, then that sample is de-biased.
+16. The post-processing computer program product of claim 11, wherein a highest individual bias sample among an unprivileged group predicted by the bias detector is prioritized for a correction by the suggesting, wherein the suggesting performs a correction to fix the bias by running perturbed samples through a customer model and picking a most likely prediction, and
+wherein a user decides whether to choose an original value of the bias or the suggested de-biased prediction.
+17. A post-processing system for post-hoc improvement of instance-level and group-level prediction metrics, said system comprising:
+a processor; and
+a memory, the memory storing instructions to cause the processor to perform:
+training a bias detector that learns to detect a sample that has an individual bias greater than a predetermined individual bias threshold value with constraints on a group bias;
+applying, in a run-time, the bias detector on a run-time sample to select a biased sample in the run-time sample having an individual bias greater than the predetermined individual bias threshold value; and
+suggesting, in the run-time, a de-biased prediction for the biased sample.
+18. The post-processing system of claim 17, embodied in a cloud-computing environment.
+19. A post-processing computer-implemented method for post-hoc improvement of instance-level and grouplevel prediction metrics, the post-processing method comprising:
+applying a trained detector on a run-time sample to select a sample in the run-time sample having a value greater than the predetermined individual threshold value; and
+suggesting a changed prediction for the sample.
+20. The post-processing computer-implemented method of claim 19, wherein the applying and the suggesting operate in a post-processing that targets the sample with the individual value for remediation in order to change the value of the sample based both on individual and group fairness metrics.
+21. The post-processing computer-implemented method of claim 19, wherein the trained detector is received as a complete black-box.
+22. The post-processing computer-implemented method of claim 19, wherein the applying comprises a pure run-time approach that does not require ground truth class labels for a validation set.
+23. A post-processing computer-implemented method for post-hoc improvement of instance-level and grouplevel prediction metrics, the post-processing method comprising:
+testing each sample from an unprivileged group for an individual bias; and assigning an outcome of a privileged group to the sample if the sample has a bias greater than a predetermined individual bias threshold bias value.
+24. The post-processing computer-implemented method of claim 23, wherein the unprivileged group received the outcome based on the individual bias according to a classification of the unprivileged group.
+25. The post-processing computer-implemented method of claim 23, wherein the outcome of samples in the privileged group are unchanged by the assigning.
+</claims>
+</document>

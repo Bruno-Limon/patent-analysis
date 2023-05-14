@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-03-30
+</filing_date>
+
+<publication_date>
+2020-08-20
+</publication_date>
+
+<priority_date>
+2019-02-15
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/62
+</ipc_classes>
+
+<assignee>
+WIPRO
+</assignee>
+
+<inventors>
+BELHE, SWAPNIL DNYANESHWAR
+GURAV, ANIKET ANAND
+WADIBHASME, RUPESH
+</inventors>
+
+<docdb_family_id>
+72040616
+</docdb_family_id>
+
+<title>
+Method and system for identifying cell region of table comprising cell borders from image document
+</title>
+
+<abstract>
+The present disclosure is related to field of machine learning and image processing, disclosing method and device for identifying cell region of table including cell borders from an image document. Table detecting system rescales a primary image document into plurality of secondary image documents of different size and resolution to detect plurality of candidate regions comprising predefined table features in each secondary image document. Further, for each candidate region, set of connected components are determined and the connected components corresponding to the IDs that are present in more than one set of the connected components are clustered. Subsequently, areas corresponding to the clusters that are determined to form a table are cropped from the primary image document and each cell region of the table is identified by modifying pixel values of the clusters of the connected components in the cropped area.
+</abstract>
+
+<claims>
+1. A method of identifying cell region of a table comprising cell borders from an image document, the method comprising: receiving, by a table detecting device, a primary image document from a data source among one or more data sources associated with the table detecting system; generating, by the table detecting device, a plurality of secondary image documents by rescaling the primary image document; detecting, by the table detecting device, a plurality of candidate regions comprising one or more predefined table features in each of the plurality of secondary image documents, wherein the one or more predefined table features comprises at least one of L-shaped edge, laterally inverted L-shaped edge, elongated L-shaped edge, vertically inverted L-shaped edge, T-junction and an intersection; determining, by the table detecting device, a set of connected components corresponding to each of the plurality of candidate regions, wherein each set of the connected components comprises IDs associated with the corresponding connected components, wherein a common ID is associated with the connected components that are interlinked; generating, by the table detecting device, clusters of the connected components, wherein each cluster comprises the connected components corresponding to the IDs that are determined to be present in more than one set of the connected components; cropping, by the table detecting device, areas corresponding to the clusters of the connected components, determined to form a table, from the primary image document, wherein the table is determined when the clusters of the connected components satisfy a predefined probability threshold; and identifying, by the table detecting device, each cell region of the table by modifying pixel values of the clusters of the connected components in the cropped areas.
+2. The method as claimed in claim 1, wherein the rescaling comprises sequentially incrementing size of the primary image document by a predefined increment value until a threshold size is reached, wherein image document generated at each sequential increment is the secondary image document, wherein size of each of the plurality of secondary image documents is different.
+3. The method as claimed in claim 1, wherein detecting the plurality of candidate regions comprises: performing, by the table detecting device, cross-correlation of each of the one or more predefined table features with each of the plurality of secondary image documents; and detecting, by the table detecting device, regions in each of the plurality of secondary images whose cross-correlation with the one or more predefined table features is higher than a predefined correlation threshold, as the plurality of candidate regions.
+4. The method as claimed in claim 1, wherein determining the table comprises: evaluating, by the table detecting device, a probability of forming the table for each cluster of the connected components using pre-trained deep learning techniques; and inferring, by the table detecting device, that the cluster of the connected components form the table when the probability is determined to be greater than the predefined probability threshold.
+5. The method as claimed in claim 4 further comprises discarding, by the table detecting device, the clusters of the connected components whose probability of forming the table is determined to be less than the predefined probability threshold.
+6. The method as claimed in claim 1 further comprises discarding, by the table detecting device, the connected components corresponding to each of the plurality of candidate regions that are not present in more than one set of the connected components, before determining existence of the table.
+7. The method as claimed in claim 1, wherein each area cropped from the primary image document comprises the table and each cluster of the connected components in the area forms outline of each row and column of the corresponding table.
+8. The method as claimed in claim 1, wherein modifying the pixel values comprises inverting the pixel values of the clusters of the connected components and the area enclosed by the clusters of the connected components.
+9. The method as claimed in claim 1, wherein each cell region of the table is identified by determining connected components of the area enclosed by the clusters of the connected components that are determined to form the table, upon modifying the pixel values.
+10. A table detecting device comprising: a processor; and a memory communicatively coupled to the processor, wherein the memory stores the processor-executable instructions, which, on execution, causes the processor to: receive a primary image document from a data source among one or more data sources associated with the table detecting system; generate a plurality of secondary image documents by rescaling the primary image document; detect a plurality of candidate regions comprising one or more predefined table features in each of the plurality of secondary image documents, wherein the one or more predefined table features comprises at least one of L-shaped edge, laterally inverted L-shaped edge, elongated L-shaped edge, vertically inverted L-shaped edge, T-junction and an intersection; determine a set of connected components corresponding to each of the plurality of candidate regions, wherein each set of the connected components comprises IDs associated with the corresponding connected components, wherein a common ID is associated with the connected components that are interlinked; generate clusters of the connected components, wherein each cluster comprises the connected components corresponding to the IDs that are determined to be present in more than one set of the connected components; crop areas corresponding to the clusters of the connected components, determined to form a table, from the primary image document, wherein the table is determined when the clusters of the connected components satisfy a predefined probability threshold; and identify each cell region of the table by modifying pixel values of the clusters of the connected components in the cropped areas.
+11. The table detecting device as claimed in claim 10, wherein the processor rescales the primary image document by sequentially incrementing size of the primary image document by a predefined increment value until a threshold size is reached, wherein image document generated at each sequential increment is the secondary image document.
+12. The table detecting device as claimed in claim 10, wherein size of each of the plurality of secondary image documents is different.
+13. The table detecting device as claimed in claim 10, wherein to detect the plurality of candidate regions, the processor is configured to: perform cross-correlation of each of the one or more predefined table features with each of the plurality of secondary image documents; and detect regions in each of the plurality of secondary images whose cross-correlation with the one or more predefined table features is higher than a predefined correlation threshold, as the plurality of candidate regions.
+14. The table detecting device as claimed in claim 10, wherein to determine the table, the processor is configured to: evaluate a probability of forming the table for each cluster of the connected components using pre-trained deep learning techniques; and infer that the cluster of the connected components form the table when the probability is determined to be greater than the predefined probability threshold.
+15. The table detecting device as claimed in claim 10, wherein the processor is further configured to discard the clusters of the connected components whose probability of forming the table is determined to be less than the predefined probability threshold.
+16. The table detecting device as claimed in claim 11, wherein the processor is further configured to discard the connected components corresponding to the plurality of candidate regions that are not present in more than one set of the connected components, before determining existence of the table.
+17. The table detecting device as claimed in claim 11, wherein each area cropped from the primary image document comprises the table and each cluster of the connected components forms outline of each row and column of the corresponding table.
+18. The table detecting device as claimed in claim 11, wherein the processor modifies the pixel values by inverting the pixel values of the clusters of the connected components and the area enclosed by the clusters of the connected components.
+19. The table detecting device as claimed in claim 11, wherein the processor identifies each cell region of the table by determining connected components of the area enclosed by the clusters of the connected components that are determined to form the table, upon modifying the pixel values.
+20. A non-transitory computer readable medium including instructions stored thereon that when processed by at least one processor causes a table detecting system to perform operations comprising: receiving a primary image document from a data source among one or more data sources associated with the table detecting system; generating a plurality of secondary image documents by rescaling the primary image document; detecting a plurality of candidate regions comprising one or more predefined table features in each of the plurality of secondary image documents, wherein the one or more predefined table features comprises at least one of L-shaped edge, laterally inverted L-shaped edge, elongated L-shaped edge, vertically inverted L-shaped edge, T-junction and an intersection; determining a set of connected components corresponding to each of the plurality of candidate regions, wherein each set of the connected components comprises IDs associated with the corresponding connected components, wherein a common ID is associated with the connected components that are interlinked; generating clusters of the connected components, wherein each cluster comprises the connected components corresponding to the IDs that are determined to be present in more than one set of the connected components; cropping areas corresponding to the clusters of the connected components, determined to form a table, from the primary image document, wherein the table is determined when the clusters of the connected components satisfy a predefined probability threshold; and identifying each cell region of the table by modifying pixel values of the clusters of the connected components in the cropped areas.
+</claims>
+</document>

@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2014-08-07
+</filing_date>
+
+<publication_date>
+2020-04-21
+</publication_date>
+
+<priority_date>
+2014-08-07
+</priority_date>
+
+<ipc_classes>
+G06F16/00,G06F16/33,G06F16/683
+</ipc_classes>
+
+<assignee>
+AMAZON TECHNOLOGIES
+</assignee>
+
+<inventors>
+MONSON, CHRISTIAN DARREL
+RAO, DELIP
+</inventors>
+
+<docdb_family_id>
+70284877
+</docdb_family_id>
+
+<title>
+Entity resolution with ranking
+</title>
+
+<abstract>
+A system is configured to identify an entity referred to in speech or text by comparing the text of the entity mention to a database of the domain of the entity. The system may obtain a group of potential matches from the database and may then discriminatively rank those potential matches according to specific features identified for the context of the speech and/or text.
+</abstract>
+
+<claims>
+1. A system for identifying an entity, the system comprising: at least one processor; at least one memory including instructions, that when executed by the at least one processor, cause the system to perform a set of actions comprising: receiving audio data including a representation of speech; performing speech recognition on the audio data to obtain text data; determining that a text segment in the text data corresponds to a reference to a potential candidate entity; identifying, using an entity database comprising a plurality of entities, a first potential entity corresponding to the text segment and a second potential entity corresponding to the text segment; determining context data relating to the text data, the context data comprising at least one of words in the text data, an entity type associated with the first potential entity and second potential entity, a quality of the audio data, or a domain associated with the text data; selecting a feature type based at least in part on the context data, the feature type describing a relationship between the text data and a potential entity; processing, using the feature type, the first potential entity and the text segment to determine a first relevance score corresponding to a first likelihood that the text segment includes a representation of the first potential entity; processing, using the feature type, the second potential entity and the text segment to determine a second relevance score corresponding to a second likelihood that the text segment includes a representation of the second potential entity; determining that the first relevance score is greater than the second relevance score; and selecting, based at least in part on determining that the first relevance score is greater than the second relevance score, the first potential entity as the entity corresponding to the text data.
+2. A computer-implemented method comprising: determining that input text data includes a reference to a potential candidate entity; determining first text data representing a first candidate entity that potentially corresponds to the reference; determining second text data representing a second candidate entity that potentially corresponds to the reference; selecting a feature type based at least in part on the first candidate entity and the second candidate entity, the feature type corresponding to a relationship between the reference and the potential candidate entity; processing, using the feature type, the input text data and the first text data to determine a first relevance score corresponding to a first likelihood that the input text data includes a representation of the first candidate entity; processing, using the feature type, the input text data and the second text data to determine a second relevance score corresponding to a second likelihood that the input text data includes a representation of the second candidate entity; ranking the first candidate entity and the second candidate entity based on the first relevance score and the second relevance score; and determining, based at least in part on the ranking, that the input text data includes a representation of an entity.
+3. The computer-implemented method of claim 2, wherein the first candidate entity and second candidate entity are identified using a database of entities, and wherein the method further comprises identifying the database based at least in part on the first candidate entity and the second candidate entity.
+4. The computer-implemented method of claim 2, further comprising: selecting, based at least in part on the first candidate entity and the second candidate entity, a second feature type from among a plurality of feature types associated with the first candidate entity and the second candidate entity.
+5. The computer-implemented method of claim 2, further comprising receiving context data associated with the input text data, wherein the feature type is selected further based at least in part on the context data.
+6. The computer-implemented method of claim 5, wherein the context data comprises at least one of words in the input text data, a quality of the input text data, and a domain associated with the input text data.
+7. The computer-implemented method of claim 2, further comprising: executing a function corresponding to the entity.
+8. The computer-implemented method of claim 2, wherein the feature type includes at least one of a Hamming distance, association strength, skip bigram determination, indication of a substring relationship, or string match determination.
+9. The computer-implemented method of claim 2, wherein: determining the first candidate entity and determining the second candidate entity is performed by a candidate selector, and determining the first relevance score and the second relevance score is performed by a statistical ranker.
+10. The computer-implemented method of claim 2, further comprising: determining a first confidence score corresponding to a likelihood that the first candidate entity corresponds to the input text data; and determining a second confidence score corresponding to a likelihood that the second candidate entity corresponds to the input text data.
+11. The computer-implemented method of claim 10, wherein: the first confidence score is greater than the second confidence score, and the first relevance score is greater than the second relevance score.
+12. The computer-implemented method of claim 2, wherein determining the first relevance score comprises: determining, using a finite-state transducer (FST), a first score corresponding to a first alignment of the reference and the first candidate entity; determining, using the FST, a second score corresponding to a second alignment of the reference and the first candidate entity; and processing, using a log-linear model, the first score and the second score.
+13. A computing device, comprising: at least one processor; and at least one memory including instructions that, when executed by the at least one processor, cause the computing device to: determine that input text data includes a reference to a potential candidate entity; determine first text data representing a first candidate entity that potentially corresponds to the reference; determine second text data representing a second candidate entity that entity potentially corresponds to the reference; select a feature type based at least in part on the first candidate entity and the second candidate entity, the feature type corresponding to a relationship between the reference and the potential candidate entity; processing, using the feature type, the input text data and the first text data to determine a first relevance score corresponding to a first likelihood that the input text data includes a representation of the first candidate entity; processing, using the feature type, the reference and the second candidate entity to determine a second relevance score corresponding to a second likelihood that the input text data includes a representation of the second candidate entity; rank the first candidate entity and the second candidate entity based on the first relevance score and the second relevance score; and determine, based at least in part on the ranking, that the input text data includes a representation of an entity.
+14. The computing device of claim 13, wherein the first candidate entity and second candidate entity are identified using a database of entities, and wherein the at least one processor is further configured to identify the database based at least in part on the first candidate entity and the second candidate entity.
+15. The computing device of claim 13, wherein the at least one memory further includes instructions that, when executed by the at least one processor, further cause the computing device to select, based at least in part on the first candidate entity and the second candidate entity, a second feature type from among a plurality of feature types associated with the first candidate entity and the second candidate entity.
+16. The computing device of claim 13, wherein the at least one memory further includes instructions that, when executed by the at least one processor, further cause the computing device to receive context data associated with the input text data, and wherein the feature type is selected further based at least in part on the context data.
+17. The computing device of claim 16, wherein the context data comprises at least one of words in the input text data, a quality of the input text data, or a domain associated with the input text data.
+18. The computing device of claim 13, wherein the instructions to rank the first candidate entity and second candidate entity comprise ranking the first candidate entity above the second candidate entity and wherein the at least one processor is further configured to execute a function corresponding to the entity.
+19. The computing device of claim 13, wherein the feature type includes at least one of a Hamming distance, association strength, skip bigram determination, indication of a substring relationship, or string match determination.
+20. The computing device of claim 13, wherein the at least one memory further includes instructions that, when executed by the at least one processor, further cause the computing device to: determine the first candidate entity and determining the second candidate entity is performed by a candidate selector, and determine the first relevance score and the second relevance score is performed by a statistical ranker.
+21. The computing device of claim 13, wherein the at least one memory further includes instructions that, when executed by the at least one processor, further cause the computing device to: determine a first confidence score corresponding to a likelihood that the first candidate entity corresponds to the input text data; and determine a second confidence score corresponding to a likelihood that the second candidate entity corresponds to the input text data.
+</claims>
+</document>

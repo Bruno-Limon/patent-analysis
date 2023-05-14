@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2018-10-10
+</filing_date>
+
+<publication_date>
+2020-02-06
+</publication_date>
+
+<priority_date>
+2018-08-01
+</priority_date>
+
+<ipc_classes>
+G06F40/295,G06K9/46
+</ipc_classes>
+
+<assignee>
+SAP
+</assignee>
+
+<inventors>
+AGUIAR, EVERALDO
+LIND, JESPER
+</inventors>
+
+<docdb_family_id>
+69228753
+</docdb_family_id>
+
+<title>
+Machine learning data extraction algorithms
+</title>
+
+<abstract>
+Embodiments of the present disclosure pertain to extracting data corresponding to particular data types using machine learning algorithms. In one embodiment, a method includes receiving an image in a backend system, sending the image to an optical character recognition (OCR) component, and in accordance therewith, receiving a plurality of characters recognized in the image. The character set is matched against known values to generate candidate character strings. The character set is processed by one or more machine learning algorithms to produce features. For each candidate character string, the features are then processed by a random forest model to determine a final character string.
+</abstract>
+
+<claims>
+1. A computer implemented method comprising: storing known values of a type of data to be extracted; receiving a character set; determining a plurality of candidate character strings from the character set based on the known values using a first algorithm; processing the character set using one or more first machine learning algorithms to produce a plurality of probabilities, the plurality of probabilities comprising probabilities that each character in the character set is a first character of one of the known values and probabilities that each character in the character set is a last character of one of the known values; for each candidate character string, processing said probabilities that each character in the character set is a first character of one of the known values and said probabilities that each character in the character set is a last character of one of the known values as input features to a second machine learning algorithm to produce a plurality of likelihoods corresponding to the candidate character strings; and selecting the characters corresponding to the candidate character string having the highest likelihood as the final character string.
+2. The method of claim 1 wherein the first algorithm outputs a plurality of tuples comprising characters in the candidate character string and indexes to said characters in the character set, the plurality of tuples including at least one tuple specifying a first location, in the character set, of a first character of each candidate character string matching one of the known values and at least one tuple specifying a second location, in the character set, of a last character of each candidate character string matching one of the known values.
+3. The method of claim 1 wherein the known values and final character string are city names.
+4. The method of claim 1 wherein the known values and final character string are vendor names.
+5. The method of claim 1 wherein the first algorithm is a search algorithm receiving the character set and a plurality of known word values stored in a database and producing the candidate character strings.
+6. The method of claim 5 wherein the search algorithm comprises a Aho-Corasick trie structure configured with the plurality of known word values.
+7. The method of claim 1 wherein the one or more first machine learning algorithms comprise one or more recurrent neural networks.
+8. The method of claim 1 wherein the second machine learning algorithm comprises a random forest algorithm.
+9. The method of claim 1 wherein the plurality of probabilities further comprising probabilities that each character in the character set belongs to one of the known values, the method further comprising for each candidate character string, determining an average probability that the characters belong to one of the known values; and processing the average probability that the characters belong to one of the known values as one of said input features to the second machine learning algorithm to produce said plurality of likelihoods for each candidate character string.
+10. The method of claim 1 further comprising: determining a conditional probability for each candidate character string, wherein the conditional probability corresponds to a likelihood of a particular candidate character string being a correct character string given a particular second value related to the character set as a whole; and for each candidate character string, processing the conditional probability for each candidate character string as one of said input features to the second machine learning algorithm to produce said plurality of likelihoods for each candidate character string.
+11. The method of claim 10 wherein determining said conditional probability for each candidate character string comprises: processing the character set using a third machine learning algorithm to produce a list of one or more second values and corresponding probabilities that the second values are related to the character set; receiving frequency data corresponding to observed occurrences of each candidate character string and the one or more second values; determining said conditional probability for each candidate character string based on: said one or more second values and the corresponding probabilities that the second values are related to the character set, said frequency data; and said candidate character strings.
+12. The method of claim 11 wherein the third machine learning algorithm is a bag of words model.
+13. The method of claim 11 wherein the candidate character strings correspond to city names or vendor names and the one or more second values correspond to country names.
+14. A system comprising: one or more processors; and a non-transitory machine-readable medium storing a program executable by the processor, the program comprising sets of instructions for: storing known values of a type of data to be extracted; receiving a character set; determining a plurality of candidate character strings from the character set based on the known values using a first algorithm; processing the character set using one or more first machine learning algorithms to produce a plurality of probabilities, the plurality of probabilities comprising probabilities that each character in the character set is a first character of one of the known values and probabilities that each character in the character set is a last character of one of the known values; for each candidate character string, processing said probabilities that each character in the character set is a first character of one of the known values and said probabilities that each character in the character set is a last character of one of the known values as input features to a second machine learning algorithm to produce a plurality of likelihoods corresponding to the candidate character strings; and selecting the characters corresponding to the candidate character string having the highest likelihood as the final character string.
+15. The system of claim 14 wherein the first algorithm is a search algorithm comprising a Aho-Corasick trie structure configured with the plurality of known word values to receive the character set and a plurality of known word values stored in a database and produce the candidate character strings
+16. The system of claim 14 wherein the plurality of probabilities further comprising probabilities that each character in the character set belongs to one of the known values, the method further comprising: for each candidate character string, determining an average probability that the characters belong to one of the known values; and processing the average probability that the characters belong to one of the known values as one of said input features to the second machine learning algorithm to produce said plurality of likelihoods for each candidate character string.
+17. The system of claim 14 further comprising: determining a conditional probability for each candidate character string, wherein the conditional probability corresponds to a likelihood of a particular candidate character string being a correct character string given a particular second value related to the character set as a whole; and for each candidate character string, processing the conditional probability for each candidate character string as one of said input features to the second machine learning algorithm to produce said plurality of likelihoods for each candidate character string.
+18. A non-transitory machine-readable medium storing a program executable by at least one processor of a computer, the program comprising sets of instructions for: storing known values of a type of data to be extracted; receiving a character set; determining a plurality of candidate character strings from the character set based on the known values using a first algorithm; processing the character set using one or more first machine learning algorithms to produce a plurality of probabilities, the plurality of probabilities comprising probabilities that each character in the character set is a first character of one of the known values and probabilities that each character in the character set is a last character of one of the known values; for each candidate character string, processing said probabilities that each character in the character set is a first character of one of the known values and said probabilities that each character in the character set is a last character of one of the known values as input features to a second machine learning algorithm to produce a plurality of likelihoods corresponding to the candidate character strings; and selecting the characters corresponding to the candidate character string having the highest likelihood as the final character string.
+19. The non-transitory machine-readable medium of claim 18 wherein the plurality of probabilities further comprising probabilities that each character in the character set belongs to one of the known values, the method further comprising: for each candidate character string, determining an average probability that the characters belong to one of the known values; and processing the average probability that the characters belong to one of the known values as one of said input features to the second machine learning algorithm to produce said plurality of likelihoods for each candidate character string.
+20. The non-transitory machine-readable medium of claim 18 further comprising: determining a conditional probability for each candidate character string, wherein the conditional probability corresponds to a likelihood of a particular candidate character string being a correct character string given a particular second value related to the character set as a whole; and for each candidate character string, processing the conditional probability for each candidate character string as one of said input features to the second machine learning algorithm to produce said plurality of likelihoods for each candidate character string.
+</claims>
+</document>

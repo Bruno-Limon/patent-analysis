@@ -1,0 +1,70 @@
+<document>
+
+<filing_date>
+2018-07-16
+</filing_date>
+
+<publication_date>
+2020-01-16
+</publication_date>
+
+<priority_date>
+2018-07-16
+</priority_date>
+
+<ipc_classes>
+G06F17/11,G06K9/62,G06N5/04,G06N99/00
+</ipc_classes>
+
+<assignee>
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+SACHETI, ARUN
+YANG, LINJUN
+MERCHANT, MEENAZ
+HUANG, LI
+XIA, RUI
+LEE, KUANG-HUEI
+CULATANA, SEAN CHANG
+HUANG, JIAPEI
+CHEN, XI
+HU, HOUDONG
+</inventors>
+
+<docdb_family_id>
+67303506
+</docdb_family_id>
+
+<title>
+VISUAL INTENT TRIGGERING FOR VISUAL SEARCH
+</title>
+
+<abstract>
+Representative embodiments disclose mechanisms to perform visual intent classification or visual intent detection or both on an image. Visual intent classification utilizes a trained machine learning model that classifies subjects in the image according to a classification taxonomy. The visual intent classification can be used as a pre-triggering mechanism to initiate further action in order to substantially save processing time. Example further actions include user scenarios, query formulation, user experience enhancement, and so forth. Visual intent detection utilizes a trained machine learning model to identify subjects in an image, place a bounding box around the image, and classify the subject according to the taxonomy. The trained machine learning model utilizes multiple feature detectors, multi-layer predictions, multilabel classifiers, and bounding box regression.
+</abstract>
+
+<claims>
+1. A computer implemented method, comprising: receiving an image having at least one subject; submitting the image to a trained visual intent classifier, the trained visual intent classifier being trained as a multilabel classifier; receiving from the trained visual intent classifier at least one classification label from a taxonomy used to train the multilabel classifier, the at least one classification label corresponding to the at least one subject of the image; based on the at least one classification label, initiating at least one of: triggering a query related to the image; causing presentation of information to help the user formulate a query related to the image; initiating a visual search using a data store comprising images having classification labels that comprise the at least one classification label associated with the image; and initiating visual intent detection on the image.
+2. The method of claim 1 wherein the taxonomy includes categories comprising: animal; two-dimensional artwork; three-dimensional artwork; barcode; book; cosmetics; electronics; face; people; fashion; food_or_drink; gift; home_or_office_furnishing_or_decor; logo; man_made_structure; map; money; musical_instrument; nature_object; newspaper; plant; productivity; school_or_office_supply; sports_or_outdoor_accessories; tatoo; toy; training_workout_item; vehicle; packaged_product; and other.
+3. The method of claim 1 wherein the trained visual intent classifier comprises a MobileNet backbone trained using an error function comprising two multilabel classification losses, a first multilabel classification loss being a multilabel elementwise sigmoid loss and a second multilabel classification loss being a multilabel softmax loss.
+4. The method of claim 1 wherein the visual intent classifier is trained using a cross-entropy loss given by
+5. The method of claim 1 wherein triggering a query comprises: sending the at least one classification label associated with the image to a user device; and receiving from the user device a query to be executed by a search service.
+6. The method of claim 1 wherein causing presentation of information to help the user formulate a query related to the image comprises: selecting a plurality of potential activities based on the at least one classification label associated with the image; sending the plurality of potential activities to a user device; receiving from the user device, selection of at least one activity of the plurality of potential activities; formulating a query based on the selected at least one activity; and sending the query to a query engine for execution.
+7. The method of claim 1 wherein initiating a visual search using a data store comprising images having classification labels that comprise the at least one classification label associated with the image comprises: selecting a subset of images from the data store, each image in the subset having at least one associated classification label that matches the at least one classification label associated with the image; performing a visual search on the subset of images; ranking images that are indicated as a match by the visual search; and returning a subset of the ranked images.
+8. The method of claim 1 wherein initiating visual intent detection on the image comprises: selecting a visual intent detection mode, the visual intent detection mode selected from a mode that identifies a plurality of subjects in the image and a mode that identifies a single subject in the image; selecting a trained visual intent detection model corresponding to the visual intent detection mode; presenting the image to the trained visual intent detection model; receiving from the trained visual intent detection model a number of bounding boxes that correspond to the visual intent detection mode, each of the bounding boxes substantially bounding a corresponding subject and each of the bounding boxes comprising at least one associated classification label which identifies the corresponding subject; and returning to a user device the image comprising the bounding boxes and the at least on associated classification label.
+9. The method of claim 8 wherein the trained visual intent detection model is trained using both web images and images collected from imaging devices.
+10. A system comprising: a processor and device-storage media having executable instructions which, when executed by the processor, implement visual intent classification, visual intent detection, or both, comprising: receiving a request comprising an image having at least one associated subject; when the request is for visual intent classification, performing operations comprising: submitting the image to a trained visual intent classifier, the trained visual intent classifier being trained as a multilabel classifier; receiving from the trained visual intent classifier at least one classification label from a taxonomy used to train the multilabel classifier, the at least one classification label corresponding to the at least one subject of the image; based on the at least one classification label, initiating at least one of: triggering a query related to the image; causing presentation of information to help the user formulate a query related to the image; initiating a visual search using a data store comprising images having classification labels that comprise the at least one classification label associated with the image; and initiating visual intent detection on the image; and when the request is for visual intent detection, performing operations comprising: presenting the image to the trained visual intent detection model, the trained visual intent detection model being trained in one of two training modes, the first training mode identifying a plurality of subjects in the image and the second training mode a single subject in the image; receiving from the trained visual intent detection model a number of bounding boxes that correspond to the training mode, each of the bounding boxes substantially bounding a corresponding subject and each of the bounding boxes comprising at least one associated classification label which identifies the corresponding subject; and returning to a user device the image comprising the bounding boxes and the at least on associated classification label.
+11. The system of claim 10 wherein the taxonomy includes categories comprising a subset of: animal; two-dimensional artwork; three-dimensional artwork; barcode; book; cosmetics; electronics; face; people; fashion; food_or_drink; gift; home_or_office_furnishing_or_decor; logo; man_made_structure; map; money; musical_instrument; nature_object; newspaper; plant; productivity; school_or_office_supply; sports_or_outdoor_accessories; tatoo; toy; training_workout_item; vehicle; packaged_product; and other.
+12. The system of claim 10 wherein the trained visual intent classifier comprises a MobileNet backbone trained using an error function comprising two multilabel classification losses, a first multilabel classification loss being a multilabel elementwise sigmoid loss and a second multilabel classification loss being a multilabel softmax loss.
+13. The system of claim 10 wherein the visual intent classifier is trained using a cross-entropy loss given by
+14. The system of claim 10 wherein triggering a query comprises: sending the at least one classification label associated with the image to a user device; and receiving from the user device a query to be executed by a search service.
+15. The system of claim 10 wherein causing presentation of information to help the user formulate a query related to the image comprises: selecting a plurality of potential activities based on the at least one classification label associated with the image; sending the plurality of potential activities to a user device; receiving from the user device, selection of at least one activity of the plurality of potential activities; formulating a query based on the selected at least one activity; and sending the query to a query engine for execution.
+16. The system of claim 10 wherein initiating a visual search using a data store comprising images having classification labels that comprise the at least one classification label associated with the image comprises: selecting a subset of images from the data store, each image in the subset having at least one associated classification label that matches the at least one classification label associated with the image; performing a visual search on the subset of images; ranking images that are indicated as a match by the visual search; and returning a subset of the ranked images.
+17. The system of claim 10 wherein the visual intent detection model comprises: a first series of convolutional layers that represent a subset of layers of a VGG-16 detection model; a second series of convolutional layers comprising: a 3×3×1024 convolutional layer; and a 1×1×1024 convolutional layer; a detection layer; and a non-maximum suppression layer.
+18. The system of claim 17 wherein the second series of convolutional layers further comprise: a 3×3×512 convolutional layer; a 1×1×256 convolutional layer; a 3×3×256 convolutional layer; and a 1×1×128 convolutional layer.
+19. A computer storage medium comprising executable instructions that, when executed by a processor of a machine, cause the machine to perform acts comprising: receiving an image having at least one subject; submitting the image to a trained visual intent detector, the trained visual intent detector being trained to identify a plurality of subjects in the image; receiving from the trained visual intent classifier at least one classification label from a taxonomy and an associated bounding box, the at least one classification label corresponding to the at least one subject of the image and the associated bounding box delineating the bounds of the at least one subject; based on the at least one classification label, the bounding box, or both initiating at least one of: triggering a query related to the image; causing presentation of information to help the user formulate a query related to the image; and initiating a visual search using a data store.
+20. The medium of claim 19 further comprising passing the at least one classification label and the associated bounding box to a suppression model, the suppression suppressing at least one classification label along with its associated bounding box.
+</claims>
+</document>

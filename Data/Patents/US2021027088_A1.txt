@@ -1,0 +1,70 @@
+<document>
+
+<filing_date>
+2019-02-19
+</filing_date>
+
+<publication_date>
+2021-01-28
+</publication_date>
+
+<priority_date>
+2018-03-21
+</priority_date>
+
+<ipc_classes>
+G05D1/02,G06K9/46
+</ipc_classes>
+
+<assignee>
+GUANGZHOU XAIRCRAFT TECHNOLOGY COMPANY
+</assignee>
+
+<inventors>
+Dai, Shuangliang
+</inventors>
+
+<docdb_family_id>
+67986626
+</docdb_family_id>
+
+<title>
+METHOD AND DEVICE FOR ACQUIRING BOUNDARY OF AREA TO BE OPERATED, AND METHOD FOR PLANNING OPERATION ROUTE
+</title>
+
+<abstract>
+A method for acquiring a boundary of an area to be operated is provided, which belongs to the technical field of agricultural plant protection. The method for acquiring a boundary of an area to be operated includes: inputting an original image to a pre-set recognition model, the original image including an area to be operated; acquiring a target image output by the pre-set recognition model; and obtaining a boundary of the area to be operated based on the target image.
+</abstract>
+
+<claims>
+1. A method for acquiring a boundary of an area to be operated, comprising: inputting an original image to a pre-set recognition model, the original image comprising an area to be operated; acquiring a target image output by the pre-set recognition model; and obtaining a boundary of the area to be operated based on the target image.
+2. The method according to claim 1, wherein the pre-set recognition model is a deep learning network model, the deep learning network model comprises a convolution module, a deconvolution module, and a feature fusion module, the convolution module comprises a first number of convolution layers, and the deconvolution module comprises a second number of deconvolution layers; the convolution module is configured to extract features of the original image through the first number of convolution layers and output the features to the deconvolution module; the deconvolution module is configured to perform image feature restoration processing based on the features output by the convolution module through the second number of deconvolution layers; and the feature fusion module is configured to fuse image features obtained by performing image feature restoration processing on each layer of the deconvolution module to obtain an output image.
+3. The method according to claim 2, wherein one convolution layer and one deconvolution layer are connected by a cascade structure, and the deconvolution module is further configured to acquire, through the second number of deconvolution layers, convolution processing information of the convolution layer cascaded with the corresponding deconvolution layer, and obtain a deconvolution result of the corresponding deconvolution layers by superimposing a deconvolution result of an upper layer of the corresponding deconvolution layers and the convolution processing information of the convolution layer cascaded with the corresponding deconvolution layer.
+4. The method according to claim 2, wherein each of the convolution layers extracts features of an image input to the convolution layer by performing an expansion operation on the image input to the convolution layer.
+5. The method according to claim 2, wherein the deconvolution module adopts a separable convolution structure.
+6. The method according to claim 2, wherein a loss function of the deep learning network model is:
+description="In-line Formulae" end="lead"?loss=−βΣlogp(yj=1|X)−(1−β)Σlog(yj=0|X),description="In-line Formulae" end="tail"? where loss is a loss value, X is a farmland image sample marked with a target area and a non-target area, β is a ratio of the number of pixels of a target parcel in the image sample X to the total number of pixels of the image sample X, p(yj=1|X) is an output value of pixel j in the image sample X through an activation function.
+7. The method according to claim 1, wherein obtaining a boundary of the area to be operated based on the target image comprises: detecting the target image based on a boundary detection algorithm to determine a boundary of the area to be operated, which is contained in the target image.
+8. The method according to claim 7, wherein detecting the target image based on a boundary detection algorithm to determine a boundary of the area to be operated, which is contained in the target image, comprises: detecting the target image based on a boundary detection algorithm to determine parcel boundary points contained in the target image; and performing expansion and smoothing based on the parcel boundary points to determine a boundary of the area to be operated, which is contained in the target image.
+9. The method according to claim 1, wherein obtaining a boundary of the area to be operated based on the target image comprises: detecting the target image based on a pre-set detection algorithm to determine a boundary of the area to be operated, which is contained in the target image, the pre-set detection algorithm comprising one or more of a color detection algorithm, a density detection algorithm, and a multi-spectral detection algorithm.
+10. A method for planning operation route, comprising: acquiring an original image for operation route planning; acquiring a boundary of an area to be operated in the original image by means of the method for acquiring a boundary of an area to be operated according claim 1; and determining, based on the acquired boundary of the area to be operated, an operation route of a mobile device in the corresponding area to be operated.
+11. The method according to claim 10, wherein determining, based on the acquired boundary of the area to be operated, an operation route of a mobile device in the corresponding area to be operated comprises: superimposing the acquired boundary data of the area to be operated into an image of the area to be operated, the image of the area to be operated being an image of an area where the area to be operated is located in the original image; and determining, based on the image of the area to be operated, superimposed with the boundary data of the area to be operated, an operation route of a mobile device in the area to be operated.
+12. The method according to claim 10, wherein two nodes at each boundary of the area to be operated are respectively a first node and a second node, the method further comprising: determining any one of the boundaries as a starting boundary, and determining two nodes of the starting boundary as a starting node and an ending node; searching using the starting node as a current node, when a first node of any boundary is found to coincide with the current node, determining a second node of the boundary as a current node to continue searching, and determining an area defined by all the found boundaries as a candidate area when a second node of any boundary is found to coincide with the ending node; and when the candidate area does not contain a boundary, determining the candidate area as an area to be operated.
+13. The method according to claim 12, further comprising: highlighting the area to be operated; in response to a selection operation of a user, determining an area to be planned in the area to be operated; and performing route planning for the area to be planned.
+14. A device for acquiring a boundary of an area to be operated, comprising: an original image input module, configured to input an original image to a pre-set recognition model, the original image comprising an area to be operated; a target image acquiring module, configured to acquire a target image output by the pre-set recognition model; and a to-be-operated area boundary acquiring module, configured to obtain a boundary of the area to be operated based on the target image.
+15. The device according to claim 14, wherein the pre-set recognition model comprises a deep learning network model, the deep learning network model comprises a convolution module, a deconvolution module, and a feature fusion module, the convolution module comprises a first number of convolution layers, and the deconvolution module comprises a second number of deconvolution layers, wherein the convolution module is configured to extract features of the original image through the first number of convolution layers and output the features to the deconvolution module; the deconvolution module is configured to perform image feature restoration processing based on the features output by the convolution module through the second number of deconvolution layers; and the feature fusion module is configured to fuse image features obtained by performing image feature restoration processing on each layer of the deconvolution module to obtain an output image.
+16. The device according to claim 15, wherein the convolution layer and the deconvolution layer are connected by a cascade structure, the deconvolution module is further configured to acquire, through the second number of deconvolution layers, convolution processing information of the convolution layer cascaded with the corresponding deconvolution layer, and obtain a deconvolution result of the corresponding deconvolution layers by superimposing a deconvolution result of an upper layer of the corresponding deconvolution layers and the convolution processing information.
+17. The device according to claim 14, wherein each of the convolution layers extracts features of an image input to the convolution layer by performing an expansion operation on the image input to the convolution layer.
+18. The device according to claim 14, wherein the deconvolution module adopts a separable convolution structure.
+19. The device according to claim 14, wherein a loss function of the deep learning network model is:
+description="In-line Formulae" end="lead"?loss=−βΣlogp(yj=1|X)−(1−β)Σlog(yj=0|X),description="In-line Formulae" end="tail"? where loss is a loss value, X is an image sample marked with a target area and a non-target area, β is a ratio of the number of pixels of a target parcel in the image sample X to the total number of pixels of the image sample X, and p(yj=1|X) is an output value of pixel j in the image sample X through an activation function.
+20. (canceled)
+21. (canceled)
+22. (canceled)
+23. (canceled)
+24. (canceled)
+25. (canceled)
+26. (canceled)
+27. The device as claimed in claim 14, wherein the device is applied in an operation route planning device, wherein the operation route planning device comprises: the device for acquiring the boundary of the area to be operated; and an operation route planning module, configured to determine, based on the acquired boundary of the area to be operated, an operation route of a mobile device in the corresponding area to be operated.
+</claims>
+</document>

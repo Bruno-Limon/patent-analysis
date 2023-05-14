@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2019-09-16
+</filing_date>
+
+<publication_date>
+2020-07-02
+</publication_date>
+
+<priority_date>
+2018-12-29
+</priority_date>
+
+<ipc_classes>
+G06F16/33,G06N20/00
+</ipc_classes>
+
+<assignee>
+YANDEX EUROPE
+</assignee>
+
+<inventors>
+VOLYNETS, EDUARD MECHISLAVOVICH
+ANTONOVA, ALEKSANDRA ALEKSANDROVNA
+PLATONOV, VLADIMIR ALEKSANDROVICH
+SAFRONOV, ALEKSANDR VALERIEVICH
+MISYUREV, ALEKSEY VLADIMIROVICH
+</inventors>
+
+<docdb_family_id>
+71123094
+</docdb_family_id>
+
+<title>
+METHOD OF AND SYSTEM FOR GENERATING TRAINING SET FOR MACHINE LEARNING ALGORITHM (MLA)
+</title>
+
+<abstract>
+There is disclosed a computer-implemented method and system for generating a set of training objects for training a machine learning algorithm (MLA) to determine query similarity based on textual content thereof, the MLA executable by the system. The method comprises retrieving, from a search log database of the system, a first query and other queries with associated search results. The method then comprises selecting a subset of query pairs such that: a query difference in queries in the pair is minimized and a results difference in respective search results is maximized
+</abstract>
+
+<claims>
+1. A computer-implemented method for generating a set of training objects for training a machine learning algorithm (MLA) to determine query similarity based on textual content thereof, the MLA executable by a server, the method executable by the server, the method comprising: retrieving, from a search log database of the server, a first query having been submitted on the server, the first query being associated with a first set of search results, each respective search result being associated with a respective user interaction parameter; retrieving, from the search log database, based on terms of the first query, a set of queries, each respective query of the set having been previously submitted on the server, each respective query differing from the first query by a pre-determined number of respective terms; retrieving, from the search log database, for each respective query of the set of queries, a respective set of search results, each respective search result of the respective set being associated with a respective user interaction parameter, each respective set of search results including a respective portion of search results differing from search results in the first set of search results; computing, by the server, a respective similarity score between the first query and a given query of the set of queries based on: the first set of search results and the respective set of search results, and the associated user interaction parameters in the first set of search results and the respective set of search results; determining, by the server, a subset of queries from the set of queries based on the respective similarity score being below a predetermined similarity threshold; and generating the set of training objects to be used as negative training examples for training the MLA, each training object including the first query, a respective query of the subset of queries, and the respective similarity score between the first query and the respective query.
+2. The method of claim 1, wherein the pre-determined number of differing terms is a single term.
+3. The method of claim 2, wherein the respective portion of search results differing from search results in the first set of search results comprises an entirety of search results between the first query and each of the subset of queries being non-overlapping.
+4. The method of claim 2, wherein the respective portion of search results differing from search results in the first set of search results comprises a subset of search results between the first query and each of the subset of queries with non-overlapping user interactions parameters.
+5. The method of claim 4, wherein the non-overlapping user interactions parameters are indicative of past users choosing different search results in the first set of search results and search results in the respective set of search results.
+6. The method of claim 2, wherein the respective portion of search results differing from search results in the first set of search results comprises a pre-determine number of search results being non-overlapping.
+7. The method of claim 3, wherein the training objects being the negative training example is configured to train the MLA to focus on a difference in search results attributable to the single term being different between the first query and the respective query.
+8. The method of claim 1, wherein the computing the respective similarity score between the first query and a given query of the set of queries comprises: generating a first query vector for the first query; generating a second query vector for the given query of the and each respective query of the set; and wherein; calculating the similarity score based on a cosine multiplication of the first query and the second query.
+9. The method of claim 8, wherein generating the first query comprises generating the first query vector based on: the first set of search results, and the associated user interaction parameters in the first set of search results.
+10. The method of claim 8, wherein generating the second query comprises generating the second query vector based on: the respective set of search results associated with the given query, and the associated user interaction parameters the respective set of search results.
+11. The method of claim 8, wherein the predetermined similarity threshold is based on a value of the cosine multiplication being indicative of similarity between the first query vector and the second query vector.
+12. The method of claim 8, wherein a second trained MLA is configured to generate the first vector and the second vector.
+13. The method of claim 1, wherein the respective user interaction parameter comprises at least one of: a number of clicks, a click-through rate (CTR), a dwell time, a click depth, a bounce rate, and an average time spent on the document.
+14. The method of claim 1, wherein the method further comprises categorizing each of the subset of queries from the set of queries: based on the respective similarity score being below the predetermined similarity threshold as a difficult negative example, and based on the respective similarity score being above the predetermined similarity threshold as being an easy negative example.
+15. The method of claim 1, the method further comprises selecting one of the easy negative example and the difficult negative example, the selecting being based on a target function that the MLA needs to learn.
+16. A computer-implemented method for generating a set of training objects for training a machine learning algorithm (MLA) to determine query similarity based on textual content thereof, the MLA executable by a server, the method executable by the server, the method comprising: retrieving, from a search log database of the server, a first query having been submitted on the server, the first query being associated with a first set of search results, each respective search result being associated with a respective user interaction parameter; retrieving, from the search log database, based on terms of the first query, a set of queries, each respective query of the set having been previously submitted on the server, each respective query differing from the first query by a pre-determined number of respective terms; retrieving, from the search log database, for each respective query of the set of queries, a respective set of search results, each respective search result of the respective set being associated with a respective user interaction parameter, each respective set of search results including a respective portion of search results differing from search results in the first set of search results; determining, by the server, a subset of queries from the set of queries such that for a given pair in the subset of queries, the given pair including the first query and one of the respective set of search results: a query difference in queries in minimized; a results difference in respective search results is maximized; generating the set of training objects to be used as negative training examples for training the MLA, each training object including the first query, a respective query of the subset of queries, and an indication of dissimilarity of respective search results.
+17. The method of claim 16, wherein: the query difference is minimized when the queries are different only by a pre-determined low number of query terms; and the results difference is maximized when the search results are different by a pre-determined larger number of search results.
+18. The method of claim 17, wherein the first query and one of the respective set of search results are further selected such that the results difference in respective search results is further maximized based on user interactions with associated overlapping search results.
+19. The method of claim wherein: the query difference is determined based on a number of overlapping search results being above a first pre-determined threshold; the results difference is determined based on the number of overlapping search results being below a second pre-determined threshold.
+20. A computer-implemented method for generating a set of training objects for training a machine learning algorithm (MLA) to determine query similarity based on textual content thereof, the MLA executable by a server, the method executable by the server, the method comprising: retrieving, from a search log database of the server, a first query having been submitted on the server, the first query being associated with a first set of search results, each respective search result being associated with a respective user interaction parameter; retrieving, from the search log database, based on terms of the first query, a set of queries, each respective query of the set having been previously submitted on the server, each respective query having a number of overlapping search results with the first query being above a pre-determined first threshold; retrieving, from the search log database, for each respective query of the set of queries, a respective set of search results, each respective search result of the respective set being associated with a respective user interaction parameter, each respective set of search results including having the number overlapping search results being below a pre-determined second threshold; determining, by the server, a subset of queries from the set of queries such that for a given pair in the subset of queries, the given pair including the first query and one of the respective set of search results: a query difference in queries in minimized; a results difference in respective search results is maximized; generating the set of training objects to be used as negative training examples for training the MLA, each training object including the first query, a respective query of the subset of queries, and an indication of dissimilarity of respective search results.
+</claims>
+</document>

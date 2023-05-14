@@ -1,0 +1,86 @@
+<document>
+
+<filing_date>
+2019-08-20
+</filing_date>
+
+<publication_date>
+2020-02-27
+</publication_date>
+
+<priority_date>
+2018-08-21
+</priority_date>
+
+<ipc_classes>
+G06F16/2457,G06F16/28,G06Q10/06,G06Q10/08,G06Q30/02,G06Q30/06
+</ipc_classes>
+
+<assignee>
+WAL-MART STORES
+</assignee>
+
+<inventors>
+MACKENZIE, SCOTT
+BATHAM, MOHIT
+JOVER, LUIS
+JADE, AVINASH
+</inventors>
+
+<docdb_family_id>
+69587299
+</docdb_family_id>
+
+<title>
+ITEM LINE ASSIGNMENT SYSTEMS AND METHODS
+</title>
+
+<abstract>
+Systems and methods for item price assignment. A line recommendation engine receives unassigned records from a queue and stores one or more line recommendations for the unassigned item record in a recommendation database. The line recommendation engine can determine a new line should be recommended, and/or which existing lines the unassigned item record could be assigned to. A user interface can display the one or more line recommendations for the unassigned item record to a user and receive an input indicating a selected line identifier for the unassigned item record. A machine learning engine can modify a parameter of the line recommendation engine based on the selected line identifier.
+</abstract>
+
+<claims>
+1. A price assignment system for linking items into line groups comprising:
+an item database comprising a plurality of records for existing items, each record comprising a line identifier and one or more item attributes;
+an unassigned items queue comprising a plurality of records for unassigned items, each record comprising one or more item attributes;
+a line recommendation engine configured to receive an unassigned item record from the queue and to store one or more line recommendations for the unassigned item record in a recommendation database;
+a user interface configured to display the one or more line recommendations for the unassigned item record to a user and to receive an input indicating a selected line identifier for the unassigned item record;
+a selection processing engine configured to update the item database with the unassigned item record and the selected line identifier; and
+a machine learning engine configured to modify a parameter of the line recommendation engine based on the selected line identifier.
+2. The system of claim 1, wherein the line recommendation engine comprises a new line detection engine comprising a single-class support vector model trained with the plurality of records for existing items to determine a blueprint of assignable item attributes, the new line detection engine configured to generate a new line recommendation record in the recommendation database when the item attributes of the unassigned item record do not match the blueprint of assignable item attributes.
+3. The system of claim 2, wherein the line recommendation engine further comprises an existing line matching engine comprising a nearest neighbor evaluator configured to generate one or more existing line recommendation records in the recommendation database, each existing line recommendation comprising a line identifier associated with one or more existing item records having item attributes similar to the item attributes of the unassigned item record.
+4. The system of claim 3, wherein the existing line matching engine generates the one or more existing line recommendations only when the new line detection engine does not generate the new line recommendation record.
+5. The system of claim 3, wherein the existing line matching engine is configured to modify the nearest neighbor evaluator by:
+iteratively determining the accuracy of a plurality of attribute models, each attribute model comprising one or more item attributes from the set of all item attributes in the item database, by:
+selecting a training set by randomly selecting one existing item record for each line identifier,
+selecting an attribute model comprising one or more of item attributes from the set of all item attributes of all existing item records;
+calculating a distance of each existing item record not in the training set to the item records in the training set based on the attribute model, predicting a line assignment for each existing item record not in the training set based on the attribute model,
+determining the accuracy of the attribute model by comparing the predicted line assignment for each existing item record not in the training set to the actual line identifier of the item record; and
+modifying the nearest neighbor evaluator to use the attribute model of the plurality of attribute models with the highest accuracy.
+6. The system of claim 1, wherein each item record further comprises a price, and wherein item records with the same line identifier are assigned the same price.
+7. The system of claim 1, wherein each line identifier is associated with one or more ladder identifiers.
+8. The system of claim 7, wherein the user interface is configured to request a ladder identifier for each unassigned item record.
+9. A method for linking an item into an item line in an item database comprising a plurality of records for existing items, each record comprising a line identifier and one or more item attributes, the method comprising:
+receiving an unassigned item record comprising one or more item attributes;
+determining one or more line recommendations for the unassigned item record;
+storing the one or more line recommendations in a recommendation database;
+displaying the one or more line recommendations for the unassigned item record on a user interface;
+receiving an input indicating a selected line identifier for the unassigned item record; updating the item database with the unassigned item record and the selected line identifier; and
+modifying a parameter of a line recommendation engine based on the selected line identifier.
+10. The method of claim 9, wherein determining the one or more line recommendations for the unassigned item record comprises:
+training a single-class support vector model with the plurality of records for existing items to determine a blueprint of assignable item attributes; and generating a new line recommendation record in the recommendation database when the item attributes of the unassigned item record do not match the blueprint of assignable item attributes.
+11. The method of claim 10, wherein determining the one or more line recommendations for the unassigned item record further comprises:
+executing a nearest neighbor evaluator configured to generate one or more existing line recommendation records in the recommendation database, each existing line recommendation comprising a line identifier associated with one or more existing item records having item attributes similar to the item attributes of the unassigned item record.
+12. The method of claim 11, wherein the nearest neighbor evaluator is executed only when a new line recommendation record is not generated.
+13. The method of claim 11, wherein the nearest neighbor evaluator is configured by: iteratively determining the accuracy of a plurality of attribute models, each attribute model comprising one or more item attributes from the set of all item attributes in the item database, by:
+selecting a training set by randomly selecting one existing item record for each line identifier,
+selecting an attribute model comprising one or more of item attributes from the set of all item attributes of all existing item records,
+calculating a distance of each existing item record not in the training set to the item records in the training set based on the attribute model,
+predicting a line assignment for each existing item record not in the training set based on the attribute model,
+determining the accuracy of the attribute model by comparing the predicted line assignment for each existing item record not in the training set to the actual line identifier of the item record; and
+modifying the nearest neighbor evaluator to use the attribute model of the plurality of attribute models with the highest accuracy.
+14. The method of claim 9, wherein each item record further comprises a price, and wherein item records having the same line identifier are assigned the same price.
+15. The method of claim 9, wherein each line identifier is associated with one or more ladder identifiers.
+16. The method of claim 9, further configured to request a ladder identifier for each unassigned product from a user.
+</claims>
+</document>

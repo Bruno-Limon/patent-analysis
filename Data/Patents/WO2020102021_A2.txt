@@ -1,0 +1,60 @@
+<document>
+
+<filing_date>
+2019-11-08
+</filing_date>
+
+<publication_date>
+2020-05-22
+</publication_date>
+
+<priority_date>
+2018-11-13
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/34,G06K9/46
+</ipc_classes>
+
+<assignee>
+NVIDIA CORPORATION
+</assignee>
+
+<inventors>
+AGHDASI, FARZIN
+KUMAR, FNU RATNESH
+RADHAKRISHNAN, SUBHASHREE
+SRIRAM, PARTHASARATHY
+UBALE, ANIL
+ZHAI, YAN
+</inventors>
+
+<docdb_family_id>
+70552188
+</docdb_family_id>
+
+<title>
+DETERMINING ASSOCIATIONS BETWEEN OBJECTS AND PERSONS USING MACHINE LEARNING MODELS
+</title>
+
+<abstract>
+In various examples, sensor data – such as masked sensor data – may be used as input to a machine learning model to determine a confidence for object to person associations. The masked sensor data may focus the machine learning model on particular regions of the image that correspond to persons, objects, or some combination thereof. In some embodiments, coordinates corresponding to persons, objects, or combinations thereof, in addition to area ratios between various regions of the image corresponding to the persons, objects, or combinations thereof, may be used to further aid the machine learning model in focusing on important regions of the image for determining the object to person associations.
+</abstract>
+
+<claims>
+What is claimed is:
+1. A method comprising: determining, from an image, one or more persons associated with an object; for each person of the one or more persons, performing operations comprising: determining an overlap region of the image corresponding to an overlap in the image between an object region of the object and a person region of the person; applying a mask to portions of the image not included in the overlap region to generate a masked image; applying data representative of the masked image to a neural network trained to predict confidences for associations between objects and persons; and computing, using the neural network and based at least in part on the data, a confidence for an association between the object and the person; and based on the confidence for each person of the one or more persons, associating the object to the person of the one or more persons having a highest associated confidence.
+2. The method of claim 1, wherein the determining the one or more persons associated with an object further comprises: generating an association region for the object; and determining that the one or more persons or one or more bounding shapes corresponding to the one or more persons at least partially overlap with the association region.
+3. The method of claim 2, wherein the association region is defined by dimensions extending from a centroid of the object or a bounding shape corresponding to the object, and the association region is larger than the object or the bounding shape corresponding to the object.
+4. The method of claim 1, wherein the person region includes a first portion of the image corresponding to a person bounding shape of the person, the object region includes a second portion of the image corresponding to an object bounding shape of the object, and the overlap region includes a third portion of the image corresponding to an overlap of the person bounding shape with the object bounding shape. 5. The method of claim 1, wherein the image is a most recent image in a sequence of images, and temporal smoothing is used to weight the confidence in view of prior confidences predicted for associations between the person and the object to generate a final confidence, further wherein the final confidence is used for the associating the object to the person.
+6. A method comprising: determining, from an image, one or more persons associated with an object; for each person of the one or more persons, performing operations comprising: determining an object region of the image corresponding to the object, a person region of the image corresponding to the person, and a union region of the image corresponding to a union between the object region and the person region; generating a first masked image by applying a first mask to first portions of the image not included in the object region, a second masked image by applying a second mask to second portions of the image not included in the person region, and a third masked image by applying a third mask to third portions of the image not included in the union region; applying first data representative of the first masked image to a first stream of a neural network, second data representative of the second masked image to a second stream of the neural network, and third data representative of the third masked image to a third stream of the neural network; and computing, using the neural network and based at least in part on outputs of the first stream, the second stream, and the third stream, a confidence for an association between the object and the person; and based on the confidence for each person of the one or more persons, associating the object to the person of the one or more persons having a highest associated confidence.
+7. The method of claim 6, wherein the object region is defined, at least in part, by a first bounding shape corresponding to the object, the person region is defined, at least in part, by a second bounding shape corresponding to the person, and the union region is defined, at least in part, by a combination of the first bounding shape and the second bounding shape. 8. The method of claim 6, further comprising: determining a trajectory of the person through a sequence of images, the sequence of images ending with the image; computing, by the neural network, confidences corresponding to the sequence of images, the confidences including the confidence; applying fourth data representative of the confidences and the trajectory to another neural network; and computing, using the another neural network and based at least in part on the fourth data, an updated confidence for the confidence.
+9. The method of claim 6, wherein the first stream, the second stream, and the third stream each include a plurality of convolutional layers. 10. The method of claim 6, wherein the computing the confidence comprises: concatenating the outputs of the first stream, the second stream, and the third stream to generate concatenated outputs; and applying fourth data representative of the concatenated outputs to one or more additional layers of the neural network.
+11. The method of claim 6, wherein the operations further comprise: determining normalized coordinates corresponding to at least one of the object region, the person region, and the union region; and wherein the computing the confidence is further based at least in part on the normalized coordinates.
+12. The method of claim 11, wherein the normalized coordinates include coordinates of vertices of bounding shapes corresponding to the person, the object, and the union thereof.
+13. The method of claim 6, wherein the image is a most recent image in a sequence of images, and temporal smoothing is used to weight the confidence in view of prior confidences predicted for associations between the person and the object to generate a final confidence, further wherein the final confidence is used for the associating the object to the person. 14. A method comprising: determining, from an image, one or more persons associated with an object; for each person of the one or more persons, performing operations comprising: determining first coordinates associated with an object region of the image corresponding to the object, second coordinates associated with a person region of the image corresponding to the person, and third coordinates associated with a union region corresponding to a union between the object region and the person region; applying first data representative of the image to a convolutional stream of a neural network; computing, using the convolutional stream of the neural network and based at least in part on the first data, second data corresponding to outputs of the convolutional stream; applying the second data and third data representative of the first coordinates, the second coordinates, and the third coordinates to one or more pooling layers of the neural network; computing, using the one or more pooling layers of the neural network and based at least in part on the second data and the third data, fourth data representative of feature maps corresponding to the object, the person, and a combination of the object and the person; and applying the fourth data to one or more additional layers of the neural network; and computing, using the one or more additional layers of the neural network and based at least in part on the fourth data, a confidence for an association between the object and the person.
+15. The method of claim 14, wherein the one or more additional layers include a plurality of fully connected layers. 16. The method of claim 14, further comprising: determining a first ratio between a first area of the object region and a second area of the union region and a second ratio between a third area of the person region and the second area of the union region; applying fifth data representative of the confidence, the first coordinates, the second coordinates, the first ratio, and the second ratio to a multi-layer perceptron (MLP) network; and computing, using the MLP network and based at least in part on the fifth data, an updated confidence.
+17. The method of claim 14, further comprising, based on the updated confidence for each person of the one or more persons, associating the object to the person of the one or more persons having a highest associated confidence. 18. The method of claim 14, wherein the first coordinates, the second coordinates, and the third coordinates are pixel coordinates corresponding to the image.
+19. The method of claim 18, wherein the pixel coordinates correspond to vertices of bounding shapes corresponding to the person, the object, and the union thereof. 20. The method of claim 14, wherein the image is a most recent image in a sequence of images, and temporal smoothing is used to weight the confidence in view of prior confidences predicted for associations between the person and the object to generate a final confidence, further wherein the final confidence is used for the associating the object to the person.
+</claims>
+</document>

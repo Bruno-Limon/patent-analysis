@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2019-12-16
+</filing_date>
+
+<publication_date>
+2020-12-29
+</publication_date>
+
+<priority_date>
+2018-12-19
+</priority_date>
+
+<ipc_classes>
+G06F21/31,G06F3/01,G06K9/00,G06K9/46,G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+ARIZONA STATE UNIVERSITY
+LU DUO
+HUANG, DIJIANG
+</assignee>
+
+<inventors>
+LU DUO
+HUANG, DIJIANG
+</inventors>
+
+<docdb_family_id>
+71097142
+</docdb_family_id>
+
+<title>
+Three-dimensional in-the-air finger motion based user login framework for gesture interface
+</title>
+
+<abstract>
+Various embodiments for a three-dimensional in-the-air finger motion based user login framework for gesture interface are disclosed.
+</abstract>
+
+<claims>
+1. A system for identifying and authenticating a user using a gesture interface, the system comprising: a motion capture device in operative communication with a client-side processor, the client-side processor being configured to execute instructions including: representing a raw gesture signal captured by the motion capture device as a vector series of individual samples, wherein each of the individual samples comprises a multi-dimensional sample vector; and pre-processing the raw gesture signal to obtain a normalized gesture signal; wherein the normalized gesture signal comprises an ID gesture signal or a passcode gesture signal; and a login server in operative communication with a convolutional neural network and a plurality of binary classifiers, the login server being configured to execute instructions including: identifying a user using the convolutional neural network and the plurality of binary classifiers to map the ID gesture signal obtained by the motion capture device to a corresponding account number; and authenticating a user using the convolutional neural network and the plurality of binary classifiers to compare the passcode gesture signal with a passcode template and accept or reject an authentication request associated with the passcode gesture signal.
+2. The system of claim 1, wherein the motion capture device comprises a glove equipped with one or more inertial sensors.
+3. The system of claim 2, wherein an absolute orientation of an index finger of the glove is derived relative to a starting position.
+4. The system of claim 1, wherein the motion capture device comprises a 3D camera.
+5. The system of claim 4, wherein a velocity and an acceleration of a hand captured by the 3D camera are derived from a position difference, wherein the position difference is derived using a position trajectory and a posture estimated by a plurality of depth image frames of the 3D camera.
+6. The system of claim 1, wherein the convolutional neural network comprises: a first and second convolutional pooling layer configured for individually detecting local features of the gesture signal using depthwise convolution; a third, fourth and fifth convolutional pooling layer configured for constructing high level features from the local features using separable convolution; a fully connected layer configured for classifying the high level features and generating a set of embedding vectors; and a softmax layer configured for mapping the set of embedding vectors to a probability distribution of accounts; wherein one or more candidate accounts having high probabilities are selected from the probability distribution of accounts.
+7. The system of claim 1, wherein a signal template is developed at an account registration by performing a gesture multiple times such that the gesture is captured by the motion capture device, wherein the signal template corresponds to the ID gesture signal or to the passcode gesture signal obtained at the account registration.
+8. The system of claim 7, further comprising: training the convolutional neural network at the account registration using an augmented registration dataset, wherein the augmented registration dataset is obtained by: forming a new set of aligned signal templates for every signal template obtained at the account registration; exchanging a random segment between a pair of randomly chosen aligned signal templates to obtain a pair of new signal templates for each pair of randomly chosen aligned signals; augmenting each new template signal; and applying dropout to a fully-connected layer of the convolutional neural network.
+9. The system of claim 7, wherein each of the plurality of binary classifiers comprises a support vector machine.
+10. The system of claim 9, wherein the login server builds the plurality of binary classifiers for an account upon registration.
+11. The system of claim 10, further comprising: training each of the plurality of binary classifiers upon registration, wherein training the binary classifiers comprises: randomly choosing a plurality of windows for each of the plurality of binary classifiers; assigning a true user label to a set of feature vectors extracted from the normalized gesture signals obtained upon registration; assigning a false user label to a set of feature vectors extracted from a plurality of gesture signals associated with other accounts; and applying sequential minimal optimization to each binary classifier using the sets of feature vectors, the true user labels and the false user labels.
+12. The system of claim 1, wherein a plurality of feature vectors are extracted for each normalized gesture signal and a corresponding gesture template and wherein the feature vectors are communicated as input to the plurality of binary classifiers.
+13. The system of claim 1, wherein local samples of the normalized gesture signal are grouped into segments, wherein the segments roughly map to a stroke and wherein segments of the normalized gesture signal are compared with segments of a gesture template.
+14. A method for identifying a user using a gesture interface, comprising: pre-processing a raw ID signal obtained by a motion capture device to obtain a normalized ID signal; obtaining one or more candidate account numbers which are potentially associated with the normalized ID signal using a convolutional neural network; comparing an ID signal template associated with each candidate account number with the normalized ID signal using a plurality of binary classifiers; and returning a best matched account number associated with the normalized ID signal.
+15. The method of claim 14, wherein pre-processing a raw ID signal further comprises: deriving a plurality of indirect dynamic states from the raw ID signal; estimating any missing raw ID signal samples; trimming the raw ID signal; removing high frequency components of the trimmed ID signal using a low pass filter; resampling the filtered ID signal; translating a coordinate system associated with the filtered ID signal such that an X axis of the coordinate system corresponds to an average pointing direction of a user's hand; and normalizing an amplitude of the filtered ID signal to obtain a normalized ID signal; wherein pre-processing the ID signal is performed by a client-side processor.
+16. The method of claim 14, wherein comparing an ID signal template associated with each candidate account number with the normalized ID signal using a plurality of binary classifier further comprises: extracting one or more feature vectors associated with the normalized ID signal; assigning a set of scores to the normalized ID signal by processing each of the one or more feature vectors using one of a plurality of binary classifiers; averaging the set of scores into a singular average score; and comparing the singular average score with a pre-determined threshold value to accept or deny the candidate account obtained by the convolutional neural network.
+17. The method of claim 14, further comprising: extending the normalized gesture signal to a fixed length of 256 elements using linear interpolation prior to being communicated as input to the convolutional neural network.
+18. A method for authenticating a user using a gesture interface, comprising: pre-processing a raw passcode gesture signal obtained by a gesture interface to obtain a normalized passcode gesture signal; extracting a feature vector associated with the normalized passcode gesture signal; assigning a score to the passcode gesture signal by processing the feature vector using one of a plurality of binary classifiers; and comparing the score with a pre-determined threshold value to accept or deny an authentication request associated with the passcode gesture signal.
+19. The method of claim 18, wherein pre-processing a raw passcode gesture signal further comprises: deriving a plurality of indirect dynamic states from the raw passcode gesture signal; estimating any missing raw passcode gesture signal samples; trimming the raw passcode gesture signal; removing high frequency components of the trimmed passcode gesture signal using a low pass filter; re-sampling the filtered passcode gesture signal; translating a coordinate system associated with the filtered passcode gesture signal such that an X axis of the coordinate system corresponds to an average pointing direction of a user's hand; and normalizing an amplitude of the filtered passcode gesture signal to obtain a normalized passcode gesture signal; wherein the step of pre-processing the passcode gesture signal is performed by a client-side processor.
+20. The method of claim 18, wherein extracting a feature vector further comprises: aligning the normalized passcode gesture signal with a passcode template using dynamic time warping such that a length of the aligned passcode gesture signal is the same length as the passcode template; obtaining a distance vector between the aligned passcode gesture signal and the passcode template; segmenting the distance vector into a plurality of local windows; and forming a temporal local distance feature vector from the distance vectors expressed in each of the plurality of randomly chosen local windows.
+</claims>
+</document>

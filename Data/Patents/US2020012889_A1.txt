@@ -1,0 +1,71 @@
+<document>
+
+<filing_date>
+2019-07-03
+</filing_date>
+
+<publication_date>
+2020-01-09
+</publication_date>
+
+<priority_date>
+2018-07-06
+</priority_date>
+
+<ipc_classes>
+G06K9/62
+</ipc_classes>
+
+<assignee>
+TATA CONSULTANCY SERVICES
+</assignee>
+
+<inventors>
+BHOWMICK, BROJESHWAR
+GUPTA, KAVYA
+MAJUMDAR, ANGSHUL
+</inventors>
+
+<docdb_family_id>
+67352486
+</docdb_family_id>
+
+<title>
+SYSTEMS AND METHODS FOR COUPLED REPRESENTATION USING TRANSFORM LEARNING FOR SOLVING INVERSE PROBLEMS
+</title>
+
+<abstract>
+This disclosure relates to systems and methods for solving generic inverse problems by providing a coupled representation architecture using transform learning. Convention solutions are complex, require long training and testing times, reconstruction quality also may not be suitable for all applications. Furthermore, they preclude application to real-time scenarios due to the mentioned inherent lacunae. The methods provided herein require involve very low computational complexity with a need for only three matrix-vector products, and requires very short training and testing times, which makes it applicable for real-time applications. Unlike the conventional learning architectures using inductive approaches, the CASC of the present disclosure can learn directly from the source domain and the number of features in a source domain may not be necessarily equal to the number of features in a target domain.
+</abstract>
+
+<claims>
+1. A processor implemented method for comprising the steps of: identifying a source domain comprising one or more corrupted data (y) in a training set; identifying a target domain comprising one or more clean data (x) in the training set; and generating a model for coupled representation learning using equal number of the one or more corrupted data and the one or more clean data, the step of generating a model comprising: learning a source domain transform (TS) and corresponding source domain features (ZS) pertaining to the source domain; learning a target domain transform (TT) and corresponding target domain features (ZT) pertaining to the target domain; and coupling the source domain features (ZS) and the target domain features (ZT) using an objective function serving as a coupling mechanism based on the analysis sparse coding formulation and characterized by a coupling operator (A) such that the source domain features (ZS) are linearly mapped to the target domain features (ZT) (206c), wherein the objective function being a non-convex problem is solved using the alternating minimization method by dividing the non-convex problem into a plurality of convex problems, and wherein the plurality of convex problems is solved in an alternating manner until the objective function converges to a local minima.
+2. The processor implemented method of claim 1, wherein the objective function is represented as: where y represents corrupted data in the training set stacked as columns and x represent corresponding clean data.
+3. The processor implemented method of claim 2, wherein the plurality of convex problems are represented as:
+description="In-line Formulae" end="lead"?P1: TSmin∥TSy−ZS∥F2+λ(∥TS∥F2−log det TS)description="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?P2: TTmin∥TTx−ZT∥F2+λ(∥TT∥F2−log det TT)description="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?P3: ZSmin∥TSy−ZS∥F2+μ∥ZT−AZS∥F2+λy∥Z S∥1 description="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?P4: ZTmin∥TTx−ZT∥F2+μ∥ZT−AZS∥F2μx∥ZT∥1 description="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?P5: Amin∥ZT−AZS∥F2 description="In-line Formulae" end="tail"?
+4. The processor implemented method of claim 3 further comprising solving an inverse problem by synthesizing one or more clean data (Xtest) from corresponding one or more corrupted data (ytest) from a testing set by: receiving the one or more corrupted data (ytest) (208a); obtaining source domain features (zS) based on the one or more corrupted data (ytest) and the source domain transform (TS); obtaining target domain features ({circumflex over (z)}T) based on the coupling operator (A) and the source domain features (zS); and synthesizing the one or more clean data (xtest) based on the target domain transform TT and the target domain features ({circumflex over (z)}T).
+5. The processor implemented method of claim 4, wherein the step of obtaining features (zS) of the one or more corrupted data is represented as zS→TSy.
+6. The processor implemented method of claim 4, wherein the step of obtaining features ({circumflex over (z)}T) of the target domain is represented as {circumflex over (z)}T=AzS.
+7. The processor implemented method of claim 4, wherein the step of synthesizing the one or more clean data (x) of the target domain is represented as a pseudo inverse form TTx={circumflex over (z)}T.
+8. The processor implemented method of claim 1, wherein the number of features of the source domain is less than, more than or equal to the number of features in the target domain.
+9. A system comprising: one or more data storage devices operatively coupled to one or more hardware processors and configured to store instructions configured for execution by the one or more hardware processors to: identify a source domain comprising one or more corrupted data (y) in a training set; identify a target domain comprising one or more clean data (x) in the training set; and generate a model for coupled representation learning using equal number of the one or more corrupted data and the one or more clean data, wherein the model is generated by: learning a source domain transform (TS) and corresponding source domain features (ZS) pertaining to the source domain; learning a target domain transform (TT) and corresponding target domain features (ZT) pertaining to the target domain; and coupling the source domain features (ZS) and the target domain features (ZT) using an objective function serving as a coupling mechanism based on the analysis sparse coding formulation and characterized by a coupling operator (A) such that the source domain features (ZS) are linearly mapped to the target domain features (ZT), wherein the objective function being a non-convex problem is solved using the alternating minimization method by dividing the non-convex problem into a plurality of convex problems, wherein the plurality of convex problems is solved in an alternating manner until the objective function converges to a local minima.
+10. The system of claim 9, wherein the objective function is represented as:
+11. The system of claim 10, wherein the plurality of convex problems are represented as:
+description="In-line Formulae" end="lead"?P1: TSmin∥TSy−ZS∥F2+λ(∥TS∥F2−log det TS)description="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?P2: TTmin∥TTx −ZT∥F2+λ(∥TT∥F2−log det TT)description="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?P3: ZSmin∥TSy−ZS∥F2+μ∥ZT−AZS∥F2+λy∥ZS∥1 description="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?P4: ZTmin∥TTx−ZT∥F2+μ∥ZT−AZS∥F2+λx∥ZT∥1 description="In-line Formulae" end="tail"?
+description="In-line Formulae" end="lead"?P5: Amin∥ZT−AZS∥F2.description="In-line Formulae" end="tail"?
+12. The system of claim 11, wherein the one or more hardware processors are further configured to solve an inverse problem by synthesizing one or more clean data (xtest) from corresponding one or more corrupted data (ytest) from a testing set by: receiving the one or more corrupted data (ytest); obtaining source domain features (zS) based on the one or more corrupted data (ytest) and the source domain transform (TS); obtaining target domain features ({circumflex over (z)}T) based on the coupling operator (A) and the source domain features (zS); and synthesizing the one or more clean data (xtest) based on the target domain transform TT and the target domain features ({circumflex over (z)}T).
+13. The system of claim 12, wherein obtaining features (zS) of the one or more corrupted data is represented as zS←TSy.
+14. The system of claim 12, wherein obtaining features ({circumflex over (z)}T) of the target domain is represented as {circumflex over (z)}T=AzS.
+15. The system of claim 12, wherein synthesizing the one or more clean data (x) of the target domain is represented as a pseudo inverse form TTx={circumflex over (z)}T.
+16. The system of claim 9, wherein the number of features of the source domain is less than, more than or equal to the number of features in the target domain.
+17. A computer program product comprising a non-transitory computer readable medium having a computer readable program embodied therein, wherein the computer readable program, when executed on a computing device, causes the computing device to: identify a source domain comprising one or more corrupted data (y) in a training set; identify a target domain comprising one or more clean data (x) in the training set; and generate a model for coupled representation learning using equal number of the one or more corrupted data and the one or more clean data, wherein the model is generated by: learning a source domain transform (TS) and corresponding source domain features (ZS) pertaining to the source domain; learning a target domain transform (TT) and corresponding target domain features (ZT) pertaining to the target domain; and coupling the source domain features (ZS) and the target domain features (ZT) using an objective function serving as a coupling mechanism based on the analysis sparse coding formulation and characterized by a coupling operator (A) such that the source domain features (ZS) are linearly mapped to the target domain features (ZT), wherein the objective function being a non-convex problem is solved using the alternating minimization method by dividing the non-convex problem into a plurality of convex problems, wherein the plurality of convex problems is solved in an alternating manner until the objective function converges to a local minima.
+18. The computer program product of claim 17, wherein the computer readable program further causes the computing device to solve an inverse problem by synthesizing one or more clean data (xtest) from a corresponding one or more corrupted data (ytest) from a testing set by: receiving the one or more corrupted data (ytest); obtaining source domain features (zS) based on the one or more corrupted data (ytest) and the source domain transform (TS); obtaining target domain features ({circumflex over (z)}T) based on the coupling operator (A) and the source domain features (zS); and synthesizing the one or more clean data (xtest) based on the target domain transform TT and the target domain features ({circumflex over (z)}T)
+</claims>
+</document>

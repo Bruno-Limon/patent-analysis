@@ -1,0 +1,68 @@
+<document>
+
+<filing_date>
+2014-09-29
+</filing_date>
+
+<publication_date>
+2020-06-16
+</publication_date>
+
+<priority_date>
+2014-09-29
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/08,H04L29/08
+</ipc_classes>
+
+<assignee>
+MICROSOFT CORPORATION
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+CHILIMBI, TRISHUL
+SUZUE, YUTAKA
+APACIBLE, JOHNSON T.
+HE, YUXIONG
+KALYANARAMAN, KARTHIK
+YAN, FENG
+RUWASE, OLATUNJI
+</inventors>
+
+<docdb_family_id>
+55584805
+</docdb_family_id>
+
+<title>
+Tool for investigating the performance of a distributed processing system
+</title>
+
+<abstract>
+A performance investigation tool (PIT) is described herein for investigating the performance of a distributed processing system (DPS). The PIT operates by first receiving input information that describes a graph processing task to be executed using a plurality of computing units. The PIT then determines, based on the input information, at least one time-based performance measure that describes the performance of a DPS that is capable of performing the graphical task. More specifically, the PIT can operate in a manual mode to explore the behavior of a specified DPS, or in an automatic mode to find an optimal DPS from within a search space of candidate DPSs. A configuration system may then be used to construct a selected DPS, using the plurality of computing units. In one case, the graph processing task involves training a deep neural network model having a plurality of layers.
+</abstract>
+
+<claims>
+1. A method comprising: receiving input information that describes at least some characteristics of a graph processing task to be executed in a distributed manner by a particular distributed processing system using a plurality of computing units and at least one constraint the particular distributed processing system is expected to satisfy, the graph processing task comprising training a deep neural network model having a plurality of layers; prior to constructing the particular distributed processing system to perform the graph processing task: determining, using the input information, time-based performance measures for a plurality of candidate distributed processing systems, the time-based performance measures indicating a prospective performance of the particular distributed processing system when performing the graph processing task using the plurality of computing units; and selecting the particular distributed processing system that satisfies the at least one constraint from the plurality of candidate distributed processing systems based at least on the determined time-based performance measures; and after selecting the particular distributed processing system, constructing the particular distributed processing system using the plurality of computing units, wherein the determining comprises assigning a partition in a particular layer to a particular computing unit based at least on a number of remote connections that the particular computing unit has to other computing units in a successive layer-by-layer manner.
+2. The method of claim 1, wherein the input information describes the particular distributed processing system.
+3. The method of claim 1, wherein the determining operates by using a dynamic programming technique to find an optimal solution that corresponds to the particular distributed processing system.
+4. The method of claim 1, wherein the determining comprises at least investigating different numbers of partitions to be used in each layer of the deep neural network model by the plurality of candidate distributed processing systems, and different allocations of the plurality of computing units to the partitions in each layer, in a successive layer-by-layer manner.
+5. The method of claim 1, wherein a complexity of the determining the time-based performance measures for the plurality of candidate distributed processing systems is polynomial.
+6. The method of claim 1, wherein said receiving of the input information includes executing a test on at least one of the computing units to identify at least one time-based performance property without actually performing the graph processing task.
+7. The method of claim 1, wherein the determining comprises: predicting an amount of time to be consumed in performing computations entailed by the training; and predicting an amount of time to be consumed in communicating information within a particular candidate distributed processing system, in performing the training.
+8. The method of claim 7, wherein said predicting of the amount of time to be consumed in performing the computations comprises: predicting an amount of time to be consumed in generating activations and error terms, for each layer of the deep neural network model; and predicting an amount of time to be consumed in updating weights, for each layer of the deep neural network model.
+9. The method of claim 7, wherein said predicting of the amount of time to be consumed in communicating information comprises: predicting an amount of time, for each layer of the deep neural network model, to be consumed in communicating activations and error terms between computing units; and predicting an amount of time to be consumed in exchanging weight information with at least one parameter module.
+10. The method of claim 1, further comprising: based at least on a particular time-based performance measure for a particular candidate distributed processing system, identifying at least one modification to the particular candidate distributed processing system to improve performance of the particular candidate distributed processing system; and making the modification to produce a modified candidate distributed processing system.
+11. The method of claim 10, wherein the modified candidate distributed processing system includes: at least one replica unit configured to operate on a replica-specific data set using at least one worker computing unit that implements a portion of the deep neural network model; and at least one parameter module configured to exchange weight information with the at least one replica unit, and wherein the modified candidate distributed processing system further comprises at least one helper worker computing unit configured to assist at least one helpee worker computing unit in performing tasks associated with an output layer of the deep neural network model.
+12. The method of claim 10, wherein the modified candidate distributed processing system includes: replica units configured to operate on respective replica-specific data sets; and parameter modules configured to exchange weight information with the replica units, wherein each replica unit comprises: at least one parameter-interaction worker computing unit configured to implement a portion of the deep neural network model and exchange weight information with at least one parameter module; and at least one non-interaction worker computing unit configured to implement a portion of the deep neural network model without exchanging weight information with the parameter modules.
+13. The method of claim 12, wherein each replica unit has a single parameter-interaction worker computing unit.
+14. The method of claim 1, wherein the determining comprises: in a successive layer-by-layer manner, choosing a number of partitions for a particular layer based at least on analysis results associated with a previous layer.
+15. The method of claim 1, wherein the time-based performance measures are determined for less than all permutations of parameters associated with the plurality of candidate distributed processing systems.
+16. The method of claim 1, further comprising: presenting the particular distributed processing system to a user; and receiving a selection input from the user, wherein the constructing is performed after receiving the selection input.
+17. One or more computing devices comprising: a processing device; and a computer-readable storage medium storing instructions which, when executed by the processing device, cause the processing device to: receive input information that describes at least some aspects of a graph processing task to be executed in a distributed manner using a plurality of computing units, the graph processing task comprising training a neural network model having a plurality of layers; based at least on the input information, determine time-based performance measures for a plurality of candidate distributed processing systems, the time-based performance measures describing a prospective performance of a particular distributed processing system that is capable of performing the graph processing task using the plurality of computing units, a partition in a particular layer being assigned to a particular computing unit based at least on a number of remote connections that the particular computing unit has to other computing units in a successive layer-by-layer manner; formulate an output which conveys at least one of the time-based performance measures; and construct the particular distributed processing system from among the plurality of candidate distributed processing systems by loading or activating code on the plurality of computing units.
+18. The one or more computing devices of claim 17, wherein the input information describes the particular distributed processing system.
+19. The one or more computing devices of claim 17, wherein the instructions, when executed by the processing device, cause the processing device to: select the particular distributed processing system from among the plurality of candidate distributed processing systems that meet a constraint specified by the input information.
+20. A computer readable storage medium storing computer readable instructions executable by one or more processing devices, the computer readable instructions comprising: logic configured to receive input information that describes at least some aspects of a graphical task of training of a deep neural network model having a plurality of layers, to be executed using a plurality of computing units; logic configured to determine, based at least on the input information, time-based performance measures for a plurality of candidate distributed processing systems, the time-based performance measures describing prospective performance of a particular distributed processing system that is capable of performing the graphical task using the plurality of computing units; logic configured to assign a partition in a particular layer to a particular computing unit based at least on a number of remote connections the particular computing unit has to other computing units in a successive layer-by-layer manner, a particular time-based performance measure being based on at least: a predicted amount of time to be consumed in performing computations entailed by the training; and a predicted amount of time to be consumed in communicating information within a particular candidate distributed processing system, in performing the training; and logic configured to construct the particular candidate distributed processing system using the plurality of computing units.
+</claims>
+</document>

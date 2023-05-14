@@ -1,0 +1,61 @@
+<document>
+
+<filing_date>
+2020-01-15
+</filing_date>
+
+<publication_date>
+2020-05-14
+</publication_date>
+
+<priority_date>
+2017-07-19
+</priority_date>
+
+<ipc_classes>
+G10L15/02,G10L15/08,G10L15/18,G10L15/22
+</ipc_classes>
+
+<assignee>
+TENCENT TECHNOLOGY (SHENZHEN) COMPANY
+</assignee>
+
+<inventors>
+TANG, HUIZHONG
+</inventors>
+
+<docdb_family_id>
+60285244
+</docdb_family_id>
+
+<title>
+SPEECH RECOGNITION METHOD AND APPARATUS, AND STORAGE MEDIUM
+</title>
+
+<abstract>
+A speech recognition method and apparatus, and a storage medium are provided. The method includes: acquiring, by a digital signal processor (DSP), audio data; performing, by the DSP, fuzzy speech recognition on the audio data; waking up a central processing unit (CPU) in a dormant state if a fuzzy speech recognition result indicates that that a wakeup word exists in the audio data. The method also includes: reading, by the CPU, data corresponding to the wakeup word in the audio data from the DSP, to obtain wakeup data; determining, by the CPU, whether the wakeup word exists in the audio data by performing speech recognition on the wakeup data; if the wakeup word exists, performing, by the CPU, semantic analysis on the audio data; and if the wakeup word does not exist, determining, by the CPU, that the fuzzy speech recognition result is incorrect and entering the dormant state.
+</abstract>
+
+<claims>
+1. A speech recognition method, comprising: acquiring, by a digital signal processor (DSP) of a computing device, audio data; performing, by the DSP, fuzzy speech recognition on the audio data; waking up, by the DSP, a central processing unit (CPU) of the computing device in a dormant state upon determining that a wakeup word exists in the audio data based on a fuzzy speech recognition result; reading, by the CPU, data corresponding to the wakeup word in the audio data from the DSP, to obtain wakeup data; determining, by the CPU, whether the wakeup word exists in the audio data by performing speech recognition on the wakeup data; upon determining that the wakeup word exists, performing, by the CPU, semantic analysis on the audio data; and upon determining that the wakeup word does not exist, determining, by the CPU, that the fuzzy speech recognition result is incorrect and entering the dormant state.
+2. The method according to claim 1, wherein the performing fuzzy speech recognition on the audio data comprises: performing, by the DSP, speech recognition on the audio data through fuzzy clustering analysis, to obtain the fuzzy speech recognition result.
+3. The method according to claim 2, wherein the performing, by the DSP, speech recognition on the audio data through fuzzy clustering analysis, to obtain the fuzzy speech recognition result comprises: establishing a fuzzy clustering neural network according to the fuzzy clustering analysis; predicting, by taking the fuzzy clustering neural network as an estimator of a probability density function, a probability of the audio data comprising the wakeup word; generating the fuzzy speech recognition result indicating that the wakeup word exists when the predicted probability is greater than or equal to a set value; and generating the fuzzy speech recognition result indicating that the wakeup word does not exist when the predicted probability is less than the set value.
+4. The method according to claim 1, wherein the performing fuzzy speech recognition on the audio data comprises: performing, by the DSP, speech recognition on the audio data through a fuzzy matching algorithm, to obtain the fuzzy speech recognition result.
+5. The method according to claim 4, wherein the performing, by the DSP, speech recognition on the audio data through a fuzzy matching algorithm, to obtain the fuzzy speech recognition result comprises: acquiring a feature map of a pronunciation of the wakeup word, to obtain a standard feature map; analyzing a feature map of a pronunciation of each word in the audio data, to obtain a to-be-matched feature map; calculating an extent to which each to-be-matched feature map belongs to the standard feature map according to a membership function; generating the fuzzy speech recognition result indicating that the wakeup word exists when the extent is greater than or equal to a preset value; and generating the fuzzy speech recognition result indicating that the wakeup word does not exist when the extent is less than the preset value.
+6. The method according to claim 1, further comprising: after performing the semantic analysis on the audio data, and executing, by the CPU according to an analysis result of the semantic analysis, an operation corresponding to the analysis result.
+7. The method according to claim 1, wherein the performing speech recognition on the wakeup data comprises: setting a working state of the CPU to a first state, the first state being operating with single-core and at low-frequency; and performing the speech recognition on the wakeup data in the first state.
+8. The method according to claim 7, wherein the performing the semantic analysis on the audio data comprises: setting the working state of the CPU to a second state, the second state being operating with multi-core and at high-frequency; and performing the semantic analysis on the audio data in the second state.
+9. The method according to claim 1, wherein the performing the semantic analysis on the audio data comprises: determining a semantic scene according to the wakeup word corresponding to the audio data; determining a quantity of working cores and an operation frequency of the CPU according to the semantic scene; and setting a working state of the CPU according to the quantity of working cores and the operation frequency, to perform the semantic analysis on the audio data.
+10. The method according to claim 1, wherein before the performing fuzzy speech recognition on the audio data, the method further comprises: performing, by the DSP, noise reduction and/or echo cancellation processing on the audio data.
+11. The method according to claim 6, wherein executing an operation corresponding to the analysis result comprises: determining an operation object and operation content according to the analysis result; and executing the operation content on the operation object.
+12. A speech recognition apparatus, comprising: a digital signal processor (DSP); and a central processing unit (CPU), wherein: the DSP is configured to: acquire audio data; perform fuzzy speech recognition on the audio data; and wake up the CPU in a dormant state upon determining that a wakeup word exists in the audio data based on a fuzzy speech recognition result; and the CPU is configured to: read data corresponding to the wakeup word in the audio data from the DSP, to obtain wakeup data; determine whether the wakeup word exists in the audio data by performing speech recognition on the wakeup data; upon determining that the wakeup word exists, perform semantic analysis on the audio data; and upon determining that the wakeup word does not exist, determine that the fuzzy speech recognition result is incorrect and enter the dormant state.
+13. The apparatus according to claim 12, wherein the CPU is further configured to: after performing the semantic analysis on the audio data, execute an operation according to an analysis result of the semantic analysis.
+14. The apparatus according to claim 12, wherein the CPU is further configured to: perform the speech recognition on the wakeup data at a first working state of single-core and low-frequency operation.
+15. The apparatus according to claim 14, wherein the CPU is further configured to: perform the semantic analysis on the audio data at a second working state of multi-core and high-frequency operation.
+16. The apparatus according to claim 12, wherein the CPU is further configured to: determine a semantic scene according to the wakeup word corresponding to the audio data; determine a quantity of working cores and an operation frequency of the CPU according to the semantic scene; and perform the semantic analysis on the audio data in a third working state according to the quantity of working cores and the operation frequency.
+17. A non-transitory computer readable storage medium storing a plurality of instructions, the instructions, when being executed by one or more processors of a computing device, cause the one or more processors to perform: acquiring, by a digital signal processor (DSP) of the computing device, audio data; performing, by the DSP, fuzzy speech recognition on the audio data; waking up, by the DSP, a central processing unit (CPU) of the computing device in a dormant state upon determining that a wakeup word exists in the audio data based on a fuzzy speech recognition result; reading, by the CPU, data corresponding to the wakeup word in the audio data from the DSP, to obtain wakeup data; determining, by the CPU, whether the wakeup word exists in the audio data by performing speech recognition on the wakeup data; upon determining that the wakeup word exists, performing, by the CPU, semantic analysis on the audio data; and upon determining that the wakeup word does not exist, determining, by the CPU, that the fuzzy speech recognition result is incorrect and entering the dormant state.
+18. The storage medium according to claim 17, wherein the instructions further cause the CPU to: perform the speech recognition on the wakeup data at a first working state of single-core and low-frequency operation.
+19. The storage medium according to claim 18, wherein the instructions further cause the CPU to: perform the semantic analysis on the audio data at a second working state of multi-core and high-frequency operation.
+20. The storage medium according to claim 17, wherein the instructions further cause the CPU to: determine a semantic scene according to the wakeup word corresponding to the audio data; determine a quantity of working cores and an operation frequency of the CPU according to the semantic scene; and perform the semantic analysis on the audio data in a third working state according to the quantity of working cores and the operation frequency.
+</claims>
+</document>

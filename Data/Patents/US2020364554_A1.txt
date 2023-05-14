@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2018-02-09
+</filing_date>
+
+<publication_date>
+2020-11-19
+</publication_date>
+
+<priority_date>
+2018-02-09
+</priority_date>
+
+<ipc_classes>
+G06K9/62,G06N3/04,G06N3/08,G06T7/20,G06T7/73
+</ipc_classes>
+
+<assignee>
+BAIDU USA
+BAIDU USA
+BAIDU.COM TIMES TECHNOLOGY (BEIJING) COMPANY
+</assignee>
+
+<inventors>
+CAO, BINBIN
+XU, WEI
+YANG, RUIGANG
+WANG, PENG
+</inventors>
+
+<docdb_family_id>
+67548171
+</docdb_family_id>
+
+<title>
+SYSTEMS AND METHODS FOR DEEP LOCALIZATION AND SEGMENTATION WITH A 3D SEMANTIC MAP
+</title>
+
+<abstract>
+Presented are deep learning-based systems and methods for fusing sensor data, such as camera images, motion sensors (GPS/IMU), and a 3D semantic map to achieve robustness, real-time performance, and accuracy of camera localization and scene parsing useful for applications such as robotic navigation and augment reality. In embodiments, a unified framework accomplishes this by jointly using camera poses and scene semantics in training and testing. To evaluate the presented methods and systems, embodiments use a novel dataset that is created from real scenes and comprises dense 3D semantically labeled point clouds, ground truth camera poses obtained from high-accuracy motion sensors, and pixel-level semantic labels of video camera images. As demonstrated by experimental results, the presented systems and methods are mutually beneficial for both camera poses and scene semantics.
+</abstract>
+
+<claims>
+1. A method for using a network to perform joint scene parsing and camera pose estimation, the method comprising: receiving semantic map data, image data associated with a camera, and sensor data that comprises a coarse camera pose; creating a first semantic label map by using the coarse camera pose and a camera intrinsic parameter; providing both the image data and the first semantic label map to a first pose network to obtain a corrected camera pose; and inputting the image data into a segment network to generate a two-dimensional parsing associated with the inputted image.
+2. The method of claim 1, wherein the sensor data is provided by a motion sensor.
+3. The method of claim 1, further comprising using the corrected camera pose in a second pose network to generate a refined camera pose to increase a pose accuracy.
+4. The method of claim 3, wherein the first pose network and the segment network are convolutional neural networks, the second pose network is a recurrent neural network.
+5. The method of claim 3, further comprising, based on the refined camera pose, rendering a second semantic label map that is input to the segment network.
+6. The method of claim 5, wherein the second semantic label map is embedded into the segment network as a segmentation context.
+7. The method of claim 5, further comprising transforming the second semantic label map to a score map through a one-hot operation.
+8. The method of claim 1, wherein the two-dimensional parsing comprises a per-pixel semantic label.
+9. The method of claim 1, wherein the first pose network calculates a relative rotation and translation, and wherein the corrected camera pose is used to generate temporal correlations.
+10. A system for joint scene parsing and camera pose estimation, the system comprising: a camera that has an intrinsic parameter and generates image data; a sensor that generates sensor data comprising a coarse camera pose; a processor comprising instructions that when executed create a first semantic label map based on semantic map data, the image data, and the sensor data; a first pose network that in response to receiving the image data and the first semantic label map generates a corrected camera pose; and a segment network that, based on the image data, generates a two-dimensional parsing that is associated with the inputted image.
+11. The system of claim 10, wherein the sensor data is provided by a motion sensor.
+12. The system of claim 10, wherein the sensor data comprises a location estimate.
+13. The system of claim 10, further comprising a second pose network that, based on the corrected camera pose, generates a refined camera pose to increase a pose accuracy by rendering a second semantic label map that is input to the segment network.
+14. The system of claim 13, wherein the second semantic label map is two-dimensional and embedded into the segment network as a segmentation context.
+15. The system of claim 10, wherein the semantic map data comprises a point of a three-dimensional point cloud, the point being enlarged to a two-dimensional square whose size is determined by a semantic class associated with the point cloud.
+16. A method for training a network to perform joint scene parsing and camera pose estimation, the method comprising: receiving semantic map data, image data associated with a camera, and sensor data that comprises a coarse camera pose; creating a semantic label map by using the coarse camera pose and a camera intrinsic parameter; providing both the image data and the semantic label map to a first pose network to obtain a corrected camera pose; inputting the image data into a segment network to generate a two-dimensional parsing associated with the inputted image; and using a loss that comprises a weight factor that depends on the semantic class.
+17. The method of claim 16, wherein the first pose network and the segment network are convolutional neural networks, the second pose network is a recurrent neural network.
+18. The method of claim 16, wherein the semantic map data comprises a point of a three-dimensional point cloud, the point being enlarged to a two-dimensional square whose size is determined by a semantic class associated with the point cloud.
+19. The method of claim 18, wherein size of the square is proportional to an average distance between the camera and the semantic class.
+20. The method of claim 16, further comprising removing data associated with moving objects from the semantic map data by at least one of repeatedly scanning a road segment, aligning and fusing point clouds in the semantic map data, and removing, from point clouds in the semantic map data, points that have a relatively lower temporal consistency.
+</claims>
+</document>

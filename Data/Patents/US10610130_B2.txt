@@ -1,0 +1,68 @@
+<document>
+
+<filing_date>
+2018-06-29
+</filing_date>
+
+<publication_date>
+2020-04-07
+</publication_date>
+
+<priority_date>
+2018-06-29
+</priority_date>
+
+<ipc_classes>
+A61B5/00,A61B5/107,A61B5/11,G16H30/40
+</ipc_classes>
+
+<assignee>
+INTEL CORPORATION
+</assignee>
+
+<inventors>
+DOMEIKA, MAXIMILLIAN
+DROR, ELIRAN
+SMITH, NED
+</inventors>
+
+<docdb_family_id>
+65231364
+</docdb_family_id>
+
+<title>
+Measuring limb range of motion
+</title>
+
+<abstract>
+A system, method, and computer readable medium for measuring limb range of motion. The method includes initializing a scanning area. A classifier trained to recognize limbs is loaded into memory. A frame representing a 3D point cloud having at least one limb of a person in motion is captured. A box fitting algorithm is performed on the captured at least one limb to enable the classifier to identify the at least one limb. One or more boxes generated from the box fitting algorithm are sliced into a plurality of 2D point clouds to measure and record the circumference of each 2D point cloud to obtain limb range of motion parameters. The limb range of motion parameters are a maximum and a minimum size of the at least one limb as a function of soft tissue expansion and contraction of the limb while under pressure, force, and/or motion.
+</abstract>
+
+<claims>
+1. At least one non-transitory computer readable medium, comprising a set of instructions, which when executed by a computing device, cause the computing device to: initialize a scanning area; load a classifier trained to recognize limbs; capture, using at least one 3D camera, a frame representing a 3D point cloud including at least one limb of a person in motion; perform a box fitting algorithm on the captured at least one limb to enable the classifier to identify the at least one limb; and slice one or more boxes generated from the box fitting algorithm into a plurality of 2D point clouds to measure and record a circumference of each 2D point cloud to obtain limb range of motion parameters, wherein the limb range of motion parameters comprise a maximum and a minimum size of the at least one limb as a function of soft tissue expansion and contraction of the at least one limb while under pressure, force, and/or motion.
+2. The at least one computer readable medium of claim 1, comprising further instructions, which when executed by the computing device, cause the computing device to capture additional frames of the 3D point cloud to obtain additional measurements, wherein if a current measurement exceeds a previous maximum size, the current measurement is updated as the maximum size, and wherein if the current measurement is less than a previous minimum size, the current measurement is updated as the minimum size.
+3. The at least one computer readable medium of claim 2, comprising further instructions, which when executed by the computing device, cause the computing device to collect all measurements into a video stream having 3D point cloud information and simulate recorded motion through a neural network to estimate a full range of rotation and motion for the person.
+4. The at least one computer readable medium of claim 3, wherein the full range of rotation and motion for the person enables manufacturing of apparel that comfortably fits the person while in motion.
+5. The at least one computer readable medium of claim 1, wherein instructions to initialize a scanning area comprise instructions to calibrate an x, y, z scanning region relative to a floor and walls of the scanning area.
+6. The at least one computer readable medium of claim 1, wherein the classifier is trained to recognize limbs within the 3D point clouds and to specify a number of bounding rectangular boxes needed to fit around the captured at least one limb.
+7. The at least one computer readable medium of claim 1, wherein instructions to perform a box fitting algorithm comprises instructions to: fit a bounded rectangular box around the captured at least one limb, wherein if the captured at least one limb includes subsections, fit bounded rectangular boxes around each of the subsections of the captured at least one limb; measure and record each of the bounded rectangular boxes and any angles between the bounded rectangular boxes of limbs having subsections; and based on dimensions of each of the bounded rectangular boxes, use the classifier to identify the at least one limb, wherein the classifier is trained to identify a type of limb within the 3D point cloud based on sizes of the bounded rectangular boxes used.
+8. The at least one computer readable medium of claim 7, wherein instructions to fit a bounded rectangular box around the captured at least one limb comprises instructions to fit one or more best fit bounded rectangular boxes around the captured at least one limb, wherein a best fit bounded rectangular box comprises a rectangular box having a smallest area that completely contains the captured at least one limb or the subsection of the captured at least one limb.
+9. A method for measuring limb range of motion comprising: initializing a scanning area; loading a classifier trained to recognize limbs; capturing, using at least one 3D camera, a frame representing a 3D point cloud including at least one limb of a person in motion; performing a box fitting algorithm on the captured at least one limb to enable the classifier to identify the at least one limb; and slicing one or more boxes generated from the box fitting algorithm into a plurality of 2D point clouds to measure and record a circumference of each 2D point cloud to obtain limb range of motion parameters, wherein the limb range of motion parameters comprise a maximum and a minimum size of the at least one limb as a function of soft tissue expansion and contraction of the at least one limb while under pressure, force, and/or motion.
+10. The method of claim 9, further comprising capturing additional frames of the 3D point cloud to obtain additional measurements, wherein if a current measurement exceeds a previous maximum size, the current measurement is updated as the maximum size, and wherein if the current measurement is less than a previous minimum size, the current measurement is updated as the minimum size.
+11. The method of claim 10, further comprising collecting all measurements into a video stream having 3D point cloud information and simulating recorded motion through a neural network to estimate a full range of rotation and motion for the person.
+12. The method of claim 11, wherein the full range of rotation and motion for the person enables manufacturing of apparel that comfortably fits the person while in motion.
+13. The method of claim 9, wherein initializing a scanning area comprises calibrating an x, y, z scanning region relative to a floor and walls of the scanning area.
+14. The method of claim 9, wherein the classifier is trained to recognize limbs within the 3D point clouds and to specify a number of bounding rectangular boxes needed to fit around the captured at least one limb.
+15. The method of claim 9, wherein performing a box fitting algorithm comprises: fitting a bounded rectangular box around the captured at least one limb, wherein if the captured at least one limb includes subsections, fitting bounded rectangular boxes around each of the subsections of the captured at least one limb; measuring and recording each of the bounded rectangular boxes and any angles between the bounded rectangular boxes of captured limbs having subsections; and based on dimensions of each of the bounded rectangular boxes, using the classifier to identify the captured at least one limb, wherein the classifier is trained to identify a type of limb within the 3D point cloud based on sizes of the bounded rectangular boxes used.
+16. The method of claim 15, wherein fitting a bounded rectangular box around the captured at least one limb comprises fitting one or more best fit bounded rectangular boxes around the captured at least one limb, wherein a best fit bounded rectangular box comprises a rectangular box having a smallest area that completely contains the captured at least one limb or the subsection of the captured at least one limb.
+17. A limb range of motion system comprising: a measurement device having one or more depth cameras with a 360-degree view of a limb in motion; and a computer system coupled to the measurement device, the computer system having at least one processor coupled to the measurement device, the computer system including one or more memory devices coupled to the at least one processor, the one or more memory devices including instructions, which when executed by the at least one processor, cause the system to: initialize a scanning area; load a classifier trained to recognize limbs into memory; capture a frame representing a 3D point cloud including at least one limb of a person in motion; perform a box fitting algorithm on the captured at least one limb to enable the classifier to identify the at least one limb; and slice one or more boxes generated from the box fitting algorithm into a plurality of 2D point clouds to measure and record a circumference of each 2D point cloud to obtain limb range of motion parameters.
+18. The system of claim 17, wherein the limb range of motion parameters comprise a maximum and a minimum size of the at least one limb as a function of soft tissue expansion and contraction of the at least one limb while under pressure, force, and/or motion.
+19. The system of claim 17, wherein the instructions, when executed, further cause the system to capture additional frames of the 3D point cloud to obtain additional measurements, wherein if a current measurement exceeds a previous maximum size, the current measurement is updated as the maximum size, and wherein if the current measurement is less than a previous minimum size, the current measurement is updated as the minimum size.
+20. The system of claim 19, comprising further instructions, which when executed, cause the system to collect all measurements into a video stream having 3D point cloud information and simulate recorded motion through a neural network to estimate a full range of rotation and motion for the person.
+21. The system of claim 20, wherein the full range of rotation and motion for the person enables manufacturing of apparel that comfortably fits the person while in motion.
+22. The system of claim 17, wherein instructions to initialize a scanning area comprise instructions to calibrate an x, y, z scanning region relative to a floor and walls of the scanning area.
+23. The system of claim 17, wherein the classifier is trained to recognize limbs within the 3D point clouds and to specify a number of bounding rectangular boxes needed to fit around the captured at least one limb.
+24. The system of claim 17, wherein instructions to perform a box fitting algorithm comprises instructions to: fit a bounded rectangular box around the captured at least one limb, wherein if the captured at least one limb includes subsections, fit bounded rectangular boxes around each of the subsections of the captured at least one limb; measure and record each of the bounded rectangular boxes and any angles between the bounded rectangular boxes of limbs having subsections; and based on dimensions of each of the bounded rectangular boxes, use the classifier to identify the at least one limb, wherein the classifier is trained to identify a type of limb within the 3D point cloud based on sizes of the bounded rectangular boxes used.
+25. The system of claim 24, wherein instructions to fit a bounded rectangular box around the captured at least one limb comprises instructions to fit one or more best fit bounded rectangular boxes around the captured at least one limb, wherein a best fit bounded rectangular box comprises a rectangular box having a smallest area that completely contains the captured at least one limb or the subsection of the captured at least one limb.
+</claims>
+</document>

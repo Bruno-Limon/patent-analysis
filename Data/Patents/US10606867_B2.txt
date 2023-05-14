@@ -1,0 +1,60 @@
+<document>
+
+<filing_date>
+2016-10-28
+</filing_date>
+
+<publication_date>
+2020-03-31
+</publication_date>
+
+<priority_date>
+2014-05-30
+</priority_date>
+
+<ipc_classes>
+G06F16/00,G06F16/2458,G06F16/28,G06F17/30,G06N20/00,G06N99/00
+</ipc_classes>
+
+<assignee>
+HUAWEI TECHNOLOGIES COMPANY
+</assignee>
+
+<inventors>
+WANG, FANGSHAN
+TAN WEIGUO
+</inventors>
+
+<docdb_family_id>
+54698001
+</docdb_family_id>
+
+<title>
+Data mining method and apparatus
+</title>
+
+<abstract>
+A data mining method and apparatus where the method includes determining multiple execution steps of a data mining process, acquiring a correspondence between a physical resource required by each execution step in a running process and a physical resource occupied by input data of the data mining process, determining a node for executing each execution step, determining, according to a maximum amount of data of input data that can be processed by the node for executing each step, a maximum amount of data of input data that can be processed by the distributed system, and processing to-be-mined data in accordance with the data mining process according to the maximum amount of data of the input data that can be processed by the distributed system. The input data is accurately and effectively limited such that normal running of the system can be ensured.
+</abstract>
+
+<claims>
+1. A data mining method, wherein the method is applied to a distributed system, wherein the distributed system comprises at least one node, and wherein the method comprises: determining multiple execution steps of a data mining process; acquiring a correspondence between a physical resource required by each execution step in a running process and a physical resource occupied by input data of the data mining process; determining a node for executing each execution step, wherein the node provides a physical resource for each execution step; determining, according to the correspondence and a physical resource possessed by a node for executing a corresponding execution step, a maximum amount of data of input data that is capable of being processed by the node for executing each execution step; determining, according to the maximum amount of data of the input data that is capable of being processed by the node for executing each execution step, a maximum amount of data of input data that is capable of being processed by the distributed system; and processing to-be-mined data in accordance with the data mining process according to the maximum amount of data of the input data that is capable of being processed by the distributed system, wherein when the execution step is an optimized execution step, and a physical resource occupied by process data generated in the optimized execution step is larger than a physical resource occupied by at least one of input data or output data of the optimized execution step, acquiring the correspondence comprises: determining two larger ratios in three ratios, wherein the three ratios comprise the physical resource occupied by the process data, the physical resource occupied by the input data of the optimized execution step, and the physical resource occupied by the output data of the optimized execution step respectively to the physical resource occupied by the input data of the data mining process; and performing summation calculation to obtain a ratio parameter of a physical resource required by the optimized execution step in the running process to the physical resource occupied by the input data of the data mining process.
+2. The method according to claim 1, wherein determining the multiple execution steps of the data mining process comprises: acquiring the multiple execution steps for executing the data mining process; analyzing process data generated in the multiple execution steps; and combining an execution step in which the process data is generated with the execution step in which the process data is used as input data into an optimized execution step when there is one execution step in which the process data is used as the input data, and wherein the input data of the determined execution step does not comprise other process data except the process data.
+3. The method according to claim 1, wherein determining the multiple execution steps of the data mining process further comprises: acquiring the multiple execution steps for executing the data mining process; analyzing the process data generated in the multiple execution steps; and combining the two or more than two execution steps when a single sample is processed each time in the two or more than two consecutive execution steps.
+4. The method according to claim 1, wherein when the correspondence is represented as a ratio parameter, acquiring the correspondence comprises determining, for each execution step of the multiple execution steps, a ratio of all physical resources occupied by input data and output data of the execution step to the physical resource occupied by the input data of the data mining process when the execution step is running.
+5. The method according to claim 1, wherein determining the maximum amount of the data of the input data that is capable of being processed by the distributed system comprises: screening one or more maximum amounts of data of input data allowed by each node; and setting a minimum value of the one or more maximum amounts of data as the maximum amount of data of the input data that is capable of being processed by the distributed system running the data mining process.
+6. The method according to claim 1, wherein processing the to-be-mined data in accordance with the data mining process according to the maximum amount of data further comprises: determining, according to the maximum amount of data, a maximum quantity K of data columns selected from the to-be-mined data, wherein K is an integer; and selecting K data columns from the to-be-mined data, wherein the K data columns comprise K−1 feature columns and one target column.
+7. The method according to claim 6, wherein selecting the K data columns from the to-be-mined data comprises: performing clustering calculation on feature columns in the to-be-mined data, to obtain P clusters, wherein P is an integer; and screening out K data columns from the P clusters according to a correlation between a feature column and the target column.
+8. The method according to claim 7, wherein a clustering algorithm corresponding to the clustering calculation comprises a K-Means clustering algorithm.
+9. The method according to claim 7, wherein a clustering algorithm corresponding to the clustering calculation comprises a hierarchical clustering algorithm.
+10. The method according to claim 7, wherein a clustering algorithm corresponding to the clustering calculation comprises a density clustering algorithm.
+11. The method according to claim 1, wherein the physical resource comprises a memory resource.
+12. The method according to claim 1, wherein the physical resource comprises at least one of a hard disk resource or a processor core resource.
+13. A data mining apparatus, wherein the apparatus is applied to a distributed system, wherein the distributed system comprises at least one node, and wherein the apparatus comprises: a transceiver configured to: receive an original data set; and send to-be-processed input data obtained through extraction to each node for processing: a memory coupled to the transceiver and configured to store the original data set; and a processor coupled to the transceiver and memory, wherein the processor is configured to: determine multiple execution steps of a data mining process; acquire a correspondence between a physical resource required by each execution step in a running process and a physical resource occupied by input data of the data mining process; determine a node for executing each execution step, wherein the node provides a physical resource for each execution step; determine, according to the correspondence and a physical resource possessed by a node for executing a corresponding execution step, a maximum amount of data of the input data that is capable of being processed by the node for executing each execution step; determine, according to the maximum amount of data of the input data that is capable of being processed by the node for executing each execution step, a maximum amount of data of input data that is capable of being processed by the distributed system; and process to-be-mined data in accordance with the data mining process according to the maximum amount of data of the input data that is capable of being processed by the distributed system, wherein when the execution step is an optimized execution step, and a physical resource occupied by temporary data generated in the optimized execution step is larger than a physical resource occupied by at least one of input or output data of the optimized execution step, the processor is further configured to perform summation calculation according to two larger ratios in three ratios, wherein the three ratios comprise the physical resource occupied by the temporary data, the physical resource occupied by the input data of the optimized execution step, and the physical resource occupied by the output data of the optimized execution step respectively to the physical resource occupied by the input data of the data mining process, to obtain a ratio parameter of a physical resource required by the optimized execution step in a running process to the physical resource occupied by the input data of the data mining process.
+14. The apparatus according to claim 13, wherein the processor is further configured to: acquire the multiple execution steps for executing the data mining process; analyze process data generated in the multiple execution steps; and combine an execution step in which the process data is generated with the execution step in which the process data is used as input data into an optimized execution step when there is one execution step in which the process data is used as the input data, and wherein the input data of the determined execution step does not comprise other process data except the process data.
+15. The apparatus according to claim 13, wherein when the correspondence is represented as a ratio parameter, the processor is further configured to determine, for each execution step of the multiple execution steps, a ratio of all physical resources occupied by input data and output data of the execution step to the physical resource occupied by the input data of the data mining process when the execution step is running.
+16. The apparatus according to claim 13, wherein the processor is further configured to: screen one or more maximum amounts of data of input data allowed by each node; and set a minimum value of the one or more maximum amounts of data as the maximum amount of data of the input data that is capable of being processed by the distributed system to run the data mining process.
+17. The apparatus according to claim 13, wherein the processor is further configured to: determine, according to the maximum amount of data, a maximum quantity K of data columns selected from the to-be-mined data, wherein K is an integer; and select K data columns from the to-be-mined data, wherein the K data columns comprise K−1 feature columns and one target column.
+18. The apparatus according to claim 17, wherein the processor is further configured to: perform clustering calculation on feature columns in the to-be-mined data, to obtain P clusters, wherein P is an integer; and screen out the K data columns from the P clusters according to a correlation between a feature column and the target column.
+</claims>
+</document>

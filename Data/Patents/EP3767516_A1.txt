@@ -1,0 +1,60 @@
+<document>
+
+<filing_date>
+2020-07-14
+</filing_date>
+
+<publication_date>
+2021-01-20
+</publication_date>
+
+<priority_date>
+2019-07-18
+</priority_date>
+
+<ipc_classes>
+G06F40/284,G06F40/295,G06F40/30,G06N20/00
+</ipc_classes>
+
+<assignee>
+RICOH COMPANY
+</assignee>
+
+<inventors>
+DONG, Bin
+JIANG, Shanshan
+TONG, Yixuan
+LIU, Boyan
+ZHANG, Yongwei
+</inventors>
+
+<docdb_family_id>
+71620185
+</docdb_family_id>
+
+<title>
+NAMED ENTITY RECOGNITION METHOD, APPARATUS, AND COMPUTER-READABLE RECORDING MEDIUM
+</title>
+
+<abstract>
+The present invention relates to a named entity recognition method, a named entity recognition apparatus, and a computer-readable recording medium. The named entity recognition method according to the present invention concatenates an internal feature of a head unit in a word vector and a context feature of the head unit during multi-head attention training and adopts the concatenated feature as a representation of the head unit. Accordingly, the feature information of the word can be better represented, and by sufficiently making use of the context information of the word during the named entity recognition, the embodiment of the present invention can improve the accuracy of the named entity recognition.
+</abstract>
+
+<claims>
+1. A named entity recognition method comprising: obtaining and merging a position encoding vector and a word vector of a word in a training sentence to obtain a first feature vector of the word; generating a second feature vector of the word, on the basis of whether a context including the word exists in a named entity dictionary configured in advance; inputting the first feature vector of the word into a multi-head attention model in a neural network model to perform training and obtaining a semantic information feature of the word, inputting the second feature vector of the word into an attention model in the neural network model to perform training and obtaining a physical boundary feature of the word, the multi-head attention model being configured to divide the first feature vector into a plurality of heads and train and merge attention representations of the plurality of heads, the attention representations of the plurality of heads being obtained after a self-attention representation of one of the heads and a self-attention representation of a remaining head excluding the one of the heads are merged; and merging the semantic information feature and the physical boundary feature of the word to obtain an output feature of the word, and extracting a named entity on the basis of the output feature of the word in the training sentence.
+2. The named entity recognition method according to claim 1, wherein the obtaining and merging the position encoding vector further comprises generating an even number bit element of the position encoding vector, on the basis of a first expression sin (pos/100002i/dmodel), and generating an odd number bit element of the position encoding vector, on the basis of a second expression cos (pos/ 100002i/dmodel), where pos denotes a position of the word in the training sentence, i denotes a dimension corresponding to the even number bit element or the odd number bit element, and dmodel denotes a dimension of the word vector.
+3. The named entity recognition method according to claim 1, wherein the word vector of the word is obtained through training according to a method of at least one of word embedding (word2vec), a convolutional neural network (CNN), a recurrent neural network (RNN), bidirectional encoder representation from transformers (BERT), and random initialization.
+4. The named entity recognition method according to claim 1, wherein the generating the second feature vector of the word further comprises: obtaining one-hot encodings of the word, on the basis of whether contexts of predetermined lengths in the training sentence exist in the named entity dictionary, the named entity dictionary including a plurality of reference named entities, the context including the word, and the word serving as a boundary; and obtaining and concatenating the one-hot encodings of the word in contexts with different lengths to obtain the second feature vector of the word.
+5. The named entity recognition method according to claim 1, wherein the merging the semantic information feature and the physical boundary feature of the word to obtain the output feature of the word further comprises merging a state of a hidden layer of the semantic information feature and a state of a hidden layer of the physical boundary feature to obtain a state of a hidden layer of the word.
+6. The named entity recognition method according to claim 5, wherein the extracting the named entity on the basis of the output feature of the word in the training sentence comprises generating a segmented sequence of the training sentence on the basis of the state of the hidden layer of the word in the training sentence, and inputting the segmented sequence into an output layer, which is a softmax layer, of the neural network model, to train the neural network model, and obtaining, on the basis of a maximum likelihood estimation, a result with a maximum conditional probability that is output by the softmax layer and adopting the result as a named entity, to which the segmented sequence of the training sentence belongs, and a probability of the named entity.
+7. The named entity recognition method according to claim 6, wherein after the neural network model is trained, the named entity recognition method further comprises extracting and labeling a named entity from an extraction target sentence by using the neural network obtained through the training.
+8. A named entity recognition apparatus comprising: a first feature vector generation unit configured to obtain and merge a position encoding vector and a word vector of a word in a training sentence to obtain a first feature vector of the word; a second feature vector generation unit configured to generate a second feature vector of the word, on the basis of whether a context including the word exists in a named entity dictionary configured in advance; a first feature training unit configured to input the first feature vector of the word into a multi-head attention model in a neural network model to perform training and obtain a semantic information feature of the word, the multi-head attention model being configured to divide the first feature vector into a plurality of heads and train and merge attention representations of the plurality of heads, the attention representations of the plurality of heads being obtained after a self-attention representation of one of the heads and a self-attention representation of a remaining head excluding the one of the heads are merged; a second feature training unit configured to input the second feature vector of the word into an attention model in the neural network model to perform training and obtain a physical boundary feature of the word; and an extraction unit configured to merge the semantic information feature and the physical boundary feature of the word to obtain an output feature of the word, and extract a named entity on the basis of the output feature of the word in the training sentence.
+9. The named entity recognition apparatus according to claim 8, wherein the first feature vector generation unit generates an even number bit element of the position encoding vector, on the basis of a first expression sin (pos/100002i/dmodel), and generates an odd number bit element of the position encoding vector, on the basis of a second expression cos (pos/100002i/dmodel), where pos denotes a position of the word in the training sentence, i denotes a dimension corresponding to the even number bit element or the odd number bit element, and dmodel denotes a dimension of the word vector.
+10. The named entity recognition apparatus according to claim 8, wherein the word vector of the word is obtained through training according to a method of at least one of word embedding (word2vec), a convolutional neural network (CNN), a recurrent neural network (RNN), bidirectional encoder representation from transformers (BERT), and random initialization.
+11. The named entity recognition apparatus according to claim 8, wherein the second feature vector generation unit obtains one-hot encodings of the word, on the basis of whether contexts of predetermined lengths in the training sentence exist in the named entity dictionary, the named entity dictionary includes a plurality of reference named entities, the contexts includes the word, and the word serves as a boundary, and the one-hot encodings of the word in the contexts with different lengths are obtained and concatenated to obtain the second feature vector of the word.
+12. The named entity recognition apparatus according to claim 8, wherein the extraction unit merges a state of a hidden layer of the semantic information feature and a state of a hidden layer of the physical boundary feature to obtain a state of a hidden layer of the word.
+13. The named entity recognition apparatus according to claim 12, wherein the extraction unit generates a segmented sequence of the training sentence on the basis of the state of the hidden layer of the word in the training sentence, and inputs the segmented sequence into an output layer, which is a softmax layer, of the neural network model, to train the neural network model, and obtains, on the basis of a maximum likelihood estimation, a result with a maximum conditional probability that is output by the softmax layer and adopts the result as a named entity, to which the segmented sequence of the training sentence belongs, and a probability of the named entity.
+14. The named entity recognition apparatus according to claim 13, further comprising a labeling unit configured to extract and label a named entity from an extraction target sentence by using the neural network obtained through the training.
+15. A computer-readable recording medium recorded with a computer program for, when executed by a processor, implementing the named entity recognition method as recited in any one of claims 1 to 7.
+</claims>
+</document>

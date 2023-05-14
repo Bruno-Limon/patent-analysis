@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2018-06-14
+</filing_date>
+
+<publication_date>
+2020-04-01
+</publication_date>
+
+<priority_date>
+2018-06-14
+</priority_date>
+
+<ipc_classes>
+G06T7/254
+</ipc_classes>
+
+<assignee>
+AXIS
+</assignee>
+
+<inventors>
+BALTSÉN, JOAKIM
+BJÖRGVINSDÓTTIR, HANNA
+GRUNDSTRÖM, JAKOB
+MOLIN, SIMON
+</inventors>
+
+<docdb_family_id>
+62636110
+</docdb_family_id>
+
+<title>
+METHOD, DEVICE AND SYSTEM FOR DETERMINING WHETHER PIXEL POSITIONS IN AN IMAGE FRAME BELONG TO A BACKGROUND OR A FOREGROUND
+</title>
+
+<abstract>
+The present invention relates to the field of background subtraction in images. In particular, it relates to determining whether pixel positions in an image frame of a video sequence belongs to a background or a foreground of a captured scene using a determined level of dynamics of the pixel position.
+</abstract>
+
+<claims>
+1. A computer-implemented method of determining whether pixel positions in an image frame of a video sequence belong to a background or a foreground of a captured scene, the method comprising, for each pixel position in the image frame: receiving a class into which the pixel position has been classified, the class representing a category of content in the captured scene at the pixel position, associating the pixel position with a level of dynamics of its corresponding class, wherein the level of dynamics of a class reflects a probability that pixel values at pixel positions belonging to the class will change values between frames of the video sequence, determining if the pixel position in the image frame belongs to the background or the foreground of the captured scene by comparing the pixel value of the pixel position in the image frame to a background model and a threshold value for the pixel position, the background model including one or more values representing the pixel value of the pixel position, wherein the pixel position is determined to belong to the background if a difference between the pixel value and a first predetermined number of values among the one or more values in the background model is less than the threshold value for the pixel position, if the pixel position in the image frame is determined to belong to the background:
+increasing the threshold value specific to the pixel position by an increment if the pixel value at the pixel position in the image frame has changed by more than a second value since a previous frame, wherein the increment is set to depend on the level of dynamics of the pixel position such that a higher level of dynamics results in a higher increment.
+2. The method of claim 1, further comprising the steps of:
+if the pixel position in the image frame is determined to belong to the background:
+decreasing the threshold value specific to the pixel position by a decrement if the pixel value at the pixel position in the image frame has changed by less than the second value since a previous frame, wherein the decrement is set to depend on the level of dynamics of the pixel position such that a higher level of dynamics results in a lower decrement.
+3. The method of any one of claims 1-2, further comprising the step of:
+setting the threshold value which is specific to the pixel position to a value, wherein the value depends on the level of dynamics of the pixel position such that a higher level of dynamics results in a higher value.
+4. The method of claim 3, wherein the step of setting the threshold value is performed for an initial frame of the video stream.
+5. The method of any one of claims 3-4, wherein the step of setting the threshold value is performed when a field of view of a video capturing device capturing the video sequence is changed.
+6. The method of any one of claims 1-5, further comprising setting a lower threshold for the threshold value which is specific to the pixel position depending on the level of dynamics of the pixel position, the lower threshold determining a minimum possible value for the threshold value, such that a higher level of dynamics results in a higher value of the lower threshold.
+7. The method of any one of claims 1-6, wherein the pixel position is associated with a first level of dynamics if its corresponding class belongs to a first predefined group of classes, and the pixel position is associated with a second, higher, level of dynamics if its corresponding class belongs to the second predefined group of classes.
+8. The method of claim 7, wherein if the class corresponding to the pixel position belongs to a third predefined group of classes, the threshold value which is specific to the pixel position is maintained at a constant level.
+9. The method of any one of claims 1-8, wherein the class into which the pixel position has been classified is determined using an algorithm for semantic segmentation.
+10. The method of claim 9, wherein the algorithm for semantic segmentation is run on a subset of image frames of the video stream.
+11. The method of claim 10, wherein the class into which the pixel position has been classified is determined using a combination of results from the semantic algorithm for said pixel position from a plurality of image frames in said subset of image frames.
+12. The method of any one of claims 1-11, wherein the background model includes a plurality of values representing the pixel value of the pixel position, wherein the step of determining if the pixel position in the image frame belongs to the background or the foreground of the captured scene comprises: calculating a difference between a pixel value in the image frame at the pixel position and each of the plurality of values of the background model at the corresponding pixel position, calculating a number of differences being lower than the threshold value which is specific to the pixel position, determining that the pixel position in the image frame belongs to the background if the calculated number exceeds the first predetermined number of values, and that the pixel position in the image frame otherwise belongs to the foreground.
+13. A computer program product comprising a computer-readable storage medium with instructions adapted to carry out the method of any one of claims 1-12 when executed by a device having processing capability.
+14. A device for determining whether pixel positions in an image frame of a video sequence belongs to a background or foreground of a captured scene, the device comprising a processor adapted for: receiving a class into which the pixel position has been classified, the class representing a type of object in the captured scene at the pixel position, associating the pixel position with a level of dynamics based on its corresponding class, wherein the level of dynamics of a class reflects a probability that pixel values at pixel positions belonging to the class will change values between frames of the video sequence, determining if the pixel position in the image frame belongs to the background or the foreground of the captured scene by comparing the pixel value of the pixel position in the image frame to a background model and a threshold value for the pixel position, the background model including one or more values representing the pixel value of the pixel position, wherein the pixel is determined to belong to the background if a difference between the pixel value and a first predetermined number of values among the one or more values in the background model is less than the threshold value for the pixel position, if the pixel position in the image frame is determined to belong to the background:
+increasing the threshold value specific to the pixel position by an increment if the pixel value has changed by more than a second value since a previous frame, wherein the increment is set to depend on the level of dynamics of the pixel position such that a higher level of dynamics results in a higher increment.
+15. A system comprising: a video capturing device adapted to continuously capture a video sequence depicting a scene, a first device adapted to receive a first image frame of the video sequence from the video capturing device, classify each pixel position in the image frame, the class representing a type of object in the captured scene at the pixel position, and output a class for each pixel position in the image frame, a second device according to claim 14, the second device adapted to receive a second image frame of the video sequence from the video capturing device and to receive a class for each pixel position in the first image frame from the first device.
+</claims>
+</document>

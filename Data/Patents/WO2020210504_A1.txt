@@ -1,0 +1,151 @@
+<document>
+
+<filing_date>
+2020-04-09
+</filing_date>
+
+<publication_date>
+2020-10-15
+</publication_date>
+
+<priority_date>
+2019-04-09
+</priority_date>
+
+<ipc_classes>
+G06K9/62,G06T7/00,G06T7/20,G08B21/22
+</ipc_classes>
+
+<assignee>
+AVIGILON CORPORATION
+VENETIANER, PETER
+KEDARISETTI, Dharanish
+</assignee>
+
+<inventors>
+VENETIANER, PETER
+KEDARISETTI, Dharanish
+</inventors>
+
+<docdb_family_id>
+72747420
+</docdb_family_id>
+
+<title>
+ANOMALY DETECTION METHOD, SYSTEM AND COMPUTER READABLE MEDIUM
+</title>
+
+<abstract>
+A method of detecting an anomaly is provided, including dividing each frame of a video stream into a plurality of cells; in each cell formulate statistics based on metadata generated for the frame, the metadata related to presence of an object in the cell, velocity of objects in the cell, direction of motion of objects in the cell, and classification of objects in the cell; and using the formulated statistics to determine when the anomalous activity has occurred in one of the cells of the plurality of cells.
+</abstract>
+
+<claims>
+1. A video analytics system having metadata based anomaly detection to detect an anomaly within a scene of a video based on metadata associated with corresponding frames of the video, the video analytics system comprising:
+a metadata anomaly detection module configured to receive, for each of a plurality of frames of a first video, corresponding target-related metadata, the target-related metadata including, for each target identified by the target-related metadata in a particular frame of a plurality of frames of the first video:
+target classification identifying a type of the target,
+target location identifying a location of the target, and
+a first target feature of the target,
+the metadata anomaly detection module comprising:
+an instantaneous metrics extraction module configured
+to sequentially receive the target-related metadata associated with corresponding sequential frames of the first video,
+to analyze sets of the target-related metadata, each set of targetrelated metadata being associated with a corresponding set of frames of the first video and being analyzed to generate and associate with the corresponding frame set corresponding instantaneous metadata metrics for each of a plurality of cells dividing the scene of the first video, and
+to sequentially provide the instantaneous metadata metrics associated with different frame sets of the first video;
+a statistical model update module configured
+to sequentially receive the instantaneous metadata metrics associated with different frame sets of the first video from the instantaneous metrics extraction model, and
+to provide statistical models derived from the instantaneous metadata metrics associated with the different frame sets of the first video for each of the plurality of cells dividing the scene of the first video; and an anomaly formulation module configured to sequentially receive the instantaneous metadata metrics
+associated with different frame sets of the first video from the instantaneous metrics extraction model,
+to compare, at a cell level, the instantaneous metadata metrics associated with each of the different frame sets of the first video with the statistical models provided by the statistical model update module, and
+to detect an anomaly in a scene of the first video based upon the comparison.
+2. The video analytics system of claim 1 , wherein the instantaneous metrics extraction module is configured to generate at the cell level, with respect to each of the different frame sets, a corresponding first instantaneous metadata metric reflecting its most recent value within the timeline of the first video.
+3. The video analytics system of claim 2, wherein the first metric of each of the different frame sets represents how many people were present in each cell in a most recent predetermined interval within the timeline of the first video.
+4. The video analytics system of claim 2, wherein the first target feature comprises speed and the first instantaneous metadata metric of each of the different frame sets represents speeds of a first target type in each cell in a most recent predetermined interval within the timeline of the first video.
+5. The video analytics system of claim 1 , wherein the instantaneous metadata metrics associated with a first frame set of the different frame sets comprises, for each cell of the scene of the first video and for each of several different target types, a number of each of the different target types present in each cell within a first predetermined duration corresponding to the first frame set.
+6. The video analytics system of claim 1 , wherein the instantaneous metadata metrics associated with a first frame set of the different frame sets comprises, at the cell level, the first target feature for each instance of several different target types present in each cell within a first predetermined duration preceding the frame corresponding to the first frame set.
+7. The video analytics system of claim 6 wherein the first target feature is one of target location, target velocity, target trajectory, target speed, target size, target orientation, target appearance and target disappearance.
+8. The video analytics system of claim 1 ,
+wherein the instantaneous metadata metrics associated with a first frame set of the different frame sets comprises, at the cell level, the first target feature for each instance of a first target type present in each cell within a first predetermined duration corresponding to the first frame set, and
+wherein the first target feature describes a relationship of each of instance of a first target to other features and/or events identified in the video.
+9. The video analytics system of claim 8, wherein the first target feature is one of object ported by target, object left behind by target, target entering, target exiting, target loitering, target lying down, target running, target walking and target waiting in queue.
+10. The video analytics system of claim 1 , wherein the metadata anomaly detection module is configured to detect all anomalies in the scene of the first video based only on analysis of the received target-related metadata.
+11. The video analytics system of claim 1 , wherein the metadata anomaly detection module is configured to detect all anomalies in the scene of the first video without analysis of images of the first video.
+12. The video analytics system of claim 1 ,
+wherein the instantaneous metrics extraction module provides at least some of the received target-related metadata as instantaneous metadata metrics to the anomaly formulation module, and wherein the anomaly formulation module is configured to compare, at the cell level, target-related metadata with the with the statistical models provided by the statistical model update module to detect an anomaly in the scene of the first video.
+13. The video analytics system of claim 12, wherein the anomaly formulation module is configured to identify an anomalous target as a target associated with targetrelated metadata responsible for the detection of an anomaly by the anomaly formulation module.
+14. The video analytics system of claim 1 , wherein, for at least a first target identified by the target-related metadata, the instantaneous metrics extraction model is configured to estimate a path of the first target from target-related metadata of the first target, and to associate target-related metadata of the first target for cells through which the path of the first target extends.
+15. The video analytics system of claim 1 , wherein, for at least a first target identified by the target-related metadata, the instantaneous metrics extraction model is configured:
+to estimate a path of the first target based upon a first target location of the first target within a first cell and a second target location of the first target within a second cell, the first and second target locations being identified in the target-related metadata received by the instantaneous metrics extraction model respectively associated with first and second frames of the plurality of frames, and
+to estimate a third target location of the first target within a third cell based on the estimated path of the first target.
+16. The video analytics system of claim 15, wherein the estimation of the third target location within the third cell is used by the instantaneous metrics extraction module to generate instantaneous metadata metrics associated with the third cell.
+17. The video analytics system of claim 16, wherein the first target feature of the first target associated with the first frame and the first target feature of the first target associated with the second frame are used to estimate the first target feature of the first target within the third cell.
+18. The video analytics system of claim 17, wherein the first target feature of the first target within the third cell is estimated from an interpolation of at least the first target feature associated with the first frame and the first target feature associated with the second frame.
+19. The video analytics system of claim 18, wherein the first target feature comprises speed.
+20. The video analytics system of claim 16, wherein the instantaneous metrics extraction module associates the target classification of the first target with the third cell upon estimating the first target being located within the third cell.
+21. The video analytics system of claim 1 ,
+wherein, for each target identified by the target-related metadata, the instantaneous metrics extraction model is configured
+to estimate a path of the identified target from target-related metadata of the identified target of different frames of the plurality of frames, and
+to associate target-related metadata of the identified target for cells through which the path of the identified target extends and in which the received target-related metadata of the identified target does not include a target location that identifies existence of the target in such cells, and
+wherein, for each cell, the instantaneous metrics extraction model is configured to generate instantaneous metadata metrics of, for each of several classes of targets, a number of targets present in the cell.
+22. The video analytics system of claim 21 , wherein, for each cell, the instantaneous metrics extraction model is configured to generate instantaneous metadata metrics of an average trajectory of each class of targets in the cell.
+23. The video analytics system of claim 21 , wherein, for each cell, the instantaneous metrics extraction model is configured to generate instantaneous metadata metrics of an average speed of each class of targets in the cell.
+24. The video analytics system of claim 1 ,
+wherein, for each target identified by the target-related metadata, the instantaneous metrics extraction model is configured to merge multiple observations of the same target within the same cell as identified by received target-related metadata associated with instantaneous metadata metrics associated of a first frame set of the different frame sets.
+25. The video analytics system of claim 1 , wherein the anomaly formulation module is configured to compare an instantaneous metadata metric of an identified target to a corresponding one of the statistical models to determine if the statistical model indicates the frequency of occurrence of the instantaneous metadata metric is below a threshold.
+26. The video analytics system of claim 1 , wherein the anomaly formulation module is configured to compare a combination plural instantaneous metadata metrics of an identified target to a corresponding one of the statistical models to determine if the statistical model indicates the frequency of occurrence of the combination is below a threshold.
+27. The video analytics system of claim 1 , wherein the statistical model update module is configured to alter at least some of the statistical models in response to user input.
+28. The video analytics system of claim 27, wherein the user input comprises identification of false alarms corresponding to a detection of an anomaly by the anomaly formulation module which is not considered an anomaly by a user.
+29. The video analytics system of claim 28, wherein the statistical model update module is configured to alter a threshold associated with a comparison of a first
+instantaneous metadata metric in response to user identification of a false alarm associated with the first instantaneous metadata metric.
+30. The video analytics system of claim 28, wherein the statistical model update module is configured to alter a target classification associated with a comparison of a first instantaneous metadata metric in response to user identification of a false alarm associated with the first instantaneous metadata metric.
+31. The video analytics system of claim 1 ,
+wherein the metadata anomaly detection module is configured to receive, for each of a plurality of frames of a second video, corresponding target-related metadata, and to detect an anomaly within a scene of the second video, and
+wherein the metadata anomaly detection module is configured to identify a target identified in the first video and a target identified in the second video are the same target in response to one or more detected anomalies within the scene of the first video and one or more detected anomalies within the scene of the second video.
+32. The video analytics system of claim 31 , wherein the metadata anomaly detection module is configured to correlate real world locations in the first video and the second video based upon identifying identify the target identified in the first video and the target identified in the second video as the same target.
+33. The video analytics system of claim 1 ,
+wherein the metadata anomaly detection module is configured to receive, for each of a plurality of frames of a second video, corresponding target-related metadata, and to detect an anomaly within a scene of the second video, and
+wherein the metadata anomaly detection module is configured to identify a target identified in the first video and a target identified in the second video are the same target as a function of one or more detected anomalies within the scene of the first video being the same as one or more detected anomalies within the scene of the second video.
+34. The video analytics system of claim 33, wherein the scenes of the first video and the second video do not share any view of the same real world location.
+35. The video analytics system of claim 34, wherein the metadata anomaly detection module is configured to determine a distance between the scenes of the first video and the second video based upon identifying the same target.
+36. The video analytics system of claim 34, wherein the metadata anomaly detection module is configured to a relative orientation of the scenes of the first video and the second video based upon identifying the same target.
+37. The video analytics system of claim 1 , wherein the statistical model update module is configured to automatically alter the size of at least some of the plurality of cells dividing the scene of the first video.
+38. The video analytics system of claim 37, wherein the statistical model update module is configured to
+generate initial statistical models derived from the instantaneous metadata metrics associated with first frame sets of the first video for each of the plurality of cells,
+automatically alter the size of at least some of the plurality of cells as a function of the initial statistical models, and
+generate new statistical models from the instantaneous metadata metrics associated with the subsequent frame sets of the first video for each of the plurality of resized cells.
+39. The video analytics system of claim 38, wherein the statistical model update module is configured to automatically alter the size of at least some of the plurality of cells to reduce a difference of a first metric of different cells as indicated by the initial statistical models.
+40. The video analytics system of claim 39, wherein the first metric is a frequency of target presence of a first type of target.
+41. The video analytics system of claim 39, wherein the first metric is a frequency of the first target feature of a first target class, and the statistical model update module is configured to automatically relatively reduce the size of cells having a relatively high frequency of the first target feature of the first target class as compared to cells having a relatively low frequency of the first target feature of the first target class.
+42. The video analytics system of claim 41 , wherein the target class is predetermined.
+43. The video analytics system of claim 41 , wherein the statistical model update module is configured to automatically select the target class based upon identifying one or more target-related metadata occurring in spatial clusters in the scene of the first video.
+44. The video analytics system of claim 38, wherein the statistical model update module is configured to automatically alter the size of at least some of the plurality of cells to reduce a difference of a first metric of different cells as indicated by the initial statistical models.
+45. The video analytics system of claim 38, wherein the statistical model update module is configured to automatically alter the size of at least some of the plurality of cells as a function of identifying a relatively high frequency of target trajectories aligned in a first direction.
+46. The video analytics system of claim 38, wherein the statistical model update module is configured to automatically alter the size of at least some of the plurality of cells as a function of identifying a relatively high frequency of similarities of target speeds.
+47. The video analytics system of claim 38, wherein the statistical model update module is configured to automatically alter the size of a first subset of the plurality of cells based upon a frequency of human presence as indicated by the initial statistical models and to automatically alter the size of a second subset of the plurality of cells based upon a frequency of vehicle presence as indicated by the initial statistical models.
+48. The video analytics system of claim 38, wherein the statistical model update module is configured to identify aspects of the scene of the first video based upon the resulting resized cells.
+49. The video analytics system of claim 38, wherein the statistical model update module is configured to identify segments of the scene of the first video based upon a clustering of relatively small sized cells as compared to other cells dividing the scene of the first video.
+50. The video analytics system of claim 38, wherein the statistical model update module is configured to identify a sidewalk in the scene of the first video based upon a clustering of a first continuous subset of cells having a relatively small size and having a relatively high frequency of human presence as compared to other cells dividing the scene of the first video.
+51. The video analytics system of claim 38, wherein the statistical model update module is configured to identify in road of the scene of the first video based upon a clustering of a first continuous subset of cells having a relatively small size and having a relatively high frequency of vehicle presence as compared to other cells dividing the scene of the first video.
+52. The video analytics system of claim 38, wherein the statistical model update module is configured to identify in road of the scene of the first video based upon a clustering of a first continuous subset of cells having a relatively small size and having a relatively high target speed as compared to other cells dividing the scene of the first video.
+53. The video analytics system of claim 38, wherein the statistical model update module is configured to identify a path of the scene of the first video based upon a clustering of a first continuous subset of cells having a relatively small size and having relatively consistent target trajectories as compared to other cells dividing the scene of the first video.
+54. The video analytics system of claim 53, wherein the path is one of a sidewalk and a road.
+55. The video analytics system of claim 1 , further comprising a scene segmentation module configured to determine segments of the scene of the first video from corresponding clusters of adjacent cells as representing a similar location within the scene of the video.
+56. The video analytics system of claim 55, wherein the scene segmentation module is configured to perform similarity analysis of the statistical models associated with the plurality of cells of the video to determine the segments of the scene.
+57. The video analytics system of claim 56, further comprising a global metrics module configured to provide a global metrics map identifying the determined segments of the scene and associating metrics of cells forming each segment.
+58. The video analytics system of claim 57, wherein metrics of the cells forming each segment are used to filter instantaneous metadata metrics to be used for comparison by the anomaly formulation module to detect anomalies in the scene of the first video.
+59. The video analytics system of claim 55, wherein the scene segmentation module is configured to classify the segments based on a shape of a corresponding segment.
+60. The video analytics system of claim 55, wherein the scene segmentation module is configured to classify the segments based upon paths of different target classes through a corresponding segment.
+61. A method of detecting an anomaly within a scene of a video based on metadata associated with corresponding frames of the video, the method comprising:
+sequentially receiving target-related metadata associated with corresponding sequential frames of the first video, the target-related metadata including, for each target identified by the target-related metadata in the sequential frames of the first video:
+target classification identifying a type of the target,
+target location identifying a location of the target, and a first target feature of the target;
+analyzing sets of the target-related metadata, each set of target-related metadata being associated with a corresponding set of frames of the first video;
+based on the analyzing, generating and associating with the corresponding frame set corresponding instantaneous metadata metrics for each of a plurality of cells dividing the scene of the first video;
+generating statistical models from the instantaneous metadata metrics associated with the different frame sets of the first video for each of the plurality of cells dividing the scene of the first video;
+comparing, at a cell level, the instantaneous metadata metrics associated with each of the different frame sets of the first video with the generated statistical models; and detecting an anomaly in a scene of the first video based upon the comparison.
+62. A system comprising:
+a display;
+a user input device;
+a processor communicatively coupled to the display and the user input device; and
+a memory communicatively coupled to the processor and having stored thereon computer program code that is executable by the processor, wherein the computer program code, when executed by the processor, causes the processor to perform the method of claim 61.
+63. A non-transitory computer readable medium having stored thereon computer program code that is executable by a processor and that, when executed by the processor, causes the processor to perform the method of claim 61.
+</claims>
+</document>

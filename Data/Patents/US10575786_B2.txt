@@ -1,0 +1,60 @@
+<document>
+
+<filing_date>
+2018-03-06
+</filing_date>
+
+<publication_date>
+2020-03-03
+</publication_date>
+
+<priority_date>
+2017-11-06
+</priority_date>
+
+<ipc_classes>
+A61B5/00,A61B5/024,A61B5/145,A61B5/1455
+</ipc_classes>
+
+<assignee>
+TATA CONSULTANCY SERVICES
+TATE CONSULTANCY SERVICES
+</assignee>
+
+<inventors>
+ALAM, SHAHNAWAZ
+CHOUDHURY, ANIRBAN DUTTA
+DATTA, SHREYASI
+PAL, ARPAN
+</inventors>
+
+<docdb_family_id>
+61598852
+</docdb_family_id>
+
+<title>
+System and method for photoplethysmogram (PPG) signal quality assessment
+</title>
+
+<abstract>
+This disclosure relates generally to PPG signal quality assessment, and more particularly to, a system and method for sensor agnostic PPG signal quality assessment using morphological analysis. In one embodiment, a method for PPG signal quality assessment includes obtaining a PPG signal captured using a testing device in real-time, and segmenting into a first plurality of PPG signal samples such that length of each of the first plurality of PPG signal samples more than a threshold length. A signal sufficiency check (SSC) is performed for each first PPG signal sample to obtain at least a first set of PPG signal samples complying with the SSC. A set of features is extracted from the first set of PPG signal samples, based on which each PPG signal sample is identified as one of a noisy and clean signal sample using a plurality of Random Forest (RF) models created during the training phase.
+</abstract>
+
+<claims>
+1. A processor-implemented method for PPG signal quality assessment, comprising: obtaining a PPG signal captured using a testing device in real-time, via one or more hardware processors; segmenting, via the one or more hardware processors, the PPG signal into a first plurality of PPG signal samples, length of each of the first plurality of PPG signal samples more than a threshold length; performing, via the one or more hardware processors, signal sufficiency check (SSC) for each first PPG signal sample of the first plurality of PPG signal samples to obtain at least a first set of PPG signal samples complying with the SSC, the SSC performed to determine whether the first plurality of PPG signal samples comprises sufficient information for the real-time PPG signal quality assessment; extracting a set of features from the first set of PPG signal samples, via the one or more hardware processors, the set of features representing an optimal set of features derived from a pre-stored training data by a training model during a training phase; and identifying, based on the set of features, each of the set of PPG signal samples as one of a noisy signal sample and a clean signal sample using a plurality of Random Forest (RF) models created during the training phase, via the one or more hardware processors.
+2. The method of claim 1, wherein the threshold sample is around 8 seconds.
+3. The method of claim 1, wherein performing the SSC for a first PPG signal sample of the first plurality of PPG signal samples comprises: performing a clipping and flat signal distortion check, wherein the clipping and flat signal distortion check comprises detecting portions of the first PPG signal sample having maximum, minimum or constant amplitude value, and determining if any such portion contributes more than a threshold value of length of the first PPG signal sample then the first PPG signal sample is categorized as noisy, and performing a heart rate (HR) check, wherein the HR check comprises determining whether a value of HR extrapolated from the first PPG signal sample lie between 40 and 150 cardiac cycles per minute (beats per minute).
+4. The method of claim 1, wherein modeling the training model comprises: obtaining at least one training PPG signal captured from using a training device; segmenting the at least one training PPG signal into a second plurality of PPG signal samples, length of each of the second plurality of PPG signal samples more than the threshold length; performing SSC for each second PPG signal sample of the second plurality of PPG signal samples to obtain a set of clean PPG signal samples complying with the SSC and a set of noisy PPG signal samples not complying with the SSC; creating a plurality of sets of balance class subsets of the training data, each set of balanced class subset comprising the set of noisy PPG signal samples and equal number of randomly taken non overlapping clean PPG signal samples taken from the set of clean PPG signal samples; computing a rank for each of the plurality of set of balanced class subsets based on a mRMR strengths of each of the plurality of features; and ranking a mean of rank sets over every subset to obtain the set of features.
+5. The method of claim 4, wherein the training device comprises an oximeter.
+6. The method of claim 1, wherein the plurality of features comprises: SQI1 (Ratio of Cardiac diastole duration (td) to Ventricular systole duration (ts) are computed for a PPG cycle of the PPG signal sample), SQI2 (ratio of summation of every complete PPG cycle length extracted from sample to the sample length), SQI3 (mean of DTW distance of the sample), SQI4 (Variance of the ratio P1height/P2height of every cycle in a sample), SQI5 (variance of the kurtosis of every pulse), SQI6 (ratio of max PP & min PP, where PP is peak to peak distance in a sample), SQI7 (variance of amplitude ratio (amplitude of cycle/amplitude of T), SQI8 (median of direct matching (Correlation Coefficient) between cycle and T), SQI9 (variance of Pulse Width), and SQI10 (variance of root mean square error of cycle and T).
+7. The method of claim 1, wherein the testing device comprises a smartphone.
+8. A system for PPG signal quality assessment, the system comprising: one or more memories; and one or more hardware processors, the one or more memories coupled to the one or more hardware processors, wherein the one or more hardware processors are capable of executing programmed instructions stored in the one or more memories to: obtain a PPG signal captured using a testing device in real-time; segment the PPG signal into a first plurality of PPG signal samples, length of each of the first plurality of PPG signal samples more than a threshold length; perform signal sufficiency check (SSC) for each first PPG signal sample of the first plurality of PPG signal samples to obtain at least a first set of PPG signal samples complying with the SSC, the SSC performed to determine whether the first plurality of PPG signal samples comprises sufficient information for the real-time PPG signal quality assessment; extract a set of features from the first set of PPG signal samples the set of features representing an optimal set of features derived from a pre-stored training data by a training model during a training phase; and identify, based on the set of features, each of the set of PPG signal samples as one of a noisy signal sample and a clean signal sample using a plurality of Random Forest (RF) models created during the training phase.
+9. The system of claim 8, wherein the threshold sample length is around 8 seconds.
+10. The system of claim 8, wherein to perform the SSC for a first PPG signal sample of the first plurality of PPG signal samples, the one or more hardware processors are further configured by the instructions to: perform a clipping and flat signal distortion check, wherein the clipping and flat signal distortion check comprises detecting portions of the first PPG signal sample having maximum, minimum or constant amplitude value, and determining if any such portion contributes more than a threshold value of length of the first PPG signal sample then the first PPG signal sample is categorized as noisy, and perform a heart rate (HR) check, wherein the HR check comprises determining whether a value of HR extrapolated from the first PPG signal sample lie between 40 and 150 cardiac cycles per minute (beats per minute).
+11. The system of claim 8, wherein to model the training model during the training phase, the one or more hardware processors are further configured by the instructions to: obtain at least one training PPG signal captured from using a training device; segment the at least one training PPG signal into a second plurality of PPG signal samples, length of each of the second plurality of PPG signal samples more than the threshold length; perform SSC for each second PPG signal sample of the second plurality of PPG signal samples to obtain a set of clean PPG signal samples complying with the SSC and a set of noisy PPG signal samples not complying with the SSC; create a plurality of sets of balance class subsets of the training data, each set of balanced class subset comprising the set of noisy PPG signal samples and equal number of randomly taken non overlapping clean PPG signal samples taken from the set of clean PPG signal samples; compute a rank for each of the plurality of set of balanced class subsets based on a mRMR strengths of each of the plurality of features; and rank a mean of rank sets over every subset to obtain the set of features.
+12. The system of claim 11, wherein the plurality of features comprises: SQI1 (Ratio of Cardiac diastole duration (td) to Ventricular systole duration (ts) are computed for a PPG cycle of the PPG signal sample), SQI2 (ratio of summation of every complete PPG cycle length extracted from sample to the sample length), SQI3 (mean of DTW distance of the sample), SQI4 (Variance of the ratio P1height/P2height of every cycle in a sample), SQI5 (variance of the kurtosis of every pulse), SQI6 (ratio of max PP & min PP, where PP is peak to peak distance in a sample), SQI7 (variance of amplitude ratio (amplitude of cycle/amplitude of T), SQI8 (median of direct matching (Correlation Coefficient) between cycle and T), SQI9 (variance of Pulse Width), and SQI10 (variance of root mean square error of cycle and T).
+13. The system of claim 11, wherein the training device comprises an oximeter.
+14. The system of claim 8, wherein the testing device comprises a smartphone.
+15. A non-transitory computer-readable medium having embodied thereon a computer program for executing a method for PPG signal quality assessment, the method comprising: obtaining a PPG signal captured using a testing device in real-time, via one or more hardware processors; segmenting, via the one or more hardware processors, the PPG signal into a first plurality of PPG signal samples, length of each of the first plurality of PPG signal samples more than a threshold length; performing, via the one or more hardware processors, signal sufficiency check (SSC) for each first PPG signal sample of the first plurality of PPG signal samples to obtain at least a first set of PPG signal samples complying with the SSC, the SSC performed to determine whether the first plurality of PPG signal samples comprises sufficient information for the real-time PPG signal quality assessment; extracting a set of features from the first set of PPG signal samples, via the one or more hardware processors, the set of features representing an optimal set of features derived from a prestored training data by a training model during a training phase; and identifying, based on the set of features, each of the set of PPG signal samples as one of a noisy signal sample and a clean signal sample using a plurality of Random Forest (RF) models created during the training phase, via the one or more hardware processors.
+</claims>
+</document>

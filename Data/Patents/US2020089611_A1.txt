@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2018-09-18
+</filing_date>
+
+<publication_date>
+2020-03-19
+</publication_date>
+
+<priority_date>
+2018-09-18
+</priority_date>
+
+<ipc_classes>
+G06F12/0808,G06F12/0813,G06F12/0815,G06F13/16,G06F13/40
+</ipc_classes>
+
+<assignee>
+NVIDIA CORPORATION
+</assignee>
+
+<inventors>
+GANDHI, WISHWESH ANIL
+MANDAL, TANMOY
+MANYAM, RAVI KIRAN
+RAO, SUPRIYA SHRIHARI
+</inventors>
+
+<docdb_family_id>
+69646711
+</docdb_family_id>
+
+<title>
+Coherent Caching of Data for High Bandwidth Scaling
+</title>
+
+<abstract>
+A method, computer readable medium, and system are disclosed for a distributed cache that provides multiple processing units with fast access to a portion of data, which is stored in local memory. The distributed cache is composed of multiple smaller caches, and each of the smaller caches is associated with at least one processing unit. In addition to a shared crossbar network through which data is transferred between processing units and the smaller caches, a dedicated connection is provided between two or more smaller caches that form a partner cache set. Transferring data through the dedicated connections reduces congestion on the shared crossbar network. Reducing congestion on the shared crossbar network increases the available bandwidth and allows the number of processing units to increase. A coherence protocol is defined for accessing data stored in the distributed cache and for transferring data between the smaller caches of a partner cache set.
+</abstract>
+
+<claims>
+1. A distributed cache storage, comprising: a first cache storage within a first processor coupled to a first slice of memory, the first cache storage including a first cache line that stores first data from a first location in the first slice of memory and is coherent with the first location, wherein the first cache storage is directly coupled to a second cache storage within a second processor through a dedicated connection and indirectly coupled to the second cache storage through a shared connection; and the second cache storage coupled to a second slice of the memory and including a second cache line that stores second data from a second location in the second slice of memory and is coherent with the second location, wherein the first cache line is written with the second data through the dedicated connection.
+2. The distributed cache storage of claim 1, wherein state information for the first cache line is modified from indicating the first cache line is coherent with the first location to indicate the first cache line is coherent with the second cache line.
+3. The distributed cache storage of claim 2, wherein, in response to receiving a write request for the second location, the second cache storage is configured to: transmit a command to the first cache storage to invalidate the first cache line; and modify state information for the second cache line to indicate the second cache line is not coherent with another cache line.
+4. The distributed cache storage of claim 2, wherein, in response to receiving a write request for the second location, the first cache storage is configured to: write third data to the first cache line; and transmit a command to the second cache storage to write the third data to the second cache line.
+5. The distributed cache storage of claim 2, wherein, the first cache line is selected for eviction and, in response, the first cache storage transmits an eviction command through the dedicated connection and deallocates the first cache line.
+6. The distributed cache storage of claim 5, wherein, in response to receiving the eviction command, state information for the second cache line is modified from indicating the second cache line is coherent with the first cache line to indicate the second cache line is not coherent with another cache line.
+7. The distributed cache storage of claim 2, wherein, the second cache line is selected for eviction and, in response, the second cache storage deallocates the second cache line and the state information for the first cache line is unchanged.
+8. The distributed cache storage of claim 2, wherein, in response to determining a number of cache lines in the first cache that are coherent with cache lines in the second cache exceeds a threshold value, the first cache storage is configured to: evict the first cache line; and transmit an eviction command through the dedicated connection to the second cache.
+9. The distributed cache storage of claim 1, wherein, in response to receiving a request for a third location from a requestor, the first cache storage is configured to transmit a read command through the dedicated connection to the second cache storage to read third data from a third cache line that is coherent with the third location.
+10. The distributed cache storage of claim 9, wherein the first cache storage is further configured to: determine the third location is within a defined memory aperture for which allocating cache lines coherent with cache lines in other caches is disabled; and return the third data to the requestor without allocating a fourth cache line in the first cache to store the third data.
+11. The distributed cache storage of claim 9, wherein the third data stored in the third cache line is compressed, and the second cache is further configured to decompress the third data and transmit the decompressed third data to the first cache storage through the dedicated connection.
+12. The distributed cache storage of claim 11, wherein the first cache storage is further configured to: store the decompressed third data in a fourth cache line in the first cache storage; and return the decompressed third data to the requestor.
+13. The distributed cache storage of claim 1, wherein the shared connection is a crossbar.
+14. The distributed cache storage of claim 1, wherein the dedicated connection is a point-to-point connection.
+15. A computer-implemented method, comprising: storing first data from a first location of a first slice of memory to a first cache line within a first cache storage within a first processor coupled to the first slice of memory, wherein the first cache line is coherent with the first location and the first cache storage is directly coupled to a second cache storage within a second processor through a dedicated connection and indirectly coupled to the second cache storage through a shared connection; storing second data from a second location of a second slice of memory to a second cache line within the second cache storage coupled to the second slice of memory, wherein the second cache line is coherent with the second location; and writing the first cache line with the second data through the dedicated connection.
+16. The computer-implemented method of claim 15, further comprising modifying state information for the first cache line from indicating the first cache line is coherent with the first location to indicate the first cache line is coherent with the second cache line.
+17. The computer-implemented method of claim 16, wherein, in response to receiving a write request for the second location, the second cache storage: transmits a command to the first cache storage to invalidate the first cache line; and modifies state information for the second cache line to indicate the second cache line is not coherent with another cache line.
+18. The computer-implemented method of claim 16, wherein, in response to a write request for the second location, the first cache storage: writes third data to the first cache line; and transmits a command to the second cache storage to write the third data to the second cache line.
+19. The computer-implemented method of claim 16, wherein, the first cache line is selected for eviction and, in response, the first cache storage transmits an eviction command through the dedicated connection and deallocates the first cache line.
+20. The computer-implemented method of claim 19, wherein, in response to receiving the eviction command, the second cache storage modifies state information for the second cache line from indicating the second cache line is coherent with the first cache line to indicate the second cache line is not coherent with another cache line.
+</claims>
+</document>

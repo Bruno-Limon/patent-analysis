@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2016-07-13
+</filing_date>
+
+<publication_date>
+2020-09-08
+</publication_date>
+
+<priority_date>
+2015-09-04
+</priority_date>
+
+<ipc_classes>
+G06F9/48,G06F9/50,G06N3/063,G06N3/08,G06N3/10,H04L12/24
+</ipc_classes>
+
+<assignee>
+BAIDU USA
+</assignee>
+
+<inventors>
+CATANZARO, BRYAN
+FOUGNER, CHRISTOPHER
+</inventors>
+
+<docdb_family_id>
+56896367
+</docdb_family_id>
+
+<title>
+Systems and methods for efficient neural network deployments
+</title>
+
+<abstract>
+Disclosed are systems and methods that implement efficient engines for computation-intensive tasks such as neural network deployment. Various embodiments of the invention provide for high-throughput batching that increases throughput of streaming data in high-traffic applications, such as real-time speech transcription. In embodiments, throughput is increased by dynamically assembling into batches and processing together user requests that randomly arrive at unknown timing such that not all the data is present at once at the time of batching. Some embodiments allow for performing steaming classification using pre-processing. The gains in performance allow for more efficient use of a compute engine and drastically reduce the cost of deploying large neural networks at scale, while meeting strict application requirements and adding relatively little computational latency so as to maintain a satisfactory application experience.
+</abstract>
+
+<claims>
+1. A batching method for increasing throughput of data processing requests, the method comprising: receiving data associated with requests to be processed by using a neural network model, each request of at least some of the requests being subject to one or more constraints and at least some of the requests being received asynchronously; dynamically assembling at least some of the data into a batch using at least one of the one or more constraints by performing steps comprising: for each request of at least some of the requests, using at least one of the one or more constraints associated with the request to select whether the request should be included in a batch; and assembling data associated with the selected requests into a batch; and processing the batch using a single thread that orchestrates a plurality of threads to share a burden of loading the neural network model from memory to increase data throughput.
+2. The method according to claim 1, wherein the one or more constraints comprise a latency requirement.
+3. The method according to claim 2, wherein the latency requirement comprises at least one of a requirement to process a request within a predetermined amount of time after a last packet in the request arrives or a requirement to not add data into a batch that already contains data from that request.
+4. The method according to claim 2, further comprising: assembling data from two or more requests that are latency sensitive into a latency-sensitive batch; and assembling data from two or more requests that are less latency sensitive into a throughput-oriented batch for processing, the latency-sensitive batch having a higher priority for processing than the throughput-oriented batch.
+5. The method according to claim 1, wherein the batch comprises at least one stateful request.
+6. The method according to claim 1, further comprising the steps of: pre-processing the data, the data comprising a packet; assembling pre-processed data into a batch matrix that is shared by at least two of the plurality of users; and providing the batch matrix to a compute engine.
+7. The method according to claim 6, further comprising maintaining a batch list and, for each of a plurality of users: an input buffer and a pre-processed buffer.
+8. The method according to claim 7, further comprising performing the steps of: copying data from the packet to the input buffer associated with the one of the plurality of users; discarding the packet; pre-processing the input buffer to obtain a first set of results; and placing the first set of results in the pre-processed buffer associated with the one of the plurality of users.
+9. The method according to claim 8, wherein the step of pre-processing the input buffer comprises transferring a predetermined amount of data that represents at least a portion of an image or a length of a spectrogram from the pre-processed buffer associated with the one of the plurality of users to an eligible batch in the batch list.
+10. The method according to claim 8, further comprising, in response to looping over users to fill up the batch list, deciding, based on a status of the compute engine, whether to provide one or more batches to the compute engine.
+11. The method according to claim 10, wherein the step of deciding is based on a determination of at least one of a time needed for an additional iteration exceeding a delay constraint or an effect of a status of the batch list on a latency requirement.
+12. A batch processing system for processing requests involving a neural network model, the system comprising: one or more computing devices, in which each computing device comprises: at least one processor and a memory device; a batch producer component that receives data associated with different requests and dynamically assembles chunks of data from at least two different requests into a batch according to one or more constraints by performing steps comprising: for each request of at least some of the different requests, using at least one of the one or more constraints associated with the request to select whether the request should be included in a batch; and assembling data associated with the selected requests into a batch; and a compute engine component communicatively coupled to the batch producer, the compute engine component processes the batch in a single thread that orchestrates a plurality of threads to share a burden of loading the neural network model from memory to increase data throughput.
+13. The batch processing system according to claim 12 wherein an input size of a neural network model determines a size for the chunks of data.
+14. The batch processing system according to claim 12 further comprising a load balancer that receives, at asynchronous timings, a plurality of requests and load balances the plurality of requests across the one or more computing devices such that data associated with a same request are sent to a same computing device.
+15. The batch producer according to claim 12, wherein the compute engine separates the processed batch into a plurality of responses that each are associated with one user.
+16. A batch producer comprising: non-transitory computer-readable medium or media comprising one or more sequences of instructions which, when executed by at least one processor, causes steps to be performed comprising: receiving data associated with requests to be processed by using a neural network model, each of the requests being subject to one or more constraints; dynamically assembling at least some of the data into a batch using at least one of the one or more constraints by performing steps comprising: for each request of at least some of the requests, using at least one of the one or more constraints associated with the request to select whether the request should be included in a batch; and assembling data associated with the selected requests into a batch; and causing the batch to be processed using a single thread that orchestrates a plurality of threads to share a burden of loading the neural network model from memory to increase data throughput.
+17. The batch producer according to claim 16, wherein the batch producer comprises an input buffer and a pre-processed buffer for each of a plurality of users, each user being associated with a request to be processed.
+18. The batch producer according to claim 16, wherein the batch producer receives at least some of the data processing requests asynchronously.
+19. The batch producer according to claim 16, wherein the one or more constraints comprise at least one of a requirement to process a request within a predetermined amount of time after a last packet in the request arrives or a requirement to not add data to a batch that already contains data from that request.
+20. The batch producer according to claim 16, wherein the step of dynamically assembling at least some of the data into a batch using at least one of the one or more constraints comprises: assembling data from two or more requests that are latency sensitive into a latency-sensitive batch; and assembling data from two or more requests that are less latency sensitive into a throughput-oriented batch for processing, the latency-sensitive batch having a higher priority for processing than the throughput-oriented batch.
+</claims>
+</document>

@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2017-05-11
+</filing_date>
+
+<publication_date>
+2020-08-18
+</publication_date>
+
+<priority_date>
+2017-05-11
+</priority_date>
+
+<ipc_classes>
+G06N20/00,G06N3/08,G06N5/04,G06N99/00,G06Q30/02
+</ipc_classes>
+
+<assignee>
+JIVOX CORPORATION
+</assignee>
+
+<inventors>
+NESAMONEY DIAZ
+DAHIYA, SANJAY
+</inventors>
+
+<docdb_family_id>
+64097298
+</docdb_family_id>
+
+<title>
+Scoring users based on intent for online advertising
+</title>
+
+<abstract>
+An intent score is assigned to users who are viewing online ads. Users define a bid-range and adjust pricing within the range at an individual user level, based on an intent score that is derived from user activity. An advertiser typically defines a bid range. If the user then interacts with ads or visits the advertiser's website then, based on user actions, the bid price is revised. This process of bid price revision is continuous and results in increased or decreased bid prices for individual users. All participating users and their intent scores are periodically uploaded to RTB platforms where they are used to purchase ad impressions. This increases the likelihood of winning bids for more valuable users with better precision without raising bid prices for entire segments of users.
+</abstract>
+
+<claims>
+1. A computer implemented method for scoring users based on intent for online advertising, comprising: a processor identifying individual activity in connection with a website; said processor generating real-time data triggers from data collected from a plurality of heterogeneous sources including user activity across a plurality of services including any of ads said users view and interact with, and users' activity on an advertiser's website; said processor obtaining a machine learning algorithm trained to classify said users in 'buy' and 'no-buy' classes based on said real-time data triggers, wherein the machine learning algorithm includes a two-stage machine learning algorithm, wherein a first stage of the two-stage machine learning algorithm uses a deep neural network based classification algorithm and historical data for said users to determine if a user is likely to perform a target action; said processor, using said deep neural network, producing both a classification score and a confidence measure by generating a 'buy' or 'no-buy' prediction along with the confidence measure when a new user is seen, based on real-time data triggers associated with the new user including any of ads the new user views and interacts with, and the new user's activity on the advertiser's website; and said processor, using said deep neural network, calculating a bid price for the new user by projecting the confidence measure over an advertiser defined bid range to derive an intent score when said new user is classified positively.
+2. The method of claim 1, further comprising: said processor periodically uploading all participating users and their intent scores to one or more real time bidding platforms for use in purchasing ad impressions to increase a likelihood of winning bids for more valuable users with better precision without raising bid prices for an entire segments of users.
+3. The method of claim 1, wherein any change in a user's data generates a data trigger, said data trigger causing said intent score to be recalculated for said user by an intent scoring engine.
+4. The method of claim 1, said processor generating said real-time data triggers further comprising: said processor converting data from each data source to a value structure comprising one of key-value pairs, a SET of unique unordered values, and a LIST of ordered values; said processor assigning a unique lookup index to all value structures, wherein said unique lookup index and a type of structure is data source dependent; said processor using a consistent hashing algorithm applied to lookup keys across a large array of server shards to distribute said data; and within each shard, said processor using a secondary hashing algorithm to maintain data records, wherein said two level hashing provides constant time lookup performance over a multi-terabyte data store spread across a large number of servers.
+5. The method of claim 4, further comprising: said processor replicating each shard to a redundant server for failover.
+6. The method of claim 4, further comprising: said processor using said value structures for any of: user profile data, where said unique lookup index is a userld and a value is a SET of unique profile segments; weather data, where said unique lookup index is a postal code and the value is a SET of key value pairs; and user interactions with advertiser websites, where the data is stored as a LIST of recently viewed product Ids.
+7. The method of claim 1, further comprising: said processor calculating said intent score based on an ad campaign specific scoring configuration and machine learning from user ad interaction data.
+8. The method of claim 1, further comprising: said processor mapping user activity data from said plurality of services to an anonymized identifier (pseudo Id); wherein said pseudo Id cannot be used to get any personally identifiable information about any user; wherein all data associated with a same pseudo Id is imported and maintained in a high performance in-memory data store (personalization hub) for near real-time update; and said processor providing data from said personalization hub to an intent scoring processor.
+9. The method of claim 8, further comprising: an intent scoring engine using any of timers and data based triggers received from said personalization hub to initiate score generation.
+10. The method of claim 9, further comprising: said intent scoring engine using said timers to generate scores based on static data that may not change frequently during a lifetime of an ad, said static data comprising any of user profiles imported from a data management platform, pre-calculated scores, and environmental data.
+11. The method of claim 9, further comprising: said intent scoring engine using said data based triggers to update user intent scores when new intent data is received from any of ad tracking, advertiser's websites, and other sources.
+12. The method of claim 9, further comprising: said intent scoring engine configuring intent of individual data triggers to manually control an intent scoring configuration.
+13. The method of claim 1, further comprising: an intent scoring engine using a scaling function for users with large amounts of activity to restrict values within the advertiser defined bid range.
+14. The method of claim 1, further comprising: an intent scoring engine feeding back campaign data to a machine learning model; said machine learning model automatically deriving intent scores based on behavior of a large number of users.
+15. The method of claim 1, further comprising: a machine-learning algorithm specifying an optimization target defined by an advertiser.
+16. The method of claim 15, further comprising: said machine-learning algorithm using users visiting said advertiser's website as said optimization target when an ad campaign goal is to drive traffic to said advertiser's website.
+17. The method of claim 15, further comprising: said machine-learning algorithm using data for all users who meet the optimization target for learning.
+18. The method of claim 15, further comprising: said machine-learning algorithm beginning learning with a set of users who clicked on an ad when the optimization target is to increase click-through rate by: identifying common parameters from said set of users and finding other users with similar parameters; increasing said intent score for similar users to allow purchase of impressions for these users via a real-time ad bidding platform; and regenerating a predictive model periodically to adapt to any changes in user behavior.
+19. The method of claim 1, further comprising: said machine learning algorithm automatically identifying a most influential data parameter contributing to meeting an optimization target and increasing the intent score for those users.
+20. The method of claim 1, further comprising: said machine learning algorithm using training data that includes all users whose activity is known at a time of training.
+21. An apparatus for scoring users based on intent for online advertising, comprising: a processor that executes instructions stored in a non-transitory data storage device to: identify individual activity in connection with a website; generate real-time data triggers from data collected from a plurality of heterogeneous sources; obtain a machine learning algorithm trained to classify said users in 'buy' and 'no-buy' classes based on said real-time data triggers, wherein the machine learning algorithm includes a two-stage machine learning algorithm, wherein a first stage of the two-stage machine learning algorithm uses a deep neural network based classification algorithm and historical data for said users to determine if a user is likely to perform a target action; produce both a classification score and a confidence measure by generating, using the machine learning algorithm, a 'buy' or 'no-buy' prediction along with the confidence measure when a new user is seen, based on real-time data triggers associated with the new user including any of ads the new user views and interacts with, and the new user's activity on an advertiser's website; and calculate a bid price for the new user by projecting the confidence measure over an advertiser defined bid range to derive an intent score when said new user is classified positively.
+</claims>
+</document>

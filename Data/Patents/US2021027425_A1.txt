@@ -1,0 +1,69 @@
+<document>
+
+<filing_date>
+2018-02-26
+</filing_date>
+
+<publication_date>
+2021-01-28
+</publication_date>
+
+<priority_date>
+2017-02-24
+</priority_date>
+
+<ipc_classes>
+G06N20/00,G06T3/40
+</ipc_classes>
+
+<assignee>
+DEEPMIND TECHNOLOGIES
+</assignee>
+
+<inventors>
+BELOV, DANIEL
+COLMENAREJO, SERGIO GOMEZ
+KALCHBRENNER, NAL EMMERICH
+VAN DEN OORD, AARON GERARD ANTONIUS
+de Freitas, Joao Gomes
+Reed, Scott Ellison
+Wang, Ziyu
+</inventors>
+
+<docdb_family_id>
+61386851
+</docdb_family_id>
+
+<title>
+MULTISCALE IMAGE GENERATION
+</title>
+
+<abstract>
+A method of generating an output image having an output resolution of N pixels×N pixels, each pixel in the output image having a respective color value for each of a plurality of color channels, the method comprising: obtaining a low-resolution version of the output image; and upscaling the low-resolution version of the output image to generate the output image having the output resolution by repeatedly performing the following operations: obtaining a current version of the output image having a current K×K resolution; and processing the current version of the output image using a set of convolutional neural networks that are specific to the current resolution to generate an updated version of the output image having a 2K×2K resolution.
+</abstract>
+
+<claims>
+1. A method of generating an output image having an output resolution of N pixels×N pixels, each pixel in the output image having a respective color value for each of a plurality of color channels, the method comprising: obtaining a low-resolution version of the output image; and upscaling the low-resolution version of the output image to generate the output image having the output resolution by repeatedly performing the following operations: obtaining a current version of the output image having a current K×K resolution; and processing the current version of the output image using a set of convolutional neural networks that are specific to the current resolution to generate an updated version of the output image having a 2K×2K resolution.
+2. The method of claim 1, wherein obtaining the low-resolution version comprises: generating the low-resolution version using an image generation machine learning model.
+3. The method of claim 2, wherein the image generation machine learning model is an autoregressive image generation machine learning model.
+4. The method of claim 1, wherein the output image is conditioned on an input context and wherein the image generation machine learning model is configured to generate the low-resolution version conditioned on the input context.
+5. The method of claim 4, wherein each convolutional neural network in each set of convolutional neural networks is conditioned on the input context.
+6. The method of claim 1, wherein the set of convolutional neural networks that are specific to the current resolution comprises: a first convolutional neural network that is configured to receive a first input comprising the current version of the image and to generate a first output image that includes columns of pixels from a K×2K version of the output image, and a second convolutional neural network that is configured to receive a second input comprising the K×2K version of the output image and to generate a second output image that includes rows of pixels from the 2K×2K version of the output image.
+7. The method of claim 6, wherein processing the current version of the output image using the set of convolutional neural networks that are specific to the current resolution to generate the updated version of the output image comprises: processing the current version of the output image using the first convolutional neural network to generate the first output image; generating the K×2K version by merging the current version and the first output image; processing the K×2K version using the second convolutional neural network to generate the second output image; and generating the 2K×2K version by merging the K×2K version and the second output image.
+8. The method of claim 7, wherein merging the current version and the first output image comprises: generating a K×2K image that includes K columns of pixels from the current image and K columns of pixels from the first output image by alternating columns of pixels from the current version with columns of pixels from the first output image.
+9. The method of claim 7, wherein merging the K×2K version and the second output image comprises: generating a 2K×2K image that includes K rows of pixels from the K×2K version and K rows of pixels from the second output image by alternating rows of pixels from the K×2 K version with rows of pixels from the second output image.
+10. The method of claim 7, wherein the plurality of color channels are ordered according to a channel order, wherein the first convolutional neural network is configured to, for each of the color channels: generate color values for the color channel for pixels in the first output image conditioned (i) on the current version and (ii) on color values for pixels in the first output image for any color channels before the color channel in the channel order and (iii) not on color values for pixels in the first output image for any color channels that are after the color channel in the channel order, and wherein the second convolutional neural network is configured to, for each of the color channels: generate color values for the color channel for pixels in the second output image conditioned (i) on the K×2K version and (ii) on color values for pixels in the second output image for any color channels before the color channel in the channel order and (iii) not on color values for pixels in the second output image for any color channels that are after the color channel in the channel order.
+11. The method of claim 10, wherein processing the current version using the first convolutional neural network to generate the first output image comprises: iteratively processing the current version and color values from the first output image that have already been generated to generate the first output image, and wherein processing the K×2K version using the second convolutional neural network to generate the second output image comprises: iteratively processing the K×2K version and the color values from the second output image that have already been generated to generate the second output image.
+12. The method of claim 1, wherein the set of convolutional neural networks that are specific to the current resolution comprises: a first convolutional neural network that is configured to receive a first input comprising the current version of the image and to generate a first output image that includes rows of pixels from a 2K×K version of the output image, and a second convolutional neural network that is configured to receive a second input comprising the 2K×2 version of the output image and to generate a second output image that includes columns of pixels from the 2K×2K version of the output image.
+13. The method of claim 12, wherein processing the current version of the output image using the set of convolutional neural networks that are specific to the current resolution to generate the updated version comprises: processing the current version using the first convolutional neural network to generate the first output image; generating the 2K×K version by merging the current version and the first output image; processing the 2K×K version using the second convolutional neural network to generate the second output image; and generating the 2K×2K version by merging the 2K×K version and the second output image.
+14. The method of claim 13, wherein merging the current version and the first output image comprises: generating a 2K×K image that includes K rows of pixels from the current image and K rows of pixels from the first output image by alternating rows of pixels from the current version with rows of pixels from the first output image.
+15. The method of claim 13, wherein merging the 2K×K version and the second output image comprises: generating a 2K×2K image that includes K columns of pixels from the 2K×K version and K columns of pixels from the second output image by alternating columns of pixels from the 2K×K version with columns of pixels from the second output image.
+16. The method of claim 12, wherein the plurality of color channels are ordered according to a channel order, wherein the first convolutional neural network is configured to, for each of the color channels: generate color values for the color channel for pixels in the first output image conditioned (i) on the current version and (ii) on color values for pixels in the first output image for any color channels before the color channel in the channel order and (iii) not on color values for pixels in the first output image for any color channels that are after the color channel in the channel order, and wherein the second convolutional neural network is configured to, for each of the color channels: generate color values for the color channel for pixels in the second output image conditioned (i) on the 2K×K version and (ii) on color values for pixels in the second output image for any color channels before the color channel in the channel order and (iii) not on color values for pixels in the second output image for any color channels that are after the color channel in the channel order.
+17. The method of claim 16, wherein processing the current version using the first convolutional neural network to generate the first output image comprises: iteratively processing the current version and color values from the first output image that have already been generated to generate the first output image, and wherein processing the 2K×K version using the second convolutional neural network to generate the second output image comprises: iteratively processing the 2K×K version and the color values from the second output image that have already been generated to generate the second output image.
+18. A method of generating an output image from a lower resolution version of the output image, the method comprising: determining a first group of pixels for the output image from the lower resolution version of the image; iteratively generating each subsequent group of pixels in G groups of pixels of the output image conditioned on one or more groups of pixels that were previously generated; wherein generating each subsequent group of pixels includes determining, in parallel within each group of pixels, values of the pixels within the group; and wherein the values of the pixels within the groups of pixels define the output image.
+19. The method of claim 18, wherein the G groups of pixels of the output image are formed such that no two adjacent pixels of the output image are in the same group.
+20. The method of claim 18, further comprising conditioning the iteratively generating of the respective subsequent group of pixels on an input context.
+21. A system comprising one or more computers and one or more storage devices storing instructions that when executed by the one or more computers cause the one or more computers to perform operations for generating an output image having an output resolution of N pixels×N pixels, each pixel in the output image having a respective color value for each of a plurality of color channels, the operations comprising: obtaining a low-resolution version of the output image; and upscaling the low-resolution version of the output image to generate the output image having the output resolution by repeatedly performing the following operations: obtaining a current version of the output image having a current K×K resolution; and processing the current version of the output image using a set of convolutional neural networks that are specific to the current resolution to generate an updated version of the output image having a 2K×2K resolution.
+22. (canceled)
+</claims>
+</document>

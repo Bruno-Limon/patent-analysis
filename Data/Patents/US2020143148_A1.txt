@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2015-07-15
+</filing_date>
+
+<publication_date>
+2020-05-07
+</publication_date>
+
+<priority_date>
+2014-07-15
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/62
+</ipc_classes>
+
+<assignee>
+FACE CHECKS
+</assignee>
+
+<inventors>
+MAHMOOD, AUSIF
+SOBH, TAREK
+</inventors>
+
+<docdb_family_id>
+55079033
+</docdb_family_id>
+
+<title>
+Multi-Algorithm-Based Face Recognition System and Method with Optimal Dataset Partitioning for a Cloud Environment
+</title>
+
+<abstract>
+A system and method of face recognition comprising multiple phases implemented in a parallel architecture. The first phase is a normalization phase whereby a captured image is normalized to the same size, orientation, and illumination of stored images in a preexisting database. The second phase is a feature extraction/distance matrix phase where a distance matrix is generated for the captured image. In a coarse recognition phase, the generated distance matrix is compared with distance matrices in the database using Euclidean distance matches to create candidate lists, and in a detailed recognition phase, multiple face recognition algorithms are applied to the candidate lists to produce a final result. The distance matrices in the normalized database may be broken into parallel lists for parallelization in the feature extraction/distance matrix phase, and the candidate lists may also be grouped according to a dissimilarity algorithm for parallel processing in the detailed recognition phase.
+</abstract>
+
+<claims>
+1. A method of scalable, parallel, cloud-based face recognition utilizing a database of normalized stored images, comprising: capturing an image using a camera; detecting a face in the captured image; normalizing the detected facial image to match the normalized stored images; identifying facial features in the normalized detected facial image; generating a plurality of facial metrics from the facial features; calculating Euclidean distances between the facial metrics of the normalized detected facial image with corresponding facial metrics of each of the stored images; comparing each Euclidean distance against a predetermined threshold; responsive to the Euclidean distance comparison, producing a reduced candidate list of best possible image matches from the normalized stored images; comparing, in parallel, the normalized detected facial image with each of the normalized stored images of the reduced candidate list utilizing a plurality of face recognition algorithms, where each processor of a parallel processing system uses a different face recognition algorithm; responsive to the comparison, producing best match results from each parallel subset of the reduced candidate list; and selecting a final match from the best match results using a deep learning neural network face recognition algorithm trained on outputs of individual face recognition algorithms.
+2. The method of scalable, parallel, cloud-based face recognition of claim 1, wherein detecting a face in the captured image comprises: utilizing OpenCV to detect a face in the captured image; extracting the location of the eyes and a tip of the nose in the face; determining a distance between the eyes; cropping the face from the captured image, where the width and the height of a cropped face image is a function of the distance between the eyes; and rotating the face by an angle of rotation that is a function of the distance between the eyes.
+3. The method of scalable, parallel, cloud-based face recognition of claim 2, wherein: the width of the cropped face image is 2.5 times the distance between the eyes; the height of the cropped face image is 3.5 times the distance between the eyes; and the angle of rotation is an angle formed by a straight line joining the eyes and an x-axis of the face.
+4. The method of scalable, parallel, cloud-based face recognition of claim 3, wherein rotating the face comprises rotating the face to provide a frontal face pattern.
+5. The method of scalable, parallel, cloud-based face recognition of claim 4, further comprising the step of proportionally rescaling the cropped and rotated image.
+6. The method of scalable, parallel, cloud-based face recognition of claim 5, where the proportional rescaling yields a cropped and rotated image with a size of 100=100 pixels.
+7. The method of scalable, parallel, cloud-based face recognition of claim 1, wherein the facial features identified in the normalized detected facial image comprise a pair of eyes, a tip of a nose, a mouth, a center of the mouth, and a chin area comprising a bottom, a top left landmark, and a top right landmark.
+8. The method of scalable, parallel, cloud-based face recognition of claim 7, wherein generating a plurality of facial metrics comprises: calculating a distance between the pair of eyes, a distance between the eyes and the tip of the nose, a distance equal to the width of the mouth, a distance between the tip of the nose and the center of mouth, a distance between the bottom of chin and the center of mouth, a distance between the top left landmark on the chin and the tip of the nose, and a distance between the top right landmark on the chin and the tip of the nose.
+9. The method of scalable, parallel, cloud-based face recognition of claim 8, wherein performing a Euclidean distance match further comprises: partitioning the normalized stored images into a plurality of substantially equal subsets; performing a Euclidean distance match between the facial metrics of the normalized detected facial image and corresponding facial metrics of each of the stored images of the subsets of the normalized stored images with a separate processor of a parallel processing system to generate a Euclidean distance for each stored image of the subset; comparing each Euclidean distance against a predetermined threshold with the separate processors; responsive to the Euclidean distance comparison, producing a reduced candidate list of best possible image matches from the normalized stored images of each subset; and combining the reduced candidate lists from each subset to produce a single reduced candidate list.
+10. The method of scalable, parallel, cloud-based face recognition of claim 9, wherein the plurality of face recognition algorithms utilized in comparing, in parallel, the normalized detected facial image with each of the normalized stored images of the reduced candidate list, consists of face recognition algorithms selected from a group consisting of Principle Component Analysis (PCA)-based algorithms, Linear Discriminant Analysis (LDA) algorithms, Independent Component Analysis (ICA) algorithms, kernel-based algorithms, feature-based techniques, algorithms based on neural networks, algorithms based on transforms, and model-based face recognition algorithms.
+11. The method of scalable, parallel, cloud-based face recognition of claim 10, wherein the PCA-based algorithms include Eigenfaces for face detection/recognition, and the LDA algorithms include the Fisherfaces method of face recognition.
+12. The method of scalable, parallel, cloud-based face recognition of claim 1, wherein comparing, in parallel, the captured image with each of the normalized stored images of the reduced candidate list further comprises: partitioning the reduced candidate list into a plurality of substantially equal subsets; processing each subset in a different processor of the parallel processing system uses a unique face recognition algorithm to produce the best match results; and using a reduce function of a MapReduce program to combine the best match results from each of the subsets to produce a single set of the best match results.
+13. The method of scalable, parallel, cloud-based face recognition of claim 12, wherein partitioning the reduced candidate list comprises: selecting the images comprising each subset by optimizing the variance between of each of the images according to the following equation: where m and n are the number of rows and columns of the face vector image, N is the number of groups, and σij is the standard deviation of image dimension i in the group j of the face image vector.
+14. The method of scalable, parallel, cloud-based face recognition of claim 13, wherein selecting the images comprising each subset by optimizing the variance between each of the images according to the following equation: d(μi, μj) is the Euclidean distance between the mean of the group i and the mean of group j, I is the face image vector, and L is the number of group levels.
+15. The method of scalable, parallel, cloud-based face recognition of claim 1, where selecting a final match from the best match results utilizing a deep learning neural network face recognition algorithm comprises utilizing either an AdaBoost machine-learning algorithm or a neural networks machine-learning model.
+16. The method of scalable, parallel, cloud-based face recognition of claim 1, where normalizing the detected facial image to match the normalized stored images includes normalizing the detected facial image to the same size, orientation, and illumination of the normalized stored images.
+17. A non-transitory computer-readable medium containing executable program instructions for causing a computer to perform a method of face recognition, the method comprising: detecting a face in an image captured by a camera; normalizing the detected facial image to match the normalized stored images; identifying facial features in the normalized detected facial image; generating a plurality of facial metrics from the facial features; calculating Euclidean distances between the facial metrics of the normalized detected facial image with corresponding facial metrics of each of the stored images; comparing each Euclidean distance against a predetermined threshold; responsive to the Euclidean distance comparison, producing a reduced candidate list of best possible image matches from the normalized stored images; comparing, in parallel, the captured image with each of the normalized stored images of the reduced candidate list utilizing a plurality of face recognition algorithms, where each processor of a parallel processing system uses a different face recognition algorithm; responsive to the comparison, producing best match results from each parallel subset of the reduced candidate list; and selecting a final match from the best match results using a deep learning neural network face recognition algorithm trained on outputs of individual face recognition algorithms.
+18. The non-transitory computer-readable medium containing executable program instructions of claim 17, wherein the plurality of face recognition algorithms utilized in comparing, in parallel, the normalized detected facial image with each of the normalized stored images of the reduced candidate list, consists of face recognition algorithms selected from a group consisting of Principle Component Analysis (PCA)-based algorithms, Linear Discriminant Analysis (LDA) algorithms, Independent Component Analysis (ICA) algorithms, kernel-based algorithms, feature-based techniques, algorithms based on neural networks, algorithms based on transforms, and model-based face recognition algorithms.
+19. The non-transitory computer-readable medium containing executable program instructions of claim 18, wherein the PCA-based algorithms include Eigenfaces for face detection/recognition, and the LDA algorithms include the Fisherfaces method of face recognition.
+20. The non-transitory computer-readable medium containing executable program instructions of claim 17, where selecting a final match from the best match results utilizing a deep learning neural network face recognition algorithm comprises utilizing either an AdaBoost machine-learning algorithm or a neural networks machine-learning model.
+</claims>
+</document>

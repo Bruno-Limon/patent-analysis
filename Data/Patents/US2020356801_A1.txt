@@ -1,0 +1,60 @@
+<document>
+
+<filing_date>
+2019-09-17
+</filing_date>
+
+<publication_date>
+2020-11-12
+</publication_date>
+
+<priority_date>
+2018-10-26
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/46
+</ipc_classes>
+
+<assignee>
+BOE TECHNOLOGY GROUP COMPANY
+</assignee>
+
+<inventors>
+DUAN RAN
+</inventors>
+
+<docdb_family_id>
+65312177
+</docdb_family_id>
+
+<title>
+METHOD AND DEVICE FOR OBJECT DETECTION
+</title>
+
+<abstract>
+The present disclosure provides an object detection method and an object detection device. The object detection device includes: a heterogeneous processor and a memory, the heterogeneous processor including: a processing unit and a programmable logic unit, wherein the programmable logic unit is configured to receive a to-be-detected image, perform feature extraction on the to-be-detected image, and write an extracted feature into the memory; the processing unit is configured to read the feature from the memory, perform target object detection according to the feature, and output a detection result to the programmable logic unit; and the programmable logic unit is further configured to receive the detection result, generate prompt information according to the detection result, and output the prompt information.
+</abstract>
+
+<claims>
+1. An object detection device, comprising: a heterogeneous processor and a memory, the heterogeneous processor comprising: a processing unit and a programmable logic unit, wherein the programmable logic unit is configured to receive a to-be-detected image, perform feature extraction on the to-be-detected image, and write an extracted feature into the memory; the processing unit is configured to read the feature from the memory, perform target object detection according to the feature, and output a detection result to the programmable logic unit; and the programmable logic unit is further configured to receive the detection result, generate prompt information according to the detection result, and output the prompt information.
+2. The object detection device according to claim 1, wherein the processing unit is a processing unit of a Central Processing Unit (CPU) architecture.
+3. The object detection device according to claim 1, wherein the programmable logic unit is one of a Field Programmable Gate Array (FPGA) and a Complex Programmable Logic Device (CPLD).
+4. The object detection device according to claim 1, wherein the feature extraction comprises any one of: Histogram of Oriented Gradient (HOG); Scale-Invariant Feature Transform (SIFT); Speeded Up Robust Features (SURF); Difference of Gaussian (DOG); Local Binary Pattern (LBP); or haar-like feature extraction algorithm.
+5. The object detection device according to claim 1, wherein the programmable logic unit comprises: a color format conversion unit and a feature extraction unit, wherein the color format conversion unit is configured to receive the to-be-detected image, perform color format conversion on the to-be-detected image, and output a converted to-be-detected image to the feature extraction unit; and the feature extraction unit is configured to receive the converted to-be-detected image input by the color format conversion unit, perform Aggregation Channel Features (ACF) extraction on the converted to-be-detected image, and write an extracted ACF into the memory.
+6. The object detection device according to claim 5, wherein the feature extraction unit comprises: a color space conversion unit, a down-sampling unit, at least one feature calculation unit, and a Direct Memory Access (DMA) and a scaling unit corresponding to each feature calculation unit, wherein the color space conversion unit is configured to perform color space conversion on the converted to-be-detected image to obtain color space information of the to-be-detected image, and output the color space information to the down-sampling unit; the down-sampling unit is configured to down-sample the color space information to generate a down-sampled image in at least one scale, and output the down-sampled image in each scale to the corresponding feature calculation unit; each of the at least one feature calculation unit is configured to calculate a corresponding scale feature for each pixel of the down-sampled image in a corresponding scale, and output the scale feature corresponding to the down-sampled image in the scale to the DMA unit corresponding to the feature calculation unit as a scale feature of the scale; the DMA unit is configured to write, into the memory, the scale feature corresponding to the down-sampled image in the scale input by the feature calculation unit; and the scaling unit is configured to read the scale feature of each scale from the memory, sequentially scale the scale feature of each scale according to a preset scaling rule to obtain a preset number of scale features, and writing the preset number of scale features into the memory as the ACF.
+7. The object detection device according to claim 6, wherein each of the at least one feature calculation unit is configured to calculate gradient values in horizontal and vertical directions for each pixel of the down-sampled image in the scale; calculate a gradient magnitude and a direction angle according to the gradient values in horizontal and vertical directions; scale down the gradient magnitude in a preset proportion to generate a gradient magnitude feature; calculate a corresponding Histogram of Oriented Gradient (HOG) according to the gradient magnitude and the direction angle; and determine the color space information, the gradient magnitude feature and the HOG corresponding to each pixel of the down-sampled image in the scale as scale features corresponding to the down-sampled image in the scale.
+8. The object detection device according to claim 7, wherein the feature calculation unit scales down the gradient magnitude in the preset proportion to generate the gradient magnitude feature by operations of: dividing the gradient magnitude corresponding to the down-sampled image in the scale into 2×2 sub-blocks, then calculating an average value of the gradient magnitudes of each sub-block, and then taking the calculated average value of the gradient magnitudes as a gradient magnitude feature of the down-sampled image so as to obtain a gradient magnitude for which row and column resolutions are scaled down by half respectively compared to the down-sampled image in the scale, as the gradient magnitude feature of the scale.
+9. The object detection device according to claim 1, wherein the programmable logic unit comprises: a prompt output unit configured to receive the detection result from the processing unit, generate corresponding prompt information according to the detection result, and output the prompt information.
+10. The object detection device according to claim 9, wherein the prompt output unit generates the corresponding prompt information according to the detection result and outputs the prompt information by operations of: generating corresponding warning information according to the detection result, and outputting the warning information to an audio output device.
+11. The object detection device according to claim 9, wherein the prompt output unit generates the corresponding prompt information according to the detection result and outputs the prompt information by operations of: generating a corresponding prompt box according to coordinates and a size of a target object in the detection result, synthesizing the prompt box in the to-be-detected image, and outputting a synthesized image to a display device.
+12. An object detection method applied to the object detection device according to claim 1, comprising: receiving, by the programmable logic unit, the to-be-detected image; performing, by the programmable logic unit, the feature extraction on the to-be-detected image, and writing the extracted feature into the memory, wherein the feature is used to instruct the processing unit to perform the target object detection and output the detection result to the programmable logic unit; and receiving, by the programmable logic unit, the detection result from the processing unit, generating the prompt information according to the detection result, and outputting the prompt information.
+13. The object detection method according to claim 12, wherein said performing by the programmable logic unit the feature extraction on the to-be-detected image comprises: receiving the to-be-detected image, and performing color format conversion on the to-be-detected image; and performing Aggregation Channel Features (ACF) extraction on the converted to-be-detected image.
+14. The object detection method according to claim 13, wherein said performing the ACF extraction on the converted to-be-detected image comprises: performing color space conversion on the converted to-be-detected image to obtain color space information of the to-be-detected image; down-sampling the color space information to generate a down-sampled image in at least one scale; for each scale, calculating a corresponding scale feature for each pixel of the down-sampled image in the scale and writing the scale feature corresponding to the down-sampled image in the scale into the memory as a scale feature of the scale; and reading the scale feature of each scale from the memory; sequentially scaling the scale feature of each scale according to a preset scaling rule to obtain a preset number of scale features; and writing the preset number of scale features into the memory as the ACF.
+15. The object detection method according to claim 14, wherein said calculating the corresponding scale feature for each pixel of the down-sampled image in the scale comprises: calculating gradient values in horizontal and vertical directions for each pixel of the down-sampled image in the scale; calculating a gradient magnitude and a direction angle according to the gradient values in horizontal and vertical directions; scaling down the gradient magnitude in a preset proportion to generate a gradient magnitude feature; calculating a corresponding Histogram of Oriented Gradient (HOG) according to the gradient magnitude and the direction angle; and determining the color space information, the gradient magnitude feature and the HOG corresponding to each pixel of the down-sampled image in the scale as scale features corresponding to the down-sampled image in the scale.
+16. The object detection method according to claim 12, wherein said generating the prompt information according to the detection result and outputting the prompt information comprises: generating corresponding warning information according to the detection result, and outputting the warning information to an audio output device; or generating a corresponding prompt box according to coordinates and a size of a target object in the detection result, synthesizing the prompt box in the to-be-detected image, and outputting a synthesized image to a display device.
+17. An object detection method applied to the object detection device according to claim 1, comprising: reading the feature by the processing unit from the memory, the feature being extracted by the programmable logic unit from the to-be-detected image; performing the target object detection by the processing unit according to the feature, and outputting the detection result to the programmable logic unit, the detection result being used to instruct the programmable logic unit to generate and output the prompt information.
+18. An electronic device comprising: the object detection device according to claim 1 and an image capture device, wherein the image capture device is configured to capture the to-be-detected image, and output the captured to-be-detected image to the programmable logic unit.
+19. The electronic device according to claim 18, wherein the electronic device further comprises: an output device for receiving the prompt information input by the programmable logic unit and outputting the prompt information.
+</claims>
+</document>

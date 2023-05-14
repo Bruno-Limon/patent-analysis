@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2018-10-26
+</filing_date>
+
+<publication_date>
+2020-12-22
+</publication_date>
+
+<priority_date>
+2018-10-26
+</priority_date>
+
+<ipc_classes>
+G05D1/00,G05D1/02,G06K9/00,G06K9/62,G06N20/00,G06T7/62
+</ipc_classes>
+
+<assignee>
+VOLVO CAR CORPORATION
+</assignee>
+
+<inventors>
+ROY CHOWDHURY, SOHINI
+Muppirisetty, Srikar
+</inventors>
+
+<docdb_family_id>
+68296344
+</docdb_family_id>
+
+<title>
+Methods and systems for the fast estimation of three-dimensional bounding boxes and drivable surfaces using LIDAR point clouds
+</title>
+
+<abstract>
+The present invention relates to methods and systems for generating annotated data for training vehicular driver assist (DA) and autonomous driving (AD) active safety (AS) functionalities and the like. More specifically, the present invention relates to methods and systems for the fast estimation of three-dimensional (3-D) bounding boxes and drivable surfaces using LIDAR point clouds and the like. These methods and systems provide fast and accurate annotation cluster pre-proposals on a minimally-supervised or unsupervised basis, segment drivable surfaces/ground planes in a bird's-eye-view (BEV) construct, and provide fast and accurate annotation cluster pre-proposal labels based on the feature-based detection of similar objects in already-annotated frames. The methods and systems minimize the expertise, time, and expense associated with the manual annotation of LIDAR point clouds and the like in the generation of annotated data for training machine learning (ML) algorithms and the like.
+</abstract>
+
+<claims>
+1. A method for an estimation of three-dimensional object bounding boxes in a three-dimensional point cloud, the method comprising: given a three-dimensional point cloud, identifying and removing a ground plane from the three-dimensional point cloud; clustering foreground points remaining after the ground plane is removed from the three-dimensional point cloud to generate one or more object clusters representing one or more objects; extracting one of a structural, textural, and density feature from each of the one or more object clusters representing the one or more objects using one or more of an Eigen value-based technique and an ensemble shape function-based technique; and fitting a three-dimensional bounding box around each of the one or more object clusters representing the one or more objects.
+2. The method of claim 1, further comprising providing the three-dimensional bounding box disposed around each of the one or more object clusters representing the one or more objects to an annotator as an annotation pre-proposal that can be modified by the annotator.
+3. The method of claim 1, wherein the three-dimensional point cloud comprises a three-dimensional LIDAR point cloud obtained by a vehicular system.
+4. The method of claim 1, wherein the three-dimensional point cloud and the three-dimensional bounding box disposed around each of the one or more object clusters representing the one or more objects are used to train a machine learning algorithm.
+5. The method of claim 1, further comprising applying an angular orientation correction to the one or more object clusters representing the one or more objects.
+6. The method of claim 1, further comprising comparing the extracted one of the structural, textural, and density feature to one of a structural, textural, and density feature extracted from one or more previously-detected objects using one or more classifiers and predicting an object class label for one or more of the three-dimensional object bounding boxes as one or more pre-proposals.
+7. The method of claim 1, wherein the identifying and removing the ground plane from the three-dimensional point cloud comprises one or more of dividing the three-dimensional point cloud into height-thresholded radial bins and using the height-thresholded radial bins to distinguish ground plane points from foreground points, using a supervised classifier, and using a deep learning model.
+8. The method of claim 7, wherein the clustering the foreground points remaining after the ground plane is removed from the three-dimensional point cloud to generate the one or more object clusters representing the one or more objects comprises applying one or more of a density-based spatial clustering of applications with noise algorithm and a Euclidean clustering-based method to detect the foreground points.
+9. The method of claim 1, wherein the fitting of the three-dimensional bounding box around each of the one or more object clusters representing the one or more objects comprises identifying a three-dimensional cluster center, estimating three-dimensional extrema positions, estimating three-dimensional corner points that ensure three-dimensional bounding box tightness, and imposing angular rotation constraints to ensure alignment of each of the three-dimensional object bounding boxes with the ground plane.
+10. A system for an estimation of three-dimensional object bounding boxes in a three-dimensional point cloud, the system comprising: a processor comprising software executing coded instructions operable for: given a three-dimensional point cloud, identifying and removing a ground plane from the three-dimensional point cloud; clustering foreground points remaining after the ground plane is removed from the three-dimensional point cloud to generate one or more object clusters representing one or more objects; extracting one of a structural, textural, and density feature from each of the one or more object clusters representing the one or more objects using one or more of an Eigen value-based technique and an ensemble shape function-based technique; and fitting a three-dimensional bounding box around each of the one or more object clusters representing the one or more objects.
+11. The system of claim 10, wherein the coded instructions are further operable for providing the three-dimensional bounding box disposed around each of the one or more object clusters representing the one or more objects to an annotator as an annotation pre-proposal that can be modified by the annotator.
+12. The system of claim 10, wherein the three-dimensional point cloud comprises a three-dimensional LIDAR point cloud obtained by a vehicular system.
+13. The system of claim 10, wherein the three-dimensional point cloud and the three-dimensional bounding box disposed around each of the one or more object clusters representing the one or more objects are used to train a machine learning algorithm.
+14. The system of claim 10, wherein the coded instructions are further operable for applying an angular orientation correction to the one or more object clusters representing the one or more objects.
+15. The system of claim 10, wherein the coded instructions are further operable for comparing the extracted one of the structural, textural, and density feature to one of a structural, textural, and density feature extracted from one or more previously-detected objects using one or more classifiers and predicting an object class label for one or more of the three-dimensional object bounding boxes as one or more pre-proposals.
+16. The system of claim 10, wherein the identifying and removing the ground plane from the three-dimensional point cloud comprises dividing the three-dimensional point cloud into height-thresholded radial bins and using the height-thresholded radial bins to distinguish ground plane points from foreground points.
+17. The system of claim 16, wherein the clustering the foreground points remaining after the ground plane is removed from the three-dimensional point cloud to generate the one or more object clusters representing the one or more objects comprises applying one or more of a density-based spatial clustering of applications with noise algorithm and a Euclidean clustering-based method to detect the foreground points.
+18. The system of claim 10, wherein the fitting of the three-dimensional bounding box around each of the one or more object clusters representing the one or more objects comprises identifying a three-dimensional cluster center, estimating three-dimensional extrema positions, estimating three-dimensional corner points that ensure three-dimensional bounding box tightness, and imposing angular rotation constraints to ensure alignment of each of the three-dimensional object bounding boxes with the ground plane.
+19. A method for identifying a similarly-shaped object in a feature-space associated with a three-dimensional point cloud, the method comprising: extracting a plurality of structural, textural, and/or density features from an object cluster representing an object using one or more of an Eigen value-based technique and an ensemble shape function-based technique; comparing the extracted plurality of structural, textural, and/or density features to a plurality of structural, textural, and/or density features extracted from one or more previously-detected objects using one or more of a combination classifier and deep learning model; and when a match is found, providing an object label to a three-dimensional bounding box as a classified pre-proposal for the object cluster representing the object.
+20. The method of claim 19, further comprising providing the classified pre-proposal for the object cluster representing the object to an annotator as an annotation pre-proposal that can be modified by the annotator.
+21. The method of claim 19, wherein the object cluster representing the object comprises a three-dimensional LIDAR point cloud obtained by a vehicular system.
+22. The method of claim 19, further comprising using the classified pre-proposal for the object cluster representing the object to train a machine learning algorithm.
+</claims>
+</document>

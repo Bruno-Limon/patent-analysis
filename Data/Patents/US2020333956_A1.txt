@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-04-16
+</filing_date>
+
+<publication_date>
+2020-10-22
+</publication_date>
+
+<priority_date>
+2019-04-16
+</priority_date>
+
+<ipc_classes>
+G06F12/02,G06F3/06,G06F9/455,G06F9/46
+</ipc_classes>
+
+<assignee>
+PAYPAL
+</assignee>
+
+<inventors>
+WAN, JIAN
+BODEPU, RAMA PRASAD
+Saka, Veera
+</inventors>
+
+<docdb_family_id>
+72832468
+</docdb_family_id>
+
+<title>
+Low latency gateway for an asynchronous orchestration engine using direct memory
+</title>
+
+<abstract>
+Systems and techniques for providing a low latency gateway for an asynchronous orchestration engine using direct memory are presented. A system can directly allocate an array memory space within a first data structure for transaction data associated with transaction requests for an online transaction system. The system can sequentially store respective data threads of the transaction data into respective memory blocks of the array memory space within the first data structure. The system can also sequentially separate the memory blocks of the array memory space within the first data structure into data channels for storage in a second data structure. Furthermore, the system can respectively format data channels and convert the data channels into communication pathways for the online transaction system based on at least one serialization technique for transmission to one or more memories of a virtual machine of the online transaction system.
+</abstract>
+
+<claims>
+1. A system, comprising: a memory; a processor configured to execute computer executable components stored in the memory, wherein the computer executable components comprise: a memory allocation component configured to directly allocate an array memory space within a first data structure for transaction data associated with a set of transaction requests for an online transaction system, wherein the memory allocation component is configured to sequentially store respective data threads of the transaction data into respective memory blocks of the array memory space within the first data structure, and wherein the memory allocation component is configured to re-use previously assigned space in the array memory space for additional transaction data responsive to a previous set of transaction requests having been completed and a new set of transaction requests having been initiated; a parser component configured to sequentially separate the memory blocks of the array memory space within the first data structure into a set of data channels for storage in a second data structure based on downstream application data for the respective data threads of the transaction data and endpoint data associated with a set of communication endpoint devices in the online transaction system; and a formatting component configured to respectively format the set of data channels and convert the set of data channels into a set of communication pathways for the online transaction system based on at least one serialization technique for transmission to one or more memories of a virtual machine of the online transaction system.
+2. The system of claim 1, wherein the memory allocation component is configured to sequentially store the respective data threads of the transaction data into the respective memory blocks of the array memory space within the first data structure based on transaction flow data associated with a data pipeline action for the respective data threads of the transaction data.
+3. The system of claim 1, wherein the memory allocation component is configured to directly allocate a linear array data structure for the transaction data.
+4. The system of claim 1, wherein the memory allocation component is configured to directly allocate a ring buffer for the transaction data.
+5. The system of claim 1, wherein the formatting component is configured to respectively assigns subsets of the set of communication pathways to respective processing cores of the virtual machine.
+6. The system of claim 1, wherein the computer executable components further comprise a message converter component configured to convert a portion of the transaction data stored in the first data structure into at least a first data channel and a second data channel based on risk assessment data for the respective data threads of the transaction data.
+7. The system of claim 1, wherein the computer executable components further comprise a consolidator component configured to convert a first communication pathway and a second communication pathway from the one or more memories of the virtual machine into a single data channel based on the downstream application data.
+8. The system of claim 1, wherein the second data structure comprises a different size than the first data structure.
+9. The system of claim 1, wherein the formatting component is configured to manage transmission of the set of communication pathways to the one or more memories of a virtual machine to reduce latency of a gateway router with respect to a memory management system for the one or more memories of the virtual machine.
+10. A computer-implemented method, comprising: sequentially storing, by a system having a processor and a memory, respective transaction requests of transaction data received by a gateway router of an online transaction system to respective first memory blocks of a first array data structure, wherein the first array data structure was manually allocated from memory; re-using, by the system, a previously assigned memory block in the first array data structure for an additional transaction request in response to a previous transaction request associated with the previously assigned memory block having been completed and the additional transaction request having been initiated; parsing, by the system, the respective transaction requests of transaction data into a set of data channels for storage in respective second memory blocks of a second array data structure that comprises a different size than the first array data structure; formatting, by the system, the set of data channels as a set of communication pathways based on at least one serialization technique; and transmitting, by the system, the set of communication pathways to one or more processing cores of a virtual machine via the gateway router.
+11. The computer-implemented method of claim 10, wherein the sequentially storing the respective portions of the transaction requests of the transaction data comprises directly allocating the respective portions of the transaction requests of the transaction data to the first array data structure prior to the transmitting the set of communication pathways to the one or more processing cores of the virtual machine.
+12. The computer-implemented method of claim 10, wherein the parsing comprises parsing the respective transaction requests of transaction data into the set of data channels based on downstream application data for the respective transaction requests of the transaction data.
+13. The computer-implemented method of claim 10, wherein the parsing comprises parsing the respective transaction requests of transaction data into the set of data channels based on endpoint data associated with a set of communication endpoint devices in a communication network associated with the gateway router.
+14. The computer-implemented method of claim 10, wherein the sequentially storing the respective portions of the transaction requests of the transaction data comprises directly storing the respective portions of the transaction requests of the transaction data into a linear data array structure prior to the transmitting the set of communication pathways to the one or more processing cores of the virtual machine.
+15. The computer-implemented method of claim 10, wherein the sequentially storing the respective portions of the transaction requests of the transaction data comprises storing the respective portions of the transaction requests of the transaction data into a ring buffer prior to the transmitting the set of communication pathways to the one or more processing cores of the virtual machine.
+16. The computer-implemented method of claim 10, wherein the transmitting the set of communication pathways to one or more processing cores of the virtual machine comprises reducing latency of the gateway router with respect to a memory management system for the one or more processing cores of the virtual machine.
+17. A non-transitory computer readable medium comprising instructions that, in response to execution, cause a system including a processor and a memory to perform operations comprising: pre-allocating respective data threads of transaction data for a gateway router associated with a virtual machine to an array memory space within a data structure, comprising sequentially storing the respective data threads of the transaction data into respective memory blocks of the array memory space within the data structure; sequentially parsing the memory blocks of the array memory space within the data structure into a set of data channels based on downstream application data for the respective data threads of the transaction data and endpoint data associated with a set of communication endpoint devices in a communication network associated with the gateway router; formatting the set of data channels as a set of communication pathways based on at least one serialization technique associated with the set of communication pathways; and transmitting data associated with the set of data channels to one or more memories of the virtual machine via the communication network.
+18. The non-transitory computer readable medium of claim 17, wherein the operations further comprise: pre-allocating the respective data threads of the transaction data for the gateway router associated with the virtual machine to a linear data array prior to the transmitting the data to the one or more memories of the virtual machine.
+19. The non-transitory computer readable medium of claim 17, wherein the operations further comprise: pre-allocating the respective data threads of the transaction data for the gateway router associated with the virtual machine to a ring buffer prior to the transmitting the data to the one or more memories of the virtual machine.
+20. The non-transitory computer readable medium of claim 17, wherein the operations further comprise: re-using a previously assigned memory block associated with the array memory space within the data structure for additional transaction data in response to previous transaction data associated with the previously assigned memory block having been completed and the additional transaction data having been initiated.
+</claims>
+</document>

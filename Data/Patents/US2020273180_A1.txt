@@ -1,0 +1,70 @@
+<document>
+
+<filing_date>
+2018-11-13
+</filing_date>
+
+<publication_date>
+2020-08-27
+</publication_date>
+
+<priority_date>
+2017-11-14
+</priority_date>
+
+<ipc_classes>
+G06T17/00,G06T7/246,G06T7/292,G06T7/55,G06T7/73
+</ipc_classes>
+
+<assignee>
+APPLE
+</assignee>
+
+<inventors>
+KURZ, DANIEL
+AMBERG, BRIAN
+KAUFMANN, PETER
+TSIN, YANGHAI
+</inventors>
+
+<docdb_family_id>
+64650505
+</docdb_family_id>
+
+<title>
+DEFORMABLE OBJECT TRACKING
+</title>
+
+<abstract>
+Various implementations disclosed herein include devices, systems, and methods that use event camera data to track deformable objects such as faces, hands, and other body parts. One exemplary implementation involves receiving a stream of pixel events output by an event camera. The device tracks the deformable object using this data. Various implementations do so by generating a dynamic representation of the object and modifying the dynamic representation of the object in response to obtaining additional pixel events output by the event camera. In some implementations, generating the dynamic representation of the object involves identifying features disposed on the deformable surface of the object using the stream of pixel events. The features are determined by identifying patterns of pixel events. As new event stream data is received, the patterns of pixel events are recognized in the new data and used to modify the dynamic representation of the object.
+</abstract>
+
+<claims>
+1. A system comprising: an event camera comprising a two-dimensional (2D) array of pixel sensors; non-transitory computer-readable storage medium; and one or more processors communicatively coupled to the non-transitory computer-readable storage medium and the event camera, wherein the non-transitory computer-readable storage medium comprises program instructions that, when executed on the one or more processors, cause the system to perform operations, the operations comprising: receiving a stream of pixel events output by the event camera, the event camera comprising a plurality of pixel sensors positioned to receive light from a scene disposed within a field of view of the event camera, each respective pixel event generated in response to a respective pixel sensor detecting a change in light intensity that exceeds a comparator threshold; identifying features disposed on a deformable surface of the object using the stream of pixel events; and generating a dynamic representation of the object, the dynamic representation comprising the features; modifying the dynamic representation of the object in response to obtaining additional pixel events output by the event camera; and outputting the dynamic representation of the object for further processing.
+2. The system of claim 1, further comprising a second event camera, wherein modifying the dynamic representation of the object comprises: identifying the features in the stream of pixel events from the event camera; identifying the features in a second stream of pixel events from the second event camera; and tracking three dimensional (3D) locations of the features based on correlating the features identified from the streams of pixel events from the event camera and the features identified from the second stream of pixel events from the second event camera.
+3. The system of claim 1, wherein identifying the features comprises: identifying patterns of pixel events corresponding to the features in the stream of pixel events.
+4. The system of claim 3, wherein modifying the dynamic representation of the object comprises: modifying locations of the features in the dynamic representation of the object based on identifying the patterns of pixel events corresponding to the features in the additional pixel events; tracking spatial locations of the features over time by tracking a sparse set of points or a dense flow field.
+5. (canceled)
+6. The system of claim 1, wherein modifying the dynamic representation of the object comprises: correlating the features in the stream of pixels with features of a three dimensional (3D) model of the object; and computing a 3D representation of the object based on the correlating.
+7. The system of claim 1, wherein generating the dynamic representation of the object comprises using the stream of pixel events as input to a machine learning architecture, wherein generating the dynamic representation of the object comprises: generating an input comprising accumulated event data from the stream of pixel events, the input comprising: a grid of cells representing a fixed number of events occurring within a predetermined time period at corresponding pixel sensors of the event camera; an image in which image pixels correspond to temporally-accumulated pixel events for corresponding pixels of the event camera; an image in which image pixels correspond to amounts of time since pixel events were identified at corresponding pixel sensors of the event camera; or a full-frame shutter-based image of the object taken from a same location as the event camera or a known location relative to the event camera; and generating the dynamic representation via a convolutional neural network (CNN), wherein the input is input to the neural network.
+8. (canceled)
+9. The system of claim 7, wherein generating the dynamic representation of the object comprises: generating an input comprising accumulated event data from the stream of pixel events; and generating the dynamic representation via a recurrent neural network, wherein the input is input to the neural network, wherein the recurrent neural network uses a latent state to track previous states of the object determined from previously-received event data.
+10. The system of claim 1, wherein the dynamic representation of the object comprises: a two-dimensional mesh of a plurality of polygons that each approximate a respective portion of the deformable surface; a depth-map representation comprising depth information defining distances between the object and at least a subset of the plurality of pixel sensors; a plurality of regions that each define a local deformation of a corresponding portion of the deformable surface; a set of three-dimensional (3D) points that define a 3D model of the object, each point in the set of 3D points representing a corresponding point on the deformable surface of the object; a three-dimensional model of the object that is defined by the deformable surface as a set of arbitrary points; or an articulated model comprising rigid parts connected by joints.
+11. The system of claim 1, wherein the further processing comprises: storing the dynamic representation in a non-volatile storage medium, transmitting the dynamic representation to a remote computing device via a network adapter, or rendering the dynamic representation to create a visualization.
+12. A method for deformable object tracking, the method comprising: at a device with one or more processors and a non-transitory computer-readable storage medium: receiving a stream of pixel events output by an event camera, the event camera comprising a plurality of pixel sensors positioned to receive light from a scene disposed within a field of view of the event camera, each respective pixel event generated in response to a respective pixel sensor detecting a change in light intensity that exceeds a comparator threshold; generating a dynamic representation of an object in the scene using the stream of pixel events, the object having a deformable surface that varies over time; and modifying the dynamic representation of the object in response to obtaining additional pixel events output by the event camera.
+13. The method of claim 12, wherein generating the dynamic representation of the object comprises: identifying features disposed on the deformable surface of the object using the stream of pixel events, wherein identifying the features comprises: identifying patterns of pixel events corresponding to the features in the stream of pixel events; and representing the features in the dynamic representation of the object.
+14. (canceled)
+15. The method of claim 13, wherein modifying the dynamic representation of the object comprises: modifying locations of the features in the dynamic representation of the object based on identifying the patterns of pixel events corresponding to the features in the additional pixel events; or tracking spatial locations of the features over time by tracking a sparse set of points.
+16. (canceled)
+17. The method of claim 12, wherein modifying the dynamic representation of the object comprises: tracking spatial locations of the features over time by tracking a dense flow field.
+18. The method of claim 12, wherein modifying the dynamic representation of the object comprises: identifying the features in streams of pixel events from multiple event cameras; and tracking three dimensional (3D) locations of the features based on correlating the features in the streams of pixels of the multiple event cameras.
+19. The method of claim 12, wherein modifying the dynamic representation of the object comprises: correlating the features in the stream of pixels with features of a three dimensional (3D) model of the object; and computing a 3D representation of the object based on the correlating.
+20. The method of claim 12, wherein generating the dynamic representation of the object comprises using the stream of pixel events as input to a machine learning architecture.
+21. The method of claim 12, wherein generating the dynamic representation of the object comprises: generating an input comprising accumulated event data from the stream of pixel events, the input comprising a grid of cells representing a fixed number of events occurring within a predetermined time period at corresponding pixel sensors of the event camera; and generating the dynamic representation via a convolutional neural network (CNN), wherein the input is input to the neural network.
+22. The method of claim 12, wherein generating the dynamic representation of the object comprises: generating an input comprising accumulated event data from the stream of pixel events, the input comprising an image in which image pixels correspond to temporally-accumulated pixel events for corresponding pixels of the event camera; and generating the dynamic representation via a convolutional neural network (CNN), wherein the input is input to the neural network.
+23. The method of claim 12, wherein generating the dynamic representation of the object comprises: generating an input comprising accumulated event data from the stream of pixel events, the input comprising an image in which image pixels correspond to amounts of time since pixel events were identified at corresponding pixel sensors of the event camera; and generating the dynamic representation via a convolutional neural network (CNN), wherein the input is input to the neural network.
+24. 24-27. (canceled)
+28. A non-transitory computer-readable storage medium, storing program instructions computer-executable on a computer to perform operations comprising: receiving a stream of pixel events output by the event camera, the event camera comprising a plurality of pixel sensors positioned to receive light from a scene disposed within a field of view of the event camera, each respective pixel event generated in response to a respective pixel sensor detecting a change in light intensity that exceeds a comparator threshold; generating a dynamic representation of an object in the scene using the stream of pixel events, the object having a deformable surface that varies over time; tracking features of the object over time based on the stream of pixel events; and modifying the dynamic representation of the object in response to the tracking of the features of the object over time.
+29. 29-30. (canceled)
+</claims>
+</document>

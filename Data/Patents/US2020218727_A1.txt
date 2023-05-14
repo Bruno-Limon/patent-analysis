@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2020-03-18
+</filing_date>
+
+<publication_date>
+2020-07-09
+</publication_date>
+
+<priority_date>
+2017-06-05
+</priority_date>
+
+<ipc_classes>
+G06F16/2457,G06F16/248,G06N20/00,G06N7/00
+</ipc_classes>
+
+<assignee>
+ANCESTRY.COM OPERATIONS
+</assignee>
+
+<inventors>
+BIERNER, GANN
+JIANG, PENG
+WU, LEI
+</inventors>
+
+<docdb_family_id>
+64566915
+</docdb_family_id>
+
+<title>
+CUSTOMIZED COORDINATE ASCENT FOR RANKING DATA RECORDS
+</title>
+
+<abstract>
+A method for ranking genealogical records includes using a machine learning model to rank multiple searched records based on relevancy. The relevancy may be determined by identifying features included in a record and scaling each feature by a corresponding weight factor. In addition, a method for training a machine learning model and increasing the convergence speed of the training is described. To train the model, a machine learning process is used to optimize a ranking performance metric. A set of weights corresponding to multiple features are used to rank multiple past search records in a training set. An initial set of the weights are set by the expectation values of the weights. The weights are incrementally changed to optimize the ranking performance metric. The step size of the increment is determined based on the sensitivity of the ranking performance metric relative to the step size.
+</abstract>
+
+<claims>
+1. A computer-implemented method for searching database records, the computer-implemented method comprising: receiving a user query that specifies one or more characteristics; creating multiple features derived from the characteristics specified in the user query; identifying multiple records in a database based on the features; inputting the records identified into a computer model trained to rank the records based on likelihoods of the records being relevant to the user query, wherein (i) the computer model comprises relevancy weights for the features, and (ii) the computer model is trained by a training using a set of initial weights that are expectation values of the relevancy weights of the features to increase a speed of convergence of the training, wherein the training further comprises adjusting a ranking performance metric of the computer model via adjusting the relevancy weights through increments of changes, and a size of the increments is determined based on a sensitivity of the ranking performance metric relative to the size of the increments; and providing a ranked list of records in response to the user query.
+2. The computer-implemented method of claim 1, wherein the ranking performance metric is determined based on discounted cumulative gain.
+3. The computer-implemented method of claim 1, wherein the size of the increments is in an order of two decimal points on a scale that normalizes the relevancy weights between 0 and 1.
+4. The computer-implemented method of claim 1, wherein one of the expectation values associated with a corresponding feature is determined based on a ratio of a frequency of the corresponding feature being present in past relevant search results to a total number of past search records associated with the corresponding feature.
+5. The computer-implemented method of claim 1, wherein one of the characteristics specified in the user query generates two or more features.
+6. The computer-implemented method of claim 1, wherein at least some of the features are derived from a fuzzy operation of a string of one of the characteristics specified in the user query.
+7. The computer-implemented method of claim 1, wherein one of the likelihoods of relevancy of one of the identified records is determined by a combination of features present in the one of the identified records scaled by the relevant weights corresponding to the features.
+8. The computer-implemented method of claim 1, wherein the identified records are selected based on at least one of the following (i) the number of features the records match, and (ii) the number of groups of features the records match.
+9. A computer-implemented method for training and increasing a convergence speed of a computer model that is capable of ranking multiple records based on relevancy, the computer-implemented method comprising: receiving a training set for the computer model, the training set comprising multiple past search records associated with multiple features and with corresponding relevancy determinations of the past search records determined based on past user actions associated with the past search records; and adjusting a ranking performance metric of the computer model using the training set, wherein the ranking performance metric is determined based on a relevancy ranking of the past search records in accordance with weights of the features, wherein the adjusting of the ranking performance metric comprises: (i) setting initial weights of the features based on expectation values of the weights of the features, the expectation values being determined based on the past search records, and (ii) adjusting the weights of the features through increments of changes to adjust the ranking performance metric, wherein a size of each increment is determined based on a sensitivity of the ranking performance metric relative to the size of each increment.
+10. The computer-implemented method of claim 9, wherein the relevancy determinations are binary values with a first binary value associated with relevant past search records and a second binary value associated with irrelevant past search records.
+11. The computer-implemented method of claim 9, wherein the relevancy determinations of the past search records based on the past user actions associated with the past search records comprises: determining a past search record as relevant in response to a data log of the past user actions indicating that a user performed a save or print operation associated with the past search record, and otherwise, determining the past search record as irrelevant.
+12. The computer-implemented method of claim 9, wherein the training set is represented in a form of one or more feature vectors.
+13. The computer-implemented method of claim 9, wherein the computer model uses a coordinate ascent algorithm to determine a direction of a given increment of change.
+14. The computer-implemented method of claim 9, wherein adjusting the weights of the features through increments of changes to adjust the ranking performance metric comprises: arranging the past search records by a first rank list based on a first set of weights corresponding to the features, determining a first value of the ranking performance metric based on the first rank list, changing the first set of weights to a second set of weights through changing each weight in the first set by the size of each increment, arranging the past search records by a second rank list based on the second set of weights, determining a second value of the ranking performance metric based on the second ranking, and comparing the second value to the first value.
+15. The computer-implemented method of claim 14, wherein the determining of the first value of the ranking performance metric is based on determining a discounted cumulative gain of the first ranking.
+16. The computer-implemented method of claim 9, wherein each of the expectation values associated with a corresponding feature is determined based on a ratio of (i) the past search records that are relevant and are associated with the corresponding feature to (ii) a total number of records associated with the corresponding feature.
+17. A non-transitory computer readable storage medium configured to store program code, the program code comprising instructions that, when executed by a processor, cause the processor to perform steps comprising: receiving a user query that specifies one or more characteristics; creating multiple features derived from the characteristics specified in the user query; identifying multiple records in a database based on the features; inputting the records identified into a computer model trained to rank the records based on likelihoods of the records being relevant to the user query, wherein (i) the computer model comprises relevancy weights for the features, and (ii) the computer model is trained by a training using a set of initial weights that are expectation values of the relevancy weights of the features to increase a speed of convergence of the training, wherein the training further comprises adjusting a ranking performance metric of the computer model via adjusting the relevancy weights through increments of changes, and a size of the increments is determined based on a sensitivity of the ranking performance metric relative to the size of the increments; and providing a ranked list of records in response to the user query.
+18. The non-transitory computer readable storage medium of claim 17, wherein the training set comprises past search records, and the adjusting of the ranking performance metric comprises: arranging the past search records by a first rank list based on a first set of weights, determining a first value of the ranking performance metric based on the first rank list, changing the first set of weights to a second set of weights through changing each weight in the first set by an increment, arranging the past search records by a second rank list based on the second set of weights, determining a second value of the ranking performance metric based on the second ranking, and comparing the second value to the first value.
+19. The non-transitory computer readable storage medium of claim 17, wherein one of the expectation values associated with a corresponding feature is determined based on a ratio of a frequency of the corresponding feature being present in past relevant search results to a total number of past search records associated with the corresponding feature.
+20. The non-transitory computer readable storage medium of claim 18, wherein the relevancy determinations of the past search records based on the past user actions associated with the past search records comprises: determining a past search record as relevant in response to a data log of the past user actions indicating that a user performed an action associated with the past search record, and otherwise, determining the past search record as irrelevant.
+</claims>
+</document>

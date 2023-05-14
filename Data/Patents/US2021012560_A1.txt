@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2019-07-08
+</filing_date>
+
+<publication_date>
+2021-01-14
+</publication_date>
+
+<priority_date>
+2019-07-08
+</priority_date>
+
+<ipc_classes>
+G06T15/50,G06T17/20,G06T5/00,G06T5/20,G06T7/194,G06T7/50,G06T7/70,H04N5/235
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+Cower, Dillon
+Zhou, Guangyu
+</inventors>
+
+<docdb_family_id>
+71083354
+</docdb_family_id>
+
+<title>
+VIDEO LIGHTING USING DEPTH AND VIRTUAL LIGHTS
+</title>
+
+<abstract>
+Implementations described herein relate to methods, systems, and computer-readable media to relight a video. In some implementations, a computer-implemented method includes receiving a plurality of frames of a video. Each video frame includes depth data and color data for a plurality of pixels. The method further includes segmenting each frame based on the depth data to classify each pixel as a foreground pixel or a background pixel. The method further includes setting depth value of each background pixel to a fixed depth value and applying a Gaussian filter to smooth depth value for the plurality of pixels. The method further includes calculating surface normals based on the depth values of the plurality of pixels. The method further includes rendering a relighted frame by adding a virtual light based on the surface normals and the color data.
+</abstract>
+
+<claims>
+1. A computer-implemented method to relight a video, the method comprising: receiving a plurality of frames of the video, wherein each frame includes depth data and color data for a plurality of pixels; segmenting each frame based on the depth data to classify each pixel as a foreground pixel or a background pixel; setting depth value of each background pixel to a fixed depth value; applying a Gaussian filter to smooth depth values of the plurality of pixels; calculating surface normals based on the depth values of the plurality of pixels; creating a three-dimensional (3D) mesh based on the depth values of the plurality of pixels and the surface normals; and rendering a relighted frame by adding a virtual light based on the 3D mesh and the color data.
+2. The computer-implemented method of claim 1, wherein segmenting the frame comprises: generating a segmentation mask based on a depth range, wherein each pixel with depth value within the depth range is classified as the foreground pixel and each pixel with depth value outside the depth range is classified as the background pixel; performing a morphological opening process to remove noise; and performing a morphological closing process to fill one or more holes in the segmentation mask.
+3. The computer-implemented method of claim 2, wherein segmenting the frame further comprises applying a temporal low pass filter, wherein the temporal low pass filter updates the segmentation mask based on similarity between one or more previous frames and the frame.
+4. The computer-implemented method of claim 1, wherein the virtual light is an ambient light, a directional light, or a point light.
+5. The computer-implemented method of claim 1, wherein the virtual light is a ring light based on a plurality of point lights.
+6. The computer-implemented method of claim 1, wherein the rendering is performed using a graphics processing unit (GPU).
+7. (canceled)
+8. The computer-implemented method of claim 1, wherein creating the 3D mesh comprises: obtaining an intrinsic matrix of a camera that captured the plurality of frames of the video; and calculating a position of each vertex of the 3D mesh based on the intrinsic matrix and the depth value for each pixel.
+9. The computer-implemented method of claim 8, wherein calculating the position includes calculating an x-coordinate (xc) and a y-coordinate (yc) in world space for each vertex, wherein the calculation is performed by using the formulas xc=(u−cx)*zc/fx and yc=(v−cy)*zc/fy, wherein (u, v) represent coordinates in camera pixel space, zc is the depth value for the pixel, and wherein a transformation between the camera pixel space and the world space is given by the formula wherein M is an intrinsic matrix of the camera and is defined as
+10. The computer-implemented method of claim 9, further comprising calculating a texture displacement for each vertex of the 3D mesh using the formulas ut=u/width and vt=v/height, wherein width is width of the frame and height is height of the frame.
+11. A non-transitory computer-readable medium with instructions stored thereon that, when executed by one or more hardware processors, cause the one or more hardware processors to perform operations comprising: receiving a plurality of frames of a video, wherein each frame includes depth data and color data for a plurality of pixels; segmenting each frame based on the depth data to classify each pixel as a foreground pixel or a background pixel; setting depth value of each background pixel to a fixed depth value; applying a Gaussian filter to smooth depth values of the plurality of pixels; calculating surface normals based on the depth values of the plurality of pixels; creating a three-dimensional (3D) mesh based on the depth values of the plurality of pixels and the surface normals; and rendering a relighted frame by adding a virtual light based on the 3D mesh and the color data.
+12. The non-transitory computer-readable medium of claim 11, wherein segmenting the frame comprises: generating a segmentation mask based on a depth range, wherein each pixel with depth value within the depth range is classified as the foreground pixel and each pixel with depth value outside the depth range is classified as the background pixel; performing a morphological opening process to remove noise; and performing a morphological closing process to fill one or more holes in the segmentation mask.
+13. The non-transitory computer-readable medium of claim 12, wherein segmenting the frame further comprises applying a temporal low pass filter, wherein the temporal low pass filter updates the segmentation mask based on similarity between one or more previous frames and the frame.
+14. (canceled)
+15. The non-transitory computer-readable medium of claim 11, wherein creating the 3D mesh comprises: obtaining an intrinsic matrix of a camera that captured the plurality of frames of the video; and calculating a position of each vertex of the 3D mesh based on the intrinsic matrix and the depth value for each pixel.
+16. A system comprising: one or more hardware processors; and a memory coupled to the one or more hardware processors, with instructions thereon, that when executed by the one or more hardware processors to perform operations comprising: receiving a plurality of frames of a video, wherein each frame includes depth data and color data for a plurality of pixels; segmenting each frame based on the depth data to classify each pixel as a foreground pixel or a background pixel; setting depth value of each background pixel to a fixed depth value; applying a Gaussian filter to smooth depth values of the plurality of pixels; calculating surface normals based on the depth values of the plurality of pixels; creating a three-dimensional (3D) mesh based on the depth values of the plurality of pixels and the surface normals; and rendering a relighted frame by adding a virtual light based on the 3D mesh and the color data.
+17. The system of claim 16, wherein segmenting the frame comprises: generating a segmentation mask based on a depth range, wherein each pixel with depth value within the depth range is classified as the foreground pixel and each pixel with depth value outside the depth range is classified as the background pixel; performing a morphological opening process to remove noise; and performing a morphological closing process to fill one or more holes in the segmentation mask.
+18. The system of claim 17, wherein segmenting the frame further comprises applying a temporal low pass filter, wherein the temporal low pass filter updates the segmentation mask based on similarity between one or more previous frames and the frame.
+19. (canceled)
+20. The system of claim 16, wherein creating the 3D mesh comprises: obtaining an intrinsic matrix of a camera that captured the plurality of frames of the video; and calculating a position of each vertex of the 3D mesh based on the intrinsic matrix and the depth value for each pixel.
+</claims>
+</document>

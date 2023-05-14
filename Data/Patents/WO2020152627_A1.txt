@@ -1,0 +1,96 @@
+<document>
+
+<filing_date>
+2020-01-23
+</filing_date>
+
+<publication_date>
+2020-07-30
+</publication_date>
+
+<priority_date>
+2019-01-23
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/62,G06N20/20
+</ipc_classes>
+
+<assignee>
+APTIV TECHNOLOGIES
+</assignee>
+
+<inventors>
+CAESAR, HOLGER
+</inventors>
+
+<docdb_family_id>
+69467590
+</docdb_family_id>
+
+<title>
+AUTOMATICALLY CHOOSING DATA SAMPLES FOR ANNOTATION
+</title>
+
+<abstract>
+Among other things, we describe techniques for automatically selecting data samples for annotation. The techniques use bounding box prediction based on a bounding box score distribution, spatial probability density determined from bounding box sizes and positions and an ensemble score variance determined from outputs of multiple machine learning models to select data samples for annotation. In an embodiment, temporal inconsistency cues are used to select data samples for annotation. In an embodiment, digital map constraints or other map-based data are used to exclude data samples from annotation. In an exemplary application, the annotated data samples are used to train a machine learning model that outputs perception data for an autonomous vehicle application.
+</abstract>
+
+<claims>
+1. A method comprising:
+obtaining, using one or more processors, a set of data samples, each data sample including one or more bounding boxes, each bounding box containing a potential object or scene in an environment, each bounding box having a label and bounding box score indicating a confidence in the label being correct; and
+selecting, using the one or more processors, a subset of data samples for annotation based on a bounding box prediction confidence determined using a probability distribution of bounding box scores, and an ensemble score variance based on differences in ensemble scores computed from sets of predictions output by multiple machine learning models.
+2. The method of claim 2, further comprising:
+selecting, using the one or more processors, the subset of data samples for annotation based on the bounding box prediction confidence, a spatial probability density of the bounding boxes parameterized by bounding box size and position and the ensemble score variance.
+3. The method of claim 1, wherein the bounding box prediction further comprises:
+for each label:
+generating a probability distribution of bounding box scores; and determining, based on the distribution, a likelihood that a particular bounding box is incorrectly labeled; and
+selecting or excluding the particular bounding box for annotation based on the likelihood.
+4. The method of claim 3, wherein the distribution is approximated by a histogram having bins representing ranges of bounding box scores, and each bin is associated with a likelihood.
+5. The method claim 4, wherein for each bin the likelihood is calculated from a ratio of a number of incorrectly labeled bounding boxes assigned to the bin and a sum of the number of incorrectly labeled bounding boxes and a number of labeled bounding boxes assigned to the bin. 6. The method of claim 2, further comprising:
+for each label, sensor and scale:
+determining the spatial probability density using a Gaussian Mixture Model (GMM) over a set of bounding boxes for the label, sensor and scale, where the GMM is parameterized by bounding box size and position.
+7. The method of claim 6, wherein the spatial probability density for the label is determined by dividing the spatial densities for the label by a largest density value among all spatial density values for the label.
+8. The method of claim 1, further comprising:
+processing the data samples through a plurality of different machine learning models to generate predicted labeled bounding boxes;
+computing an ensemble score for each pairwise comparison of the predicted labeled bounding boxes, where each predicted labeled bounding box is a ground truth for comparison with the other predicted labeled bounding boxes; and
+computing an ensemble score variance based on the ensemble scores.
+9. The method of claim 8, wherein the plurality of different machine learning models includes a plurality of different neural networks tuned by training data samples provided by different types of sensors.
+10. The method of claim 9, wherein the different types of sensors include LiDAR, RADAR and a camera.
+11. The method of claim 9, wherein the plurality of different neural networks are trained on different random orders of the training data samples.
+12. The method of claim 1, further comprising: detecting, by the one or more processors, temporal inconsistency between successive data samples;
+in accordance with temporal inconsistency being detected, selecting at least one of the successive data samples for annotation.
+13. The method of claim 1, further comprising:
+using, by the one or more processors, map constraints to detect an error associated with a bounding box; and
+in accordance with the error being detected, excluding the bounding box from annotation.
+14. An active learning system, comprising:
+a storage device including data samples;
+one or more processors;
+memory storing instructions that when executed by the one or more processors, cause the one or more processors to perform any of the methods of the preceding claims 1-13.
+obtaining a set of data samples, each data sample including one or more bounding boxes, each bounding box containing a potential object or scene in an environment, each bounding box having a label and bounding box score indicating a confidence in the label being correct; and
+selecting a subset of data samples for annotation based on a bounding box prediction confidence determined using a probability distribution of bounding box scores, and an ensemble score variance based on differences in ensemble scores computed from sets of predictions output by multiple machine learning models.
+15. The system of claim 14, further comprising:
+selecting the subset of data samples for annotation based on the bounding box prediction confidence, a spatial probability density of the bounding boxes parameterized by bounding box size and position and the ensemble score variance.
+16. The system of claim 14, wherein the bounding box prediction further comprises:
+for each label: generating a probability distribution of bounding box scores; and determining, based on the distribution, a likelihood that a particular bounding box is incorrectly labeled; and
+selecting or excluding the particular bounding box for annotation based on the likelihood.
+17. The system of claim 16, wherein the distribution is approximated by a histogram having bins representing ranges of bounding box scores, and each bin is associated with a likelihood.
+18. The system claim 17, wherein for each bin the likelihood is calculated from a ratio of a number of incorrectly labeled bounding boxes assigned to the bin and a sum of the number of incorrectly labeled bounding boxes and a number of labeled bounding boxes assigned to the bin.
+19. The system of claim 15, further comprising:
+for each label, sensor and scale:
+determining the spatial probability density using a Gaussian Mixture Model (GMM) over a set of bounding boxes for the label, sensor and scale, where the GMM is parameterized by bounding box size and position.
+20. The system of claim 19, wherein the spatial probability density for the label is determined by dividing the spatial densities for the label by a largest density value among all spatial density values for the label.
+21. The system of claim 14, further comprising:
+processing the data samples through a plurality of different machine learning models to generate predicted labeled bounding boxes;
+computing an ensemble score for each pairwise comparison of the predicted labeled bounding boxes, where each predicted labeled bounding box is a ground truth for comparison with the other predicted labeled bounding boxes; and
+computing an ensemble score variance based on the ensemble scores. 22. The system of claim 21, wherein the plurality of different machine learning models includes a plurality of different neural networks tuned by training data samples provided by different types of sensors.
+23. The system of claim 22, wherein the different types of sensors include LiDAR, RADAR and a camera.
+24. The system of claim 22, wherein the plurality of different neural networks are trained on different random orders of the training data samples.
+25. The system of claim 14, further comprising:
+detecting temporal inconsistency between successive data samples;
+in accordance with temporal inconsistency being detected, selecting at least one of the successive data samples for annotation.
+26. The system of claim 14, further comprising:
+using map constraints to detect an error associated with a bounding box; and
+in accordance with the error being detected, excluding the bounding box from annotation.
+</claims>
+</document>

@@ -1,0 +1,132 @@
+<document>
+
+<filing_date>
+2020-06-03
+</filing_date>
+
+<publication_date>
+2020-12-10
+</publication_date>
+
+<priority_date>
+2019-06-04
+</priority_date>
+
+<ipc_classes>
+G06F17/16,G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+NORTHEASTERN UNIVERSITY
+</assignee>
+
+<inventors>
+FU YUN
+SUN BIN
+</inventors>
+
+<docdb_family_id>
+71842834
+</docdb_family_id>
+
+<title>
+LIGHTWEIGHT DECOMPOSITIONAL CONVOLUTION NEURAL NETWORK
+</title>
+
+<abstract>
+A neural network (NN) and corresponding method employ an NN element (NNE) that includes a depthwise convolutional layer (DCL). The DCL outputs respective features by performing spatial convolution of respective input features having an original number of dimensions. The NNE includes a compression-expansion (CE) module that includes a first convolutional layer (CL) and second CL. The first CL outputs respective features as a function of respective input features. The respective features output from the first CL have a reduced number of dimensions relative to the original number of dimensions. The second CL outputs respective features, having the original number of dimensions, as a function of the respective features output from the first CL. The NNE further includes an add operator that outputs respective features as a function of the respective features output from the second CL and DCL. The NNE enables the NN to have a reduced size and to process data with competitive performance relative to conventional lightweight deep neural networks.
+</abstract>
+
+<claims>
+What is claimed is:
+1. A neural network comprising a neural network element, the neural network element including:
+a depthwise convolutional layer configured to output respective features by performing spatial convolution of respective input features having an original number of dimensions;
+a first convolutional layer configured to output respective features as a function of respective input features, the respective features output from the first convolutional layer having a reduced number of dimensions relative to the original number of dimensions;
+a second convolutional layer configured to output respective features as a function of the respective features output from the first convolutional layer, the respective features output from the second convolutional layer having the original number of dimensions; and
+an add operator configured to output respective features as a function of the respective features output from the second convolutional layer and the respective features output from the depthwise convolutional layer.
+2. The neural network of Claim 1, wherein the respective input features to the first
+convolutional layer are the respective input features to the depthwise convolutional layer.
+3. The neural network of Claim 1, wherein the first convolutional layer, second
+convolutional layer, and depthwise convolutional layer are further configured to normalize, via batch normalization, the respective features output therefrom and wherein the first convolutional layer and depthwise convolutional layer are further configured to apply an activation function to the respective features normalized.
+4. The neural network of Claim 3, wherein the activation function is a rectified linear unit (ReLU) activation function configured to (i) output a given input feature, directly, in an event the given input feature has a positive value and (ii) output zero for the given input feature, otherwise.
+5. The neural network of Claim 1, wherein the neural network element further comprises an output processing layer configured to:
+output respective features by normalizing, via batch normalization, the respective features output from the add operator; and
+apply an activation function to the respective features normalized, wherein the activation function is a non-linear activation function.
+6. The neural network of Claim 1, wherein the neural network element is a depthwise module and wherein the neural network further comprises a pointwise module, the pointwise module including:
+a first pointwise convolutional layer configured to output respective features as a function of respective input features;
+a second pointwise convolutional layer configured to output respective features as a function of respective features output from the first pointwise
+convolutional layer; and
+a concatenator configured to output respective features by concatenating the respective features output from the first pointwise convolutional layer with the respective features output from the second pointwise convolutional layer.
+7. The neural network of Claim 6, wherein the first and second pointwise convolutional layers are further configured to normalize, via batch normalization, the respective features output therefrom and to apply an activation function to the respective features normalized.
+8. The neural network of Claim 6, wherein the depthwise convolutional layer is a first depthwise convolutional layer, wherein the depthwise module is a first depthwise module, wherein the pointwise module is a first pointwise module, and wherein the neural network further comprises:
+a compression module configured to output respective features as a function of respective input features having the original number of dimensions, the compression module including a second depthwise convolutional layer, the first pointwise module, and the first depthwise module, the respective features output from the compression module having the reduced number of dimensions; a processing module configured to output respective features as a function of the respective features output from the compression module, the processing module including a third depthwise convolutional layer and a first concatenator; and
+a recovery module configured to output respective features as a function of the respective features output from the processing module, the recovery module including a second depthwise module, a second pointwise module, and a second concatenator, the respective features output from the recovery module having the original number of dimensions.
+9. The neural network of Claim 8, wherein:
+the second depthwise convolutional layer is configured to output respective features by performing spatial convolution of the respective input features to the compression module;
+the first pointwise module is configured to output respective features as a function of the respective features output from the second depthwise convolutional layer;
+the first depthwise module is configured to output respective features as a function of the respective features output from the first pointwise module;
+the third depthwise convolutional layer is configured to output respective features as a function of the respective features output from the first depthwise module;
+the first concatenator is configured to output respective features by concatenating the respective features output from the first depthwise module with the respective features output from the third depthwise convolutional layer;
+the second depthwise module is configured to output respective features as a function of the respective features output from the first concatenator;
+the second pointwise module is configured to output respective features as a function of the respective features output from the second depthwise module; and the second concatenator is configured to output respective features from the recovery module by concatenating the respective features output from the second pointwise module with the respective features output from the first depthwise module.
+10. The neural network of Claim 9, wherein the second and third depthwise convolutional layers are further configured to normalize, via batch normalization, the respective features output therefrom and to apply an activation function to the respective features normalized.
+11. The neural network of Claim 1, wherein the respective input features to the first
+convolutional layer are the respective features output from the depthwise
+convolutional layer.
+12. The neural network of Claim 1, wherein the depthwise convolutional layer is further configured to normalize, via batch normalization, the respective features output therefrom.
+13. The neural network of Claim 1, wherein the neural network element further comprises an L2 normalization layer configured to output respective features by applying L2 normalization to the respective features output from the second convolutional layer and wherein the neural network element is configured to batch normalize the respective features output from the L2 normalization layer.
+14. The neural network of Claim 13, wherein the add operator is further configured to output the respective features by adding:
+the respective feature maps output from the second convolutional layer, normalized by the L2 normalization layer, and batch normalized; and
+the respective feature maps output from the depthwise convolutional layer.
+15. The neural network of Claim 14, wherein the neural network element is further
+configured to apply an activation function to the respective features output from the add operator and wherein the activation function is a non-linear activation function.
+16. The neural network of Claim 1, wherein the neural network is a deep convolutional neural network (DCNN).
+17. The neural network of Claim 1, wherein the neural network is employed by an
+application to perform, on a mobile or embedded device, at least one of: face alignment, face synthesis, image classification, or pose estimation.
+18. A method of processing data in a neural network, the method comprising: outputting respective features from a depthwise convolutional layer of a network element of the neural network by performing spatial convolution of respective input features having an original number of dimensions;
+outputting respective features from a first convolutional layer of the network element as a function of respective input features, the respective features output from the first convolutional layer having a reduced number of dimensions relative to the original number of dimensions;
+outputting respective features from a second convolutional layer of the network element as a function of the respective features output from the first convolutional layer, the respective features output from the second convolutional layer having the original number of dimensions; and
+outputting respective features from an add operator of the network element as a function of the respective features output from the second convolutional layer and the respective features output from the depthwise convolutional layer.
+19. The method of Claim 18, further comprising inputting the respective input features to the first convolutional layer to the depthwise convolutional layer.
+20. The method of Claim 18, further comprising:
+normalizing, via batch normalization, the respective features output from the first, second, and depthwise convolutional layers at the first, second, and depthwise convolutional layers, respectively; and
+applying, at the first convolutional layer and depthwise convolutional layer, an activation function to the respective features normalized and output therefrom.
+21. The method of Claim 18, wherein applying the activation function includes applying a rectified linear unit (ReLU) activation function configured to (i) output a given input feature, directly, in an event the given input feature has a positive value and (ii) output zero for the given input feature, otherwise.
+22. The method of Claim 18, further comprising, at an output processing layer of the neural network element:
+outputting respective features by normalizing, via batch normalization, the respective features output from the add operator; and applying an activation function to the respective features normalized, wherein the activation function is a non-linear activation function.
+23. The method of Claim 18, wherein the neural network element is a depthwise module, wherein the neural network further comprises a pointwise module, and wherein the method further comprises:
+outputting respective features from a first pointwise convolutional layer of the pointwise module as a function of respective input features;
+outputting respective features from a first pointwise convolutional layer of the pointwise module as a function of respective features output from the first pointwise convolutional layer; and
+outputting respective features from a concatenator of the pointwise module by concatenating the respective features output from the first pointwise convolutional layer with the respective features output from the second pointwise convolutional layer.
+24. The method of Claim 23, further comprising normalizing, via batch normalization, the respective features output from the first and second pointwise convolutional layers, at the first and second pointwise convolutional layers, respectively, and applying an activation function to the respective features normalized.
+25. The method of Claim 23, wherein the depthwise convolutional layer is a first
+depthwise convolutional layer, wherein the depthwise module is a first depthwise module, wherein the pointwise module is a first pointwise module, and wherein the method further comprises:
+outputting respective features from a compression module in the neural network as a function of respective input features having the original number of dimensions, the compression module including a second depthwise convolutional layer, the first pointwise module, and the first depthwise module, the respective features output from the compression module having the reduced number of dimensions;
+outputting respective features from a processing module in the neural network as a function of the respective features output from the compression module, the processing module including a third depthwise convolutional layer and a first concatenator; and
+outputting respective features from a recovery module as a function of the respective features output from the processing module, the recovery module including a second depthwise module, a second pointwise module, and a second concatenator, the respective features output from the recovery module having the original number of dimensions.
+26. The method of Claim 25, further comprising:
+outputting respective features from the second depthwise convolutional layer by performing spatial convolution of the respective input features input to the compression module;
+outputting respective features from the first pointwise module as a function of the respective features output from the second depthwise convolutional layer;
+outputting respective features from the first depthwise module as a function of the respective features output from the first pointwise module;
+outputting respective features from the third depthwise convolutional layer as a function of the respective features output from the first depthwise module;
+outputting respective features from the first concatenator by concatenating the respective features output from the first depthwise module with the respective features output from the third depthwise convolutional layer;
+outputting respective features from the second depthwise module as a function of the respective features output from the first concatenator;
+outputting respective features from the second pointwise module as a function of the respective features output from the second depthwise module; and
+outputting respective features from the second concatenator by concatenating the respective features output from the second pointwise module with the respective features output from the first depthwise module.
+27. The method of Claim 26, further comprising normalizing, via batch normalization, the respective features output from the second and third depthwise convolutional layers and applying an activation function to the respective features normalized.
+28. The method of Claim 18, further comprising outputting the respective features from the depthwise convolutional layer to the first convolutional layer.
+29. The method of Claim 18, further comprising normalizing, via batch normalization, the respective features output from the depthwise convolutional layer.
+30. The method of Claim 18, further comprising outputting respective features by
+applying L2 normalization to the respective features output from the second convolutional layer and normalizing the respective features output from the L2 normalization layer via batch normalization.
+31. The method of Claim 30, further comprising outputting the respective features from the add operator by adding:
+the respective feature maps output from the second convolutional layer, normalized by the L2 normalization layer, and batch normalized; and
+the respective feature maps output from the depthwise convolutional layer.
+32. The method of Claim 31, further comprising applying an activation function to the respective features output from the add operator and wherein the activation function is a non-linear activation function.
+33. The method of Claim 18, wherein the neural network is a deep convolutional neural network (DCNN)
+34. The method of Claim 18, wherein the data includes each of the respective input
+features and wherein the method further comprises processing the data in the neural network to perform, on a mobile or embedded device, at least one of: face alignment, face synthesis, image classification, or pose estimation.
+35. A method for processing data in a neural network, the method comprising:
+decomposing a larger pointwise convolutional module into two matrices through network learning in the neural network, the larger pointwise convolutional module being larger relative to the two matrices;
+performing pointwise convolution of input features using the two matrices; and compensating for information loss in output features produced via the pointwise convolution performed, the compensating including applying residual learning to the output features.
+</claims>
+</document>

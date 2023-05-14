@@ -1,0 +1,106 @@
+<document>
+
+<filing_date>
+2020-04-10
+</filing_date>
+
+<publication_date>
+2020-10-15
+</publication_date>
+
+<priority_date>
+2019-04-11
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/34,G06K9/36,G06K9/38,G06K9/62,G06T7/00
+</ipc_classes>
+
+<assignee>
+AGILENT TECHNOLOGIES
+</assignee>
+
+<inventors>
+ARBEL, ELAD
+BEN-DOR AMIR
+REMER, Itay
+</inventors>
+
+<docdb_family_id>
+70482859
+</docdb_family_id>
+
+<title>
+DEEP LEARNING BASED TRAINING OF INSTANCE SEGMENTATION VIA REGRESSION LAYERS
+</title>
+
+<abstract>
+Novel tools and techniques are provided for implementing digital microscopy imaging using deep learning-based segmentation and/or implementing instance segmentation based on partial annotations. In various embodiments, a computing system might receive first and second images, the first image comprising a field of view of a biological sample, while the second image comprises labeling of objects of interest in the biological sample. The computing system might encode, using an encoder, the second image to generate third and fourth encoded images (different from each other) that comprise proximity scores or maps. The computing system might train an AI system to predict objects of interest based at least in part on the third and fourth encoded images. The computing system might generate (using regression) and decode (using a decoder) two or more images based on a new image of a biological sample to predict labeling of objects in the new image.
+</abstract>
+
+<claims>
+1. A method, comprising:
+receiving, with a computing system, a first image, the first image comprising a field of view ("FOV") of a first biological sample;
+receiving, with the computing system, a second image, the second image
+comprising labeling of instances of objects of interest in the first biological sample; and
+training an artificial intelligence ("AI") system to generate or update an AI model to predict instances of objects of interest based at least in part on a plurality of sets of at least two images that are generated based on the second image, each of the at least two images among the plurality of sets of at least two images being different from each other.
+2. The method of claim 1, wherein the computing system comprises one of a computing system disposed in a work environment, a remote computing system disposed external to the work environment and accessible over a network, a web server, a web browser, or a cloud computing system, wherein the work environment comprises at least one of a laboratory, a clinic, a medical facility, a research facility, a healthcare facility, or a room.
+3. The method of claim 1, wherein the AI system comprises at least one of a machine learning system, a deep learning system, a neural network, a
+convolutional neural network ("CNN"), or a fully convolutional network ("FCN").
+4. The method of claim 1, wherein the first biological sample comprises one of a human tissue sample, an animal tissue sample, or a plant tissue sample, wherein the objects of interest comprise at least one of normal cells, abnormal cells, damaged cells, cancer cells, tumors, subcellular structures, or organ structures.
+5. The method of claim 1 , wherein training the A I system to generate or update the AI model to predict instances of objects of interest based at least in part on the plurality of sets of at least two images that are generated based on die second image comprises: encoding, with the computing system and using an encoder, the second image to generate a third encoded image and a fourth encoded image, the fourth encoded image being different from the third encoded image, training the A1 system to generate or update the AI model to predict instances of objects of interest based at least in part on the third encoded image and the fourth encoded image;
+generating, using the AI model that is generated or updated by the AI system, a fifth image and a sixth image based on the first image, the sixth image being different from the fifth image; and
+decoding, with the computing system and using a decoder, the fifth image and the sixth image to generate a seventh image, the seventh image comprising predicted labeling of instances of objects of interest in the first biological sample.
+6. The method of claim 5, wherein training the AI system to generate or update the AI model to predict instances of objects of interest based at least in part on the plurality of sets of at least two images that are generated based on the second image further comprises:
+comparing, with the computing system, the seventh image with the second image to generate an instance segmentation evaluation result.
+7. The method of claim 5, wherein encoding the second image to generate the third encoded image comprises:
+computing, with the computing system, a centroid for each labeled instance of an object of interest in the second image; and
+generating, with the computing system, the third encoded image, the third encoded image comprising highlighting of the centroid for each labeled instance of an object of interest.
+8. The method of claim 7, wherein encoding the second image to generate the fourth encoded image comprises:
+computing, with the computing system, an edge or border for each labeled instance of an object of interest in the second image; and generating, with the computing system, the fourth encoded image, the fourth encoded image comprising highlighting of the edge or border for each labeled instance of the object of interest.
+9. The method of claim 8, wherein:
+encoding the second image to generate the third encoded image further
+comprises:
+computing, with the computing system, first distance measures
+between each pixel in the third encoded image and each centroid for each labeled instance of the object of interest; and
+computing, with the computing system, a first function to generate a first proximity map, the first function being a function of the first distance measures, the third encoded image comprising the first proximity map; and
+encoding the second image to generate the fourth encoded image further
+comprises:
+computing, with the computing system, second distance measures between each pixel in the fourth encoded image and a nearest edge pixel of the edge or border for each labeled instance of the object of interest; and
+computing, with the computing system, a second function to generate a second proximity map, the second function being a function of the second distance measures, the fourth encoded image comprising the second proximity map.
+10. The method of claim 9, further comprising:
+assigning, with the computing system, a first weighted pixel value for each pixel in the third encoded image, based at least in part on at least one of die computed first distance measures for each pixel, the first function, or the first proximity map; and
+assigning, with the computing system, a second weighted pixel value for each pixel in the fourth encoded image, based at least in part on at least one of the computed second distance measures for each pixel, the second function, or the second proximity map.
+11. The method of claim 9, further comprising:
+determining, with die computing system, a first pixel loss value between each pixel in the third encoded image and a corresponding pixel in the fifth image;
+determining, with the computing system, a second pixel loss value between each pixel in the fourth encoded image and a corresponding pixel in the sixth image;
+calculating, with the computing system, a loss value using a loss function, based on a product of the first weighted pixel value for each pixel in the third encoded image multiplied by the first pixel loss value between each pixel in the third encoded image and a corresponding pixel in the fifth image and a product of the second weighted pixel value for each pixel in die fourth encoded image multiplied by the second pixel loss value between each pixel in the fourth encoded image and a corresponding pixel in the sixth image, w'herein the loss function comprises one of a mean squared error loss function, a mean squared logarithmic error loss function, a mean absolute error loss function, a Huber loss function, or a weighted sum of squared differences loss function; and
+updating, with the AI system, the AI model, by updating one or more
+parameters of die AI model based on die calculated loss value; wherein generating the fifth image and the sixth image comprises generating, using the updated AI model, the fifth image and the sixth image, based on the first image.
+12. The method of claim 11, wherein labeling of instances of objects of interest in the second image comprises at least one of full annotation of first instances of objects of interest that identify centroid and edge of the first instances of objects of interest, partial annotation of second instances of objects of interest that identify only centroid of the second instances of objects of interest, or unknown annotation of third instances of objects of interest that identify neither centroid nor edge.
+13. The method of claim 12, further comprising:
+masking, with the computing system, the second instances of objects of
+interest with partial annotation in the fourth encoded image and corresponding pixels in the sixth image, without masking the second instances of objects of interest with partial annotation in the third encoded image or in the fiftii image, prior to calculating the loss value; and masking, with the computing system, the third instances of objects of interest with unknown annotation in the third encoded image and corresponding pixels in the fifth image and in the fourth encoded image and
+corresponding pixels in the sixth image, prior to calculating the loss value.
+14. The method of claim 5, wherein decoding the fifth image and the sixth image to generate the seven til image comprises decoding, with the computing system and using the decoder, the fifth image and the sixth image to generate the seventh image, by applying at least one of one or more morphological operations to identify foreground and background markers in each of the fifth image and the sixth image prior to generating the seventh image or one or more machine 1 earning operations to directly decode the fifth image and the sixth image to generate the seventh image.
+15. The method of claim 14, wherein applying the at least one of the one or more morphological operations or the one or more machine learning operations comprises applying the one or more morphological operations, wherein the method further comprises:
+after decoding the fifth image and the sixth image by applying the one or more morphological operations to identify foreground and background markers in each of the fifth image and the sixth image, applying a watershed algorithm to generate the seventh image.
+16. The method of claim 15, wherein the one or more morphological operations comprise at least one of an open-with-reconstruction transform or a regional H-minima transform.
+17. The method of claim 5, further comprising:
+receiving, with die computing system, an eighth image, die eighdi image
+comprising a FO V of a second biological sample different from the first biological sample; generating, using the AT model that is generated or updated by the trained AT system, two or more images based on the eighth image, the two or more images being different from each other; and
+decoding, with the computing system and using the decoder, the two or more images to generate a ninth image, the ninth image comprising predicted labeling of instances of objects of interest in the second biological sample.
+18. The method of claim 1 , wherein the first image and the second image are data augmented prior to being received by the computing system, wherein data augmentation of the first image and the second image comprise at least one of elastic augmentation or color augmentation configured to facilitate instance segmentation.
+19. The method of claim 1, wherein the at least two images comprise at least a centroid layer image highlighting a centroid for each labeled instance of an object of interest in the second image, a border layer image highlighting an edge or border for each labeled instance of the object of interest in die second image, and a semantic segmentation layer image comprising semantic segmentation data for each labeled instance of the object of interest in the second image.
+20. A system, comprising:
+a computing system, comprising:
+at least one first processor; and
+a first non-transitory computer readable medium communicatively coupled to the at least one first processor, the first non-transitory computer readable medium having stored thereon computer software comprising a first set of instructions that, when executed by the at least one first processor, causes the computing system to: receive a first image, the first image comprising a field of view ("FOV") of a first biological sample;
+receive a second image, the second image comprising labeling of instances of objects of interest in the first biological sample; and
+train an artificial intelligence ("AT) system to generate or update an A1 model to predict instances of objects of interest based at least in part on a plurality of sets of at least two images that are generated based on the second image, each of the at least two images among the plurality of sets of at least two images being different from each other.
+21. A method, comprising:
+receiving, with a computing system, a first image, the first image comprising a field of view ("FOV") of a first biological sample;
+generating, using an artificial intelligence ("AI") model that is generated or updated by a trained AI system, two or more images based on the first image, each of the two or more images being different from each other, wherein training of the AI system comprises training the AI system to generate or update the AI model to predict instances of objects of interest based at least in part on a plurality of sets of at least two images that are generated based on a user-annotated image, each of the at least tw'o images among the plurality of sets of at least two images being different from each other; and
+decoding, with the computing system and using the decoder, the two or more images to generate a second image, the second image comprising predicted labeling of instances of objects of interest in the first biological sample.
+</claims>
+</document>

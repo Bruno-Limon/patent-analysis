@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2018-01-19
+</filing_date>
+
+<publication_date>
+2021-01-26
+</publication_date>
+
+<priority_date>
+2017-01-20
+</priority_date>
+
+<ipc_classes>
+G06F16/25,G06F16/33,G06F17/16,G06F21/30,G06F21/62,G06F40/211,G06F40/253,G06F40/284,G06F40/295,G06F40/30,G06N3/04,G06N3/08,G06N7/08,G09C1/00,H04L29/06,H04L9/00,H04L9/06,H04L9/08,H04L9/14,H04L9/30,H04L9/32
+</ipc_classes>
+
+<assignee>
+ENVEIL
+</assignee>
+
+<inventors>
+CARR, RYAN
+WILLIAMS, ELLISON ANNE
+</inventors>
+
+<docdb_family_id>
+62906661
+</docdb_family_id>
+
+<title>
+End-to-end secure operations using a query matrix
+</title>
+
+<abstract>
+Systems and methods for an end-to-end secure operation using a query matrix Q_M having dimensions d×s. Exemplary methods include: extracting a set of term components {T} of the operation using a term generation function; partitioning a range of a keyed hash function H(T) into a set of vectors {c_T}; setting Q_M (j,m)=E(B_j,m) when c_T[j]=m for j=0, . . . , (d−1) and for m=0, . . . , (s−1), E(B_j,m) being a non-zero bitmask corresponding to element T from the set of term components {T} encrypted using a homomorphic encryption scheme E; and setting Q_M (j,m)=E(0) when c_T[j]≠m for j=0, . . . , (d−1) and for m=0, . . . , (s−1), E(0) being a zero bitmask encrypted using the homomorphic encryption scheme E.
+</abstract>
+
+<claims>
+1. A computer implemented method for an end-to-end secure operation over a communications link using a query matrix Q_M having dimensions d×s, comprising: extracting, by a processor associated with a client, from a query, a set of term components {T} of the operation using a term generation function, the set of term components {T} corresponding to elements in a target data source, the target data source being associated with a server; partitioning, by the processor, a range of a keyed hash function H(T) into a set of vectors {c_T}, where C(H(T))={c_T: c_T being a d-dimensional vector partitioning the range of the keyed hash function H(T) into d-many bitwise components}, such that |C(H(T))|=|H(T)|=|{T}|; and encrypting, by the processor, the query by constructing, based on the query, the query matrix Q_M by: setting Q_M (j,m)=E(B_j,m) when c_T[j]=m for j=0, . . . , (d−1) and for m=0, . . . , (s−1), E(B_j,m) being a homomorphic encryption scheme E and B j,m being a non-zero bitmask chosen for entry j,m in Q_M (j,m) corresponding to element T from the set of term components {T}; and setting Q_M (j,m)=E(0) when c_T[j]≠m for j=0, . . . , (d−1) and for m=0, . . . , (s−1), E(0) being a zero bitmask encrypted using the homomorphic encryption scheme E; the query matrix Q_M being provided to the server over the communications link to be run, by the server, over the target data source.
+2. The method of claim 1, further comprising: receiving the operation; providing the query matrix Q_M, the term generation function, and the keyed hash function to a server, the server: including a target data source; extracting the set of term components {T} from the target data source using the term generation function; and applying the query matrix Q_M over the set of term components {T} to produce encrypted result E(R); and decrypting encrypted result E(R) using a decryption key to produce result R.
+3. The method of claim 1, wherein the target data source is at least one of: unencrypted, deterministically encrypted, and semantically encrypted.
+4. The method of claim 1, further comprising: decrypting result R using another key when the target data source is encrypted, the another key being associated with an encryption method used to encrypt the target data source.
+5. The method of claim 1, wherein the homomorphic encryption scheme E is partially homomorphic.
+6. The method of claim 5, wherein the homomorphic encryption scheme E is at least one of RSA, ElGamal, and Paillier cryptosystems.
+7. The method of claim 1, wherein the homomorphic encryption scheme E is fully homomorphic.
+8. The method of claim 7, wherein the homomorphic encryption scheme E is at least one of Brakerski-Gentry-Vaikuntanathan, Brakerski's scale-invariant, NTRUbased, and Gentry-Sahai-Waters (GSW) cryptosystems.
+9. The method of claim 1, wherein the server comprises multiple instances of one or more of a hardware sever, virtual machine, and container, each instance of the multiple instances including a subset of the target data source.
+10. The method of claim 1, further comprising: authenticating the operation.
+11. A system for an end-to-end secure operation over a communications link using a query matrix Q_M having dimensions d×s, comprising: a client: extracting, by a hardware processor associated with the client, from a query, a set of term components {T} of the operation using a term generation function, the set of term components {T} corresponding to elements in a target data source, the target data source being associated with a server; partitioning, by the processor, a range of a keyed hash function H(T) into a set of vectors {c_T}, where C(H(T))={c_T: c_T being a d-dimensional vector partitioning the range of the keyed hash function H(T) into d-many bitwise components}, such that |C(H(T))|=|H(T)|=|{T}|; and encrypting, by the processor, the query by constructing, based on the query, the query matrix Q_M by: setting Q_M (j,m)=E(B_j,m) when c_T[j]=m for j=0, . . . , (d−1) and for m=0, . . . , (s−1), E(B_j,m) being a homomorphic encryption scheme E and B j,m being a non-zero bitmask chosen for entry j,m in Q_M (j,m) corresponding to element T from the set of term components {T}; and setting Q_M (j,m)=E(0) when c_T[j]≠m for j=0, . . . , (d−1) and for m=0, . . . , (s−1), E(0) being a zero bitmask encrypted using the homomorphic encryption scheme E; the query matrix Q_M being provided to the server over the communications link to be run, by the server, over the target data source.
+12. The system of claim 11, wherein the client further: receives the operation; provides the query matrix Q_M, the term generation function, and the keyed hash function to a server; and decrypts encrypted result E(R) using a decryption key to produce result R; and the system further comprises: the server including a target data source, the server: extracting the set of term components {T} from the target data source using the term generation function; and applying the query matrix Q_M over the set of term components {T} to produce the encrypted result E(R).
+13. The system of claim 11, wherein the target data source is at least one of: unencrypted, deterministically encrypted, and semantically encrypted.
+14. The system of claim 11, wherein the client further: decrypts result R using another key when the target data source is encrypted, the another key being associated with an encryption method used to encrypt the target data source.
+15. The system of claim 11, wherein the homomorphic encryption scheme E is partially homomorphic.
+16. The system of claim 15, wherein the homomorphic encryption scheme E is at least one of RSA, ElGamal, and Paillier cryptosystems.
+17. The system of claim 11, wherein the homomorphic encryption scheme E is fully homomorphic.
+18. The system of claim 17, wherein the homomorphic encryption scheme E is at least one of Brakerski-Gentry-Vaikuntanathan, Brakerski's scale-invariant, NTRU-based, and Gentry-Sahai-Waters (GSW) cryptosystems.
+19. The system of claim 11, wherein the server comprises multiple instances of one or more of a hardware sever, virtual machine, and container, each instance of the multiple instances including a subset of the target data source.
+20. A system for an end-to-end secure operation over a communications link using a query matrix Q_M having dimensions d×s, comprising computer instructions stored in a computer memory to perform a method comprising: extracting, by a processor associated with a client, from a query, a set of term components {T} of the operation using a term generation function, the set of term components {T} corresponding to elements in a target data source, the target data source being associated with a server; and partitioning, by the processor, a range of a keyed hash function H(T) into a set of vectors {c_T}, where C(H(T))={c_T: c_T being a d-dimensional vector partitioning the range of the keyed hash function H(T) into d-many bitwise components}, such that |C(H(T))|=|H(T)|=|{T}|; encrypting, by the processor, the query by constructing, based on the query, the query matrix Q_M by: setting Q_M (j,m)=E(B_j,m) when c_T[j]=m for j=0, . . . , (d−1) and for m=0, . . . , (s−1), E(B_j,m) being a homomorphic encryption scheme E and B j,m being a non-zero bitmask for entry j,m in Q_M (j,m) corresponding to element T from the set of term components {T}; and setting Q_M (j,m)=E(0) when c_T[j]≠m for j=0, . . . , (d−1) and for m=0, . . . , (s−1), E(0) being a zero bitmask encrypted using the homomorphic encryption scheme E; the query matrix Q_M being provided to the server over the communications link to be run, by the server, over the target data source.
+</claims>
+</document>

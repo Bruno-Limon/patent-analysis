@@ -1,0 +1,123 @@
+<document>
+
+<filing_date>
+2019-02-19
+</filing_date>
+
+<publication_date>
+2020-07-09
+</publication_date>
+
+<priority_date>
+2018-12-31
+</priority_date>
+
+<ipc_classes>
+G06F16/635
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+GRANSTRÖM, JOHAN
+VAN DELFT, BART
+</inventors>
+
+<docdb_family_id>
+65686031
+</docdb_family_id>
+
+<title>
+USING BAYESIAN INFERENCE TO PREDICT REVIEW DECISIONS IN A MATCH GRAPH
+</title>
+
+<abstract>
+Implementations disclose methods and systems for using Bayesian inference to predict review decisions in a match graph. A method includes identifying a current media item to be processed; processing labeled media items to identify labeled media items that include at least one respective segment that is similar to one of segments of the current media item; for each of the segments of the current media item, generating a segment prediction value indicating a particular property associated with a corresponding segment of the current media item based on properties associated with respective labeled media items that each include a respective segment similar to the corresponding segment; calculating a media item prediction value for the current media item based on a generated segment prediction value of each of the segments of the current media item; and causing the current media item to be processed based on the calculated media item prediction value.
+</abstract>
+
+<claims>
+What is claimed is:
+1. A method comprising:
+identifying a current media item to be processed;
+processing a plurality of labeled media items to identify labeled media items that include at least one respective segment that is similar to one of a plurality of segments of the current media item;
+for each of the plurality of segments of the current media item, generating a segment prediction value indicating a particular property associated with a corresponding segment of the current media item based on properties associated with respective labeled media items that each include a respective segment similar to the corresponding segment of the current media item;
+calculating a media item prediction value for the current media item based on a generated segment prediction value of each of the plurality of segments of the current media item; and
+causing the current media item to be processed based on the calculated media item prediction value.
+2. The method of claim 1, wherein:
+each of the labeled media items is assigned a respective label; and
+each of the plurality of segments of the current media item at least partially matches one or more segments of the labeled media items.
+3. The method of claim 1 or 2, wherein the generating, for each of the plurality of segments of the current media item, of the segment prediction value for the corresponding segment is based on a plurality of parameters comprising at least one of length of the corresponding segment, length of the current media item, or length of the respective labeled media items that each include the respective segment similar to the corresponding segment of the current media item.
+4. The method of any preceding claim, further comprising:
+determining that a first segment of the current media item matches a first
+corresponding segment of a first labeled media item; determining that a second segment of the current media item matches a second corresponding segment of a second labeled media item;
+determining that the first segment is a sub-segment of the second segment, wherein the second segment comprises the first segment and a third segment, wherein the generating of the segment prediction value for each of the plurality of segments comprises:
+generating a first segment prediction value indicating a first label for the first segment based on a first respective label of the first labeled media item and a second respective label of the second labeled media item; and
+generating a second segment prediction value indicating a second label for the third segment based on the second respective label of the second labeled media item, wherein the calculating of the media item prediction value is based on the generated first segment prediction value and the generated second segment prediction value.
+5. The method of any preceding claim, wherein causing the current media item to be processed comprises one of the following:
+responsive to the calculated media item prediction value satisfying a first threshold condition, causing playback of the current media item via a media item platform to be prevented;
+responsive to the calculated media item prediction value satisfying a second threshold condition, causing the playback of the current media item via the media item platform to be allowed; or
+responsive to the calculated media item prediction value satisfying a third threshold condition, causing the current media item to be reviewed to generate a label indicating whether the playback of the current media item is to be allowed via the media item platform.
+6. The method of claim 5, wherein the segment prediction value of each of the plurality of segments is generated based on a plurality of parameters and one or more weights associated with one or more of the plurality of parameters.
+7. The method of claim 6, further comprising adjusting the one or more weights based on the generated label for the current media item.
+8. The method of claim 7, wherein:
+the adjusting of the one or more weights comprises training, based on tuning input and target tuning output for the tuning input, a machine learning model to provide adjusted one or more weights;
+the tuning input comprises, for each of the plurality of segments of the current media item, length of the corresponding segment, length of the current media item, and length of the respective labeled media items that each include the respective segment similar to the corresponding segment of the current media item; and
+the tuning target output for the tuning input comprises the generated label for the current media item.
+9. A non-transitory machine-readable storage medium storing instructions which, when executed cause a processing device to perform operations comprising:
+identifying a current media item to be processed;
+processing a plurality of labeled media items to identify labeled media items that include at least one respective segment that is similar to one of a plurality of segments of the current media item;
+for each of the plurality of segments of the current media item, generating a segment prediction value indicating a particular property associated with a corresponding segment of the current media item based on properties associated with respective labeled media items that each include a respective segment similar to the corresponding segment of the current media item;
+calculating a media item prediction value for the current media item based on a generated segment prediction value of each of the plurality of segments of the current media item; and
+causing the current media item to be processed based on the calculated media item prediction value.
+10. The non-transitory machine-readable storage medium of claim 9, wherein:
+each of the labeled media items is assigned a respective label;
+each of the plurality of segments of the current media item at least partially matches one or more segments of the labeled media items; and
+the generating, for each of the plurality of segments of the current media item, of the segment prediction value for the corresponding segment is based on a plurality of parameters comprising at least one of length of the corresponding segment, length of the current media item, or length of the respective labeled media items that each include the respective segment similar to the corresponding segment of the current media item.
+11. The non-transitoiy machine-readable storage medium of claim 9 or 10, wherein the operations further comprise:
+determining that a first segment of the current media item matches a first
+corresponding segment of a first labeled media item;
+determining that a second segment of the current media item matches a second corresponding segment of a second labeled media item;
+determining that the first segment is a sub-segment of the second segment, wherein the second segment comprises the first segment and a third segment, wherein the generating of the segment prediction value for each of the plurality of segments comprises:
+generating a first segment prediction value indicating a first label for the first segment based on a first respective label of the first labeled media item and a second respective label of the second labeled media item; and
+generating a second segment prediction value indicating a second label for the third segment based on the second respective label of the second labeled media item, wherein the calculating of the media item prediction value is based on the generated first segment prediction value and the generated second segment prediction value.
+12. The non-transitory machine-readable storage medium of any one of claims 9 to 11, wherein causing the current media item to be processed comprises one of the following: responsive to the calculated media item prediction value satisfying a first threshold condition, causing playback of the current media item via a media item platform to be prevented;
+responsive to the calculated media item prediction value satisfying a second threshold condition, causing the playback of the current media item via the media item platform to be allowed; or
+responsive to the calculated media item prediction value satisfying a third threshold condition, causing the current media item to be reviewed to generate a label indicating whether the playback of the current media item is to be allowed via the media item platform.
+13. The non-transitory machine-readable storage medium of claim 12, wherein:
+the segment prediction value of each of the plurality of segments is generated based on a plurality of parameters and one or more weights associated with one or more of the plurality of parameters; and
+the operations further comprise adjusting the one or more weights based on the generated label for the current media item.
+14. The non-transitory machine-readable storage medium of claim 13, wherein:
+the adjusting of the one or more weights comprises training, based on tuning input and target tuning output for the tuning input, a machine learning model to provide adjusted one or more weights;
+the tuning input comprises, for each of the plurality of segments of the current media item, length of the corresponding segment, length of the current media item, and length of the respective labeled media items that each include the respective segment similar to the corresponding segment of the current media item; and
+the tuning target output for the tuning input comprises the generated label for the current media item.
+15. A system comprising:
+a memory to store instructions; and
+a processing device communicably coupled to the memory, the processing device being configured to execute the instructions to:
+identify a current media item to be processed;
+process a plurality of labeled media items to identify labeled media items that include at least one respective segment that is similar to one of a plurality of segments of the current media item;
+for each of the plurality of segments of the current media item, generate a segment prediction value indicating a particular property associated with a corresponding segment of the current media item based on properties associated with respective labeled media items that each include a respective segment similar to the corresponding segment of the current media item;
+calculate a media item prediction value for the current media item based on a generated segment prediction value of each of the plurality of segments of the current media item; and causing the current media item to be processed based on the calculated media item prediction value.
+16. The system of claim 15, wherein:
+each of the labeled media items is assigned a respective label;
+each of the plurality of segments of the current media item at least partially matches one or more segments of the labeled media items; and
+the processing device is to generate, for each of the plurality of segments of the current media item, of the segment prediction value for the corresponding segment is based on a plurality of parameters comprising at least one of length of the corresponding segment, length of the current media item, or length of the respective labeled media items that each include the respective segment similar to the corresponding segment of the current media item.
+17. The system of claim 15 or 16, wherein the processing device is further to:
+determine that a first segment of the current media item matches a first corresponding segment of a first labeled media item;
+determine that a second segment of the current media item matches a second corresponding segment of a second labeled media item;
+determine that the first segment is a sub-segment of the second segment, wherein the second segment comprises the first segment and a third segment, wherein to generate the segment prediction value for each of the plurality of segments, the processing device is to:
+generate a first segment prediction value indicating a first label for the first segment based on a first respective label of the first labeled media item and a second respective label of the second labeled media item; and
+generate a second segment prediction value indicating a second label for the third segment based on the second respective label of the second labeled media item, wherein the processing device is to calculate the media item prediction value based on the generated first segment prediction value and the generated second segment prediction value.
+18. The system of any one of claims 15 to 17, wherein to cause the current media item to be processed, the processing device is to one of the following: responsive to the calculated media item prediction value satisfying a first threshold condition, cause playback of the current media item via a media item platform to be prevented;
+responsive to the calculated media item prediction value satisfying a second threshold condition, cause the playback of the current media item via the media item platform to be allowed; or
+responsive to the calculated media item prediction value satisfying a third threshold condition, cause the current media item to be reviewed to generate a label indicating whether the playback of the current media item is to be allowed via the media item platform.
+19. The system of claim 18, wherein:
+the segment prediction value of each of the plurality of segments is generated based on a plurality of parameters and one or more weights associated with one or more of the plurality of parameters; and
+the processing device is further to adjust the one or more weights based on the generated label for the current media item.
+20. The system of claim 19, wherein:
+to adjust the one or more weights, the processing device is to train, based on tuning input and target tuning output for the tuning input, a machine learning model to provide adjusted one or more weights;
+the tuning input comprises, for each of the plurality of segments of the current media item, length of the corresponding segment, length of the current media item, and length of the respective labeled media items that each include the respective segment similar to the corresponding segment of the current media item; and
+the tuning target output for the tuning input comprises the generated label for the current media item.
+</claims>
+</document>

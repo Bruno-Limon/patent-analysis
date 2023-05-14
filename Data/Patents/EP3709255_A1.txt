@@ -1,0 +1,94 @@
+<document>
+
+<filing_date>
+2018-11-09
+</filing_date>
+
+<publication_date>
+2020-09-16
+</publication_date>
+
+<priority_date>
+2017-11-09
+</priority_date>
+
+<ipc_classes>
+G06T3/40,G06T5/00
+</ipc_classes>
+
+<assignee>
+BOE TECHNOLOGY GROUP COMPANY
+</assignee>
+
+<inventors>
+LIU, Hanwen
+NAVARRETE MICHELINI, Pablo
+</inventors>
+
+<docdb_family_id>
+61272242
+</docdb_family_id>
+
+<title>
+IMAGE PROCESSING METHOD, PROCESSING APPARATUS AND PROCESSING DEVICE
+</title>
+
+<abstract>
+There are provided an image processing method, an image processing apparatus and an image processing device. The image processing method comprises: executing image conversion processing on an input image with a first noise image using a generative neural network, to output a first output image; and executing high resolution conversion processing on the first output image with a second noise image using a super-resolution neural network, to output a second output image.
+</abstract>
+
+<claims>
+1. An image processing method, comprising: executing image conversion processing on an input image with a first noise image using a generative neural network, to output the input image converted as a first output image; and executing high resolution conversion processing on the first output image with a second noise image using a super-resolution neural network, to output the first output image converted as a second output image.
+2. The image processing method according to claim 1, wherein
+the input image comprises a first color channel, a second color channel and a third color channel;
+the first noise image comprises N channels, where N is an integer greater than or equal to 1;
+an input to the generative neural network comprises the N channels of the first noise image and the first color channel, the second color channel and the third color channel of the input image; and
+an output from the generative neural network is the first output image which comprises the first color channel, the second color channel, and the third color channel.
+3. The image processing method according to claim 1, wherein the generative neural network is configured to comprise one or more down-scale modules, one or more residual modules and one or more up-scale modules, wherein
+the down-scale modules each comprise a convolutional layer, a down-scale layer and an instance normalization layer which are sequentially connected;
+the residual modules each comprise a convolutional layer and an instance normalization layer which are sequentially connected; and
+the up-scale modules each comprise an up-scale layer, an instance normalization layer and a convolutional layer which are sequentially connected, wherein a number of the up-scale modules is equal to a number of the down-scale modules.
+4. The image processing method according to claim 1, wherein the second noise image comprises M channels, where M is an integer greater than or equal to 1, and an input to the super-resolution neural network comprises the M channels of the second noise image and a first color channel, a second color channel and a third color channel of the first output image; and
+an output from the super-resolution neural network is the second output image which comprises the first color channel, the second color channel and the third color channel.
+5. The image processing method according to claim 1, wherein the super-resolution neural network is configured to comprise an enhancement module and a transform module which are sequentially connected, and executing high resolution conversion processing using the super-resolution neural network comprises: executing up-scale processing on the first output image with the second noise image using the enhancement module and outputting a first intermediate image which comprises a luminance channel, a first color difference channel, and a second color difference channel; and transforming the first intermediate image output from the enhancement module into the second output image which comprises a first color channel, a second color channel and a third color channel using the transform module.
+6. The image processing method according to claim 5, wherein the enhancement module comprises a first sub-network, a second sub-network and a third sub-network, wherein
+an input to each of the sub-networks is the first output image and the second noise image; and
+all of the sub-networks have the same structure, and comprise the same number of convolutional layers and the same number of enhancement layers.
+7. The image processing method according to claim 1, further comprises: generating a first training output image according to a first training image and a first training noise image using the generative neural network; generating a second training output image according to the first training image and a second training noise image using the generative neural network, wherein the second training noise image is different from the first training noise image; and training the generative neural network based on the first training image, the first training output image and the second training output image.
+8. The image processing method according to claim 7, wherein the training the generative neural network comprises: inputting the first training output image to a discriminative neural network to acquire a discrimination label indicating whether the first training output image has converted features; inputting the second training output image to the discriminative neural network to acquire a discrimination label indicating whether the second training output image has converted features; and calculating a loss value of the generative neural network and optimizing parameters of the generative neural network according to the first training image, the first training output image, the second training output image and the discrimination label using a first loss calculation unit, wherein the first loss calculation unit comprises an analysis network, a first loss calculator, and an optimizer, and the calculating a loss value of the generative neural network using the first loss calculation unit comprises: acquiring content features of the first training image, the first training output image and the second training output image, and acquiring style features of the first training output image and the second training output image using the analysis network; calculating, in accordance with a first loss function, the loss value of the generative neural network according to the acquired content features and style features and the discrimination label of the first training output image using the first loss calculator; and optimizing the parameters of the generative neural network according to the loss value of the generative neural network using the optimizer.
+9. The image processing method according to claim 8, wherein
+the first loss function comprises a style difference loss function, and the calculating the loss value of the generative neural network comprises: calculating, in accordance with the style difference loss function, a style loss value of the generative neural network according to the style features of the first training output image and the style features of the second training output image; and
+the first loss function further comprises a content loss function, and the calculating the loss value of the generative neural network comprises: calculating, in accordance with the content loss function, a content loss value of the generative neural network according to the content features of the first training image, the first training output image and the second training output image.
+10. The image processing method according to claim 1, wherein the first output image is a first sample image, and the image processing method further comprises: extracting a low-resolution image from the first sample image as a super-resolution training image, wherein a resolution of the super-resolution training image is lower than that of the first sample image; acquiring a second sample image according to the super-resolution training image and a super-resolution training noise image using the super-resolution neural network, wherein a resolution of the second sample image is equal to that of the first sample image; and optimizing parameters of the super-resolution neural network by reducing a cost function of the super-resolution neural network according to the first sample image and the second sample image.
+11. An image processing apparatus, comprising: a generative neural network module, configured to execute image conversion processing on an input image with a first noise image, to output the input image converted as a first output image; and a super-resolution neural network module, configured to execute high resolution conversion processing on the first output image with a second noise image, to output the first output image converted as a second output image.
+12. The image processing apparatus according to claim 11, wherein
+the input image comprises a first color channel, a second color channel and a third color channel, and the first noise image comprises N channels, where N is an integer greater than or equal to 1;
+an input to the generative neural network module comprises the N channels of the first noise image and the first color channel, the second color channel and the third color channel of the input image; and
+the generative neural network module is configured to output the first output image which comprises the first color channel, the second color channel, and the third color channel.
+13. The image processing apparatus according to claim 11, wherein
+the generative neural network module is configured to comprise one or more down-scale modules, one or more residual modules and one or more up-scale modules, wherein
+the down-scale modules each comprise a convolutional layer, a down-scale layer and an instance normalization layer which are sequentially connected;
+the residual modules each comprise a convolutional layer and an instance normalization layer which are sequentially connected; and
+the up-scale modules each comprise an up-scale layer, an instance normalization layer and a convolutional layer which are sequentially connected, wherein a number of the up-scale modules is equal to a number of the down-scale modules.
+14. The image processing apparatus according to claim 11, wherein the second noise image comprises M channels, where M is an integer greater than or equal to 1, and the super-resolution neural network module is configured to have the M channels of the second noise image and a first color channel, a second color channel and a third color channel of the first output image as an input; and
+the super-resolution neural network module is further configured to output the second output image which comprises the first color channel, the second color channel and the third color channel.
+15. The image processing apparatus according to claim 11, wherein the super-resolution neural network module is configured to comprise an enhancement module and a transform module which are sequentially connected, wherein
+the enhancement module is configured to execute up-scale processing on the first output image and the second noise image and acquire a first intermediate image which comprises a luminance channel, a first color difference channel, and a second color difference channel; and
+the transform module is configured to transform the first intermediate image from the enhancement module into the second output image which comprises a first color channel, a second color channel and a third color channel, wherein
+the enhancement module comprises a first sub-network, a second sub-network and a third sub-network.
+16. The image processing apparatus according to claim 15, wherein
+an input to each of the first sub-network, the second sub-network and the third sub-network is the first output image and the second noise image, and the output image has three channels which comprise a luminance channel, a first color difference channel and a second color difference channel; and
+all of the first sub-network, the second sub-network and the third sub-network have the same structure, and each comprise at least one enhancement sub-module each of which comprises one or more convolutional layers and one enhancement layer which are sequentially connected.
+17. The image processing apparatus according to claim 11, wherein the generative neural network module is further configured to generate a first training output image according to a first training image and a first training noise image, and the generative neural network module is further configured to generate a second training output image according to the first training image and a second training noise image, wherein the second training noise image is different from the first training noise image;
+the image processing apparatus further comprises: a neural network training module, configured to train the generative neural network module based on the first training image, the first training output image and the second training output image, and the neural network training module comprises: a discriminative neural network module, configured to output a discrimination label indicating whether the first training output image has converted features, and output a discrimination label indicating whether the second training output image has converted features; and a first loss calculation unit, configured to calculate a loss value of the generative neural network module and optimizing parameters of the generative neural network module according to the first training image, the first training output image, the second training output image and the discrimination label, wherein the first loss calculation unit comprises: an analysis network, configured to output content features of the first training image, the first training output image and the second training output image, and acquiring style features of the first training output image and the second training output image; a first loss calculator, configured to calculate the loss value of the generative neural network module according to the acquired content features and style features and the discrimination label of the first training output image in accordance with a first loss function; and an optimizer, configured to optimize the parameters of the generative neural network module according to the loss value of the generative neural network module.
+18. The image processing apparatus according to claim 17, wherein
+the first loss function comprises a style difference loss function for calculating a style loss value of the generative neural network module according to the style features of the first training output image and the style features of the second training output image; and
+the first loss function further comprises a content loss function for calculating a content loss value of the generative neural network module according to the content features of the first training image, the first training output image and the second training output image.
+19. The image processing apparatus according to claim 17, wherein the neural network training module is further configured to train the super-resolution neural network according to the output from the super-resolution neural network,
+wherein the first output image is a first sample image, and
+the super-resolution neural network module is further configured to output a second sample image according to a super-resolution training image and an acquired super-resolution training noise image, wherein the super-resolution training image is a low-resolution image extracted from the first sample image, and
+wherein the neural network training module is further comprises:
+a second discriminative neural network module, configured to output a discrimination label based on the first sample image and the second sample image, wherein the optimizer is further configured to optimize parameters of the super-resolution neural network by reducing a cost function of the super-resolution neural network.
+20. An image processing device, comprising: one or more processor; and one or more memory, wherein the memory has computer readable instructions stored thereon, which when being executed by the one or more processor, for controlling the processor to be configured to execute the image processing method according to claims 1-10, or configured to execute the image processing apparatus according to claims 11-19.
+</claims>
+</document>

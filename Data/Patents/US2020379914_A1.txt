@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2019-05-28
+</filing_date>
+
+<publication_date>
+2020-12-03
+</publication_date>
+
+<priority_date>
+2019-05-28
+</priority_date>
+
+<ipc_classes>
+G06F12/1009,G06F12/1027,G06N5/04,H04L29/08,H04W8/26
+</ipc_classes>
+
+<assignee>
+MICRON TECHNOLOGY
+</assignee>
+
+<inventors>
+AKEL, AMEEN D.
+BRADSHAW, SAMUEL E.
+EILERT, SEAN STEPHEN
+Yudanov, Dmitri
+Curewitz, Kenneth Marion
+</inventors>
+
+<docdb_family_id>
+73507084
+</docdb_family_id>
+
+<title>
+Fine Grain Data Migration to or from Borrowed Memory
+</title>
+
+<abstract>
+Systems, methods and apparatuses of fine grain data migration in using Memory as a Service (MaaS) are described. For example, a memory status map can be used to identify the cache availability of sub-regions (e.g., cache lines) of a borrowed memory region (e.g., a borrowed remote memory page). Before accessing a virtual memory address in a sub-region, the memory status map is checked. If the sub-region has cache availability in the local memory, the memory management unit uses a physical memory address converted from the virtual memory address to make memory access. Otherwise, the sub-region is cached from the borrowed memory region to the local memory, before the physical memory address is used.
+</abstract>
+
+<claims>
+1. A method implemented in a computing device, the method comprising: accessing an amount of memory from a remote device that is connected through a wired or wireless network to the computing device; allocating a virtual memory address region to address a portion of the amount of memory loaned by the remote device to the computing device; configuring a physical memory region in the computing device as a cache of the portion of the amount of memory at the remote device; storing, in the computing device, a virtual to physical memory map that identifies a mapping between the virtual memory address region and a physical memory address region corresponding to the physical memory region; storing, in the computing device, a memory status map that identifies cache availability statuses of sub-regions of the virtual memory address region, each of the cache availability statuses indicating whether content of a corresponding sub-region is available in the physical memory region; and processing a memory access request made using a virtual memory address in the virtual memory address region, by: converting the virtual memory address into a physical memory address using the virtual to physical memory map; identifying, in the sub-regions of the virtual memory address region, a corresponding sub-region that contains the virtual memory address; determining, from the memory status map, that the corresponding sub-region lacks local cache availability in the physical memory region; communicating with the remote device to cache the corresponding sub-region in the physical memory region; and performing memory access using the physical memory address and according to the memory access request.
+2. The method of claim 1, further comprising: generating a memory fault in response to a determination that the corresponding sub-region lacks local cache availability in the physical memory region.
+3. The method of claim 2, wherein the memory fault causes the computing device to communicate with the remote device to cache the corresponding sub-region in the physical memory region.
+4. The method of claim 2, wherein the memory fault causes a memory management unit of the computing device to communicate with the remote device to cache the corresponding sub-region in the physical memory region.
+5. The method of claim 2, further comprising: injecting instructions in an application, wherein when executed in the computing device, the instructions cause the computing device to check local cache availability of the virtual memory address prior to making the memory access request using the virtual memory address.
+6. The method of claim 5, further comprising: compiling the application for the computing device, wherein the the injecting is performed by a compiler in response to usage of memory requested by the application.
+7. The method of claim 2, further comprising: allocating memory to store the memory status map, in response to the allocating of the virtual memory address region to address the portion of the amount of memory loaned by the remote device to the computing device.
+8. The method of claim 2, further comprising: loading at least a portion of the virtual to physical memory map into a translation lookaside buffer of a memory management unit, wherein the portion of the virtual to physical memory map loaded in the translation lookaside buffer is sufficient to convert the virtual memory address into a physical memory address using the virtual to physical memory map; wherein the determining, from the memory status map, that the corresponding sub-region lacks local cache availability in the physical memory region is performed during a time period in which the portion of the virtual to physical memory map is loaded in the translation lookaside buffer.
+9. The method of claim 8, further comprising: caching at least a portion of the memory status map in the memory management unit when the portion of the virtual to physical memory map is loaded in the translation lookaside buffer.
+10. The method of claim 1, further comprising: tracking a memory usage history of the virtual memory address region based on changes in the memory status map; predicting a usage of a second sub-region of the virtual memory address region that lacks local cache availability in the physical memory region; and communicating with the remote device to cache the second sub-region in the physical memory region, responsive to the predicting of the usage.
+11. The method of claim 10, wherein the predicting is based on an artificial neural network.
+12. A computing device, comprising: at least one microprocessor; local memory coupled to the at least one microprocessor; and a communication device configured to communicate with a remote device through a wired or wireless network; wherein the computing device is configured to: borrow an amount of memory from the remote device through the wired or wireless network; allocate a virtual memory address region to address a portion of the amount of memory loaned by the remote device to the computing device; and generate a virtual to physical memory map that identifies a mapping between the virtual memory address region and a physical memory address region corresponding to a physical memory region in the local memory; wherein the computing device is configured to store a memory status map that identifies cache availability statuses of sub-regions of the virtual memory address region, each of the cache availability statuses indicating whether content of a corresponding sub-region is available in the physical memory region; and wherein the computing device is configured to process a memory access request at a virtual memory address in the virtual memory address region, by: converting the virtual memory address into a physical memory address using the virtual to physical memory map; identifying, in the sub-regions of the virtual memory address region, a corresponding sub-region that contains the virtual memory address; determining, from the memory status map, that the corresponding sub-region lacks local cache availability in the physical memory region; communicating with the remote device to cache the corresponding sub-region in the physical memory region; and performing memory access using the physical memory address and according to the memory access request.
+13. The computing device of claim 12, wherein the at least one microprocessor includes a memory management unit; the memory management unit includes a translation lookaside buffer configured to store at least a portion of the virtual to physical memory map sufficient to convert the virtual memory address to the physical memory address.
+14. The computing device of claim 13, wherein while the portion of the virtual to physical memory map is stored in the translation lookaside buffer, the computing device is configured to determine, from the memory status map, that the corresponding sub-region lacks local cache availability in the physical memory region.
+15. The computing device of claim 14, wherein the computing device is configured to execute instructions of a routine to determine, from the memory status map, that the corresponding sub-region lacks local cache availability in the physical memory region.
+16. The computing device of claim 15, wherein the instructions of the routine is executed prior to execution of an instruction in the at least one microprocessor, wherein the instruction uses the virtual memory address stored in a register of the at least one microprocessor to retrieve an operand or store a computing result of the instruction.
+17. The computing device of claim 16, wherein the routine is configured to request an operating system of the computing device to communicate with the remote device to cache the corresponding sub-region in the physical memory region, in response to a determination that the corresponding sub-region lacks local cache availability in the physical memory region.
+18. The computing device of claim 14, wherein the memory management unit is configured to determine, from the memory status map, that the corresponding sub-region lacks local cache availability in the physical memory region, prior to using the physical memory address.
+19. The computing device of claim 18, wherein the memory management unit is configured to control the communication device to communicate with the remote device to cache the corresponding sub-region in the physical memory region.
+20. A non-transitory computer storage medium storing instructions which, when executed on a computing device, cause the computing device to perform a method, the method comprising: accessing an amount of memory from a remote device through a wired or wireless network; allocating a virtual memory address region to address a portion of the amount of memory loaned by the remote device to the computing device; generating a virtual to physical memory map that identifies a mapping between the virtual memory address region and a physical memory address region corresponding to a physical memory region in the local memory; storing a memory status map that identifies cache availability statuses of sub-regions of the virtual memory address region, each of the cache availability statuses indicating whether content of a corresponding sub-region is available in the physical memory region; and processing a request to access memory at a virtual memory address in the virtual memory address region, by: converting the virtual memory address into a physical memory address using the virtual to physical memory map; identifying, in the sub-regions of the virtual memory address region, a corresponding sub-region that contains the virtual memory address; determining, from the memory status map, that the corresponding sub-region lacks local cache availability in the physical memory region; communicating with the remote device to cache the corresponding sub-region in the physical memory region; and performing memory access using the physical memory address and according to the request.
+21. The non-transitory computer storage medium of claim 20, wherein the wired or wireless network includes a fifth generation cellular network.
+</claims>
+</document>

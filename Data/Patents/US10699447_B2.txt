@@ -1,0 +1,70 @@
+<document>
+
+<filing_date>
+2019-09-13
+</filing_date>
+
+<publication_date>
+2020-06-30
+</publication_date>
+
+<priority_date>
+2018-09-13
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/32,G06T1/20,G06T11/00,G06T9/00
+</ipc_classes>
+
+<assignee>
+NVIDIA CORPORATION
+</assignee>
+
+<inventors>
+DWIVEDI, SHEKHAR
+</inventors>
+
+<docdb_family_id>
+68172253
+</docdb_family_id>
+
+<title>
+Multi-level image reconstruction using one or more neural networks
+</title>
+
+<abstract>
+A plurality of processors with logic units to train one or more neural networks for image construction, at least in part, using established one or more levels of compression for image data from a region of interest (ROI).
+</abstract>
+
+<claims>
+1. A computer-implemented method for reconstructing an image using levels of compression, comprising: establishing one or more of the levels of compression for image data from a region of interest (ROI); generating an image volume from a first level of compression using a subset of the image data; upsampling the image volume to a second level of compression; and applying at least one parameter used to generate the image volume to one or more subsequent subsets of the image data to reconstruct the image associated with features underlying the ROI.
+2. The computer-implemented method of claim 1, further comprising: determining that the image volume satisfies a predetermined criteria using filtered backprojection (FBP) to qualify the image volume for the second level of compression.
+3. The computer-implemented method of claim 1, further comprising: processing, simultaneously, the subset of the image data according to at least one parameter and using predetermined algorithms in multiple Graphical Processing Units (GPUs) of a multi-GPU architecture to determine that the parameter is applicable to achieve constrained optimization in the first level of compression.
+4. The computer-implemented method of claim 1, wherein the first level of compression is a highest compression relative to the second level of compression and to subsequent levels of compression.
+5. The computer-implemented method of claim 1, further comprising: determining the image volume from image volumes generated after each cycle of an iterative process to converge simulated data having arbitrary values to first data associated with the first level of compression.
+6. The computer-implemented method of claim 1, further comprising: determining that the image volume satisfies a predetermined criteria using filtered backprojection (FBP) to qualify the image volume as the first initializer image volume for the second level of compression.
+7. A computer-implemented method for reconstruction of an image using levels of compression, comprising: obtaining data from radiation through a tissue; establishing the levels of compression for the data by distributing the data into subsets; establishing at least one reconstruction parameter and a reconstruction algorithm for a first level of compression comprising a least amount of data points among the subsets; determining first image volumes using the at least one reconstruction parameter and the reconstruction algorithm; determining that a first image volume from the first image volumes satisfies a predetermined criteria to qualify the first image volume as a first initializer image volume for a second level of compression; upsampling the first initializer image volume to requirements of the second level of compression; iterating through individual levels remaining of the levels of compression, after the second level of compression, using an image volume from a prior level as a subsequent initializer image volume for a subsequent level of the individual levels and using the at least one reconstruction parameter, the image volume of the prior level being upsampled to be the subsequent initializer image volume; and generating a final image volume after the iteration to enable reconstruction of the image of features underlying the tissue.
+8. The computer-implemented method of claim 7, further comprising: determining that the first image volume from the first image volumes satisfy a predetermined criteria using filtered backprojection (FBP) to qualify the first image volume as the first initializer image volume for the second level of compression.
+9. The computer-implemented method of claim 7, further comprising: processing first data from a subset associated with the first level of compression according to predetermined parameters and predetermined algorithms to achieve constrained optimization indicative of the least amount of data points within the subsets that is required to determine the first image volumes; and selecting the at least one reconstruction parameter and the reconstruction algorithm for the first level of compression from predetermined parameters and the algorithms based in part on at least one of the predetermined parameters and at least one of the predetermined algorithms achieving the constrained optimization.
+10. The computer-implemented method of claim 9, further comprising: processing, simultaneously, the first data according to the predetermined parameters and using the predetermined algorithms in multiple Graphical Processing Units (GPUs) of a multi-GPU architecture to determine that the at least one of the predetermined parameters and the at least one of the predetermined algorithms achieved the constrained optimization.
+11. The computer-implemented method of claim 7, further comprising: processing the one or more of the levels of compression using the at least one reconstruction parameter and the reconstruction algorithm in one or more GPUs of a multi-GPU architecture to determine the first image volumes.
+12. The computer-implemented method of claim 7, further comprising: determining the first image volumes using an iterative processing to converge simulated data with arbitrary values to first data associated with the first level of compression.
+13. A medical imaging system, comprising: an image capture system for capturing data including a representation of a region of interest (ROI); and one or more processors configured to: establish levels of compression for the data according to geometric requirements for the ROI, process a subset of the data associated with a first level of compression of the levels of compression using parameters associated with one or more algorithms established for at least the first level of compression to generate a first dataset, upsample the first dataset for use with at least a second level of compression of the levels of compression, the second level of compression having more data points from the data than the first level of compression; and generate a second dataset for the second level of compression; and apply at least one of the parameters to the second dataset and to subsequent datasets to reconstruct an image associated with features underlying the ROI.
+14. The medical imaging system of claim 13, wherein the algorithms is selected from: a simultaneous algebraic reconstruction technique (SART) algorithm, a simultaneous iterative reconstruction technique (SIRT) algorithm, an ordered-subsets expectation maximization (OSEM) algorithm, a maximum likelihood expectation maximization (MLEM) algorithm, and a Conjugate Gradient algorithm.
+15. The medical imaging system of claim 13, wherein the first level of compression is a highest compression relative to the second level of compression and to subsequent levels of compression.
+16. The medical imaging system of claim 13, further comprising: determining that the at least one of the parameters satisfies a predetermined criteria for the second level of compression; and processing a second subset and subsequent subsets of the data associated with the second level of compression and with subsequent levels of compression, respectively, using the at least the one of the parameters.
+17. The medical imaging system of claim 13, wherein the parameters comprise at least one of: a number of data points and regularization parameters.
+18. The medical imaging system of claim 13, wherein the first level of compression is established using the subset of the data or using a subset of detectors in the image capture system to capture the subset of the data after application of a parallel beam, a cone beam, or fan beam projection to the ROI.
+19. The medical imaging system of claim 13, wherein the first level of compression is established by selecting the subset of the data corresponding to a first number of detectors of a plurality of detectors in the image capture system and wherein the second level of compression if obtained by selecting a second subset of the data corresponding to a second number of detectors of the plurality of detectors that is more than the first number of detectors.
+20. The medical imaging system of claim 13, wherein the data is generated from a parallel beam, cone beam, or fan beam projection that is applied to the ROI.
+21. The medical imaging system of claim 13, wherein the one or more processors is further configured to: distribute the data into the levels of compression by selecting different data points from the data associated with different pixel densities from slices of the representation.
+22. The medical imaging system of claim 13, wherein the one or more processors is further configured to: determine slices of the representation associated with the subset of the data and to subsequent subsets of the data according to a degree of rotation of at least a detector used to obtain the data.
+23. The medical imaging system of claim 13, wherein the one or more processors is further configured to: distribute the data into the levels of compression by selecting different slices of the representation obtained at different degrees of rotation of at least a detector used to obtain the data, the different slices of the representation adjusted to reflect prominent aspects and to ignore other aspects in subsets of the data within individual one of the different slices.
+24. A plurality of processors comprising: logic units to train one or more neural networks for image construction, at least in part, using established one or more levels of compression for image data from a region of interest (ROI), an image volume from a first level of compression using a subset of the image data, and subsequent image volumes for one or more hidden layers representing subsequent levels of the one or more levels of compression.
+25. The plurality of processors of claim 24, wherein the logic units generate the image associated with features underlying the ROI from a final image volume of the one or more neural networks.
+26. The plurality of processors of claim 24, further comprising: determining that the image volume satisfies a predetermined criteria using filtered backprojection (FBP) to qualify the image volume for use with the one or more neural networks.
+27. The plurality of processors of claim 24, wherein the logic units process, simultaneously, the subset of the image data according to at least one parameter and using predetermined algorithms forming the one or more neural networks, the processing performed in different ones of the plurality of processors to determine that a parameter is applicable to achieve constrained optimization in the first level of compression; and wherein the logic units apply the parameter in at least one of the subsequent levels of the one or more neural networks.
+28. The plurality of processors of claim 24, wherein the first level of compression is a highest compression relative to the subsequent levels of the levels of compression.
+29. The plurality of processors of claim 24, wherein the logic units determine that the first image volume from first image volumes generated by at least one of the one or more neural networks satisfy a predetermined criteria using filtered backprojection (FBP) to qualify the first image volume as the first initializer image volume for one of the subsequent levels of compression.
+</claims>
+</document>

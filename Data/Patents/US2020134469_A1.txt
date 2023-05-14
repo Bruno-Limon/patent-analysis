@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-10-30
+</filing_date>
+
+<publication_date>
+2020-04-30
+</publication_date>
+
+<priority_date>
+2018-10-30
+</priority_date>
+
+<ipc_classes>
+G06F17/15,G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+SAMSUNG S.D.S COMPANY
+</assignee>
+
+<inventors>
+YI, JEONG SEON
+PARK, MIN AH
+CHOO, JIN HO
+</inventors>
+
+<docdb_family_id>
+70326284
+</docdb_family_id>
+
+<title>
+METHOD AND APPARATUS FOR DETERMINING A BASE MODEL FOR TRANSFER LEARNING
+</title>
+
+<abstract>
+Methods and apparatuses for accurately determining a model, which is to be the basis of transfer learning, among a plurality of source models, are provided. According to an embodiment, an apparatus for determining a base model to be used for transfer learning to a target domain is provided. The apparatus comprises a memory which comprises one or more instructions and a processor which executes the instructions to construct a neural network model for measuring suitability of a plurality of pre-trained source models, measure the suitability of each of the source models by inputting data of the target domain to the neural network model, and determine the base model to be used for the transfer learning among the source models based on the suitability.
+</abstract>
+
+<claims>
+1. A method of determining a base model to be used for transfer learning to a target domain by a computing apparatus, the method comprising: constructing a neural network model for measuring suitability of a plurality of pre-trained source models; measuring the suitability of each of the source models by inputting data of the target domain to the neural network model; and determining the base model to be used for the transfer learning among the source models based on the suitability.
+2. The method of claim 1, wherein the constructing of the neural network model comprises: extracting a feature value of training data in conjunction with a feature extraction layer of a first source model; and adjusting a weight of the neural network model by learning the feature value as preset first suitability.
+3. The method of claim 2, wherein the adjusting of the weight of the neural network model comprises: obtaining a result value of the first source model by inputting the feature value to an output layer of the first source model; and adjusting the weight of the neural network model by learning the feature value and the result value as the first suitability.
+4. The method of claim 2, wherein the adjusting of the weight of the neural network model comprises: obtaining predicted suitability for the feature value by inputting the feature value to the neural network model; and adjusting the weight of the neural network model by back-propagating an error between the first suitability and the predicted suitability, wherein a weight of the feature extraction layer is not adjusted through the back-propagating of the error.
+5. The method of claim 1, wherein the constructing of the neural network model comprises: adjusting a weight of the neural network model by learning first data previously learned by a first source model as first suitability; and adjusting the weight of the neural network model by learning second data not learned by the first source model as second suitability, wherein the first suitability is set to a greater value than the second suitability.
+6. The method of claim 1, wherein the constructing of the neural network model comprises: constructing a first neural network model for measuring suitability of a first source model; and constructing a second neural network model for measuring suitability of a second source model.
+7. The method of claim 6, wherein the constructing of the first neural network model comprises: extracting a first feature of first data in conjunction with a first feature extraction layer of the first source model; adjusting a weight of the first neural network model by learning the first feature as first suitability; extracting a second feature of second data in conjunction with a second feature extraction layer of the second source model; and adjusting the weight of the first neural network model by learning the second feature as second suitability.
+8. The method of claim 1, wherein the constructing of the neural network model comprises: extracting a plurality of feature values of training data in conjunction with respective feature extraction layers of the source models; aggregating the feature values; and adjusting a weight of the neural network model by learning the aggregated feature values as suitability preset in the training data, wherein the preset suitability comprises suitability of each of the source models.
+9. The method of claim 8, wherein each of the feature extraction layers comprises a first sub-layer and a second sub-layer, the aggregating of the feature values comprises aggregating a plurality of first feature values extracted by the respective first sub-layers of the source models and aggregating a plurality of second feature values extracted by the respective second sub-layers of the source models, and the adjusting of the weight of the neural network model comprises adjusting a weight of a first neural network model which corresponds to the first sub-layers by learning the aggregated first feature values and adjusting a weight of a second neural network model which corresponds to the second sub-layers by learning the aggregated second feature values.
+10. The method of claim 9, wherein the determining of the base model comprises determining a first base layer among the first sub-layers of the source models based on suitability measured by the first neural network model and determining a second base layer among the second sub-layers of the source models based on suitability measured by the second neural network model, and further comprising constructing a target model, which is to be applied to the target domain, by using the first base layer and the second base layer.
+11. The method of claim 1, further comprising constructing a target model, which is to be applied to the target domain, by fine-tuning the base model using a dataset of the target domain.
+12. A method of constructing a neural network model for measuring suitability of a pre-trained source model by using a computing apparatus, the method comprising: obtaining a training dataset which comprises first data previously learned by the source model and second data not learned by the source model; adjusting a weight of the neural network model by learning the first data as first suitability; and adjusting the weight of the neural network model by learning the second data as second suitability, wherein the first suitability is set to a greater value than the second suitability.
+13. The method of claim 12, wherein the adjusting of the neural network model by learning the first data as the first suitability comprises: extracting a feature value of the first data in conjunction with a feature extraction layer of the source model; obtaining predicted suitability for the feature value by inputting the feature value to the neural network model; and adjusting the weight of the neural network model by back-propagating an error between the first suitability and the predicted suitability.
+14. The method of claim 13, wherein the feature extraction layer comprises a convolutional layer.
+15. The method of claim 13, wherein a weight of the feature extraction layer is not adjusted through the back-propagating of the error.
+16. The method of claim 13, wherein the obtaining of the predicted suitability for the feature value comprises: obtaining a result value of the source model by inputting the feature value to an output layer of the source model; and obtaining the predicted suitability by inputting the feature value and the result value to the neural network model.
+17. The method of claim 12, wherein the source model is a first source model, the training dataset further comprises third data previously learned by a second source model, and the adjusting of the weight of the neural network model by learning the first data as the first suitability comprises adjusting the weight of the neural network model by learning a feature of the first data extracted by a feature extraction layer of the first source model as the first suitability and further comprises adjusting the weight of the neural network model by learning a feature of the third data extracted by a feature extraction layer of the second source model as third suitability, wherein the first suitability is set to a higher value than the third suitability.
+18. The method of claim 12, wherein the source model is a first source model, and further comprising adjusting the weight of the neural network model by learning a feature of the first data extracted by a feature extraction layer of a second source model as third suitability, wherein the first suitability is set to a higher value than the third suitability.
+19. The method of claim 12, wherein the source model is a first source model, the first suitability comprises (1-1)-th suitability set for the first source model and (1-2)-th suitability set for a second source model, and the adjusting of the weight of the neural network model by learning the first data as the first suitability comprises: extracting a first feature value of the first data by using a feature extraction layer of the first source model; extracting a second feature value of the first data by using a feature extraction layer of the second source model; aggregating the first feature value and the second feature value; and adjusting the weight of the neural network model by learning the aggregated feature values as the first suitability, wherein the (1-1)-th suitability is set to a higher value than the (1-2)-th suitability.
+20. An apparatus for determining a base model to be used for transfer learning to a target domain, the apparatus comprising: a memory which comprises one or more instructions; and a processor which executes the instructions to construct a neural network model for measuring suitability of a plurality of pre-trained source models, measure the suitability of each of the source models by inputting data of the target domain to the neural network model, and determine the base model to be used for the transfer learning among the source models based on the suitability.
+</claims>
+</document>

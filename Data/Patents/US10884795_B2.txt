@@ -1,0 +1,59 @@
+<document>
+
+<filing_date>
+2018-04-26
+</filing_date>
+
+<publication_date>
+2021-01-05
+</publication_date>
+
+<priority_date>
+2018-04-26
+</priority_date>
+
+<ipc_classes>
+G06F9/46,G06F9/48,G06F9/50,G06N20/00,H04L29/08
+</ipc_classes>
+
+<assignee>
+IBM (INTERNATIONAL BUSINESS MACHINES CORPORATION)
+</assignee>
+
+<inventors>
+XU QING
+FENG, KUAN
+LIU, JUNFENG
+SU, ZHICHAO
+</inventors>
+
+<docdb_family_id>
+68292539
+</docdb_family_id>
+
+<title>
+Dynamic accelerator scheduling and grouping for deep learning jobs in a computing cluster
+</title>
+
+<abstract>
+Embodiments for dynamic accelerator scheduling and grouping for deep learning jobs in a computing cluster. An efficiency metric of each job executing in the computing cluster is calculated to generate a prioritized job queue. Accelerator re-grouping execution plans are then generated based on the prioritized job queue, the accelerator re-grouping execution plans associated with a target cluster topology to be achieved according to the placement of selected jobs from the prioritized job queue in relation to a location of respective ones of a plurality of accelerators within the computing cluster. One of the accelerator re-grouping execution plans is executed to allocate the selected jobs to the respective ones of the plurality of accelerators to thereby shift the computing cluster to the target cluster topology.
+</abstract>
+
+<claims>
+1. A method for dynamic accelerator scheduling and grouping for deep learning jobs in a computing cluster, by a processor, comprising: computing an efficiency metric of each job executing in the computing cluster to generate a prioritized job queue, wherein the efficiency metric is computed based on a number of the plurality of accelerators executing a respective job, a host distribution of the number of the plurality of accelerators, and a remaining calculation time of the respective job, wherein the prioritized job queue is sorted in order of a smallest efficiency metric to a largest efficiency metric; and wherein the efficiency metric is updated by a scheduler at predetermined time intervals; generating accelerator re-grouping execution plans based on the prioritized job queue, the accelerator re-grouping execution plans associated with a target cluster topology to be achieved according to the placement of selected jobs from the prioritized job queue in relation to a location of respective ones of a plurality of accelerators within the computing cluster; computing a scheduling cost for each job based on the target cluster topology to generate an optimal scheduling cycle of each job to the respective ones of the plurality of accelerators; wherein the scheduling cost accounts for a resource adjustment cost in the scheduler and a waiting cost associated with an iteration boundary alignment; and executing one of the accelerator re-grouping execution plans to allocate the selected jobs to the respective ones of the plurality of accelerators to thereby shift the computing cluster to the target cluster topology.
+2. The method of claim 1, further including selecting, for the accelerator re-grouping execution plans, the selected jobs having a largest efficiency metric from the prioritized job queue; wherein a user defined threshold is used to limit a total number of jobs to be planned in the accelerator re-grouping execution plans.
+3. The method of claim 2, wherein generating each of the accelerator re-grouping execution plans further includes generating an action list of predetermined actions for each of the selected jobs to achieve the target cluster topology, the predetermined actions including identifying which of the respective ones of the plurality of accelerators, and at what certain time, to commence and cease execution of a given one of the selected jobs upon.
+4. The method of claim 1, further including sorting through the accelerator re-grouping execution plans to identify one of the accelerator re-grouping execution plans having a highest expected efficiency gain, the efficiency gain computed through a cost evaluation; wherein the cost evaluation includes computing at least one of a training cost, a model synchronization cost, and a data transfer cost.
+5. The method of claim 4, further including executing the one of the accelerator re-grouping execution plans having the highest expected efficiency gain by performing, in a predetermined order, the predetermined actions associated with the one of the accelerator re-grouping execution plans; wherein a first one of the predetermined actions is performed commensurate with a timer being started to perform a second one of the predetermined actions upon the timer expiring.
+6. A system for dynamic accelerator scheduling and grouping for deep learning jobs in a computing cluster, the system comprising: a plurality of accelerators; a memory device; and a processor executing instructions stored in the memory device, wherein the processor: computes an efficiency metric of each job executing in the computing cluster to generate a prioritized job queue, wherein the efficiency metric is computed based on a number of the plurality of accelerators executing a respective job, a host distribution of the number of the plurality of accelerators, and a remaining calculation time of the respective job, wherein the prioritized job queue is sorted in order of a smallest efficiency metric to a largest efficiency metric; and wherein the efficiency metric is updated by a scheduler at predetermined time intervals; generates accelerator re-grouping execution plans based on the prioritized job queue, the accelerator re-grouping execution plans associated with a target cluster topology to be achieved according to the placement of selected jobs from the prioritized job queue in relation to a location of respective ones of a plurality of accelerators within the computing cluster; computes a scheduling cost for each job based on the target cluster topology to generate an optimal scheduling cycle of each job to the respective ones of the plurality of accelerators; wherein the scheduling cost accounts for a resource adjustment cost in the scheduler and a waiting cost associated with an iteration boundary alignment; and executes one of the accelerator re-grouping execution plans to allocate the selected jobs to the respective ones of the plurality of accelerators to thereby shift the computing cluster to the target cluster topology.
+7. The system of claim 6, wherein the processor selects, for the accelerator re-grouping execution plans, the selected jobs having a largest efficiency metric from the prioritized job queue; wherein a user defined threshold is used to limit a total number of jobs to be planned in the accelerator re-grouping execution plans.
+8. The system of claim 7, wherein generating each of the accelerator re-grouping execution plans further includes generating an action list of predetermined actions for each of the selected jobs to achieve the target cluster topology, the predetermined actions including identifying which of the respective ones of the plurality of accelerators, and at what certain time, to commence and cease execution of a given one of the selected jobs upon.
+9. The system of claim 6, wherein the processor sorts through the accelerator re-grouping execution plans to identify one of the accelerator re-grouping execution plans having a highest expected efficiency gain, the efficiency gain computed through a cost evaluation; wherein the cost evaluation includes computing at least one of a training cost, a model synchronization cost, and a data transfer cost.
+10. The system of claim 9, wherein the processor executes the one of the accelerator re-grouping execution plans having the highest expected efficiency gain by performing, in a predetermined order, the predetermined actions associated with the one of the accelerator re-grouping execution plans; wherein a first one of the predetermined actions is performed commensurate with a timer being started to perform a second one of the predetermined actions upon the timer expiring.
+11. A computer program product for dynamic accelerator scheduling and grouping for deep learning jobs in a computing cluster, by a processor, the computer program product embodied on a non-transitory computer-readable storage medium having computer-readable program code portions stored therein, the computer-readable program code portions comprising: an executable portion that computes an efficiency metric of each job executing in the computing cluster to generate a prioritized job queue, wherein the efficiency metric is computed based on a number of the plurality of accelerators executing a respective job, a host distribution of the number of the plurality of accelerators, and a remaining calculation time of the respective job, wherein the prioritized job queue is sorted in order of a smallest efficiency metric to a largest efficiency metric; and wherein the efficiency metric is updated by a scheduler at predetermined time intervals; an executable portion that generates accelerator re-grouping execution plans based on the prioritized job queue, the accelerator re-grouping execution plans associated with a target cluster topology to be achieved according to the placement of selected jobs from the prioritized job queue in relation to a location of respective ones of a plurality of accelerators within the computing cluster; an executable portion that computes a scheduling cost for each job based on the target cluster topology to generate an optimal scheduling cycle of each job to the respective ones of the plurality of accelerators; wherein the scheduling cost accounts for a resource adjustment cost in the scheduler and a waiting cost associated with an iteration boundary alignment; and an executable portion that executes one of the accelerator re-grouping execution plans to allocate the selected jobs to the respective ones of the plurality of accelerators to thereby shift the computing cluster to the target cluster topology.
+12. The computer program product of claim 11, further including an executable portion that selects, for the accelerator re-grouping execution plans, the selected jobs having a largest efficiency metric from the prioritized job queue; wherein a user defined threshold is used to limit a total number of jobs to be planned in the accelerator re-grouping execution plans.
+13. The computer program product of claim 12, wherein generating each of the accelerator re-grouping execution plans further includes generating an action list of predetermined actions for each of the selected jobs to achieve the target cluster topology, the predetermined actions including identifying which of the respective ones of the plurality of accelerators, and at what certain time, to commence and cease execution of a given one of the selected jobs upon.
+14. The computer program product of claim 11, further including an executable portion that sorts through the accelerator re-grouping execution plans to identify one of the accelerator re-grouping execution plans having a highest expected efficiency gain, the efficiency gain computed through a cost evaluation; wherein the cost evaluation includes computing at least one of a training cost, a model synchronization cost, and a data transfer cost.
+15. The computer program product of claim 14, further including an executable portion that executes the one of the accelerator re-grouping execution plans having the highest expected efficiency gain by performing, in a predetermined order, the predetermined actions associated with the one of the accelerator re-grouping execution plans; wherein a first one of the predetermined actions is performed commensurate with a timer being started to perform a second one of the predetermined actions upon the timer expiring.
+</claims>
+</document>

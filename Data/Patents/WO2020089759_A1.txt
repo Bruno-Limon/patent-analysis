@@ -1,0 +1,110 @@
+<document>
+
+<filing_date>
+2019-10-26
+</filing_date>
+
+<publication_date>
+2020-05-07
+</publication_date>
+
+<priority_date>
+2018-10-30
+</priority_date>
+
+<ipc_classes>
+G06F3/06
+</ipc_classes>
+
+<assignee>
+MARVELL WORLD TRADE
+</assignee>
+
+<inventors>
+VARNICA, NEDELJKO
+THERENE CHRISTOPHE
+NGUYEN, PHONG SY
+</inventors>
+
+<docdb_family_id>
+70325161
+</docdb_family_id>
+
+<title>
+ARTIFICIAL INTELLIGENCE-ENABLED MANAGEMENT OF STORAGE MEDIA ACCESS
+</title>
+
+<abstract>
+The present disclosure describes apparatuses (104-108) and methods (1400-1800) for artificial intelligence-enabled management of storage media. In some aspects, a media access manager (130) of a storage media system (114-122) receives, from a host system (102), host input/output commands (I/Os) for access to storage media (124) of the storage media system (114). The media access manager (130) provides information describing the host I/Os to an artificial intelligence engine (132) and receives, from the artificial intelligence engine (132), a prediction of host system behavior with respect to subsequent access of the storage media (124). The media access manager (130) then schedules, based on the prediction of host system behavior, the host I/Os for access to the storage media (124) of the storage system (114). By so doing, the host I/Os may be scheduled to optimize host system (102) access of the storage media (124), such as to avoid conflict with internal I/Os of the storage system (114) or preempt various thresholds based on upcoming idle time.
+</abstract>
+
+<claims>
+What is claimed is:
+1. A method for artificial intelligence-enabled management of storage media access, comprising:
+receiving, from a host system and via a host interface of a storage system, host input/outputs (I/Os) for access to storage media of the storage system;
+providing, to an artificial intelligence engine associated with the storage system, information describing the host I/Os received from the host system;
+receiving, from the artificial intelligence engine, a prediction of host system behavior with respect to subsequent access of the storage media by the host system; and scheduling, based on the prediction of host system behavior, the host I/Os for access to the storage media of the storage system.
+2. The method of claim 1, further comprising:
+determining that the storage system has internal I/Os that are pending, and wherein the scheduling comprises:
+scheduling, based on the prediction of host system behavior, the host I/Os of the host system and the internal I/Os of the storage system for access to the storage media of the storage system.
+3. The method of claim 2, wherein scheduling the internal I/Os of the storage system comprises advancing or delaying the internal I/Os of the storage system based on the prediction of host system behavior to mitigate contention between the internal I/Os and the host I/Os or subsequent host I/Os for access to the storage media.
+4. The method of claim 2, wherein the internal I/Os correspond to one or more tasks of a Flash translation layer of the storage system that includes one of garbage collection, data migration, or wear leveling.
+5. The method of claim 1, wherein the prediction of host system behavior received from the artificial intelligence engine comprises an indication of:
+a duration of time until the host system becomes idle;
+a duration of time for which the host system will remain idle; or
+parameters regarding a next host I/O issued by the host system.
+6. The method of claim 1, wherein the information describing the host I/Os comprises, for at least one of the host I/Os, an indication of:
+an event type of the host I/O;
+an event duration of the host I/O; or
+an event size of data associated with the host I/O.
+7. The method of claim 1, wherein the scheduling of the host I/Os is based on the prediction of host system behavior received from the artificial intelligence engine and device-level parameters of the storage media for thermal management of the storage media.
+8. The method of claim 1, wherein:
+the artificial intelligence engine executes multiple artificial intelligence models; at least two of the multiple artificial intelligence models are associated with respective internal tasks implemented by a Flash translation layer or device-level manager of the storage system; and
+the method further comprises loading, prior to providing the information to the artificial intelligence engine, at least one of the multiple intelligence models to the artificial intelligence engine to enable the prediction of the host system behavior.
+9. The method of claim 8, further comprising executing, via the artificial intelligence engine, the at least two of the multiple artificial intelligence models concurrently to implement at least two artificial intelligence-assisted internal tasks of the storage system.
+10. The method of claim 8, further comprising executing, via the artificial intelligence engine, two instances of one of the multiple artificial intelligence models in parallel to enable online re-training or refinement of the artificial intelligence model.
+11. An apparatus comprising :
+a host interface configured for communication with a host system;
+storage media to store data of the host system;
+a media interface configured to enable access to the storage media;
+an artificial intelligence engine; and
+a media access manager configured to:
+receive, via the host interface, host input/outputs (I/Os) from the host system for access to the storage media of the apparatus;
+provide, to the artificial intelligence engine, information describing the host I/Os received from the host system;
+receive, from the artificial intelligence engine, a prediction of host system behavior with respect to subsequent access of the storage media by the host system; and
+schedule, based on at least the prediction of host system behavior, the host I/Os for access to the storage media of the apparatus.
+12. The apparatus of claim 11, wherein the media access manager is further configured to:
+determine that the apparatus has internal I/Os for access to the storage media that are pending; and
+schedule, based on the prediction of host system behavior, the host I/Os of the host system and the internal I/Os of the apparatus for access to the storage media of the apparatus.
+13. The apparatus of claim 11, wherein:
+the prediction of host system behavior received from the artificial intelligence engine comprises an indication of at least one of a duration of time until the host system becomes idle, a duration of time for which the host system will remain idle, or parameters regarding a next host I/O issued by the host system; or
+the information describing the host I/Os comprises, for at least one of the host I/Os, an indication of an event type of the host I/O, an event duration of the host I/O, or an event size of data associated with the host I/O.
+14. The apparatus of claim 11, wherein:
+the artificial intelligence engine executes multiple artificial intelligence models that include at least two of the multiple artificial intelligence models are associated with respective internal tasks implemented by a Flash translation layer or device-level manager of the apparatus; and
+the media access manager is further configured to load, prior to providing the information to the artificial intelligence engine, at least one of the multiple intelligence models to the artificial intelligence engine to enable the prediction of the host system behavior.
+15. The apparatus of claim 14, wherein the media access manager is further configured to:
+cause the artificial intelligence engine to execute the at least two of the multiple artificial intelligence models concurrently to implement at least two artificial intelligence-assisted internal tasks of the apparatus; or
+cause the artificial intelligence engine to execute two instances of one of the multiple artificial intelligence models in parallel to enable online re-training or refinement of the artificial intelligence model.
+16. A System-on-Chip (SoC) comprising:
+a media interface to access storage media of a storage system;
+a host interface to communicate with a host system;
+an artificial intelligence engine;
+a hardware-based processor;
+a memory storing processor-executable instructions that, responsive to execution by the hardware-based processor, implement a media access manager to:
+receive, via the host interface, host input/outputs (I/Os) from the host system for access to the storage media of the storage system;
+provide, to the artificial intelligence engine, information describing the host I/Os received from the host system;
+receive, from the artificial intelligence engine, a prediction of host system behavior with respect to subsequent access of the storage media by the host system; and
+schedule, based on at least the prediction of host system behavior, the host I/Os for access to the storage media of the storage system.
+17. The SoC of claim 16, wherein the media access manager is further configured to determine that the SoC has internal I/Os for access to the storage media that are pending; and
+schedule, based on the prediction of host system behavior, the host I/Os of the host system and the internal I/Os of the SoC for access to the storage media of the SoC, the scheduling of the internal I/Os comprising advancing or delaying the internal I/Os of the SoC to mitigate contention between the internal I/Os and the host I/Os.
+18. The SoC of claim 16, wherein:
+the prediction of host system behavior received from the artificial intelligence engine comprises an indication of at least one of a duration of time until the host system becomes idle, a duration of time for which the host system will remain idle, or parameters regarding a next host I/O issued by the host system; or
+the information describing the host I/Os comprises, for at least one of the host I/Os, an indication of an event type of the host I/O, an event duration of the host I/O, or an event size of data associated with the host I/O.
+19. The SoC of claim 16, the media access manager is further configured to schedule the host I/Os based on the prediction of host system behavior and device-level parameters of the storage media for thermal management of the storage media.
+20. The SoC of claim 16, wherein:
+the artificial intelligence engine of the SoC executes multiple artificial intelligence models that include at least two of the multiple artificial intelligence models associated with respective internal tasks implemented by a Flash translation layer or device-level manager of the SoC; and
+the media access manager is further configured to:
+cause the artificial intelligence engine to execute the at least two of the multiple artificial intelligence models concurrently to implement at least two artificial intelligence-assisted internal tasks of the SoC; or
+cause the artificial intelligence engine to execute two instances of one of the multiple artificial intelligence models in parallel to enable online re-training or refinement of the artificial intelligence model.
+</claims>
+</document>

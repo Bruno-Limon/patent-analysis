@@ -1,0 +1,101 @@
+<document>
+
+<filing_date>
+2020-03-25
+</filing_date>
+
+<publication_date>
+2020-12-03
+</publication_date>
+
+<priority_date>
+2019-05-27
+</priority_date>
+
+<ipc_classes>
+G06F16/31,G06F16/335,G06F16/951
+</ipc_classes>
+
+<assignee>
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+MITRA, BHASKAR
+DIAZ, FERNANDO
+CRASWELL, NICHOLAS ERIC
+YILMAZ, EMINE
+HAWKING, DAVID ANTHONY
+ROSSET, Corbin Louis
+</inventors>
+
+<docdb_family_id>
+70334078
+</docdb_family_id>
+
+<title>
+NEURAL NETWORK FOR SEARCH RETRIEVAL AND RANKING
+</title>
+
+<abstract>
+Described herein is a mechanism for utilizing a neural network to identify and rank search results. A machine learning model is trained by converting training data comprising query-document entries into query term-document entries. The query term-document entries are utilized to train the machine learning model. A set of query terms are identified. The query terms can be derived from a query history. The trained machine learning model is used to calculate document ranking scores for the query terms and the resultant scores are stored in a pre-calculated term-document index. A query to search the document index is broken down into its constituent terms and an aggregate document ranking score is calculated from a weighted sum of the document ranking scores corresponding to the individual query terms. Because the term-document index can be pre-calculated, it can be downloaded to provide deep learning search capabilities in a computationally limited environment.
+</abstract>
+
+<claims>
+1. A method for information retrieval, comprising:
+providing access to a pre-calculated term-document index, each ranking score in the pre-calculated term-document index being provided by a machine learning model trained using a set of training data comprising query termdocument pairs;
+receiving a query;
+splitting the query into its constituent query terms;
+for each constituent query term:
+retrieving a corresponding ranking score for each document in a set of documents based on the constituent query term from the pre-calculated term-document index; and
+aggregating the ranking score for the constituent query term by document;
+ranking the set of documents by corresponding aggregated ranking score; selecting a subset of the ranked set of documents as a set of search results; and
+returning the set of search results in response to the query.
+2. The method of claim 1 wherein the pre-calculated term-document index is created using a method comprising:
+identifying a set of queries;
+for each query in the set of queries:
+split a query under consideration into its constituent query terms; and
+for each constituent query term:
+calculate the ranking score for each document in the set of documents using the trained machine learning model; and
+store the ranking score in the pre-calculated term-document index.
+3. The method of claim 1 wherein the pre-calculated term-document index is received from another system.
+4. The method of claim 1 wherein the pre-calculated term-document index is calculated on the system executing the method.
+5. The method of claim 1 wherein the machine learning model is trained using a method comprising:
+identifying first training data comprising a set of query-document pairs; splitting each query-document pair into a set of query term-document pairs thereby creating second training data;
+identifying a query term independent loss function;
+training the machine learning model by minimizing the query term independent loss function against the second training data.
+6. The method of claim 5 wherein the query term independent loss function is a weighted sum of term-document scores.
+7. The method of claim 5 wherein the query term independent loss function is a function of a weighted sum of the difference of term-document scores for positive document examples and term-document scores for negative document examples.
+8. The method of claim 5 wherein each term-document pair comprises:
+a query term from a query-document pair; and
+one of either a positive document example from the query-document pair or a negative document example from the query-document pair.
+9. The method of claim 5 wherein each term-document pair comprises:
+a query term from a query-document pair;
+a positive document example from the query-document pair; and a negative document example from the query-document pair.
+10. The method of claim 1 further comprising selecting the set of documents from a larger set of documents, such that the set of documents is a subset of the larger set of documents.
+11. The method of claim 1 further comprising:
+dynamically selecting a weight for the ranking score for the constituent query term.
+12. A system comprising a processor and computer executable instructions, that when executed by the processor, cause the system to perform operations comprising:
+create a pre-calculated term-document index with operations comprising: identify a set of query terms;
+provide access to a machine learning model trained using a set of training data comprising query term-document pairs;
+for each query term in the set of query terms:
+calculate a ranking score for each document in a set of documents using a trained machine learning model; and
+store the ranking score in the pre-calculated term-document index;
+select a set of query results with operations comprising:
+receive a query;
+split the query into its constituent query terms;
+for each constituent query term:
+retrieve a corresponding ranking score for each document in the set of documents based on the constituent query term from the pre-calculated term-document index; and
+aggregate the corresponding ranking score for the constituent query term by document;
+rank the set of documents by corresponding aggregated ranking score;
+select a subset of the ranked set of documents as the set of query results; and
+return the set of search results in response to the query.
+13. The system of claim 12 further comprising select the set of documents from a larger set of documents, such that the set of documents is a subset of the larger set of documents.
+14. The system of claim 12 further comprising train the machine learning model using operations comprising:
+identify first training data comprising a set of query-document pairs;
+split each query-document pair into a set of query term-document pairs thereby creating second training data;
+identify a query term independent loss function;
+train the machine learning model by minimizing the query term independent loss function against the second training data.
+15. The system of claim 14 wherein the query term independent loss function is a function of a weighted sum of term-document scores.
+</claims>
+</document>

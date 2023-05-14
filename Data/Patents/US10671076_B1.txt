@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2017-12-06
+</filing_date>
+
+<publication_date>
+2020-06-02
+</publication_date>
+
+<priority_date>
+2017-03-01
+</priority_date>
+
+<ipc_classes>
+G05D1/00,G05D1/02
+</ipc_classes>
+
+<assignee>
+ZOOX
+</assignee>
+
+<inventors>
+CALDWELL, TIMOTHY
+KOBILAROV, MARIN
+PAXTON, CHRISTOPHER
+RAMAN, VASUMATHI
+</inventors>
+
+<docdb_family_id>
+70855942
+</docdb_family_id>
+
+<title>
+Trajectory prediction of third-party objects using temporal logic and tree search
+</title>
+
+<abstract>
+Techniques for generating trajectories for autonomous vehicles and for predicting trajectories for third-party objects using temporal logic and tree search are described herein. Perception data about an environment can be captured to determine static objects and dynamic objects. For a particular dynamic object, which can represent a third-party vehicle, predictive trajectories can be generated to represent possible trajectories based on available options and rules of the road. Operations can include determining probabilities that a third-party vehicle will execute a predictive trajectory and updating the probabilities over time as motion data is captured. Predictive trajectories can be provided to the autonomous vehicle and commands for the autonomous vehicle can be based on the predictive trajectories. Further, determining a trajectory can include utilizing a Monte Carlo Tree Search (MCTS) to search for possible trajectories, while using Linear Temporal Logic (LTL) formulas to validate or reject the possible trajectories.
+</abstract>
+
+<claims>
+1. A system of an autonomous vehicle, the system comprising: one or more processors; and one or more computer readable storage media communicatively coupled to the one or more processors and storing instructions that are executable by the one or more processors to: receive sensor data from one or more of a LIDAR sensor, a RADAR sensor, or a camera sensor; determine, based at least in part on the sensor data, one or more dynamic symbols, a dynamic symbol of the one or more dynamic symbols representing a third-party object that is not under control of the autonomous vehicle; determine, based at least in part on the sensor data, motion data associated with the one or more dynamic symbols, the motion data including at least a position, an orientation, and a velocity associated with a dynamic symbol of the one or more dynamic symbols; determine, based at least in part on the one or more dynamic symbols and one or more static symbols, one or more predictive trajectories navigable by the third-party object, wherein the one or more dynamic symbols and the one or more static symbols represent temporal logic features; determine, based at least in part on the motion data, an outcome probability associated with a predictive trajectory of the one or more predictive trajectories; select, as a selected predictive trajectory, the predictive trajectory based at least in part on the outcome probability; and provide the selected predictive trajectory to a decision planner of the autonomous vehicle.
+2. The system of claim 1, the instructions further executable by the one or more processors to: determine one or more predicates based at least in part on the one or more dynamic symbols and one or more static symbols; determine one or more temporal logic (TL) formulas based at least in part on the one or more predicates, the one or more dynamic symbols, and the one or more static symbols; and evaluate the one or more predictive trajectories with respect to the one or more TL formulas.
+3. The system of claim 1, the instructions further executable by the one or more processors to: determine one or more temporal logic features based at least in part on the one or more dynamic symbols; and evaluate the one or more temporal logic features based at least in part on the one or more dynamic symbols to determine a numerical value associated with the one or more dynamic symbols.
+4. The system of claim 1, the instructions further executable by the one or more processors to determine a policy associated with the one or more dynamic symbols based at least in part on the motion data over a time period, wherein the policy describes, at least in part, an expected behavior of the one or more dynamic symbols.
+5. The system of claim 1, the instructions further executable by the one or more processors to receive the one or more static symbols from a perception system of the autonomous vehicle or from map data stored in the autonomous vehicle.
+6. The system of claim 1, wherein the outcome probability is based at least in part on a log-likelihood algorithm.
+7. The system of claim 1, wherein the motion data corresponds to a first time, and wherein the instructions are further executable by the one or more processors to determine one or more of a predicted position or a predicted velocity based at least in part on extrapolating the motion data to a second time, the second time subsequent to the first time.
+8. The system of claim 1, the instructions further executable by the one or more processors to: determine a command trajectory of the autonomous vehicle based at least in part on the selected predictive trajectory provided to the decision planner; and command the autonomous vehicle based at least in part on the command trajectory.
+9. A method comprising: selecting a dynamic symbol as a subject symbol for prediction, wherein the dynamic symbol represents a temporal logic feature; determining one or more symbols associated with the subject symbol; determining one or more predictive trajectories associated with predictive motion of the subject symbol based at least in part on the one or more symbols and the subject symbol; determining an outcome probability associated with a predictive trajectory of the one or more predictive trajectories; providing the predictive trajectory to a decision planner of an autonomous vehicle, the predictive trajectory provided based at least in part on the outcome probability associated with the predictive trajectory; determining a command trajectory of the autonomous vehicle based at least in part on the predictive trajectory provided to the decision planner; and commanding the autonomous vehicle based at least in part on the command traj ectory.
+10. The method of claim 9, further comprising: determining one or more predicates based at least in part on the subject symbol and the one or more symbols; determining one or more temporal logic (TL) formulas based at least in part on the one or more predicates, the subject symbol, and the one or more symbols; and determining whether the one or more predictive trajectories violate an individual TL formula of the one or more TL formulas.
+11. The method of claim 9, further comprising: determining one or more temporal logic features based at least in part on the subject symbol; and evaluating the one or more temporal logic features based at least in part on the dynamic symbol to determine a numerical value associated with the subject symbol.
+12. The method of claim 9, further comprising: receiving sensor data from one or more of a LIDAR sensor, a RADAR sensor, or a camera sensor; determining, based at least in part on the sensor data, motion data associated with the subject symbol, the motion data including at least a position, an orientation, and a velocity associated with the subject symbol; and determining a policy associated with the subject symbol based at least in part on the motion data over a time period, wherein the policy describes, at least in part, an expected behavior of the subject symbol.
+13. The method of claim 9, further comprising receiving the one or more symbols from a perception system of the autonomous vehicle or from map data stored in the autonomous vehicle.
+14. The method of claim 9, further comprising determining the outcome probability based at least in part on a log-likelihood algorithm.
+15. The method of claim 9, further comprising: receiving sensor data from one or more of a LIDAR sensor, a RADAR sensor, or a camera sensor; determining, based at least in part on the sensor data, motion data associated with the subject symbol, the motion data including at least a position, an orientation, and a velocity associated with the dynamic symbol at a first time; and determining one or more of a predicted position or a predicted velocity associated with the subject symbol based at least in part on extrapolating the motion data to a second time, the second time subsequent to the first time.
+16. A non-transitory computer-readable medium storing instructions that, when executed, cause one or more processors to perform operations comprising: receiving sensor data from one or more sensors of an autonomous vehicle, the sensor data including at least one of LIDAR sensor data, RADAR sensor data, acoustic sensor data, or image sensor data; determining, based at least in part on the sensor data, one or more dynamic symbols proximate to the autonomous vehicle, wherein the one or more dynamic symbols represent temporal logic features; selecting a dynamic symbol of the one or more dynamic symbols as a subject symbol for prediction; determining one or more symbols associated with the subject symbol; determining one or more predictive trajectories associated with predictive motion of the subject symbol based at least in part on the one or more symbols and the subject symbol; determining an outcome probability associated with a predictive trajectory of the one or more predictive trajectories; and providing the predictive trajectory to a decision planner of the autonomous vehicle, the predictive trajectory provided based at least in part on the outcome probability associated with the predictive trajectory; and controlling the autonomous vehicle based at least in part on the predictive trajectory.
+17. The non-transitory computer-readable medium of claim 16, wherein controlling the autonomous vehicle further comprises: determining a command trajectory of the autonomous vehicle based at least in part on the predictive trajectory provided to the decision planner; and commanding the autonomous vehicle based at least in part on the command trajectory.
+18. The non-transitory computer-readable medium of claim 16, the operations further comprising: determining one or more predicates based at least in part on the one or more dynamic symbols and the one or more symbols; determining one or more temporal logic (TL) formulas based at least in part on the one or more predicates, the one or more dynamic symbols, and the one or more symbols; and determining whether the one or more predictive trajectories violate an individual TL formula of the one or more TL formulas.
+19. The non-transitory computer-readable medium of claim 16, the operations further comprising determining the outcome probability based at least in part on a log-likelihood algorithm.
+20. The non-transitory computer-readable medium of claim 16, the operations further comprising: receiving sensor data from one or more of a LIDAR sensor, a RADAR sensor, or a camera sensor; determining, based at least in part on the sensor data, motion data associated with the dynamic symbol, the motion data including at least a position, an orientation, and a velocity associated with the dynamic symbol at a first time; and determining one or more of a predicted position or a predicted velocity associated with the dynamic symbol based at least in part on extrapolating the motion data to a second time, the second time subsequent to the first time.
+</claims>
+</document>

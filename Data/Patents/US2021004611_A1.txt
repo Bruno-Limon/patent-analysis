@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2019-07-05
+</filing_date>
+
+<publication_date>
+2021-01-07
+</publication_date>
+
+<priority_date>
+2019-07-05
+</priority_date>
+
+<ipc_classes>
+G05B13/02,G06K9/00,G06K9/62,G06T11/60,G08G1/01,G08G1/04,G08G1/052,G08G1/056
+</ipc_classes>
+
+<assignee>
+ZOOX
+</assignee>
+
+<inventors>
+KOBILAROV, MARIN
+MORALES MORALES, ANDRES GUILLERMO
+WANG, KAI ZHENYU
+Garimella, Gowtham
+</inventors>
+
+<docdb_family_id>
+74066426
+</docdb_family_id>
+
+<title>
+PREDICTION ON TOP-DOWN SCENES BASED ON ACTION DATA
+</title>
+
+<abstract>
+Techniques for determining predictions on a top-down representation of an environment based on vehicle action(s) are discussed herein. Sensors of a first vehicle (such as an autonomous vehicle) can capture sensor data of an environment, which may include object(s) separate from the first vehicle (e.g., a vehicle or a pedestrian). A multi-channel image representing a top-down view of the object(s) and the environment can be generated based on the sensor data, map data, and/or action data. Environmental data (object extents, velocities, lane positions, crosswalks, etc.) can be encoded in the image. Action data can represent a target lane, trajectory, etc. of the first vehicle. Multiple images can be generated representing the environment over time and input into a prediction system configured to output prediction probabilities associated with possible locations of the object(s) in the future, which may be based on the actions of the autonomous vehicle.
+</abstract>
+
+<claims>
+1. A system comprising: one or more processors; and one or more computer-readable media storing instructions executable by the one or more processors, wherein the instructions, when executed, cause the system to perform operations comprising: receiving sensor data of an environment captured by a sensor of an autonomous vehicle; receiving action data associated with a candidate action for the autonomous vehicle to perform in the environment, wherein the candidate action comprises one or more of a stay-in-lane action, a turn action, or a lane change action, and wherein the action data is indicative of the candidate action; generating, based at least in part on the sensor data and the action data, a multi-channel image representing a top-down view of the environment, the multi-channel image representing a bounding box associated with a vehicle in the environment proximate the autonomous vehicle, one or more of kinematic information or semantic information associated with the vehicle, and the candidate action associated with the autonomous vehicle; inputting the multi-channel image into a machine learned model trained to generate a heat map comprising a prediction probability of a possible location associated with the vehicle; determining, based at least in part on the heat map, a cost associated with the candidate action; and determining, based at least in part on the cost associated with the candidate action, a trajectory for the autonomous vehicle to travel in the environment.
+2. The system of claim 1, wherein generating the multi-channel image representing the candidate action associated with the autonomous vehicle comprises generating a channel of the multi-channel image representing a target lane in the environment associated with the candidate action, the target lane indicative of an intended lane for the autonomous vehicle to occupy.
+3. The system of claim 1, wherein generating the multi-channel image representing the candidate action associated with the autonomous vehicle comprises generating a channel of the multi-channel image representing a target velocity or a target acceleration of the autonomous vehicle associated with the candidate action.
+4. The system of claim 1, wherein the prediction probability is represented as an occupancy grid associated with a future time, and wherein a cell of the occupancy grid is indicative of a probability of the vehicle being in a region associated with the cell at the future time.
+5. The system of claim 1, wherein the candidate action is a first candidate action, wherein the heat map is a first heat map, wherein the prediction probability is a first prediction probability, and wherein the cost is a first cost, the operations further comprising: determining, based at least in part on the sensor data and a second candidate action, a second heat map comprising a second prediction probability associated with the vehicle; determining, based at least in part on the second heat map, a second cost; selecting, based at least in part on the first cost and the second cost, a selected action from the first candidate action or the second candidate action; and determining the trajectory based at least in part on the selected action.
+6. A method comprising: receiving object data representing an object in an environment; receiving action data associated with a candidate action for a vehicle to perform in the environment; generating, based at least in part on the object data and the action data, a multi-channel image representing a top-down view of the environment, the multi-channel image representing the object, motion information associated with the object, and the candidate action associated with the vehicle; inputting the multi-channel image into a machine learned model; receiving, from the machine learned model, a prediction probability associated with the object; and controlling, based at least in part on the prediction probability, the vehicle to traverse the environment.
+7. The method of claim 6, wherein the prediction probability is a first prediction probability, the method further comprising, receiving, from the machine learned model, a second prediction probability associated with the vehicle.
+8. The method of claim 6, wherein the candidate action comprises at least one of: a stay-in-lane action; a lane change action; or a turn action; and wherein generating the multi-channel image representing the candidate action associated with the vehicle comprises generating a channel of the multi-channel image representing a target lane associated with the candidate action.
+9. The method of claim 8, wherein the channel is a first channel, and wherein generating the multi-channel image representing the candidate action associated with the vehicle further comprises generating a second channel of the multi-channel image representing a target velocity or a target acceleration of the vehicle associated with the candidate action.
+10. The method of claim 6, wherein: the multi-channel image further comprises one or more channels comprising additional object information of additional objects in the environment; and the multi-channel image is one of a plurality of multi-channel images associated with one or more previous times prior to a current time.
+11. The method of claim 10, further comprising: receiving, from the machine learned model, a plurality of prediction probabilities representing the environment at one or more future times after the current time.
+12. The method of claim 6, wherein the prediction probability is a first prediction probability associated with a first time after a current time, the method further comprising: receiving, from the machine learned model, a second prediction probability associated with the object, the second prediction probability associated with a second time after the first time; wherein a first probability amount associated with the first prediction probability is within a threshold amount of a second probability amount associated with the second prediction probability.
+13. The method of claim 6, wherein the object data is based at least in part on at least one of image data, lidar data, radar data, or time-of-flight data.
+14. The method of claim 6, wherein the machine learned model comprises a convolutional neural network.
+15. The method of claim 6, wherein: the action data is first action data; the candidate action is a first candidate action; the multi-channel image is a first multi-channel image; the top-down view of the environment is a first top-down view of the environment; and the prediction probability is a first prediction probability associated with the first candidate action; the method further comprising: receiving second action data associated with a second candidate action for the vehicle to perform in the environment; generating, based at least in part on the object data and the second action data, a second multi-channel image representing a second top-down view of the environment; inputting the second multi-channel image into the machine learned model; and receiving, from the machine learned model, a second prediction probability associated with the object.
+16. The method of claim 15, the method further comprising: determining a first cost associated with the first prediction probability; determining, based at least in part on the second prediction probability, a second cost; selecting, as a selected action and based at least in part on the first cost and the second cost, one of the first candidate action or the second candidate action; and controlling, based at least in part on the selected action, the vehicle to traverse the environment.
+17. A non-transitory computer-readable medium storing instructions that, when executed, cause one or more processors to perform operations comprising: receiving object data representing an object in an environment; receiving action data associated with a candidate action for a vehicle to perform in the environment, wherein the candidate action comprises one or more of a stay-in-lane action, a turn action, or a lane change action, and wherein the action data is indicative of the candidate action; generating, based at least in part on the object data and the action data, a multi-channel image representing the object, motion information associated with the object, and the candidate action associated with the vehicle; inputting the multi-channel image into a machine learned model; receiving, from the machine learned model, a prediction probability associated with the object; and controlling, based at least in part on the prediction probability and the candidate action, the vehicle to traverse the environment.
+18. The non-transitory computer-readable medium of claim 17, wherein generating the multi-channel image representing the candidate action associated with the vehicle comprises generating a channel of the multi-channel image representing a target lane associated with the candidate action, the target lane indicative of an intended lane for the vehicle to occupy.
+19. The non-transitory computer-readable medium of claim 17, wherein the channel is a first channel, and wherein generating the multi-channel image representing the candidate action associated with the vehicle further comprises generating a second channel of the multi-channel image representing a target velocity or a target acceleration of the vehicle associated with the candidate action.
+20. The non-transitory computer-readable medium of claim 17, wherein: the action data is first action data; the candidate action is a first candidate action; the multi-channel image is a first multi-channel image; and the prediction probability is a first prediction probability associated with the first candidate action; the operations further comprising: receiving second action data associated with a second candidate action for the vehicle to perform in the environment; generating, based at least in part on the object data and the second action data, a second multi-channel image representing the object, the motion information, and the second candidate action; inputting the second multi-channel image into the machine learned model; and receiving, from the machine learned model, a second prediction probability associated with the object.
+</claims>
+</document>

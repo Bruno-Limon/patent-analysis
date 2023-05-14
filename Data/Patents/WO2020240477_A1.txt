@@ -1,0 +1,84 @@
+<document>
+
+<filing_date>
+2020-05-28
+</filing_date>
+
+<publication_date>
+2020-12-03
+</publication_date>
+
+<priority_date>
+2019-05-31
+</priority_date>
+
+<ipc_classes>
+G06N3/08
+</ipc_classes>
+
+<assignee>
+THALES CANADA
+</assignee>
+
+<inventors>
+LECUE, Freddy
+ZIAEEFARD, Maryam
+BEACH, David
+CORBEIL-LETOURNEAU, Simon
+MARTET, Florian
+</inventors>
+
+<docdb_family_id>
+73553098
+</docdb_family_id>
+
+<title>
+METHOD AND PROCESSING DEVICE FOR TRAINING A NEURAL NETWORK
+</title>
+
+<abstract>
+A method and a processing device are disclosed for training a neural network comprising obtaining a neural network to train, generating an training dataset, the generating comprising obtaining a segmented dataset comprising a plurality of multimodal data, providing an uncertainty map for each segmented multimodal data of the segmented dataset, the uncertainty map providing an indication of a performance of a corresponding segmentation, and combining each segmented multimodal data of the segmented dataset with a corresponding uncertainty map so as to provide the training dataset, the training dataset comprising a plurality of multimodal data wherein each multimodal data is segmented using the uncertainty map, training the neural network using the training dataset and providing the trained neural network.
+</abstract>
+
+<claims>
+1. A method for training a neural network, the method being executed by a processor, the method comprising: obtaining a neural network; generating a training dataset, the generating comprising: obtaining a segmented dataset comprising a plurality of multimodal data, obtaining an uncertainty map for each segmented multimodal data of the segmented dataset, the uncertainty map being indicative of a performance of a corresponding segmentation of the neural network, obtaining a segmentation error map for each segmented multimodal data of the segmented dataset, and combining each segmented multimodal data of the segmented dataset with a corresponding uncertainty map and a corresponding segmentation error map so as to provide the training dataset, the training dataset comprising a plurality of multimodal data wherein each multimodal data is segmented using the corresponding uncertainty map and the corresponding segmentation error map; training the neural network using the training dataset to thereby obtain a trained neural network; and providing the trained neural network. 2. The method of claim 1 , wherein said training of the neural network using the training dataset to thereby obtain the trained neural network is a second training; and wherein the method further comprises prior to said obtaining of the segmented dataset: obtaining the plurality of multimodal data, each multimodal data comprising a respective segmentation target; and first training the neural network to perform segmentation on the plurality of multimodal data using the respective segmentation targets to obtain the segmented dataset comprising the plurality of segmented multimodal data.
+3. The method of claim 2, further comprising: generating the uncertainty map using the respective segmentation targets.
+4. The method of claim 2 or 3, wherein said first training comprises obtaining a first set of weights of the neural network; and wherein said second training comprises obtaining a second set of weights of the neural network to obtain the trained neural network.
+5. The method of claim 4, further comprising generating the segmentation error map for each segmented multimodal data using the performed segmentation with the first set of weights and the respective segmentation target. 6. The method of any one of claims 1 to 5, wherein said training of the neural network using the training dataset to thereby obtain the trained neural network comprises: using an attentional kernel on each multimodal data, the attentional kernel being indicative of a mismatch between the corresponding uncertainty map and the corresponding segmentation error map.
+7. The method of claim 6, wherein said using the attentional kernel comprises using a mismatch region between the corresponding uncertainty map and the corresponding segmentation error map of the multimodal data as a weight.
+8. The method of claim 7, wherein said using of the mismatch region is in response to determining the mismatch region between the corresponding uncertainty map and the corresponding segmentation error map based on a threshold.
+9. The method of any one of claims 1 to 8, wherein said generating of the uncertainty map comprises using Bayesian predictive entropy.
+10. The method of any one of claims 1 to 9, wherein said uncertainty map is a calibrated uncertainty map.
+11. The method of any one of claims 1 to 10, wherein the multimodal data comprises image data; and wherein the neural network comprises a semantic segmentation network.
+12. The method of any one of claims 1 to 11 , further comprising: obtaining further multimodal data, the neural network not having been trained on the further multimodal data; and providing, using the trained neural network, a segmentation prediction for the further multimodal data.
+13. A method for estimating a robustness of a neural network in generating segmentation predictions, the method being executed by a processor, the method comprising: obtaining the neural network; obtaining multimodal data associated with a target label; generating, by the neural network, a segmentation prediction for the multimodal data; determining, using the target label and the segmentation prediction, a prediction error; obtaining an uncertainty associated with the neural network; obtaining an attentive network; and determining, by the attentive network, using the prediction error and the uncertainty, an attentive uncertainty indicative of a robustness of the neural network in generating segmentation predictions.
+14. The method of claim 13, wherein the obtaining of the uncertainty comprises obtaining an uncertainty map; and wherein the obtaining of the prediction error comprises obtaining of a prediction error map.
+15. The method of claim 14, wherein said obtaining of the uncertainty comprises generating the uncertainty map using Bayesian predictive entropy. 16. The method of claim 14, wherein said obtaining of the uncertainty map comprises generating the uncertainty map using an entropy of a softmax distribution.
+17. The method of any one of claims 13 to 16, wherein the attentive uncertainty is simultaneously indicative of an uncertainty of the neural network in generating predictions and an error of the neural network in generating predictions.
+18. The method of any one of claims 13 to 17, further comprising, prior to said determining of the attentive uncertainty: training the attentive network to determine attentive uncertainties using a cross-entropy loss function.
+19. The method of any one of claims 13 to 18, wherein the attentive network comprises an attention layer, and at least one fully-connected layer for processing the uncertainty map and the prediction error map to obtain the attentive uncertainty map.
+20. The method of claim 19, wherein the determining of the attentive uncertainty map comprises determining, by the attention layer, an attention map by masking pixels having a prediction error above zero.
+21. The method of claim 20, wherein the determining of the attentive uncertainty comprises using a sigmoid activation function on the attention map to obtain the attentive uncertainty.
+22. A processing device comprising: a processor; and a non-transitory storage medium connected to the processor, the nontransitory storage medium comprising computer-executable instructions, the processor, upon executing the computer-executable instructions, being configured for obtaining a neural network; generating a training dataset, the generating comprising: obtaining a segmented dataset comprising a plurality of multimodal data, obtaining an uncertainty map for each segmented multimodal data of the segmented dataset, the uncertainty map being indicative of a performance of a corresponding segmentation of the neural network, obtaining a segmentation error map for each segmented multimodal data of the segmented dataset, and combining each segmented multimodal data of the segmented dataset with a corresponding uncertainty map and a corresponding segmentation error map so as to provide the training dataset, the training dataset comprising a plurality of multimodal data wherein each multimodal data is segmented using the corresponding uncertainty map and the corresponding segmentation error map; training the neural network using the training dataset to thereby obtain a trained neural network; and providing the trained neural network. 23. The processing device of claim 22, wherein said training of the neural network using the training dataset to thereby obtain the trained neural network is a second training; and wherein the processing device is further configured for, prior to said obtaining of the segmented dataset: obtaining the plurality of multimodal data, each multimodal data comprising a respective segmentation target; and first training the neural network to perform segmentation on the plurality of multimodal data using the respective segmentation targets to obtain the segmented dataset comprising the plurality of segmented multimodal data.
+24. The processing device of claim 23, wherein the processor is further configured for generating the uncertainty map using the respective segmentation targets.
+25. The processing device of claim 23 or 24, wherein said first training comprises obtaining a first set of weights of the neural network; and wherein said second training comprises obtaining a second set of weights of the neural network to obtain the trained neural network.
+26. The processing device of claim 25, wherein the processor is further configured for generating the segmentation error map for each segmented multimodal data using the performed segmentation with the first set of weights and the respective segmentation target.
+27. The processing device of any one of daims 23 to 26, wherein said second training of the neural network using the training dataset to thereby obtain the trained neural network comprises: using an attentional kernel on each multimodal data, the attentional kernel being indicative of a mismatch between the corresponding uncertainty map and the corresponding segmentation error map.
+28. The processing device of daim 27, wherein said using the attentional kernel comprises using a mismatch region between the corresponding uncertainty map and the corresponding segmentation error map of the multimodal data as a weight.
+29. The processing device of claim 28, wherein said using of the mismatch region is in response to determining the mismatch region between the corresponding uncertainty map and the corresponding segmentation error map based on a threshold.
+30. The processing device of any one of daims 22 to 29, wherein said generating of the uncertainty map comprises using Bayesian predictive entropy.
+31. The processing device of any one of daims 22 to 30, wherein said uncertainty map is a calibrated uncertainty map.
+32. The processing device of any one of daims 22 to 31 , wherein the multimodal data comprises image data; and wherein the neural network comprises a semantic segmentation network.
+33. The processing device of any one of claims 22 to 32, wherein the processor is further configured for obtaining further multimodal data, the neural network not having been trained on the further multimodal data; and providing, using the trained neural network, a segmentation prediction for the further multimodal data.
+34. A processing device comprising: a processor; and a non-transitory storage medium connected to the processor, the non-transitory storage medium comprising computer-executable instructions, the processor, upon executing the computer-executable instructions, being configured for obtaining the neural network; obtaining multimodal data associated with a target label; generating, by the neural network, a segmentation prediction for the multimodal data; determining, using the target label and the segmentation prediction, a prediction error; obtaining an uncertainty associated with the neural network; obtaining an attentive network; and determining, by the attentive network, using the prediction error and the uncertainty, an attentive uncertainty indicative of a robustness of the neural network in generating segmentation predictions.
+35. The processing device of claim 34, wherein the obtaining of the uncertainty comprises obtaining an uncertainty map; and wherein the obtaining of the prediction error comprises obtaining of a prediction error map.
+36. The processing device of claim 35, wherein said obtaining of the uncertainty map comprises generating the uncertainty map using Bayesian predictive entropy.
+37. The processing device of claim 35, wherein said obtaining of the uncertainty map comprises generating the uncertainty map using an entropy of a softmax distribution.
+38. The processing device of any one of claims 34 to 37, wherein the attentive uncertainty is simultaneously indicative of an uncertainty of the neural network in generating predictions and an error of the neural network in generating predictions.
+39. The processing device of any one of claims 34 to 38, wherein the processor is further configured for, prior to said determining of the attentive uncertainty: training the attentive network to determine attentive uncertainties using a cross-entropy loss function.
+40. The processing device of any one of daims 34 to 39, wherein the attentive network comprises an attention layer, and at least one fully-connected layer for processing the uncertainty map and the prediction error map to obtain the attentive uncertainty map.
+41. The processing device of claim 40, wherein the determining of the attentive uncertainty map comprises determining, by the attention layer, an attention map by masking pixels having a prediction error above zero.
+42. The processing device of daim 41 , wherein the determining of the attentive uncertainty comprises using a sigmoid activation function on the attention map to obtain the attentive uncertainty.
+43. A non-transitory computer readable storage medium for storing computerexecutable instructions which, when executed, cause a computer to perform: obtaining a neural network; generating a training dataset, the generating comprising: obtaining a segmented dataset comprising a plurality of multimodal data, obtaining an uncertainty map for each segmented multimodal data of the segmented dataset, the uncertainty map being indicative of a performance of a corresponding segmentation of the neural network, obtaining a segmentation error map for each segmented multimodal data of the segmented dataset, and combining each segmented multimodal data of the segmented dataset with a corresponding uncertainty map and a corresponding segmentation error map so as to provide the training dataset, the training dataset comprising a plurality of multimodal data wherein each multimodal data is segmented using the corresponding uncertainty map and the corresponding segmentation error map; training the neural network using the training dataset to thereby obtain a trained neural network; and providing the trained neural network.
+</claims>
+</document>

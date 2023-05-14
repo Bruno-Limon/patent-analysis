@@ -1,0 +1,70 @@
+<document>
+
+<filing_date>
+2017-12-27
+</filing_date>
+
+<publication_date>
+2020-01-07
+</publication_date>
+
+<priority_date>
+2017-05-22
+</priority_date>
+
+<ipc_classes>
+G06N3/02,G06N3/04,G06N3/08,G06N7/00,G10L15/02,G10L15/07,G10L15/14,G10L15/16,G10L15/22
+</ipc_classes>
+
+<assignee>
+SAMSUNG ELECTRONICS COMPANY
+</assignee>
+
+<inventors>
+YOO, SANG HYUN
+SONG, INCHUL
+</inventors>
+
+<docdb_family_id>
+64272037
+</docdb_family_id>
+
+<title>
+User adaptive speech recognition method and apparatus
+</title>
+
+<abstract>
+A user adaptive speech recognition method and apparatus are provided. A speech recognition method includes extracting an identity vector representing an individual characteristic of a user from speech data, implementing a sub-neural network by inputting a sub-input vector including at least the identity vector to the sub-neural network, determining a scaling factor based on a result of the implementing of the sub-neural network, implementing a main neural network, configured to perform a recognition operation, by applying the determined scaling factor to the main neural network and inputting the speech data to the main neural network to which the determined scaling factor is applied, and indicating a recognition result of the implementation of the main neural network.
+</abstract>
+
+<claims>
+1. A processor implemented speech recognition method comprising: extracting an identity vector representing an individual characteristic of a user from speech data; implementing a sub-neural network by inputting a sub-input vector including at least the identity vector to the sub-neural network; determining a scaling factor based on a result of the implementing of the sub-neural network; implementing a main neural network, configured to perform a recognition operation, by applying the determined scaling factor to the main neural network and inputting the speech data to the main neural network to which the determined scaling factor is applied; and indicating a recognition result of the implementation of the main neural network.
+2. The speech recognition method of claim 1, wherein the extracting of the identity vector includes generating the identify vector as representing a variability of a Gaussian mixture model (GMM) supervector connecting average values of Gaussian components modeling a distribution of acoustic parameters of the speech data based on a GMM.
+3. The speech recognition method of claim 1, wherein the main neural network is a recurrent neural network (RNN), and the applying of the determined scaling factor to the main neural network includes adjusting a state of a hidden unit in the RNN based on the determined scaling factor.
+4. The speech recognition method of claim 1, wherein the main neural network is an RNN, with weights of the RNN having been trained in advance of the recognition operation, and the applying of the determined scaling factor to the main neural network includes scaling a hidden state vector of a hidden unit in the RNN calculated based on the weights.
+5. The speech recognition method of claim 1, wherein the main neural network is a deep neural network (DNN), and the applying of the determined scaling factor to the main neural network includes adjusting an output of a hidden layer in the DNN based on the determined scaling factor.
+6. The speech recognition method of claim 1, wherein the main neural network is a DNN, with weights of the DNN having been trained in advance of the recognition operation, and the applying of the determined scaling factor to the main neural network includes scaling an output vector of a hidden layer in the DNN calculated based on the weights.
+7. The speech recognition method of claim 1, wherein the recognition result reflects consideration of the individual characteristic of the user in the recognition operation, corresponding to the extracted identity vector.
+8. The speech recognition method of claim 1, wherein the sub-input vector further comprises the speech data.
+9. The speech recognition method of claim 1, wherein the scaling factor comprises, with respect to the applying of the determined scaling factor, a first parameter controlling a degree of scaling and a second parameter controlling a scaling range.
+10. The speech recognition method of claim 1, wherein the sub-neural network is a neural network with parameters having been trained, prior to the recognition operation, to output a component determinative of the scaling factor and in response to the input of the sub-input vector to the sub-neural network, and the main neural network is a neural network with parameters having been trained, prior to the recognition operation, to output the recognition result in response to the inputting of the speech data to the main neural network to which the scaling factor is applied.
+11. The speech recognition method of claim 1, wherein the sub-neural network and the main neural network are neural networks with respective parameters resulting from the sub-neural network and the main neural network being simultaneously trained together.
+12. A non-transitory computer-readable storage medium storing instructions, which when executed by a processor, cause the processor to perform the speech recognition method of claim 1.
+13. A speech recognition apparatus comprising: a processor configured to: extract an identity vector representing an individual characteristic of a user from speech data; implement a sub-neural network by inputting a sub-input vector including at least the identity vector to the sub-neural network; determine a scaling factor based on a result of the implementing of the sub-neural network; implement a main neural network, configured to perform a recognition operation, by applying the determined scaling factor to the main neural network and inputting the speech data to the main neural network to which the determined scaling factor is applied; and indicate a recognition result of the implementation of the main neural network.
+14. The speech recognition apparatus of claim 13, further comprising a memory configured to store instructions, which when executed by the processor, cause the processor to perform the extracting of the identity vector, the implementing of the sub-neural network, the determining of the scaling factor, the implementing of the main neural network, and the indicating of the recognition result.
+15. The speech recognition apparatus of claim 13, further comprising a memory, the memory storing trained parameters of the sub-neural network and trained parameters of the main neural network.
+16. The speech recognition apparatus of claim 13, wherein, to perform the extracting of the identify vector, the processor is configured to generate the identify vector as representing a variability of a Gaussian mixture model (GMM) supervector connecting average values of Gaussian components modeling a distribution of acoustic parameters of the speech data based on a GMM.
+17. The speech recognition apparatus of claim 13, wherein the main neural network is a recurrent neural network (RNN), and to perform the applying of the determined scaling factor to the main neural network, the processor is configured to adjust a state of a hidden unit in the RNN based on the determined scaling factor.
+18. The speech recognition apparatus of claim 13, wherein the main neural network is an RNN, with weights of the RNN having been trained in advance of the recognition operation, and to perform the applying of the determined scaling factor to the main neural network, the processor is configured scale a hidden state vector of a hidden unit in the RNN calculated based on the weights.
+19. The speech recognition apparatus of claim 13, wherein the main neural network is a deep neural network (DNN), and to perform the applying of the determined scaling factor to the main neural network, the processor is configured to adjust an output of a hidden layer in the DNN.
+20. The speech recognition apparatus of claim 13, wherein the main neural network is a DNN, with weights of the DNN having been trained in advance of the recognition operation, and to perform the applying of the determined scaling factor to the main neural network, the processor is configured to scale an output vector of a hidden layer in the DNN calculated based on the weights.
+21. The speech recognition apparatus of claim 13, wherein the recognition result reflects consideration of the individual characteristic of the user in the recognition operation, corresponding to the extracted identity vector.
+22. The speech recognition apparatus of claim 13, wherein the sub-input vector further comprises the speech data.
+23. The speech recognition apparatus of claim 13, wherein the scaling factor comprises, with respect to the applying of the determined scaling factor, a first parameter controlling a degree of scaling and a second parameter controlling a scaling range.
+24. The speech recognition apparatus of claim 13, wherein the sub-neural network is a neural network with parameters having been trained, prior to the recognition operation, to output a component determinative of the scaling factor and in response to the input of the sub-input vector to the sub-neural network, and the main neural network is a neural network with parameters having been trained, prior to the recognition operation, to output the recognition result in response to the inputting of the speech data to the main neural network to which the scaling factor is applied.
+25. The speech recognition apparatus of claim 13, wherein the processor is further configured to train the sub-neural network and the main neural network simultaneously together based on respectively extracted identity vectors of different user training speech data used in the training.
+26. A processor implemented speech recognition method comprising: extracting an identity vector representing an individual characteristic of a user from speech data; generating a scaling factor based on a result of an implementing of a sub-neural network input the identify vector; and implementing a main neural network, configured to perform a recognition operation, by applying the determined scaling factor to the main neural network and inputting the speech data to the main neural network to which the determined scaling factor is applied, wherein the sub-neural network and the main neural network are neural networks with respective parameters resulting from the sub-neural network and the main neural network being simultaneously trained together for performing respectively individualized speech recognition of different training user speeches each with respectively different individual characteristics.
+27. The speech recognition method of claim 26, wherein the extracting of the identity vector includes generating the identify vector as representing a variability of a Gaussian mixture model (GMM) supervector connecting average values of Gaussian components modeling a distribution of acoustic parameters of the speech data based on a GMM.
+28. The speech recognition method of claim 26, wherein the generating of the scaling factor includes generating a first scaling factor and a second scaling factor respectively based on results of different network portions of the sub-neural network, and wherein the applying of the determined scaling factor to the main neural network includes applying the first scaling factor to a first hidden layer of the main neural network and applying the second scaling factor to a second hidden layer of the main neural network.
+</claims>
+</document>

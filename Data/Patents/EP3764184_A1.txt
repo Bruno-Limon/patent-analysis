@@ -1,0 +1,71 @@
+<document>
+
+<filing_date>
+2019-03-26
+</filing_date>
+
+<publication_date>
+2021-01-13
+</publication_date>
+
+<priority_date>
+2019-03-26
+</priority_date>
+
+<ipc_classes>
+G05B23/02
+</ipc_classes>
+
+<assignee>
+TOSHIBA MITSUBISHI-ELECTRIC INDUSTRIAL SYSTEM CORPORATION
+</assignee>
+
+<inventors>
+IMANARI, Hiroyuki
+SHIMODA, Naoki
+</inventors>
+
+<docdb_family_id>
+72609660
+</docdb_family_id>
+
+<title>
+ABNORMALITY DETERMINATION ASSISTANCE DEVICE
+</title>
+
+<abstract>
+The abnormality determination support apparatus comprises an analysis object data preparation unit, a primary determination unit, and a secondary determination unit. The analysis object data preparation unit acquires a time-series signal representing at least one of a state of the manufacturing facility and a product quality from a data collection apparatus of the manufacturing facility, and extracts analysis object data from the time-series signal. The primary determination unit derives a plurality of primary determination results from common analysis object data by applying a plurality of different types of analysis methods to the analysis object data extracted by the analysis object data preparation unit. The secondary determination unit includes a machine learning device which is learned using a pair of a primary determination result obtained by the primary determination unit and a corresponding set of an abnormality determination result and an abnormality cause, which is a correct answer, as a teacher signal, and inputs a plurality of primary determination results obtained from common analysis object data in the primary determination unit to the machine learning device, and outputs a secondary determination result and an estimated abnormality cause output from the machine learning device as the determination information.
+</abstract>
+
+<claims>
+1. An abnormality determination support apparatus that provides determination information for determining whether an abnormality has occurred in a manufacturing facility, comprising: an analysis object data preparation unit that is configured to acquire a time-series signal representing at least one of a state of the manufacturing facility and a product quality from a data collection apparatus of the manufacturing facility, and extract analysis object data from the time-series signal; a primary determination unit that is configured to derive a plurality of primary determination results from common analysis object data by applying a plurality of different types of analysis methods to the analysis object data extracted by the analysis object data preparation unit; and a secondary determination unit that includes a machine learning device which is learned using a teacher signal which is a pair of a primary determination result obtained by the primary determination unit and a corresponding set of an abnormality determination result and an abnormality cause, which is a correct answer, and is configured to input the plurality of primary determination results obtained from the common analysis object data by the primary determination unit to the machine learning device, and output a secondary determination result and an estimated abnormality cause output from the machine learning device as the determination information.
+2. The abnormality determination support apparatus according to claim 1,
+wherein the primary determination unit is configured to convert the analysis object data into a plurality of numerical indices by applying the plurality of different types of analysis methods to the analysis object data, and output the plurality of numerical indices as the plurality of primary determination results,
+wherein the machine learning device is configured to be learned using the teacher signal including the numerical index obtained by the primary determination unit as an input and including an actual abnormality determination result and an abnormality cause as the correct answer, and
+wherein the secondary determination unit is configured to input the plurality of numerical indices obtained for each analysis method by the primary determination unit to the machine learning device, and output the abnormality determination result and the estimated abnormality cause output from the machine learning device as the determination information.
+3. The abnormality determination support apparatus according to claim 1,
+wherein the primary determination unit is configured to convert the analysis object data into a plurality of numerical indices by applying a plurality of different types of analysis methods to the analysis object data, perform determination of presence or absence of an abnormality and calculation of an abnormality degree based on each of the plurality of numerical indices, and output a plurality of determination results and abnormality degrees obtained for each analysis method as a plurality of primary determination results,
+wherein the machine learning device is configured to be learned using the teacher signal including the determination result and the abnormality degree obtained by the primary determination unit as an input and including an actual abnormality determination result and an abnormality cause as the correct answer, and
+wherein the secondary determination unit is configured to input the plurality of determination results and abnormality degrees obtained for each analysis method by the primary determination unit to the machine learning device, and output the abnormality determination result and the estimated abnormality cause output from the machine learning device as the determination information.
+4. The abnormality determination support apparatus according to claim 1,
+wherein the primary determination unit is configured to convert the analysis object data into a plurality of numerical indices by applying the plurality of different types of analysis methods to the analysis object data, and output the plurality of numerical indices as the plurality of primary determination results,
+wherein the machine learning device is configured to be learned using the teacher signal including the numerical index obtained by the primary determination unit as an input and including presence or absence of an abnormality determined from the numerical index and an abnormality degree calculated from the numerical index as the correct answer, and
+wherein the secondary determination unit is configured to input the plurality of numerical indices obtained for each analysis method by the primary determination unit to the machine learning device, and output the abnormality determination result and the estimated abnormality cause output from the machine learning device as the determination information.
+5. The abnormality determination support apparatus according to any one of claims 1 to 4,
+wherein the analysis object data preparation unit is configured to extract data in two states of a loaded state and an unloaded state of the manufacturing facility while the manufacturing facility is in operation, and calculate a high-frequency component obtained by removing a low-frequency component from the extracted data as the analysis object data.
+6. The abnormality determination support apparatus according to any one of claims 1 to 4.
+wherein the analysis object data preparation unit is configured to extract data in two states of a sensor for measuring product quality, which are a state during measurement and a state of measurement waiting, during operation of the manufacturing facility, and calculate a high-frequency component obtained by removing a low-frequency component from the extracted data as the analysis object data.
+7. The abnormality determination support apparatus according to claim 5,
+wherein the primary determination unit is configured to convert the analysis object data into the plurality of numerical indices by applying the plurality of different analysis methods to the analysis object data in each of the loaded state and the unloaded state, determine the presence or absence of the abnormality based on each of the plurality of numerical indices, determine that there is an abnormality in a mechanical system if the loaded state is an abnormal state and the unloaded state is a normal state, and determine that there is an abnormality in any one of an electrical system, a signal transmission system, and a control system if both the loaded state and the unloaded state are abnormal states.
+8. The abnormality determination support apparatus according to claim 6,
+wherein the primary determination unit is configured to convert the analysis object data into a plurality of numerical indices by applying a plurality of different analysis methods to the analysis object data in each of the state during measurement and the state of measurement waiting, determine the presence or absence of an abnormality based on each of the plurality of numerical indices, determine that there is an abnormality in the product quality if the state of measurement is an abnormal state and the state of measurement waiting is a normal state, and determine that there is an abnormality in a sensor system that measures the product quality or a signal transmission system if both the state during measurement and the state of measurement waiting are abnormal states.
+9. The abnormality determination support apparatus according to any one of claims 1 to 8,
+wherein the machine learning device is configured to be learned by any one of learning by a neural network having one intermediate layer, deep learning by a neural network having a plurality of intermediate layers, and rule-based learning.
+10. The abnormality determination support apparatus according to any one of claims 1 to 9,
+wherein the machine learning device is configured such that a dimensionless variable having no physical unit among the variables indicating the primary determination result obtained by the primary determination unit is set as a learning object, and the dimensionless variable is applied to transition learning to the abnormality determination support apparatus of another manufacturing facility or transition learning from the abnormality determination support apparatus of another manufacturing facility.
+11. The abnormality determination support apparatus according to any one of claims 1 to 10, further comprising
+a data and result storage unit that is configured to store at least one of the analysis object data prepared by the analysis object data preparation unit, determination progress and result by the primary determination unit, and determination progress and result by the secondary determination unit in a recording device.
+12. The abnormality determination support apparatus according to any one of claims 1 to 11, further comprising
+a display unit that is configured to visually display at least one of the time-series signal obtained from the data collection apparatus, the analysis object data prepared by the analysis object data preparation unit, determination progress and result by the primary determination unit, and determination progress and result by the secondary determination unit.
+</claims>
+</document>

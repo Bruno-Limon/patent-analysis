@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-04-18
+</filing_date>
+
+<publication_date>
+2020-07-09
+</publication_date>
+
+<priority_date>
+2019-01-07
+</priority_date>
+
+<ipc_classes>
+B60W50/14,G05D1/02,G06K9/00
+</ipc_classes>
+
+<assignee>
+TOYOTA RESEARCH INSTITUTE
+</assignee>
+
+<inventors>
+CUNNINGHAM, ALEXANDER G.
+ZIDEK, ROBERT A.E.
+EPSTEIN, NOAH J.
+</inventors>
+
+<docdb_family_id>
+71404400
+</docdb_family_id>
+
+<title>
+SYSTEMS AND METHODS FOR VEHICULAR NAVIGATION
+</title>
+
+<abstract>
+Systems and methods described herein relate to vehicular navigation. One embodiment generates a polyline reference path for a vehicle; stores a representation of the polyline in a data structure; detects a plurality of obstacles ahead of the vehicle; identifies one or more obstacle gates among the plurality of obstacles using path coordinates relative to the reference path, each obstacle gate including at least one cluster of obstacles; identifies one or more gaps within each of the one or more obstacle gates; determines an obstacle-avoidance path for the vehicle that passes through a particular one of the one or more gaps in each of the one or more obstacle gates; and controls one or more aspects of operation of the vehicle based, at least in part, on the obstacle-avoidance path.
+</abstract>
+
+<claims>
+1. A system for vehicular navigation, the system comprising: one or more sensors to produce sensor data; one or more processors; and a memory communicably coupled to the one or more processors and storing: an obstacle-avoidance module including instructions that when executed by the one or more processors cause the one or more processors to: generate a reference path for a vehicle for at least a portion of a route, wherein the reference path is a polyline including a plurality of nodes connected by line segments, the plurality of nodes including an origin node; store a representation of the polyline in a data structure that includes a plurality of cells, the plurality of cells corresponding, respectively, to the plurality of nodes, each cell in the plurality of cells having a corresponding index and storing contents including a signed arclength to the origin node; detect, based on the sensor data, a plurality of obstacles ahead of the vehicle along the route; identify one or more obstacle gates among the plurality of obstacles using path coordinates relative to the reference path, each obstacle gate including at least one cluster of obstacles, the path coordinates of a given obstacle in the plurality obstacles including an index corresponding to a particular cell in the plurality of cells, the signed arclength to the origin node stored in the particular cell, and a lateral offset from the reference path; identify one or more gaps within each of the one or more obstacle gates; and determine an obstacle-avoidance path for the vehicle that passes through a particular one of the one or more gaps in each of the one or more obstacle gates; and a control module including instructions that when executed by the one or more processors cause the one or more processors to control one or more aspects of operation of the vehicle based, at least in part, on the obstacle-avoidance path.
+2. The system of claim 1, wherein the reference path lies within a single lane of a roadway.
+3. The system of claim 1, wherein the obstacle-avoidance module includes further instructions to: expand a particular obstacle gate among the one or more obstacle gates to span a lane adjacent to a lane in which the vehicle is currently traveling; identify a gap within the expanded particular obstacle gate; and determine an obstacle-avoidance path that passes through the gap within the expanded particular obstacle gate.
+4. The system of claim 1, wherein the data structure is an array and the contents of each cell in the plurality of cells include a distance to a next node in the polyline.
+5. The system of claim 1, wherein the instructions included in the obstacle-avoidance module to identify one or more gaps among the one or more obstacle gates include instructions to account for a width of the vehicle and for padding within at least one of a right lane boundary and a left lane boundary of a lane of a roadway.
+6. The system of claim 1, wherein the instructions included in the obstacle-avoidance module to determine an obstacle-avoidance path for the vehicle include instructions to: represent the obstacle-avoidance path as an obstacle-avoidance polyline in terms of path coordinates; and apply a smoothing algorithm to the obstacle-avoidance polyline to generate a smoothed obstacle-avoidance path.
+7. The system of claim 1, wherein the plurality of obstacles include at least one of other vehicles, construction cones, construction equipment, barricades, and debris.
+8. The system of claim 1, wherein the instructions included in the control module to control one or more aspects of operation of the vehicle based, at least in part, on the obstacle-avoidance path include instructions to display the one or more obstacle gates and the obstacle-avoidance path on a display device of the vehicle.
+9. The system of claim 8, wherein the instructions to display the one or more obstacle gates and the obstacle-avoidance path on the display device of the vehicle cause the one or more obstacle gates and the obstacle-avoidance path to be displayed in a manner that assists a human driver in steering the vehicle along the obstacle-avoidance path while the vehicle is operating in a manual driving mode.
+10. The system of claim 1, wherein the instructions included in the control module to control one or more aspects of operation of the vehicle based, at least in part, on the obstacle-avoidance path include instructions to steer the vehicle automatically in accordance with the obstacle-avoidance path while the vehicle is operating in an autonomous driving mode.
+11. The system of claim 1, wherein the one or more sensors include at least one of a camera, a Light Detection and Ranging (LIDAR) sensor, a radar sensor, and a sonar sensor.
+12. A non-transitory computer-readable medium for vehicular navigation and storing instructions that when executed by one or more processors cause the one or more processors to: generate a reference path for a vehicle for at least a portion of a route, wherein the reference path is a polyline including a plurality of nodes connected by line segments, the plurality of nodes including an origin node; store a representation of the polyline in a data structure that includes a plurality of cells, the plurality of cells corresponding, respectively, to the plurality of nodes, each cell in the plurality of cells having a corresponding index and storing contents including a signed arclength to the origin node; detect, based on sensor data, a plurality of obstacles ahead of the vehicle along the route; identify one or more obstacle gates among the plurality of obstacles using path coordinates relative to the reference path, each obstacle gate including at least one cluster of obstacles, the path coordinates of a given obstacle in the plurality obstacles including an index corresponding to a particular cell in the plurality of cells, the signed arclength to the origin node stored in the particular cell, and a lateral offset from the reference path; identify one or more gaps within each of the one or more obstacle gates; determine an obstacle-avoidance path for the vehicle that passes through a particular one of the one or more gaps in each of the one or more obstacle gates; and control one or more aspects of operation of the vehicle based, at least in part, on the obstacle-avoidance path.
+13. A method of vehicular navigation, the method comprising: generating a reference path for a vehicle for at least a portion of a route, wherein the reference path is a polyline including a plurality of nodes connected by line segments, the plurality of nodes including an origin node; storing a representation of the polyline in a data structure that includes a plurality of cells, the plurality of cells corresponding, respectively, to the plurality of nodes, each cell in the plurality of cells having a corresponding index and storing contents including a signed arclength to the origin node; detecting, based on sensor data, a plurality of obstacles ahead of the vehicle along the route; identifying one or more obstacle gates among the plurality of obstacles using path coordinates relative to the reference path, each obstacle gate including at least one cluster of obstacles, the path coordinates of a given obstacle in the plurality obstacles including an index corresponding to a particular cell in the plurality of cells, the signed arclength to the origin node stored in the particular cell, and a lateral offset from the reference path; identifying one or more gaps within each of the one or more obstacle gates; determining an obstacle-avoidance path for the vehicle that passes through a particular one of the one or more gaps in each of the one or more obstacle gates; and controlling one or more aspects of operation of the vehicle based, at least in part, on the obstacle-avoidance path.
+14. The method of claim 13, wherein the reference path lies within a single lane of a roadway.
+15. The method of claim 13, further comprising: expanding a particular obstacle gate among the one or more obstacle gates to span a lane adjacent to a lane in which the vehicle is currently traveling; identifying a gap within the expanded particular obstacle gate; and determining an obstacle-avoidance path that passes through the gap within the expanded particular obstacle gate.
+16. The method of claim 13, wherein identifying one or more gaps among the one or more obstacle gates includes accounting for a width of the vehicle and for padding within at least one of a right lane boundary and a left lane boundary of a lane of a roadway.
+17. The method of claim 13, wherein the obstacle-avoidance path is represented as an obstacle-avoidance polyline in terms of path coordinates and the method further comprises: applying a smoothing algorithm to the obstacle-avoidance polyline to generate a smoothed obstacle-avoidance path.
+18. The method of claim 13, wherein controlling one or more aspects of operation of the vehicle based, at least in part, on the obstacle-avoidance path includes displaying the one or more obstacle gates and the obstacle-avoidance path on a display device of the vehicle.
+19. The method of claim 18, wherein the one or more obstacle gates and the obstacle-avoidance path are displayed in a manner that assists a human driver in steering the vehicle along the obstacle-avoidance path while the vehicle is operating in a manual driving mode.
+20. The method of claim 13, wherein controlling one or more aspects of operation of the vehicle based, at least in part, on the obstacle-avoidance path includes steering the vehicle automatically in accordance with the obstacle-avoidance path while the vehicle is operating in an autonomous driving mode.
+</claims>
+</document>

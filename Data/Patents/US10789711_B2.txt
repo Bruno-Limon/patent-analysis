@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2016-09-08
+</filing_date>
+
+<publication_date>
+2020-09-29
+</publication_date>
+
+<priority_date>
+2015-09-09
+</priority_date>
+
+<ipc_classes>
+A61B8/06,A61B8/08,G06T7/00,G06T7/246,G16H30/20,G16H30/40,G16H50/20,G16H50/50
+</ipc_classes>
+
+<assignee>
+EINDHOVEN UNIVERSITY OF TECHNOLOGY
+</assignee>
+
+<inventors>
+MISCHI, MASSIMO
+VAN SLOUN, RUUD JOHANNES GERARDUS
+</inventors>
+
+<docdb_family_id>
+57003482
+</docdb_family_id>
+
+<title>
+Imaging of dispersion and velocity of contrast agents
+</title>
+
+<abstract>
+Some embodiments are directed to a method of estimating a velocity of a contrast agent. The method includes receiving a plurality of video frames that were produced using a dynamic contrast enhanced imaging process, each video frame including a plurality of pixels/voxels. Information from the video frames is used to estimate velocity vectors indicating the velocity and direction of the agent with the vascular networks. The estimated velocity can be used to diagnose cancer, such as prostate cancer. Instead of velocity vectors, agent trajectories can be determined also used for the same purpose.
+</abstract>
+
+<claims>
+1. A method of estimating a velocity of a contrast agent, the method comprising: receiving a plurality of video frames that were produced using a dynamic contrast enhanced imaging process, each video frame comprising a plurality of pixels/voxels; defining a local kernel, the local kernel including a number of neighboring pixels/voxels; placing the local kernel at a first location relative to the video frames; determining indicator-dilution curves for the pixels/voxels in the local kernel using the received plurality of video frames; comparing the indicator-dilution curves between two of a pair of pixels/voxels for a number of pairs of pixels/voxels within the local kernel to obtain a spatiotemporal dependency of the concentration evolution between the pixels/voxels within the local kernel; repeating the step of comparing the indicator-dilution curves after having relocated the local kernel, until no relocation of the local kernel is needed; estimating the velocity for at least some of the pixels/voxels of the video frames using the spatiotemporal dependency; and rendering the estimated velocity in a 2D or 3D image.
+2. The method according to claim 1, wherein the step of estimating the velocity comprises: determining a convection-diffusion model using the spatiotemporal dependency; and identifying the convection-diffusion model to obtain the velocity and dispersion values.
+3. The method according to claim 2, wherein the method comprises: determining an indicator-dilution curve for a pixel/voxel located at the center of the local kernel to obtain an input indicator-dilution curve; defining the indicator-dilution curves of the pixels/voxels of the local kernel as output indicator-dilution curves; defining Wiener-Hopf equations that describe the relation between the autocorrelation function of the input indicator-dilution curve and the cross-correlation function between the input indicator-dilution curve and output indicator-dilution curves; solving the Wiener-Hopf equations to obtain Wiener filter coefficients that represent a local channel impulse response, describing the spatiotemporal dependency; defining the convection-diffusion model in terms of the Wiener filter coefficients; solving the convection-diffusion model by model fitting the Wiener coefficients to obtain the velocity at at least some of the pixels/voxels.
+4. The method according to claim 2, wherein the method comprises: converting the convection-diffusion model into a discrete Markov process, wherein a temporal prediction of the process states, being the contrast agent concentration over space, are defined in terms of current process states, a time step, and process model parameters being the velocity and the dispersion; augmenting the state vector with the velocity and dispersion; estimating the process state by filtering the indicator-dilution curves for all the pixels/voxels in the local kernel.
+5. The method according to claim 2, wherein the method further comprises: adding one or more compartments to the convection-diffusion model to be identified to obtain a compartment model; and modeling extravasation kinetics of extravascular agents and the binding kinetics of targeted agents using the compartment model.
+6. The method according to claim 2, wherein the method further comprises: combining the estimated velocity and the dispersion values into a quantity by arithmetic operations or machine learning algorithms; and generating the 2D or 3D image using the quantity.
+7. The method according to claim 6, wherein the method further comprises: estimating the Péclet number for at least some of the pixels/voxels using the formula:
+description="In-line Formulae" end="lead"?Pé=L*(v/D)description="In-line Formulae" end="tail"? wherein Pé is the Péclet number, L is a characteristic length, v is the velocity and D is the dispersion value.
+8. The metod according to claim 1, the method further comprising: estimating a plurality of time-delays (τ) between the temporal evolutions of contrast agent concentration obtained within the pixels/voxels in the local kernel, and determining the velocity by mapping the plurality of estimated time-delays to the spatial domain.
+9. The method according to claim 8, wherein the mapping is obtained by solving a set of equations that describes a relation between time-delays, inter-pixel/voxel distance vectors and a velocity vector.
+10. The method according to claim 9, the method further comprising: estimating weights and weighted least squares.
+11. The method according to claim 10, wherein the weights are one of the following: unity, and a measure of confidence in the estimated time-delays.
+12. The method according to claim 1, wherein the method further comprises: impulse response identification amongst a set of indicator dilution curves within the local kernel to obtain time parameters and a mean transit time value (μ).
+13. The method according to claim 12, wherein the impulse response identification is performed using a parametric model including: Local Density Random Walk model; Lognormal model; Gamma-variate model; Erlang function, or Lagged Normal function.
+14. The method according to claim 1, the method further comprising characterization of a velocity vector field, wherein the characterization is performed using one of the following methods: statistical characterization by calculating the velocity field's entropy; and pattern recognition with machine learning.
+15. The method according to claim 1, the method further comprising: generating a 2D or 3D representation of ultrasound-contrast-agent trajectories, the representation including a most likely vascular structure, via a predetermined number of seed particles that are associated with a path within the estimated 2 or 3-dimensional velocity vector field.
+16. The method according to claim 15, wherein the generating a 2D or 3D representation comprises: initializing a predetermined set of particles at seed points; tracking the ultrasound-contrast-agent trajectories at the seed point; and determining, for each particle, a propagation direction based on the velocity vectors and moving each particle by a predetermined step size in the projection direction.
+17. The method according to claim 15, the method further comprising an assessment of vascular features based on the representation of ultrasound-contrast-agent trajectories, wherein the vascular features comprise representations of at least one of Tortuosity, Density, Branching, Fractality and Regularity.
+18. An estimating system for estimating a velocity of a contrast agent, the system comprising: an input module for receiving a plurality of video frames that were produced using a dynamic contrast enhanced imaging process, each video frame comprising a plurality of pixels/voxels; an image processing module for: defining a local kernel, the local kernel comprising a number of neighboring pixels/voxels; placing the local kernel at a first location relative to the video frames; determining indicator-dilution curves for the pixels/voxels in the local kernel using the received plurality of video frames; comparing the indicator-dilution curves between two of a pair of pixels/voxels for a number of pairs of pixels/voxels within the local kernel to obtain a spatiotemporal dependency of the concentration evolution between the pixels/voxels within the local kernel; and repeating the step of comparing the indicator-dilution curves after having relocated the local kernel, until no relocation of the local kernel is needed; an estimating module for estimating the velocity for at least some of the pixels/voxels of the video frames using the spatiotemporal dependency; and an output module for rendering the estimated velocity in a 2D or 3D image.
+19. The estimating system according to claim 18, the system further comprising a solving module for solving a convection-diffusion model using the plurality of video frames to obtain a measure of the spatiotemporal evolution of the contrast agent concentration.
+20. The estimating system according to claim 18, the system further comprising: an estimator configured for estimating a plurality of time-delays (τ) between the temporal evolutions of contrast agent concentration obtained within the pixels/voxels in the local kernel; and a velocity determinator configured for determining the velocity by mapping the plurality of estimated time-delays to the spatial domain.
+21. The estimating system according to claim 18, the system further comprising: an identification module configured for impulse response identification amongst a set of indicator dilution curves within the local kernel to obtain time parameters and a mean transit time value (μ).
+22. The estimating system according to claim 18, the system further comprising a module configured for determination of ultrasound-contrast-agent trajectories based on the velocity.
+</claims>
+</document>

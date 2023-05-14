@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2020-03-09
+</filing_date>
+
+<publication_date>
+2020-11-18
+</publication_date>
+
+<priority_date>
+2019-04-30
+</priority_date>
+
+<ipc_classes>
+G06F9/445,G06F9/50
+</ipc_classes>
+
+<assignee>
+INTEL CORPORATION
+</assignee>
+
+<inventors>
+CUSTODIO, Evan
+BERNAT, Francesc Guim
+BALLE, Susanne M.
+</inventors>
+
+<docdb_family_id>
+69784138
+</docdb_family_id>
+
+<title>
+TECHNOLOGIES FOR COMPRESSING COMMUNICATION FOR ACCELERATOR DEVICES
+</title>
+
+<abstract>
+Technologies for compressing communications for accelerator devices are disclosed. An accelerator device may include a communication abstraction logic units to manage communication with one or more remote accelerator devices. The communication abstraction logic unit may receive communication to and from a kernel on the accelerator device. The communication abstraction logic unit may compress and decompress the communication without instruction from the corresponding kernel. The communication abstraction logic unit may choose when and how to compress communications based on telemetry of the accelerator device and the remote accelerator device.
+</abstract>
+
+<claims>
+1. An accelerator device comprising: one or more slots; and circuitry to: receive, from a compute device, one or more parameters of a workload, the workload to be performed at a slot of the one or more slots of the accelerator device and one or more slots of one or more remote accelerator devices; provide the one or more parameters of the workload to a kernel of the one or more slots of the accelerator device; receive, from the kernel, a workload result based on the one or more parameters of the workload; automatically compress the workload result without instruction from the kernel; and send the compressed workload result to the compute device.
+2. The accelerator device of claim 1, wherein the circuitry is further to: receive, from the kernel, data to be sent to a remote kernel on the one or more remote accelerator devices; compress the data received from the kernel without instruction from the kernel; and send the compressed data to the one or more remote accelerator devices.
+3. The accelerator device of claim 2, wherein to receive the data to be sent comprises to receive one or more remote direct memory access (RDMA) commands comprising the data,
+wherein to compress the data comprises to compress the data of the one or more RDMA commands,
+wherein to send the compressed data to the one or more remote accelerator devices comprises to send the one or more RDMA commands with the compressed data of the RDMA commands to the one or more remote accelerator devices.
+4. The accelerator device of claim 3, wherein the circuitry is further to: receive telemetry data indicating a performance parameter of one or more remote accelerator devices; and determine, based on the telemetry data of the one or more remote accelerator devices, whether to compress the data received from the kernel, wherein to compress the data received from the kernel comprises to compress the data received from the kernel in response to a determination to compress the data based on the telemetry data of the one or more remote accelerator devices.
+5. A system comprising the accelerator device of claim 1, the system further comprising the compute device, the compute device comprising one or more machine-readable media comprising a plurality of instructions stored thereon that, when executed by the compute device, causes the compute device to: determine, by an application of a processor of the compute device, the one or more parameters of the workload to be sent to the accelerator device; receive, by a network interface controller of the compute device and from the processor, the one or more parameters of the workload to be sent to the accelerator device; automatically compress, by the network interface controller and without instruction from the application, the one or more parameters of the workload; and send, by the network interface controller and to the accelerator device, the one or more compressed parameters of the workload.
+6. The system of claim 5, wherein to receive the one or more parameters to be sent comprises to receive one or more remote direct memory access (RDMA) commands comprising the one or more parameters of the workload,
+wherein to compress the data comprises to compress the one or more parameters of the workload,
+wherein to send the one or more compressed parameters to the accelerator device comprises to send the one or more RDMA commands with the one or more compressed parameters of the workload to the one or more remote accelerator devices.
+7. The system of claim 6, wherein the plurality of instructions further cause the compute device to: receive telemetry data indicating a performance parameter of the accelerator device; and determine, based on the telemetry data of the accelerator device, whether to compress the one or more parameters of the workload, wherein to compress the one or more parameters of the workload comprises to compress the one or more parameters of the workload in response to a determination to compress the one or more parameters of the workload based on the telemetry data of the accelerator device.
+8. A method comprising: receiving, by circuitry of an accelerator device and from a compute device, one or more parameters of a workload, the workload to be performed by the accelerator device and one or more remote accelerator devices; providing, by the circuitry, the one or more parameters of the workload to a kernel of the accelerator device; receiving, by the circuitry and from the kernel, a workload result based on the one or more parameters of the workload; automatically compressing, by the circuitry, the workload result without instruction from the kernel; and sending, by the circuitry the compressed workload result to the compute device.
+9. The method of claim 8, the method further comprising: receiving, by the circuitry and from the kernel, data to be sent to a remote kernel on the one or more remote accelerator devices; compressing, by the circuitry, the data received from the kernel without instruction from the kernel; and sending, by the circuitry, the compressed data to the one or more remote accelerator devices.
+10. The method of claim 9, wherein receiving the data to be sent comprises receiving one or more remote direct memory access (RDMA) commands comprising the data,
+wherein compressing the data comprises compressing the data of the one or more RDMA commands,
+wherein sending the compressed data to the one or more remote accelerator devices comprises sending the one or more RDMA commands with the compressed data of the RDMA commands to the one or more remote accelerator devices.
+11. The method of claim 10, the method further comprising: receiving, by the circuitry, telemetry data indicating a performance parameter of one or more remote accelerator devices; and determining, by the circuitry and based on the telemetry data of the one or more remote accelerator devices, whether to compress the data received from the kernel, wherein compressing the data received from the kernel comprises compressing the data received from the kernel in response to a determination to compress the data based on the telemetry data of the one or more remote accelerator devices.
+12. The method of claim 11, wherein the telemetry data of the one or more remote accelerator devices comprises an indication of available bandwidth between the accelerator device and the one or more remote accelerator devices,
+wherein determining, by the circuitry and based on the telemetry data of the one or more remote accelerator devices, whether to compress the data received from the kernel comprises determining, based on the indication of available bandwidth between the accelerator device and the one or more remote accelerator devices, whether to compress the data received from the kernel.
+13. The method of claim 8, the method further comprising: determining, by an application of a processor of the compute device, the one or more parameters of the workload to be sent to the accelerator device; receiving, by a network interface controller of the compute device and from the processor, the one or more parameters of the workload to be sent to the accelerator device; automatically compressing, by the network interface controller and without instruction from the application, the one or more parameters of the workload; and sending, by the network interface controller and to the accelerator device, the one or more compressed parameters of the workload.
+14. The method of claim 13, wherein receiving the one or more parameters to be sent comprises receiving one or more remote direct memory access (RDMA) commands comprising the one or more parameters of the workload,
+wherein compressing the data comprises compressing the one or more parameters of the workload,
+wherein sending the one or more compressed parameters to the accelerator device comprises sending the one or more RDMA commands with the one or more compressed parameters of the workload to the one or more remote accelerator devices.
+15. One or more computer-readable media comprising a plurality of instructions stored thereon that, when executed, cause circuitry of an accelerator device to perform the method of any of claims 1-14.
+</claims>
+</document>

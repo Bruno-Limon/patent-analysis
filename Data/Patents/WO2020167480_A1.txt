@@ -1,0 +1,94 @@
+<document>
+
+<filing_date>
+2020-01-30
+</filing_date>
+
+<publication_date>
+2020-08-20
+</publication_date>
+
+<priority_date>
+2019-02-14
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/063,G06N3/08
+</ipc_classes>
+
+<assignee>
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+CHUNG, ERIC S.
+DARVISH ROUHANI, BITA
+LO, DANIEL
+PHANISHAYEE, AMAR
+ZHAO, RITCHIE
+ZHAO, YIREN
+</inventors>
+
+<docdb_family_id>
+69726822
+</docdb_family_id>
+
+<title>
+ADJUSTING ACTIVATION COMPRESSION FOR NEURAL NETWORK TRAINING
+</title>
+
+<abstract>
+Apparatus and methods for training a neural network accelerator using quantized precision data formats are disclosed, and, in particular, for adjusting floating-point formats used to store activation values during training. In certain examples of the disclosed technology, a computing system includes processors, memory, and a floating-point compressor in communication with the memory. The computing system is configured to produce a neural network comprising activation values expressed in a first floating-point format, select a second floating-point format for the neural network based on a performance metric, convert at least one of the activation values to the second floating-point format, and store the compressed activation values in the memory. Aspects of the second floating-point format that can be adjusted include the number of bits used to express mantissas, exponent format, use of non-uniform mantissas, and/or use of outlier values to express some of the mantissas.
+</abstract>
+
+<claims>
+1. A computing system comprising:
+one or more processors;
+bulk memory comprising computer-readable storage devices and/or memory; a floating-point compressor formed from at least one of the processors, the floating-point compressor being in communication with the bulk memory; and
+the computing system being configured to:
+produce a neural network comprising activation values expressed in a first floating-point format,
+select a second floating-point format for the neural network based on a performance metric for the neural network,
+convert at least one of the activation values to the second floating-point format, thereby producing compressed activation values, and
+with at least one of the processors, store the compressed activation values in the bulk memory.
+2. The computing system of claim 1, being further configured to:
+convert at least one of the compressed activation values to the first floating-point format to produce uncompressed activation values; and
+perform backward propagation for at least one layer of the neural network with the uncompressed activation values, producing a further trained neural network.
+3. The computing system of claim 2, wherein the computing system is further configured to:
+perform forward propagation for the further trained neural network, producing updated activation values;
+based on the updated activation values, determine an updated performance metric; based on the updated performance metric, select a third floating-point format different than the second floating-point format;
+converting at least one of the updated activation values to the third floating-point format to produce second compressed activation values; and
+store the second compressed activation values in the bulk memory.
+4. The computing system of any one of claims 1-3, wherein the second floating-point format has at least one mantissa expressed in an outlier mantissa format or a non-uniform mantissa format.
+5. The computing system of any one of claims 1-4, being further configured to:
+determine differences between an output of a layer of the neural network from an expected output; and
+based on the determined differences, select a third floating-point format by increasing a number of mantissa bits used to store the compressed activation values.
+6. The computing system of any one of claims 1-5, wherein the compressor is further configured to further compress the compressed activation values prior to the storing by performing at least one or more of the following: entropy compression, zero compression, run length encoding, compressed sparse row compression, or compressed sparse column compression.
+7. The computing system of any one of claims 1-6, wherein:
+the processors comprise at least one of the following: a tensor processing unit, a neural network accelerator, a graphics processing unit, or a processor implemented in a reconfigurable logic array;
+the bulk memory is situated on a different integrated circuit than the processors; and
+wherein the bulk memory includes dynamic random access memory (DRAM) or embedded DRAM and the system further comprises a hardware accelerator including a memory temporarily storing the first activation values for at least a portion of only one layer of the neural network, the hardware accelerator memory including static RAM (SRAM) or a register file.
+8. A method of operating a computing system implementing a neural network, the method comprising:
+with the computing system:
+selecting an activation compression format based on a training performance metric for the neural network; and
+storing compressed activation values for the neural network expressed in the activation compression format in a computer-readable memory or storage device.
+9. The method of claim 8, further comprising:
+producing the training performance metric by calculating accuracy or change in accuracy of at least one layer of the neural network.
+10. The method of any one of claims 8 or claim 9, further comprising:
+uncompressing the stored compressed activation values and training the neural network; evaluating the training performance metric for the trained neural network;
+based on the training performance metric, adjusting the activation compression format to an increased precision; and
+storing activation values for at least one layer of the trained neural network in the adjusted activation compression form.
+11. The method of claim 10, wherein:
+the adjusted activation compression format has a greater number of mantissa bits than the selected activation compression format; and/or
+the selected activation compression format is a block floating-point format and the adjusted activation compression format is a normal-precision floating point format.
+12. The method of claim 10, wherein:
+the selected activation compression format comprises an outlier mantissa and the adjusted activation compression format does not comprise an outlier mantissa; or.
+the selected activation compression format comprises a non-uniform mantissa.
+13. The method of any one of claims 8-12, wherein the training performance metric is based at least in part on one or more of the following for the neural network: a true positive rate, a true negative rate, a positive predictive rate, a negative predictive value, a false negative rate, a false positive rate, a false discovery rate, a false omission rate, or an accuracy rate.
+14. The method of any one of claims 8-12, wherein the training performance metric is based at least in part on one or more of the following for at least one layer of the neural network: mean square error, perplexity, gradient signal to noise ratio, or entropy.
+15. A quantization-enabled system comprising:
+at least one processor;
+a special-purpose processor configured to implement neural network operations in quantized number formats;
+a bulk memory configured to received compressed activation values from the special-purpose processor; and
+one or more computer-readable storage devices or media storing computerexecutable instructions, which when executed by a computer, cause the computer to perform the method of any one of claims 8-14.
+</claims>
+</document>

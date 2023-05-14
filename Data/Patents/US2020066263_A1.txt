@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2019-01-14
+</filing_date>
+
+<publication_date>
+2020-02-27
+</publication_date>
+
+<priority_date>
+2018-01-23
+</priority_date>
+
+<ipc_classes>
+G10L15/02,G10L15/08,G10L15/20,G10L15/22,G10L21/0216,G10L21/0232,G10L25/84
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+HUGHES, CHRISTOPHER
+SHABESTARY, TURAJ ZAKIZADEH
+HUANG, YITENG
+APPLEBAUM, TAYLOR
+</inventors>
+
+<docdb_family_id>
+65444326
+</docdb_family_id>
+
+<title>
+Selective adaptation and utilization of noise reduction technique in invocation phrase detection
+</title>
+
+<abstract>
+Techniques are described for selectively adapting and/or selectively utilizing a noise reduction technique in detection of one or more features of a stream of audio data frames. Various techniques are directed to selectively adapting and/or utilizing a noise reduction technique in detection of an invocation phrase in a stream of audio data frames, detection of voice characteristics in a stream of audio data frames (e.g., for speaker identification), etc. Utilization of described techniques can result in more robust and/or more accurate detections of features of a stream of audio data frames in various situations, such as in environments with strong background noise. In various implementations, described techniques are implemented in combination with an automated assistant, and feature(s) detected utilizing techniques described herein are utilized to adapt the functionality of the automated assistant.
+</abstract>
+
+<claims>
+1. A method of detecting an invocation phrase for an automated assistant, the method implemented by one or more processors of a client device and comprising: receiving a stream of audio data frames that are based on output from one or more microphones of the client device; processing each of the audio data frames of the stream using a trained machine learning model to generate respective output indicating one or more corresponding probabilities of the presence of one or more corresponding invocation phonemes; storing the audio data frames of the stream in a buffer, along with output indications for the audio data frames, each of the output indications being for a respective one of the audio data frames and being based on the corresponding output generated based on processing of the respective one of the audio data frames using the trained machine learning model; determining, at a first instance, that the output indications in the buffer at the first instance indicate that the audio data frames in the buffer at the first instance all fail to include any of the one or more corresponding invocation phonemes; in response to the determination at the first instance: using at least one of the audio data frames in the buffer at the first instance to adapt a noise reduction filter; determining, at a second instance after the first instance, that the output indications in the buffer at the second instance indicate that at least one of the audio data frames in the buffer at the second instance potentially includes at least one of the one or more corresponding invocation phonemes; in response to the determination at the second instance: generating filtered data frames based on processing of a plurality of the audio data frames in the buffer at the second instance using the noise reduction filter as adapted at least in part in response to the determination at the first instance; and determining whether the filtered data frames indicate presence of the invocation phrase based on processing the filtered data frames using the trained machine learning model, or an additional trained machine learning model; and in response to determining that the filtered data frames indicate presence of the invocation phrase: causing at least one function of the automated assistant to be activated.
+2. The method of claim 1, wherein causing the at least one function of the automated assistant to be activated comprises causing subsequently received audio data frames of the stream to be transmitted to one or more remote automated assistant servers for further processing.
+3. The method of claim 2, wherein the further processing includes one or more of speech-to-text conversion, semantic processing, and dialog state tracking.
+4. The method of claim 1, wherein using the at least one of the audio data frames in the buffer at the first instance to adapt the noise reduction filter comprises removing a single data frame from the buffer and using the single data frame to adapt the noise reduction filter.
+5. The method of claim 1, wherein the audio data frames of the stream include at least a first channel based on a first microphone of the one or more microphones and a second channel based on a second microphone of the one or more microphones.
+6. The method of claim 5, wherein processing each of the audio data frames of the stream using the trained machine learning model to generate the respective output comprises processing only the first channel of each of the audio data frames using the trained machine learning model.
+7. The method of claim 5, wherein the noise reduction filter is a multichannel noise reduction filter, and wherein using at least one of the audio data frames in the buffer at the first instance to adapt the noise reduction filter comprises using both the first channel and the second channel of at least one of the audio data frames in the buffer at the first instance to adapt the noise reduction filter.
+8. The method of claim 7, wherein using both the first channel and the second channel of at least one of the audio data frames in the buffer at the first instance to adapt the noise reduction filter comprises using the first channel as a signal source and the second channel as a noise source in determining an error for updating the noise reduction filter.
+9. The method of claim 5, wherein generating filtered data frames based on processing of the plurality of the audio data frames in the buffer at the second instance using the noise reduction filter as adapted at least in part in response to the determination at the first instance, comprises: using both the first channel and the second channel of the plurality of the audio data frames in generating the filtered data frames.
+10. The method of claim 1, wherein the output indications in the buffer at the second instance indicate that at least one of the audio data frames in the buffer at the second instance potentially includes at least one of the one or more corresponding invocation phonemes, based on the corresponding output satisfying a first threshold, but failing to satisfy a second threshold.
+11. 11-19. (canceled)
+20. A method of detecting a feature in a spoken utterance directed to an automated assistant, the method implemented by one or more processors and comprising: receiving a stream of audio data frames that are based on output from one or more microphones of a client device; processing each of the audio data frames of the stream using a trained machine learning model to generate respective output indicating one or more corresponding probabilities of the presence of one or more corresponding features; storing the audio data frames of the stream in a buffer, along with output indications for the audio data frames, each of the output indications being for a respective one of the audio data frames and being based on the corresponding output generated based on processing of the respective one of the audio data frames using the trained machine learning model; determining, at a first instance, that the output indications in the buffer at the first instance indicate that the audio data frames in the buffer at the first instance all fail to include any of the one or more corresponding features; in response to the determination at the first instance: using at least one of the audio data frames in the buffer at the first instance to adapt a noise reduction filter; determining, at a second instance after the first instance, that the output indications in the buffer at the second instance indicate that at least one of the audio data frames in the buffer at the second instance potentially includes at least one of the one or more corresponding features; in response to the determination at the second instance: generating filtered data frames based on processing of a plurality of the audio data frames in the buffer at the second instance using the noise reduction filter as adapted at least in part in response to the determination at the first instance; and determining whether the filtered data frames indicate presence of the features based on processing the filtered data frames using the trained machine learning model, or an additional trained machine learning model; and adapting processing performed by the automated assistant in response to determining that the filtered data frames indicate presence of the features.
+21. The method of claim 20, wherein the features include voice characteristics stored in association with a profile, and wherein adapting processing performed by the automated assistant comprises generating, based on the profile, content to be rendered by the automated assistant, wherein the content is generated based on the profile in response to the filtered data frames indicating presence of the features, and the features being stored in association with the profile.
+22. The method of claim 20, wherein adapting processing performed by the automated assistant comprises causing at least one inactive function of the automated assistant to be activated.
+23. The method of claim 22, wherein the one inactive function is natural language processing or dialog state tracking.
+24. (canceled)
+25. A method of detecting an invocation phrase for an automated assistant, the method implemented by one or more processors of a client device and comprising: receiving a stream of audio data frames that are based on output from one or more microphones of the client device; processing each of the audio data frames of the stream using a trained machine learning model to generate respective output indicating one or more corresponding probabilities of the presence of one or more corresponding invocation phonemes; determining, at a first instance, that the respective output, generated for a given audio data frame of the audio data frames, indicates that the given audio data frame fails to include any of the one or more corresponding invocation phonemes; in response to the determination at the first instance: using the given audio data frame to adapt a noise reduction filter; determining, at a second instance after the first instance, that at least one of one or more of the audio data frames received after the given audio data frame potentially includes at least one of the one or more corresponding invocation phonemes; in response to the determination at the second instance: generating filtered data frames based on processing of the one or more of the audio data frames using the noise reduction filter as adapted at least in part in response to the determination at the first instance; and determining whether the filtered data frames indicate presence of the invocation phrase based on processing the filtered data frames using the trained machine learning model, or an additional trained machine learning model; and in response to determining that the filtered data frames indicate presence of the invocation phrase: causing at least one function of the automated assistant to be activated.
+26. 26-29. (canceled)
+</claims>
+</document>

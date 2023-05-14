@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2020-05-13
+</filing_date>
+
+<publication_date>
+2020-08-27
+</publication_date>
+
+<priority_date>
+2018-05-03
+</priority_date>
+
+<ipc_classes>
+G06N20/00,G06T15/50,G06T19/20,G06T7/70
+</ipc_classes>
+
+<assignee>
+ADOBE
+</assignee>
+
+<inventors>
+SUNKAVALLI, KALYAN
+HADAP, SUNIL
+XU, ZEXIANG
+</inventors>
+
+<docdb_family_id>
+68384996
+</docdb_family_id>
+
+<title>
+RELIGHTING DIGITAL IMAGES ILLUMINATED FROM A TARGET LIGHTING DIRECTION
+</title>
+
+<abstract>
+The present disclosure relates to using an object relighting neural network to generate digital images portraying objects under target lighting directions based on sets of digital images portraying the objects under other lighting directions. For example, in one or more embodiments, the disclosed systems provide a sparse set of input digital images and a target lighting direction to an object relighting neural network. The disclosed systems then utilize the object relighting neural network to generate a target digital image that portrays the object illuminated by the target lighting direction. Using a plurality of target digital images, each portraying a different target lighting direction, the disclosed systems can also generate a modified digital image portraying the object illuminated by a target lighting configuration that comprises a combination of the different target lighting directions.
+</abstract>
+
+<claims>
+1. A method for generating digital images portraying objects under target lighting conditions based on prior digital images portraying objects under prior lighting conditions, comprising: generating, utilizing an object relighting neural network, a concatenated feature map by combining features extracted from a set of input digital images portraying an object and features generated from a target lighting direction, wherein the set of input digital images comprise images that light the object from respective lighting directions and the target lighting direction differs from the lighting directions of the set of input digital images; and generating, from the concatenated feature map, a target digital image comprising the object illuminated from the target lighting direction utilizing the object relighting neural network.
+2. The method of claim 1, further comprising concatenating, for a given input digital image, color channels and a respective lighting direction to generate a multiple channel input.
+3. The method of claim 2, further comprising combining multiple channel inputs for the set of input digital images to generate an encoder input, and wherein generating the concatenated feature map comprises downsampling the encoder input utilizing an encoder of the object relighting neural network.
+4. The method of claim 3, further comprising generating a feature map from the target lighting direction by expanding the target lighting direction into a feature vector and replicating the feature vector spatially to construct the feature map.
+5. The method of claim 4, wherein generating the concatenated feature map comprises concatenating the feature map with the downsampled encoder input.
+6. The method of claim 1, wherein generating the target digital image comprising the object illuminated from the target lighting direction comprises upsampling the concatenated feature map utilizing a decoder of the object relighting neural network.
+7. The method of claim 6, further comprising utilizing skip connections to combine output from layers of an encoder of the object relighting neural network used to generate the concatenated feature map with output from layers of the decoder to introduce high-frequency features into the output of the decoder.
+8. The method of claim 1, wherein the set of input digital images comprises five or fewer digital images.
+9. A non-transitory computer readable storage medium storing instructions thereon that, when executed by at least one processor, cause a computing device to: generate, utilizing an encoder of an object relighting neural network, a first feature map from a set of input digital images portraying an object, the set of input digital images comprising two or more images lighting the object from respective lighting directions; generate, utilizing a set of neural network layers, a second feature map from a target lighting direction, the target lighting direction differing from the lighting directions of the input digital images; generate a concatenated feature map by combining the first feature map and the second feature map; and generate, from the concatenated feature map, a target digital image comprising the object illuminated from the target lighting direction utilizing a decoder of the object relighting neural network.
+10. The non-transitory computer readable storage medium of claim 9, wherein the instructions, when executed by the at least one processor, cause the computing device to generate the first feature map by utilizing convolutional layers of the encoder to combine feature maps generated from the set of input digital images across channels.
+11. The non-transitory computer readable storage medium of claim 9, wherein the instructions, when executed by the at least one processor, cause the computing device to generate the first feature map by utilizing convolutional layers of the encoder to aggregate over receptive fields of the object relighting neural network.
+12. The non-transitory computer readable storage medium of claim 9, wherein the target digital image comprise one or more of specularities, cast shadows, or reflections generated based on the target lighting direction.
+13. The non-transitory computer readable storage medium of claim 9, wherein the target lighting direction comprises multiple lighting directions and the target digital image comprises the object illuminated from the multiple lighting directions.
+14. The non-transitory computer readable storage medium of claim 9, further comprising instructions that, when executed by the at least one processor, cause the computing device to utilize skip connections to combine output from layers of the encoder of the object relighting neural network with output from layers of the decoder to introduce high-frequency features into the output of the decoder.
+15. The non-transitory computer readable storage medium of claim 9, further comprising instructions that, when executed by the at least one processor, cause the computing device to generate the second feature map from the target lighting direction by expanding the target lighting direction into a feature vector and replicating the feature vector spatially to construct the second feature map.
+16. A system for generating digital images portraying objects under target lighting conditions based on prior digital images portraying objects under prior lighting conditions, comprising: at least one storage device storing: a set of input digital images, each input digital image comprising an object illuminated from a respective lighting direction; and an object relighting neural network comprising an encoder, a decoder, and a set of fully connected layers; at least one computing device configured to cause the system to: generate, utilizing the encoder, a first feature map from the set of input digital images; generate, utilizing the set of fully connected layers, a second feature map from a target lighting direction, the target lighting direction differing from the lighting directions of the input digital images; generate a concatenated feature map by combining the first feature map and the second feature map; and generate, from the concatenated feature map, a target digital image comprising the object illuminated from the target lighting direction utilizing the decoder.
+17. The system of claim 16, wherein: the encoder comprises a series of convolutional layers, where each convolutional layer is followed by batch normalization and rectified linear unit layers; and the at least one computing device is further configured to cause the system to generate the first feature map by downsampling encoder input comprising color channels based on red-green-blue pixel values of the input digital images and direction channels based on the lighting directions of the input digital images.
+18. The system of claim 16, wherein: the set of fully connected layers comprise tanh activation layers; and the at least one computing device is further configured to cause the system to generate the second feature map by expanding the target lighting direction into a feature vector and replicating the feature vector spatially to construct the second feature map.
+19. The system of claim 18, wherein: the decoder comprises a set of deconvolutional layers followed by one or more convolutional layers and a sigmoid activation; and the at least one computing device is further configured to cause the system to generate the target digital image by upsampling the concatenated feature map utilizing the set of deconvolutional layers.
+20. The system of claim 16, wherein the at least one computing device is further configured to cause the system to generate the target digital image by utilizing skip connections to combine output from the set of fully connected layers of the encoder with output from set of deconvolutional layers of the decoder to introduce high-frequency features into the output of the decoder.
+</claims>
+</document>

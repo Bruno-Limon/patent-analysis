@@ -1,0 +1,110 @@
+<document>
+
+<filing_date>
+2019-07-26
+</filing_date>
+
+<publication_date>
+2020-06-04
+</publication_date>
+
+<priority_date>
+2018-11-28
+</priority_date>
+
+<ipc_classes>
+G06F16/242,G06F16/2452,G06F16/2453,G06F16/33,G06F16/332,G06F16/35
+</ipc_classes>
+
+<assignee>
+INTUIT
+</assignee>
+
+<inventors>
+CARVALHO, VITOR R.
+KAMATH, ANUSHA
+</inventors>
+
+<docdb_family_id>
+70771144
+</docdb_family_id>
+
+<title>
+DETECTING DUPLICATED QUESTIONS USING REVERSE GRADIENT ADVERSARIAL DOMAIN ADAPTATION
+</title>
+
+<abstract>
+Detect duplicated questions using reverse gradient adversarial domain adaptation includes applying a general network to multiple general question pairs to obtain a first set of losses, A target domain network is applied to multiple domain specific network pairs to obtain a second set of losses. Further, a domain distinguishing network is applied to a set of domain specific questions and a set of general questions to obtain a third set of losses. A set of accumulated gradients is calculated from the first set of losses, the second set of losses, and the third set of losses. Multiple features are updated according to the set of accumulated gradients to train the target domain network.
+</abstract>
+
+<claims>
+What is claimed is:
+1. A method comprising:
+applying a general network to a plurality of general question pairs to obtain a first set of losses;
+applying a target domain network to a plurality of domain specific network pairs to obtain a second set of losses;
+applying a domain distinguishing network to a set of domain specific questions and a set of general questions to obtain a third set of losses; calculating a set of accumulated gradients from the first set of losses, the second set of losses, and the third set of losses;
+updating a plurality of features according to the set of accumulated gradients to train the target domain network.
+2. The method of claim 1, further comprising:
+applying a general feature layer and a domain classification layer to a set of general questions to obtain a fourth set of losses,
+wherein calculating the set of accumulated gradients is further performed using the fourth set of losses.
+3. The method of claim 1, further comprising:
+applying a domain specific feature layer and a domain classification layer to a set of domain specific questions to obtain a fifth set of losses, wherein calculating the set of accumulated gradients is further performed using the fifth set of losses.
+4. The method of claim 1, wherein applying the target domain network comprises: encoding a domain specific question to create a domain specific vector embedding, the domain specific question in the plurality of domain specific question pairs; applying a domain specific feature layer and a shared feature layer to the domain specific vector embedding to obtain an extracted feature set for the domain specific question;
+applying a matching layer to a plurality of extracted feature sets to obtain a set of results, the plurality of extracted feature sets comprising the extracted feature set; and
+determining a classification based on the set of results, the classification identifying whether the domain specific question is a duplicate.
+5. The method of claim 4, further comprising:
+applying a plurality of matching algorithms to the plurality of extracted feature sets to obtain a plurality of sets of results;
+aggregating the plurality of sets of results into an aggregated result, wherein the classification is performed based on the aggregated result.
+6. The method of claim 4, wherein calculating the set of accumulated gradients comprises:
+calculating a first set of accumulated gradients for the domain specific feature layer, wherein the domain specific feature layer is updated using the first set of accumulated gradients; and
+calculating a second set of accumulated gradients for the shared feature layer, wherein the shared feature layer is updated using the second set of accumulated gradients.
+7. The method of claim 1, wherein applying the general network comprises:
+encoding a general question to create a general vector embedding, the general question in the plurality of general question pairs;
+applying a general feature layer and a shared feature layer to the general vector embedding to obtain an extracted feature set for the general question; applying a matching layer to a plurality of extracted feature sets to obtain a set of results, the plurality of extracted feature sets comprising the extracted feature set; and
+determining a classification based on the set of results, the classification identifying whether the general question is a duplicate.
+8. The method of claim 1, wherein applying the domain distinguishing network comprises:
+applying a shared feature layer to a question in a training data to obtain an extracted feature set; and
+applying adversarial domain classification layer to the extracted feature set for the question to classify the question as a general question or a domain specific question.
+9. The method of claim 1, further comprising:
+encoding a plurality of domain specific questions to create a plurality of domain specific vector embeddings;
+applying a domain specific feature layer and a shared feature lay to the domain specific vector embeddings to obtain a plurality of extracted feature sets; applying a matching layer to the plurality of extracted feature sets to obtain a set of results;
+aggregating the set of results to obtain an aggregated result;
+identifying a plurality of duplicates in the aggregated results; and
+performing an action based on the plurality of duplicates.
+10. A system comprising:
+a data repository comprising:
+a plurality of domain specific questions, and
+a plurality of general questions;
+a general network comprising a general feature layer and a shared feature layer; a target domain network comprising a domain specific feature layer and the shared feature layer; and
+a domain distinguishing network comprising a gradient reversal layer and the shared feature layer,
+wherein the shared feature layer spans the general network, the target domain network, and the domain distinguishing network, and
+wherein the domain distinguishing network is configured to generate a set of gradients to train the target domain network based on the plurality of domain specific questions and the plurality of general questions.
+11. The system of claim 10, further comprising:
+a matching layer implementing a plurality of matching algorithms to identify duplicates based on output from the general network and the target domain network.
+12. The system of claim 10, further comprising:
+a vector engine configured to generate a vector embedding using a word to index mapping.
+13. A non-transitory computer readable medium comprising computer readable program code for causing a computer system to perform operations, the operations comprising:
+applying a general network to a plurality of general question pairs to obtain a first set of losses;
+applying a target domain network to a plurality of domain specific network pairs to obtain a second set of losses;
+applying a domain distinguishing network to a set of domain specific questions and a set of general questions to obtain a third set of losses; calculating a set of accumulated gradients from the first set of losses, the second set of losses, and the third set of losses; updating a plurality of features according to the set of accumulated gradients to train the target domain network.
+14. The non-transitory computer readable medium of claim 13, further comprising: applying a general feature layer and a domain classification layer to a set of general questions to obtain a fourth set of losses,
+wherein calculating the set of accumulated gradients is further performed using the fourth set of losses.
+15. The non-transitory computer readable medium of claim 13, further comprising: applying a domain specific feature layer and a domain classification layer to a set of domain specific questions to obtain a fifth set of losses, wherein calculating the set of accumulated gradients is further performed using the fifth set of losses.
+16. The non-transitory computer readable medium of claim 13, wherein applying the target domain network comprises:
+encoding a domain specific question to create a domain specific vector embedding, the domain specific question in the plurality of domain specific question pairs;
+applying a domain specific feature layer and a shared feature layer to the domain specific vector embedding to obtain an extracted feature set for the domain specific question;
+applying a matching layer to a plurality of extracted feature sets to obtain a set of results, the plurality of extracted feature sets comprising the extracted feature set; and
+determining a classification based on the set of results, the classification identifying whether the domain specific question is a duplicate.
+17. The non-transitory computer readable medium of claim 16, further comprising: applying a plurality of matching algorithms to the plurality of extracted feature sets to obtain a plurality of sets of results; aggregating the plurality of sets of results into an aggregated result, wherein the classification is performed based on the aggregated result.
+18. The non-transitory computer readable medium of claim 16, wherein calculating the set of accumulated gradients comprises:
+calculating a first set of accumulated gradients for the domain specific feature layer, wherein the domain specific feature layer is updated using the first set of accumulated gradients; and
+calculating a second set of accumulated gradients for the shared feature layer, wherein the shared feature layer is updated using the second set of accumulated gradients.
+19. The non-transitory computer readable medium of claim 13, wherein applying the general network comprises:
+encoding a general question to create a general vector embedding, the general question in the plurality of general question pairs;
+applying a general feature layer and a shared feature layer to the general vector embedding to obtain an extracted feature set for the general question; applying a matching layer to a plurality of extracted feature sets to obtain a set of results, the plurality of extracted feature sets comprising the extracted feature set; and
+determining a classification based on the set of results, the classification identifying whether the general question is a duplicate.
+20. The non-transitory computer readable medium of claim 13, wherein applying the domain distinguishing network comprises:
+applying a shared feature layer to a question in a training data to obtain an extracted feature set; and
+applying adversarial domain classification layer to the extracted feature set for the question to classify the question as a general question or a domain specific question.
+</claims>
+</document>

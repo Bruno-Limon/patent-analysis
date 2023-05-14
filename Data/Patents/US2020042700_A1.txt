@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2019-07-10
+</filing_date>
+
+<publication_date>
+2020-02-06
+</publication_date>
+
+<priority_date>
+2018-07-31
+</priority_date>
+
+<ipc_classes>
+G06F21/55
+</ipc_classes>
+
+<assignee>
+NEC LABORATORIES AMERICA
+</assignee>
+
+<inventors>
+LI, ZHICHUN
+CHEN, ZHENGZHANG
+JEE, KANGKOOK
+HASSAN, WAJIH UL
+LI, DING
+</inventors>
+
+<docdb_family_id>
+69228092
+</docdb_family_id>
+
+<title>
+AUTOMATED THREAT ALERT TRIAGE VIA DATA PROVENANCE
+</title>
+
+<abstract>
+A method for implementing automated threat alert triage via data provenance includes receiving a set of alerts and security provenance data, separating true alert events within the set of alert events corresponding to malicious activity from false alert events within the set of alert events corresponding to benign activity based on an alert anomaly score assigned to the at least one alert event, and automatically generating a set of triaged alert events based on the separation.
+</abstract>
+
+<claims>
+1. A computer-implemented method for implementing automated threat alert triage via data provenance, comprising: receiving, by an alert triage system, a set of alerts and security provenance data, wherein the security provenance data provides alert context by reconstructing a chain of events that lead to an alert event and/or ramifications of the alert event; separating, by the alert triage system, true alert events within the set of alert events corresponding to malicious activity from false alert events within the set of alert events corresponding to benign activity based on an alert anomaly score assigned to the at least one alert event, including: receiving at least one dependency graph derived from the security provenance data corresponding to at least one alert event of a set of alert events, the dependency graph including nodes representing system objects and edges representing causal relationships between the system objects; and obtaining a subgraph of the at least one dependency graph based on a propagation of path anomaly scores corresponding to respective paths including sequences of dependency events from the at least one dependency graph; and automatically generating, by the alert triage system, a set of triaged alert events based on the separation.
+2. The method of claim 1, wherein receiving the at least one dependency graph further includes generating the at least one dependency graph based on the security provenance data.
+3. The method of claim 1, wherein separating the true alert events from the false alert events further includes: identifying the paths from the at least one dependency graph, including searching for all paths having a threshold parameter length by employing backward and forward tracing; and assigning the path anomaly scores to the respective paths.
+4. The method of claim 3, wherein assigning the path anomaly scores further includes calculating path regularity scores based on a transition probability of system events and IN and OUT scores corresponding to the nodes of the dependency graph, and calculating the path anomaly scores based on the path regularity scores.
+5. The method of claim 4, wherein the transition probability of system events is obtained from a transition matrix built based on event frequency by using an event frequency database that stores frequencies of events by collecting operating system events from a number of peer systems.
+6. The method of claim 4, wherein assigning the path anomaly scores further includes calculating the path anomaly scores by normalizing the path regularity scores based on a decay factor to reduce path length score bias.
+7. The method of claim 3, wherein obtaining the subgraph further includes performing a dependency path merge operation based on the path anomaly scores, including comparing differences between pairs of path anomaly scores to a merge threshold.
+8. A computer program product comprising a non-transitory computer readable storage medium having program instructions embodied therewith, the program instructions executable by a computer to cause the computer to perform a method for implementing automated threat alert triage via data provenance, the method performed by the computer comprising: receiving, by an alert triage system, a set of alerts and security provenance data, wherein the security provenance data provides alert context by reconstructing a chain of events that lead to an alert event and/or ramifications of the alert event; separating, by the alert triage system, true alert events within the set of alert events corresponding to malicious activity from false alert events within the set of alert events corresponding to benign activity based on an alert anomaly score assigned to the at least one alert event, including: receiving at least one dependency graph derived from the security provenance data corresponding to at least one alert event of a set of alert events, the dependency graph including nodes representing system objects and edges representing causal relationships between the system objects; and obtaining a subgraph of the at least one dependency graph based on a propagation of path anomaly scores corresponding to respective paths including sequences of dependency events from the at least one dependency graph; and automatically generating, by the alert triage system, a set of triaged alert events based on the separation.
+9. The computer program product of claim 8, wherein receiving the at least one dependency graph further includes generating the at least one dependency graph based on the security provenance data.
+10. The computer program product of claim 8, wherein separating the true alert events from the false alert events further includes: identifying the paths from the at least one dependency graph, including searching for all paths having a threshold parameter length by employing backward and forward tracing; and assigning the path anomaly scores to the respective paths.
+11. The computer program product of claim 10, wherein assigning the path anomaly scores further includes calculating path regularity scores based on a transition probability of system events and IN and OUT scores corresponding to the nodes of the dependency graph, and calculating the path anomaly scores based on the path regularity scores.
+12. The computer program product of claim 11, wherein the transition probability of system events is obtained from a transition matrix built based on event frequency by using an event frequency database that stores frequencies of events by collecting operating system events from a number of peer systems.
+13. The computer program product of claim 11, wherein assigning the path anomaly scores further includes calculating the path anomaly scores by normalizing the path regularity scores based on a decay factor to reduce path length score bias.
+14. The computer program product of claim 10, wherein obtaining the subgraph further includes performing a dependency path merge operation based on the path anomaly scores, including comparing differences between pairs of path anomaly scores to a merge threshold.
+15. A system for implementing automated threat alert triage via data provenance, comprising: a memory device for storing program code; and at least one processor device operatively coupled to a memory device and configured to execute program code stored on the memory device to: receive a set of alerts and security provenance data, wherein the security provenance data provides alert context by reconstructing a chain of events that lead to an alert event and/or ramifications of the alert event; separate true alert events within the set of alert events corresponding to malicious activity from false alert events within the set of alert events corresponding to benign activity based on an alert anomaly score assigned to the at least one alert event by: receiving at least one dependency graph derived from the security provenance data corresponding to at least one alert event of a set of alert events, the dependency graph including nodes representing system objects and edges representing causal relationships between the system objects; and obtaining a subgraph of the at least one dependency graph based on a propagation of path anomaly scores corresponding to respective paths including sequences of dependency events from the at least one dependency graph; and automatically generate a set of triaged alert events based on the separation.
+16. The system of claim 15, wherein the at least one processing device is further configured to receive the at least one dependency graph by generating the at least one dependency graph based on the security provenance data.
+17. The system of claim 15, wherein the at least one processing device is further configured to separate the true alert events from the false alert events by: identifying the paths from the at least one dependency graph, including searching for all paths having a threshold parameter length by employing backward and forward tracing; and assigning the path anomaly scores to the respective paths by calculating path regularity scores based on a transition probability of system events and IN and OUT scores corresponding to the nodes of the dependency graph, and calculating the path anomaly scores based on the path regularity scores.
+18. The system of claim 17, wherein the transition probability of system events is obtained from a transition matrix built based on event frequency by using an event frequency database that stores frequencies of events by collecting operating system events from a number of peer systems.
+19. The system of claim 17, wherein the at least one processing device is further configured to assign the path anomaly scores by calculating the path anomaly scores by normalizing the path regularity scores based on a decay factor to reduce path length score bias.
+20. The system of claim 17, wherein the at least one processing device is further configured to obtain the subgraph by performing a dependency path merge operation based on the path anomaly scores by comparing differences between pairs of path anomaly scores to a merge threshold.
+</claims>
+</document>

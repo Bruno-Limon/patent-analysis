@@ -1,0 +1,90 @@
+<document>
+
+<filing_date>
+2019-09-24
+</filing_date>
+
+<publication_date>
+2020-04-02
+</publication_date>
+
+<priority_date>
+2018-09-26
+</priority_date>
+
+<ipc_classes>
+A45D44/00
+</ipc_classes>
+
+<assignee>
+CHANEL PARFUMS BEAUTE
+</assignee>
+
+<inventors>
+MAUGER, EMMANUELLE
+</inventors>
+
+<docdb_family_id>
+63798904
+</docdb_family_id>
+
+<title>
+METHOD FOR SIMULATING THE RENDERING OF A MAKE-UP PRODUCT ON A BODY AREA
+</title>
+
+<abstract>
+The invention proposes a method for simulating a rendering of a makeup product on a body area is disclosed comprising: - acquiring an image of the body area without makeup of a subject, - determining first color parameters of the pixels of the image corresponding to the body area without makeup, - identifiying the pixels of the body area without makeup exhibiting highest brightness or red component value, - determining second color parameters of the pixels of the image corresponding to the body area, wherein the second color parameters render a making up of the body area by the makeup product, wherein said determining step comprises: - applying on the determined first color parameters and on the color parameters of the makeup product to be simulated, a simulation model configured to output color parameters of the pixels of the image corresponding to the same body area made-up with the make-up product, and - correcting the obtained color parameters of the pixels of the body area identified as having highest brightness or red component value without makeup, the second color parameters comprising the corrected color parameters for the identified pixels and the color parameters output by the simulation model for the other pixels of the body area, and - generating a modified image in which the first color parameters of each pixel corresponding to the body area are changed respectively into the corrected second color parameters.
+</abstract>
+
+<claims>
+1. A method (200) for simulating a rendering of a makeup product on a body area, the method being performed by a processor (1 1 ), and comprising :
+o acquiring (210) an image of the body area without makeup of a subject, o determining (230) first color parameters of the pixels of the image corresponding to the body area without makeup,
+o identifiying (240) the pixels of the body area without makeup exhibiting highest brightness or red component value,
+o determining (250, 260) second color parameters of the pixels of the image corresponding to the body area, wherein the second color parameters render a making up of the body area by the makeup product, wherein said determining step (250, 260) comprises:
+- applying (250) on the determined first color parameters and on the color parameters of the makeup product to be simulated, a simulation model configured to output color parameters of the pixels of the image corresponding to the same body area made-up with the make-up product, and
+- correcting (260) the obtained color parameters of the pixels of the body area identified as having highest brightness or red component value without makeup,
+the second color parameters comprising the corrected color parameters for the identified pixels and the color parameters output by the simulation model for the other pixels of the body area, and
+o generating a modified image (270) in which the first color parameters of each pixel corresponding to the body area are changed respectively into the corrected second color parameters.
+2. The method (200) according to claim 1 , wherein the simulation model has been trained on a learning database comprising, for a plurality of reference make-up products, color parameters of the reference make-up product and a set of pairs of images of the body areas of reference subjects, each pair of images comprising an image of the body area of the reference subject without makeup and an image of the body area of the reference subject made-up with the reference make-up product.
+3. The method according to claim 2, wherein the learning database further comprises :
+For each image, identification of a quantile to which a pixel of the body area in the image belongs, for each color component of the pixel,
+For each image, the coordinates of the pixels of the body area expressed in percentage of a zoom applied to the image,
+For each reference make-up product, average values per quantiles of the color parameters of the pixels of the body area with the reference makeup product.
+4. The method according to claim 3, wherein the learning database further comprises:
+For each image, a brightness value of each pixel of the body area of the image, and an identification of the quantile of brightness values to which the pixel belongs, and
+For each reference make-up product, average values per quantiles of brightness of the pixels of the body area with the reference make-up products.
+5. The method (200) according to any of the preceding claims, wherein the correction step (260) comprises replacing the color parameters of the pixels identified as having highest brightness or red component values, by respective average values of color parameters,
+the average values being computed over the pixels of highest red component or brightness values of body areas of images of reference subjects, made-up with a same reference make-up,
+said reference make-up product having color parameters most similar to the color parameters of the make-up product to be rendered.
+6. The method (200) according to claim 5, wherein pixels of highest red component values among pixels corresponding to the body area of an image are determined by : o computing quantiles of red component values of the pixels corresponding to the body area of the image,
+o determining the pixels of highest red component values as the pixels belonging to at least the quantile comprising the pixels having the highest red component values.
+7. The method (200) according to any of the preceding claims, wherein the color parameters of a pixel of an image are values of the RGB color model, and the simulation model comprises three models configured to determine respectively red, green and blue values of the pixels from the input data.
+8. The method (200) according to any of the preceding claims, wherein the body area is chosen among the group consisting of :
+o lips,
+o eyelids, and
+o nails,
+and the make-up product is :
+o lipstick if the body area is the lips,
+o eyeshadow if the body area is the eyelids, or
+o nail polish if the body area is the nails.
+9. A computer program product, comprising a set of code instructions for implementing the method (200) according to any of the preceding claims, when it is executed by a processor (1 1 ).
+10. A device (1 ) for simulating a rendering of a makeup product on a body area, the system comprising:
+o a camera (10) adapted to acquire the image of a body area to be madeup of a subject,
+o a processor (1 1 ), adapted to receive and process the image acquired by the camera to generate a modified image simulating the rendering of a make-up product on the body area, and
+o a display (12) adapted to display the modified image, wherein the device (1 ) is configured to implement the method (200) according to any of claims 1 - 8.
+1 1. A method (100) of generating a simulation model for simulating the rendering of a make-up product on a body area, the method being performed by a processor (30),
+wherein the method comprises training (130) a simulation model on a learning database comprising, for each one of a plurality of reference make-up products:
+- color parameters of the reference make-up product, and
+- a set of pairs of images of the body area of reference subjects, each pair of images comprising an image of the body area without makeup of a reference subject and an image of the body area of the reference subject made-up with the make-up product,
+the simulation model being configured to determine, from input data comprising :
+o color parameters of a makeup product to be rendered, o color parameters of pixels of an image corresponding to a body area of a new subject to be made-up, and
+color parameters of the pixels of the image corresponding to the same body area of the new subject, said body area being made up with the make-up product.
+12. A method (100) of generating a simulation model according to claim 1 1 , wherein the training (120) of the simulation model comprises :
+o training a plurality of simulation models on the learning database, o computing prediction errors of each of the plurality of simulation models on bootstrap samples among the learning database, and
+o selecting the simulation model according to the computed prediction errors.
+13. A method (100) of generating a simulation model according to claim 1 1 or 12, further comprising, for each reference make-up product, a step of computing
+(1 14) the average color parameters of the pixels having highest red component or brightness values of all the images of the reference subjects made-up with the reference make-up product, and storing the average color parameters for each reference make-up product in a memory (3).
+14. A method (100) of generating a simulation model according to any of claims 1 1 to 13, wherein the learning database further comprises, for each image, the coordinates of the pixels of the body area expressed in percentage of a zoom applied to the image,
+15. A computer program product, comprising a set of code instructions for implementing the method (100) according to any of claims 1 1 to 14, when it is executed by a processor (30).
+</claims>
+</document>

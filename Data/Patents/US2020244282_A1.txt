@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2020-04-17
+</filing_date>
+
+<publication_date>
+2020-07-30
+</publication_date>
+
+<priority_date>
+2018-06-11
+</priority_date>
+
+<ipc_classes>
+G06F17/16,H03M7/42,H03M7/46
+</ipc_classes>
+
+<assignee>
+TENSTORRENT
+</assignee>
+
+<inventors>
+BAJIC, LJUBISA
+BAJIC, LEJLA
+CEJKOV, ALEX
+</inventors>
+
+<docdb_family_id>
+68763639
+</docdb_family_id>
+
+<title>
+PROCESSING CORE DATA COMPRESSION AND STORAGE SYSTEM
+</title>
+
+<abstract>
+Methods and systems regarding the rapid and efficient compression and decompression of sparse data are disclosed. One method for compressing a set of data from a sparse matrix includes, evaluating a sequence of data entries from the set of data, extracting a sequence of sparse data values from the sequence, extracting a sequence of non-sparse data value run lengths from the sequence, formulating a set of row pointers from the sequence, storing the sequence of sparse data values in a first set of memory addresses, and storing the sequence of non-sparse data value run lengths in a second set of memory addresses. The set of row pointers identify a set of rows of the sparse matrix in both the first and second sets of memory addresses. Rapid decompression can be conducted using the row pointers.
+</abstract>
+
+<claims>
+1. A data compression method, in which each step is conducted by a data management block on a processing core, comprising: obtaining a set of data from an uncompressed sparse data structure, wherein the uncompressed sparse data structure is organized in rows; evaluating a sequence of data entries from the set of data; extracting a sequence of sparse data values from the sequence of data entries; extracting a sequence of non-sparse data value run lengths from the sequence of data entries; formulating a set of row pointers from the sequence of data entries; generating a compressed sparse data structure which includes the sequence of sparse data values and the sequence of non-sparse data value run lengths; and wherein the set of row pointers provide a correspondence between entries in the compressed sparse data structure and the rows in the uncompressed sparse data structure.
+2. The data compression method of claim 1, wherein: the sparse data values are non-zero values; and the non-sparse data value run lengths are zero value run lengths in the sequence of data entries.
+3. The data compression method of claim 1, wherein the data management block: (i) extracts the sequence of sparse data values from the sequence of data entries; and (ii) extracts the sequence of non-sparse data value run lengths from the sequence of data entries; while evaluating the sequence of data entries from the set of data.
+4. The data compression method of claim 1, further comprising: storing, in a memory on the processing core, the sequence of sparse data values at a first contiguous set of memory locations; storing, in the memory, the sequence of non-sparse data value run lengths at a second contiguous set of memory locations; and storing, in the memory, the set of row pointers as formulated at a third contiguous set of memory locations.
+5. The data compression method of claim 4, wherein: the first contiguous set of memory locations is mapped to a first row in a single compressed data tile; the second contiguous set of memory locations is mapped to a second row in the single compressed data tile; and the third contiguous set of memory locations is mapped to a third row in the single compressed data tile.
+6. The data compression method of claim 1, further comprising: storing, in a memory on the processing core, the set of row pointers in a header portion of a tile; and storing, in the memory, the sequence of sparse data values and the sequence of non-sparse data value run lengths in a payload section of the tile.
+7. The data compression method of claim 1, wherein: the compressed sparse data structure is a single compressed data tile; the single compressed data tile is defined by a row length and has a number of rows; a first portion of the number of rows hold the sequence of sparse data values from the sequence of data entries; and a second portion of the number of rows hold the sequence of non-sparse data value run lengths.
+8. The data compression method of claim 1, further comprising: appending, while extracting the sequence of sparse data values, a non-sparse data value to a current sequence of sparse data values when the non-sparse data value is a first entry in a row of the uncompressed sparse data structure; and appending, while extracting the sequence of non-sparse data value run lengths, a zero value to a current sequence of non-sparse data value run lengths in response to appending the non-sparse data value to the current sequence of sparse data values.
+9. A method for compressing a set of data from an uncompressed sparse data structure comprising: evaluating, using a data management block on a processing core, a sequence of data entries from the set of data; extracting, using the data management block, a sequence of sparse data values from the sequence of data entries; extracting, using the data management block, a sequence of non-sparse data value run lengths from the sequence of data entries; formulating, using the data management block, a set of row pointers from the sequence of data entries; wherein the set of row pointers provide an index into both the sequence of non-sparse data value run lengths and the sequence of sparse data values; and wherein the set of row pointers, the sequence of sparse data values, and the sequence of non-sparse data value run lengths unambiguously represent the uncompressed sparse data structure.
+10. The method of claim 9, wherein: the sparse data values are non-zero values; and the non-sparse data value run lengths are zero value run lengths in the sequence of data entries.
+11. The method of claim 9, wherein the data management block extracts the sequence of sparse data values from the sequence of data entries, and extracts the sequence of non-sparse data value run lengths from the sequence of data entries are conducted while evaluating the sequence of data entries from the set of data.
+12. The method of claim 9, further comprising: storing, in a memory on the processing core, the sequence of sparse data values at a first contiguous set of memory locations; storing, in the memory, the sequence of non-sparse data value run lengths at a second contiguous set of memory locations; and storing, in the memory, the set of row pointers as formulated at a third contiguous set of memory locations.
+13. The method of claim 12, wherein: the first contiguous set of memory locations is mapped to a first row in a single compressed data tile; the second contiguous set of memory locations is mapped to a second row in the single compressed data tile; and the third contiguous set of memory locations is mapped to a third row in the single compressed data tile.
+14. The method of claim 9, further comprising: storing, in a memory on the processing core, the set of row pointers in a header portion of a tile; and storing, in the memory, the sequence of sparse data values and the sequence of non-sparse data value run lengths in a payload section of the tile.
+15. The method of claim 9, further comprising: generating, using the data management block, a compressed sparse data structure which includes the sequence of sparse data values and the sequence of non-sparse data value run lengths, wherein: the compressed sparse data structure is a single compressed data tile; the single compressed data tile is defined by a row length and has a number of rows; a first portion of the number of rows hold the sequence of sparse data values from the sequence of data entries; and a second portion of the number of rows hold the sequence of non-sparse data value run lengths.
+16. The method of claim 9, further comprising: appending, while extracting the sequence of sparse data values and using the data management block, a non-sparse data value to a current sequence of sparse data values when the non-sparse data value is a first entry in a row of the uncompressed sparse data structure; and appending, while extracting the sequence of non-sparse data value run lengths and using the data management block, a zero value to a current sequence of non-sparse data value run lengths in response to appending the non-sparse data value to the current sequence of sparse data values.
+17. A data decompression method, in which each step is conducted by a data management block on a processing core, comprising: accessing a first memory location of a compressed data structure to obtain a row pointer; accessing a second memory location of the compressed data structure using the row pointer to obtain a sequence of sparse data values; accessing a third memory location of the compressed data structure using the row pointer to obtain a sequence of non-sparse data value run lengths; and generating a row of an uncompressed sparse data structure using the sequence of sparse data values and the sequence of non-sparse data value run lengths.
+18. The data decompression method of claim 17, wherein: the sparse data values are non-zero values; and the non-sparse data value run lengths are zero value run lengths in a sequence of data entries from the uncompressed sparse data structure.
+19. The data decompression method of claim 17, wherein: the row pointer is part of a set of row pointers stored in a header portion of a tile; and the sequence of sparse data values and the sequence of non-sparse data value run lengths are stored in a payload section of the tile.
+20. The data decompression method of claim 17, wherein: the first memory location is mapped to a first row in a single compressed data tile; the second memory location is mapped to a second row in the single compressed data tile; and the third memory location is mapped to a third row in the single compressed data tile.
+</claims>
+</document>

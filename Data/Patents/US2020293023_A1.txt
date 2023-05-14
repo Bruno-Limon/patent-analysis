@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2020-06-01
+</filing_date>
+
+<publication_date>
+2020-09-17
+</publication_date>
+
+<priority_date>
+2017-11-15
+</priority_date>
+
+<ipc_classes>
+G03F1/24,G03F1/36,G03F1/70,G05B19/4097,G06F30/392
+</ipc_classes>
+
+<assignee>
+TAIWAN SEMICONDUCTOR MANUFACTURING COMPANY
+</assignee>
+
+<inventors>
+PENG, DANPING
+LEI, JUNJIANG
+BEYLKIN, DANIEL
+XU, FANGBO
+Trivedi, Sagar
+Ho, Kenneth Lik Kin
+</inventors>
+
+<docdb_family_id>
+66432089
+</docdb_family_id>
+
+<title>
+Synchronized Parallel Tile Computation for Large Area Lithography Simulation
+</title>
+
+<abstract>
+Examples of synchronized parallel tile computation techniques for large area lithography simulation are disclosed herein for solving tile boundary issues. An exemplary method for integrated circuit (IC) fabrication comprises receiving an IC design layout, partitioning the IC design layout into a plurality of tiles, performing a simulated imaging process on the plurality of tiles, generating a modified IC design layout by combining final synchronized image values from the plurality of tiles, and providing the modified IC design layout for fabricating a mask. Performing the simulated imaging process comprises executing a plurality of imaging steps on each of the plurality of tiles. Executing each of the plurality of imaging steps comprises synchronizing image values from the plurality of tiles via data exchange between neighboring tiles.
+</abstract>
+
+<claims>
+1. A method for integrated circuit (IC) fabrication, the method comprising: receiving an IC design layout; partitioning the IC design layout into a plurality of tiles; performing a simulated imaging process on the plurality of tiles, wherein performing the simulated imaging process comprises executing a plurality of imaging steps on each of the plurality of tiles, wherein executing each of the plurality of imaging steps comprises synchronizing image values from the plurality of tiles via data exchange between neighboring tiles; generating a modified IC design layout by combining final synchronized image values from the plurality of tiles; and providing the modified IC design layout for fabricating a mask.
+2. The method of claim 1, wherein the neighboring tiles include a first tile and a second tile that neighbors the first tile, wherein an overlapping area of the first tile and the second tile includes a pixel, wherein the pixel has a first image value previously computed by the first tile and a second image value previously computed by the second tile, wherein the executing of an imaging step on the first tile comprises computing an updated image value of the pixel on the first tile based on a weighted combination of the first image value of the pixel and the second image value of the pixel, and wherein the data exchange between the neighboring tiles in the imaging step comprises delivering the updated image value of the pixel from the first tile to the second tile.
+3. The method of claim 2, wherein the weighted combination includes a first weight multiplied by the first image value and a second weight multiplied by the second image value, and wherein a sum of the first weight and the second weight is greater than zero but equal to or less than one.
+4. The method of claim 3, wherein the executing of the plurality of imaging steps on the pixel includes executing each of the plurality of imaging steps on the pixel using the same first weight and the same second weight.
+5. The method of claim 2, wherein the first image value is previously computed by applying a lithography processing model by the first tile, and the second image value is previously computed by applying the lithography processing model by the second tile.
+6. The method of claim 2, wherein the imaging step executed on the first tile is a first imaging step, and the plurality of imaging steps further includes a second imaging step that follows the first imaging step, wherein executing of the second imaging step on the second tile comprises computing a second updated image value of the pixel based on the weighted combination of (a) the updated image value of the pixel delivered to the second tile and (b) a third image value of the pixel computed by the second tile in the first imaging step.
+7. The method of claim 2, wherein the combining of the final synchronized image values includes, after the executing of a last imaging step of the plurality of imaging steps, combining a weighted combination of a final updated image value for the pixel computed on the first tile and a final updated image value for the pixel computed on the second tile with a final synchronized image value of another pixel of the overlapping area.
+8. The method of claim 1, wherein the simulated imaging process is an iterative process used in optical proximity correction (OPC) or inverse lithography technology (ILT), and each iteration of the iterative process includes the plurality of imaging steps, the method further comprising repeatedly performing the iterative process until the modified IC design layout satisfies pre-set conditions.
+9. The method of claim 1, wherein the partitioning, generating, and providing includes partitioning, generating and providing by a manager machine, and the performing includes performing by worker machines, the worker machines being different from the manager machine.
+10. A method for integrated circuit (IC) fabrication, the method comprising: receiving an IC design layout; partitioning the IC design layout into a plurality of tiles; synchronizing image values of a first pixel at a first imaging step between two tiles of the plurality of tiles to obtain a first synchronized image value of the first pixel, the first pixel in an overlapped region between the two tiles; computing image values of the first pixel at a second imaging step based on the first synchronized image value of the first pixel by the two tiles; synchronizing the images values of the first pixel at the second imaging step between the two tiles to obtain a second synchronized image value of the first pixel; generating a modified IC design layout by combining the second synchronized image value of the first pixel with a third synchronized image value of a second pixel of the plurality of tiles; and providing the modified IC design layout for fabricating a mask.
+11. The method of claim 10, wherein the synchronizing of the image values of the first pixel at the first imaging step includes: sending a first image value of the first pixel at the first imaging step by a first tile of the two tiles to a second tile of the two tiles, and receiving a second image value of the first pixel at the first imaging step by the first tile from the second tile; computing a first weighted combination of the first image value of the first pixel at the first imaging step and the second image value of the first pixel at the first imaging step to obtain the first synchronized image value of the first pixel; and wherein the synchronizing of the image values of the first pixel at the second imaging step includes: sending a first image value of the first pixel at the second imaging step by the first tile to the second tile, and receiving a second image value of the first pixel at the first imaging step by the first tile from the second tile; and computing a second weighted combination of the first image value of the first pixel at the second imaging step and the second image value of the first pixel at the second imaging step to obtain the second synchronized image value of the first pixel.
+12. The method of claim 11, wherein the computing of the first weighted combination includes multiplying the first image value of the first pixel at the first imaging step by a first weight, and multiplying the second image value of the first pixel at the first imaging step by a second weight, wherein the computing of the second weighted combination includes multiplying the first image value of the first pixel at the second imaging step by the first weight, and multiplying the second image value of the first pixel at the second imaging step by the second weight, and wherein a sum of the first weight and the second weight is greater than zero but equal to or less than one.
+13. The method of claim 10, wherein the computing of the image values of the first pixel at the second imaging step includes applying a lithography processing model to the first synchronized image value of the first pixel at the two tiles.
+14. The method of claim 10, further comprising computing a first image value of a third pixel by a first tile of the two tiles but not by a second tile of the two tiles, the third pixel being in the first tile but outside the overlapped region.
+15. The method of claim 14, wherein the computing of the image values of the first pixel at the second imaging step includes applying a lithography processing model to the first synchronized image value of the first pixel by the two tiles, the method further comprising computing a second image value of the third pixel by applying the lithography processing model to the first image value of the third pixel by the first tile.
+16. The method of claim 15, wherein the second pixel is outside the first tile and outside the second tile, and wherein the generating of the modified IC design layout includes combining the second synchronized image value of the first pixel with the third synchronized image value of the second pixel, and with the second image value of the third pixel.
+17. A method for integrated circuit (IC) fabrication, the method comprising: receiving an IC design layout; partitioning the IC design layout into a plurality of tiles; synchronizing image values from the plurality of tiles; generating a modified IC design layout by combining final synchronized image values; and providing the modified IC design layout for fabricating a mask.
+18. The method of claim 17, wherein the synchronizing provides a first synchronized image value of a pixel in an overlapped region between a first tile of the plurality of tiles and a second tile of the plurality of tiles, the method further comprising: simulating a first imaging process on the first tile based on the first synchronized image value to obtain a first updated image value; simulating the first imaging process on the second tile based on the first synchronized image value to obtain a second updated image value; and synchronizing the first updated image value and the second updated image value to obtain a second synchronized image value, wherein the combining of the final synchronized image values includes combining the second synchronized image value.
+19. The method of claim 17, wherein the synchronizing includes: exchanging the image values between a first tile of the plurality of tiles and a second tile of the plurality of tiles that neighbors the first tile, wherein an overlapping area of the first tile and the second tile includes a pixel, wherein the pixel has a first image value of the image values previously computed by the first tile and a second image value of the image values previously computed by the second tile, computing an updated image value of the pixel on the first tile based on a weighted combination of the first image value of the pixel and the second image value of the pixel, and delivering the updated image value of the pixel from the first tile to the second tile.
+20. The method of claim 19, wherein the weighted combination includes a first weight multiplied by the first image value and a second weight multiplied by the second image value, and wherein a sum of the first weight and the second weight is greater than zero but equal to or less than one. wherein the synchronizing is a first synchronizing on the pixel, the method further comprising a second synchronizing on the pixel, the second synchronizing includes computing based on the first weight and the second weight.
+</claims>
+</document>

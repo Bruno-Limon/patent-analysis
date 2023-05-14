@@ -1,0 +1,60 @@
+<document>
+
+<filing_date>
+2020-05-29
+</filing_date>
+
+<publication_date>
+2020-12-10
+</publication_date>
+
+<priority_date>
+2019-06-03
+</priority_date>
+
+<ipc_classes>
+G06T7/246,G06T7/292
+</ipc_classes>
+
+<assignee>
+NVIDIA CORPORATION
+</assignee>
+
+<inventors>
+LIU ZHENG
+SHIN, JOONHWA
+PURANDARE, Kaustubh
+</inventors>
+
+<docdb_family_id>
+73551274
+</docdb_family_id>
+
+<title>
+MULTI-OBJECT TRACKING USING CORRELATION FILTERS IN VIDEO ANALYTICS APPLICATIONS
+</title>
+
+<abstract>
+In various examples, image areas may be extracted from a batch of one or more images and may be scaled, in batch, to one or more template sizes. Where the image areas include search regions used for localization of objects, the scaled search regions may be loaded into Graphics Processing Unit (GPU) memory and processed in parallel for localization. Similarly, where image areas are used for filter updates, the scaled image areas may be loaded into GPU memory and processed in parallel for filter updates. The image areas may be batched from any number of images and/or from any number of single- and/or multi-object trackers. Further aspects of the disclosure provide approaches for associating locations using correlation response values, for learning correlation filters in object tracking based at least on focused windowing, and for learning correlation filters in object tracking based at least on occlusion maps.
+</abstract>
+
+<claims>
+What is claimed is:
+1. A computer-implemented method comprising: extracting, from first image data representing a batch of one or more first images of one or more videos, second image data representing a batch of search regions that correspond to detected locations of objects in one or more second images of the one or more videos; generating, from the second image data, scaled search regions, the generating being based at least on scaling the batch of the search regions to a template size; determining, based on the scaled search regions, estimated object locations within the scaled search regions; and determining associations between one or more of the estimated object locations and one or more of the objects.
+2. The method of claim 1, wherein the one or more videos are video streams of a plurality of video cameras.
+3. The method of claim 1, wherein the associations comprise assignments of object identifiers of the objects to the estimated object locations.
+4. The method of claim 1, wherein the scaling the batch of the search regions is performed on a texture object that comprises the second image data in texture memory of one or more Graphics Processing Units (GPUs).
+5. The method of claim 1, further comprising determining the search regions using a set of estimated object locations that were determined from one or more third images of the one or more videos based at least on the detected locations of the objects in the one or more second images.
+6. The method of claim 1, wherein the scaled search regions are of a batch of scaled search regions, the method further comprises extracting, from the batch of scaled search regions, one or more feature channels of the scaled search regions, and the determining the estimated object locations is further based on the one or more feature channels. 7. The method of claim 1, wherein the determining the estimated object locations comprises processing the scaled search regions and one or more feature channels of the scaled search regions in parallel using threads of one or more Parallel Processing Units (PPUs).
+8. The method of claim 1, wherein the determining the estimated object locations comprises computing a correlation response of an estimated object location of the estimated object locations based at least on applying a correlation filter to the estimated object location, the determining the associations is based at least on comparing, using the correlation response, a first value of the correlation response associated with the estimated object location to a second value of the correlation response associated with a detected location of the detected locations of the objects.
+9. A computer-implemented method comprising: extracting, from first image data representing a batch of one or more first images of one or more videos, second image data representing a batch of image areas that correspond to detected locations of objects in the one or more videos; generating, from the second image data, third image data representing scaled image areas that are of a template size, the generating being based at least on scaling the batch of the image areas to the template size; determining, from the third image data representing the scaled image areas, fourth data representing correlation filters; and generating, from the fourth data representing the correlation filters, fifth data representing estimated object locations that correspond to search regions of one or more second images of the one or more videos based at least on applying the correlation filters to the search regions.
+10. The method of claim 9, wherein the image areas are based at least on first search regions of the one or more videos, the first search regions identified by an object tracker using versions of the correlation filters, and wherein the determining the fourth data representing the correlation filters comprises updating one or more of the versions of the correlation filters. 11. The method of claim 9, wherein the image areas are based at least on detected locations of objects in the one or more videos, the detected locations of the objects determined by at least one machine learning model using video data of the one or more videos, and wherein the determining the fourth data representing the correlation filters comprises initializing one or more of the correlation filters.
+12. The method of claim 9, wherein the determining the fourth data representing the correlation filters comprises applying focused windowing to the scaled image areas.
+13. The method of claim 9, comprising generating occlusion maps from the scaled image areas, wherein each correlation filter of the correlation filters is generated from the scaled image area using an occlusion map of the occlusion maps.
+14. The method of claim 9, wherein the third image data represents a batch of the scaled image areas, the method further comprises extracting, from the third image data, sixth data representing one or more feature channels of the scaled image areas, and the determining the fourth data representing the correlation filters is also from the sixth data representing the one or more feature channels.
+15. The method of claim 9, further comprising: determining a first estimated object location using a correlation response of a version of a correlation filter of the correlation filters; and determining a confidence score for a detected location of the detected locations of objects based at least on a correlation response value of the correlation response that corresponds to the detected location, wherein the determining the fourth data representing the correlation filters comprises updating the version of the first correlation filter using a learning rate that is based at least on the confidence score. 16. A system comprising: one or more processing devices and one or more memory devices communicatively coupled to the one or more processing devices storing programmed instructions thereon, which when executed by the one or more processing devices causes performance of a method comprising: cropping and scaling first image data representing a batch of one or more images of one or more videos to one or more template sizes, the cropping and scaling generating second image data representing a batch of scaled search regions that correspond to locations of objects in one or more videos and that are of the one or more template sizes; determining, from the second image data representing the batch of scaled search regions, estimated object locations within the scaled search regions; and generating data representing assignments of one or more of the estimated object locations to one or more objects identifiers (IDs).
+17. The system of claim 16, wherein an object ID of the one or more object IDs is assigned to a location of the locations of the objects and an estimated object location of the estimated object locations. 18. The system of claim 16, wherein a location of the locations of the obj ects was determined from an earlier frame in a video than a frame comprising a search region of the search regions using one or more machine learning models trained to detect objects, and the search region is based at least on the location.
+19. The system of claim 16, wherein a location of the locations of the obj ects was determined from an earlier frame in a video than a frame comprising a search region of the search regions using one or more machine learning models trained to track objects across frames, and the search region is based at least on the location.
+20. The system of claim 16, wherein an object ID of the one or more object IDs that is assigned to an estimated object location of the estimated object locations is generated based at least on comparing the estimated object location to one or more of detected locations of the objects.
+</claims>
+</document>

@@ -1,0 +1,73 @@
+<document>
+
+<filing_date>
+2018-12-12
+</filing_date>
+
+<publication_date>
+2020-12-10
+</publication_date>
+
+<priority_date>
+2017-12-21
+</priority_date>
+
+<ipc_classes>
+G06F21/62,G06F21/78,H04L9/08
+</ipc_classes>
+
+<assignee>
+PHILIPS ELECTRONICS
+</assignee>
+
+<inventors>
+VEENINGEN, MEILOF GEERT
+ZHANG, LU
+</inventors>
+
+<docdb_family_id>
+64899262
+</docdb_family_id>
+
+<title>
+COMPUTER-IMPLEMENTED METHODS AND NODES IMPLEMENTING THE SAME
+</title>
+
+<abstract>
+According to an aspect, there is provided a computer-implemented method of operating a first node. The first node has an algorithm for evaluating input data from another node, with the input data having a plurality of different attributes. The method comprises receiving, from a second node, a proposal for the evaluation of a first set of input data by the algorithm; estimating the performance of the algorithm in evaluating the first set of input data based on the proposal; and outputting, to the second node, an indication of the estimated performance of the algorithm. A corresponding first node is also provided.
+</abstract>
+
+<claims>
+1. A computer-implemented method of operating a first node, the first node having an algorithm for evaluating input data from another node, the input data having a plurality of different attributes, the method comprising: receiving, from a second node, a proposal for the evaluation of a first set of input data by the algorithm; estimating the performance of the algorithm in evaluating the first set of input data based on the proposal; and outputting, to the second node, an indication of the estimated performance of the algorithm.
+2. A computer-implemented method as claimed in claim 1, wherein the step of estimating the performance of the algorithm comprises determining an indication of the accuracy level for the evaluation of the first set of input data and/or an indication of a time required to complete the evaluation of the first set of input data.
+3. A computer-implemented method as claimed in claim 1, wherein the received proposal comprises an indication of the minimum accuracy level for the evaluation of the first set of input data, and wherein the step of estimating the performance of the algorithm comprises: determining an indication of the time required to complete the evaluation of the first set of input data at the indicated minimum accuracy level.
+4. A computer-implemented method as claimed in claim 3, wherein the step of determining an indication of the time required to complete the evaluation of the first set of input data at the indicated minimum accuracy level comprises: determining the indication of the time required based on one or more of a complexity level of the algorithm, the number of data elements in the first set of input data, the attributes of the first set of input data and the number of attributes of the first set of input data that are private to the second node.
+5. A computer-implemented method as claimed in claim 1, wherein the received proposal comprises an indication of the maximum time permitted to complete the evaluation of the first set of input data, and wherein the step of estimating the performance of the algorithm comprises: determining an indication of the accuracy level for the evaluation of the first set of input data based on completing the evaluation of the first set of input data in the indicated maximum time permitted.
+6. A computer-implemented method as claimed in claim 5, wherein the step of determining an indication of the accuracy level for the evaluation of the first set of input data comprises: determining the indication of the accuracy level for the evaluation based on one or more of the number of data elements in the first set of input data, and the attributes of the first set of input data or the attributes that are missing from the first set of input data.
+7. A computer-implemented method as claimed in claim 1, wherein the method further comprises the steps of: following the step of outputting the indication, receiving, from the second node, a revised proposal for the evaluation of the first set of input data; and repeating the steps of estimating and outputting the indication based on the revised proposal.
+8. A computer-implemented method as claimed in claim 1, wherein the method further comprises the steps of: following the step of outputting the indication, receiving, from the second node, an indication that the evaluation of the first set of input data by the algorithm according to the proposal is to proceed; and receiving any parts of the input data that are non-private from the second node; evaluating the received parts of the input data that are non-private using the algorithm; evaluating any parts of the input data that are private using the algorithm, wherein the algorithm is evaluated as a multiparty computation, MPC, with the second node; and combining the results of the evaluation of the received parts of the input data that are non-private and the result of the evaluation of the received parts of the input data that are private to determine the output of the algorithm.
+9. A computer-implemented method as claimed in claim 8, wherein the method further comprises the step of: providing the determined output of the algorithm to the second node.
+10. A computer-implemented method as claimed in claim 8, wherein the method further comprises the steps of: determining a measure of the accuracy of the output of the algorithm; and providing the determined measure of the accuracy to the second node.
+11. A computer-implemented method as claimed in claim 1, wherein the received proposal comprises an indication of the minimum accuracy level for the evaluation of the first set of input data, and wherein the method further comprises the step of: optimising the algorithm to provide at least the indicated minimum accuracy level while minimising the time required for the evaluation.
+12. A computer-implemented method as claimed in claim 1, wherein the received proposal comprises an indication of the maximum time permitted for the evaluation of the first set of input data, and wherein the method further comprises the step of: optimising the algorithm to maximise the accuracy level of the evaluation within the indicated maximum time permitted for the evaluation.
+13. A computer-implemented method as claimed in claim 1, wherein any part of the input data for which attributes are private to the second node is to be evaluated using a multiparty computation, MPC-based random forest.
+14. A computer-implemented method as claimed in claim 13, wherein the step of estimating the performance of the algorithm comprises determining an indication of a time required to complete the evaluation of the first set of input data by: determining an evaluation time cost for evaluating all encrypted trees in the random forest to be used for the evaluation of the first set of input data, wherein the encrypted trees are used to evaluate attributes of the first set of input data that are private to the second node; determining an input time cost for evaluating all inputs to the algorithm, wherein the input time cost is the time cost of inputting private attributes to the algorithm; and determining the indication of the time required as the sum of the determined evaluation time cost and the determined input time cost.
+15. A computer-implemented method as claimed in claim 14, wherein the step of determining the evaluation time cost comprises determining:
+description="In-line Formulae" end="lead"?evaluation time cost, tev=2te|Ae|Σj∈TeSj description="In-line Formulae" end="tail"? where te is the evaluation time cost of one multiplication, Sj is the number of nodes in an encrypted tree Tj, |Ae| is the total number of private attributes and Te is a set of encrypted trees to be used.
+16. A computer-implemented method as claimed in claim 14, wherein the step of determining the input time cost comprises determining:
+description="In-line Formulae" end="lead"?input time cost, tin=2tα|A|Σj∈TeSj═2tα|Ae|description="In-line Formulae" end="tail"? where tα is the time cost of one attribute, Sj is the number of nodes in an encrypted tree Tj, |Ae| is the total number of private attributes, |A| is the total number of attributes and Te is a set of encrypted trees to be used.
+17. A computer-implemented method as claimed in claim 13, wherein the step of estimating the performance of the algorithm comprises determining an indication of an accuracy level for the evaluation of the first set of input data by determining: where N is the number of decision trees T={Tj}N, αj is the fraction of evaluated non-missing attributes in a tree, γj represents tree importance, Te is the encrypted tree with the highest priority.
+18. (canceled)
+19. A computer-implemented method as claimed in claim 1, wherein the proposal comprises one or more of an indication of the number of data elements in the first set of input data, an indication of the attributes of the first set of input data, an indication of which of the attributes of the first set of input data are private to the second node, and one of (i) an indication of a minimum accuracy level for the evaluation, and (ii) an indication of the maximum time permitted to complete the evaluation.
+20. A computer program product comprising a computer readable medium having computer readable code embodied therein, the computer readable code being configured such that, on execution by a suitable computer or processor, the computer or processor is caused to perform the method of claim 1.
+21. A first node, the first node having an algorithm for evaluating input data from another node, the input data having a plurality of different attributes, wherein the first node is configured to: receive, from a second node, a proposal for the evaluation of a first set of input data by the algorithm; estimate the performance of the algorithm in evaluating the first set of input data based on the proposal; and output, to the second node, an indication of the estimated performance of the algorithm.
+22. A first node as claimed in claim 21, wherein the first node is configured to estimate the performance of the algorithm by determining an indication of the accuracy level for the evaluation of the first set of input data and/or an indication of a time required to complete the evaluation of the first set of input data.
+23. A first node as claimed in claim 21, wherein the received proposal comprises an indication of the minimum accuracy level for the evaluation of the first set of input data, and wherein the first node is configured to estimate the performance of the algorithm by: determining an indication of the time required to complete the evaluation of the first set of input data at the indicated minimum accuracy level.
+24. A first node as claimed in claim 23, wherein the first node is configured to determine an indication of the time required to complete the evaluation of the first set of input data at the indicated minimum accuracy level by: determining the indication of the time required based on one or more of a complexity level of the algorithm, the number of data elements in the first set of input data, the attributes of the first set of input data and the number of attributes of the first set of input data that are private to the second node.
+25. A first node as claimed in claim 21, wherein the received proposal comprises an indication of the maximum time permitted to complete the evaluation of the first set of input data, and wherein the first node is configured to estimate the performance of the algorithm by: determining an indication of the accuracy level for the evaluation of the first set of input data based on completing the evaluation of the first set of input data in the indicated maximum time permitted.
+26. (canceled)
+27. A first node as claimed in claim 21, wherein the first node is further configured to: receive, from the second node, a revised proposal for the evaluation of the first set of input data following the output of the indication; and repeat the estimating and outputting based on the revised proposal.
+28. A first node as claimed in claim 21, wherein the first node is further configured to: receive, from the second node, an indication that the evaluation of the first set of input data by the algorithm according to the proposal is to proceed following the output of the indication; and receive any parts of the input data that are non-private from the second node; evaluate the received parts of the input data that are non-private using the algorithm; evaluate any parts of the input data that are private using the algorithm, wherein the algorithm is evaluated as a multiparty computation, MPC, with the second node; and combine the results of the evaluation of the received parts of the input data that are non-private and the result of the evaluation of the received parts of the input data that are private to determine the output of the algorithm.
+29. 29-60. (canceled)
+</claims>
+</document>

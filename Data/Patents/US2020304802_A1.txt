@@ -1,0 +1,73 @@
+<document>
+
+<filing_date>
+2020-03-21
+</filing_date>
+
+<publication_date>
+2020-09-24
+</publication_date>
+
+<priority_date>
+2019-03-21
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/62,G06N3/04,G06N3/08,H04N19/124,H04N19/14,H04N19/179,H04N19/186,H04N19/46,H04N5/247
+</ipc_classes>
+
+<assignee>
+QUALCOMM
+</assignee>
+
+<inventors>
+HABIBIAN, AMIRHOSSEIN
+Cohen, Taco Sebastiaan
+VAN ROZENDAAL, Ties Jehan
+</inventors>
+
+<docdb_family_id>
+72515923
+</docdb_family_id>
+
+<title>
+VIDEO COMPRESSION USING DEEP GENERATIVE MODELS
+</title>
+
+<abstract>
+Certain aspects of the present disclosure are directed to methods and apparatus for compressing video content using deep generative models. One example method generally includes receiving video content for compression. The received video content is generally encoded into a latent code space through an encoder, which may be implemented by a first artificial neural network. A compressed version of the encoded video content is generally generated through a trained probabilistic model, which may be implemented by a second artificial neural network, and output for transmission.
+</abstract>
+
+<claims>
+1. A method for compressing video, comprising: receiving video content for compression; encoding the received video content into a latent code space through an encoder implemented by a first artificial neural network, the encoding being based, at least in part, on information about the received video content; generating a compressed version of the encoded video content through a probabilistic model implemented by a second artificial neural network; and outputting the compressed version of the encoded video content for transmission.
+2. The method of claim 1, wherein the information about the received video content comprises a content mask identifying an amount of lossy compression to use in compressing different areas of the received video content.
+3. The method of claim 2, wherein the content mask comprises a binary mask trained by identifying foreground and background content in a plurality of training videos.
+4. The method of claim 3, wherein encoding the received video content into the latent code space comprises: quantizing foreground content using a first amount of compression loss; and quantizing background content using a second amount of compression loss, wherein the first amount of compression loss is less than the second amount of compression loss.
+5. The method of claim 2, wherein the content mask is trained to recognize foreground and background content using a recurrent convolutional neural network.
+6. The method of claim 1, wherein the information about the received video content comprises data from a fixed environment from which the video content was captured.
+7. The method of claim 6, wherein: the received video content comprises a plurality of video clips captured within the fixed environment, and encoding the received video content into the latent code space comprises encoding fixed content in the plurality of video clips to a same code in the latent code space.
+8. The method of claim 7, wherein the plurality of video clips captured within the fixed environment comprises video clips of a fixed ambient scene captured by a camera located in a fixed location.
+9. The method of claim 7, wherein the plurality of video clips captured within the fixed environment comprises video clips captured from a fixed vantage point on a moving platform.
+10. The method of claim 1, wherein: the video content comprises a plurality of channels, the plurality of channels comprise one or more additional data channels in addition to one or more luminance channels in video content captured by a first camera, and the information about the received video content comprises correlations between modalities in the plurality of channels.
+11. The method of claim 10, wherein the one or more additional data channels comprise one or more color channels and a depth information channel.
+12. The method of claim 10, wherein the one or more additional data channels comprise one or more channels capturing data within a range of visible wavelengths and one or more channels capturing data outside of the range of visible wavelengths.
+13. The method of claim 10, wherein the video content comprises videos captured of a subject from different perspectives, wherein the videos are captured by the first camera and one or more second cameras.
+14. The method of claim 1, wherein the probabilistic model comprises an auto-regressive model of a probability distribution over four-dimensional tensors, the probability distribution illustrating a likelihood that different codes can be used to compress the encoded video content.
+15. The method of claim 14, wherein the probabilistic model generates data based on a four-dimensional tensor, wherein dimensions of the four-dimensional tensor comprise time, a channel, and spatial dimensions of the received video content.
+16. A method for decompressing video, comprising: receiving a compressed version of an encoded video content, the encoded video content having been encoded based, at least in part, on information about source video content; decompressing the compressed version of the encoded video content into a code in a latent code space through a probabilistic model implemented by a first artificial neural network; decompressing the code in the latent code space into a reconstruction of the encoded video content through a decoder implemented by a second artificial neural network; and outputting the reconstruction of the encoded video content.
+17. The method of claim 16, wherein the information about the source video content comprises a content mask identifying an amount of lossy compression used in compressing different areas of the source video content.
+18. The method of claim 17, wherein the reconstruction of the encoded video content comprises foreground content reconstructed with a first amount of compression loss and background content reconstructed with a second amount of compression loss, wherein the first amount of compression loss is less than the second amount of compression loss.
+19. The method of claim 16, wherein the information about the source video content comprises data from a fixed environment from which the video content was captured.
+20. The method of claim 19, wherein the encoded video content comprises a plurality of video clips captured within the fixed environment such that fixed content in the plurality of video clips is encoded to a same code in the latent code space.
+21. The method of claim 20, wherein the plurality of video clips captured within the fixed environment comprise video clips of a fixed ambient scene captured by a camera located in a fixed location.
+22. The method of claim 20, wherein the plurality of video clips captured within the fixed environment comprise video clips captured from a fixed vantage point on a moving platform.
+23. The method of claim 16, wherein: the video content comprises a plurality of channels; the plurality of channels comprise one or more additional data channels in addition to one or more luminance channels in video content captured by a first camera; and the information about the source video content comprises correlations between modalities in the plurality of channels.
+24. The method of claim 23, wherein the one or more additional channels comprise one or more color channels and a depth information channel.
+25. The method of claim 23, wherein the one or more additional channels comprise one or more channels capturing data within a range of visible wavelengths and one or more channels capturing data outside of the range of visible wavelengths.
+26. The method of claim 23, wherein the video content comprises videos captured of a subject from different perspectives by the first camera and one or more additional cameras.
+27. The method of claim 16, wherein the probabilistic model comprises an auto-regressive model of a probability distribution over four-dimensional tensors, the probability distribution illustrating a likelihood that different codes can be used to decompress the compressed version of the encoded video content into the code in the latent space.
+28. The method of claim 27, wherein dimensions of the four-dimensional tensor comprise time, a channel, and spatial dimensions of the video content.
+29. A system for compressing video, comprising: at least one processor configured to: receive video content for compression, encode the received video content into a latent code space through an encoder implemented by a first artificial neural network, the encoding being based, at least in part, on information about the received video content, generate a compressed version of the encoded video content through a probabilistic model implemented by a second artificial neural network, and output the compressed version of the encoded video content for transmission; and a memory coupled to the at least one processor.
+30. A system for decompressing video, comprising: at least one processor configured to: receive a compressed version of an encoded video content, the encoded video content having been encoded based, at least in part, on information about source video content, decompress the compressed version of the encoded video content into a code in a latent code space through a probabilistic model implemented by a first artificial neural network, decompress the code in the latent code space into a reconstruction of the encoded video content through a decoder implemented by a second artificial neural network, and output the reconstruction of the encoded video content; and a memory coupled to the at least one processor.
+</claims>
+</document>

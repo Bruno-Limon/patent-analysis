@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2019-05-31
+</filing_date>
+
+<publication_date>
+2020-12-03
+</publication_date>
+
+<priority_date>
+2019-05-31
+</priority_date>
+
+<ipc_classes>
+G06F11/32,G06F11/34,G06F16/22,G06F17/14,G06F17/18
+</ipc_classes>
+
+<assignee>
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+ELDAR, ADI
+LEMBERG, RACHEL
+Gal, Josef
+Rothschild, Liad Tal
+Nissinmann, Matitiyahu Gabriel
+Lavi, Yaniv
+</inventors>
+
+<docdb_family_id>
+73551552
+</docdb_family_id>
+
+<title>
+ANOMALOUS COMPUTING RESOURCE USAGE DETECTION BASED ON SEASONALITY-BASED DYNAMIC THRESHOLDS
+</title>
+
+<abstract>
+Embodiments are configured to provide dynamic thresholds for alerting users of anomalous resource usage of computing resources. The dynamic thresholds may be based on the historical behavior of compute metrics (or a time series obtained therefor) associated with the computing resources and a detected seasonality in that time series. The seasonality is detected based on an analysis of several, different time series combinations that are based on the original time series, which advantageously increases the probability of successful seasonality detection. Based on characteristics of the time series, a model for generating dynamic thresholds may be determined. The dynamic thresholds track the detected seasonality of the computing metrics, rather than being a static threshold. As utilization of the computing resources continues, the determined thresholds are applied to the compute metrics. If the determined thresholds are exceeded, an alert indicating an anomalous resource usage may be provided to a user.
+</abstract>
+
+<claims>
+1. A method, comprising: obtaining a time series of data values corresponding to a metric associated with a computing resource; detecting a seasonal pattern in the time series; performing a statistical analysis of the time series; selecting a modeler from among a plurality of different modelers based on results of the statistical analysis; utilizing the selected modeler to generate a threshold based on the seasonal pattern; monitoring the metric associated with the computing resource to determine whether the metric exceeds the threshold; and providing an indication based at least on determining that the metric exceeds the threshold.
+2. The method of claim 1, wherein the plurality of different modelers comprises at least one of: a low dispersion-based modeler; a seasonal adjusted boxplot-based modeler; or a Box-Cox transformation-based modeler.
+3. The method of claim 2, wherein the selecting comprises: determining whether the data values of the time series are relatively constant or have a relatively high variance; based at least on determining that the data values of the time series are relatively constant, selecting the low dispersion-based modeler; and based at least on determining that the data values of the time series have a relatively high variance, selecting one of the seasonal adjusted boxplot-based modeler or the Box-Cox transformation-based modeler.
+4. The method of claim 3, wherein said selecting one of the seasonal adjusted boxplot-based modeler or the Box-Cox transformation-based modeler comprises: determining whether the data values of the time series comprise non-positive values; based at least on determining that the data values of the time series comprise non-positive values, selecting the seasonal adjusted boxplot-based modeler; and based at least on determining that the data values of the time series do not comprise non-positive values, selecting the Box-Cox transformation-based modeler.
+5. The method of claim 2, wherein the selected modeler is the seasonal adjusted boxplot-based modeler, and wherein the generating comprises: determining a plurality of bins for the seasonal pattern; for each bin of the plurality of bins: selectively assigning data values from the time series to the bin; generating a bin-based time series based on the assigned data values for the bin; and determining a bin-based threshold based on the bin-based time series; and combining each of the bin-based thresholds to generate the threshold.
+6. The method of claim 2, wherein the selected modeler is the Box-Cox transformation-based modeler, and wherein the generating comprises: decomposing the seasonal pattern from the time series to obtain residual data associated with the time series; applying a Box-Cox transform to the residual data to stabilize a variance of the residual data to generate transformed residual data; determining a transformed residual data-based threshold based on the transformed residual data; applying an inverse Box-Cox transform to the transformed residual data-based threshold to reintroduce the variance, thereby generating a transformed threshold; and combining the seasonal pattern with the transformed threshold to generate the threshold.
+7. The method of claim 1, wherein said detecting comprises: removing a predetermined percentage of the highest and lowest values from the time series to generate a clipped time series; filtering the time series in accordance with at least one window size to generate at least one filtered time series; filtering the clipped time series in accordance with the at least one window size to generate at least one filtered, clipped time series; and determining the seasonal pattern based on applying a respective transform to the time series, the clipped time series, a combination of the time series and the at least one filtered time series, and a combination of the clipped time series and the at least one filtered, clipped time series.
+8. The method of claim 1, wherein providing the indication includes issuing an alert.
+9. A system, comprising: at least one processor circuit; and at least one memory that stores program code configured to be executed by the at least one processor circuit, the program code comprising: a monitor configured to obtain a time series of data values corresponding to a metric associated with a computing resource; a seasonality detector configured to detect a seasonal pattern in the time series; and a model selector configured to: perform a statistical analysis of the time series; and select a modeler from among a plurality of different modelers based on results of the statistical analysis, the selected modeler being utilized to generate a threshold based on the seasonal pattern; the monitor further configured to monitor the metric associated with the computing resource to determine whether the metric exceeds the threshold, and providing an indication based at least on determining that the metric exceeds the threshold.
+10. The system of claim 9, wherein the plurality of different modelers comprises at least one of: a low dispersion-based modeler; a seasonal adjusted boxplot-based modeler; or a Box-Cox transformation-based modeler.
+11. The system of claim 9, wherein the model selector is further configured to: determine whether the data values of the time series are relatively constant or have a relatively high variance; based at least on determining that the data values of the time series are relatively constant, select the low dispersion-based modeler; and based at least on determining that the data values of the time series have a relatively high variance, select one of the seasonal adjusted boxplot-based modeler or the Box-Cox transformation-based modeler.
+12. The system of claim 11, wherein the model selector is further configured to: determine whether the data values of the time series comprise non-positive values; based at least on determining that the data values of the time series comprise non-positive values, select the seasonal adjusted boxplot-based modeler; and based at least on determining that the data values of the time series do not comprise non-positive values, select the Box-Cox transformation-based modeler.
+13. The system of claim 10, wherein the selected modeler is the seasonal adjusted boxplot-based modeler, and wherein the seasonal adjusted boxplot-based modeler is utilized to generate the threshold by: determining a plurality of bins for the seasonal pattern; for each bin of the plurality of bins: selectively assigning data values from the time series to the bin; generating a bin-based time series based on the assigned data values for the bin; and determining a bin-based threshold based on the bin-based time series; and combining each of the bin-based thresholds to generate the threshold.
+14. The system of claim 10, wherein the selected modeler is the Box-Cox transformation-based modeler, and wherein the Box-Cox transformation-based modeler is utilized to generate the threshold by: decomposing the seasonal pattern from the time series to obtain residual data associated with the time series; applying a Box-Cox transform to the residual data to stabilize a variance of the residual data to generate transformed residual data; determining a transformed residual data-based threshold based on the transformed residual data; applying an inverse Box-Cox transform to the transformed residual data-based threshold to reintroduce the variance, thereby generating a transformed threshold; and combining the seasonal pattern with the transformed threshold to generate the threshold.
+15. The system of claim 9, wherein the seasonality detector is further configured to: remove a predetermined percentage of the highest and lowest values from the time series to generate a clipped time series; filter the time series in accordance with at least one window size to generate at least one filtered time series; filter the clipped time series in accordance with the at least one window size to generate at least one filtered, clipped time series; and determine the seasonal pattern based on applying a respective transform to the time series, the clipped time series, a combination of the time series and the at least one filtered time series, and a combination of the clipped time series and the at least one filtered, clipped time series.
+16. A computer-readable storage medium having program instructions recorded thereon that, when executed by at least one processor, perform a method, the method comprising: obtaining a time series of data values corresponding to a metric associated with a computing resource; detecting a seasonal pattern in the time series; performing a statistical analysis of the time series; selecting a modeler from among a plurality of different modelers based on results of the statistical analysis; utilizing the selected modeler to generate a threshold based on the seasonal pattern; monitoring the metric associated with the computing resource to determine whether the metric exceeds the threshold; and providing an indication based at least on determining that the metric exceeds the threshold.
+17. The computer-readable storage medium of claim 16, wherein the plurality of different modelers comprises at least one of: a low dispersion-based modeler; a seasonal adjusted boxplot-based modeler; or a Box-Cox transformation-based modeler.
+18. The computer-readable storage medium of claim 17, wherein the selecting comprises: determining whether the data values of the time series are relatively constant or have a relatively high variance; based at least on determining that the data values of the time series are relatively constant, selecting the low dispersion-based modeler; and based at least on determining that the data values of the time series have a relatively high variance, selecting one of the seasonal adjusted boxplot-based modeler or the Box-Cox transformation-based modeler.
+19. The computer-readable storage medium of claim 18, wherein said selecting one of the seasonal adjusted boxplot-based modeler or the Box-Cox transformation-based modeler comprises: determining whether the data values of the time series comprise non-positive values; based at least on determining that the data values of the time series comprise non-positive values, selecting the seasonal adjusted boxplot-based modeler; and based at least on determining that the data values of the time series do not comprise non-positive values, selecting the Box-Cox transformation-based modeler.
+20. The computer-readable storage medium of claim 17, wherein the selected modeler is the seasonal adjusted boxplot-based modeler, and wherein the generating comprises: determining a plurality of bins for the seasonal pattern; for each bin of the plurality of bins: selectively assigning data values from the time series to the bin; generating a bin-based time series based on the assigned data values for the bin; and determining a bin-based threshold based on the bin-based time series; and combining each of the bin-based thresholds to generate the threshold.
+</claims>
+</document>

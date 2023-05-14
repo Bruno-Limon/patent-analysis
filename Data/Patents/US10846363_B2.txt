@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-01-29
+</filing_date>
+
+<publication_date>
+2020-11-24
+</publication_date>
+
+<priority_date>
+2018-11-19
+</priority_date>
+
+<ipc_classes>
+G06F17/16
+</ipc_classes>
+
+<assignee>
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+ZARAR, SHUAYB M.
+AMBARDEKAR, AMOL ASHOK
+ZHANG, JUN
+</inventors>
+
+<docdb_family_id>
+70727681
+</docdb_family_id>
+
+<title>
+Compression-encoding scheduled inputs for matrix computations
+</title>
+
+<abstract>
+A method of performing matrix computations includes receiving a compression-encoded matrix including a plurality of rows. Each row of the compression-encoded matrix has a plurality of defined element values and, for each such defined element value, a schedule tag indicating a schedule for using the defined element value in a scheduled matrix computation. The method further includes loading the plurality of rows of the compression-encoded matrix into a corresponding plurality of work memory banks, and providing decoded input data to a matrix computation module configured for performing the scheduled matrix computation. For each work memory bank, a next defined element value and a corresponding schedule tag are read. If the schedule tag meets a scheduling condition, the next defined element value is provided to the matrix computation module. Otherwise, a default element value is provided to the matrix computation module.
+</abstract>
+
+<claims>
+1. A method of performing matrix computations, comprising: receiving a compression-encoded matrix including a plurality of rows, each row having a plurality of defined element values and, for each such defined element value, a schedule tag indicating a schedule for using the defined element value in a scheduled matrix computation; loading the plurality of rows of the compression-encoded matrix into a corresponding plurality of work memory banks; and providing decoded input data to a matrix computation module configured for performing the scheduled matrix computation, wherein providing the decoded input data includes, for each work memory bank: reading a next defined element value and a corresponding schedule tag; responsive to the corresponding schedule tag meeting a scheduling condition, providing the next defined element value to the matrix computation module; and responsive to the corresponding schedule tag not meeting the scheduling condition, providing a default element value to the matrix computation module.
+2. The method of claim 1, wherein the matrix computation module includes a systolic array module.
+3. The method of claim 2, wherein the scheduled matrix computation is a matrix multiplication computation to compute a matrix product of the compression-encoded matrix and a second compression-encoded matrix, and wherein the systolic array module implements the scheduled matrix computation via a plurality of multiply-and-accumulate computational nodes.
+4. The method of claim 1, wherein the compression-encoded matrix is provided to the plurality of work memory banks by an encoder, responsive to receiving, at the encoder, raw input data from an off-chip secondary storage device.
+5. The method of claim 1, wherein: the compression-encoded matrix is a sparsity-encoded matrix; the plurality of defined element values for a row includes a plurality of non-zero element values in the row; and providing the default element value includes providing a zero value.
+6. The method of claim 1, wherein: the compression-encoded matrix is a transition-encoded matrix; the plurality of defined element values for a row includes a plurality of boundary element values in a row, the plurality of boundary element values defining transitions between different element values in the row; and providing the default element value includes providing a most recent boundary element value in the row.
+7. The method of claim 1, further comprising recognizing a memory bank of the plurality of memory banks will not be accessed during a portion of the scheduled matrix computation, and putting the memory bank in a reduced-power, snooze state, wherein such recognition includes reading the next defined element value for the memory bank and the corresponding schedule tag, and determining that the corresponding schedule tag indicates the next defined element value is scheduled for a defined number of cycles in the future.
+8. The method of claim 7, further comprising recognizing that the memory bank will be accessed during a subsequent portion of the scheduled matrix computation occurring the defined number of cycles in the future, and pre-emptively awakening the memory bank from the snooze state to a wake state.
+9. The method of claim 1, further comprising: recognizing that the plurality of rows may be stored by a reduced subset of work memory banks of the plurality of work memory banks, thereby freeing an unused subset of work memory banks; consolidating compression-encoded matrix data into the reduced subset of work memory banks; and putting the unused subset of work memory banks in a reduced-power, deep sleep state.
+10. The method of claim 1, further comprising compression-encoding a result of the scheduled matrix computation as a compression-encoded result matrix including a plurality of result rows, each result row having a plurality of defined result element values and, for each such defined result element value, a result schedule tag indicating a schedule for using the defined result element value in a future scheduled matrix computation, and storing the compression-encoded result matrix on a storage device.
+11. The method of claim 1, further comprising compression-encoding a result of the scheduled matrix computation and using the result in subsequent scheduled matrix computations.
+12. The method of claim 11, wherein the subsequent scheduled matrix computations define layers of a neural network computation.
+13. The method of claim 1, wherein the receiving of a compression-encoded matrix, loading of a plurality of rows, and providing of decoded input data are performed repeatedly for a plurality of compression-encoded matrices.
+14. The method of claim 13, wherein: when the compression-encoded matrix is a sparsity-encoded matrix, the plurality of defined element values for a row includes a plurality of non-zero element values in the row, and providing the default element value includes providing a zero value; and when the compression-encoded matrix is a transition-encoded matrix, the plurality of defined element values for a row includes a plurality of boundary element values in a row, the plurality of boundary element values define transitions between different element values in the row, and providing the default element value includes providing a most recent boundary element value in the row.
+15. The method of claim 1, further comprising maintaining a delay counter by incrementing the delay counter after providing decoded input data values, wherein determining whether the corresponding schedule tag meets the scheduling condition includes checking whether the delay counter matches the corresponding schedule tag.
+16. A computer system for performing matrix computations, comprising: an encoded-input storage device including a plurality of memory banks, the encoded-input storage device configured to: receive a compression-encoded matrix including a plurality of rows, each row having a plurality of defined element values and, for each such defined element value, a schedule tag indicating a schedule for using the defined element value in a scheduled matrix computation; and load each row the plurality of rows of the compression-encoded matrix into a corresponding work memory bank of the plurality of memory banks; and a decoder configured to provide decoded input data to a matrix computation module configured for performing the scheduled matrix computation, wherein providing the decoded input data includes, for each work memory bank: reading a next defined element value and a corresponding schedule tag; responsive to the corresponding schedule tag meeting a scheduling condition, providing the next defined element value to the matrix computation module; and responsive to the corresponding schedule tag not meeting the scheduling condition, providing a default element value to the matrix computation module.
+17. The computer system of claim 16, wherein: the decoder is further configured to maintain a delay counter by incrementing the delay counter after providing decoded input data values; and determining whether the corresponding schedule tag meets the scheduling condition includes checking whether the delay counter matches the corresponding schedule tag.
+18. The computer system of claim 16, wherein the encoded-input storage device is further configured to: recognize a memory bank of the plurality of memory banks will not be accessed during a portion of the scheduled matrix computation, wherein such recognition includes reading the next defined element value for the memory bank and the corresponding schedule tag, and determining that the corresponding schedule tag indicates the next defined element value is scheduled for a defined number of cycles in the future; put the memory bank in a reduced-power, snooze state; recognize that the memory bank will be accessed during a subsequent portion of the scheduled matrix computation occurring the defined number of cycles in the future; and pre-emptively awakening the memory bank from the snooze state to a wake state.
+19. The computer system of claim 16, wherein the encoded-input storage device is further configured to: recognize that the plurality of rows may be stored by a reduced subset of work memory banks of the plurality of work memory banks, thereby freeing an unused subset of work memory banks; consolidate compression-encoded matrix data into the reduced subset of work memory banks; and put the unused subset of work memory banks in a reduced-power, deep sleep state.
+20. A method of performing matrix computations, comprising: receiving a compression-encoded matrix including a plurality of rows, each row having a plurality of defined element values and, for each such defined element value, a schedule tag indicating a schedule for using the defined element value in a scheduled matrix computation; loading the plurality of rows of the compression-encoded matrix into a corresponding plurality of work memory banks; and providing decoded input data to a systolic array configured for performing the scheduled matrix computation, wherein providing the decoded input data includes: maintaining a counter indicating current progress in the scheduled matrix computation; and for each work memory bank: reading a next defined element value and a corresponding schedule tag; responsive to the counter matching the schedule tag, providing the next defined element value to the systolic array; responsive to the counter not matching the tag, providing a default element value to the systolic array; and advancing the counter.
+</claims>
+</document>

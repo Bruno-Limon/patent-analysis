@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2020-08-14
+</filing_date>
+
+<publication_date>
+2020-12-03
+</publication_date>
+
+<priority_date>
+2017-02-06
+</priority_date>
+
+<ipc_classes>
+G06N20/00,H04L12/24,H04L12/26,H04L12/721,H04L12/741,H04L12/851
+</ipc_classes>
+
+<assignee>
+SILVER PEAK SYSTEMS
+</assignee>
+
+<inventors>
+HUGHES, DAVID, ANTHONY
+</inventors>
+
+<docdb_family_id>
+67300263
+</docdb_family_id>
+
+<title>
+MULTI-LEVEL LEARNING FOR CLASSIFYING TRAFFIC FLOWS ON A FIRST PACKET FROM DNS RESPONSE DATA
+</title>
+
+<abstract>
+Disclosed herein are systems and methods for multi-level classification of data traffic flows based on information in a first packet for a data traffic flow. In exemplary embodiments of the present disclosure, a key can be generated from intercepted DNS data to track data traffic flows by application names and destination IP addresses. Based on these keys, patterns can be discerned to infer data traffic information based on only the information in a first packet, such as destination IP address. The determined patterns can be used to predict classifications of future traffic flows with similar key information. In this way, data traffic flows can be classified and steered in a network based on limited information available in a first packet.
+</abstract>
+
+<claims>
+1. A method of selecting a network path for transmitting data across a network, the method comprising: intercepting, by a network appliance, a DNS response packet from a DNS server to a first computing device; extracting, by the network appliance, information from the DNS response packet, the extracted information comprising a first IP address for a first domain name; generating a first key representing the first IP address for the first domain name extracted from the DNS response packet; mapping the first key to the first domain name; receiving, at the network appliance, a first packet of a first flow to be transmitted across a network from the first computing device; extracting, by the network appliance, a destination IP address from a header of the first packet; generating a second key representing the extracted information from the header of the first packet of the first flow from the first computing device; querying a data structure at the network appliance for a match to the second key; determining that the second key matches the first key present in the data structure; predicting an associated application name for the first flow based on the first domain name mapped to the matched first key; and selecting by the network appliance a network path based on the predicted application.
+2. The method of claim 1, further comprising verifying that the predicted application in the data structure at the network appliance meets a predetermined confidence threshold, prior to selecting the network path.
+3. The method of claim 1, wherein the first packet of the first flow is a TCP syn packet.
+4. The method of claim 1, further comprising transmitting the first packet of the first flow by the network appliance via the selected network path.
+5. The method of claim 1, further comprising: intercepting a second DNS response packet from the DNS server to the first computing device; extracting, by the network appliance, information from the second DNS response packet, the extracted information comprising a second IP address for the first domain name; and updating the first key to represent the extracted information from the second DNS response packet.
+6. The method of claim 1, further comprising: intercepting a second DNS response packet from the DNS server to the first computing device; extracting, by the network appliance, information from the second DNS response packet, the extracted information comprising a first IP address and a second domain name, wherein the first IP address corresponds to the second domain name; and updating the first key to represent the extracted information from the second DNS response packet.
+7. The method of claim 1, further comprising: receiving, at the network appliance, a first packet of a first flow to be transmitted across the network from a second computing device; extracting, by the network appliance, a destination IP address from a header of the first packet of the first flow from the second computing device; generating a third key representing the extracted information from the header of the first packet of the first flow from the second computing device; querying a data structure at the network appliance for a match to the third key; determining that the third key matches a first IP address associated with a second domain name, the second domain name being different from the first domain name associated with the first IP address; and predicting an associated application name for the first flow from the second computing device based on the second domain name associated with the matched third key, the associated application name for the first flow from the second computing device being different than the associated application name for the first flow from the first computing device.
+8. The method of claim 1, further comprising: receiving a subsequent data packet of the first flow from the first computing device; determining an application name from payload information of the subsequent data packet of the first flow; verifying that the predicted application based on the first packet was correct; and updating confidence information in the data structure for the key associated with the extracted information from the header of the first packet, wherein the confidence information comprises a counter.
+9. The method of claim 1, further comprising: receiving a subsequent data packet of the first flow from the first computing device; determining an application name from payload information of the subsequent data packet of the first flow; determining that the predicted application based on the first packet was incorrect; and updating confidence information in the data structure for the key associated with the extracted information from the header of the first packet.
+10. The method of claim 1, further comprising: performing network address translation based on the selected network path to change at least one of a source network address, destination network address, destination port, and a source port in packets of the first flow.
+11. A method of selecting a network path for transmitting data across a network, the method comprising: intercepting, by a network appliance, a DNS response packet from a DNS server to a first computing device; extracting, by the network appliance, information from the DNS response packet, the extracted information comprising a first proxy IP address for a first domain name; generating a first key representing the first proxy IP address for the first domain name extracted from the DNS response packet; mapping the first key to the first domain name; receiving, at the network appliance, a first packet of a first flow to be transmitted across a network from the first computing device; extracting, by the network appliance, a destination IP address from a header of the first packet; generating a second key representing the extracted information from the header of the first packet of the first flow from the first computing device; querying a data structure at the network appliance for a match to the second key; determining that the second key matches the first key present in the data structure at the network appliance; predicting an associated application name for the first flow based on the first domain name mapped to the matched first key; and selecting, by the network appliance, a network path based on the predicted application.
+12. The method of claim 11, further comprising: verifying that the predicted application in the data structure at the network appliance meets a predetermined confidence threshold, prior to selecting the network path.
+13. The method of claim 12, wherein the confidence threshold is variable.
+14. The method of claim 11, further comprising: transmitting the first packet of the first flow by the network appliance, via the selected network path.
+15. The method of claim 11, further comprising: intercepting a second DNS response from the DNS server to the first computing device; extracting, by the network appliance, information from the second DNS response packet, the extracted information comprising the first proxy IP address and a second domain name, wherein the first proxy IP address corresponds to the second domain name; and updating the first key to represent the extracted information from the second DNS response packet.
+16. The method of claim 11, further comprising: receiving a subsequent data packet of the first flow; determining an application name from payload information of the subsequent data packet of the first flow; verifying that the predicted application name based on the first packet was correct; and updating confidence information in the data structure for the key associated with the extracted information from the header of the first packet.
+17. The method of claim 11, further comprising: receiving a subsequent data packet of the first flow; determining an application name from payload information of the subsequent data packet of the first flow; determining that the predicted application name based on the first packet was incorrect; and updating confidence information in the data structure for the key associated with the extracted information from the header of the first packet.
+18. A system for inferring an application name for a first packet of a flow at a network appliance, the system comprising: a feature extraction engine at the network appliance configured to intercept a DNS response packet from a DNS server to a first computing device, extract from the DNS response packet a first IP address for a first domain name, generate a first key representing the extracted information from the DNS response packet, map the first key to the first domain name, receive a first packet of a first flow from the first computing device to be transmitted across a network, extract a destination IP address from a header of the first packet of the first flow received at the network appliance, generate a second key representing the extracted information from the header of the first packet; an inspection engine at the network appliance to query a data structure at the network appliance for a match to the second key, and determine whether the second key matches the first key present in the data structure; and an inference engine at the network appliance to infer an application name for the first packet based on the matched first key, the inference engine further in communication with the inspection engine.
+19. The system of claim 18, wherein the inference engine uses a learning algorithm of a neural network to infer the application for the first packet.
+20. The system of claim 18, wherein at least one of a plurality of data structures further comprises one or more application tags associated with the inferred application name and key string.
+21. The system of claim 18, wherein the inspection engine further determines whether the extracted information is indicative of a known application name with a predetermined level of confidence.
+</claims>
+</document>

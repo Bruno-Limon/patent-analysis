@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-11-26
+</filing_date>
+
+<publication_date>
+2020-05-28
+</publication_date>
+
+<priority_date>
+2018-11-28
+</priority_date>
+
+<ipc_classes>
+G06F16/901,G06F9/48,G06F9/50,G06F9/52
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+BREVDO, EUGENE
+PASSOS, ALEXANDRE TACHARD
+</inventors>
+
+<docdb_family_id>
+70770692
+</docdb_family_id>
+
+<title>
+COMPUTATIONAL GRAPH CRITICAL SECTIONS
+</title>
+
+<abstract>
+Methods, systems, and apparatus, including computer programs encoded on computer storage media, for implementing critical section subgraphs in a computational graph system. One of the methods includes executing a lock operation including providing, by a task server, a request to a value server to create a shared critical section object. If the task server determines that the shared critical section object was created by the value server, the task server executes one or more other operations of the critical section subgraph in serial. The task server executes an unlock operation including providing, by the task server, a request to the value server to delete the shared critical section object.
+</abstract>
+
+<claims>
+1. A system comprising: a plurality of computers and one or more storage devices storing instructions that are operable, when executed by the plurality of computers, to cause the plurality of computers to perform operations comprising: receiving a representation of a computational graph having a critical section subgraph, the critical section subgraph specifying a lock operation, an unlock operation, and one or more other operations; executing, by a task server, the critical section subgraph including: executing the lock operation including providing, by the task server, a request to a value server to create a shared critical section object, determining, by the task server, that the shared critical section object was created by the value server, in response to determining that the shared critical section object was created by the value server, executing, by the task server, the one or more other operations of the critical section subgraph in serial, and executing, by the task server, the unlock operation including providing, by the task server, a request to the value server to delete the shared critical section object.
+2. The system of claim 1, wherein the operations further comprise: executing, by a second task server, a second critical section including: executing a lock operation of the second critical section including providing, by the second task server, a request to the value server to create the shared critical section object, determining that the shared critical section object was not created, and in response to determining that the shared critical section object was not created, waiting for a notification that the shared critical section object was created before executing any other operations of the second critical section.
+3. The system of claim 1, wherein the operations further comprise: determining, by the value server, that the task server did not successfully execute all operations of the critical section; in response, deleting the shared critical section object that was created by the task server.
+4. The system of claim 3, wherein the operations further comprise: determining, by the value server, that a second task server is waiting on creation of the shared critical section object; and in response, creating, by the value server, the shared critical section object and notifying the second task server that the shared critical section object has been created.
+5. The system of claim 4, wherein the operations further comprise: receiving, by the second task server, a notification that the shared critical section object was created; and in response, resuming execution of a critical section subgraph.
+6. The system of claim 3, wherein determining, by the value server, that the task server did not successfully execute all operations of the critical section comprises determining that the task server crashed.
+7. The system of claim 3, wherein determining, by the value server, that the task server did not successfully execute all operations of the critical section comprises determining that the task server encountered an error.
+8. The system of claim 1, wherein the operations further comprise: executing a graph building program to generate an initial computational graph representation; performing a static deadlock process on the initial computational graph representation to determine that the initial computational graph representation has one or more deadlock conditions; and in response, modifying the initial computational graph representation, raising an error, or both.
+9. The system of claim 8, wherein determining that the initial computational graph representation has one or more deadlock conditions comprises determining that a particular operation has two ancestor operations, and wherein modifying the initial computational graph representation comprises inserting a control dependency into the graph that forces all operations of a first critical section subgraph to be executed before a second critical section subgraph attempts to acquire a lock.
+10. The system of claim 8, wherein determining that the initial computational graph representation has one or more deadlock conditions comprises determining that a critical section subgraph attempts to reacquire a same lock.
+11. A method comprising: receiving a representation of a computational graph having a critical section subgraph, the critical section subgraph specifying a lock operation, an unlock operation, and one or more other operations; executing, by a task server in a distributed computational graph execution system having a plurality of task servers and one or more value servers, the critical section subgraph including: executing the lock operation including providing, by the task server, a request to a value server to create a shared critical section object, determining, by the task server, that the shared critical section object was created by the value server, in response to determining that the shared critical section object was created by the value server, executing, by the task server, the one or more other operations of the critical section subgraph in serial, and executing, by the task server, the unlock operation including providing, by the task server, a request to the value server to delete the shared critical section object.
+12. The method of claim 11, further comprising: executing, by a second task server, a second critical section including: executing a lock operation of the second critical section including providing, by the second task server, a request to the value server to create the shared critical section object, determining that the shared critical section object was not created, and in response to determining that the shared critical section object was not created, waiting for a notification that the shared critical section object was created before executing any other operations of the second critical section.
+13. The method of claim 11, further comprising: determining, by the value server, that the task server did not successfully execute all operations of the critical section; in response, deleting the shared critical section object that was created by the task server.
+14. The method of claim 13, further comprising: determining, by the value server, that a second task server is waiting on creation of the shared critical section object; and in response, creating, by the value server, the shared critical section object and notifying the second task server that the shared critical section object has been created.
+15. The method of claim 14, further comprising: receiving, by the second task server, a notification that the shared critical section object was created; and in response, resuming execution of a critical section subgraph.
+16. The method of claim 13, wherein determining, by the value server, that the task server did not successfully execute all operations of the critical section comprises determining that the task server crashed.
+17. The method of claim 13, wherein determining, by the value server, that the task server did not successfully execute all operations of the critical section comprises determining that the task server encountered an error.
+18. The method of claim 11, further comprising: executing a graph building program to generate an initial computational graph representation; performing a static deadlock process on the initial computational graph representation to determine that the initial computational graph representation has one or more deadlock conditions; and in response, modifying the initial computational graph representation, raising an error, or both.
+19. The method of claim 18, wherein determining that the initial computational graph representation has one or more deadlock conditions comprises determining that a particular operation has two ancestor operations, and wherein modifying the initial computational graph representation comprises inserting a control dependency into the graph that forces all operations of a first critical section subgraph to be executed before a second critical section subgraph attempts to acquire a lock.
+20. The method of claim 18, wherein determining that the initial computational graph representation has one or more deadlock conditions comprises determining that a critical section subgraph attempts to reacquire a same lock.
+21. One or more non-transitory computer storage media encoded with computer program instructions that when executed by a plurality of computers cause the plurality of computers to perform operations comprising: receiving a representation of a computational graph having a critical section subgraph, the critical section subgraph specifying a lock operation, an unlock operation, and one or more other operations; executing, by a task server, the critical section subgraph including: executing the lock operation including providing, by the task server, a request to a value server to create a shared critical section object, determining, by the task server, that the shared critical section object was created by the value server, in response to determining that the shared critical section object was created by the value server, executing, by the task server, the one or more other operations of the critical section subgraph in serial, and executing, by the task server, the unlock operation including providing, by the task server, a request to the value server to delete the shared critical section object.
+</claims>
+</document>

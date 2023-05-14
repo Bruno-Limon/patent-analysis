@@ -1,0 +1,74 @@
+<document>
+
+<filing_date>
+2019-05-29
+</filing_date>
+
+<publication_date>
+2020-12-03
+</publication_date>
+
+<priority_date>
+2019-05-29
+</priority_date>
+
+<ipc_classes>
+B60W50/00,G05D1/00,G05D1/02
+</ipc_classes>
+
+<assignee>
+ARGO AI
+</assignee>
+
+<inventors>
+BAK, SLAWOMIR W.
+CARR, G. PETER K.
+Hartnett, Andrew T.
+Singh, Jagjeet
+</inventors>
+
+<docdb_family_id>
+73550247
+</docdb_family_id>
+
+<title>
+METHODS AND SYSTEMS FOR TRAJECTORY FORECASTING WITH RECURRENT NEURAL NETWORKS USING INERTIAL BEHAVIORAL ROLLOUT
+</title>
+
+<abstract>
+A method and a system for forecasting trajectories in an autonomous vehicle using recurrent neural networks. The method includes receiving a first set of data that comprises time series information corresponding to states of a plurality of objects, analyzing the first set of data to determine a plurality of object trajectory sequences corresponding to the plurality of objects, and using one or more of the plurality of object trajectory sequences as input to train a prediction model for predicting future trajectories of the plurality of objects. The predication model can be trained by defining a first prediction horizon, training the prediction model over the first prediction horizon to generate a semi-trained prediction model, defining a second prediction horizon that is longer than the first prediction horizon, and training the semi-trained prediction model to generate a trained prediction model.
+</abstract>
+
+<claims>
+1. A method comprising: receiving a first set of data, wherein the first set of data comprises time series information corresponding to states of a plurality of objects; analyzing the first set of data to determine a plurality of object trajectory sequences corresponding to the plurality of objects; and using one or more of the plurality of object trajectory sequences as input to train a prediction model for predicting future trajectories of the plurality of objects by: defining a first prediction horizon, training the prediction model over the first prediction horizon to generate a semi-trained prediction model, defining a second prediction horizon that is longer than the first prediction horizon, and training the semi-trained prediction model to generate a trained prediction model.
+2. The method of claim 1, further comprising using the trained prediction model to predict future trajectories of one or more objects based on observed states of the one or more objects.
+3. The method of claim 1, further comprising generating a planned trajectory for an autonomous vehicle by: receiving state data corresponding to the autonomous vehicle; receiving perception data corresponding to one or more objects in an environment of the autonomous vehicle; inputting the perception data into the trained prediction model to predict future trajectories of the one or more objects; and inputting the state data corresponding to the autonomous vehicle and each of the predicted future trajectories into the trained prediction model to generate a planned trajectory for the autonomous vehicle.
+4. The method of claim 1, further comprising using the one or more of the plurality of object trajectory sequences as input to train the prediction model for predicting future trajectories of the plurality of objects by: defining a third prediction horizon that is longer that the second prediction horizon; and training the trained prediction model to generate an updated trained prediction model.
+5. The method of claim 1, wherein the first prediction horizon is determined to train the prediction model to encode one or more inertial constraints for predicting future trajectories of the plurality of objects.
+6. The method of claim 5, wherein the first prediction horizon is less than 1 second.
+7. The method of claim 5, wherein the second prediction horizon is determined to train the prediction model to encode one or more behavioral constraints for predicting future trajectories of the plurality of objects
+8. The method of claim 7, wherein the second prediction horizon is about 2 seconds to about 10 seconds.
+9. The method of claim 1, further comprising: determining, for each of the plurality of object trajectory sequences, a reference path; and transforming each of the plurality of object trajectory sequences into a curvilinear coordinate system with respect to the corresponding reference path.
+10. The method of claim 9, wherein the reference path is encoded in a vector map that comprises information corresponding to a plurality of semantic attributes.
+11. The method of claim 10, wherein information corresponding to the plurality of semantic attributes comprises at least one of the following: information relating to whether a lane is located within an intersection, information relating to whether a lane has an associated traffic control measure, a lane's turn direction, one or more unique identifiers for a lane's predecessors, or one or more unique identifiers for a lane's successors.
+12. The method of claim 9, wherein the reference path is a centerline of a lane.
+13. The method of claim 1, further comprising encoding social context information of each of the plurality of objects into the corresponding object trajectory.
+14. The method of claim 13, wherein the social context information of each of the plurality of objects comprises at least one of the following: minimum distance to one or more objects in front of that object, minimum distance to one or more objects behind that object, or a number of neighboring objects.
+15. The method of claim 1, wherein the prediction model is a recurrent neural network (RNN).
+16. A system comprising: an autonomous vehicle comprising one or more sensors; a processor; and a non-transitory computer readable medium comprising one or more programming instructions that when executed by the processor, cause the processor to: receive a first set of data, wherein the first set of data comprises time series information corresponding to states of a plurality of objects, analyze the first set of data to determine a plurality of object trajectory sequences corresponding to the plurality of objects, and use one or more of the plurality of object trajectory sequences as input to train a prediction model for predicting future trajectories of the plurality of objects by: defining a first prediction horizon, training the prediction model over the first prediction horizon to generate a semi-trained prediction model, defining a second prediction horizon that is longer than the first prediction horizon, and training the semi-trained prediction model to generate a trained prediction model.
+17. The system of claim 16, further comprising programming instructions that when executed by the processor, cause the processor to use the trained prediction model to predict future trajectories of one or more objects in an environment of the autonomous vehicle based on observed states of the one or more objects.
+18. The system of claim 16, further comprising programming instructions that when executed by the processor, cause the processor to generate a planned trajectory for the autonomous vehicle by: receiving state data corresponding to the autonomous vehicle; receiving perception data corresponding to one or more objects in an environment of the autonomous vehicle; inputting the perception data into the trained prediction model to predict future trajectories of the one or more objects; and inputting the state data corresponding to the autonomous vehicle and each of the predicted future trajectories into the trained prediction model to generate a planned trajectory for the autonomous vehicle.
+19. The system of claim 16, further programming instructions that when executed by the processor, cause the processor to use the one or more of the plurality of object trajectory sequences as input to train the prediction model for predicting future trajectories of the plurality of objects by: defining a third prediction horizon that is longer that the second prediction horizon; and training the trained prediction model to generate an updated trained prediction model.
+20. The system of claim 16, wherein the first prediction horizon is determined to train the prediction model to encode one or more inertial constraints for predicting future trajectories of the plurality of objects.
+21. The system of claim 20, wherein the first prediction horizon is less than 1 second.
+22. The system of claim 20, wherein the second prediction horizon is determined to train the prediction model to encode one or more behavioral constraints for predicting future trajectories of the plurality of objects
+23. The system of claim 22, wherein the second prediction horizon is about 2 seconds to about 10 seconds.
+24. The system of claim 16, further comprising programming instructions that when executed cause the processor to: determine, for each of the plurality of object trajectory sequences, a reference path; and transform each of the plurality of object trajectory sequences into a curvilinear coordinate system with respect to the corresponding reference path.
+25. The system of claim 24, wherein the reference path is encoded in a vector map that comprises information corresponding to a plurality of semantic attributes.
+26. The system of claim 25, wherein information corresponding to the plurality of semantic attributes comprises at least one of the following: information relating to whether a lane is located within an intersection, information relating to whether a lane has an associated traffic control measure, a lane's turn direction, one or more unique identifiers for a lane's predecessors, or one or more unique identifiers for a lane's successors.
+27. The system of claim 26, wherein the reference path is a centerline of a lane.
+28. The system of claim 16, further comprising programming instructions that when executed cause the processor to: encode social context information of each of the plurality of objects into the corresponding object trajectory.
+29. The system of claim 28, wherein the social context information of each of the plurality of objects comprises at least one of the following: minimum distance to one or more objects in front of that object, minimum distance to one or more objects behind that object, or a number of neighboring objects.
+30. The system of claim 16, wherein the prediction model is a recurrent neural network (RNN).
+</claims>
+</document>

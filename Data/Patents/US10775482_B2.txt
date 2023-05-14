@@ -1,0 +1,68 @@
+<document>
+
+<filing_date>
+2018-04-11
+</filing_date>
+
+<publication_date>
+2020-09-15
+</publication_date>
+
+<priority_date>
+2018-04-11
+</priority_date>
+
+<ipc_classes>
+G01S13/88,G01S7/295,G01S7/41,G06F17/14
+</ipc_classes>
+
+<assignee>
+INFINEON TECHNOLOGIES
+</assignee>
+
+<inventors>
+BAHETI, ASHUTOSH
+BAL, JAGJIT SINGH
+SANTRA, AVIK
+</inventors>
+
+<docdb_family_id>
+68161653
+</docdb_family_id>
+
+<title>
+Human detection and identification in a setting using millimeter-wave radar
+</title>
+
+<abstract>
+A method for human detection includes: receiving first and second echo signals using a millimeter-wave radar to produce first and second sets of data, respectively; selecting first and second angles based on the first and second sets of data, respectively; performing a FrFT on the first set of data using the first angle; identifying first targets by comparing peaks of the FrFT of the first set of data with a first threshold; performing a FrFT on the second set of data using the second angle; identifying second targets by comparing peaks of the FrFT of the second set of data with the first threshold; generating a set of target tracks based on the identified first and second targets; and associating a target track with a human track based on comparing each target track of the set of target tracks with a set of reference track signatures.
+</abstract>
+
+<claims>
+1. A method for human detection, the method comprising: transmitting a plurality of chirps towards objects of a scene using a millimeter-wave radar to produce echo signals; receiving a first echo signal using the millimeter-wave radar to produce a first set of data; identifying first initial targets based on the first set of data; selecting a first angle based on the first set of data; performing a Fractional Fourier Transform (FrFT) on the first set of data based on the first initial targets using the first angle; identifying first targets by comparing peaks of the FrFT of the first set of data with a first threshold; after receiving the first echo signal, receiving a second echo signal using the millimeter-wave radar to produce a second set of data; identifying second initial targets based on the second set of data; selecting a second angle based on the second set of data, wherein the second angle is different from the first angle; performing a FrFT on the second set of data based on the second initial targets using the second angle; identifying second targets by comparing peaks of the FrFT of the second set of data with the first threshold; generating a set of target tracks based on the identified first and second targets; comparing each target track of the set of target tracks with a set of reference track signatures to generate a respective target track comparison result; and associating a target track with a human track based on the respective target track comparison result.
+2. The method of claim 1, further comprising counting a number of humans in the scene by counting a number of target tracks associated with a human track.
+3. The method of claim 1, wherein the scene comprises a factory setting having moving machinery.
+4. The method of claim 1, wherein transmitting the plurality of chirps comprises continuously transmitting 128 to 256 chirps every 500 ms.
+5. The method of claim 1, wherein transmitting the plurality of chirps comprises transmitting chirps equally spaced apart in time.
+6. The method of claim 1, further comprising: updating a location-based probability matrix based on the identified first and second targets; detecting a human per human track; performing a short-time FrFT (STFrFT) on the second set of data to generate a first STFrFT data set; and determining respective states of detected humans using micro-Doppler measurements based on the first STFrFT data set and the location-based probability matrix.
+7. The method of claim 6, further comprising generating an alert when at least one detected human has a state associated with lying down.
+8. The method of claim 6, wherein states associated with detected humans comprise: lying down, standing, and walking.
+9. The method of claim 6, wherein determining respective states of detected humans based on the first STFrFT data comprises comparing the first STFrFT data with reference activity signatures.
+10. The method of claim 9, further comprising: triggering an evacuation based on the determined states of detected humans; and tracking a number of humans in the scene during the evacuation.
+11. The method of claim 9, further comprising generating the reference activity signatures using a machine learning algorithm.
+12. The method of claim 1, wherein the millimeter-wave radar comprises an array of millimeter-wave radar sensor circuits, wherein each millimeter-wave radar sensor captures a different field of view.
+13. The method of claim 12, further comprising stitching respective captured fields of view of each millimeter-wave radar sensor circuits to generate a stitched data set, wherein the first set of data and the second set of data are stitched data sets.
+14. The method of claim 1, further comprising identifying static objects based on the first set of data.
+15. The method of claim 1, wherein identifying first initial targets comprises performing a range Fast Fourier Transform (FFT) on the first set of data.
+16. The method of claim 1, wherein selecting the first angle comprises: performing a plurality of FrFTs on the first set of data using a respective plurality of different angles; and for each FrFT of the plurality of FrFTs, computing a peak to average power ratio (PAPR), wherein an angle of the plurality of different angles associated with a highest PAPR is selected as the first angle.
+17. The method of claim 16, wherein computing the PAPR comprises: identifying five or more local peaks of a respective FrFT; and computing the PAPR by comparing energy of the identified five or more local peaks with average energy of the respective FrFT.
+18. The method of claim 16, wherein selecting the second angle comprises: performing a second plurality of FrFTs on the second set of data using a respective second plurality of different angles; and for each FrFT of the second plurality of FrFTs, computing a PAPR, wherein an angle of the second plurality of different angles associated with a highest PAPR is selected as the second angle.
+19. The method of claim 1, further comprising: updating a location-based probability matrix based on the identified first targets; and determining an angle of arrival of the first echo signal by performing beamforming on the first set of data, wherein updating the location-based probability matrix is based on the beamforming.
+20. The method of claim 1, further comprising clustering targets based on a location-based probability matrix using a nearest neighbor algorithm, wherein the location-based probability matrix is updated based on identified first and second targets, and wherein generating the set of target tracks comprises tracking the clustered targets.
+21. The method of claim 1, wherein each target track of the set of target tracks comprises location information over time.
+22. A system comprising: a processor configured to be coupled to a millimeter-wave radar sensor circuit, the processor configured to: receive from the millimeter-wave radar sensor circuit a first set of data and a second set of data; identify first initial targets based on the first set of data; select a first angle based on the first set of data; perform a Fractional Fourier Transform (FrFT) on the first set of data based on the first initial targets using the first angle; identify first targets by comparing peaks of the FrFT of the first set of data with a first threshold; select a second angle based on the second set of data, wherein the second angle is different from the first angle; identify second initial targets based on the second set of data; perform a FrFT on the second set of data based on the second initial targets using the second angle; identify second targets by comparing peaks of the FrFT of the second set of data with the first threshold; track identified targets based on the identified first and second targets; and compare the tracked identified targets with reference track signatures to detect humans.
+23. The system of claim 22, wherein tracking identified targets comprises generating a set of target tracks based on a location-based probability matrix, wherein each target track of the set of target tracks comprises location information over time, and wherein comparing the tracked targets with reference track signatures comprises: comparing each target track of the set of target tracks with a set of reference track signatures to generate a respective target track comparison result, and associating a target track with a human track based on the respective target track comparison result.
+24. A millimeter-wave radar comprising: a millimeter-wave radar sensor circuit configured to: continuously transmit a plurality of chirps towards objects of a scene to produce echo signals, receive a first echo signal using the millimeter-wave radar to produce a first set of data, and after receiving the first echo signal, receive a second echo signal to produce a second set of data; and a processor configured to: select a first angle based on the first set of data, perform a Fractional Fourier Transform (FrFT) on the first set of data using the first angle, identify first targets by comparing peaks of the FrFT of the first set of data with a first threshold, select a second angle based on the second set of data, wherein the second angle is different from the first angle, perform a FrFT on the second set of data using the second angle, identify second targets by comparing peaks of the FrFT of the second set of data with the first threshold, track identified targets based on the identified first and second targets, and compare the tracked identified targets with reference track signatures to detect humans.
+25. The radar of claim 24, further comprising a plurality of millimeter-wave radar sensor circuits disposed in a ceiling of the scene, wherein the processor is further configured to stitch respective captured fields of view of each millimeter-wave radar sensor circuits of the plurality of millimeter-wave radar sensor circuits to generate a stitched data set.
+</claims>
+</document>

@@ -1,0 +1,59 @@
+<document>
+
+<filing_date>
+2020-09-18
+</filing_date>
+
+<publication_date>
+2021-01-07
+</publication_date>
+
+<priority_date>
+2013-10-31
+</priority_date>
+
+<ipc_classes>
+G06F16/11,G06F16/245,G06F16/901,G06N5/04
+</ipc_classes>
+
+<assignee>
+OXFORD UNIVERSITY INNOVATION
+</assignee>
+
+<inventors>
+MOTIK, BORIS
+NENOV, YAVOR
+Horrocks, Ian
+</inventors>
+
+<docdb_family_id>
+51846708
+</docdb_family_id>
+
+<title>
+PARALLEL MATERIALISATION OF A SET OF LOGICAL RULES ON A LOGICAL DATABASE
+</title>
+
+<abstract>
+A computer-implemented method of providing a materialisation of a set of logical rules on a logical database comprising a set of logical facts. Each of a plurality of parallel processing threads performs the following steps. A logical fact that has not previously been received by any thread is received by the thread. By applying any of the logical rules to the received logical fact and/or any of the logical facts received by any thread prior to the received logical fact, the thread determines whether a new logical fact is implied, and if so the new logical fact is added to the set of logical facts. The thread then repeats the above steps on any further logical facts in the set of logical facts that have not previously been received by any thread. When all threads are waiting for a new logical fact, the method has completed.
+</abstract>
+
+<claims>
+1. 1-39. (canceled)
+40. A computer-implemented method, performed by a computer system, the computer system including i) a logical database including a set of logical facts and at least one index that includes a pointer for locating a logical fact in the set of logical facts, and ii) a plurality of parallel processing threads, wherein each of the plurality of parallel processing threads has an associated reserved area in the logical database for adding a new logical fact to the set of logical facts, the method including updating, by the computer system, the logical database, wherein one or more threads of the plurality of parallel processing threads of the computer system perform steps comprising: receiving a new logical fact to be added to the logical database; adding the new logical fact only to the thread's associated reserved area in the logical database without locking the associated reserved areas of other parallel processing threads; performing an index update process to update the at least one index with the new logical fact without locking the at least one index; setting a status flag to indicate whether the at least one index has been successfully updated; and in a case where the status flag indicates that the at least one index has not been successfully updated, repeating the index update process until the status flag indicates that the at least one index has been successfully updated.
+41. The method as claimed in claim 40, wherein each logical fact in the set of logical facts is stored in the logical database as a triple including a subject, a predicate, and an object, and is associated with a plurality of pointers to other logical facts that share one or more of a same subject, predicate, or object as the each logical fact, and wherein the at least one index includes pointers to a first logical fact having one or more of a particular subject, predicate, or object.
+42. The method as claimed in claim 40, wherein the step of receiving a new logical fact to be added to the logical database further includes: retrieving a logical fact from the set of logical facts, wherein the retrieved logical fact has not previously been retrieved by any thread; and applying at least one logical rule from a set of logical rules to the retrieved logical fact and any of the logical facts previously retrieved by any thread to derive a new logical fact.
+43. The method as claimed in claim 40, wherein the step of receiving a new logical fact includes receiving the set of logical facts to initialise the logical database.
+44. The method as claimed in claim 40, wherein the set of logical facts includes at least one logical fact incorporating an equality predicate indicating that two constants are equal, and a mapping of constants to representative constants is maintained, and wherein the method further includes the steps of: selecting a representative constant from the two constants; updating the mapping to map an other constant of the two constants to the representative constant; and rewriting logical facts in the set of logical facts using the mapping to replace occurrences of the other constant with the representative constant.
+45. A non-transitory computer readable storage configured to store a program that, when executed by a computer system including i) a logical database including a set of logical facts and at least one index that includes a pointer for locating a logical fact in the set of logical facts, and ii) a plurality of parallel processing threads, wherein each of the plurality of parallel processing threads has an associated reserved area in the logical database for adding a new logical fact to the set of logical facts, performs a computer-implemented method including updating, by the computer system, the logical database, wherein one or more threads of the plurality of parallel processing threads of the computer system perform steps comprising: receiving a new logical fact to be added to the logical database; adding the new logical fact only to the thread's associated reserved area in the logical database without locking the associated reserved areas of other parallel processing threads; performing an index update process to update the at least one index with the new logical fact without locking the at least one index; setting a status flag to indicate whether the at least one index has been successfully updated; and in a case where the status flag indicates that the at least one index has not been successfully updated, repeating the index update process until the status flag indicates that the at least one index has been successfully updated.
+46. The storage as claimed in claim 45, wherein each logical fact in the set of logical facts is stored in the logical database as a triple including a subject, a predicate, and an object, and is associated with a plurality of pointers to other logical facts that share one or more of a same subject, predicate, or object as the each logical fact, and wherein the at least one index includes pointers to a first logical fact having one or more of a particular subject, predicate, or object.
+47. The storage as claimed in claim 45, wherein the step of receiving a new logical fact to be added to the logical database further includes: retrieving a logical fact from the set of logical facts, wherein the retrieved logical fact has not previously been retrieved by any thread; and applying at least one logical rule from a set of logical rules to the retrieved logical fact and any of the logical facts previously retrieved by any thread to derive a new logical fact.
+48. The storage as claimed in claim 45, wherein the step of receiving a new logical fact includes receiving the set of logical facts to initialise the logical database.
+49. The storage as claimed in claim 45, wherein the set of logical facts includes at least one logical fact incorporating an equality predicate indicating that two constants are equal, and a mapping of constants to representative constants is maintained, and wherein the method further includes the steps of: selecting a representative constant from the two constants; updating the mapping to map an other constant of the two constants to the representative constant; and rewriting logical facts in the set of logical facts using the mapping to replace occurrences of the other constant with the representative constant.
+50. A computer system including: a memory; and a plurality of parallel processing threads configured to execute a program that performs a computer-implemented method to update, by the computer system, a logical database, wherein the logical database includes a set of logical facts and at least one index that includes a pointer for locating a logical fact in the set of logical facts, wherein each of the plurality of parallel processing threads has an associated reserved area in the logical database for adding a new logical fact to the set of logical facts, and wherein one or more threads of the plurality of parallel processing threads perform steps comprising: receiving a new logical fact to be added to the logical database; adding the new logical fact only to the thread's associated reserved area in the logical database without locking the associated reserved areas of other parallel processing threads; performing an index update process to update the at least one index with the new logical fact without locking the at least one index; setting a status flag to indicate whether the at least one index has been successfully updated; and in a case where the status flag indicates that the at least one index has not been successfully updated, repeating the index update process until the status flag indicates that the at least one index has been successfully updated.
+51. The system as claimed in claim 50, wherein each logical fact in the set of logical facts is stored in the logical database as a triple including a subject, a predicate, and an object, and is associated with a plurality of pointers to other logical facts that share one or more of a same subject, predicate, or object as the each logical fact, and wherein the at least one index includes pointers to a first logical fact having one or more of a particular subject, predicate, or object.
+52. The system as claimed in claim 50, wherein, in the step of receiving a new logical fact to be added to the logical database, the one or more threads further perform the steps of: retrieving a logical fact from the set of logical facts, wherein the retrieved logical fact has not previously been retrieved by any thread; and applying at least one logical rule from a set of logical rules to the retrieved logical fact and any of the logical facts previously retrieved by any thread to derive a new logical fact.
+53. The system as claimed in claim 50, wherein, in the step of receiving a new logical fact, the one or more threads further perform the step of receiving a logical fact from the set of logical facts to initialise the logical database.
+54. The system as claimed in claim 50, wherein the set of logical facts includes at least one logical fact incorporating an equality predicate indicating that two constants are equal, and a mapping of constants to representative constants is maintained, and wherein the one or more threads further perform the steps of: selecting a representative constant from the two constants; updating the mapping to map an other constant of the two constants to the representative constant; and rewriting logical facts in the set of logical facts using the mapping to replace occurrences of the other constant with the representative constant.
+</claims>
+</document>

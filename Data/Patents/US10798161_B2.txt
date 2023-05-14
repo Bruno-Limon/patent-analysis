@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2018-06-06
+</filing_date>
+
+<publication_date>
+2020-10-06
+</publication_date>
+
+<priority_date>
+2017-06-07
+</priority_date>
+
+<ipc_classes>
+H04L12/26,H04L29/08
+</ipc_classes>
+
+<assignee>
+PAYPAL
+</assignee>
+
+<inventors>
+JOTHI, SHANKAR
+DESAI, VAIBHAV
+MATHEW, SURESH
+</inventors>
+
+<docdb_family_id>
+64564419
+</docdb_family_id>
+
+<title>
+Method and system for autoscaling applications
+</title>
+
+<abstract>
+Aspects of the present disclosure involve a system and method for autoscaling application pools. The current disclosure presents a system that can be used to understand the throughput of one instance in an application. The throughput at the one instance in the application and/or traffic trend is used to right-size or auto-scale the application pool for the current traffic trend such that the application pool can be adjusted for varying traffic trends.
+</abstract>
+
+<claims>
+1. A system, comprising a non-transitory memory storing instructions; and a processor configured to execute the instructions to cause the system to: determine a reference cluster of instances of an application in an application pool; select a candidate instance from the reference cluster of instances; increase live traffic routed to the candidate instance for a first period of time using a load balancer having a threshold defining a finite horizon of a number of step increases in the live traffic routed to the candidate instance; monitor the candidate instance to determine whether the increasing the live traffic routed to the candidate instance for the first period of time results in an outlier metric of the application; determine that the increase in live traffic routed to the candidate instance for the first period of time did not result in the outlier metric of the application; in response to the determining that the increase in live traffic routed to the candidate instance for the first period of time fails to result in the outlier metric of the application, increase the live traffic routed to the candidate instance, using the load balancer, for a second period of time, wherein the live traffic routed to the candidate instance for the second period of time is greater than the live traffic routed to the candidate instance for the first period of time: monitor the candidate instance to determine whether the increasing the live traffic routed to the candidate instance for the second period of time results in the outlier metric of the application; determine that the increase in the live traffic routed to the candidate instance for the second period of time fails to result in the outlier metric and the number of step increases in the live traffic routed to the candidate instance using the load balancer has been exhausted; and subsequent to the determination that the increase in live traffic routed to the candidate instance for the second period of time fails to result in the outlier metric and the number of step increases in live traffic routed to the candidate instance using the load balancer has been exhausted, restore a status of the candidate instance to a status that existed before the increasing the live traffic routed to the candidate instance for the first period of time.
+2. The system of claim 1, wherein the determining the reference cluster of instances comprises: removing instance outliers in the application; and selecting a plurality of instances remaining after the instance outliers in the application are removed.
+3. The system of claim 2, wherein executing the instructions further causes the system to: identify the candidate instance from the reference cluster of instances.
+4. The system of claim 2, wherein executing the instructions further causes the system to determine the instance outliers using at least a density-based spatial clustering algorithm.
+5. The system of claim 1, wherein the increasing the live traffic routed to the candidate instance for the first period of time and for the second period of time is performed in incremental steps.
+6. The system of claim 1, wherein the increasing the live traffic for the first period of time and for the second period of time includes increasing a weight of a traffic load of the live traffic being diverted to the candidate instance.
+7. The system of claim 1, wherein executing the instructions further causes the system to record a traffic capacity corresponding to the determination of the outlier metric.
+8. A method comprising: determining a reference cluster of instances of an application in an application pool; selecting a candidate instance from the reference cluster of instances; increasing live traffic routed to the candidate instance for a first period of time using a load balancer having a threshold defining a finite horizon of a number of step increases in the live traffic routed to the candidate instance; monitoring the candidate instance to determine whether the increasing the live traffic routed to the candidate instance for the first period of time results in an outlier metric of the application; determining that the increasing the live traffic routed to the candidate instance for the first period of time did not result in the outlier metric of the application; in response to the determining that the increasing the live traffic routed to the candidate instance for the first period of time fails to result in the outlier metric of the application, increasing the live traffic routed to the candidate instance, using the load balancer, for a second period of time, wherein the live traffic routed to the candidate instance for the second period of time is greater than the live traffic routed to the candidate instance for the first period of time; monitoring the candidate instance to determine whether the increasing the live traffic routed to the candidate instance for the second period of time results in the outlier metric of the application; determining that the increasing the live traffic routed to the candidate instance for the second period of time fails to result in the outlier metric and the number of step increases in the live traffic routed to the candidate instance using the load balancer has been exhausted; and restoring a capacity of the candidate instance to a capacity that existed before the increasing the live traffic routed to the candidate instance for the first period of time.
+9. The method of claim 8, wherein the determining the reference cluster of instances of the application in the application pool comprises: removing instance outliers in the application; and selecting a plurality of instances remaining after the instance outliers in the application are removed.
+10. The method of claim 9, further comprising: identifying the candidate instance from the reference cluster of instances.
+11. The method of claim 9, further comprising determining the instance outliers using at least a density-based spatial clustering algorithm.
+12. The method of claim 8, wherein the increasing the live traffic routed to the candidate instance for the first period of time and the second period of time is performed in incremental steps.
+13. The method of claim 8, wherein the increasing the live traffic routed to the candidate instance for the first period of time and the second period of time includes increasing a weight of a traffic load of the live traffic being diverted to the candidate instance.
+14. A non-transitory machine-readable medium having stored thereon machine-readable instructions executable to cause a machine to perform operations comprising: determining a reference cluster of instances of an application in an application pool; selecting a candidate instance from the reference cluster of instances; increasing live traffic routed to the candidate instance for a first period of time using a load balancer having a threshold defining a finite horizon of a number of step increases in the live traffic routed to the candidate instance; monitoring the candidate instance to determine whether the increasing the live traffic routed to the candidate instance for the first period of time results in an outlier metric of the application; determining that the increasing the live traffic routed to the candidate instance for the first period of time did not result in the outlier metric of the application; in response to the determining that the increasing the live traffic routed to the candidate instance for the first period of time fails to result in the outlier metric of the application, increasing the live traffic routed to the candidate instance, using the load balancer, for a second period of time, wherein the live traffic routed to the candidate instance for the second period of time is greater than the live traffic routed to the candidate instance for the first period of time; monitoring the candidate instance to determine whether the increasing the live traffic routed to the candidate instance for the second period of time results in the outlier metric of the application; determining that the increasing the live traffic routed to the candidate instance for the second period of time fails to result in the outlier metric and the number of step increases in the live traffic routed to the candidate instance using the load balancer has been exhausted; and restoring a traffic capacity of the candidate instance to a traffic capacity that existed before the increasing the live traffic routed to the candidate instance for the first period of time.
+15. The non-transitory machine-readable medium of claim 14, wherein the determining the reference cluster of instances of the application in the application pool comprises: removing instance outliers in the application; and selecting a plurality of instances remaining after the instance outliers in the application are removed.
+16. The non-transitory machine-readable medium of claim 15, wherein the operations further comprise: identifying the candidate instance in the reference cluster of instances.
+17. The non-transitory machine-readable medium of claim 15, wherein the operations further comprise determining the instance outliers using at least a density-based spatial clustering algorithm.
+18. The non-transitory machine-readable medium of claim 14, wherein the increasing the live traffic routed to the candidate instance for the first period of time and the second period of time is performed in incremental steps.
+19. The non-transitory machine-readable medium of claim 14, wherein the increasing the live traffic routed to the candidate instance for the first period of time and the second period of time includes increasing a weight of a traffic load being diverted to the candidate instance.
+20. The system of claim 1, wherein: the monitoring the candidate instance for the first period of time and for the second period of time comprises monitoring a central processing (CPU) usage of the candidate instance; and the determining that the increase in the live traffic routed to the candidate instance for the second period of time fails to result in the outlier metric comprises comparing the CPU usage of the candidate instance to CPU usage of each of the reference cluster of instances.
+</claims>
+</document>

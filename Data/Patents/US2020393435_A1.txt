@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2020-08-26
+</filing_date>
+
+<publication_date>
+2020-12-17
+</publication_date>
+
+<priority_date>
+2018-10-19
+</priority_date>
+
+<ipc_classes>
+G01N33/00,G06K9/62,G06N3/08
+</ipc_classes>
+
+<assignee>
+THE CLIMATE CORPORATION
+</assignee>
+
+<inventors>
+GUAN, WEI
+GUI, YICHUAN
+</inventors>
+
+<docdb_family_id>
+70280521
+</docdb_family_id>
+
+<title>
+DETECTING INFECTION OF PLANT DISEASES BY CLASSIFYING PLANT PHOTOS
+</title>
+
+<abstract>
+A system and processing methods for configuring and utilizing a convolutional neural network (CNN) for plant disease recognition are disclosed. In some embodiments, the system is programmed to collect photos of infected plants or leaves where regions showing symptoms of infecting diseases are marked. Each photo may have multiple marked regions. Depending on how the symptoms are sized or clustered, one marked region may include only one lesion caused by one disease, while another may include multiple, closely-spaced lesions caused by one disease. The system is programmed to determine anchor boxes having distinct aspect ratios from these marked regions for each convolutional layer of a single shot multibox detector (SSD). For certain types of plants, common diseases lead to relatively many aspect ratios, some having relatively extreme values. The system is programmed to then train the SSD using the marked regions and the anchor boxes and apply the SSD to new photos to identify diseased plants.
+</abstract>
+
+<claims>
+1. A system for configuring and utilizing deep learning for plant disease recognition, comprising: a memory; a processor coupled to the memory and configured to perform: receiving a set of photos of plants showing leaves with a plurality of marked regions having multiple aspect ratios, each marked region being associated with a label of a disease of a plurality of diseases and showing at least one lesion caused by the disease; determining, by the processor, a group of anchor boxes from the plurality of marked regions for each of a series of convolutional layers of a single shot multibox detector (SSD), the SSD configured to receive an image and assign each of one or more areas of the image into at least one of a plurality of classes corresponding to the plurality of diseases, the group of anchor boxes having distinct aspect ratios and corresponding to various features of the plurality of classes; mapping each of the plurality of marked regions to one of the groups of anchor boxes, comprising matching a marked region with an anchor box when a superimposition of the anchor box covers more than a predefined percentage of the marked region; building the SSD from the group of anchor boxes, the set of photos having the plurality of marked regions, the associated plurality of labels, and the associated plurality of mappings; receiving a new image from a client device; applying the SSD to the new image to identify symptoms of one or more diseases in one or more areas of the new image.
+2. The system of claim 1, the SSD comprising the series of convolutional layers that correspond to receptive fields of different scales and performing classification using feature maps produced by each of the series of convolutional layers.
+3. The system of claim 1, the SSD comprising 4+c filters for each of the group of anchor boxes, with c being a size of the plurality of classes corresponding to the plurality of diseases.
+4. The system of claim 1, the SSD including a fixed number of filters of a fixed size, for each of the group of anchor boxes, to be applied to feature maps produced by each of the series of convolutional layers.
+5. The system of claim 1, wherein one of the plurality of marked regions shows multiple disconnected lesions having different sizes or aspect ratios.
+6. The system of claim 1, the processor further configured to perform adding additional photos to the set of photos by cropping and resizing a copy of a first photo of the set of photos or by randomly padding and resizing a copy of a second photo of the set of photos.
+7. The system of claim 1, the mapping comprising matching a marked region with one of the group of anchor boxes when a size percentage of an intersection over an union of the marked region and the anchor box over the union is greater than a specific threshold.
+8. The system of claim 1, the mapping further comprising matching a marked region with a negative anchor box outside the group of anchor boxes when a size percentage of an intersection over an union of the marked region and the anchor box over the union is less than a specific threshold.
+9. The system of claim 1, the processor further configured to perform: dividing, combining, or removing one or more of the plurality of marked regions to create a new set of marked regions in accordance with a restriction on a size of a marked region, on a size proportion of a cluster of legions within a marked region to a leaf, or on a density of legions within a marked region based on the predefined percentage, the determining being performed from the new set of marked regions.
+10. The system of claim 1, the determining further comprising normalizing one of the plurality of marked regions based on a fixed distance between a camera and a plan and a fixed camera resolution.
+11. The system of claim 1, the determining comprising deselecting a first marked region from the plurality of marked regions that has a smallest size or a size similar to a second marked region of the plurality of marked regions.
+12. The system of claim 1, the determining comprising: clustering the plurality of marked regions into multiple clusters; computing an aggregate region for a cluster of the multiple clusters; defining an anchor box of the group of anchor boxes based on the cluster.
+13. The system of claim 1, the determining comprising: identifying each of the group of anchor boxes by a unit length, an aspect ratio, and a scaling factor; assigning a smaller scaling factor to the group of anchor boxes for a convolutional layer earlier in the series of convolutional layers and assigning a larger scaling factor to the group of anchor boxes for a convolutional layer later in the series of convolutional layers.
+14. The system of claim 13, the plants being corns, the aspect ratio being 1.0/7.0, 1.0/5.0, 1.0/3.0, 0.5, 1.0, 2.0, 3.0, 5.0, or 7.0.
+15. The system of claim 1, the receiving the new image comprising padding the new image into a square shape and then scaling the new image in the square shape.
+16. The system of claim 1, the applying comprising, when a specific area of the one or more areas of the new image is assigned to multiple classes of the plurality of classes, performing non-maximum suppression (NMS) to select one of the multiple classes.
+17. The system of claim 1, the applying comprising assigning the one or more areas of the new image into one or more classes of the plurality of classes corresponding to the one or more diseases.
+18. A computer-implemented method of configuring and utilizing deep learning for plant disease recognition, comprising: receiving, by a processor, a set of photos of plants showing leaves with a plurality of marked regions having multiple aspect ratios, each marked region being associated with a label of a disease of a plurality of diseases and showing at least one lesion caused by the disease; determining, by the processor, a group of anchor boxes from the plurality of marked regions for each of a series of convolutional layers of a single shot multibox detector (SSD), the SSD configured to receive an image and assign each of one or more areas of the image into at least one of a plurality of classes corresponding to the plurality of diseases, the group of anchor boxes having distinct aspect ratios and corresponding to various features of the plurality of classes; mapping each of the plurality of marked regions to one of the groups of anchor boxes, comprising matching a marked region with an anchor box when a superimposition of the anchor box covers more than a predefined percentage of the marked region; building the SSD from the group of anchor boxes, the set of photos having the plurality of marked regions, the associated plurality of labels, and the associated plurality of mappings; receiving a new image from a client device; applying the SSD to the new image to identify symptoms of one or more diseases in one or more areas of the new image.
+19. The computer-implemented method of claim 18, wherein one of the plurality of marked regions shows multiple disconnected lesions having different sizes or aspect ratios.
+20. The computer-implemented method of claim 18, the mapping further comprising matching a marked region with a negative anchor box outside the group of anchor boxes when a size percentage of an intersection over an union of the marked region and the anchor box over the union is less than a specific threshold.
+</claims>
+</document>

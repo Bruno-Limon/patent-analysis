@@ -1,0 +1,167 @@
+<document>
+
+<filing_date>
+2020-05-22
+</filing_date>
+
+<publication_date>
+2020-11-26
+</publication_date>
+
+<priority_date>
+2019-05-22
+</priority_date>
+
+<ipc_classes>
+G06Q30/02
+</ipc_classes>
+
+<assignee>
+AFFINIO INC
+</assignee>
+
+<inventors>
+RENAUD PHILIP JOSEPH
+</inventors>
+
+<docdb_family_id>
+73458266
+</docdb_family_id>
+
+<title>
+MARKETING INFERENCE ENGINE AND METHOD THEREFOR
+</title>
+
+<abstract>
+A marketing inference engine determines prospective clients, drawn from a population of users, for a commodity. A set of relevant consumer traits is conjectured or determined from data relevant to prior clients of the commodity. Massive data characterizing the population is analysed to determine a superset of user communities of the population of users, each community corresponding to a respective trait of a predefined superset of traits. A set of primary communities, corresponding to the set of relevant consumer traits, is selected from the superset of communities. A set of secondary communities, each determined to have a significant kinship to the set of primary communities, is selected from the superset of communities. A set of primary prospective clients is determined from the primary communities. An expanded set of prospective clients is determined from both the primary communities and the secondary communities.
+</abstract>
+
+<claims>
+1. A method of determining prospective clients for a specific commodity, the method comprising:
+executing instructions causing a processor to perform processes of:
+selecting a specific commodity from a list of commodities of interest;
+acquiring data relevant to prior clients of the specific commodity;
+determining a set of relevant traits of the prior clients based on said data, the set of relevant traits belonging to a predefined superset of traits;
+determining a superset of communities of a universe of users, each community corresponding to a respective trait of the predefined superset of traits;
+selecting a set of primary communities, corresponding to the set of relevant traits, from the superset of communities; and
+determining a set of prospective clients comprising users belonging to the primary communities.
+2. The method of claim 1 further comprising:
+acquiring sizes of communities corresponding to the predefined superset of traits;
+initializing a set of relevant traits as an empty set;
+determining for each trait of the predefined traits a trait score as a number of clients of the set of prior clients determined to have said each trait;
+prorating each trait score to a nominal community size to produce prorated initial scores; transferring a particular trait of highest prorated score to the set of relevant traits;
+adjusting the score of each of the remaining traits to exclude users already included in the particular trait; and
+repeating said prorating, transferring, and adjusting until the highest score of the remaining traits of the set of predefined traits is below a predefined level.
+3. The method of claim 1 further comprising: determining candidate secondary communities from the superset of communities based on a measure of kinship of each community, excluding the primary communities, to the set of primary community;
+selecting a set of secondary communities; and
+determining an expanded set of prospective clients to account for both the primary communities and the secondary communities.
+4. The method of claim 3 further comprising determining a first measure of pairwise kinship of a first community to a second community as:
+a ratio of a number of common users belonging to the intersection of the two communities to a number of users belonging to the union of the two communities; or
+a ratio of a number of common users belonging to the intersection of the two communities to an arithmetic mean value of the number of users belonging to the first community and the number of users belonging to the second community;
+or
+a ratio of a number of common users belonging to the intersection of the two communities to a geometric mean value of the number of users belonging to the first community and the number of users belonging to the second community.
+5. The method of claim 3 or claim 4 further comprising
+segmenting the universe of users into a set of clusters according to individual characteristics of each user of the universe of users;
+determining a saturation-score vector of each community of the superset of communities as a size of intersection of said each community with each cluster of the set of clusters; and
+normalizing said saturation-score vector to a sum of unity to produce a saturation-level vector.
+6. The method of claim 5 further comprising determining a second measure of pairwise kinship of a first community to a second community based on proximity of saturation-level vectors of the two communities.
+7. The method of claim 5 further comprising determining a third measure of pairwise kinship of a first community to a second community based on cross-correlation of saturation-level vectors of the two communities.
+8. The method of claim 7 wherein the kinship measure of any secondary community to any primary community is determined as a function of at least two of:
+a ratio the intersection of the two communities to the union of the two communities; a proximity coefficient of saturation vectors of the two communities; and
+a cross-correlation coefficient of saturation vectors of the two communities.
+9. The method of any one of claims 5 to 8 wherein said determining a set of communities of the universe of users and segmenting the universe of users into a set of clusters are performed a priori in pre-processing modules.
+10. The method of any one of claims 1 to 9 wherein said set of prospective clients is determined as a union of the primary communities, the method further comprising identifying users belonging to intersections of the primary communities as distinct prospective clients.
+11. The method of any one of claims 3 to 10 wherein said expanded set of prospective clients is determined as a union of the primary communities and the secondary communities, the method further comprising identifying users belonging to intersections of communities belonging to the set of primary communities and the set of secondary communities as distinct prospective clients.
+12. The method of any one of claims 3 to 11 further comprising communicating information relevant to the specific commodity to: the set of prospective clients; or the expanded set of prospective clients.
+13. The method of any one of claims 3 to 12 wherein the measure of kinship is a weighted sum of pairwise kinship values of said each candidate secondary community to the set of primary community determined as:
+pj denoting a relevance level of a primary community of index j to the specific commodity, and Aj.k denoting pairwise kinship of a candidate community of index k to a primary community of index j, 0£j<G, G < k < H, H being a count of the total number of communities of the set of communities, G being a count of the primary communities, indexed as 0 to (G-1).
+14. The method of any one of claims 5 to 13 further comprising determining a first measure of pairwise kinship of a first community of index u to a second community of index v as:
+g1,u,v = Nc/ (Nu + Nv -Nc);
+or
+g1,u,v = 2XNc/ (Nu + Nv);
+or
+g1,u,v = Nc/ (Nu + Nv )½; wherein Nu is a number of users belonging to the first community, Nv is the number of users belonging to the second community, and Nc is the number of users belonging to the intersection of the first community and the second community.
+15. The method of any one of claims 5 to 14 further comprising determining a second measure of pairwise kinship of a first community of index u to a second community of index v as:
+g2,u,v = 1.0 - S 0 £j< K |aj-bj| ,
+where:
+K is the number of clusters, K>1; aj is a normalized saturation level of the first community within cluster j determined as a ratio of the number of users belonging to both the first community and cluster j to the number of users belonging to the first community; and bj, is a normalized saturation level of the second community within cluster j determined as a ratio of the number of users belonging to both the second community and cluster j to the number of users belonging to the second community.
+16. The method of any one of claims 5 to 15 further comprising determining a third measure of pairwise kinship of a first community of index u to a second community of index v as:
+g3,u,v = ( S 0 £j< K ( nj×mj) - K ×<n>x<m>)/ (K×sn×sm), where: K is the number of clusters, K>1;
+nj, is a saturation score of the first community within cluster j,
+mj is saturation score of the second community within cluster j, 0£j<K,
+<n> is the mean value of saturation scores of the first community,
+<m> is the mean value of saturation scores of the second community,
+sn is the standard deviation of the saturation score of the first community, and
+sm is the standard deviation of the saturation score of the second community.
+17. A method of advertising a specific commodity implemented at an apparatus comprising a processor and memory devices, the method comprising:
+accessing a database indicating traits, of a predefined superset of traits, of each user of a population of users;
+determining a superset of communities, each community comprising users, of the population of users, possessing a respective trait of the predefined superset of traits; receiving identifiers of a set of primary communities of interest belonging to the superset of communities;
+initializing a set of secondary communities as an empty set;
+for said each community, excluding said set of primary communities:
+determining a measure of kinship to the set of primary communities; and adding said each community to the set of secondary communities subject to a determination that the measure of kinship exceeds a predefined level;
+and
+determining a set of prospective clients based on the set of primary communities and the set of secondary communities.
+18. The method of claim 17 wherein said measure of kinship is determined as a weighted sum of pairwise kinship levels of said each community, excluding said set of primary communities, to each primary community of the set of primary communities.
+19. The method of claim 18 further comprising:
+segmenting the plurality of users into a number K of clusters, K>1, according to individual characteristics of users of the plurality of users; and determining a K-dimensional saturation vector of said each community within the K clusters, the K-dimensional saturation vector being defined according to intersection of said each community with each cluster of said K clusters.
+20. The method of claim 18 or claim 19 wherein a pairwise kinship level of said each community to a specific primary community of the set of primary communities is determined according to:
+a number of users belonging to said each community, a number of users belonging to said specific primary community, and a number of common users belonging to both said each community and said specific primary community;
+or
+proximity of a K-dimensional saturation vector of said each community to a Kdimensional saturation vector of said specific primary community;
+or
+cross-correlation of said K-dimensional saturation vector of said each community to said K-dimensional saturation vector of said specific primary community.
+21. The method of any one of claims 18 to 20 further comprising determining a composite pairwise kinship level of said each community to a specific primary community of the set of primary communities as:
+ej,k = q1 X g1,j,k + q2 X g2,j,k + q3 X g2,j,k;
+q1 + q2 + q3 = 1.0;
+0£j<G, G £ k < H, H being a count of the total number of communities of the set of communities, G being a count of the primary communities, indexed as 0 to (G-1); g1,j,k is a type-1 kinship coefficient based on a number of users belonging to said each community, a number of users belonging to said specific primary community, and a number of common users belonging to both said each community and said specific primary community;
+g2,j,k is a type-2 kinship coefficient based on proximity of a K-dimensional saturation vector of said each community to a K-dimensional saturation vector of said specific primary community; and g3,j,k; k is a type-3 kinship coefficient based on cross-correlation of said K-dimensional saturation vector of said each community to said K-dimensional saturation vector of said specific primary community.
+22. The method of claim 21 further comprising determining said measure of kinship as a composite aggregate kinship of a candidate community of index k, 0£k<H, to the set of G primary communities as:
+Ek = p0X e0,k + p1X e1,k + . . . + p(G-2) X e(G-2)"k + P(G-1) X e(G-1)"k.
+pj, 0£j<G, being a relevance level of a primary community of index j to the specific commodity.
+23. A marketing inference engine, comprising:
+a memory device having computer executable instructions stored thereon for execution by a processor, forming:
+a first module for determining a superset of communities of users, of a tracked population of users, wherein each community comprises users of a respective trait of a predetermined superset of predefined traits;
+a second module for determining relevant traits for a specific commodity based on records of prior client transactions;
+a third module for determining primary communities of the superset of communities corresponding to the relevant traits; and
+a fourth module for determining prospective clients based on at least the primary communities.
+24. The marketing inference engine of claim 23, further comprising:
+a fifth module for determining type-1 pairwise kinships of candidate communities of the superset of communities to the primary communities based on overlap of each candidate community with the primary communities; and
+a sixth module for:
+selecting secondary communities based on values of the type-1 pairwise kinship of candidate communities; and supplying data relevant to the secondary communities to the fourth module for expanding the set of prospective clients to account for both the primary communities and the secondary communities.
+25. The marketing inference engine of claim 23 or claim 24, further comprising:
+a seventh module for segmenting the population of users into a set of clusters according to individual characteristics of each user of the universe of users; and
+an eighth module for:
+determining a saturation-score vector of each community of the superset of communities as a size of intersection of said each community with each cluster of the set of clusters; and
+determining type-2 pairwise kinships of communities based on trait saturation within individual clusters of the set of clusters; and
+determining type-2 pairwise kinship values of candidate communities of the superset of communities, other than the primary communities, to the primary communities based on proximity of a saturation-level vector of each candidate community to a respective saturation-level vector of each primary community.
+26. The marketing inference engine of any one of claims 23 to 25, wherein said eighth module is further configured to determine type-3 pairwise kinship values of candidate communities of the superset of communities, other than the primary communities, to the primary communities based on cross-correlation of a saturation-level vector of each candidate community and a respective saturation-level vector of each primary community.
+27. The marketing inference engine of claim 26, further comprising a ninth module for:
+determining secondary communities according to the type-2 pairwise kinships of communities or the type-3 pairwise kinships of communities; and
+communicating data relevant to the secondary communities to the fourth module for expanding the set of prospective clients to account for both the primary communities and the secondary communities.
+28. A marketing system, comprising:
+a processor; and a marketing inference engine, comsprising a memory device having computer executable instructions stored thereon for execution by the processor, forming:
+a first module for determining a superset of communities of users, of a tracked population of users, wherein each community comprises users of a respective trait of a predetermined superset of predefined traits;
+a second module for determining relevant traits for a specific commodity based on records of prior client transactions;
+a third module for determining primary communities of the superset of communities corresponding to the relevant traits; and
+a fourth module for determining prospective clients based on at least the primary communities.
+29. A system for determining prospective clients for a specific commodity, comprising:
+a processor;
+a computer memory storing processor executable instructions thereon, for execution by the processor, causing the processor to:
+select a specific commodity from a list of commodities of interest;
+acquire data relevant to prior clients of the specific commodity;
+determine a set of relevant traits of the prior clients based on said data, the set of relevant traits belonging to a predefined superset of traits;
+determine a superset of communities of a universe of users, each community
+corresponding to a respective trait of the predefined superset of traits;
+select a set of primary communities, corresponding to the set of relevant traits, from the superset of communities; and
+determine a set of prospective clients comprising users belonging to the primary communities.
+30. A system for advertising a specific commodity, comprising:
+a processor;
+a computer memory storing processor executable instructions thereon, for execution by the processor, causing the processor to: access a database indicating traits, of a predefined superset of traits, of each user of a population of users;
+determine a superset of communities, each community comprising users, of the population of users, possessing a respective trait of the predefined superset of traits; receive identifiers of a set of primary communities of interest belonging to the superset of communities;
+initialize a set of secondary communities as an empty set;
+for said each community, excluding said set of primary communities:
+determine a measure of kinship to the set of primary communities; and add said each community to the set of secondary communities subject to a determination that the measure of kinship exceeds a predefined level;
+and
+determine a set of prospective clients based on the set of primary communities and the set of secondary communities.
+</claims>
+</document>

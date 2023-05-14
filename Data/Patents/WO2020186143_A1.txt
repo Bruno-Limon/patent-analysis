@@ -1,0 +1,200 @@
+<document>
+
+<filing_date>
+2020-03-13
+</filing_date>
+
+<publication_date>
+2020-09-17
+</publication_date>
+
+<priority_date>
+2019-03-13
+</priority_date>
+
+<ipc_classes>
+B25J9/16,G06K9/52,G06Q10/08,G06Q30/02
+</ipc_classes>
+
+<assignee>
+SIMBE ROBOTICS
+</assignee>
+
+<inventors>
+BOGOLEA, BRADLEY
+TIWARI, DURGESH
+</inventors>
+
+<docdb_family_id>
+72424843
+</docdb_family_id>
+
+<title>
+METHOD FOR DEPLOYING FIXED AND MOBILE SENSORS FOR STOCK KEEPING IN A STORE
+</title>
+
+<abstract>
+One variation of a method for deploying fixed cameras within a store includes: dispatching a robotic system to autonomously navigate along a set of inventory structures in the store and generate a spatial map of the store during a scan cycle; generating an accessibility heatmap representing accessibility of regions of the store to the robotic system based on the spatial map; generating a product value heatmap for the store based on locations and sales volumes of products in the store; accessing a number of fixed cameras allocated to the store; generating a composite heatmap for the store based on the accessibility heatmap and the product value heatmap; identifying a subset of inventory structures occupying a set of locations within the store corresponding to critical amplitudes in the composite heatmap; and generating a prompt to install the number of fixed cameras facing the subset of inventory structures in the store.
+</abstract>
+
+<claims>
+I claim:
+1. A method for deploying fixed cameras within a store comprising:
+• dispatching a robotic system to autonomously navigate along a set of inventory structures in the store and generate a first spatial map of the store during a first scan cycle;
+• generating an accessibility heatmap representing accessibility of regions of the store to the robotic system based on the first spatial map;
+• generating a product value heatmap for the store based on locations and sales volumes of products in the store;
+• accessing a number of fixed cameras allocated to the store;
+• generating a composite heatmap for the store based on the accessibility heatmap and the product value heatmap;
+• identifying a first subset of inventory structures, in the set of inventory structures within the store, occupying a first set of locations corresponding to critical amplitudes in the composite heatmap, the first subset of inventory structures containing a quantity of inventory structures equal to the number of fixed cameras; and
+• generating a prompt to install the number of fixed cameras facing the first subset of inventory structures in the store.
+2. The method of Claim l:
+• wherein dispatching the robotic system comprises dispatching the robotic system to further capture a sequence of images of inventory structures within the store while autonomously navigating through the store during the first scan cycle;
+• further comprising:
+o interpreting identities, locations, and quantities of products in the sequence of images;
+o generating a realogram representing identities, locations, and quantities of products in the store during the first scan cycle; and
+o generating a global restocking list for the store based on deviations between identities, locations, and quantities of products represented in the realogram and identities, locations, and quantities of products assigned to inventory structures in the store by a planogram of the store.
+3. The method of Claim 1:
+• wherein dispatching the robotic system comprises dispatching the robotic system to further capture a sequence of images of the set of inventory structures within the store while autonomously navigating through the store during the first scan cycle;
+• further comprising:
+o initializing an imaging viability heatmap for the store;
+o for each image in the sequence of images:
+■ calculating a fidelity score of the image;
+■ identifying a segment of an inventory structure, in the set of inventory structures in the store, depicted in the image; and
+■ representing the fidelity score of the image in a region of an imaging viability heatmap corresponding to a location of the segment of the inventory structure in the store; and
+• wherein generating the composite heatmap for the store comprises generating the composite heatmap further based on the imaging viability heatmap, the composite heatmap comprising a gradient of amplitudes representing practicality of fixed cameras to image the set of inventory structures throughout the store.
+4. The method of Claim 3, wherein calculating a fidelity score of an image for each image in the sequence of images comprises, for each image in the sequence of images:
+• detecting a product depicted in a region of the image;
+• identifying a product type of the product based on a set of features extracted from the region of image;
+• calculating a confidence score for identification of the product as the product type; and
+• calculating the fidelity score of the image based on the confidence score.
+5. The method of Claim 3, wherein calculating a fidelity score of an image for each image in the sequence of images comprises, for each image in the sequence of images: • characterizing an illumination intensity of the segment of the inventory structure depicted in the image based on color values in pixels in the image;
+• calculating a location of a mobile camera on the robotic system that captured the image relative to the segment of inventory structure based on a pose of the robotic system within the store when the robotic system captured the image;
+• characterizing an imaging distance from the mobile camera to slots in the segment of the inventory structure based on the location of the mobile camera relative to the segment of the inventory structure;
+• characterizing an imaging angle from the mobile camera to slots in the segment of the inventory structure based on the location of the mobile camera relative to the segment of inventory structure; and
+• calculating the fidelity score of the image:
+o proportional to the illumination intensity;
+o inversely proportional to the imaging distance; and
+o inversely proportional to the imaging angle.
+6. The method of Claim l, wherein generating the accessibility heatmap comprises:
+• detecting the set of inventory structures in the first spatial map;
+• for each inventory structure in the set of inventory structures:
+o detecting an aisle adjacent the inventory structure in the first spatial map; o identifying an open end of the aisle in the first spatial map;
+o extracting a distance from the inventory structure to the open end of the aisle from the first spatial map; and
+o calculating an accessibility score for the inventory structure proportional to the distance; and
+• aggregating accessibility scores for the set of inventory structures into the accessibility heatmap based on locations of the set of inventory structures represented in the first spatial map.
+7. The method of Claim 1, wherein generating the product value heatmap comprises:
+• for each slot in each inventory structure in the set of inventory structures in the store:
+o accessing a corpus of historical sales data for a product assigned to the slot by a planogram of the store; o deriving a sale frequency of the product from the corpus of historical sales data;
+o reading a quantity of units of the product assigned to the slot by the planogram;
+o retrieving a total quantity of units of the product assigned to all slots in the store;
+o calculating a normalized quantity of units of the product based on a ratio of the quantity of units of the product assigned to the slot to the total quantity of units of the product assigned to all slots in the store; and
+o calculating a frequency monitoring value for the slot based on a ratio of the sale frequency of the product to the normalized quantity of units of the product; and
+• aggregating frequency monitoring values of slots in the set of inventory structures into the product value heatmap based on locations of slots in the set of inventory structures and locations of the set of inventory structures in the store.
+8. The method of Claim l, wherein generating the product value heatmap comprises:
+• for each slot in each inventory structure in the set of inventory structures in the store:
+o accessing a corpus of historical sales data for a product assigned to the slot by a planogram of the store;
+o deriving a sale frequency of the product from the corpus of historical sales data;
+o accessing a margin of the product;
+o calculating a product value of the product based on a combination of the sale frequency of the product and the margin of the product; and
+o associating the product value with the slot; and
+• aggregating product values associated with slots in the set of inventory structures into the product value heatmap based on locations of slots in the set of inventory structures and locations of the set of inventory structures in the store.
+9. The method of Claim 1:
+• wherein accessing the number of fixed cameras allocated to the store comprises accessing a number of fixed cameras, allocated to the store, configured to transmit images over a wireless network; • wherein dispatching the robotic system comprises dispatching the robotic system to further capture wireless network connectivity data while autonomously navigating through the store during the first scan cycle;
+• further comprising:
+o generating a wireless connectivity heatmap for the store based on wireless network connectivity data captured by the robotic system during the first scan cycle;
+o assigning a first weight to the product value heatmap;
+o assigning a second weight to the wireless connectivity heatmap, the second weight less than the first weight;
+o assigning a third weight to the accessibility heatmap, the third weight comprising a negative value, an absolute value of the third weight greater than the first weight;
+• wherein generating the composite heatmap comprises compiling the product value heatmap, the wireless connectivity heatmap, and the accessibility heatmap according to the first weight, the second weight, and the third weight, the composite heatmap comprising a gradient of amplitudes representing practicality of fixed cameras to image the set of inventory structures throughout the store; and
+• wherein identifying the first subset of inventory structures comprises identifying the first subset of inventory structures intersecting clusters of highest aggregate amplitudes in the composite heatmap.
+10. The method of Claim l:
+• wherein accessing the number of fixed cameras allocated to the store comprises accessing a number of fixed cameras, allocated to the store, configured to source power from fixed electrical infrastructure in the store;
+• further comprising:
+o accessing a map of electrical infrastructure in the store;
+o generating an electrical infrastructure heatmap representing proximity to fixed electrical infrastructure in the store based on the map of electrical infrastructure in the store;
+o assigning a first weight to the product value heatmap;
+o assigning a second weight to the electrical infrastructure heatmap, the second weight less than the first weight; and o assigning a third weight to the accessibility heatmap, the third weight comprising a negative value, an absolute value of the third weight less than the first weight;
+• wherein generating the composite heatmap comprises compiling the product value heatmap, the electrical infrastructure heatmap, and the accessibility heatmap according to the first weight, the second weight, and the third weight, the composite heatmap comprising a gradient of amplitudes representing practicality of fixed cameras to image the set of inventory structures throughout the store; and
+• wherein identifying the first subset of inventory structures comprises identifying the first subset of inventory structures intersecting clusters of highest aggregate amplitudes in the composite heatmap.
+11. The method of Claim 10:
+• wherein dispatching the robotic system comprises dispatching the robotic system to further capture a sequence of images of a ceiling of the store while autonomously navigating through the store during the first scan cycle;
+• assembling the sequence of images into a composite image of the ceiling of the store;
+• detecting electrical conduit and electrical outlets in the composite image of the ceiling of the store; and
+• aggregating locations of electrical conduit and electrical outlets detected in the composite image of the ceiling of the store into the map of electrical infrastructure in the store.
+12. The method of Claim l, further comprising:
+• identifying a second subset of inventory structures, in the set of inventory structures within the store, occupying a second set of locations corresponding to amplitudes in the composite heatmap less than critical amplitudes corresponding to the first set of locations;
+• scheduling the second subset of inventory structures for imaging by the robotic system during a second scan cycle succeeding the first scan cycle; and
+• scheduling the first subset of inventory structures for imaging by the number of fixed cameras installed in the store.
+13. The method of Claim 12, further comprising:
+• at a first fixed camera in the number of fixed cameras installed in the store: o recording a first image of a first inventory structure in the subset of inventory structures; and
+o storing the first image of the first inventory structure in local memory;
+• at the robotic system, during the second scan cycle:
+o navigating proximal the first inventory structure;
+o querying the fixed camera for images stored in memory;
+o downloading the first image from the first fixed camera;
+o navigating proximal a second inventory structure in the second subset of inventory structures;
+o recording a second image of the second inventory structure; and
+o transmitting the first image and the second image to a remote computer system; and
+• at the remote computer system:
+o detecting a first product in the first image;
+o identifying a first product type of the first product detected in the first image; o detecting a second product in the second image;
+o identifying a second product type of the second product detected in the second image; and
+o calculating a stock condition of the store during the second scan cycle based on the first product type detected in the first inventory structure and the second product type detected in the second inventory structure.
+14. The method of Claim 1, further comprising:
+• at a first fixed camera, in the number of fixed cameras, facing a first inventory structure in the first subset of inventory structures:
+o in response to detecting motion in a field of view of the first fixed camera at a first time, setting an imaging flag; and
+o in response to detecting absence of motion in the field of view of the first fixed camera for a threshold duration of time succeeding the first time:
+clearing the imaging flag;
+■ capturing an image of the first inventory structure; and transmitting the image to a remote computer system; and
+• at the remote computer system:
+o detecting a product in the image;
+o identifying a product type of the product detected in the image; o reading a target product assigned to a slot, in the first inventory structure occupied by the product, by a planogram of the store; and o in response to the product type deviating from the target product, serving a prompt to a computing device affiliated with a store associate to restock the slot in the first inventory structure.
+15. The method of Claim 1:
+• further comprising:
+o dispatching the robotic system to execute a sequence of scan cycles prior to the first scan cycle;
+o for each scan cycle in the sequence of scan cycles:
+■ accessing a set of images of the set of inventory structures and a spatial map recorded by the robotic system during the scan cycle;
+■ deriving a stock condition of the store at a time of the scan cycle;
+■ characterizing fidelities of images in the set of images;
+■ characterizing accessibility of the set of inventory structure to the robotic system based on the spatial map; and
+o generating an imaging viability heatmap representing variance of fidelity of images of the set of inventory structures over the sequence of scan cycles;
+• wherein generating the accessibility heatmap comprises generating the accessibility heatmap representing accessibility of regions of the store to the robotic system and variance of accessibility of the set of inventory structures to the robotic system over the sequence of scan cycles;
+• wherein generating the composite heatmap for the store comprises generating the composite heatmap for the store further based on the imaging viability heatmap; and
+• wherein generating the prompt to install the number of fixed cameras facing the first subset of inventory structures in the store comprises generating the prompt to install the number of fixed cameras in response to critical amplitudes in the composite heatmap, corresponding to locations of the subset of inventory structures in the store, exceeding a threshold amplitude.
+16. The method of Claim 1:
+• further comprising: o detecting faces of shelves in the set of inventory structures in the first spatial map; and
+o representing a set of camera mounting locations in a camera mount map for the store based on locations of faces of shelves in the set of inventory structures extracted from the first spatial map;
+• wherein identifying the first subset of inventory structures comprises:
+o for each camera mounting location in the set of camera mounting locations:
+■ selecting a first camera location from the camera mount map;
+■ calculating a field of view of a fixed camera located at the first location based on properties of the fixed camera;
+■ projecting the field of view of the fixed camera onto the composite heatmap; and
+■ calculating a sum of amplitudes, in the composite heatmap, intersecting the field of view of the fixed camera projected onto the composite heatmap; and
+o identifying a subset of fixed camera locations, in the camera mount map, that yield fields of view that intersect highest sums of amplitudes in the composite heatmap; and
+• wherein generating the prompt to install the number of fixed cameras facing the first subset of inventory structures in the store comprises generating the prompt to install the number of fixed cameras in the subset of fixed camera locations.
+17. A method for deploying fixed cameras within a store comprising:
+• dispatching a robotic system to autonomously navigate along a set of inventory structures in the store and generate a first spatial map of the store during a first scan cycle;
+• generating an accessibility heatmap representing accessibility of regions of the store to the robotic system based on the first spatial map;
+• generating a product value heatmap for the store based on locations and sales volumes of products in the store;
+• generating a composite heatmap for the store based on the accessibility heatmap and the product value heatmap, the composite heatmap comprising a gradient of amplitudes representing practicality of fixed cameras to image the set of inventory structures throughout the store;
+• for each inventory structure in the set of inventory structures: o calculating a fixed camera score, in a set of fixed camera scores, for imaging the inventory structure with a fixed camera according to an amplitude represented in the composite heatmap at a location corresponding to the inventory structure; and
+• prompting prioritization of installation of fixed cameras in the store to image the set of inventory structures according to the set of fixed camera scores.
+18. The method of Claim 17:
+• further comprising:
+o accessing a number of fixed cameras allocated to the store; and
+o identifying a first subset of inventory structures, in the set of inventory structures within the store, occupying a first set of locations corresponding to highest fixed camera scores, the first subset of inventory structures containing a quantity of inventory structures equal to the number of fixed cameras; and
+• wherein prompting prioritization of installation of fixed cameras in the store according to the set of fixed camera scores comprises generating a prompt to install the number of fixed cameras facing the first subset of inventory structures in the store.
+19. A method for deploying fixed cameras within a store comprising:
+• accessing a record of locations of a set of products stocked on a set of inventory structures within the store;
+• generating a product value heatmap for the store based on locations and sales volumes of the set of products;
+• generating a wireless connectivity heatmap for the store representing wireless network connectivity throughout the store;
+• generating a composite heatmap for the store based on the product value heatmap and the wireless connectivity heatmap, the composite heatmap comprising a gradient of amplitudes representing practicality of fixed cameras to image the set of inventory structures throughout the store;
+• for each inventory structure in the set of inventory structures:
+o calculating a fixed camera score, in a set of fixed camera scores, for imaging the inventory structure with a fixed camera according to an amplitude represented in the composite heatmap at a location corresponding to the inventory structure; and • prompting prioritization of installation of fixed cameras in the store to image the set of inventory structures according to the set of fixed camera scores.
+20. The method of Claim 19:
+• further comprising:
+o dispatching a robotic system to autonomously navigate along the set of inventory structures in the store, generate a spatial map of the store, and capture wireless network connectivity data during a scan cycle; and o generating an accessibility heatmap representing accessibility of regions of the store to the robotic system based on the first spatial map;
+• wherein generating the wireless connectivity heatmap comprises compiling wireless network connectivity data captured by the robotic system during the scan cycle; and
+• wherein generating the composite heatmap for the store comprises generating the composite heatmap further based on the accessibility heatmap.
+</claims>
+</document>

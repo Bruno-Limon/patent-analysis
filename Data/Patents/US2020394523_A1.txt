@@ -1,0 +1,68 @@
+<document>
+
+<filing_date>
+2019-12-19
+</filing_date>
+
+<publication_date>
+2020-12-17
+</publication_date>
+
+<priority_date>
+2019-06-12
+</priority_date>
+
+<ipc_classes>
+G06F17/18,G06N20/00,G06N3/08
+</ipc_classes>
+
+<assignee>
+SHANGHAI CAMBRICON INFORMATION TECHNOLOGY COMPANY
+</assignee>
+
+<inventors>
+LIU, SHAOLI
+MENG, XIAOFU
+ZHANG, XISHAN
+Guo, Jiaming
+</inventors>
+
+<docdb_family_id>
+73745462
+</docdb_family_id>
+
+<title>
+Neural Network Quantization Parameter Determination Method and Related Products
+</title>
+
+<abstract>
+The present disclosure relates to a neural network quantization parameter determination method and related products. A board card in the related products includes a memory device, an interface device, a control device, and an artificial intelligence chip, in which the artificial intelligence chip is connected with the memory device, the control device, and the interface device respectively. The memory device is configured to store data, and the interface device is configured to transmit data between the artificial intelligence chip and an external device. The control device is configured to monitor the state of the artificial intelligence chip. The board card can be used to perform an artificial intelligence computation.
+</abstract>
+
+<claims>
+1. A method for determining quantization parameters in neural network, comprising: obtaining an analyzing result of each type of the data to be quantized, wherein the data to be quantized includes at least one type of data among neurons, weights, gradients, and biases of the neural network; and determining a corresponding quantization parameter according to the analyzing result of each type of data to be quantized and data bit width, wherein the quantization parameter is used by an artificial intelligence processor to perform corresponding quantization on data involved in a process of neural network operation; wherein the quantization parameter is a first scaling coefficient.
+2. The method of claim 1, further comprising: quantizing target data by using the corresponding quantization parameter, wherein a feature of the target data is similar to that of the data to be quantized.
+3. The method of claim 1, wherein the neural network operation process includes at least one operation among neural network training, neural network inference, and neural network fine-tuning.
+4. The method of claim 1, wherein the analyzing result is a maximum value and a minimum value of, or a maximum absolute value of, each type of data to be quantized, wherein the maximum absolute value is determined according to the maximum value and the minimum value of each type of data to be quantized, wherein the quantization parameter is determined according to either the maximum value of each type of data to be quantized and the minimum value of each type of data to be quantized, or the maximum absolute value of each type of data, together with the data bit width.
+5. The method of claim 1, wherein the first scaling coefficient is determined according to a point position parameter and a second scaling parameter, wherein the point position parameter used in determining the first scaling coefficient is a known fixed value, or a result of multiplying the point position parameter and the corresponding second scaling coefficient is taken as the first scaling coefficient as a whole to be applied to data quantization in the process of neural network operation, and wherein the second scaling coefficient is determined according to the point position parameter, the analyzing result, and the data bit width.
+6. The method of claim 1, wherein the data bit width is adjusted according to the corresponding quantization error, wherein the quantization error is determined according to the quantized data and corresponding pre-quantized data, and wherein the adjusting the data bit width includes: comparing the quantization error with a threshold to obtain a comparison result, and adjust the data bit width according to the comparison result, wherein the threshold includes at least one from the group of a first threshold and a second threshold.
+7. The method of claim 6, wherein the adjusting the data bit width includes: increasing the data bit width if the quantization error is greater than or equal to the first threshold, or reducing the data bit width if the quantization error is less than or equal to the second threshold, or remaining the data bit width unchanged if the quantization error is between the first threshold and the second threshold.
+8. The method of claim 6, wherein the method for obtaining the quantization error includes: determining a quantization interval according to the data bit width, and determining the quantization error according to the quantization interval, the number of the quantized data, and the corresponding pre-quantized data.
+9. The method of claim 6, wherein the method for obtaining the quantization error includes: performing inverse quantization on the quantized data to obtain inverse quantized data, wherein a data format of the inverse quantized data is the same as that of the corresponding pre-quantized data, and determining the quantization error according to the quantized data and the corresponding inverse quantized data.
+10. The method of claim 6, wherein the pre-quantized data is the data to be quantized or wherein the pre-quantized data is data to be quantized involved in weight update iteration within a target iteration interval, and wherein the target iteration interval includes at least one weight update iteration and the same data bit width is used in the quantization process within the same target iteration interval.
+11. The method of claim 10, wherein the target iteration interval is determined by: at a predicted time point, determining a variation trend value of a point position parameter of data to be quantized involved in the weight update iteration, wherein the predicted time point is configured to determine whether the data bit width needs to be adjusted or not, and the predicted time point corresponds to the time point when the weight update iteration is completed, and determining the corresponding target iteration interval according to the variation trend value of the point position parameter.
+12. The method of claim 10, wherein the target iteration interval is determined by: at a predicted time point, determining a variation trend value of a point position parameter and a variation trend value of data bit width corresponding to the data to be quantized involved in the weight iteration process, wherein the predicted time point is configured to determine whether the data bit width needs to be adjusted or not, and the predicted time point corresponds to the time point when the weight update iteration is completed, and determining the corresponding target iteration interval according to the variation trend value of the point position parameter and the variation trend value of the data bit width.
+13. The method of claim 11, wherein the predicted time point includes a first predicted time point, wherein the first predicted time point is determined according to the target iteration interval.
+14. The method of claim 13, wherein the predicted time point further includes a second predicted time point, wherein the second predicted time point is determined according to a curve of data variation range, and wherein the curve of data variation range is obtained by analyzing the data variation range in the process of weight update iteration.
+15. The method of claim 12, wherein the variation trend value of the point position parameter is determined according to the point position parameter or a moving average value of the point position parameter that corresponds to a current predicted time point and a moving average value of the point position parameter corresponding to a previous predicted time point.
+16. The method of claim 14, wherein the determining a moving average value of a point position parameter corresponding to the current predicted time point includes: determining the point position parameter corresponding to the current predicted time point according to a point position parameter corresponding to a previous predicted time point and an adjusted value of the data bit width, adjusting a moving average value of a point position parameter corresponding to the previous predicted time point according to the adjusted value of the data bit width to obtain an adjusted result, and determining the moving average value of the point position parameter corresponding to the current predicted time point according to the point position parameter corresponding to the current predicted time point and the adjusted result.
+17. The method of claim 14, wherein the determining the moving average value of the point position parameter corresponding to the current predicted time point includes: determining an intermediate result of the moving average value of the point position parameter corresponding to the current predicted time point according to the point position parameter corresponding to the previous predicted time point and the moving average value of the point position parameter corresponding to the previous predicted time point, and determining the moving average value of the point position parameter corresponding to the current predicted time point according to the intermediate result of the moving average value of the point position parameter corresponding to the current predicted time point and the adjusted value of the data bit width.
+18. The method of claim 13, wherein the variation trend value of the data bit width is determined according to the corresponding quantization error.
+19. The method of claim 11, wherein the determining data bit width used in the quantization process within the target iteration interval includes: determining a corresponding quantization error, wherein pre-quantized data corresponding to the quantization error is the data to be quantized involved in the weight update iteration corresponding to the predicted time point, and determining the data bit width used in the quantization process within the target iteration interval according to the corresponding quantization error.
+20. The method of claim 19, wherein the determining data bit width used in the quantization process within the target iteration interval includes: comparing the quantization error with the threshold to obtain a comparison result, and adjusting the data bit width used in the quantization process within the previous target iteration interval according to the comparison result to obtain an adjusted result, wherein the adjusted result is taken as the data bit width used in the quantization process within a current target iteration interval.
+21. The method of claim 19, wherein the pre-quantized data is the data to be quantized in the weight update iteration within a target iteration interval, wherein the target iteration interval includes at least one weight update iteration and the same quantization parameter is used in the quantization process within the same target iteration interval.
+22. The method of claim 21, wherein the determining the target iteration interval includes: at a predicted time point, determining a variation trend value of a point position parameters of data to be quantized involved in the weight update iteration, wherein the predicted time point is used to determine whether the quantization parameter needs to be adjusted or not, and the predicted time point corresponds to the time point when the weight update iteration is completed, and determining the corresponding target iteration interval according to the variation trend value of the point position parameter.
+23. A device for determining quantization parameters in neural network, comprising a memory and a processor, wherein a computer program that can be run on the processor is stored on the memory, and the processor implements the method of claim 1 when executing the computer program.
+24. A computer readable storage medium, on which a computer program is stored, wherein the method of claim 1 is implemented when the computer program is executed.
+</claims>
+</document>

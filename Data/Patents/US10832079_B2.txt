@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2018-05-09
+</filing_date>
+
+<publication_date>
+2020-11-10
+</publication_date>
+
+<priority_date>
+2017-05-09
+</priority_date>
+
+<ipc_classes>
+G06F17/18,G06F30/13,G06K9/46,G06K9/66,G06T17/00,G06T7/143
+</ipc_classes>
+
+<assignee>
+DASSAULT SYSTEMES
+</assignee>
+
+<inventors>
+BAAJ, ADIL
+MEHR, ELOI
+</inventors>
+
+<docdb_family_id>
+59506213
+</docdb_family_id>
+
+<title>
+Determining an architectural layout
+</title>
+
+<abstract>
+A computer-implemented method for determining an architectural layout. The method comprises providing a cycle of points that represents a planar cross section of a cycle of walls, and, assigned to each respective point, a respective first datum that represents a direction normal to the cycle of points at the respective point. The method also comprises minimizing a Markov Random Field energy thereby assigning, to each respective point, a respective one of the set of second data. The method also comprises identifying maximal sets of consecutive points to which a same second datum is assigned, and a cycle of vertices bounding a cycle of segments which represents the architectural layout. Such a method constitutes an improved solution for determining an architectural layout.
+</abstract>
+
+<claims>
+1. A computer-implemented method comprising: obtaining a cycle of points that represents a planar cross section of a cycle of walls, and, assigned to each respective point, a respective first datum that represents a direction normal to the cycle of points at the respective point; minimizing a Markov Random Field (MRF) energy defined on the cycle of points with labels taking values in a set of second datum each representing a respective direction normal to an architectural layout, thereby assigning, to each respective point, a respective one of the set of second datum, the MRF energy comprising a unary term that penalizes, for each point, an angular distance between the direction represented by the assigned second datum and the direction represented by the assigned first datum, the MRF energy further comprising a binary term that increasingly penalizes, for each couple of consecutive points, an angular distance between the directions represented by the assigned second datum as an angular distance between the directions represented by the assigned first datum decreases; identifying maximal sets of consecutive points to which a same second datum is assigned; and determining a cycle of vertices bounding a cycle of segments that represents the architectural layout, each segment corresponding to a respective wall, each segment fitting a respective maximal set and being normal to the direction represented by the second datum assigned to respective consecutive points of respective maximal set.
+2. The method of claim 1, wherein the minimizing of the MRF energy is exact.
+3. The method of claim 1, wherein the minimizing of the MRF energy is performed via one or more belief propagations.
+4. The method of claim 1, wherein the first datum and the second datum are vectors, and the angular distance between the direction represented by an assigned second datum Nk and the direction represented by an assigned first datum ni is of the type D(xi,k)=1−|Nk·ni|, the angular distance between the directions represented by assigned second datum Nk and Nm is of the type 1k≠m, and/or the angular distance between the directions represented by assigned first datum ni and nj is of the type |ni·nj|.
+5. The method of claim 4, wherein the MRF energy is of the type E(l(x0), . . . , l(xn−1))==Σi=0n−1D(xi,l(xl))+λΣi=0n−1S(xi,xi+1,l(xi+1)), where: {x0, . . . , xn−1} is the cycle of points, with i+1=0 when i=n−1, D(xi,l(xi)) is the unary term, S(xi,xi+1,l(xi),l(xi+1)) is the binary term, and λ is a positive number.
+6. The method of claim 1, wherein each respective vertex corresponds to a respective first point and to a respective second point, the respective first point being the ending point of the maximal set corresponding to a respective segment bounded by the respective vertex, the respective second point being the starting point of the maximal set corresponding to the respective other segment bounded by the respective vertex, the determining of the respective vertex comprising: determining an initial position of the respective vertex as a function of the respective first point and the respective second point; and optimizing the initial position.
+7. The method of claim 6, wherein the function of the respective first point and the respective second point is the mean function.
+8. The method of claim 6, wherein the optimizing minimizes a cost function that penalizes for each respective segment a distance between a resulting value of a length of the respective segment from the initial value of the length of the respective segment.
+9. The method of claim 1, wherein the cycle of points is a concave hull of a 2D point cloud that corresponds to a projection of a 3D point cloud representing the cycle of walls on a projection plane, the projection plane corresponding to the planar cross section.
+10. The method of claim 9, wherein the projection plane represents the floor plane and/or the projection is a vertical projection.
+11. The method of claim 9, wherein the obtaining of the cycle of points comprises: obtaining a 3D point cloud representing a room that includes the cycle of walls; identifying the projection plane and the 3D point cloud representing the cycle of walls from the 3D point cloud representing the room; projecting the 3D point cloud representing the cycle of walls on the projection plane; determining the 2D point cloud; and determining the concave hull.
+12. The method of claim 11, wherein the identifying of the projection plane and of the 3D point cloud representing the cycle of walls comprises detecting planes in the 3D point cloud representing the room with a random sample consensus algorithm.
+13. The method of claim 12, wherein the determining of the 2D point cloud comprises, for each detected plane, projecting the result of the projection of the plane on a linear regression of the result.
+14. A non-transitory computer-readable medium having stored thereon a computer program comprising instructions for performing a computer-implemented method, the method comprising: obtaining a cycle of points that represents a planar cross section of a cycle of walls, and, assigned to each respective point, a respective first datum that represents a direction normal to the cycle of points at the respective point; minimizing a Markov Random Field (MRF) energy defined on the cycle of points with labels taking values in a set of second datum each representing a respective direction normal to an architectural layout, thereby assigning, to each respective point, a respective one of the set of second datum, the MRF energy comprising a unary term that penalizes, for each point, an angular distance between the direction represented by the assigned second datum and the direction represented by the assigned first datum, the MRF energy further comprising a binary term that increasingly penalizes, for each couple of consecutive points, an angular distance between the directions represented by the assigned second datum as an angular distance between the directions represented by the assigned first datum decreases; identifying maximal sets of consecutive points to which a same second datum is assigned; and determining a cycle of vertices bounding a cycle of segments that represents the architectural layout, each segment corresponding to a respective wall, each segment fitting a respective maximal set and being normal to the direction represented by the second datum assigned to respective consecutive points of the respective maximal set.
+15. A computer system comprising a processor coupled a memory, the memory having stored thereon a computer program comprising instructions for performing a computer-implemented method that when implemented by the processor cause the processor to be configured to: obtain a cycle of points that represents a planar cross section of a cycle of walls, and, assigned to each respective point, a respective first datum that represents a direction normal to the cycle of points at the respective point, minimize a Markov Random Field (MRF) energy defined on the cycle of points with labels taking values in a set of second datum each representing a respective direction normal to an architectural layout, thereby assigning, to each respective point, a respective one of the set of second datum, the MRF energy comprising a unary term that penalizes, for each point, an angular distance between the direction represented by the assigned second datum and the direction represented by the assigned first datum, the MRF energy further comprising a binary term that increasingly penalizes, for each couple of consecutive points, an angular distance between the directions represented by the assigned second datum as an angular distance between the directions represented by the assigned first datum decreases, identify maximal sets of consecutive points to which a same second datum is assigned, and determine a cycle of vertices bounding a cycle of segments that represents the architectural layout, each segment corresponding to a respective wall, each segment fitting a respective maximal set and being normal to the direction represented by the second datum assigned to respective consecutive points of the respective maximal set.
+16. The system of claim 15, wherein the minimizing of the MRF energy is exact.
+17. The system of claim 15, wherein the minimizing of the MRF energy is performed via one or more belief propagations.
+18. The system of claim 15, wherein the first datum and the second datum are vectors, and the angular distance between the direction represented by an assigned second datum Nk and the direction represented by an assigned first datum ni is of the type D(xi,k)=1−|Nk·ni|, the angular distance between the directions represented by assigned second datum Nk and Nm is of the type 1k≠m, and/or the angular distance between the directions represented by assigned first datum ni and nj is of the type |ni·nj|.
+19. The system of claim 18, wherein the MRF energy is of the type E(l(x0), . . . , l(xn−1))=Σi=0n−1D(xi,l(xi))+λΣi=0n−1S(xi,xi+1)), where: {x0, . . . , xn−1} is the cycle of points, with i+1=0 when i=n−1, D(xi,l(xi)) is the unary term, S(xi,xi+1,l(xi),l(xi+1)) is the binary term, and λ is a positive number.
+20. The system of claim 15, wherein each respective vertex corresponds to a respective first point and to a respective second point, the respective first point being the ending point of the maximal set corresponding to a respective segment bounded by the respective vertex, the respective second point being the starting point of the maximal set corresponding to the respective other segment bounded by the respective vertex, the processor is configured to determine the respective vertex by being further configured to: determine an initial position of the respective vertex as a function of the respective first point and the respective second point, and optimize the initial position.
+</claims>
+</document>

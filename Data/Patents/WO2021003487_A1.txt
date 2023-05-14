@@ -1,0 +1,103 @@
+<document>
+
+<filing_date>
+2020-07-06
+</filing_date>
+
+<publication_date>
+2021-01-07
+</publication_date>
+
+<priority_date>
+2019-07-03
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/62,G06N20/00
+</ipc_classes>
+
+<assignee>
+DEEPMAP
+</assignee>
+
+<inventors>
+MAJITHIA, Chirag
+</inventors>
+
+<docdb_family_id>
+74065995
+</docdb_family_id>
+
+<title>
+TRAINING DATA GENERATION FOR DYNAMIC OBJECTS USING HIGH DEFINITION MAP DATA
+</title>
+
+<abstract>
+According to an aspect of an embodiment, operations may comprise receiving a plurality of frame sets generated while navigating a local environment, receiving an occupancy map (OMap) representation of the local environment, for each of the plurality of frame sets, generating, using the OMap representation, one or more instances each comprising a spatial cluster of neighborhood 3D points generated from a 3D sensor scan of the local environment, and classifying each of the instances as dynamic or static, tracking instances classified as dynamic across the plurality of frame sets using a tracking algorithm, assigning a single instance ID to tracked instances classified as dynamic across the plurality of frame sets, estimating a bounding box for each of the instances in each of the plurality of frame sets, and employing the instances as ground truth data in a training of one or more deep learning classifiers.
+</abstract>
+
+<claims>
+What is claimed is:
+1. A computer-implemented method, comprising:
+receiving a plurality of frame sets generated while navigating a local environment, each frame set comprising a point cloud representation of three-dimensional (3D) points;
+receiving an occupancy map (OMap) representation of the local environment, the OMap representation comprising points depicting static objects in the local environment, the OMap representation further comprising the ground and navigable boundaries within the local environment;
+for each of the plurality of frame sets:
+generating, using the OMap representation, one or more instances each comprising a spatial cluster of neighborhood 3D points generated from a 3D sensor scan of the local environment, and
+classifying each of the instances as dynamic or static based on the OMap representation by applying a deep learning algorithm to the instance;
+tracking instances classified as dynamic across the plurality of frame sets using a tracking algorithm;
+assigning a single instance ID to tracked instances classified as dynamic across the plurality of frame sets;
+estimating a bounding box for each of the instances in each of the plurality of frame sets; and
+employing the instances as ground truth data in a training of one or more deep learning classifiers.
+2. The computer-implemented method of claim 1, wherein the classifying of instances as dynamic enables the OMap representation to be cleaned to remove points depicting dynamic objects in the local environment.
+3. The computer-implemented method of claim 1, further comprising:
+determining, using the OMap representation, if the spatial cluster of neighborhood 3D points corresponding to a particular instance of the instances classified as dynamic have corresponding occupied points in the OMap representation; and
+in response to determining that the spatial cluster of neighborhood 3D points corresponding to the particular instance have corresponding occupied points in the OMap representation, establishing that the classification of the particular instance as dynamic by the deep learning algorithm is a false positive.
+4. The computer-implemented method of claim 3, further comprising:
+in response to establishing that the classification of the particular instance as dynamic by the deep learning algorithm is a false positive, reclassifying the particular instance as static.
+5. The computer-implemented method of claim 1, further comprising:
+determining, using the OMap representation, if a particular instance of the instances classified as static is actually dynamic; and
+in response to determining that the particular instance classified as static is actually dynamic, establishing that the classification of the particular instance as static by the deep learning algorithm is a false negative.
+6. The computer-implemented method of claim 5, further comprising:
+in response to establishing that the classification of the particular instance as static by the deep learning algorithm is a false negative, reclassifying the particular instance as dynamic.
+7. The computer-implemented method of claim 1, wherein the ground truth data comprises image data and/or 3D point cloud data.
+8. One or more non-transitory computer readable storage media storing instructions that in response to being executed by one or more processors, cause a computer system to perform operations, the operations comprising:
+receiving a plurality of frame sets generated while navigating a local environment, each frame set comprising a point cloud representation of three-dimensional (3D) points;
+receiving an occupancy map (OMap) representation of the local environment, the OMap representation comprising points depicting static objects in the local environment, the OMap representation further comprising the ground and navigable boundaries within the local environment;
+for of the plurality of frame sets:
+generating, using the OMap representation, one or more instances each comprising a spatial cluster of neighborhood 3D points generated from a 3D sensor scan of the local environment, and classifying each of the instances as dynamic or static based on the OMap representation by applying a deep learning algorithm to the instance;
+tracking instances classified as dynamic across the plurality of frame sets using a tracking algorithm;
+assigning a single instance ID to tracked instances classified as dynamic across the plurality of frame sets;
+estimating a bounding box for each of the instances in each of the plurality of frame sets; and
+employing the instances as ground truth data in a training of one or more deep learning classifiers.
+9. The one or more non-transitory computer-readable storage media of claim 8, wherein the classifying of instances as dynamic enables the OMap representation to be cleaned to remove points depicting dynamic objects in the local environment.
+10. The one or more non-transitory computer-readable storage media of claim 8, wherein the operations further comprise:
+determining, using the OMap representation, if the spatial cluster of neighborhood 3D points corresponding to a particular instance of the instances classified as dynamic have corresponding occupied points in the OMap representation; and
+in response to determining that the spatial cluster of neighborhood 3D points corresponding to the particular instance have corresponding occupied points in the OMap representation, establishing that the classification of the particular instance as dynamic by the deep learning algorithm is a false positive.
+11. The one or more non-transitory computer-readable storage media of claim 10, wherein the operations further comprise:
+in response to establishing that the classification of the particular instance as dynamic by the deep learning algorithm is a false positive, reclassifying the particular instance as static.
+12. The one or more non-transitory computer-readable storage media of claim 8, wherein the operations further comprise:
+determining, using the OMap representation, if a particular instance of the instances classified as static is actually dynamic; and in response to determining that the particular instance classified as static is actually dynamic, establishing that the classification of the particular instance as static by the deep learning algorithm is a false negative.
+13. The one or more non-transitory computer-readable storage media of claim 12, wherein the operations further comprise:
+in response to establishing that the classification of the particular instance as static by the deep learning algorithm is a false negative, reclassifying the particular instance as dynamic.
+14. The one or more non-transitory computer-readable storage media of claim 8, wherein the ground truth data comprises image data and/or 3D point cloud data.
+15. A computer system comprising:
+one or more processors; and
+one or more non-transitory computer readable media storing instructions that in response to being executed by the one or more processors, cause the computer system to perform operations, the operations comprising:
+receiving a plurality of frame sets generated while navigating a local environment, each frame set comprising a point cloud representation of threedimensional (3D) points;
+receiving an occupancy map (OMap) representation of the local environment, the OMap representation comprising points depicting static objects in the local environment, the OMap representation further comprising the ground and navigable boundaries within the local environment;
+for of the plurality of frame sets:
+generating, using the OMap representation, one or more instances each comprising a spatial cluster of neighborhood 3D points generated from a 3D sensor scan of the local environment, and
+classifying each of the instances as dynamic or static based on the OMap representation by applying a deep learning algorithm to the instance;
+tracking instances classified as dynamic across the plurality of frame sets using a tracking algorithm;
+assigning a single instance ID to tracked instances classified as dynamic across the plurality of frame sets; estimating a bounding box for each of the instances in each of the plurality of frame sets; and
+employing the instances as ground truth data in a training of one or more deep learning classifiers.
+16. The computer system of claim 15, wherein the classifying of instances as dynamic enables the OMap representation to be cleaned to remove points depicting dynamic objects in the local environment.
+17. The computer system of claim 15, wherein the operations further comprise: determining, using the OMap representation, if the spatial cluster of neighborhood 3D points corresponding to a particular instance of the instances classified as dynamic have corresponding occupied points in the OMap representation; and
+in response to determining that the spatial cluster of neighborhood 3D points corresponding to the particular instance have corresponding occupied points in the OMap representation, establishing that the classification of the particular instance as dynamic by the deep learning algorithm is a false positive.
+18. The computer system of claim 17, wherein the operations further comprise: in response to establishing that the classification of the particular instance as dynamic by the deep learning algorithm is a false positive, reclassifying the particular instance as static.
+19. The computer system of claim 15, wherein the operations further comprise: determining, using the OMap representation, if a particular instance of the instances classified as static is actually dynamic; and
+in response to determining that the particular instance classified as static is actually dynamic, establishing that the classification of the particular instance as static by the deep learning algorithm is a false negative.
+20. The computer system of claim 19, wherein the operations further comprise: in response to establishing that the classification of the particular instance as static by the deep learning algorithm is a false negative, reclassifying the particular instance as dynamic.
+21. The computer system of claim 15, wherein the ground truth data comprises image data and/or 3D point cloud data.
+</claims>
+</document>

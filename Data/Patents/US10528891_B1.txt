@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2019-07-31
+</filing_date>
+
+<publication_date>
+2020-01-07
+</publication_date>
+
+<priority_date>
+2018-08-23
+</priority_date>
+
+<ipc_classes>
+G06F3/048,G06K9/00,G06N20/00,G06N7/00,G06N99/00,H04L12/24
+</ipc_classes>
+
+<assignee>
+SIGOPT
+</assignee>
+
+<inventors>
+CLARK, SCOTT
+MCCOURT, MICHAEL
+HAYES, PATRICK
+CHENG, BOLONG
+KIM, OLIVIA
+</inventors>
+
+<docdb_family_id>
+69058653
+</docdb_family_id>
+
+<title>
+Systems and methods for implementing an intelligent machine learning optimization platform for multiple tuning criteria
+</title>
+
+<abstract>
+Systems and methods for tuning hyperparameters of a model includes: receiving a multi-criteria tuning work request for tuning hyperparameters of the model of the subscriber to the remote tuning service, wherein the multi-criteria tuning work request includes: a first objective function of the model to be optimized by the remote tuning service; a second objective function to be optimized by the remote tuning service, the second objective function being distinct from the first objective function; computing a joint tuning function based on a combination of the first objective function and the second objective function; executing a tuning operation of the hyperparameters for the model based on a tuning of the joint function; and identifying one or more proposed hyperparameter values based on one or more hyperparameter-based points along a convex Pareto optimal curve.
+</abstract>
+
+<claims>
+1. A system for tuning hyperparameters for improving an effectiveness including one or more objective performance metrics of a model, the system comprising: a remote tuning service for tuning hyperparameters of a model of a subscriber to the remote tuning service, wherein the remote tuning service is hosted on a distributed network of computers that: receives a multi-criteria tuning work request for tuning hyperparameters of the model of the subscriber to the remote tuning service, wherein the multi-criteria tuning work request includes at least: (i) a first objective function of the model to be optimized by the remote tuning service; (ii) a second objective function to be optimized by the remote tuning service, the second objective function being distinct from the first objective function; computes a joint tuning function based on a combination of the first objective function and the second objective function of the model, wherein the joint tuning function comprises a scalarized function relating to a singular equation that defines an interplay between the first objective function and the second objective function and enables a simultaneous optimization of each of the first objective function and the second objective function; wherein: (a) the first objective function is represented as ƒ1(x, y) and the second objective function is represented as ƒ2(x, y); and (b) the scalarized function comprises:
+description="In-line Formulae" end="lead"?g(x,y)=λ*ƒ1(x,y)+(1−λ)*ƒ2(x,y),description="In-line Formulae" end="tail"? (c) x and y relate to potential hyperparameter values selectable from a multi-dimensional coordinate system; (d) lambda, λ, relates to a tuning factor of the scalarized function; executes a tuning operation of the hyperparameters for the model based on a tuning of the joint function; and identifies one or more proposed hyperparameter values based on one or more hyperparameter-based points along a convex Pareto optimal curve.
+2. The system according to claim 1, wherein the first objective function includes a first multi-parameter function of the model having two or more variables and is represented as ƒ1(V1, V2 . . . Vn), the second objective function includes a second multi-parameter function of the model having two or more variables and is represented as ƒ2(V1, V2 . . . Vn), and the scalarized function comprises:
+description="In-line Formulae" end="lead"?g(V1,V2. . . Vn)=λ*ƒ1(V1,V2. . . Vn)+(1−λ)*ƒ2(V1,V2. . . Vn),description="In-line Formulae" end="tail"? V1, V2 . . . Vn relate to potential hyperparameter values selectable from a multi-dimensional coordinate system; and lambda, λ, relates to a tuning factor of the scalarized function.
+3. The system according to claim 1, wherein the remote tuning service further: implements a first tuning phase of the joint function including: setting bounding parameters including bounding values for each of the first objective function and the second objective function; generating a random distribution of possible hyperparameter values for the scalarized function based on the bounding parameters.
+4. The system according to claim 3, wherein the remote tuning service further: implements a second tuning phase of the scalarized function including: incrementally adjusting the lambda value of the scalarized function, wherein values of lambda are constrained between zero and one; intelligently selecting a plurality of hyperparameter values from the random distribution of hyperparameter values based on a Bayesian optimization of the scalarized function; and testing hyperparameter values selected from the random distribution of hyperparameter values.
+5. The system according to claim 4, wherein the remote tuning service further: identifies the convex Pareto optimal curve for the scalarized function based on identifying a plurality of distinct clusters of points based on a completion of the second tuning phase.
+6. The system according to claim 5, wherein the remote tuning service further: constructs a graphical representation of the Pareto optimal curve for the scalarized function including forcing a convex curve line through the plurality of distinct clusters of points.
+7. The system according to claim 5, wherein the remote tuning service further: selects a set of hyperparameter values along the convex Pareto optimal curve for the scalarized function; and returns, via an intelligent application programming interface, the set of hyperparameter values to the subscriber.
+8. The system according to claim 7, wherein the model of the subscriber comprises a machine learning model, the machine learning model is implemented with the set of hyperparameter values that jointly improves performances of the first objective function and the second objective function of the machine learning model.
+9. The system according to claim 4, wherein the Pareto optimal curve for the scalarized function includes distinct pairs (x, y) of hyperparameter values for the scalarized function where the first objective function and the second objective function are improved without sacrificing a performance of either of the first objective and the second objective.
+10. The system according to claim 1, wherein each value for lambda sets a hyperplane defining a distinct region of search for hyperparameter values of the model.
+11. The system according to claim 1, wherein the remote tuning service: sets one or more failure regions based on restricting searches of hyperparameter values based on one or more restricting one or more possible values of lambda.
+12. The system according to claim 1, further comprising: an application programming interface that is in operable communication with the remote tuning service and that: configures the multi-criteria tuning request, wherein configuring the multi-criteria tuning request includes: defining the first objective function of the model, and defining the second objective function of the model.
+13. A method for tuning hyperparameters for improving an effectiveness including one or more objective performance metrics of a model, the method comprising: receiving a remote tuning service for tuning hyperparameters of a model of a subscriber to the remote tuning service, wherein the remote tuning service is hosted on a distributed network of computers; receiving a multi-criteria tuning work request for tuning hyperparameters of the model of the subscriber to the remote tuning service, wherein the multi-criteria tuning work request includes at least: (i) a first objective function of the model to be optimized by the remote tuning service; (ii) a second objective function to be optimized by the remote tuning service, the second objective function being distinct from the first objective function; computing a joint tuning function based on a combination of the first objective function and the second objective function of the model, wherein the joint tuning function comprises a scalarized function relating to a singular equation that defines an interplay between the first objective function and the second objective function and enables a simultaneous optimization of each of the first objective function and the second objective function; wherein: (a) the first objective function is represented as ƒ1(x, y) and the second objective function is represented as ƒ2(x, y); (b) the scalarized function comprises:
+description="In-line Formulae" end="lead"?g(x,y)=λ*ƒ1(x,y)+(1−λ)*ƒ2(x,y),description="In-line Formulae" end="tail"? (c) x and y relate to potential hyperparameter values selectable from a multi-dimensional coordinate system; and (d) lambda, λ, relates to a tuning factor of the scalarized function; executing a tuning operation of the hyperparameters for the model based on a tuning of the scalarized function; and identifying one or more proposed hyperparameter values based on one or more hyperparameter-based points along a convex Pareto optimal curve.
+14. The method according to claim 13, further comprising: implementing a first tuning phase of the joint function including: setting bounding parameters including bounding values for each of the first objective function and the second objective function; generating a random distribution of possible hyperparameter values for the scalarized function based on the bounding parameters.
+15. The method according to claim 14, further comprising: implementing a second tuning phase of the scalarized function including: incrementally adjusting the lambda value of the scalarized function, wherein values of lambda are constrained between zero and one; and test hyperparameter values selected from the random distribution of hyperparameter values based on each incremental adjustment of the lambda value.
+16. A system for tuning hyperparameters for improving an effectiveness including one or more objective performance metrics of a model, the system comprising: a remote tuning service for tuning hyperparameters of a model of a subscriber to the remote tuning service, wherein the remote tuning service is hosted on a distributed network of computers that: receives a multi-criteria tuning work request for tuning hyperparameters of the model of the subscriber to the remote tuning service, wherein the multi-criteria tuning work request includes at least: (i) a first objective function of the model to be optimized by the remote tuning service; (ii) a second objective function to be optimized by the remote tuning service, the second objective function being distinct from the first objective function; computes a joint tuning function based on a combination of the first objective function and the second objective function of the model, wherein the joint tuning function comprises a scalarized function relating to a singular equation that defines an interplay between the first objective function and the second objective function and enables a simultaneous optimization of each of the first objective function and the second objective function; wherein: (a) the first objective function includes a first multi-parameter function of the model having two or more variables and is represented as ƒ1(V1, V2 . . . Vn), (b) the second objective function includes a second multi-parameter function of the model having two or more variables and is represented as ƒ2(V1, V2 . . . Vn), and (c) the scalarized function comprises:
+description="In-line Formulae" end="lead"?g(V1,V2. . . Vn)=λ*ƒ1(V1,V2. . . Vn)+(1−λ)*ƒ2(V1,V2. . . Vn),description="In-line Formulae" end="tail"? V1, V2 . . . Vn relate to potential hyperparameter values selectable from a multi-dimensional coordinate system; (d) lambda, λ, relates to a tuning factor of the scalarized function executes a tuning operation of the hyperparameters for the model based on a tuning of the joint function; and identifies one or more proposed hyperparameter values based on one or more hyperparameter-based points along a convex Pareto optimal curve.
+</claims>
+</document>

@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-08-27
+</filing_date>
+
+<publication_date>
+2021-01-07
+</publication_date>
+
+<priority_date>
+2019-07-03
+</priority_date>
+
+<ipc_classes>
+G06F16/955,G06N20/00,G06N5/04
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+Bansal, Sujeet
+Adams, Jay
+Joglekar, Manas Rajendra
+</inventors>
+
+<docdb_family_id>
+74065756
+</docdb_family_id>
+
+<title>
+Real-Time On the Fly Generation of Feature-Based Label Embeddings Via Machine Learning
+</title>
+
+<abstract>
+The present disclosure is directed to systems and methods that include a machine-learned label embedding model that generates feature-based label embeddings for labels in real-time, in furtherance, for example, of selection of labels relative to a particular entity. In particular, one example computing system includes both a machine-learned entity embedding model configured to receive and process entity feature data descriptive of an entity to generate an entity embedding for the entity and a machine-learned label embedding model configured to receive and process first label feature data associated with a first label to generate a first label embedding for the first label.
+</abstract>
+
+<claims>
+1. A computing system to select labels for an entity, the system comprising: one or more processors; and one or more non-transitory computer-readable media that collectively store: a machine-learned entity embedding model configured to receive and process entity feature data descriptive of an entity to generate an entity embedding for the entity; a machine-learned label embedding model configured to receive and process first label feature data associated with a first label to generate a first label embedding for the first label; and instructions that, when executed by the one or more processors, cause the computing system to perform operations, the operations comprising: determining a score for the first label based at least in part on a comparison of the entity embedding and the first label embedding; and determining whether to select the first label for the entity based at least in part on the score determined for the first label.
+2. The computing system of claim 1, wherein the operations comprise: subsequent and in response to receiving a request associated with the entity, running the machine-learned label embedding model to generate the first label embedding for the first label on the fly to enable the determination of whether to select the first label for the entity in response to the request associated with the entity.
+3. The computing system of claim 1, wherein determining the score for the first label based at least in part on a comparison of the entity embedding and the first label embedding comprises determining a dot product between the entity embedding and the first label embedding
+4. The computing system of claim 1, wherein the first label comprises a first uniform resource locator (URL).
+5. The computing system of claim 4, wherein determining whether to select the first label for the entity based at least in part on the score determined for the first label comprises determining, based at least in part on the score determined for the first label, whether to include the first URL in a set of search results provided to the entity.
+6. The computing system of claim 4, wherein the first label feature data describes one or more words included in the first URL, a title of the first URL, or one or more salient terms included in a webpage accessible at the first URL.
+7. The computing system of claim 1, wherein the first label comprises a first item of content or a first autocompleted search query.
+8. The computing system of claim 1, wherein the entity feature data describes one or more past labels associated with the entity.
+9. The computing system of claim 1, wherein: the one or more non-transitory computer-readable media collectively store a Sorted-String Table that maps each of a plurality of potential labels to a plurality of sets of label feature data, the plurality of potential labels including the first label; and the operations further comprise: accessing the Sorted-String Table to obtain the first label feature data; and providing the first label feature data to the machine-learned label embedding model.
+10. The computing system of claim 1, wherein at least the machine-learned label embedding model has been trained on one or more randomly sampled negative examples that correspond to labels that are unassociated with the entity.
+11. The computing system of claim 1, wherein the machine-learned label embedding model comprises a personalized machine-learned label embedding model that has been trained on personal training data that is specific to the entity.
+12. A computer-implemented method to train a machine-learned label embedding model in a label selection system, the method comprising: obtaining, by one or more computing devices, a plurality of training examples, the plurality of training examples comprising a positive label example associated with an entity and a negative label example unassociated with the entity; respectively inputting, by the one or more computing devices, each of the plurality of training examples into the machine-learned label embedding model that is configured to process the plurality of training examples to respectively generate a plurality of label embeddings; receiving, by the one or more computing devices, the plurality of label embeddings as an output of the machine-learned label embedding model; generating, by the one or more computing devices, a plurality of label scores by respectively comparing the plurality of label embeddings with an entity embedding associated with the entity, the plurality of label scores comprising a positive score for the positive label example and a negative score for the negative label example; and modifying, by the one or more computing devices, one or more parameters of the machine-learned label embedding model based at least in part on a loss function that provides a loss value based at least in part on the plurality of label scores, wherein the loss value is positively correlated with the negative score and negatively correlated with the positive score.
+13. The computer-implemented method of claim 12, further comprising: inputting, by the one or more computing devices, entity feature data descriptive of an entity into a machine-learned entity embedding model configured to receive and process the entity feature data to generate the entity embedding for the entity; receiving, by the one or more computing devices, the entity embedding as an output of the machine-learned entity embedding model; and modifying, by the one or more computing devices, one or more parameters of the machine-learned entity embedding model based at least in part on the loss function.
+14. The computer-implemented method of claim 12, wherein obtaining, by one or more computing devices, the plurality of training examples comprises randomly selecting, by the one or more computing devices, the negative label example without regard to past interactions between the entity and the negative label example.
+15. The computer-implemented method of claim 12, wherein generating, by the one or more computing devices, the plurality of label scores by respectively comparing the plurality of label embeddings with the entity embedding comprises determining, by the one or more computing devices, a respective dot product between each label embedding and the entity embedding.
+16. The computer-implemented method of claim 12, wherein obtaining, by the one or more computing devices, the plurality of training examples comprises: by the one or more computing devices in a first thread: querying a Sorted-String Table service to fetch a plurality of sets of label feature data respectively of the plurality of training examples; creating a training batch of training example pairs that each comprise a respective one of the plurality of sets of label feature data and a corresponding set of entity history data; and placing the training batch in a buffer; wherein said respectively inputting, receiving, generating, and modifying are performed by the one or more computing devices in a second thread.
+17. The computer-implemented method of claim 12, wherein the plurality of training examples comprises a plurality of uniform resource locator (URL) examples.
+18. The computer-implemented method of claim 17, wherein each training example comprises URL feature data that describes one or more words included in the corresponding URL example, a title of the corresponding URL example, or one or more salient terms included in a webpage located at the corresponding URL example.
+19. The computer-implemented method of claim 12, wherein the plurality of training examples comprise a plurality of personal training examples that are specific to the entity.
+20. One or more non-transitory computer-readable media that collectively store instructions that, when executed by one or more computing devices, cause the one or more computing devices to perform operations, the operations comprising; receiving an entity request that identifies an entity; accessing a machine-learned label embedding model that is personalized for and associated with the entity; identifying a plurality of potential labels for the entity; accessing a plurality of sets of label feature data respectively associated with the plurality of potential labels; respectively inputting each of the plurality of sets of label feature data into the machine-learned label embedding model that is configured to process the sets of label feature data to respectively generate a plurality of label embeddings; receiving the plurality of label embeddings as an output of the machine-learned label embedding model; generating a plurality of label scores by respectively comparing the plurality of label embeddings with an entity embedding associated with the entity; and selecting one or more of the potential labels to recommend to the entity based at least in part on the plurality of label scores.
+</claims>
+</document>

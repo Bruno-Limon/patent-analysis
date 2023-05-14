@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2017-11-08
+</filing_date>
+
+<publication_date>
+2020-03-17
+</publication_date>
+
+<priority_date>
+2017-11-08
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/62,G06K9/66,G06K9/68,G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+ADOBE
+</assignee>
+
+<inventors>
+JIN, HAILIN
+WANG, ZHAOWEN
+LIU, YANG
+</inventors>
+
+<docdb_family_id>
+66328719
+</docdb_family_id>
+
+<title>
+Font recognition using adversarial neural network training
+</title>
+
+<abstract>
+The present disclosure relates to a font recognition system that employs a multi-task learning framework and adversarial training to improve font classification and remove negative side effects caused by intra-class variances of glyph content. For example, in one or more embodiments, the font recognition system adversarial trains a font recognition neural network by minimizing font classification loss while at the same time maximizing glyph classification loss. By employing an adversarially trained font classification neural network, the font recognition system can improve overall font recognition by removing the negative side effects from diverse glyph content.
+</abstract>
+
+<claims>
+1. A system for training a neural network to classify digital fonts using supervised adversarial training comprising: a memory comprising: a plurality of digital fonts; and a plurality of glyphs; at least one processor; and at least one non-transitory computer-readable storage medium storing instructions that, when executed by the at least one processor, cause the system to: generate a set of text images based on: selecting one or more glyphs from the plurality of glyphs, selecting a digital font from the plurality of digital fonts for each of the one or more glyphs, and rendering each of the one or more glyphs written in the selected digital font; generate a font recognition neural network configured to classify digital fonts; and train, based on the set of text images, the font recognition neural network using adversarial training by minimizing a loss for a font classifier while maximizing a loss for a glyph classifier to learn discriminative features that effectively differentiate digital fonts.
+2. The system of claim 1, wherein the set of text images comprises images of Japanese glyphs written in a selected Japanese digital font.
+3. The system of claim 1, wherein: the font recognition neural network is a convolutional neural network that comprises convolutional layers and fully-connected layers; the convolutional layers comprise a font encoder that outputs font feature vectors based on feature parameters; the fully-connected layers comprise the font classifier that classifies digital fonts based on the font feature vectors and outputs a font probability vector; and the fully-connected layers further comprise the glyph classifier during training that classifies glyphs based on the font feature vectors and outputs a glyph probability vector.
+4. The system of claim 3, wherein the instructions further cause the system to train the font recognition neural network by: classifying, for a text image comprising a glyph written in a selected digital font, the glyph by the glyph classifier based on a font feature vector outputted by the font encoder for the text image; comparing the classified glyph to the glyph in the text image to determine whether the glyph classifier correctly classified the glyph in the text image; and providing, based the glyph classifier correctly classifying the glyph in text image, feedback to the font encoder to modify the feature parameters to cause the glyph classifier to misclassify the glyph.
+5. The system of claim 3, wherein the instructions further cause the system to train the font recognition neural network by minimizing cross-entropy loss to the font classifier while maximizing cross-entropy loss to the glyph classifier.
+6. The system of claim 5, wherein the instructions further cause the system to train the font recognition neural network by sequentially updating the font encoder, font classifier, and glyph classifier via back propagation until the font recognition neural network converges.
+7. The system of claim 6, wherein the instructions further cause the system to train the font recognition neural network by: iteratively providing feedback to the font encoder until the cross-entropy loss to the glyph classifier exceeds a glyph loss threshold; providing, upon the glyph loss threshold being exceeded, feedback to the font classifier for a first fixed number of iterations; and providing, upon the glyph loss threshold being exceeded, feedback to the glyph classifier for a second fixed number of iterations.
+8. The system of claim 6, wherein the font encoder competes against the glyph classifier to maximize glyph classification loss while the glyph classifier competes against the font encoder to minimize glyph classification loss.
+9. The system of claim 1, further comprising instructions that, when executed by the at least one processor, cause the system to add noise, blur, rotations, or shading to one or more of the set of text images.
+10. The system of claim 1, further comprising instructions that, when executed by the at least one processor, cause the system to: receive an input text image comprising glyphs written in an input digital font; determine a font probability vector for the input digital font using the trained font recognition neural network by comparing a font feature vector of the input digital font to font feature vectors of known digital fonts generated using the font recognition neural network; identify the input digital font based on the font probability vector; and present the identified input digital font.
+11. The system of claim 10, wherein the input text image comprises glyphs not included in the generated set of text images.
+12. A non-transitory computer-readable medium storing instructions that, when executed by at least one processor, cause a computer system to: receive an input text image comprising an input digital font; determine a font probability vector for the input digital font using a font recognition neural network adversarially trained by minimizing a loss for a font classifier while maximizing a loss for a glyph classifier to learn discriminative features that effectively differentiate digital fonts; and identify the input digital font from known digital fonts based on the font probability vector for the input digital font.
+13. The non-transitory computer-readable medium of claim 12, wherein the input digital font and the known digital fonts comprise Japanese digital fonts.
+14. The non-transitory computer-readable medium of claim 12, wherein the font recognition neural network is trained using an encoder, the font classifier, and an adversarial glyph classifier, and wherein the font recognition neural network employs the encoder and the font classifier to identify digital fonts.
+15. The non-transitory computer-readable medium of claim 12, further comprising instructions that, when executed by the at least one processor, cause the computer system to present the identified input digital font to a user.
+16. The non-transitory computer-readable medium of claim 12, wherein the input text image comprises glyphs not included in a training font set associated with the known digital fonts.
+17. In a digital medium environment for creating or editing electronic documents, a computer-implemented method of searching for and identifying images of digital fonts, comprising: receiving an input text image comprising an input digital font; determining a font probability vector for the input digital font using a font recognition neural network adversarially trained by minimizing a loss for a font classifier while maximizing a loss for a glyph classifier to learn discriminative features that effectively differentiate digital fonts; and identifying the input digital font from known digital fonts based on the font probability vector for the input digital font.
+18. The method of claim 17, further comprising: identifying the input digital font from known digital fonts using the font recognition neural network; and presenting the identified input digital font.
+19. The method of claim 17, wherein the input digital font and the known digital fonts comprise Japanese digital fonts.
+20. The method of claim 17, wherein the input text image comprises glyphs not included in a training font set associated with the known digital fonts.
+</claims>
+</document>

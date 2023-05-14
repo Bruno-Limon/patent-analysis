@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2020-10-15
+</filing_date>
+
+<publication_date>
+2021-01-28
+</publication_date>
+
+<priority_date>
+2017-10-20
+</priority_date>
+
+<ipc_classes>
+G06F17/16,G06F9/50,G06N3/063
+</ipc_classes>
+
+<assignee>
+DEEPMIND TECHNOLOGIES
+</assignee>
+
+<inventors>
+DIELEMAN, SANDER ETIENNE LEA
+ELSEN, ERICH KONRAD
+</inventors>
+
+<docdb_family_id>
+60269934
+</docdb_family_id>
+
+<title>
+PARALLEL PROCESSING FOR SIGNAL GENERATION NEURAL NETWORKS
+</title>
+
+<abstract>
+Methods, systems, and apparatus, including computer programs encoded on computer storage media, for executing a signal generation neural network on parallel processing hardware. One of the methods includes receiving weight matrices of a layer of a signal generation neural network. Rows of a first matrix for the layer are interleaved by assigning groups of rows of the first matrix to respective thread blocks of a plurality of thread blocks. A first subset of rows of the one or more other weight matrices are assigned to a first subset of the plurality of thread blocks and a second subset of rows of the one or more other weight matrices are assigned to a second subset of the plurality of thread blocks. The first matrix operation is performed substantially in parallel by the plurality of thread blocks. The other matrix operations are performed substantially in parallel by the plurality of thread blocks.
+</abstract>
+
+<claims>
+1. A method comprising: receiving weight matrices of a layer of a plurality of layers of a signal generation neural network, wherein each layer of one or more layers in the neural network has a residual connection to a subsequent layer, and wherein each layer of the plurality of layers has a skip connection, wherein for each layer: a respective first weight matrix comprises values for a first matrix operation of the layer, and one or more other weight matrices comprise values for one or more other matrix operations of the layer, wherein the one or more other matrix operations depend on a result of the first matrix operation; interleaving rows of the first weight matrix for the layer by assigning groups of rows of the first weight matrix to respective thread blocks of a plurality of thread blocks, each thread block being a computation unit for execution by an independent processing unit of a plurality of independent processing units of a parallel processing device, each independent processing unit being a streaming multiprocessor; receiving, by the layer, an input vector; performing, by the plurality of thread blocks, the first matrix operation corresponding to the first weight matrix substantially in parallel; after performing the first matrix operation corresponding to the first weight matrix: performing, by the plurality of thread blocks, the one or more other matrix operations corresponding to the one or more other weight matrices; and outputting respective results of the one or more other matrix operations to the residual connection in the network and to the skip connection in the network.
+2. The method of claim 1, wherein the first weight matrix has a number of rows that is a multiple of a number of independent processing units of the parallel processing device.
+3. The method of claim 1, wherein performing, by the plurality of thread blocks, the one or more other matrix operations corresponding to the one or more other weight matrices comprises: performing, by the plurality of thread blocks, the one or more other matrix operations corresponding to the one or more other weight matrices substantially in parallel.
+4. The method of claim 3, wherein the one or more other weight matrices comprise a residual weight matrix and a skip weight matrix, and wherein outputting respective results of the one or more other matrix operations to the residual connection in the network and the skip connection in the network comprises: outputting results of a matrix operation corresponding to the residual weight matrix to the residual connection in the network and outputting results of a matrix operation corresponding to the skip weight matrix to the skip connection in the network.
+5. The method of claim 4, wherein performing, by the plurality of thread blocks, the one or more other matrix operations corresponding to the one or more other weight matrices substantially in parallel comprises: assigning groups of rows of the residual weight matrix to a first subset of the plurality of thread blocks and assigning groups of rows of the skip weight matrix to a second subset of the plurality of thread blocks; and performing, by the first subset of the plurality of thread blocks, the matrix operation corresponding to the residual weight matrix substantially in parallel with performing, by the second subset of the plurality of thread blocks, the matrix operation corresponding to the skip weight matrix.
+6. The method of claim 5, wherein the first subset of the plurality of thread blocks does not overlap with the second subset of the plurality of thread blocks.
+7. The method of claim 6, wherein the first subset of the plurality of thread blocks comprises half of the plurality of thread blocks, and wherein the second subset of the plurality of thread blocks comprises another half of the plurality of thread blocks.
+8. The method of claim 1, further comprising performing, by the plurality of thread blocks, a synchronization after performing the first matrix operation.
+9. The method of claim 1, wherein interleaving rows of the first weight matrix of the layer comprises assigning, to each thread block, at least one row of the first weight matrix.
+10. The method of claim 1, wherein each of the other weight matrices has a respective number of columns that is a respective multiple of a number of threads within a warp of the parallel processing device.
+11. A system comprising: one or more computers; and one or more storage devices communicatively coupled to the one or more computers, wherein the one or more storage devices store instructions that, when executed by the one or more computers, cause the one or more computers to perform operations comprising: receiving weight matrices of a layer of a plurality of layers of a signal generation neural network, wherein each layer of one or more layers in the neural network has a residual connection to a subsequent layer, and wherein each layer of the plurality of layers has a skip connection, wherein for each layer: a respective first weight matrix comprises values for a first matrix operation of the layer, and one or more other weight matrices comprise values for one or more other matrix operations of the layer, wherein the one or more other matrix operations depend on a result of the first matrix operation; interleaving rows of the first weight matrix for the layer by assigning groups of rows of the first weight matrix to respective thread blocks of a plurality of thread blocks, each thread block being a computation unit for execution by an independent processing unit of a plurality of independent processing units of a parallel processing device, each independent processing unit being a streaming multiprocessor; receiving, by the layer, an input vector; performing, by the plurality of thread blocks, the first matrix operation corresponding to the first weight matrix substantially in parallel; after performing the first matrix operation corresponding to the first weight matrix: performing, by the plurality of thread blocks, the one or more other matrix operations corresponding to the one or more other weight matrices; and outputting respective results of the one or more other matrix operations to the residual connection in the network and to the skip connection in the network.
+12. The system of claim 11, wherein the first weight matrix has a number of rows that is a multiple of a number of independent processing units of the parallel processing device.
+13. The system of claim 11, wherein performing, by the plurality of thread blocks, the one or more other matrix operations corresponding to the one or more other weight matrices comprises: performing, by the plurality of thread blocks, the one or more other matrix operations corresponding to the one or more other weight matrices substantially in parallel.
+14. The system of claim 13, wherein the one or more other weight matrices comprise a residual weight matrix and a skip weight matrix, and wherein outputting respective results of the one or more other matrix operations to the residual connection in the network and the skip connection in the network comprises: outputting results of a matrix operation corresponding to the residual weight matrix to the residual connection in the network and outputting results of a matrix operation corresponding to the skip weight matrix to the skip connection in the network.
+15. The system of claim 14, wherein performing, by the plurality of thread blocks, the one or more other matrix operations corresponding to the one or more other weight matrices substantially in parallel comprises: assigning groups of rows of the residual weight matrix to a first subset of the plurality of thread blocks and assigning groups of rows of the skip weight matrix to a second subset of the plurality of thread blocks; and performing, by the first subset of the plurality of thread blocks, the matrix operation corresponding to the residual weight matrix substantially in parallel with performing, by the second subset of the plurality of thread blocks, the matrix operation corresponding to the skip weight matrix.
+16. The system of claim 15, wherein the first subset of the plurality of thread blocks does not overlap with the second subset of the plurality of thread blocks.
+17. The system of claim 16, wherein the first subset of the plurality of thread blocks comprises half of the plurality of thread blocks, and wherein the second subset of the plurality of thread blocks comprises another half of the plurality of thread blocks.
+18. The system of claim 11, wherein the operations further comprise performing, by the plurality of thread blocks, a synchronization after performing the first matrix operation.
+19. The system of claim 11, wherein interleaving rows of the first weight matrix of the layer comprises assigning, to each thread block, at least one row of the first weight matrix.
+20. One or more non-transitory computer storage media storing instructions that when executed by one or more computers cause the one or more computers to perform operations comprising: receiving weight matrices of a layer of a plurality of layers of a signal generation neural network, wherein each layer of one or more layers in the neural network has a residual connection to a subsequent layer, and wherein each layer of the plurality of layers has a skip connection, wherein for each layer: a respective first weight matrix comprises values for a first matrix operation of the layer, and one or more other weight matrices comprise values for one or more other matrix operations of the layer, wherein the one or more other matrix operations depend on a result of the first matrix operation; interleaving rows of the first weight matrix for the layer by assigning groups of rows of the first weight matrix to respective thread blocks of a plurality of thread blocks, each thread block being a computation unit for execution by an independent processing unit of a plurality of independent processing units of a parallel processing device, each independent processing unit being a streaming multiprocessor; receiving, by the layer, an input vector; performing, by the plurality of thread blocks, the first matrix operation corresponding to the first weight matrix substantially in parallel; after performing the first matrix operation corresponding to the first weight matrix: performing, by the plurality of thread blocks, the one or more other matrix operations corresponding to the one or more other weight matrices; and outputting respective results of the one or more other matrix operations to the residual connection in the network and to the skip connection in the network.
+</claims>
+</document>

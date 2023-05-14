@@ -1,0 +1,94 @@
+<document>
+
+<filing_date>
+2020-01-20
+</filing_date>
+
+<publication_date>
+2020-07-30
+</publication_date>
+
+<priority_date>
+2019-01-26
+</priority_date>
+
+<ipc_classes>
+G06N3/063
+</ipc_classes>
+
+<assignee>
+MIPSOLOGY
+</assignee>
+
+<inventors>
+DE VANGEL, BENOIT CHAPPET
+GOUVINE, GABRIEL
+</inventors>
+
+<docdb_family_id>
+69526291
+</docdb_family_id>
+
+<title>
+GENERIC QUANTIZATION OF ARTIFICIAL NEURAL NETWORKS
+</title>
+
+<abstract>
+Systems and methods for performing a quantization of artificial neural networks (ANNs) are provided. An example method may include receiving a description of an ANN and sets of inputs to neurons of the ANN, the description including sets of weights of the inputs, the weights being of a first data type, determining a first interval of the first data type to be mapped to a second interval of a second data type; performing computations of sums of products of the weights and the inputs to obtain a set of sum results, wherein the computations are performed using at least one number within the second interval, the number being a result of mapping of a number of the first interval to a number of the second interval, determining a measure of saturations in sum results, and adjusting, based on the measure of saturations, one of the first and second intervals.
+</abstract>
+
+<claims>
+What is claimed is:
+1. A system for performing a quantization of artificial neural networks (ANNs), the system comprising one or more processors configured to:
+receive a description of an ANN and sets of inputs to a plurality of neurons of the ANN, the description including sets of weights of the inputs to the plurality of neurons of the ANN, the description being of a first data type;
+determine a first interval of the first data type to be mapped to a second interval of a second data type;
+(a) perform, based on the sets of inputs and the description of the ANN, computations of sums of products of the weights and the inputs to obtain a set of sum results, wherein the computations of sums are performed using at least one number of the second data type within the second interval, the at least one number being a result of mapping of at least one number of the first interval to a number of the second interval;
+(b) determine, based on the set of sum results, a measure of saturations; and
+(c) adjust, based on the measure of saturations, at least one of the first interval and the second interval.
+2. The system of claim 1, wherein the one or more processors are configured, after adjusting one of the first interval and the second interval, to repeat operations (a), (b), and (c) until the measure of saturations satisfies one or more criteria.
+3. The system of claim 2, wherein the at least one of the first interval and the second interval is adjusted to reduce the measure of saturations.
+4. The system of claim 1, wherein the measure of saturations does not directly depend on:
+outputs of the neurons computed based on the set of sum results; or transfer functions used for calculation of the outputs of the neurons.
+5. The system of claim 1, wherein the first data type is a floating-point data type and the second data type is a fixed-point data type.
+6. The system of claim 1, wherein the measure of saturations is determined based on a count of saturated sum results in the set of sum results.
+7. The system of claim 1, wherein the measure of saturations is a function of sum results in the set of sum results.
+8. The system of claim 1, wherein the plurality of neurons of the ANN includes all neurons of the ANN.
+9. The system of claim 1, wherein the plurality of neurons of the ANN is a subset of neurons of the ANN, wherein a count of neurons in the subset of neurons is less than a count of all neurons in the ANN.
+10. The system of claim 1, wherein:
+the products are computed using numbers of the second interval, the numbers being a result of mapping of the inputs to the neurons and the weights for the inputs to the second interval; the sum results are represented by the second data type; and
+the determining the measure of saturations includes comparing at least one of the sum results to a function of boundaries of the second interval.
+11. The system of claim 1, wherein:
+the products are computed using numbers of the second data type, the numbers being a result of mapping of the inputs to the neurons and the weights for the inputs to the second interval;
+the sum results are represented by a third data type, the third data type being different from the second data type; and
+the determining the measure of saturations includes comparing at least one of the sum results to a function of one or more thresholds of the third data type.
+12. The system of claim 11, wherein the second data type is a K-bit fixed data type and the third data type is a L-bit fixed data type, wherein K and L are different.
+13. The system of claim 12, wherein a number of the third data type is mapped to a number of the second data type based on performing a bitwise shift operation.
+14. The system of claim 11, wherein the determining the measure of saturations includes:
+determining that the at least one of the sum results are within boundaries of the second interval; and
+comparing the at least one of the sum results to one or more further thresholds of the second data type.
+15. The system of claim 1, wherein the one or more processors include at least one electronic component accelerating the computation of the one or more neurons of the ANN.
+16. A method for performing a quantization of artificial neural networks (ANNs), the method comprising:
+receiving, by one or more processors, a description of an ANN and sets of inputs to a plurality of neurons of the ANN, the description including sets of weights of the inputs to the plurality of neurons of the ANN, the description being of a first data type;
+determining, by the one or more processors, a first interval of the first data type to be mapped to a second interval of a second data type;
+(a) performing, by the one or more processors and based on the sets of inputs and the description of the ANN, computations of sums or products of the weights and inputs to obtain a set of sum results, wherein the computations of sums are performed using at least number of the second data type within the second interval, the at least one number being a result of mapping of at least one number of the first interval to a number of the second interval;
+(b) determining, by the one or more processors and based on the set of sum results, a measure of saturations; and
+(c) adjusting, by the one or more processors and based on the measure of saturations, at least one of the first interval and the second interval.
+17. The method of claim 16, further comprising, after adjusting one of the first
+interval and the second interval, repeating, by the one or more processors, operations (a), (b), and (c) until the measure of saturations satisfies one or more criteria.
+18. The method of claim 16, wherein the at least one of the first interval and the second interval is adjusted to reduce the measure of saturations.
+19. The method of claim 16, wherein:
+the products are computed using numbers of the second interval, the numbers being a result of mapping of the inputs to the neurons and the weights for the inputs to the second interval;
+the sum results are represented by the second data type; and
+the determining the measure of saturations includes comparing at least one of the sum results to a function of boundaries of the second interval.
+20. The method of claim 16, wherein:
+the products are computed using numbers of the second interval, the numbers being a result of mapping of the inputs to the neurons and the weights for the inputs to the second interval;
+the sum results are represented by a third data type, the third data type being different from the second data type; and
+the determining the measure of saturations includes comparing at least one of the sum results to one or more thresholds of the third data type.
+21. A system for performing a quantization of artificial neural networks (ANNs), the system comprising:
+one or more processors; and a memory communicatively coupled with the one or more processors, the memory storing instructions which when executed by the one or more processors perform a method comprising:
+receiving a description of an ANN and sets of inputs to a plurality of neurons of the ANN, the description including sets of weights of the inputs to the plurality of neurons of the ANN, the description being of a first data type; and determining a first interval of the first data type to be mapped to a second interval of a second data type;
+performing, based on the sets of inputs and the description of the ANN, computations of sums of products of the weights and the inputs to obtain a set of sum results, wherein the computations of sums are performed using at least one number of the second data type within the second interval, the at least one number being a result of mapping of at least one number of the first interval to a number of the second interval;
+determining, based on the set of sum results, a measure of saturations; and
+adjusting, based on the measure of saturations, at least one of the first interval and the second interval.
+</claims>
+</document>

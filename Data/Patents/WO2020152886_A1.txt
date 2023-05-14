@@ -1,0 +1,109 @@
+<document>
+
+<filing_date>
+2019-06-26
+</filing_date>
+
+<publication_date>
+2020-07-30
+</publication_date>
+
+<priority_date>
+2019-01-22
+</priority_date>
+
+<ipc_classes>
+B25J9/16
+</ipc_classes>
+
+<assignee>
+MITSUBISHI ELECTRIC CORPORATION
+</assignee>
+
+<inventors>
+NIKOVSKI, DANIEL
+JHA, DEVESH
+ROMERES, DIEGO
+</inventors>
+
+<docdb_family_id>
+67480265
+</docdb_family_id>
+
+<title>
+SYSTEM AND METHOD FOR CONTROLLING ROBOTIC ARM
+</title>
+
+<abstract>
+A system for controlling a robotic arm performing insertion of a component along an insertion line accepts measurements of force experienced by the wrist of robotic arm at current position along insertion line and determines probability of value of the force conditioned on the current value of the position according to a probabilistic relationship for the force experienced by the wrist of the robotic arm along the insertion line as a probabilistic function of the positions of the wrist of the robotic arm along the line of insertion. The probabilistic function is learned from measurements of the operation repeatedly performed by one or multiple robotic arms having the configuration of the robotic arm under the control. The system determines a result of anomaly detection based on the probability of the current value of the force and controls the robotic arm based on the result of anomaly detection.
+</abstract>
+
+<claims>
+[CLAIMS]
+[Claim 1]
+A system for controlling a robotic arm performing an operation including an insertion of a component along an insertion line to assemble a product, wherein a configuration of the robotic arm includes a wrist having a motion with multiple degrees of freedom, comprising:
+an input interface configured to accept measurements of a force sensor operatively connected to the wrist of the robotic arm, the measurements include data indicative of force experienced by the wrist of the robotic arm at different positions of the wrist of the robotic arm along the insertion line;
+a memory configured to store a probabilistic relationship for the force experienced by the wrist of the robotic arm along the insertion line as a
+probabilistic function of the positions of the wrist of the robotic arm along the line of insertion, wherein the probabilistic function is learned from measurements of the operation repeatedly performed by one or multiple robotic arms having the configuration of the robotic arm under the control; and
+at least one processor configured to run executable components comprising an anomaly detector configured to
+determine a current value of the force and a current value of the position along the line of insertion based on the measurements of the force sensor;
+determine the probability of the current value of the force conditioned on the current value of the position according to the probabilistic function; and determine a result of anomaly detection based on the probability of the current value of the force; and
+a recovery controller configured to control the robotic arm based on the result of anomaly detection.
+[Claim 2] The system of claim 1 , wherein the probabilistic function has a conditional probability distribution such that a probability distribution of the force at a position is conditioned on a previous probability distribution of the force at a previous position, wherein the anomaly detector selects parameters of the conditional probability distribution corresponding to the current value of the position, and determines probability of the current value of the force according to a probability distribution defined by the selected parameters.
+[Claim 3]
+The system of claim 1 , wherein the probabilistic function is a Gaussian process regression defined by values of mean and covariance of the force for each value of the position of the wrist of the robotic arm along insertion line, wherein the anomaly detector selects the mean and the variance from the Gaussian process regression corresponding to the current value of the position and determines the probability of the current value of the force according to a Gaussian distribution defined by the selected values of the mean and the variance.
+[Claim 4]
+The system of claim 1 , wherein the anomaly detector determine the result of anomaly detection based on comparison of the probability of the current value of the force with a confidence threshold.
+[Claim 5]
+The system of claim 4, wherein the anomaly detector detects the anomaly when the probabilities of multiple values of the force are less than the confidence threshold.
+[Claim 6]
+The system of claim 1 , wherein the probabilistic relationship defines a confidence interval for non-anomalous values of the force for each position of a sequence of positions on the insertion line, wherein each of the non-anomalous values of the force for the current position has a probability above a confidence level according to the probabilistic function learned for the current position, and wherein the anomaly detector declares the current value of the force anomalous when the current value of the force is outside of the confidence interval for non-anomalous values of the force of the current position.
+[Claim 7]
+The system of claim 6, wherein the probabilistic function includes a set of local Gaussian process regressions, wherein each local Gaussian process regression is learned for a subset of positions along the insertion line clustered around a cluster position and is defined by values of mean and covariance of the force for each position in the sequence of positions of the wrist of the robotic arm along the insertion line, wherein the confidence interval for non-anomalous values of the force for the current position is based a weighted combination of a set of local probabilities selected according to the set of local Gaussian process regressions, wherein the weight for each local probability for the current position is a function of a distance from a cluster position of the corresponding local Gaussian process regression to the current position.
+[Claim 8]
+The system of claim 6, wherein the anomaly detector declares the result of anomaly detection as anomalous when a number of anomalous values of the force is greater than an anomaly threshold.
+[Claim 9]
+The system of claim 8, wherein the anomaly threshold is determined to reduce false detection rate by optimizing a receiver operating characteristic (ROC) curve balancing allowable false detection rate and expected positive detection rate of anomalies.
+[Claim 10] The system of claim 1 , wherein the recovery controller stops the robotic arm in response to detecting the anomaly.
+[Claim 11]
+The system of claim 1 , wherein the recovery controller retracts the robotic arm to a safe position in response to detecting the anomaly.
+[Claim 12]
+The system of claim 11 , wherein the recovery controller determines the safe position based on the probability of the value of the force at the safe position.
+[Claim 13]
+The system of claim 1 , wherein the input interface is configured to accept the probabilistic function and to store the probabilistic function in the memory, wherein the probabilistic function is learned by fitting a Gaussian process
+regression model to training data defined by the measurements of the operation repeatedly performed by one or multiple robotic arms having the configuration of the robotic arm under the control.
+[Claim 14]
+The system of claim 13, wherein the Gaussian process regression model accepts a prior mean and a prior covariance to describe the training data, wherein the prior mean is zero and the prior covariance is modeled by a kernel function, and wherein the fitting of the Gaussian process regression model includes
+determining a posterior mean and a posterior covariance function by maximizing a negative log likelihood of the Gaussian process regression model using the training data.
+[Claim 15]
+A method for controlling a robotic arm repeatedly performing an operation including an insertion of a component along an insertion line to assemble a product, wherein a configuration of the robotic arm includes a wrist having a motion with multiple degrees of freedom, wherein the method uses a processor coupled with stored instructions implementing the method, wherein the instructions, when executed by the processor carry out steps of the method, comprising:
+accepting measurements of a force sensor operatively connected to the wrist of the robotic arm, the measurements include data indicative of force experienced by the wrist of the robotic arm at different positions of the wrist of the robotic arm along the line of insertion;
+accepting a probabilistic relationship for the force experienced by the wrist of the robotic arm along the insertion line as a probabilistic function of the position of the wrist of the robotic arm along the line of insertion, wherein the probabilistic function is learned from measurements of the operation repeatedly performed by one or multiple robotic arms having the configuration of the robotic arm under the control;
+determining a current value of the force and a current value of the position along the line of insertion based on the measurements of the force sensor;
+determining the probability of the current value of the force conditioned on the current value of the position according to the probabilistic function;
+determining a result of anomaly detection based on the probability of the current value of the force; and
+controlling the robotic arm based on the result of anomaly detection.
+[Claim 16]
+The method of claim 15, wherein the probabilistic function is a Gaussian process regression defined by values of mean and covariance of the force for each value of the position of the wrist of the robotic arm along insertion line,
+comprising:
+selecting the mean and the variance from the Gaussian process regression corresponding to the current value of the position; and determining the probability of the current value of the force according to a Gaussian distribution defined by the selected values of the mean and the variance. [Claim 17]
+The method of claim 15, wherein the probabilistic function is a set of local Gaussian process regressions, wherein each local Gaussian process regression corresponds to its cluster position along the insertion line and is defined by values of mean and covariance of the force for each value of the position of the wrist of the robotic arm along insertion line, comprising:
+selecting the mean and the variance from each of the local Gaussian process regression corresponding to the current value of the position to produce a set of local Gaussian distributions defined by selected pairs of the mean and the variance; determining a local probability of the current value of the force according to each of the local Gaussian distribution to produce a set of local probabilities; and determining the probability of the current value of the force conditioned on the current value of the position as a weighted combination of the local
+probabilities, wherein the weight for a local probability is a function of a distance from a cluster position of the corresponding local Gaussian process regression to the current value of the position.
+[Claim 18]
+The method of claim 15, wherein the probabilistic function is a set of local Gaussian process regressions, wherein each local Gaussian process regression corresponds to its cluster position along a portion of the insertion line centered on the cluster position and is defined by values of mean and covariance of the force for each value of the position of the wrist of the robotic arm along the portion of the insertion line, comprising
+selecting a local Gaussian process regression having its cluster position closest to the current value of the position; selecting the mean and the variance from the selected local Gaussian process regression corresponding to the current value of the position; and
+determining the probability of the current value of the force according to a Gaussian distribution defined by the selected values of the mean and the variance. [Claim 19]
+The method of claim 15, comprising:
+detecting the anomaly when probabilities of multiple values of the force are less than a confidence threshold.
+[Claim 20]
+A non-transitory computer readable storage medium embodied thereon a program executable by a processor for performing a method, the method
+comprising:
+accepting measurements of a force sensor operatively connected to the wrist of the robotic arm, the measurements include data indicative of force experienced by the wrist of the robotic arm at different positions of the wrist of the robotic arm along the line of insertion;
+accepting a probabilistic relationship for the force experienced by the wrist of the robotic arm along the insertion line as a probabilistic function of the position of the wrist of the robotic arm along the line of insertion, wherein the probabilistic function is learned from measurements of the operation repeatedly performed by one or multiple robotic arms having the configuration of the robotic arm under the control;
+determining a current value of the force and a current value of the position along the line of insertion based on the measurements of the force sensor;
+determining the probability of the current value of the force conditioned on the current value of the position according to the probabilistic function;
+determining a result of anomaly detection based on the probability of the current value of the force; and
+controlling the robotic arm based on the result of anomaly detection.
+</claims>
+</document>

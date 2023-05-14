@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2019-01-14
+</filing_date>
+
+<publication_date>
+2020-12-08
+</publication_date>
+
+<priority_date>
+2018-02-28
+</priority_date>
+
+<ipc_classes>
+G06T5/00,G06T7/00
+</ipc_classes>
+
+<assignee>
+CASE WESTERN RESERVE UNIVERSITY
+</assignee>
+
+<inventors>
+JANOWCZYK, ANDREW
+MADABHUSHI, ANANT
+</inventors>
+
+<docdb_family_id>
+67685210
+</docdb_family_id>
+
+<title>
+Quality control for digital pathology slides
+</title>
+
+<abstract>
+Embodiments include accessing a set of digital pathology (DP) images having an imaging parameter; applying a low-computational cost histology quality control (HistoQC) pipeline to the DP images, where the low-computational cost HistoQC pipeline computes a first set of image metrics associated with a DP image, and assigns the DP image to a first or a second, different cohort based on the imaging parameter and the first set of image metrics; applying a first, higher-computational-cost HistoQC pipeline to a member of the first cohort; applying a second, different higher-computation-cost HistoQC pipeline to a member of the second cohort; where the first or second, higher-computational-cost HistoQC pipeline determines an artifact-free region of the member of the first or second cohort, respectively, and classifies the member of the first or second cohort, respectively, as suitable or unsuitable for downstream computation or diagnostic analysis based, at least in part, on the artifact free region.
+</abstract>
+
+<claims>
+1. A non-transitory computer-readable storage device storing computer-executable instructions that when executed control a processor to perform operations, the operations comprising: accessing a digital pathology (DP) image, the DP image having a plurality of pixels, a pixel having an intensity; accessing a histological quality control (HistoQC) pipeline, where the HistoQC pipeline includes a sequential list of N modules, N being an integer; generating a true mask of the DP image, where the true mask indicates which pixels in the DP image are artifact free; proceeding, starting with the first module in the HistoQC pipeline, to, in an iterative manner: select a module from the HistoQC pipeline; and apply the selected module to the DP image, where at least one selected module, when applied to the DP image, generates a refined true mask by refining the true mask based on the application of the selected module to the DP image, with the refined true mask acting as a true mask for a next iteration, until N modules have been selected from the HistoQC pipeline; upon determining that N modules have been selected from the HistoQC pipeline: generating a final mask based on the refined true mask, where the final mask indicates a region of the DP image that is artifact free; upon determining that a threshold level of the DP image is artifact free based on the final mask: declaring the DP image suitable for diagnostic analysis; upon determining that the final mask is suitable for downstream computation: providing the final mask for downstream computation; upon determining that the final mask is not suitable for downstream computation: repairing the DP image, or removing the DP image from downstream computation; and displaying the final mask.
+2. The non-transitory computer-readable storage device of claim 1, where the DP image includes metadata about the DP image.
+3. The non-transitory computer-readable storage device of claim 2, where the metadata includes a magnification level, a scanner type, or a microns per pixel value.
+4. The non-transitory computer-readable storage device of claim 3, where accessing the HistoQC pipeline includes selecting a HistoQC pipeline from among a plurality of HistoQC pipelines based, at least in part, on the metadata.
+5. The non-transitory computer-readable storage device of claim 1, where accessing the HistoQC pipeline includes accessing a configuration file.
+6. The non-transitory computer-readable storage device of claim 5, where the configuration file defines a plurality of modules to apply to the DP image, and the order in which to apply the plurality of modules to the DP image.
+7. The non-transitory computer-readable storage device of claim 6, where the configuration file further defines a parameter associated with a module.
+8. The non-transitory computer-readable storage device of claim 1, where generating the true mask includes defining a true mask that indicates all the pixels in the DP image are artifact free.
+9. The non-transitory computer-readable storage device of claim 1, where applying the selected module to the DP image comprises: extracting a pixel-level feature from the DP image; and generating a metric about the DP image based on the extracted feature.
+10. The non-transitory computer-readable storage device of claim 9, where applying the selected module to the DP image further comprises refining the true mask based on the metric.
+11. The non-transitory computer-readable storage device of claim 1, where applying the selected module to the DP image comprises: computing a pixel-level threshold based on the true mask.
+12. The non-transitory computer-readable storage device of claim 11, where applying the selected module to the DP image further comprises refining the true mask based on the pixel-level threshold.
+13. The non-transitory computer-readable storage device of claim 1, where applying the selected module to the DP image comprises: providing the true mask to a machine learning classifier; and receiving, from the machine learning classifier, a classification of a region of the true mask, where the machine learning classifier generates the classification based, at least in part, on a pixel-level analysis of the true mask.
+14. The non-transitory computer-readable storage device of claim 13, where applying the selected module to the DP image further comprises refining the true mask based on the classification.
+15. The non-transitory computer-readable storage device of claim 13, the operations further comprising training the machine learning classifier according to a set of exemplar images, a member of the set of exemplar images having a plurality of pixels, a pixel having an intensity, where a first member of the set of exemplar images is an original image, and where the second member of the set of exemplar images is a binary mask of the original image, where the binary mask identifies which pixels in the second member are members of a positive class, and which pixels in the second member are members of a negative class.
+16. The non-transitory computer-readable storage device of claim 15, where the first member of the set of exemplar images and second member of the set of exemplar images have the same magnification.
+17. The non-transitory computer-readable storage device of claim 1, where determining that the final mask is suitable for downstream computation includes determining if the final mask includes a threshold level of artifacts, or if the final mask includes a threshold number of pixels relative to the number of pixels in the DP image.
+18. The non-transitory computer-readable storage device of claim 1, the operations further comprising: identifying a batch effect in the DP image based, at least in part, on the final mask; and upon determining that the batch effect is above a threshold level: correcting the batch effect, or removing the DP image from downstream computation.
+19. The non-transitory computer-readable storage device of claim 18, where a batch effect is a non-biological technical artifact occurring within a threshold percentage of the members of a plurality of DP images.
+20. An apparatus for performing quality control of digital pathology (DP) slides, comprising: a processor; a memory configured to store a histological quality control (HistoQC) pipeline, and a DP image, the DP image having a plurality of pixels, a pixel having an intensity; an input/output (I/O) interface; a set of circuits; and an interface that connects the processor, the memory, the I/O interface, and the set of circuits, the set of circuits comprising: an image acquisition circuit configured to: access a DP image, where the DP image includes metadata associated with the DP image; define a true mask for the DP image, where the true mask indicates a region of the DP image free of artifacts; a HistoQC pipeline circuit configured to: access a first HistoQC pipeline, a HistoQC pipeline having a sequential list of N modules, N being an integer; starting with the first module in the sequential list: select a module from the sequential list; and apply the selected module to the DP image, where applying the selected module to the DP image includes: for at least one selected module, generating a refined true mask by refining the true mask based on the application of the module to the DP image, in an iterative manner, with the refined true mask acting as a true mask for a next iteration, until N modules have been selected from the sequential list; upon determining that N modules have been selected from the sequential list: generate a final mask based on the refined true mask, where the final mask indicates a region of the DP image that is artifact free; a mask assessment circuit configured to: upon determining that a threshold level of the DP image is artifact free based on the final mask: select the DP image for diagnostic analysis; upon determining that the final mask is suitable for downstream computation: provide the final mask for downstream computation; upon determining that the final mask is not suitable for downstream computation: repair the DP image, or remove the DP image from downstream computation; and a display circuit configured to display the final mask.
+21. The apparatus of claim 20, where the HistoQC pipeline includes a metric-based module, a threshold-based module, or a machine-learning classification module; where a metric-based module computes a metric based on the DP image; where a threshold-based module computes a threshold based on the DP image; where a machine-learning classification module generates a classification of the DP image or a region of the DP image.
+22. The apparatus of claim 21, where the HistoQC pipeline circuit is further configured to: refine the true mask based on the metric, the threshold, or the classification.
+23. The apparatus of claim 20, where the DP image is a member of a plurality of DP images, and where the HistoQC pipeline circuit is further configured to detect a batch effect in the DP image.
+24. The apparatus of claim 20, where the first HistoQC pipeline is a low-computational cost HistoQC pipeline; and where the HistoQC pipeline circuit is further configured to: select, based on the metadata associated with the DP image and a first iteration of the first HistoQC pipeline to the DP image, a second, different, higher-computational cost HistoQC pipeline, and apply the second, different, higher-computational cost HistoQC pipeline to the DP image.
+25. A non-transitory computer-readable storage device storing computer-executable instructions that when executed control a computer to perform a method of performing quality control on a digital pathology (DP) image, the method comprising: accessing a set of DP images, a DP image having an imaging parameter, the DP image further having a plurality of pixels, a pixel having an intensity; applying a low-computation cost histology quality control (HistoQC) pipeline to the set of DP images, where the low-computational cost HistoQC pipeline computes a first set of image metrics associated with a member of the set of DP images; assigning the member of the set of DP images to a first cohort or a second, different cohort based, at least in part, on the imaging parameter and the first set of image metrics; applying a first, higher-computational-cost HistoQC pipeline to a member of the first cohort; applying a second, different higher-computation-cost HistoQC pipeline to a member of the second cohort; where the first, higher-computational-cost HistoQC pipeline determines an artifact-free region of the member of the first cohort, and classifies the member of the first cohort as suitable for downstream computation or diagnostic analysis, or unsuitable for downstream computation or diagnostic analysis based, at least in part, on the artifact free region; and where the second, different, higher-computational-cost HistoQC pipeline determines an artifact-free region of the member of the second cohort, and classifies the member of the second cohort as suitable for downstream computation or diagnostic analysis, or unsuitable for downstream computation or diagnostic analysis based, at least in part, on the artifact free region.
+</claims>
+</document>

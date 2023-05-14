@@ -1,0 +1,97 @@
+<document>
+
+<filing_date>
+2019-08-21
+</filing_date>
+
+<publication_date>
+2020-03-05
+</publication_date>
+
+<priority_date>
+2018-08-27
+</priority_date>
+
+<ipc_classes>
+B05D5/00,G05B19/408,G05B19/418
+</ipc_classes>
+
+<assignee>
+3M INNOVATIVE PROPERTIES COMPANY (MINNESOTA MINING AND MANUFACTURING INNOVATIVE PROPERTIES COMPANY)
+</assignee>
+
+<inventors>
+ADOLF, JEFFREY P.
+FLOEDER, STEVEN P.
+HEMES, BRETT R.
+HENDERSON, JOHN, W.
+HERBST, NATHAN J.
+</inventors>
+
+<docdb_family_id>
+68104706
+</docdb_family_id>
+
+<title>
+LEARNING FRAMEWORK FOR ROBOTIC PAINT REPAIR
+</title>
+
+<abstract>
+A method and associated system for providing robotic paint repair includes receiving coordinates of identified defects in a substrate along with characteristics of the defects, and communicating the coordinates to a robot controller module along with additional data needed to control a robot manipulator to bring an end effector of the robot manipulator into close proximity to the identified defect on the substrate. The characteristics of the defect and current state of at least the end effector is provided to a policy server that provides repair actions based on a previously learned control policy that is updated by a machine learning unit. The repair action is executed by communicating instructions for the repair action to the robot controller module and end effector.
+</abstract>
+
+<claims>
+What is claimed is:
+1. A computer-implemented method of providing robotic paint repair, comprising:
+a) receiving, by one or more processors, coordinates of each identified defect in a substrate along with characteristics of each defect;
+b) communicating, by the one or more processors, coordinates of an identified defect in the substrate to a robot controller module along with any additional data needed for the robot controller module to control a robot manipulator to bring an end effector of the robot manipulator into close proximity to the identified defect on the substrate;
+c) providing, by the one or more processors, characteristics of the defect and a current state of at least the end effector of the robot manipulator to a policy server;
+d) receiving, by the one or more processors, a repair action from the policy server based on a previously learned control policy; and
+e) executing, by the one or more processors, the repair action by communicating
+instructions to the robot controller module and end effector to implement the repair action.
+2. The method of claim 1, wherein the repair action includes at least one of set points for RPM of a sanding tool, a control input for a compliant force flange, a trajectory of the robot manipulator, and total processing time.
+3. The method of claim 2, wherein the trajectory of the robot manipulator is communicated by the one or more processors to the robot manipulator as time-varying positional offsets from an origin of the defect being repaired.
+4. The method of claim 1, further comprising receiving, by the one or more processors, characteristics of each defect including locally collected in-situ inspection data from end effector sensors.
+5. The method of claim 4, further comprising f) providing, by the one or more processors, the in-situ data to a machine learning unit for creating learning updates using at least one of fringe pattern projection, deflectometry, and intensity measurements of diffuse reflected or normal white light using a camera.
+6. The method of claim 5, further comprising the one or more processors repeating steps c)-f) until the identified defect is satisfactorily repaired.
+7. The method of claim 1, wherein the repair action comprises sanding the substrate at the location of the identified defect.
+8. The method of claim 1, wherein the repair action comprises polishing or buffing the substrate at the location of the identified defect.
+9. The method of claim 1, further comprising the one or more processors receiving quality data relating to a quality of a repair resulting from the repair action and providing the characteristics of the defect and the quality data to the policy server for logging.
+10. The method of claim 9, further comprising the one or more processors implementing a machine learning module that runs learning updates to improve future repair actions from the policy server based on a particular identified defect and subsequent evaluation of an executed repair.
+11. The method of claim 10, further comprising the one or more processors identifying a repair as good or bad using sensor feedback collected during and/or after execution of the repair action and implementing reinforcement learning to develop a repair action for an identified defect.
+12. The method of claim 11, wherein the reinforcement learning is implemented by mapping raw imaging data of identified defects to repair actions, assigning rewards based on a quality of the repair action, and identifying a policy that maximizes the reward.
+13. The method of claim 12, wherein the reinforcement learning is implemented as a reinforcement learning task based on a Markov Decision Process (MDP).
+14. The method of claim 13, wherein the MDP is a finite MDP having tasks implemented in an MDP transition graph using at least the states of Initial, Sanded, Polished, and Completed, wherein the Initial state is augmented to include the identified defect in its original, unaltered state, the Sanded state and the Polished state occur after sanding and polishing actions, respectively, and the Completed state marks an end of the repair process.
+15. The method of claim 14, wherein the Sanded state and Polished state includes locally collected in-situ inspection data from end effector sensors.
+16. The method of claim 14, wherein the tasks implemented in the MDP transition graph includes actions comprising at least one of complete, tendDisc, sand, and polish, wherein the complete action takes a process immediately to the Completed state, tendDisc action signals the robot manipulator to wet, clean, or replace an abrasive disc for the end effector, and the sand action and the polish action are implemented using parameters including at least one of RPM of a sanding tool of the end effector, applied pressure, dwell/process time, and repair trajectory for the robot manipulator.
+17. The method of claim 16, wherein the sand action and the polish action are continuous parametric functions for continuous parameters.
+18. The method of claim 16, wherein the tasks implemented in the MDP transition graph include a single tendDisc action followed by a single sanding action followed by a single polishing action.
+19. The method of claim 1, wherein the characteristics of the defect comprise unprocessed, raw images.
+20. The method of claim 1, wherein the learned control policy uses abrasive utilization data to enable decisions based on remaining abrasive life.
+21. The method of claim 1, further comprising finding the learned control policy using physically simulated defects.
+22. A robotic paint repair system, comprising:
+a robot manipulator that controls an end effector including at least one of sanding and polishing elements for at least one of sanding and polishing a substrate;
+a robot controller module that controls movements and operation of the robot manipulator; a policy server that maintains a current learned policy or policies relating an identified defect to one or more repair actions and provides control outputs based on state and observation queries; and
+a control unit having one or more processors that process instructions to implement the steps of:
+receiving coordinates of each identified defect in the substrate along with characteristics of each defect,
+communicating coordinates of an identified defect in the substrate to the robot controller module along with any additional data needed for the robot controller module to control the robot manipulator to bring the end effector into close proximity to the identified defect on the substrate, receiving a repair action from the policy server based on defect characteristics and a previously learned control policy,
+providing characteristics of the defect and a current state of at least the end effector of the robot manipulator to the policy server, and executing the repair action by communicating instructions to the robot controller module and end effector to implement the repair action.
+23. The system of claim 22, wherein the repair action includes at least one of set points for RPM of a sanding tool, a control input for a compliant force flange, a trajectory of the robot manipulator, and total processing time.
+24. The system of claim 23, wherein the trajectory of the robot manipulator is communicated by the control unit to the robot manipulator as time-varying positional offsets from an origin of the defect being repaired.
+25. The system of claim 22, wherein the repair action comprises sanding the substrate at the location of the identified defect.
+26. The system of claim 22, wherein the repair action comprises polishing or buffing the substrate at the location of the identified defect.
+27. The system of claim 22, wherein the control unit receives quality data relating to a quality of a repair resulting from the repair action and provides the characteristics of the defect and the quality data to the policy server for logging.
+28. The system of claim 27, further comprising a machine learning module runs learning updates to improve future repair actions from the policy server based on a particular identified defect and subsequent evaluation of an executed repair.
+29. The system of claim 28, further comprising at least one sensor that collects in-situ inspection data of an identified defect in the substrate, wherein the machine learning unit receives the in-situ inspection data from the at least one sensor and creates learning updates using at least one of fringe pattern projection, deflectometry, and intensity measurements of diffuse reflected or normal white light using a camera.
+30. The system of claim 28, wherein the machine learning module identifies a repair as good or bad using sensor feedback collected during and/or after execution of the repair action and implements reinforcement learning to develop a repair action for an identified defect.
+31. The system of claim 30, wherein the reinforcement learning is implemented by the machine learning module by mapping raw images of identified defects to repair actions, assigning rewards based on a quality of the repair action, and identifying a policy that maximizes the reward.
+32. The system of claim 31, wherein the reinforcement learning is implemented by the machine learning module as a reinforcement learning task based on a Markov Decision Process (MDP).
+33. The system of claim 32, wherein the MDP is a finite MDP having tasks implemented in an MDP transition graph using at least the states of Initial, Sanded, Polished, and Completed, wherein the Initial state is augmented to include the identified defect in its original, unaltered state, the Sanded state and the Polished state occur after sanding and polishing actions, respectively, and the Completed state marks an end of the repair process.
+34. The system of claim 33, wherein the tasks implemented in the MDP transition graph includes actions comprising at least one of complete, tendDisc, sand, and polish, wherein the complete action takes a process immediately to the Completed state, tendDisc action signals the robot manipulator to wet, clean, or replace an abrasive disc for the end effector, and the sand action and the polish action are implemented using parameters including at least one of RPM of a sanding tool of the end effector, applied pressure, dwell/process time, and repair trajectory for the robot manipulator.
+35. The system of claim 34, wherein the sand action and the polish action are continuous parametric functions for continuous parameters.
+36. The system of claim 34, wherein the tasks implemented in the MDP transition graph by the machine learning module include a single tendDisc action followed by a single sanding action followed by a single polishing action.
+37. The system of claim 22, wherein the characteristics of the defect comprise unprocessed, raw images.
+38. The system of claim 22, wherein the learned control policy uses abrasive utilization data to enable decisions based on remaining abrasive life.
+39. The system of claim 22, further comprising finding the learned control policy using physically simulated defects.
+</claims>
+</document>

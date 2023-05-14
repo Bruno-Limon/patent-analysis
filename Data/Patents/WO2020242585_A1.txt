@@ -1,0 +1,82 @@
+<document>
+
+<filing_date>
+2020-03-31
+</filing_date>
+
+<publication_date>
+2020-12-03
+</publication_date>
+
+<priority_date>
+2019-05-29
+</priority_date>
+
+<ipc_classes>
+G06F16/35,G06F21/57,G06F21/62,G06F21/64,H04L29/06,H04W12/02
+</ipc_classes>
+
+<assignee>
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+SALMAN, TAMER
+KRAUS, NAAMA
+BASHIR, Salam
+</inventors>
+
+<docdb_family_id>
+70465408
+</docdb_family_id>
+
+<title>
+DATA SECURITY CLASSIFICATION SAMPLING AND LABELING
+</title>
+
+<abstract>
+Cybersecurity and data categorization efficiency are enhanced by providing reliable statistics about the number and location of sensitive data of different categories in a specified environment. These data sensitivity statistics are computed while iteratively sampling a collection of blobs, files, or other stored items that hold data. The items may be divided into groups, e.g., containers or directories. Efficient sampling algorithms are described. Data sensitivity statistic gathering or updating based on the sampling activity ends when a specified threshold has been reached, e.g., a certain number of items have been sampled, a certain amount of data has been sampled, sampling has used a certain amount of computational resources, or the sensitivity statistics have stabilized to a certain extent. The resulting statistics about data sensitivity can be utilized for regulatory compliance, policy formulation or enforcement, data protection, forensic investigation, risk management, evidence production, or another classification-dependent or classification-enhanced activity.
+</abstract>
+
+<claims>
+1. A data security classification sampling system, comprising:
+a memory;
+a processor which is in operable communication with the memory, the processor configured to configure the memory with instructions and data and perform steps which include providing data security classification statistics by (a) getting an iterations-complete-condition, and (b) iteratively repeating a data sampling sequence until the iterations-complete-condition is met, wherein the data sampling sequence of a current iteration includes (bl) selecting a current iteration scan-set of stored items from a group of stored items, the selecting based at least partially on a current iteration sampling allotment, (b2) when a scanning-condition is met then in response scanning data of the current iteration scan-set for sensitive data which meets a predefined sensitivity criterion which defines a sensitivity type, (b3) when scanned data of a particular stored item of the current iteration scan-set includes sensitive data which meets the predefined sensitivity criterion, then in response labeling the particular stored item with a predefined sensitivity label which corresponds to the predefined sensitivity criterion, and when the scanned data of a particular stored item does not include data which meets the predefined sensitivity criterion, then in response avoiding labeling the particular stored item with the predefined sensitivity label, (b4) updating a data security classification statistical measure in response to the labeling or the avoiding labeling, (b5) calculating a next iteration sampling allotment which is based at least partially on the current iteration sampling allotment and the data security classification statistical measure, and (b6) when the iterations-complete-condition is not met, then in response using the next iteration sampling allotment as the current iteration sampling allotment of a next iteration of the data sampling sequence.
+2. The system of claim 1, wherein the system comprises multiple data scanners which are configured to perform scanning for sensitive data which meets a respective predefined sensitivity criterion, and wherein the processor is configured to set the scanning-condition to enable zero or more scanners for a particular iteration based on at least one of the following: which sensitivity type or combination of sensitivity types have been found by previous scanning, metadata of the group of stored items, the data security classification statistical measure, an iteration number which indicates how many iterations of the data sampling sequence have been performed, or a computational cost that is associated with a particular scanner.
+3. The system of claim 1, wherein the current iteration sampling allotment for a first iteration is based on at least one of the following: an amount of time, an amount of a computational resource, an amount of power consumption, a number of stored items, or an amount of stored item data.
+4. The system of claim 1, wherein the iterations-complete-condition comprises at least one of the following: a maximum number of iterations, a minimum number of iterations, a maximum time expended during iterations, a minimum time expended during iterations, a maximum computational resource used during iterations, a minimum computational resource used during iterations, a maximum power consumption during iterations, a minimum power consumption during iterations, a maximum number of stored items scanned during iterations, a minimum number of stored items scanned during iterations, a maximum number of stored items labeled during iterations, a minimum number of stored items labeled during iterations, a maximum amount of data scanned during iterations, a minimum amount of data scanned during iterations, or a specified stability of the data security classification statistical measure during iterations.
+5. The system of claim 1, wherein the current iteration scan-set includes stored items from a plurality of groups of stored items, and a portion of the current iteration sampling allotment is allocated to each of the groups.
+6. The system of claim 1, wherein the data security classification statistical measure comprises at least one of the following:
+a sensitivity-presence value which measures stored items which have been labeled during iterations performed so far, relative to a measure of all stored items of the group;
+a sensitivity-diversity value which measures an amount of sensitivity types of stored items which have been labeled during iterations performed so far, relative to a measure of all defined sensitivity types.
+7. A data security classification sampling method, comprising performing operations as follows:
+allocating an initial sampling allotment among m groups of stored data items, m being an integer greater than one;
+for each iteration i until an iterations-complete-condition is met: for each group group-j of stored data items, j ranging from one to m:
+selecting a scan-set scan-set-i-j of stored items from within group group-j, the selecting based at least partially on a sampling allotment allotment-i-j which is based at least partially on a data security classification statistical measure score-i-j, wherein score-i-j is based at least partially on sensitive data identified so far by scanning data of stored items;
+when a scanning-condition is met then in response scanning data of the scan-set scan-set-i-j of stored items for sensitive data, wherein sensitive data is data that meets a predefined sensitivity criterion which defines a sensitivity type;
+when a scanned particular stored item of the current iteration scanset includes sensitive data, then in response updating score-ij;
+and
+providing a data sensitivity result to at least one of the following: a data privacy tool, a data security tool, a data loss prevention tool, a risk management tool, a regulatory compliance tool, a forensics tool, computational resource administration tool, or a litigation evidence production tool.
+8. The method of claim 7, wherein providing data sensitivity results comprises providing at least one of the following:
+each score-i-j;
+a per-group data security classification statistical measure score-j which is based on score-i-j values for group-j over multiple iterations;
+a per-group sensitivity-presence value sensitivity-presence-j which measures
+sensitive data identified in group group-j relative to a measure of all data of group-j;
+a per-group sensitivity-diversity value sensitivity-diversity-j which measures an amount of sensitivity types of data identified in group group-j relative to a measure of all defined sensitivity types;
+an overall data security classification statistical measure score which is based on score-i-j values for all groups over all iterations;
+an overall sensitivity -presence value which measures sensitive data identified in all groups over all iterations relative to a measure of all data in all groups; or an overall sensitivity-diversity value which measures an amount of sensitivity types of data identified in all groups over all iterations relative to a measure of all defined sensitivity types.
+9. The method of claim 7, further comprising at least one of the following: choosing on a per-group basis which zero or more sensitivity types to scan data for in a particular group-j;
+choosing on a per-iteration basis which zero or more sensitivity types to scan data for during a particular iteration i; or
+scanning data for different sensitivity types at different times during the method.
+10. The method of claim 7, further comprising labeling sensitive data during the operations with at least one predefined sensitivity label which corresponds to the predefined sensitivity criterion satisfied by the sensitive data, after the sensitive data is identified during the operations.
+11. The method of claim 7, wherein the method comprises meeting the iterations-complete-condition by discerning a specified level of stability of the data security classification statistical measure over at least two iterations.
+12. The method of claim 7, wherein:
+selecting a scan-set of stored items includes selecting at least one of the following stored items: blobs, files, tables, records, objects, email messages, email attachments; and
+selecting a scan-set of stored items from within a group includes selecting stored items from within at least one of the following stored item groups: a container, a directory, a database, a list, a tree, an account, a repository.
+13. The method of claim 7, wherein the method comprises operations which maximize at least one of the following objective functions:
+a sensitive-items-recall objective function which computes at least: a value based on a number of stored items in a group which have been identified as containing sensitive data divided by a value based on a number of stored items in the group which actually contain sensitive data;
+a sensitivity -types-recall objective function which computes at least: a value based on a number of distinct sensitivity types of stored items in a group which have been identified as containing sensitive data divided by a value based on a number of distinct sensitivity types of stored items in the group which actually contain sensitive data; or a labeling-error objective function which computes at least a difference between a numeric weight of a most sensitive identified sensitivity type of stored items in a group and a numeric weight of an actual most sensitive sensitivity type of stored items in the group.
+14. The method of claim 7, wherein scanning data of stored items for sensitive data comprises scanning for at least one of the following: personal or protected health information, personal or commercial financial information, personally identifiable information, biometric data, genetic data, racial data, ethnic data, data describing a religious affiliation or belief, data describing a political affiliation or opinion, online identity, data describing a sexual orientation or preference, marital status, personal or family relationship data, trade secret data, or confidential commercial information.
+15. The method of claim 7, wherein scanning data of stored items for sensitive data comprises scanning for sensitive data which meets the predefined sensitivity criterion defining at least one of the following sensitivity types: public, non-public, private, restricted, confidential, highly confidential, secret, top secret, low, medium, high, nonclassified, classified, non-regulated, regulated, subject to a specific regulation or a specific law.
+</claims>
+</document>

@@ -1,0 +1,70 @@
+<document>
+
+<filing_date>
+2019-05-15
+</filing_date>
+
+<publication_date>
+2020-11-19
+</publication_date>
+
+<priority_date>
+2019-05-15
+</priority_date>
+
+<ipc_classes>
+G06N3/08,G06T7/593,G06T7/73
+</ipc_classes>
+
+<assignee>
+MATTERPORT
+</assignee>
+
+<inventors>
+BRADSKI, GARY
+RUBLEE, ETHAN
+Amayeh, Gholamreza
+Vesom, Grace
+Nguyen, William
+Fathollahi, Mona
+</inventors>
+
+<docdb_family_id>
+73245074
+</docdb_family_id>
+
+<title>
+POINT TRACKING USING A TRAINED NETWORK
+</title>
+
+<abstract>
+A trained network for point tracking includes an input layer configured to receive an encoding of an image. The image is of a locale or object on which the network has been trained. The network also includes a set of internal weights which encode information associated with the locale or object, and a tracked point therein or thereon. The network also includes an output layer configured to provide an output based on the image as received at the input layer and the set of internal weights. The output layer includes a point tracking node that tracks the tracked point in the image. The point tracking node can track the point by generating coordinates for the tracked point in an input image of the locale or object. Methods of specifying and training the network using a three-dimensional model of the locale or object are also disclosed.
+</abstract>
+
+<claims>
+1. A computer-implemented method for training a network for point tracking, comprising: generating a three-dimensional model of at least a portion of a locale; receiving a selection of a tracking point with reference to the three-dimensional model; defining an output node in an output layer of the network as a first point tracking node associated with the tracking point; applying to an input layer of the network: (i) an encoding of a training image of the locale; and (ii) a supervisor tracking point location on the training image, the supervisor tracking point location being the location of the tracking point on the training image; generating, in response to the applying of the training image, a tracking point inference at the output node of the network using a set of internal weights of the network; and updating the set of internal weights based on a delta between the tracking point inference and the supervisor tracking point location.
+2. The computer-implemented method for training a network for point tracking from claim 1, further comprising: synthesizing the training image and the supervisor tracking point location using the three-dimensional model.
+3. The computer-implemented method for training a network for point tracking from claim 1, further comprising: applying to the input layer of the network: (i) an encoding of a second training image of the locale; and (ii) a supervisor occlusion indicator for the second training image, the supervisor occlusion indicator indicating that the tracking point is occluded in the second training image; generating, in response to the applying of the second training image, a second tracking point inference at the output node of the network using the set of internal weights of the network; and updating the set of internal weights based on a delta between an occlusion flag in the second tracking point inference and the supervisor occlusion indicator.
+4. The computer-implemented method for training a network for point tracking from claim 2, further comprising: synthesizing the second training image and the supervisor occlusion indicator using the three-dimensional model; and wherein synthesizing the second training image includes compositing an occlusion over the tracking point in the image.
+5. The computer-implemented method for training a network for point tracking from claim 1, further comprising: placing a set of fiducial elements in the locale; wherein the three-dimensional model is generated and registered using the set of fiducial elements.
+6. The computer-implemented method for training a network for point tracking from claim 5, wherein: the selection of the tracking point is provided with reference to a registered surface; the tracking point is floating relative to the registered surface.
+7. The computer-implemented method for training a network for point tracking from claim 5, wherein: the selection of the tracking point is provided with reference to a registered surface; the tracking point is on the registered surface; and the fiducial elements is a two dimensional encoding that defines the registered surface.
+8. The computer-implemented method for training a network for point tracking from claim 5, further comprising: displaying a selection image on a display; wherein the selection image is of the locale; wherein the selection of the tracking point is provided on the selection image.
+9. The computer-implemented method for training a network for point tracking from claim 8, wherein: a registered portion of the locale is available for selection in the selection image; and the registered portion is the portion of the locale that is defined by the three-dimensional model.
+10. The trained network of claim 1, wherein: the trained network includes a convolutional neural network; the set of internal weights are filter values of the convolutional neural network; the encoding of the training image includes at least one two-dimensional matrix of pixel values; and the supervisor tracking point location is a pixel location in the at least one two-dimensional matrix of pixel values.
+11. A trained network, stored in a non-transitory computer readable medium, for point tracking comprising: an input layer configured to receive an encoding of an image of a locale; a set of internal weights which encode information associated with: (i) the locale; and (ii) a tracked point in the locale; an output layer having a set of output nodes and configured to provide an output based on: (i) the image as received at the input layer; and (ii) the set of internal weights; and a first point tracking node in the output layer that tracks the tracked point in the image.
+12. The trained network of claim 11, wherein: the tracked point is defined in a three-dimensional model of at least a portion of the locale; and the set of internal weights encode information associated with locale because they encode information associated with the three-dimensional model.
+13. The trained network of claim 11, wherein: the trained network includes a convolutional neural network; the set of internal weights are filter values of the convolutional neural network; the encoding of the image includes at least one two-dimensional matrix of pixel values; the first point tracking node tracks the tracked point in the image by identifying a pixel location in the at least one two-dimensional matrix of pixel values; and the output is the pixel location in the at least one two-dimensional matrix of pixel values.
+14. The trained network of claim 11, further comprising: a second point tracking node in the output layer; wherein the set of internal weights encode information associated with the second tracked point in the locale; and wherein the second point tracking node tracks a second tracked point in the image.
+15. The trained network of claim 11, wherein: the first point tracking node generates a set of x and y coordinates for the tracked point; and the set of x and y coordinates are provided with reference to the image.
+16. The trained network of claim 11, wherein: the first point tracking node generates an occlusion flag if the tracked point is occluded in the image.
+17. The trained network of claim 11, wherein: the tracked point is associated with an object in the locale; the set of internal weights encode information associated with the object; and the first point tracking node generates a self-occluding flag if the tracked point is occluded in the image by the object.
+18. A trained network, stored in a non-transitory computer readable medium, for point tracking comprising: an input layer configured to receive an encoding of an image of an object; a set of internal weights which encode information associated with: (i) the object; and (ii) a tracked point relative to the object; an output layer having a set of output nodes and configured to provide an output based on: (i) the image as received at the input layer; and (ii) the set of internal weights; and a first point tracking node in the output layer that tracks the tracked point in the image.
+19. The trained network of claim 18, wherein: the tracked point is defined in a three-dimensional model of at least a portion of the object; and the set of internal weights encode information associated with object because they encode information associated with the three-dimensional model.
+20. The trained network of claim 18, wherein: the trained network includes a convolutional neural network; the set of internal weights are filter values of the convolutional neural network; the encoding of the image includes at least one two-dimensional matrix of pixel values; the first point tracking node tracks the tracked point in the image by identifying a pixel location in the at least one two-dimensional matrix of pixel values; and the output is the pixel location in the at least one two-dimensional matrix of pixel values.
+21. The trained network of claim 18, further comprising: a second point tracking node in the output layer; wherein the set of internal weights encode information associated with the second tracked point on the object; and wherein the second point tracking node tracks a second tracked point in the image.
+22. The trained network of claim 18, wherein: the first point tracking node generates a set of x and y coordinates for the tracked point; and the set of x and y coordinates are provided with reference to the image.
+23. The trained network of claim 18, wherein: the first point tracking node generates an occlusion flag if the tracked point is occluded in the image.
+24. The trained network of claim 18, wherein: the first point tracking node generates a self-occluding flag if the tracked point is occluded in the image by the object.
+</claims>
+</document>

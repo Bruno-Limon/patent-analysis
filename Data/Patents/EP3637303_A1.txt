@@ -1,0 +1,58 @@
+<document>
+
+<filing_date>
+2018-10-09
+</filing_date>
+
+<publication_date>
+2020-04-15
+</publication_date>
+
+<priority_date>
+2018-10-09
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/32,G06K9/46,G06K9/62
+</ipc_classes>
+
+<assignee>
+NAVER CORPORATION
+</assignee>
+
+<inventors>
+REVAUD, JÉRÔME
+SAMPAIO DE REZENDE, RAFAEL
+</inventors>
+
+<docdb_family_id>
+65138788
+</docdb_family_id>
+
+<title>
+METHODS FOR GENERATING A BASE OF TRAINING IMAGES, FOR TRAINING A CNN AND FOR DETECTING A POI CHANGE IN A PAIR OF INPUTTED POI IMAGES USING SAID CNN
+</title>
+
+<abstract>
+The present invention relates to a method for generating a base of training images for training a convolutional neural network, CNN, for detecting a Point Of Interest, POI, change in a pair of inputted POI images; the method being characterized in that it comprises the implementation, by a data processor (11a) of a first server (1a), of steps of:(a1) Obtaining an initial set of labelled POI images;(a2) For each image from a subset of said initial set, identifying a signage region in said image, said signage region depicting a key visual feature of a POI depicted by the image;(a3) generating at least one synthetic POI image corresponding to a first image of said subset wherein the signage region has been replaced by that of second image of said subset, and associating to said synthetic POI image the label of the second image;(a4) Providing as the base of training images a final set of POI images comprising the initial set of POI images and each generated synthetic POI imageMethods for training a convolutional neural network, CNN, and for detecting a Point Of Interest, POI, change in a pair of inputted POI images, are further proposed.
+</abstract>
+
+<claims>
+1. A method for generating a base of training images for training a convolutional neural network, CNN, for detecting a Point Of Interest, POI, change in a pair of inputted POI images;
+the method being characterized in that it comprises the implementation, by a data processor (11a) of a first server (1a), of steps of: (a1) obtaining an initial set of labelled POI images; (a2) for each image from a subset of said initial set, identifying a signage region in said image, said signage region depicting a key visual feature of a POI depicted by the image; (a3) generating at least one synthetic POI image corresponding to a first image of said subset wherein the signage region has been replaced by that of second image of said subset, and associating to said synthetic POI image the label of the second image; (a4) providing as the base of training images a final set of POI images comprising the initial set of POI images and each generated synthetic POI image.
+2. A method according to claim 1, wherein step (a2) comprises obtaining a collection of cropped signage images, and step (a3) comprises replacing the signage region of the given image using a randomly chosen cropped signage images from said collection of cropped signage images.
+3. A method according to claim 2, wherein step (a3) comprises affine warping of the chosen cropped signage image for adaptation to size and shape of the signage region of the given image, and then Poisson blending.
+4. A method according to one of claims 1 to 3, wherein said key visual feature of a POI is a name and/or a logo of the POI, the signage region being identified in an image at step (a2) using Optical Character Recognition and/or logo detection.
+5. A method according to any one of claims 1 to 4, wherein either each POI image is associated to a label identifying the POI depicted by the image, or each POI image is associated to a label defining a position and/or an orientation of the image, preferably a 6-degrees-of-freedom pose of the image.
+6. A method according to any one of claims 1 to 5, wherein each POI image is associated to a label defining a 6-degrees-of-freedom pose of the image, step (a1) comprising generating said initial set of POI images by acquiring geo-localized photographs of POIs using an image acquisition device (3).
+7. A method for training a convolutional neural network, CNN, for detecting a Point Of Interest, POI, change in a pair of inputted POI images; characterized in that it comprises the implementation of steps of: (a) generating, by a data processor (11a) of a first server (1a), a base of training images according to any one of claims 1 to 6; (b) generating, by a data processor (11b) of a second server (1b), a plurality of triplets of training images, each triplet comprising a pair of related POI images, and a pair of unrelated POI images, two POI images being determined as related or not on the basis of their labels; (c) training, by the data processor (11b) of the second server (1b), from said plurality of triplets, a CNN of the three-stream Siamese type.
+8. A method according to claim 7, wherein each POI image is associated to a label defining a 6-degrees-of-freedom pose of the image, two POI images being determined as related if they present a geometric overlap over a first threshold and as non-related if they present a geometric overlap below a second threshold, based on their respective 6-degrees-of-freedom pose.
+9. A method according to claim 8, wherein the geometric overlap between two images is computed as the intersection-over-union between sets of corridor outlines respectively visible in each of the two images.
+10. A method according to claims 1 to 9, wherein at least one triplet comprises as pair of unrelated POI images a synthetic image and the first image from which said synthetic image has been generated.
+11. A method for detecting a Point Of Interest, POI, change in a pair of inputted POI images, characterized in that it comprises the implementation of steps of: (a') training, by a data processor (11b) of a second server (1b), a CNN of the three-stream Siamese type according to any one of claims 7 to 10; (b') computing, by the data processor (11c) of the third server (1c), for each image of the pair of inputted POI images, a descriptor of the image using a stream of the CNN; (c') detecting, by the data processor (11c) of the third server (1c), a POI change based on a similarity score function of the descriptors computed.
+12. The method according to claim 11, wherein the images of a pair of inputted POI images have been captured at the same location at two different time stamps.
+13. The method according to claim 12, performed for a plurality of pair of inputted images, obtained from two given datasets of geolocated images captured at two different time stamps, over a given area.
+14. Computer program product comprising code instructions to execute a method according to one of claims 1 to 13 for generating a base of training images, for training a convolutional neural network, CNN, or for detecting a Point Of Interest, POI, change in a pair of inputted POI images, when said program is executed on a computer.
+15. A computer-readable medium, on which is stored a computer program product comprising code instructions for executing a method according to any one of claims 1 to 13 for generating a base of training images, for training a convolutional neural network, CNN, or for detecting a Point Of Interest, POI, change in a pair of inputted POI images.
+</claims>
+</document>

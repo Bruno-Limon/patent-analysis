@@ -1,0 +1,74 @@
+<document>
+
+<filing_date>
+2019-07-19
+</filing_date>
+
+<publication_date>
+2020-01-23
+</publication_date>
+
+<priority_date>
+2018-07-20
+</priority_date>
+
+<ipc_classes>
+G06N3/08,G10L15/02,G10L15/06,G10L15/16,G10L15/22
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+WEISS, RON J.
+NGUYEN, PATRICK AN PHU
+BACCHIANI, MICHIEL A.U.
+SAINATH, TARA N.
+PRABHAVALKAR, ROHIT PRAKASH
+JAITLY, NAVDEEP
+CHEN, ZHIFENG
+WU, YONGHUI
+CHIU, CHUNG-CHENG
+KANNAN, ANJULI PATRICIA
+CHOROWSKI, JAN KAZIMIERZ
+LI, BO
+GONINA, EKATERINA
+RAO, KANURY KANISHKA
+</inventors>
+
+<docdb_family_id>
+69163193
+</docdb_family_id>
+
+<title>
+SPEECH RECOGNITION WITH SEQUENCE-TO-SEQUENCE MODELS
+</title>
+
+<abstract>
+Methods, systems, and apparatus, including computer-readable media, for performing speech recognition using sequence-to-sequence models. An automated speech recognition (ASR) system receives audio data for an utterance and provides features indicative of acoustic characteristics of the utterance as input to an encoder. The system processes an output of the encoder using an attender to generate a context vector and generates speech recognition scores using the context vector and a decoder trained using a training process that selects at least one input to the decoder with a predetermined probability. An input to the decoder during training is selected between input data based on a known value for an element in a training example, and input data based on an output of the decoder for the element in the training example. A transcription is generated for the utterance using word elements selected based on the speech recognition scores. The transcription is provided as an output of the ASR system.
+</abstract>
+
+<claims>
+1. A method performed by one or more computers of an automated speech recognition system, the method comprising: receiving audio data for an utterance; providing features indicative of acoustic characteristics of the utterance as input to an encoder neural network; processing an output of the encoder neural network using an attender neural network to generate a context vector; generating speech recognition scores using the context vector and a decoder neural network, wherein the decoder neural network has been trained using a training process that selects at least one input to the decoder neural network with a predetermined probability, wherein the at least one input to the decoder neural network during training is selected between (i) input data based on a known value for an element in a training example, and (ii) input data based on an output of the decoder neural network for the element in the training example; generating a transcription for the utterance using word elements selected based on the speech recognition scores; and providing the transcription as an output of the automated speech recognition system.
+2. The method of claim 1, wherein the element in the training example is an element for a most-recent previous output time step, wherein the known value is a ground-truth output label for the element in the training example, and wherein the prediction for the element in the training example is an output label predicted using output of the decoder neural network for a most-recent previous output time step.
+3. The method of claim 1, wherein the context vector is a weighted sum of multiple encoder outputs for the utterance.
+4. The method of claim 1, wherein the attender neural network has multiple different network components that each receive the output of the encoder neural network.
+5. The method of claim 1, wherein the decoder neural network is configured to generate word element scores indicating likelihoods for a set of word elements that includes individual graphemes.
+6. The method of claim 1, wherein the set of word elements for which the decoder neural network is configured to generate word element scores further includes partial words that include multiple graphemes or whole words.
+7. The method of claim 1, wherein the attender neural network implements a multi-headed attention mechanism that generates multiple attention distributions; and wherein each of the multiple different network components of the attender neural network separately receives and processes the output of the encoder neural network to independently generate one of the multiple attention distributions.
+8. The method of claim 7, wherein processing the output of the encoder neural network using the attender neural network to generate the attention distribution comprises: normalizing each of the multiple attention distributions determined by the multiple different network components of the attender neural network; and averaging the normalized distributions to generate the attention distribution of the attender neural network that is processed by the decoder neural network.
+9. The method of claim 7, wherein each of the multiple different network components of the attender neural network receives an entire set of outputs of the encoder neural network as an input, and each of the multiple different network components of the attender neural network applies a different set of weights to the output of the encoder neural network.
+10. The method of claim 1, wherein the attention distribution has a lower dimensionality than the output of the encoder neural network.
+11. The method of claim 1, wherein the decoder neural network is a recurrent neural network comprising long short-term memory (LSTM) elements.
+12. The method of claim 1, wherein generating the transcription for the utterance comprises using beam search processing to generate one or more candidate transcriptions based on the word element scores.
+13. The method of claim 12, wherein generating a transcription for the utterance comprises: generating language model scores for the multiple candidate transcriptions using a language model; and determining the transcription based on the language model scores generated using the language model.
+14. The method of claim 13, wherein generating language model scores for the multiple candidate transcriptions comprises determining the language model scores using a plurality of domain-specific language models that are combined using Bayesian interpolation.
+15. The method of claim 14, wherein determining the transcription based on the language model scores generated using the language model comprises generating a combined score that represents a log-linear interpolation of scores based on the output of the decoder neural network and the language model scores determined using the language model.
+16. The method of claim 15, wherein the combined score for a candidate transcription is further based on a scoring factor based on the number of words in the candidate transcription and an empirically tuned coefficient.
+17. The method of claim 1, wherein the decoder neural network comprises a unidirectional LSTM neural network; wherein providing features indicative of acoustic characteristics of the utterance as input to an encoder neural network comprises providing a series of features vectors that represents the entire utterance, the encoder neural network being configured to generate output encodings in a streaming manner as the feature vectors are input; and wherein generating word element scores using a decoder neural network comprises beginning decoding of word elements representing the utterance after the encoder neural network has completed generating output encodings for each of the feature vectors in the series of features vectors that represents the entire utterance.
+18. One or more non-transitory machine-readable storage media storing instructions that are executable by one or more processing devices to cause performance of operations comprising: receiving audio data for an utterance; providing features indicative of acoustic characteristics of the utterance as input to an encoder neural network; processing an output of the encoder neural network using an attender neural network to generate a context vector; generating speech recognition scores using the context vector and a decoder neural network, wherein the decoder neural network has been trained using a training process that selects at least one input to the decoder neural network with a predetermined probability, wherein the at least one input to the decoder neural network during training is selected between (i) input data based on a known value for an element in a training example, and (ii) input data based on an output of the decoder neural network for the element in the training example; generating a transcription for the utterance using word elements selected based on the speech recognition scores; and providing the transcription as an output of an automated speech recognition system.
+19. The non-transitory machine-readable storage media of claim 18, wherein the element in the training example is an element for a most-recent previous output time step, wherein the known value is a ground-truth output label for the element in the training example, and wherein the prediction for the element in the training example is an output label predicted using output of the decoder neural network for a most-recent previous output time step.
+20. An automated speech recognition system comprising: one or more processing devices; and one or more non-transitory machine-readable storage media storing instructions that are executable by the one or more processing devices to cause performance of operations comprising: receiving audio data for an utterance; providing features indicative of acoustic characteristics of the utterance as input to an encoder neural network; processing an output of the encoder neural network using an attender neural network to generate a context vector; generating speech recognition scores using the context vector and a decoder neural network, wherein the decoder neural network has been trained using a training process that selects at least one input to the decoder neural network with a predetermined probability, wherein the at least one input to the decoder neural network during training is selected between (i) input data based on a known value for an element in a training example, and (ii) input data based on an output of the decoder neural network for the element in the training example; generating a transcription for the utterance using word elements selected based on the speech recognition scores; and providing the transcription as an output of the automated speech recognition system.
+</claims>
+</document>

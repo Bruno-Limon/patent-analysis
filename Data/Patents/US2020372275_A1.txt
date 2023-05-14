@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2019-05-22
+</filing_date>
+
+<publication_date>
+2020-11-26
+</publication_date>
+
+<priority_date>
+2019-05-22
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/46,G06T1/20,G06T7/11
+</ipc_classes>
+
+<assignee>
+TEXAS INSTRUMENTS
+</assignee>
+
+<inventors>
+DUBEY, AISHWARYA
+</inventors>
+
+<docdb_family_id>
+73456816
+</docdb_family_id>
+
+<title>
+Hardware Accelerator for Integral Image Computation
+</title>
+
+<abstract>
+A hardware accelerator for computing integral image values of an image is provided that includes a plurality of row computation components configurable to operate in parallel to compute row sum values of respective rows of a row block of the image. The hardware accelerator is further configured to compute integral image values for the row block using the row sum values and block pivots.
+</abstract>
+
+<claims>
+1. A hardware accelerator for computing integral image values of an image, the hardware accelerator comprising: a plurality of row computation components configurable to operate in parallel to compute row sum values of respective rows of a row block of the image.
+2. The hardware accelerator of claim 1, further comprising a block integral image computation component coupled to the plurality of row computation components to receive the row sum values of the respective rows and configured to compute integral image values for the row block using the row sum values and block pivots from a previous row block of the image.
+3. The hardware accelerator of claim 2, wherein the block integral image computation component is further configured to compute an integral image value by adding a row sum value corresponding to the integral image value, all row sum values above the corresponding row sum value in a same column of the row block, and a block pivot corresponding to the same column.
+4. The hardware accelerator of claim 1, wherein a processor coupled to the hardware accelerator to receive the row sum values is configured to compute integral image values for the row block using the row sum values and block pivots from a previous row block of the image.
+5. The hardware accelerator of claim 4, wherein the processor is further configured to compute an integral image value by adding a row sum value corresponding to the integral image value, all row sum values above the corresponding row sum value in a same column of the row block, and a block pivot corresponding to the same column.
+6. The hardware accelerator of claim 1, wherein each row computation component comprises: a plurality of segment row sum computation components coupled to receive respective segments of sequential pixel values of the respective row of the row block, wherein the plurality of segment row sum computation components are configured to compute row sum values of the respective segments in parallel; a row pivots computation component coupled to the plurality of segment row sum computation components to receive a last row sum value of each respective segment, wherein the row pivots computation component is configured to compute a row pivot corresponding to each respective segment using the last row sum values; and a row sum computation component coupled to the plurality of segment row sum computation components to receive the row sum values of each respective segment and coupled to the row pivots computation component to receive the row pivots, wherein the row sum computation component is configured to compute the row sums for the respective row using the row sum values of each respective segment and the row pivots.
+7. The hardware accelerator of claim 6, wherein each segment row sum computation component of the plurality of segment row sum computation components is configured to compute the row sum values for the respective segment in log2 N steps of parallel additions, wherein N is equal to a number of pixel values in the respective segment if the number of pixel values is a power of 2 and N is a closest power of 2 greater than the number of pixel values otherwise.
+8. The hardware accelerator of claim 6, wherein the row pivots computation component is further configured to compute the row pivots in log2 N steps of parallel additions, wherein N is equal to a number of segments if the number of segments is a power of 2 and N is a closest power of 2 greater than the number of segments otherwise.
+9. A method for computing integral image values of an image in a hardware accelerator, the method comprising: computing row sum values for each row of a row block of the image, wherein the row sum values for each row are computed in parallel in respective row computation components of the hardware accelerator; computing integral image values for the row block using the row sum values for each row and block pivots from a previous row block of the image; storing a last row of the integral image values as block pivots for computation of integral image values for a next row block of the image; and storing the integral image values for the row block in a memory.
+10. The method of claim 9, wherein computing integral image values further comprises computing the integral image values by a block integral image computation component comprised in the hardware accelerator.
+11. The method of claim 9, wherein computing integral image values further comprises computing the integral image values by a processor coupled to the hardware accelerator to receive the row sum values for each row.
+12. The method of claim 9, wherein computing integral image values further comprises computing an integral image value by adding a row sum value corresponding to the integral image value, all row sum values above the corresponding row sum value in a same column of the row block, and a block pivot corresponding to the same column.
+13. The method of claim 9, wherein computing row sum values further comprises: receiving a respective row of pixel values of the row block in a respective row computation component; dividing the respective row of pixel values into segments of sequential pixel values in the respective row computation component; computing row sum values for each segment, wherein the row sum values for each segment are computed in parallel in respective segment row sum computation components of the respective row computation component; computing, by a row pivots computation component comprised in the respective row computation component, a row pivot for each segment using last row sum values of the segments; and computing, by a row sum computation component comprised in the respective row computation component, row sum values for the row using the row sum values of the segments and the row pivots.
+14. The method of claim 13, wherein computing row sum values for each segment further comprises computing the row sum values for each segment in log2 N steps of parallel additions, wherein N is equal to a number of pixel values in a segment if the number of pixel values is a power of 2 and N is a closest power of 2 greater than the number of pixels values otherwise.
+15. The method of claim 13, wherein computing a row pivot further comprises computing the row pivot for each segment in log2 N steps of parallel additions, wherein N is equal to a number of segments if the number of segments is a power of 2 and N is a closest power of 2 greater than the number of segments otherwise.
+16. A system on a chip (SOC) comprising: a hardware accelerator for computing integral image values of a row block of an image, the hardware accelerator configurable to compute row sum values for each row of the row block in parallel; a memory coupled to the hardware accelerator to store the integral image values; and a processor coupled to the memory and the hardware accelerator, the processor operable to execute a control program comprising software instructions that configure the hardware accelerator to generate the integral image values of the row block.
+17. The SOC of claim 16, wherein the hardware accelerator is further configurable to compute the integral image values for the row block using the row sum values for each row and block pivots from a previous row block of the image.
+18. The SOC of claim 17, wherein the hardware accelerator is further configurable to compute an integral image value by adding a row sum value corresponding to the integral image value, all row sum values above the corresponding row sum value in a same column of the row block, and a block pivot corresponding to the same column.
+19. The SOC of claim 16, wherein the processor is coupled to the hardware accelerator to receive the row sum values for each row and is further operable to compute the integral image values for the row block using the row sum values and block pivots from a previous row block of the image.
+20. The SOC of claim 19, wherein the processor is further operable to compute an integral image value by adding a row sum value corresponding to the integral image value, all row sum values above the corresponding row sum value in a same column of the row block, and a block pivot corresponding to the same column.
+21. The SOC of claim 16, wherein the hardware accelerator is further configurable to: divide each row of the row block into respective segments of sequential pixel values; compute row sum values of the respective segments in parallel; compute row pivots corresponding to the respective segments using last row sum values of the respective segments; and compute row sum values for each row using the row sum values of the respective segments and the row pivots corresponding to the respective segments.
+22. The SOC of claim 21, wherein the hardware accelerator is further configurable to compute row sum values of the respective segments in log2 N steps of parallel additions, wherein N is equal to a number of pixel values in a respective segment if the number of pixel values is a power of 2 and N is a closest power of 2 greater than the number of pixel values otherwise.
+23. The SOC of claim 21, wherein the hardware accelerator is further configurable to compute row pivots corresponding to the respective segments in log2 N steps of parallel additions, wherein N is equal to a number of segments in a row if the number of pixel values is a power of 2 and N is a closest power of 2 greater than the number of segments otherwise.
+</claims>
+</document>

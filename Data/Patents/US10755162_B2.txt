@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2017-05-02
+</filing_date>
+
+<publication_date>
+2020-08-25
+</publication_date>
+
+<priority_date>
+2016-10-26
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/063,G06N3/08
+</ipc_classes>
+
+<assignee>
+SAMSUNG ELECTRONICS COMPANY
+</assignee>
+
+<inventors>
+CHOI, CHANG KYU
+HAN, JAE JOON
+HAN, SEUNG JU
+KIM, JUNG BAE
+</inventors>
+
+<docdb_family_id>
+61970384
+</docdb_family_id>
+
+<title>
+Method and apparatus to reduce neural network
+</title>
+
+<abstract>
+A method to reduce a neural network includes: adding a reduced layer, which is reduced from a layer in the neural network, to the neural network; computing a layer loss and a result loss with respect to the reduced layer based on the layer and the reduced layer; and determining a parameter of the reduced layer based on the layer loss and the result loss.
+</abstract>
+
+<claims>
+1. A reduced neural network generation method, the method comprising: adding a first reduced layer, which is reduced from a first layer in a neural network, to the neural network; dependent on the adding, computing a first layer loss, with respect to the first reduced layer, dependent on both results of the first layer and results of the first reduced layer, and computing a first result loss, with respect to the first reduced layer, dependent on the results of first reduced layer; and determining a parameter for the first reduced layer based on consideration of both the first layer loss and the first result loss.
+2. The method of claim 1, wherein the determining of the parameter for the first reduced layer comprises: computing a network loss based on the first layer loss and the first result loss; and determining the parameter for the first reduced layer to reduce the network loss.
+3. The method of claim 2, further comprising: generating a reduced neural network of the neural network by removing the first layer from the neural network with the added first reduced layer, in response to the network loss being less than a threshold loss.
+4. The method of claim 2, wherein the computing of the network loss comprises: determining a layer weight to be applied to the first layer loss to be a value greater than a result weight to be applied to the first result loss, in response to the network loss being greater than or equal to an initial loss; and computing the network loss based on the layer weight, the first layer loss, the result weight, and the first result loss.
+5. The method of claim 2, further comprising: determining a layer weight to be applied to the first layer loss to be a value greater than a result weight to be applied to the first result loss, in response to the network loss being less than an initial loss; and computing the network loss based on the first layer weight, the first layer loss, the first result weight, and the first result loss.
+6. The method of claim 1, wherein the computing of the first layer loss is based on an output of the first layer and an output of the first reduced layer, and wherein the computing of the first result loss is based on the output of the first reduced layer for training data and a mapped training output of the training data.
+7. The method of claim 6, wherein the computing of the first layer loss comprises computing a similarity between the output of the first layer and the output of the first reduced layer, and the computing of the first result loss comprises computing a similarity between the output of the first reduced layer and the mapped training output.
+8. The method of claim 1, comprising training of the reduced layer, including the determining of the parameter for the reduced layer, until a calculated network loss is less than a threshold loss for a corresponding first reduced layer that has a correspondingly determined layer parameter; and the method further comprises: adding a second reduced layer, which is reduced from a second layer in the neural network, to an interim neural network that includes one or more layers of the neural network, without the first layer, and includes the corresponding first reduced layer; dependent on the adding of the second reduced layer, computing a result loss based on the corresponding first reduced layer, computing a second layer loss dependent on results of the second layer and results of the second reduced layer, and computing a second result loss dependent on the results of the second reduced layer; and determining a parameter for the second reduced layer based on consideration of the computed result loss, the computed second layer loss, and the computed second result loss.
+9. The method of claim 1, comprising generating an interim neural network, including the adding of the first reduced layer, wherein the generating of the interim neural network comprises: generating plural reduced layers respectively corresponding to plural layers in the neural network; and generating the interim neural network by combining the plural reduced layers and the plural layers of the neural network, including respectively connecting the plural reduced layers based on a connection order of the plural layers in the neural network, and, for each connection order, compute a corresponding layer loss based on a result of a corresponding layer of the plural layers and a result of a corresponding layer of the plural reduced layers for training the plural reduced layers to be combined as a reduced neural network of the neural network.
+10. The method of claim 9, wherein the computing of the first layer loss and the first result loss comprises: using the interim neural network, computing plural layer losses for a same epoch based respectively on an output of each of the plural layers and an output of each of the plural reduced layers; and using the interim neural network, computing plural result losses based respectively on the output of each of the plural reduced layers and a mapped training output of training data for each corresponding depth of the plural reduced layers.
+11. The method of claim 10, wherein the determining of the parameter for the first reduced layer comprises: computing a network loss based on a weighted sum of the plural layer losses and a weighted sum of the plural result losses; and training the plural reduced layers to reduce the network loss.
+12. The method of claim 9, further comprising generating the reduced neural network using the trained reduced layers of the interim neural network without the plural layers of the neural network.
+13. The method of claim 1, wherein the adding of the first reduced layer comprises: generating the first reduced layer based on a reducing of a number of parameters of the first layer; and connecting the first reduced layer to another layer in the neural network.
+14. The method of claim 1, wherein the adding of the first reduced layer comprises generating the first reduced layer based on a reducing of plural layers in the neural network to a single layer.
+15. The method of claim 1, wherein the adding of the first reduced layer comprises generating the first reduced layer based on a reducing of a layer of the neural network connected adjacent to an input layer in the neural network.
+16. The method of claim 1, wherein the adding of the first reduced layer comprises generating the first reduced layer based on a reducing of a layer of the neural network connected adjacent to an output layer in the neural network.
+17. The method of claim 1, comprising training the first reduced layer by repeating the determining of the parameter for the reduced first reduced layer, each repeating of the determining of the parameter for the first reduced layer being dependent on respective computations of a network loss, with the repeating of the determining of the parameter being performed until the network loss is less than a threshold loss, and wherein the respective computations of the network loss are based on, corresponding to each result of the repeated determining of the parameter for the first reduced layer, respective re-computations of the first layer loss and re-computations of the first result loss.
+18. The method of claim 1, comprising training the first reduced layer, including the determining of the parameter for the first reduced layer, by determining parameters of nodes for the first reduced layer using gradient descent loss propagation.
+19. The method of claim 1, further comprising: obtaining the neural network comprising plural layers each including nodes, with respective weighted connections connecting nodes of each adjacent layer of the plural layers, wherein the adding of the first reduced layer includes generating the first reduced layer to have a reduced total number of nodes, reduced from a total number of nodes in the first layer, and/or a reduced total number of weighted connections, reduced from a total number of weighted connections in the first layer.
+20. A non-transitory computer-readable medium storing instructions that, when executed by a processor, cause the processor to perform the method of claim 1.
+21. The method of claim 1, wherein the first layer loss is dependent on similarities between the results of the first layer and the results of the first reduced layer, and wherein the first result loss is dependent on similarities between the results of the first reduced layer and corresponding mapped training output of training data.
+22. The method of claim 21, wherein the first layer loss is a Euclidean distance-based loss with respect to the results of the first layer and results of the first reduced layer, and wherein the computing of the first result loss includes computing a cross entropy loss between the results of the first reduced layer and the corresponding mapped training output of the training data.
+23. An apparatus, the apparatus comprising: one or more processors; and a memory storing instructions that when executed by the one or more processors configure the one or more processors to: add a first reduced layer, which is reduced from a first layer in a neural network, to the neural network; dependent on the adding, compute a first layer loss for training data, with respect to the first reduced layer, dependent on similarities between results of the first layer and results of the first reduced layer, and compute a first result loss for the training data, with respect to the first reduced layer, dependent on similarities between the results of first reduced layer and corresponding mapped training output of the training data; and generate a reduced neural network based on a training of the first reduced layer that includes a determination of a parameter for the first reduced layer based on consideration of both the first layer loss and the first result loss.
+</claims>
+</document>

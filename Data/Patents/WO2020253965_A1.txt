@@ -1,0 +1,97 @@
+<document>
+
+<filing_date>
+2019-06-20
+</filing_date>
+
+<publication_date>
+2020-12-24
+</publication_date>
+
+<priority_date>
+2019-06-20
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/46
+</ipc_classes>
+
+<assignee>
+TOYOTA MOTOR EUROPE
+MIND VISION LABS
+</assignee>
+
+<inventors>
+AMBECK-MADSEN, JONAS
+LAVIE, NILLI
+OLMEDA REINO, DANIEL
+OTHMEZOURI, GABRIEL
+PALMER, LUKE
+PALASEK, Petar
+</inventors>
+
+<docdb_family_id>
+67137907
+</docdb_family_id>
+
+<title>
+CONTROL DEVICE, SYSTEM AND METHOD FOR DETERMINING PERCEPTUAL LOAD OF A VISUAL AND DYNAMIC DRIVING SCENE IN REAL TIME
+</title>
+
+<abstract>
+The invention relates to a control device (1) for a vehicle (10) for determining perceptual load of a visual and dynamic driving scene, the control device (1) being configured to: · receive an image sequence representing the driving scene, · extract a set of scene features from the image sequence, the set of scene features representing static and/or dynamic information of the driving scene, · calculate a time-aggregated representation of the image sequence based on the extracted set of scene features, · calculate an attention map of the driving scene by attentional pooling of the time-aggregated representation of the image sequence, and · determine the perceptual load of the driving scene based on the attention map. The invention further relates to a corresponding method.
+</abstract>
+
+<claims>
+1. A control device (1) for a vehicle (10) for determining perceptual load of a visual and dynamic driving scene,
+the control device (1) being configured to:
+receive an image sequence representing the driving scene,
+extract a set of scene features from the image sequence, the set of scene features representing static and/or dynamic information of the driving scene, calculate a time-aggregated representation of the image sequence based on the extracted set of scene features,
+calculate an attention map of the driving scene by attentional pooling of the time-aggregated representation of the image sequence, and
+determine the perceptual load of the driving scene based on the attention map.
+2. The control device (1) according to claim 1, wherein
+the attention map comprises for each image of the sequence a heat map representing a spatial attention intensity distribution across the image.
+3. The control device (1) according to claim 2, wherein
+wherein the perceptual load of an image is determined based on the heat map of said image.
+4. The control device (1) according to any one of the preceding claims, wherein
+determining the perceptual load comprises:
+determining at least one spatial and/or temporal peak area of increased attention in the driving scene, in particular in combination with determining a contribution value of said peak area to a total value of the perceptual load, wherein
+the peak area in particular represents a task relevant item (TRI).
+5. The control device (1) according to the preceding claim, wherein determining the at least one peak area comprises:
+threshold-segmenting a heat map, in particular each heat map of the driving scene, to isolate contiguous pixel regions of increased attention, and/or normalizing a heat map, in particular each heat map of the driving scene, to produce a discrete probability distribution, and unsupervised clustering, in particular by an iterative Gaussian mixture model (GMM), the discrete probability distribution to identify cluster centers of the pixel clusters of increased attention.
+6. The control device (1) according to the preceding claims 4 or 5, wherein
+determining the contribution value of a peak area to the total value of the perceptual load comprises:
+identifying the pixel or neighborhood of pixels which has the highest attention value within the peak area and determining the perceptual load value based on said highest attention value, and/or
+determining the perceptual load value of a scene comprises:
+calculating the sum of perceptual load contribution values of the peak areas comprised by the driving scene, in particular including a weighting of the contribution values based on the locations of the peak areas and/or based on a predetermined classification of the peak areas.
+7. The control device (1) according to any one of the preceding claims, wherein
+the control device comprises a driving model, in particular a temporal attentional pooling model, trained to predict driving maneuvers.
+8. The control device (1) according to any one of the preceding claims, wherein
+the driving model is trained based on training image sequences representing driving scenes.
+9. The control device (1) according to the preceding claim, wherein each of the training image sequences represents a driving scene and is labelled with respective human driving maneuvers carried out during the driving scene.
+10. The control device (1) according to any one of the preceding claims, being further configured to: receive information regarding driving maneuvers carried out by the vehicle driver during the driving scene,
+determine based on said information and the determined perceptual load whether the driver is attentive to the driving scene.
+11. The control device (1) according to any one of the preceding claims, wherein
+the control device, in particular the driving model, comprises at least one of: a first neural network, in particular a convolutional neural network (CNN), for extracting the set of scene features,
+a second neural network, in particular a convolutional long short-term memory network (Conv-LSTM), for calculating the time-aggregated representation of the image sequence,
+an attentional pooling mechanism for calculating the attention map, and an algorithm for determining the perceptual load of the driving scene based on the attention map.
+12. The control device (1) according to any one of the preceding claims, wherein
+the control device comprises a trained load model configured to determine the perceptual load of the driving scene based on the attention map.
+13. A method of determining perceptual load of a visual and dynamic driving scene, comprising the steps of:
+a - training a prediction model what includes training a temporal attentional pooling model comprising an attentional pooling mechanism in a supervised manner by using a set of training image sequences, each of said sequences representing a visual and dynamic driving scene and being labelled with respective human driving maneuvers carried out during the driving scene, and b - inputting a test image sequence representing an unknown visual and dynamic driving scene into the trained model,
+c - obtaining an attention map from the trained attentional pooling mechanism in response to the inputted test image sequence,
+d - determining the perceptual load of the unknown driving scene based on the attention map. 14. The method according to the preceding method claim, wherein the step of obtaining an attention map further comprises the steps of:
+cl - extracting a set of scene features from the test image sequence, the set of scene features (representing static and/or dynamic information of the unknown driving scene and of the vehicle,
+c2 - calculating a time-aggregated representation of the test image sequence based on the extracted set of scene features, and
+c3 - calculating the attention map of the unknown driving scene by attentional pooling of the time-aggregated representation of the test image sequence.
+15. The method according to any one of the preceding method claims, wherein the step of training the temporal attentional pooling model further comprises the steps of:
+al - obtaining a set of training image sequences, each sequence representing a driving scene performed by a human driven vehicle,
+a2 - obtaining a data set of human driving maneuvers carried out during the driving scenes,
+a3 - training the model in a supervised end-to-end learning manner to learn predicting driving maneuvers by using the set of training image sequences being labelled with the respective human driving maneuvers.
+16. The method according to any one of the preceding method claims, wherein
+the prediction model further comprises a load model, the step of training the prediction model comprising the further steps of:
+a4 - obtaining a data set of human generated load labels assigned to the human driving maneuvers carried out during the driving scenes,
+a5- training the load model for predicting the perceptual load of a visual and dynamic driving scene based on the output of the trained attentional pooling mechanism and the human generated load labels, wherein the load model is in particular trained together with the driving model in an end-to-end-manner.
+17. The method according to any one of the preceding method claims, wherein human generated load labels are generated by a sensor, in particular at least one functional near-infrared spectroscopy (fNIRS) sensor device, configured to measure the working memory load at the frontal cortex of the human.
+</claims>
+</document>

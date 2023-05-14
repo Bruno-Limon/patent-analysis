@@ -1,0 +1,80 @@
+<document>
+
+<filing_date>
+2019-01-17
+</filing_date>
+
+<publication_date>
+2020-07-23
+</publication_date>
+
+<priority_date>
+2019-01-17
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/46,G06K9/62
+</ipc_classes>
+
+<assignee>
+KATHOLIEKE UNIVERSITEIT LEUVEN
+TOYOTA MOTOR EUROPE
+</assignee>
+
+<inventors>
+ABBELOOS, WIM
+DE BRABANDERE, BERT
+NEVEN, DAVY
+PROESMANS, MARC
+VAN GOOL, LUC
+</inventors>
+
+<docdb_family_id>
+65241214
+</docdb_family_id>
+
+<title>
+SYSTEM AND METHOD FOR GENERATING A MASK FOR OBJECT INSTANCES IN AN IMAGE
+</title>
+
+<abstract>
+The invention relates to system for generating a mask for object instances in an image, comprising: a first module comprising a trained neural network and configured to input the image to the neural network, wherein the neural network is configured to generate: point towards a unique center of an object instance, the pixel offset vectors thereby forming a cluster with a cluster distribution, and for each object instance an estimate of said cluster distribution defining a margin for determining which pixels belong to the object instance. The invention further relates to a method for training a neural network map to be used for generating a mask for object instances in an image.
+</abstract>
+
+<claims>
+1. A system for generating a mask for object instances in an image, comprising:
+a first module comprising a trained neural network and configured to input the image to the neural network, wherein the neural network is configured to generate:
+• pixel offset vectors for the pixels of the object instance configured to point towards a unique center of an object instance, the pixel offset vectors thereby forming a cluster with a cluster distribution, and
+• for each object instance an estimate of said cluster distribution defining a margin for determining which pixels belong to the object instance.
+2. The system according to the claim 1, wherein
+the neural network is configured to generate:
+• pixel offset vectors for pixels of image background which point away from any center of any object instance in the image.
+3. The system according to claim 1 or 2, wherein
+the estimate of said cluster distribution is represented by a threshold value which defines the margin for determining which pixels belong to the object instance, in particular being located around the centroid of an object instance.
+4. The system according to any one of the preceding claims, wherein the estimate of said cluster distribution defines a region within a circle or an ellipse, in particular a circle in case of a scalar sigma and an ellipse in case of a 2-dimensional sigma,
+more in particular the circle or the ellipse being located around the unique center, more in particular having an Euclidean distance.
+5. The system according to any one of the preceding claims, wherein the neural network is trained to generate a sigma map representing pixel-wise the size of margin of an object instance, using a single valued distribution, in particular a Gaussian distribution.
+6. The system according to any one of the preceding claims 1 to 4, wherein
+the neural network is trained to generate multiple sigma maps representing pixel-wise the sizes or margins of each object instance, using a multidimensional distribution, in particular a Gaussian distribution.
+7. The system according to any one of the preceding claims, wherein the neural network is configured to dynamically adjust the estimate of said cluster distribution as a function of the sigma values of the pixels of the object instance and/or of the number of pixels of the object instance.
+8. The system according to any one of the preceding claims, wherein the system comprises a second module configured to assign pixels to an object instance based on the pixel offset vectors of the object instance and the estimate of said cluster distribution of the object instance.
+9. The system according to the preceding claim, wherein
+the second module is configured to assign pixels to an object instance by determining which pixels offset by their pixel offset vectors of the object instance lie within the region defined by the estimate of said cluster distribution of the object instance.
+10. The system according to any one of the preceding claims 8 and 9, wherein
+the second module is configured to assign pixels which are not assigned to an object instance to image background.
+11. The system according to any one of the preceding claims, wherein the trained neural network is configured to generate a learned seed map indicating for each object instance in the image a semantic class and its center.
+12. The system according to any one of the preceding claims 8 to 11, wherein
+the second module is further configured to locate the unique center of an estimate of a cluster distribution in the image based on the seed map.
+13. The system according to any one of the preceding claims 8 to 12, wherein
+the second module is further configured assign a semantic class to an object instance based on the seed map.
+14. A method for training a neural network map to be used for generating a mask for object instances in an image, the method comprises the steps of:
+• obtain a plurality of training images labelled each by a map indicating for each image pixel whether it belongs to an object instance or to image background, and
+• for each training image iteratively train the neural network by:
+o generating pixel offset vectors for the pixels of an object instance configured to point towards a unique center of the object instance,
+o placing a differentiable distribution function at the center of each object instance transforming the offset vectors into a probability of belonging to said object,
+o optimizing the parameters of said distribution function such that the probability of the pixels belonging to said object instance is increased and the probability of pixels belonging to the background is decreased, and
+o optimizing the offset vectors of the pixels of said object instance for pointing to the center of the distribution function placed at the center of said object instance.
+15. A computer program including instructions for executing the steps of a method according to the preceding claim when said program is executed by a computer.
+16. A recording medium readable by a computer and having recorded thereon a computer program including instructions for executing the steps of a method according to the method claim 14 when said program is executed by a computer.
+</claims>
+</document>

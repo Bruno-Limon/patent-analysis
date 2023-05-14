@@ -1,0 +1,59 @@
+<document>
+
+<filing_date>
+2014-10-23
+</filing_date>
+
+<publication_date>
+2020-01-21
+</publication_date>
+
+<priority_date>
+2014-07-22
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/46,G06K9/62,G06K9/66,G06T7/11,G06T7/194,G06T7/246,G06T7/254,G06T7/73,H04N13/00,H04N13/02,H04N13/20,H04N13/204,H04N7/18
+</ipc_classes>
+
+<assignee>
+S-1 CORPORATION
+</assignee>
+
+<inventors>
+LEE, DONG SUNG
+JU, JINSUN
+</inventors>
+
+<docdb_family_id>
+55163236
+</docdb_family_id>
+
+<title>
+Device and method surveilling abnormal behavior using 3D image information
+</title>
+
+<abstract>
+Disclosed herein are a method and a device for surveilling an abnormal behavior using 3D image information. The surveilling device converts depth information, which is the 3D image information, into a real world coordinate and uses the real world coordinate to calculate a plane reference distance value. The surveilling device uses the plane reference distance value to generate a background model and compares the background model with the plane reference distance value of a current image to detect a region of interest. Further, the surveilling device extracts the 3D feature information of the region of interest to determine an abnormal behavior of an object.
+</abstract>
+
+<claims>
+1. A method for surveilling, by a surveilling device, an object using an image input through a 3D camera, comprising: converting the image into a real world coordinate that is a spatial coordinate; detecting a floor plane and calculating a plane reference distance value representing a distance far away from the floor plane, using the real world coordinate; generating a background model, which is a background portion of the image, on basis of the plane reference distance value for a predetermined time; and comparing a first plane reference distance value, which is the plane reference distance value calculated in the calculating of the image input after the predetermined time, with the background model to detect a region of interest, wherein the detecting of the floor plane and the calculating the plane reference distance value comprises: setting three points p1, p2, p3 located on the floor plane represented by Equation 2 using one point where a Y-axis value is a minimum value on the real world coordinate: wherein Equation 2 is expressed as p1={x1,y1,z1}, p2={x2,y2,z2}, p3={x3,y3,z3}; wherein {x1,y1,z1}, {x2,y2,z2}, {x3,y3,z3} are real world coordinates; and calculating a plane equation represented by Equation 3 using the three points p1, p2, p3: wherein Equation 3 is expressed as ax+by+cz=d; wherein a, b, and c are coefficients which are obtained by Equation 4, and d is the plane reference distance value which is obtained by Equation 5: wherein Equation 4 is expressed as a=y1(z2−z3)+y2(z3−z1)+y3(z1−z2), b=z1(x2−x3)+z2(x3−x1)+z3(x1−x2), c=x1(y2−y3)+x2(y3−y1)+x3(y1−y2); and wherein Equation 5 is expressed as d=a*(realworldX−ptPointX)+b*(realworldY−ptPointY)+c*(realworldZ−ptPointZ); and wherein realworldX, realworldY, and realworldZ represent the real world coordinate and ptPointX, ptPointY, and ptPointZ represent any one point of the three points p1, p2, p3 of the floor plane.
+2. The method of claim 1, further comprising: performing labeling on the region of interest using the real world coordinate of the region of interest.
+3. The method of claim 2, further comprising: tracking the labeled region of interest using central point information on the labeled region of interest.
+4. The method of claim 1, further comprising: determining whether there is an abnormal behavior of the object using the real world coordinate of the region of interest.
+5. The method of claim 1, wherein: the generating includes: calculating an average value by accumulating the plane reference distance value for the predetermined time; and setting the average value as the background model.
+6. The method of claim 1, further comprising: comparing the first plane reference distance value with the background model to determine a background portion and a foreground portion in the image; and updating the background model using a region determined as the background portion.
+7. The method of claim 6, wherein: the detecting of the region of interest includes comparing the first plane reference distance value with the updated background model to detect the region of interest.
+8. The method of claim 6, wherein: the determining of the background portion and the foreground portion includes: obtaining a difference value between the first plane reference distance value and the background model; determining the foreground portion in the image if the difference value exceeds a predetermined threshold value; and determining the background portion in the image if the difference value is equal to or less than the predetermined threshold value, and the predetermined threshold value is differently set depending on a distance value from the floor plane.
+9. The method of claim 4, wherein: the determining whether there is an abnormal behavior of the object includes: extracting a 3D feature including at least one of a height, a width, a thickness, and a moving speed of the object using the real world coordinate of the region of interest; and determining whether there is an abnormal behavior of the object using the 3D feature.
+10. The method of claim 9, wherein: the abnormal behavior of the object is at least one behavior of intrusion, wandering, crowding, falling, and running of the object.
+11. A surveilling device, comprising: a coordinate converter converting a depth image input through a 3D camera into a real world coordinate that is a space coordinate; a floor region detector detecting a floor plane and calculating a plane reference distance value representing a distance far away from the floor plane, using the real world coordinate; a background model generator generating a background model, which is a background portion of a depth image, on basis of the plane reference distance value for a first time; and a region of interest detector comparing a first plane reference distance value that is the plane reference distance value calculated by the floor region detector with the background model, for the depth image input after the first time to detect a region of interest, wherein the detecting of the floor plane and the calculating the plane reference distance value comprises: setting three points p1, p2, p3 located on the floor plane represented by Equation 2 using one point where a Y-axis value is a minimum value on the real world coordinate: wherein Equation 2 is expressed as p1={x1,y1,z1}, p2={x2,y2,z2}, p3={x3,y3,z3}; wherein {x1,y1,z1}, {x2,y2,z2}, {x3,y3,z3} are real world coordinates; and calculating a plane equation represented by Equation 3 using the three points p1, p2, p3: wherein Equation 3 is expressed as ax+by+cz=d; wherein a, b, and c are coefficients which are obtained by Equation 4, and d is the plane reference distance value which is obtained by Equation 5: wherein Equation 4 is expressed as a=y1(z2−z3)+y2(z3−z1)+y3(z1−z2), b=z1(x2−x3)+z2(x3−x1)+z3(x1−x2), c=x1(y2−y3)+x2(y3−y1)+x3(y1−y2); and wherein Equation 5 is expressed as d=a*(realworldX−ptPointX)+b*(realworldY−ptPointY)+c*(realworldZ−ptPointZ); and wherein realworldX, realworldY, and realworldZ represent the real world coordinate and ptPointX, ptPointY, and ptPointZ represent any one point of the three points p1, p2, p3 of the floor plane.
+12. The surveilling device of claim 11, wherein: the region of interest detector performs a label for the region of interest using the real world coordinate of the region of interest, and the surveilling device further comprises a region of interest tracker tracking the labeled region of interest using central point information on the labeled region of interest.
+13. The surveilling device of claim 11, further comprising: a region of interest calculator extracting a 3D feature for an object using the real world coordinate of the region of interest; and an abnormal behavior determiner determining whether there is an abnormal behavior of the object using the 3D feature.
+14. The surveilling device of claim 11, wherein: the background model generator accumulates the plane reference distance value for the first time to calculate an average value and sets the average value as the background model.
+15. The surveilling device of claim 11, further comprising: a background determiner comparing the first plane reference distance value with the background model to determine the background portion in the image and using the background portion to update the background model.
+16. A surveilling system, comprising: a 3D camera installed in a region to be monitored and acquiring an image of the region; and a surveilling device converting a depth image acquired from the 3D camera into a real world coordinate that is a space coordinate, using the real world coordinate to detect a floor plane of the depth image, calculating a plane reference distance value representing a distance far away from the floor plane, generating a background model, which is a background portion of the depth image, on basis of the plane reference distance value calculated for a predetermined time, and calculating a first value that is a value obtained by calculating the plane reference distance value for the depth image incoming after the predetermined time and compares the first value with the background model to detect a region of interest, wherein the detecting of the floor plane and the calculating the plane reference distance value comprises: setting three points p1, P2, p3 located on the floor plane represented by Equation 2 using one point where a Y-axis value is a minimum value on the real world coordinate: wherein Equation 2 is expressed as p1={x1,y1,z1}, p2={x2,y2,z2}, p3={x3,y3,z3}; wherein {x1,y1,z1}, {x2,y2,z2}, {x3,y3,z3} are real world coordinates; and calculating a plane equation represented by Equation 3 using the three points p1, p2, p3: wherein Equation 3 is expressed as ax+by+cz=d; wherein a, b, and c are coefficients which are obtained by Equation 4, and d is the plane reference distance value which is obtained by Equation 5: wherein Equation 4 is expressed as a=y1(z2−z3)+y2(z3−z1)+y3(z1−z2), b=z1(x2−x3)+z2(x3−x1)+z3(x1−x2), c=x1(y2−y3)+x2(y3−y1)+x3(y1−y2); and wherein Equation 5 is expressed as d=a*(realworldX−ptPointX)+b*(realworldY−ptPointY)+c*(realworldZ−ptPointZ); and wherein realworldX, realworldY, and realworldZ represent the real world coordinate and ptPointX, ptPointY, and ptPointZ represent any one point of the three points p1, p2, p3 of the floor plane.
+17. The surveilling system of claim 16, wherein: the surveilling device uses the real world coordinate of the region of interest to perform a label on the region of interest, uses the real world coordinate of the region of interest to extract a 3D feature for an object, and uses the 3D feature to determine an abnormal behavior of the object.
+</claims>
+</document>

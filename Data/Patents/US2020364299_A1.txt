@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-08-23
+</filing_date>
+
+<publication_date>
+2020-11-19
+</publication_date>
+
+<priority_date>
+2019-05-15
+</priority_date>
+
+<ipc_classes>
+G06N3/08,H03M7/30,H03M7/42
+</ipc_classes>
+
+<assignee>
+SALESFORCE.COM
+</assignee>
+
+<inventors>
+SOCHER, RICHARD
+XIONG, CAIMING
+Niu, Tong
+</inventors>
+
+<docdb_family_id>
+73231529
+</docdb_family_id>
+
+<title>
+SYSTEMS AND METHODS FOR UNSUPERVISED AUTOREGRESSIVE TEXT COMPRESSION
+</title>
+
+<abstract>
+Embodiments described herein provide a provide a fully unsupervised model for text compression. Specifically, the unsupervised model is configured to identify an optimal deletion path for each input sequence of texts (e.g., a sentence) and words from the input sequence are gradually deleted along the deletion path. To identify the optimal deletion path, the unsupervised model may adopt a pretrained bidirectional language model (BERT) to score each candidate deletion based on the average perplexity of the resulting sentence and performs a simple greedy look-ahead tree search to select the best deletion for each step.
+</abstract>
+
+<claims>
+1. A method for unsupervised text compression, the method comprising: receiving an input sentence having a plurality of tokens; determining a graph representation having a plurality of nodes, each node representing a candidate intermediate sentence after deleting one or more tokens from the input sentence; progressively searching for a next deletion on the graph representation via progressive lookahead greedy search; determining a deletion path from the progressive lookahead greedy search; and generating a compressed sentence following the deletion path that progressively deletes tokens from the input sentence.
+2. The method of claim 1, further comprising: assigning a score to each token in the plurality of tokens based on a pretrained bidirectional language model.
+3. The method of claim 2, wherein determining the graph representation comprises: designating a root node of the graph representing the input sentence; designating a first lower level of nodes that are directly connected to the root node to a first set of candidate intermediate sentences, respectively, each candidate intermediate sentence from the first set being obtained after deleting the one or more tokens from the input sentence; and for each outgoing edge connecting from the root node to one of the first lower level of nodes, assigning a respective average perplexity score based on a respective candidate intermediate sentence.
+4. The method of claim 2, wherein assigning the respective average perplexity score based on the respective candidate intermediate sentence comprises: determining a first set of tokens present in the respective candidate intermediate sentence; determining a second set of tokens that have been deleted from the input sentence to result in the respective candidate intermediate sentence; and calculating the respective average perplexity score based on a sum of logarithms of scores corresponding to the first set of tokens and scores corresponding to the second set of tokens.
+5. The method of claim 3, wherein progressively searching for the next deletion on the graph representation via progressive lookahead greedy search comprises: determining a first node from the first lower level corresponding to a first next candidate intermediate sentence having a first minimum average perplexity score among the first set of candidate intermediate sentences the next deletion; and adding the first node to the deletion path.
+6. The method of claim 5, further comprising: designating a second lower level of nodes that are directly connected to the first node to a second set of candidate intermediate sentences, respectively, each candidate intermediate sentence from the second set being obtained after further deleting one or more tokens from the first next candidate intermediate sentence; determining a second node from the second lower level corresponding to a second next candidate intermediate sentence having a second minimum average perplexity score among the second set of candidate intermediate sentences the next deletion; and adding the second node to the deletion path.
+7. The method of claim 1, wherein progressively searching for a next deletion on the graph representation via progressive lookahead greedy search comprises: setting a first deletion length; and determining the graph representation having the plurality of nodes corresponding to candidate intermediate sentences based on the first deletion length; determining whether at least one candidate intermediate sentence from the graph representation corresponds to a score that satisfies a predetermined threshold condition; and in response to determining that no candidate intermediate sentence from the graph representation has the score satisfying the predetermined threshold condition, re-setting the first deletion length to a second deletion length that is greater than the first deletion length.
+8. The method of claim 7, wherein the predetermined threshold condition includes: a ratio between a first average perplexity score corresponding to a next probing step and a second average perplexity score corresponding to a current probing step is greater than a pre-determined threshold.
+9. The method of claim 8, further comprising: applying a parameter relating to the length of the current sentence to the first average perplexity score while evaluating the predetermined threshold condition.
+10. The method of claim 9, further comprising: tuning the parameter to control an extent of deletion rate of the deletion path.
+11. A system for unsupervised text compression, the system comprising: a memory containing machine readable medium storing machine executable code; and one or more processors coupled to the memory and configurable to execute the machine executable code to cause the one or more processors to: receive an input sentence having a plurality of tokens; determine a graph representation having a plurality of nodes, each node representing a candidate intermediate sentence after deleting one or more tokens from the input sentence; progressively search for a next deletion on the graph representation via progressive lookahead greedy search; determine a deletion path from the progressive lookahead greedy search; and generate a compressed sentence following the deletion path that progressively deletes tokens from the input sentence.
+12. The system of claim 11, wherein the machine executable code further causes the one or more processors to: assign a score to each token in the plurality of tokens based on a pretrained bidirectional language model.
+13. The system of claim 12, wherein the machine executable code further causes the one or more processors to: designate a root node of the graph representing the input sentence; designate a first lower level of nodes that are directly connected to the root node to a first set of candidate intermediate sentences, respectively, each candidate intermediate sentence from the first set being obtained after deleting the one or more tokens from the input sentence; and for each outgoing edge connecting from the root node to one of the first lower level of nodes, assign a respective average perplexity score based on a respective candidate intermediate sentence.
+14. The system of claim 12, wherein the machine executable code further causes the one or more processors to assign the respective average perplexity score based on the respective candidate intermediate sentence by: determining a first set of tokens present in the respective candidate intermediate sentence; determining a second set of tokens that have been deleted from the input sentence to result in the respective candidate intermediate sentence; and calculating the respective average perplexity score based on a sum of logarithms of scores corresponding to the first set of tokens and scores corresponding to the second set of tokens.
+15. The system of claim 13, wherein the machine executable code further causes the one or more processors to progressively searching for the next deletion on the graph representation via progressive lookahead greedy search by: determining a first node from the first lower level corresponding to a first next candidate intermediate sentence having a first minimum average perplexity score among the first set of candidate intermediate sentences the next deletion; and adding the first node to the deletion path.
+16. The system of claim 15, wherein the machine executable code further causes the one or more processors to: designate a second lower level of nodes that are directly connected to the first node to a second set of candidate intermediate sentences, respectively, each candidate intermediate sentence from the second set being obtained after further deleting one or more tokens from the first next candidate intermediate sentence; determine a second node from the second lower level corresponding to a second next candidate intermediate sentence having a second minimum average perplexity score among the second set of candidate intermediate sentences the next deletion; and add the second node to the deletion path.
+17. The system of claim 11, wherein the machine executable code further causes the one or more processors to progressively search for a next deletion on the graph representation via progressive lookahead greedy search by: setting a first deletion length; and determining the graph representation having the plurality of nodes corresponding to candidate intermediate sentences based on the first deletion length; determining whether at least one candidate intermediate sentence from the graph representation corresponds to a score that satisfies a predetermined threshold condition; and in response to determining that no candidate intermediate sentence from the graph representation has the score satisfying the predetermined threshold condition, re-setting the first deletion length to a second deletion length that is greater than the first deletion length.
+18. The system of claim 17, wherein the predetermined threshold condition includes: a ratio between a first average perplexity score corresponding to a next probing step and a second average perplexity score corresponding to a current probing step is greater than a pre-determined threshold.
+19. The system of claim 18, wherein the machine executable code further causes the one or more processors to: apply a parameter relating to the length of the current sentence to the first average perplexity score while evaluating the predetermined threshold condition.
+20. The system of claim 19, wherein the machine executable code further causes the one or more processors to: tune the parameter to control an extent of deletion rate of the deletion path.
+</claims>
+</document>

@@ -1,0 +1,61 @@
+<document>
+
+<filing_date>
+2018-05-24
+</filing_date>
+
+<publication_date>
+2020-10-28
+</publication_date>
+
+<priority_date>
+2018-03-09
+</priority_date>
+
+<ipc_classes>
+G06F11/00,G06F11/07,G06F11/30,G06F11/34,H04L12/24
+</ipc_classes>
+
+<assignee>
+WANGSU SCIENCE & TECHNOLOGY COMPANY
+</assignee>
+
+<inventors>
+LI, JIE
+WU, WENJIE
+YU, JIANZHAN
+</inventors>
+
+<docdb_family_id>
+63338247
+</docdb_family_id>
+
+<title>
+SERVER FAILURE DETECTION METHOD AND SYSTEM
+</title>
+
+<abstract>
+A method for detecting a server fault includes: collecting sample monitoring data of a plurality of servers, the sample monitoring data signifying operating states of the plurality of servers; performing training, based on the sample monitoring data, to obtain a fault detection model for the plurality of servers; and collecting current monitoring data of a target server, and inputting the current monitoring data into the fault detection model to determine an operating fault corresponding to the current monitoring data.
+</abstract>
+
+<claims>
+1. A method for detecting a server fault, comprising: collecting (S1) sample monitoring data of a plurality of servers, the sample monitoring data signifying operating states of the plurality of servers; analyzing the sample monitoring data to obtain a standard operating fault which is an operating fault reflected by the sample monitoring data; performing training (S3), using a machine learning method based on the sample monitoring data, the standard operating fault and an initial detection mode, to obtain a fault detection model for the plurality of servers, wherein the initial detection model includes an initialized neural network, and the neurons in the initialized neural network have initial parameter values; and collecting (S5) current monitoring data of a target server, and inputting the current monitoring data into the fault detection model to determine an operating fault corresponding to the current monitoring data.
+2. The method according to claim 1, wherein the sample monitoring data includes a plurality of groups of feature data, and performing training to obtain the fault detection model for the plurality of servers further includes:
+grouping the sample monitoring data according to feature data, and respectively performing training to obtain a sub-model for each group of feature data.
+3. The method according to claim 2, after collecting the current monitoring data of the target server, the method further includes:
+identifying target feature data included in the current monitoring data, and inputting the target feature data into a matching sub-model to determine an operating fault corresponding to the target feature data.
+4. The method according to claim 2, wherein the feature data is associated with a standard operating fault, and performing training to obtain a sub-model for each group of feature data further includes: inputting the feature data into an initial detection sub-model to obtain a predicted operating fault of the feature data; and determining an error between the predicted operating fault and the standard operating fault, and adjusting parameters of the initial detection sub-model based on the error, to allow the predicted operating fault to be consistent with the standard operating fault after the feature data is re-input into the adjusted detection sub-model.
+5. The method according to claim 4, wherein the feature data includes a plurality of feature sub-data, and determining the predicted operating fault further includes: determining a decision order of each feature sub-data in the feature data, and respectively determining a feature value corresponding to each feature sub-data according to the decision order; calculating a predicted probability array corresponding to the feature data based on the feature value corresponding to each feature sub-data, wherein the predicted probability array includes at least one probability value, and each probability value corresponds to a type of fault; and determining a type of fault corresponding to the largest probability value in the predicted probability array as the predicted operating fault.
+6. The method according to claim 1, wherein collecting the current monitoring data of the target server further includes: collecting the current monitoring data of the target server when the target server issues a fault notification message; or collecting the current monitoring data of the target server according to a specified time cycle.
+7. The method according to claim 1, further comprising: calculating a load distribution of the target server, wherein the load distribution includes average loads of the target server within specified time periods; and determining a target time period based on the load distribution, and performing a fault detection on the target server within the target time period.
+8. The method according to claim 7, wherein determining the target time period based on the load distribution further includes:
+determining a specified time period corresponding to an average load less than or equal to a specified load threshold as the target time period, and if the number of specified time periods corresponding to an average load less than or equal to the specified load threshold is at least two, randomly selecting one of the specified time periods as the target time period, or determining a specified time period corresponding to the lowest average load as the target time period.
+9. The method according to claim 1, after determining the operating fault corresponding to the current monitoring data, the method further includes: invoking a diagnostic strategy that matches the operating fault, and applying the diagnostics strategy to diagnose the operating fault of the target server; and determining a detection cycle for the target server based on a result of the fault diagnosis, and periodically performing a fault detection on the target server based on the detection cycle.
+10. A system for detecting a server fault, comprising a data collecting unit, a data processing unit, and a fault detecting unit, wherein: the data collecting unit is configured to collect sample monitoring data of a plurality of servers, the sample monitoring data signifying operating states of the plurality of servers; the data processing unit includes a big data platform and a model training module, wherein the big data platform is configured to receive the sample monitoring data sent by the data collecting unit, and the model training module is configured to analyze the sample monitoring data to obtain a standard operating fault which is an operating fault reflected by the sample monitoring data and, using a machine learning method based on the sample monitoring data, the standard operating fault and an initial detection mode, perform training to obtain a fault detection model for the plurality of servers, wherein the initial detection model includes an initialized neural network, and the neurons in the initialized neural network have initial parameter values; and the fault detecting unit is configured to collect current monitoring data of a target server, and input the current monitoring data into the fault detection model to determine an operating fault corresponding to the current monitoring data.
+11. The system according to claim 10, wherein the sample monitoring data includes a plurality of groups of feature data, and the data processing unit further includes:
+a feature grouping module that is configured to group the sample monitoring data according to feature data, to allow the model training module to respectively perform training to obtain a sub-model for each group of feature data.
+12. The system according to claim 11, wherein the feature data is associated with a standard operating fault, and the model training module further includes: an initial prediction module that is configured to input the feature data into an initial detection sub-model to obtain a predicted operating fault of the feature data; and an error correction module that is configured to determine an error between the predicted operating fault and the standard operating fault, and adjust parameters of the initial detection sub-model based on the error, to allow the predicted operating fault to be consistent with the standard operating fault after the feature data is re-input into the adjusted detection sub-model.
+13. The system according to claim 12, wherein the feature data includes a plurality of feature sub-data, and the initial prediction module further includes: a decision order determining module that is configured to determine a decision order of each feature sub-data in the feature data, and respectively determine a feature value corresponding to each feature sub-data according to the decision order; a probability array calculating module that is configured to calculate, according to the feature value, a predicted probability array corresponding to the feature data, wherein the predicted probability array includes at least one probability value, and each probability value corresponds to a type of fault; and a fault determining module that is configured to determine a type of fault corresponding to the largest probability value in the predicted probability array as the predicted operating fault.
+14. The system according to claim 10, further comprising: a load distribution calculating unit that is configured to calculate a load distribution of the target server, wherein the load distribution includes average loads of the target server within specified time periods; and a periodic detection module that is configured to determine a target time period based on the load distribution, and perform a fault detection on the target server within the target time period.
+</claims>
+</document>

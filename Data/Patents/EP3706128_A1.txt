@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2018-11-09
+</filing_date>
+
+<publication_date>
+2020-09-09
+</publication_date>
+
+<priority_date>
+2018-11-09
+</priority_date>
+
+<ipc_classes>
+G16B20/00,G16B30/00,G16B40/00,G16B5/00
+</ipc_classes>
+
+<assignee>
+LUNIT
+</assignee>
+
+<inventors>
+PAENG, KYUNG HYUN
+LEE, KYOUNG WON
+</inventors>
+
+<docdb_family_id>
+70550257
+</docdb_family_id>
+
+<title>
+METHOD FOR MANAGING ANNOTATION WORK, AND APPARATUS AND SYSTEM SUPPORTING SAME
+</title>
+
+<abstract>
+An annotation job management method is provided for performing annotation jobs efficiently. The annotation job management method may include obtaining information on a new medical slide image, determining a dataset type and a panel of the medical slide image, and assigning to an annotator account, an annotation job defined by the medical slide image, the determined dataset type, an annotation task and a patch that is a part of the medical slide image. Here, the annotation task is defined including the determined panel. The panel is designated as one of a cell panel, a tissue panel and a structure panel, and the dataset type indicates a use of the medical slide image and is designated as either a training use or a validation use of a machine learning model. Further, the annotation task may be defined including the determined panel and the panel may be designated as one of a cell panel, a tissue panel and a structure panel. The dataset type may indicate a use of the medical slide image and is designated as either a training use or a validation use of a machine learning model.
+</abstract>
+
+<claims>
+1. An annotation job management method performed by a computing device, comprising: obtaining information about a new medical slide image; determining a dataset type and a panel of the medical slide image; and assigning to an annotator account, an annotation job defined by the medical slide image, the determined dataset type, an annotation task, and a patch that is a partial area of the medical slide image, wherein the annotation task is defined to include the determined panel, wherein the panel is designated as one of a cell panel, a tissue panel, and a structure panel, and wherein the dataset type indicates a use of the medical slide image and is designated as a training use of a medical learning model or a validation use of the machine learning model.
+2. The method of claim 1, wherein the annotation task is defined to further include a task class, and
+wherein the task class indicates an annotation target defined from a perspective of the panel.
+3. The method of claim 1, wherein the dataset type is designated as one of training use, validation use or an OPT (Observer Performance Test) use of the machine learning model.
+4. The method of claim 1, wherein determining the dataset type and the panel of the medical slide image comprises: inputting the medical slide image to the machine learning model; and determining the dataset type and the panel of the medical slide image based on an output value of the machine learning model.
+5. The method of claim 4, wherein the output value is a confidence score, and
+wherein determining the dataset type and the panel of the medical slide image based on the output value of the machine learning model comprises determining the dataset type of the medical slide image as the training use, in response to determining that the confidence score is less than a reference value.
+6. The method of claim 4, wherein the machine learning model includes a first model corresponding to the cell panel, a second model corresponding to the tissue panel, and a third model corresponding to the structure panel, and
+wherein determining the dataset type and the panel of the medical slide image based on the output value output of the machine learning model comprises: inputting the medical slide image or the partial area of the medical slide image to each of the first model to the third model to obtain the output value; and determining the panel of the medical slide image based on the obtained output value.
+7. The method of claim 1, wherein obtaining the information about the new medical slide image comprises: detecting, by a worker agent monitoring a storage, that a file of the medical slide image is added to a designated location on the storage, inserting, by the worker agent, information about the new medical slide image into a database; and obtaining the information about the medical slide image from the database.
+8. The method of claim 1, wherein assigning to the annotator account the annotation job comprises automatically assigning the annotation job to the annotator account that is selected based on an annotation performance history associated with a combination of the dataset type of the annotation job and the panel of the annotation task.
+9. The method of claim 1, wherein the annotation task is defined to further include a task class, and the task class indicates an annotation target defined from a perspective of the panel, and
+wherein assigning to the annotator account the annotation job comprises automatically assigning the annotation job to the annotator account that is selected based on an annotation performance history associated with a combination of the panel and the task class of the annotation task.
+10. The method of claim 1, wherein assigning to the annotator account the annotation job comprises: obtaining candidate patches of the medical slide image; and inputting each of the candidate patches to the machine learning model, and automatically selecting a patch for the annotation job among the candidate patches based on an output value for each class outputted as a result of the input.
+11. The method of claim 10, wherein automatically selecting the patch for the annotation job among the candidate patches comprises: calculating an entropy value using the output value for each class for each of the candidate patches; and selecting a patch for the annotation job having the entropy value being equal to or greater than a reference value.
+12. The method of claim 10, wherein obtaining the candidate patches of the medical slide image comprises obtaining the candidate patches by uniformly dividing an entire area of the medical slide image.
+13. The method of claim 10, wherein obtaining the candidate patches of the medical slide image comprises obtaining the candidate patches by randomly dividing an entire area of the medical slide image.
+14. The method of claim 10, wherein obtaining the candidate patches of the medical slide image comprises: performing object recognition on an entire area of the medical slide image; and configuring the candidate patches such that a number of objects obtained from the object recognition is greater than a reference value.
+15. The method of claim 10, wherein obtaining the candidate patches of the medical slide image comprises obtaining the candidate patches that are divided according to a policy determined based on metadata of the medical slide image.
+16. The method of claim 1, wherein assigning to the annotator account the annotation job comprises: obtaining candidate patches of the medical slide image; calculating a misprediction probability of the machine learning model for each of the candidate patches; and selecting as a patch of the annotation job a candidate patch having the calculated misprediction probability being equal to or greater than a reference value.
+17. The method of claim 1, further comprising: obtaining a first annotation result data of the annotator account assigned the annotation job; comparing the first annotation result data with a result that is obtained by inputting a patch of the annotation job to the machine learning model; and reassigning the annotation job to another annotator account when a difference between the two results is greater than a reference value.
+18. The method of claim 1, further comprising: obtaining a first annotation result data of the annotator account assigned the annotation job; obtaining a second annotation result data of another annotator account; and disapproving the first annotation result data when a similarity between the first annotation result data and the second annotation result data is less than a reference value.
+19. An annotation management apparatus comprising: a memory including one or more instructions; and a processor that, by executing the one or more instructions, obtains information about a new medical slide image, determines a dataset type and a panel of the medical slide image, and assigns to an annotator account, an annotation job which is defined by a medical slide image, the determined dataset type, an annotation task, and a patch that is a partial area of the medical slide image, wherein the annotation task is defined to include the determined panel, wherein the panel is designated as one of a cell panel, a tissue panel, and a structure panel, and wherein the dataset type indicates a use of the medical slide image and is designated as either a training use of a medical learning model or a validation use of the machine learning model.
+20. A non-transitory computer-readable medium including a computer program that, when instructions of the computer program are executed by a processor, causes the processor to: obtain information about a new medical slide image; determine a dataset type and a panel of the medical slide image; and assign to an annotator account, an annotation job defined by the medical slide image, the determined dataset type, an annotation task, and a patch that is a partial area of a medical slide image, wherein the annotation task is defined to include the determined panel, wherein the panel is designated as one of a cell panel, a tissue panel, and a structure pane, and wherein the dataset type indicates a use of the medical slide image and is designated as either a training use of a medical learning model of a validation use of the medical learning model.
+</claims>
+</document>

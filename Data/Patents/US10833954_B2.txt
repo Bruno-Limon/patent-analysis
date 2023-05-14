@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2014-11-19
+</filing_date>
+
+<publication_date>
+2020-11-10
+</publication_date>
+
+<priority_date>
+2014-11-19
+</priority_date>
+
+<ipc_classes>
+G06F15/08,G06N99/00,H04L12/24,H04L12/26
+</ipc_classes>
+
+<assignee>
+BATTELLE MEMORIAL INSTITUTE
+</assignee>
+
+<inventors>
+KANGAS, LARS, J.
+EDGAR, THOMAS W.
+OLER, KIRI J.
+JOHNSON, DANIEL M.
+CARROLL, THOMAS E.
+CHIKKAGOUDAR, SATISH
+ARTHUR, KRISTINE M.
+</inventors>
+
+<docdb_family_id>
+55962703
+</docdb_family_id>
+
+<title>
+Extracting dependencies between network assets using deep learning
+</title>
+
+<abstract>
+A network analysis tool receives network flow information and uses deep learning—machine learning that models high-level abstractions in the network flow information—to identify dependencies between network assets. Based on the identified dependencies, the network analysis tool can discover functional relationships between network assets. For example, a network analysis tool receives network flow information, identifies dependencies between multiple network assets based on evaluation of the network flow information, and outputs results of the identification of the dependencies. When evaluating the network flow information, the network analysis tool can pre-process the network flow information to produce input vectors, use deep learning to extract patterns in the input vectors, and then determine dependencies based on the extracted patterns. The network analysis tool can repeat this process so as to update an assessment of the dependencies between network assets on a near real-time basis.
+</abstract>
+
+<claims>
+We claim:
+1. One or more non-transitory computer-readable media storing computer-executable instructions for causing a computing system, when programmed thereby, to perform: receiving network flow information, the network flow information summarizing packet flow between pairs of network assets over one or more time periods; identifying functional dependencies between multiple network assets based on evaluation of the network flow information, wherein a functional dependency between network assets indicates that a first network asset comprises a service whose operation is dependent on a service provided by a second network asset, wherein the evaluation includes: pre-processing the network flow information to produce input vectors, the pre-processing comprising: combining instances of temporally proximate co-occurrences within the network flow information into higher-order combinations; encoding the higher-order combination as the input vectors; and annotating the input vectors with details about the network flow information; using deep learning to extract patterns in the input vectors, at least in part by applying a neural network to reveal similarities between the input vectors and producing output vectors, and by summarizing the output vectors, wherein the deep learning is machine learning that models high-level abstractions in the input vectors, and the summarizing comprises: performing hierarchical clustering on weight vectors produced by the neural network; associating the clustered weight vectors with corresponding details about the network flow information; and determining the dependencies based on the patterns; and outputting results of the identifying the functional dependencies, the results comprising functional dependencies between first and second network assets, wherein the results are useable for assessing damage to a network, business planning, crisis management or triage, planning extensions to the network, disaster recovery planning, or other evaluation of current or planned network behavior.
+2. The one or more non-transitory computer-readable media of claim 1, wherein the network flow information is packet flow information comprising an n-tuple per network flow, the network flow being an aggregation of packets that have common addressing attributes.
+3. The one or more non-transitory computer-readable media of claim 1, wherein the network flow information is received from multiple network probes situated in a network.
+4. The one or more non-transitory computer-readable media of claim 1, further storing computer-executable instructions for causing the computing system, when programmed thereby, to perform: repeating the receiving, the identifying, and the outputting, so as to update an assessment of the dependencies between the multiple network assets on a near real-time basis.
+5. The one or more non-transitory computer-readable media of claim 1, wherein the dependencies are identified as recurrent temporal sequence-based patterns, and wherein each of the recurrent temporal sequence-based patterns is a randomly-initiated, repeating sequence of time-dependent elements.
+6. The one or more non-transitory computer-readable media of claim 1, wherein the pre-processing further includes one or more of: selectively converting unidirectional flow information to bidirectional flow information; windowing the network flow information using a time interval; categorizing network flows based on attributes of the network flow information; identifying the instances of temporally proximate co-occurrences within the network flow information based on an ensemble approach; and checking that categorization of the network flow information is stable over a period of time.
+7. The one or more non-transitory computer-readable media of claim 6, wherein the categorizing assigns one of multiple categories as a function of attributes of a record of the network flow information, and wherein the attributes include one or more of source address, source port, destination address, destination port and protocol.
+8. The one or more non-transitory computer-readable media of claim 6, wherein the ensemble approach uses one or more of mutual information analysis, co-occurrence matrices followed by signal strength enhancement, clustering, auto-correlation/cross-correlation analysis, probability analysis, information-theoretic analysis, and cepstrum analysis.
+9. The one or more non-transitory computer-readable media of claim 6, wherein the instances are organized as a set of pairs of categorized records of the network flow information.
+10. The one or more non-transitory computer-readable media of claim 1, wherein the encoding indicates, for a given one of multiple possible higher-order combinations in a time interval, one of: presence or absence of the given higher-order combination in the time interval; and count of the given higher-order combination in the time interval.
+11. The one or more non-transitory computer-readable media of claim 1, wherein the deep learning uses modeling architectures with non-linear transformations.
+12. The one or more non-transitory computer-readable media of claim 1, wherein the applying the neural network includes training a self-organizing map using the input vectors, and wherein the training the self-organizing map produces the weight vectors for nodes of the self-organizing map, the weight vectors indicating the similarities between the input vectors.
+13. The one or more non-transitory computer-readable media of claim 1, wherein each of the input vectors includes, for a given time period, information indicating extent of co-occurrence of activity between network assets in various combinations, selected from among the multiple network assets, during the given time period, and wherein the summarizing makes the identification of the dependencies more robust over time.
+14. In a computing system, a method comprising: receiving, at the computing system, network flow information summarizing packet flow between pairs of network assets over one or more time periods; with the computing system, identifying dependencies between multiple network assets based on evaluation of the network flow information, wherein the evaluation includes: pre-processing the network flow information to produce input vectors; using deep learning to extract patterns in the input vectors, at least in part by applying a neural network to reveal similarities between the input vectors and producing output vectors, and by summarizing the output vectors, wherein the deep learning is machine learning that models high-level abstractions in the input vectors and the summarizing comprises: performing hierarchical clustering on weight vectors produced by the neural network; associating the clustered weight vector with corresponding details about the network flow information; and determining the dependencies based on the patterns; and with the computing system, outputting results of the identifying the dependencies, the results comprising identifications of dependencies between network assets.
+15. The method of claim 14, wherein the pre-processing includes one or more of: selectively converting unidirectional flow information to bidirectional flow information; windowing the network flow information using a time interval; categorizing network flows based on attributes of the network flow information; identifying instances of temporally proximate co-occurrences within the network flow information based on an ensemble approach; and checking that categorization of the network flow information is stable over a period of time.
+16. A computing system comprising a processor and memory, wherein the memory comprises computer-executable instructions for implementing a network analysis tool, the computer-executable instructions specifying operations comprising: receiving network flow information summarizing packet flow between pairs of network assets over one or more time periods; pre-processing the network flow information to produce input vectors, the pre-processing comprising: combining instances of temporally proximate co-occurrences within the network flow information into higher-order combinations; encoding the higher-order combinations as the input vectors; and annotating the input vectors with details about the network flow information; and extracting patterns in the input vectors using deep learning, wherein the deep learning is machine learning that models high-level abstractions in the input vectors; determining, based on the patterns, dependencies between multiple network assets; and outputting data setting forth dependencies between network assets.
+17. One or more non-transitory computer-readable media storing computer-executable instructions for causing a computing system, when programmed thereby, to perform: receiving network flow information summarizing packet flow between pairs of network assets over one or more time periods; identifying dependencies between multiple network assets based on evaluation of the network flow information, wherein the dependencies are identified as recurrent temporal sequence-based patterns, each of the recurrent temporal sequence-based patterns being a randomly-initiated, repeating sequence of time-dependent elements, and the evaluation includes: pre-processing the network flow information to produce input vectors; using deep learning to extract patterns in the input vectors, wherein the deep learning is machine learning that models high-level abstractions in the input vectors; and determining the dependencies based on the patterns; and outputting results of identifying the dependencies, the results comprising identifiers of dependencies between network assets.
+18. One or more non-transitory computer-readable media storing computer-executable instructions for causing a computing system, when programmed thereby, to perform: receiving network flow information summarizing packet flow between pairs of network assets over one or more time periods; identifying dependencies between multiple network assets based on evaluation of the network flow information, wherein the evaluation includes: pre-processing the network flow information to produce input vectors, wherein each of the input vectors includes, for a given time period, information indicating an extent of co-occurrence of activity between network assets in various combinations, selected from among the multiple network asserts, during the given time period; using deep learning to extract patterns in the input vectors, wherein the deep learning is machine learning that models high-level abstractions in the input vectors and comprises: applying a neural network to reveal similarities between the input vectors, wherein the applying the neural network produces output vectors; summarizing the output vectors, the summarizing making the identification of the dependencies more robust over time; and determining the dependencies based on the patterns; and outputting results of identifying the dependencies, the results comprising identifiers of dependencies between network assets.
+</claims>
+</document>

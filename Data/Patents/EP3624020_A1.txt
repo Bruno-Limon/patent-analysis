@@ -1,0 +1,84 @@
+<document>
+
+<filing_date>
+2019-05-07
+</filing_date>
+
+<publication_date>
+2020-03-18
+</publication_date>
+
+<priority_date>
+2018-05-18
+</priority_date>
+
+<ipc_classes>
+G06N3/063
+</ipc_classes>
+
+<assignee>
+SHANGHAI CAMBRICON INFORMATION TECHNOLOGY COMPANY
+</assignee>
+
+<inventors>
+SONG, XINKAI
+LUO, YUZHE
+MENG, XIAOFU
+ZHANG, XISHAN
+LIU, SHAOLI
+</inventors>
+
+<docdb_family_id>
+68539478
+</docdb_family_id>
+
+<title>
+COMPUTING METHOD AND RELATED PRODUCT
+</title>
+
+<abstract>
+The present disclosure provides a computation method and product thereof. The computation method adopts a fusion method to perform machine learning computations. Technical effects of the present disclosure include fewer computations and less power consumption.
+</abstract>
+
+<claims>
+1. A computation method applied to a computing system, wherein the computing system comprises: a control unit, a computation group, and a general storage unit, wherein the control unit comprises: a first memory, a decoding logic, and a controller, wherein the computation group comprises: a group controller and a plurality of computing units; the general storage unit is configured to store data; and the computation method comprises: receiving, by the controller, a first level instruction sequence, and partitioning, by the decoding logic, the first level instruction sequence into a plurality of second level instruction sequences, creating, by the controller, M threads for the plurality of second level instruction sequences, and allocating, by the controller, an independent register as well as configuring an independent addressing function for each thread of the M threads, wherein M is an integer greater than or equal to 1; and obtaining, by the group controller, a plurality of computation types of the plurality of second level instruction sequences, obtaining a corresponding fusion computation manner of the computation types according to the plurality of computation types, and adopting, by the plurality of computing units, the fusion computation manner to call the M threads for performing computations on the plurality of second level instruction sequences to obtain a final result.
+2. The method of claim 1, wherein, the obtaining, by the group controller, a plurality of computation types of the plurality of second level instruction sequences, obtaining a corresponding fusion computation manner of the computation types according to the plurality of computation types, and adopting, by the plurality of computing units, the fusion computation manner to call the M threads for performing computations on the plurality of second instruction sequences to obtain a final result:
+if the computation types represent computation operations of the same type, the group controller calls a combined computation manner in which single instruction multiple data of the same type is in combination with single instruction multiple threads, and uses the M threads to perform the combined computation manner to obtain a final result, which includes:
+partitioning, by the decoding logic, the M threads into N wraps for allocating to the the plurality of computing units, converting, by the group controller, the plurality of second instruction sequences into a plurality of second control signals and sending the second control signals to the plurality of computing units, calling, by the plurality of computing units, wraps that are allocated to the computing units and the second control signals to fetch corresponding data according to the independent addressing function, performing, by the plurality of computing units, computations on the data to obtain a plurality of intermediate results, and splicing the plurality of intermediate results to obtain a final result.
+3. The method of claim 1, wherein, the obtaining, by the group controller, a plurality of computation types of the plurality of second level instruction sequences, obtaining a corresponding fusion computation manner of the computation types according to the plurality of computation types, and adopting, by the plurality of computing units, the fusion computation manner to call the M threads for performing computations on the plurality of second instruction sequences to obtain a final result:
+if the computation types represent computation operations of different types, the group controller calls simultaneous multi-threading and the M threads to perform computations to obtain a final result, which includes:
+partitioning, by the decoding logic, the M threads into N wraps, converting the plurality of second instruction sequences into a plurality of second control signals, obtaining, by the group controller, computation types supported by the plurality of computing units, allocating, by the controller, the N wraps and the plurality of second control signals to corresponding computing units that support computation types of the wraps and the second control signals, calling, by the plurality of computing units, wraps that are allocated to the computing units and the second control signals, fetching, by the plurality of computing units, corresponding data, performing, by the plurality of computing units, computations on the data to obtain a plurality of intermediate results, and splicing all the intermediate results to obtain a final result.
+4. The method of claim 2 or 3, further comprising:
+if a wrap A in the plurality of wraps is blocked, adding the wrap A to a waiting queue, and if data of the wrap A are already fetched, adding the wrap A to a preparation queue, wherein the preparation queue is a queue where a wrap to be scheduled for executing is located when a computing resource is idle.
+5. The method of claim 1, wherein
+the first level instruction sequence includes a very long instruction, and the second level instruction sequence includes an instruction sequence.
+6. The method of claim 1, wherein the computing system further includes: a tree module, wherein the tree module includes: a root port and a plurality of branch ports, wherein the root port of the tree module is connected to the group controller, and the plurality of branch ports of the tree module are connected to a computing unit of the plurality of computing units respectively; and
+the tree module is configured to forward data blocks, wraps, or instruction sequences between the group controller and the plurality of computing units.
+7. The method of claim 6, wherein the tree module is an n-ary tree, wherein n is an integer greater than or equal to 2.
+8. The method of claim 1, wherein the computing system further includes a branch processing circuit,
+wherein the branch processing circuit is connected between the group controller and the plurality of computing units; and
+the branch processing circuit is configured to forward data, wraps, or instruction sequences between the group controller and the plurality of computing units.
+9. A computing system, comprising: a control unit, a computation group, and a general storage unit, wherein the control unit includes: a first memory, a decoding logic, and a controller, the computation group includes: a group controller and a plurality of computing units; the general storage unit is configured to store data;
+the controller is configured to receive a first level instruction sequence and control the first memory and the decoding logic;
+the decoding logic is configured to partition the first level instruction sequence into a plurality of second level instruction sequences;
+the the controller is further configured to create M threads for the plurality of second level instruction sequences, and allocate an independent register and configure an independent addressing function for each thread of the M threads; M is an integer greater than or equal to 1; and the controller is further configured to convert the plurality of second instruction sequences into a plurality of control signals for sending to the group controller;
+the group controller is configured to receive the plurality of control signals, obtain a plurality of computational types if the plurality of control signals, divide the M threads into N wraps, and allocate the N wraps and the plurality of control signals to the plurality of computing units according to the plurality of computational types;
+the plurality of computing units are configured to fetch data from the general storage unit through allocated wraps and control signals, and perform computations to obtain an intermediate result; and
+the group controller is configured to splice all intermediate results to obtain a final computation result.
+10. The computing system of claim 9, wherein
+the plurality of computing units includes: an addition computing unit, a multiplication computing unit, an activation computing unit, or a dedicated computing unit.
+11. The computing system of claim 9, wherein
+the dedicated computing unit includes: a face recognition computing unit, a graphics computing unit, a fingerprint computing unit, or a neural network computing unit.
+12. The computing system of claim 11, wherein
+the group controller is configured to, if computation types of a plurality of control signals are graphics computations, fingerprint identification, face recognition, or neural network operations, allocate the plurality of control signals to the face recognition computing unit, the graphics computing unit, the fingerprint computing unit, or the neural network computing unit respectively.
+13. The computing system of claim 9, wherein
+the first level instruction sequence includes a very long instruction, and the second level instruction sequence includes an instruction sequence.
+14. The computing system of claim 9, further comprising a tree module, wherein the tree module includes: a root port and a plurality of branch ports, wherein the root port of the tree module is connected to the group controller, and the plurality of branch ports of the tree module are connected to a computing unit of the plurality of computing units respectively; and
+the tree module is configured to forward data blocks, wraps, or instruction sequences between the group controller and the plurality of computing units.
+15. The computing system of claim 14, wherein the tree module is an n-ary tree, wherein n is an integer greater than or equal to 2.
+16. The computing system of claim 9, wherein the computing system includes a branch processing circuit,
+the branch processing circuit is connected between the group controller and the plurality of computing units; and
+the branch processing circuit is configured to forward data, wraps, or instruction sequences between the group controller and the plurality of computing units.
+17. A computer program product, comprising a non-instant computer readable storage medium, wherein a computer program is stored in the non-instant computer readable storage medium, and the computer program is capable of causing a computer to perform the method of any of claims 1-8 through operations.
+</claims>
+</document>

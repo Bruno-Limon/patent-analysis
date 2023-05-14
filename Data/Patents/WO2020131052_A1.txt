@@ -1,0 +1,105 @@
+<document>
+
+<filing_date>
+2018-12-19
+</filing_date>
+
+<publication_date>
+2020-06-25
+</publication_date>
+
+<priority_date>
+2018-12-19
+</priority_date>
+
+<ipc_classes>
+G06F16/215,G06F16/904
+</ipc_classes>
+
+<assignee>
+VISA INTERNATIONAL SERVICE ASSOCIATION
+</assignee>
+
+<inventors>
+HISARIYA, SHREYASH RAMMOHAN
+MISHRA, SHASHWAT
+MRIGANK, MRIGANK
+THATIKONDA, NANADA KISHORE
+</inventors>
+
+<docdb_family_id>
+71101795
+</docdb_family_id>
+
+<title>
+SYSTEM AND METHOD OF IDENTIFYING EVENT AS ROOT CAUSE OF DATA QUALITY ANOMALY
+</title>
+
+<abstract>
+Embodiments detect and predict data disparity issues in data warehouses. Embodiments derive meaningful insights about the events occurred prior to the data disparity and correlate the events to understand the root cause of the data disparity (or the root cause of an alert generated as a result of detecting the data disparity). Embodiments either take or recommend actionable measures to prevent further occurrences of the event identified as the root cause. According to various embodiments, when the monitored data is transaction data (e.g. transaction volume, transaction amount, transaction processing speed, etc.), internal events (e.g. data job failures, job delays, job server maintenances) or external events (e.g. seasonal holiday events, natural calamities) may cause a dip or spike in the transaction data resulting in a data quality anomaly (i.e. a data disparity).
+</abstract>
+
+<claims>
+What is claimed is:
+1. A method for identifying a cause of data disparity among monitored data, the method comprising:
+monitoring, using a server computer, parameters associated with data collected in connection with a processing computer;
+detecting, using the server computer, a data disparity among the data; identifying, using the server computer, a first event associated with the data disparity;
+determining, using the server computer, a set of events associated with the first event;
+calculating, using the server computer, a score for each event among the set of events as a function of a weight assigned to each event among the set of events and occurrence score determined for each event among the set of events;
+identifying, using the server computer, a second event among the set of events as the cause of the data disparity, wherein the second event has the highest score among the set of events;
+taking preventive actions to prevent the data disparity in view of the identified cause of the data disparity.
+2. The method of claim 1 , wherein the occurrence score a selected event is determined based on runtime characteristics of all child events and parent events of the selected event, wherein the selected event occurred prior to the all child events of the selected event, and all parent events of the selected occurred prior to the selected event.
+3. The method of claim 1 , further comprising, prior to taking the preventive actions:
+identifying a third event, different than the second event, as an actual cause of the data disparity;
+determining that the third event is included in the set of events; adjusting the weight of each event among the set of events by a predetermined amount, wherein adjusting includes increasing the weight of the third event; and
+recalculating the score for each event among the set of events.
+4. The method of claim 3, further comprising two or more iterations of adjusting and recalculating, wherein the score of the third event increases at each iteration such that the third event has the highest score among the set of events at conclusion of all iterations.
+5. The method of claim 1 , wherein the weight of a given event is stored along with a history of the given event being the actual cause of the data disparity.
+6. The method of claim 1 , further comprising, prior to taking the preventive actions:
+identifying a third event, different than the second event, as an actual cause of the data disparity;
+determining that the third event is not included in the set of events; adding the third event to the set of events;
+adjusting the weight of each event among the set of events by a predetermined amount, wherein adjusting includes increasing the weight of the third event; and
+recalculating the score for each event among the set of events.
+7. The method of claim 6, further comprising two or more iterations of adjusting and recalculating, wherein the score of the third event increases at each iteration such that the third event has the highest score among the set of events at conclusion of all iterations.
+8. The method of claim 1 , further comprising:
+receiving an alert associated with the data disparity;
+in response to the alert, identifying the first event associated with the data disparity.
+9. The method of claim 1 , wherein the set of events associated with the first event includes one or more parent events of the first event, wherein the one or more parent events occurred prior to the first event.
+10. The method of claim 1 , wherein the first event and the set of events form a dependency graph.
+1 1 . The method of claim 10, further comprising:
+adding a new event to the dependency graph, wherein the new event is associated with a third event and a fourth event in the set of events, wherein the fourth event is a descendent of the third event;
+associating the new event with the third event without associating with the fourth event.
+12. The method of claim 1 , wherein the first event and the set of events include one or more of an internal event to the processing computer and an external event to the processing computer.
+13. A computer comprising:
+a processor; and
+a computer readable medium, the computer readable medium comprising code that, when executed by the processor, cause the processor to:
+monitor parameters associated with data collected in connection with a processing computer;
+detect a data disparity among the data;
+identify a first event associated with the data disparity;
+determine a set of events associated with the first event; calculate a score for each event among the set of events as a function of a weight assigned to each event among the set of events and occurrence score determined for each event among the set of events; identify a second event among the set of events as the cause of the data disparity, wherein the second event has the highest score among the set of events;
+take preventive actions to prevent the data disparity in view of the identified cause of the data disparity.
+14. The computer of claim 13, wherein the occurrence score a selected event is determined based on runtime characteristics of all child events and parent events of the selected event, wherein the selected event occurred prior to the all child events of the selected event, and all parent events of the selected occurred prior to the selected event.
+15. The computer of claim 13, wherein the code, when executed by the processor, further causes the processor to:
+prior to taking the preventive actions:
+identify a third event, different than the second event, as an actual cause of the data disparity;
+determine that the third event is included in the set of events;
+adjust the weight of each event among the set of events by a predetermined amount, wherein adjusting includes increasing the weight of the third event; and
+recalculate the score for each event among the set of events.
+16. The computer of claim 13, wherein the weight of a given event is stored along with a history of the given event being the actual cause of the data disparity.
+17. The computer of claim 13, wherein the code, when executed by the processor, further causes the processor to:
+prior to taking the preventive actions:
+identify a third event, different than the second event, as an actual cause of the data disparity;
+determine that the third event is not included in the set of events;
+add the third event to the set of events; adjust the weight of each event among the set of events by a predetermined amount, wherein adjusting includes increasing the weight of the third event; and
+recalculate the score for each event among the set of events.
+18. The computer of claim 13, wherein the code, when executed by the processor, further causes the processor to:
+receive an alert associated with the data disparity;
+in response to the alert, identify the first event associated with the data disparity.
+19. The computer of claim 13, wherein the set of events associated with the first event includes one or more parent events of the first event, wherein the one or more parent events occurred prior to the first event.
+20. The computer of claim 13, wherein the first event and the set of events form a dependency graph.
+21 . The computer of claim 20, wherein the code, when executed by the processor, further causes the processor to:
+add a new event to the dependency graph, wherein the new event is associated with a third event and a fourth event in the set of events, wherein the fourth event is a descendent of the third event;
+associate the new event with the third event without associating with the fourth event.
+22. The computer of claim 13, wherein the first event and the set of events include one or more of an internal event to the processing computer and an external event to the processing computer.
+</claims>
+</document>

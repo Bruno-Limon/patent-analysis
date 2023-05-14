@@ -1,0 +1,68 @@
+<document>
+
+<filing_date>
+2019-11-19
+</filing_date>
+
+<publication_date>
+2020-03-19
+</publication_date>
+
+<priority_date>
+2017-05-19
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+DEEPMIND TECHNOLOGIES
+</assignee>
+
+<inventors>
+WAYNE, GREGORY DUNCAN
+HEESS, NICOLAS MANFRED OTTO
+GOMES DE FREITAS, JOAO FERDINANDO
+MEREL, JOSHUA
+WANG, ZIYU
+REED, SCOTT ELLISON
+</inventors>
+
+<docdb_family_id>
+62217993
+</docdb_family_id>
+
+<title>
+DATA EFFICIENT IMITATION OF DIVERSE BEHAVIORS
+</title>
+
+<abstract>
+Methods, systems, and apparatus, including computer programs encoded on computer storage media, for training a neural network used to select actions to be performed by an agent interacting with an environment. One of the methods includes: obtaining data identifying a set of trajectories, each trajectory comprising a set of observations characterizing a set of states of the environment and corresponding actions performed by another agent in response to the states; obtaining data identifying an encoder that maps the observations onto embeddings for use in determining a set of imitation trajectories; determining, for each trajectory, a corresponding embedding by applying the encoder to the trajectory; determining a set of imitation trajectories by applying a policy defined by the neural network to the embedding for each trajectory; and adjusting parameters of the neural network based on the set of trajectories, the set of imitation trajectories and the embeddings.
+</abstract>
+
+<claims>
+1. A method for training a neural network used to select actions to be performed by an agent interacting with an environment, the method comprising: obtaining data identifying a set of trajectories, each trajectory comprising a set of observations characterizing a set of states of the environment and corresponding actions performed by another agent in response to the states; obtaining data identifying an encoder that maps the observations onto embeddings for use in determining a set of imitation trajectories; determining, for each trajectory, a corresponding embedding by applying the encoder to the trajectory; determining a set of imitation trajectories by applying a policy defined by the neural network to the embedding for each trajectory; and adjusting parameters of the neural network based on the set of trajectories, the set of imitation trajectories and the embeddings.
+2. A method according to claim 1 wherein adjusting parameters of the neural network uses values output from a discriminator that have been conditioned using the embeddings.
+3. A method according to claim 2 wherein adjusting the parameters of the neural network comprises determining a set of parameters that improves the return from a reward function, the reward function being based on a value output from the discriminator.
+4. A method according to claim 3 wherein the reward function is:
+description="In-line Formulae" end="lead"?rtj(xtj, atj|zj)=−log(1−Dψ(xtj, atj|zj))description="In-line Formulae" end="tail"? wherein: rtj(xtj, atj|ztj) is the tth reward for the jth trajectory τj={x1j, a1j, . . . , xTj, aTj}; xtj is the tth state from a total of Tj state action pairs for the jth trajectory; atj is the tth action from a total of Tj state action pairs for the jth trajectory; zj is the embedding calculated by applying the encoder q to the jth trajectory, zj˜q(·|x1:Tjj); and Dψis the output of the discriminator.
+5. A method according to claim 2 further comprising updating a set of discriminator parameters based on the embeddings.
+6. A method according to claim 5 wherein the method comprises iteratively: updating the parameters of the neural network based on the discriminator; updating the discriminator parameters based on the set of trajectories, the set of imitation trajectories and the embeddings; and updating the embeddings and imitation trajectories using the updated neural network, until an end condition is met.
+7. A method according to claim 5 wherein updating the set of discriminator parameters utilizes a gradient ascent method.
+8. A method according to claim 5 wherein updating the set of discriminator parameters comprises implementing: wherein: Dψ is the discriminator function; ψ is the set of discriminator parameters; πθ is the policy of the neural network; θ is the set of parameters for the neural network; πΕ represents the expert policy that generated the set of trajectories; q is the encoder; τi is the ith trajectory, τi={x1i, a1i, . . . , xTii, aTii}, where xni is the nth state and ani is the nth action from a total of Ti state action pairs; and z an embedding.
+9. A method according to claim 8 wherein updating the set of discriminator parameters utilizes a gradient ascent method with gradient: wherein: Dψ is the discriminator function; ψ is the set of discriminator parameters; θ is the set of parameters for the neural network; each trajectory, τj, of the set of trajectories is τj={x1j, a1j, . . . , xTjj, aTjj}, where xnj is the nth state and anj is the nth action from a total of Tj state action pairs; each imitation trajectory, {circumflex over (τ)}j, is {circumflex over (τ)}j={{circumflex over (x)}1j, â1j, . . . , {circumflex over (x)}{circumflex over (T)}jj, â{circumflex over (T)}jj}, where {circumflex over (x)}nj is the nth imitation state and ânj is the nth imitation action from a total of {circumflex over (T)}j imitation state action pairs; and zj is the embedding of the trajectory τj.
+10. A method according to claim 1 wherein obtaining the encoder comprises training a variational auto encoder based on the set of trajectories, wherein the encoder forms part of the variational auto encoder.
+11. A method according to claim 10 wherein the variational auto encoder further comprises a state decoder for decoding the embeddings to produce imitation states and an action decoder for decoding the embeddings to produce imitation actions.
+12. A method according to claim 11 wherein the action decoder is a multilayer perceptron and/or wherein the state decoder is an autoregressive neural network.
+13. A method according to claim 11 wherein the policy is based on the action decoder.
+14. A method according to claim 13 wherein the policy πθ is:
+description="In-line Formulae" end="lead"?πθ(·|x, z)=(·|μθ(x, z), σθ(x, z)description="In-line Formulae" end="tail"? wherein: x is a state from the trajectory; z is the embedding calculated by applying the encoder to the trajectory; μθ is a mean output from the neural network; μα is the mean of the output of the action decoder; and σθ is a variance of output of the neural network.
+15. A method according to claim 14 wherein weights of the action decoder are kept constant after the action decoder has been determined.
+16. A method according to claim 15 wherein the encoder is a bi-directional long short term memory encoder.
+17. A system for reinforcement learning, the system comprising: the encoder of a trained variational autoencoder neural network, the encoder comprising a recurrent neural network to encode a probability distribution of the trajectories as an embedding vector defining parameters representing the probability distribution; wherein the reinforcement learning system is configured to: determine a target embedding vector for a target trajectory by sampling from the probability distribution encoded for the target trajectory by the encoder; and train a reinforcement learning neural network using reward values conditioned on the target embedding vector.
+18. A system as claimed in claim 17 wherein the reinforcement learning neural network comprises a policy generator and a discriminator, wherein the reinforcement learning system is configured to: select actions to be performed by an agent interacting with an environment using the policy generator, to imitate a state-action trajectory; discriminate between the imitated state-action trajectory and a reference trajectory using the discriminator; and update parameters of the policy generator using reward values conditioned on the target embedding vector.
+19. A system as claimed in claim 17 wherein the decoder comprises an action decoder and a state decoder, and wherein the state decoder comprises an autoregressive neural network to learn state representations for the decoder.
+20. A system comprising one or more computers and one or more storage devices storing instructions that when executed by the one or more computers cause the one or more computers to perform operations for training a neural network used to select actions to be performed by an agent interacting with an environment, the operations comprising: obtaining data identifying a set of trajectories, each trajectory comprising a set of observations characterizing a set of states of the environment and corresponding actions performed by another agent in response to the states; obtaining data identifying an encoder that maps the observations onto embeddings for use in determining a set of imitation trajectories; determining, for each trajectory, a corresponding embedding by applying the encoder to the trajectory; determining a set of imitation trajectories by applying a policy defined by the neural network to the embedding for each trajectory; and adjusting parameters of the neural network based on the set of trajectories, the set of imitation trajectories and the embeddings.
+</claims>
+</document>

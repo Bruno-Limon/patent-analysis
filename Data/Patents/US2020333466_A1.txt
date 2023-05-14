@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2019-08-09
+</filing_date>
+
+<publication_date>
+2020-10-22
+</publication_date>
+
+<priority_date>
+2019-04-17
+</priority_date>
+
+<ipc_classes>
+G01S17/08,G01S17/89,G01S17/93,G01S7/48
+</ipc_classes>
+
+<assignee>
+UBER TECHNOLOGIES
+</assignee>
+
+<inventors>
+HANSEN, PETER
+Alismail, Hatem
+</inventors>
+
+<docdb_family_id>
+72829383
+</docdb_family_id>
+
+<title>
+GROUND INTENSITY LIDAR LOCALIZER
+</title>
+
+<abstract>
+A system for determining a pose of a vehicle and building maps from vehicle priors processes received ground intensity LIDAR data including intensity data for points believed to be on the ground and height information to form ground intensity LIDAR (GIL) images including pixels in 2D coordinates where each pixel contains an intensity value, a height value, and x- and y-gradients of intensity and height. The GIL images are formed by filtering aggregated ground intensity LIDAR data falling into a same spatial bin on the ground and using a registration algorithm to align two GIL images relative to one another by estimating a 6-degree-of-freedom pose with associated uncertainty that minimizes error between the two GIL images. The aligned GIL images are provided as a pose estimate to a localizer. The system may provide online localization and pose estimation, prior building, and prior to prior alignment pose estimation using image-based techniques.
+</abstract>
+
+<claims>
+1. A system for determining a pose of a vehicle, comprising: at least one processor; a machine-readable medium comprising instructions thereon that, when executed by the at least one processor, causes the at least one processor to perform operations including: receiving ground intensity LIDAR data including intensity data for points believed to be on the ground and height information; forming ground intensity LIDAR (GIL) images including pixels in 2D coordinates where each pixel contains an intensity value, a height value, and xand y-gradients of intensity and height by filtering aggregated ground intensity LIDAR data falling into a same spatial bin on the ground; processing, using a registration algorithm, two GIL images to align the two GIL images relative to one another by estimating a 6-degree-of-freedom pose with associated uncertainty that minimizes error between the two GIL images; and providing the aligned GIL images as a pose estimate.
+2. A system as in claim 1, wherein processing the two GIL images to align the two GIL images relative to one another comprises using at least one of a Gauss-Newton framework and a Levenberg-Marquardt framework for solving a nonlinear optimization problem that generates the 6-degree-of-freedom pose.
+3. A system as in claim 1, further comprising receiving an initial estimate of vehicle pose parameters that are processed by the registration algorithm.
+4. A system as in claim 1, wherein receiving the ground intensity LIDAR data comprises receiving a 3D point cloud including intensity values and uncertainty estimates and receiving a pose initialization estimate and combining the 3D point cloud and pose initialization estimate.
+5. A system as in claim 4, further comprising using the pose initialization estimate to compensate for vehicle motion by transforming each LIDAR point with the pose initialization estimate to bring the LIDAR points into a consistent coordinate system and storing the transformed LIDAR points in a rolling buffer that accumulates LIDAR points over a period of time.
+6. A system as in claim 5, further comprising spatially filtering the LIDAR points to retain only points within a certain radius from the vehicle using a range estimate of each LIDAR point and downselecting only points in the rolling buffer believed to be on the ground surface.
+7. A system as in claim 6, wherein the downselecting comprises: discretizing a ground plane into partially overlapping cells having a specified size; for each cell, determining which LIDAR points are candidates to be classified as ground points in said each cell by choosing points with height estimates closest to an expected ground height within a specified LIDAR range; and for every candidate ground point, performing a plane fitting to determine which LIDAR points belong to the ground plane within a threshold and assigning the candidate ground points including corresponding intensity values and height values within the threshold to a corresponding cell in an XY cell grid position in the ground plane.
+8. A system as in claim 7, further comprising retaining candidate ground points that fit into the ground plane with normal pointing predominantly along the z-axis when the candidate ground points satisfy a minimum number of inliers per cell.
+9. A system as in claim 7, wherein processing the two GIL images to align the two GIL images relative to one another comprises registering the assigned ground points with a 2.5D image prior including pixels that encode height from the ground and intensity return using a registration algorithm comprising at least one of a Gauss-Newton framework and a Levenberg-Marquardt framework to generate the 6-degree-of-freedom pose.
+10. A system as in claim 1, wherein processing the two GIL images to align the two GIL images relative to one another comprises aligning the two GIL images in scale-space.
+11. A system as in claim 1, further comprising removing points with vanishing reflectance or vanishing height gradients prior to processing the two GIL images for alignment.
+12. A system as in claim 1, wherein aligning the two GIL images relative to one another comprises performing Inverse Compositional alignment of the two GIL images.
+13. A system for determining a pose of a vehicle, comprising: at least one processor; a machine-readable medium comprising instructions thereon that, when executed by the at least one processor, causes the at least one processor to perform operations including: receiving ground intensity LIDAR data including intensity data for points believed to be on the ground and height information; constructing a vehicle prior by discretizing a ground plane into partially overlapping cells having a specified size, determining ground points using LIDAR points having known positions as obtained during a map build, and for each ground point, performing a plane fitting to determine which LIDAR points belong to the ground plane within a threshold; aggregating and filtering the ground intensity LIDAR data to determine a single height and intensity value per cell and assigning a single intensity and height value to each XY cell grid position in the ground plane using an uncertainty weighted mean; and determining a final prior image that encompasses the pixels in the XY cell grid positions in the ground plane.
+14. A system as in claim 13, wherein constructing the vehicle prior comprises spatially filtering the LIDAR points to retain only points within a certain radius from the vehicle using a range estimate of each LIDAR point and downselecting only points in the rolling buffer believed to be on the ground surface.
+15. A system as in claim 13, wherein determining a single height and intensity value per cell comprises calculating a weighted average or median of all intensity and height data falling into each XY cell grid position in the ground plane where weights for each LIDAR point are based on each LIDAR point's range and intensity estimated uncertainties.
+16. A system as in claim 13, further comprising removing statistical outlier LIDAR points on a per pixel basis and filling any holes in the LIDAR data by Gaussian smoothing using intensity values from neighboring pixels in the LIDAR data.
+17. A system as in claim 13, further comprising storing the final prior image as a 2.5D height-intensity image for deployment to the vehicle.
+18. A system for estimating a pose of a vehicle using two map-build priors using template matching, comprising: at least one processor; a machine-readable medium comprising instructions thereon that, when executed by the at least one processor, causes the at least one processor to perform operations including: combining first and second map-build priors; determining an initial estimate of uv pixel shifts of the combined map-build priors by maximizing a Zero-Mean Normalized Cross Correlation; converting the initial estimate of the uv pixel shift into an XY shift in meters; applying the XY shift to ground points determined from ground intensity LIDAR data including intensity data for points believed to be on the ground and height information; using a robust least squares algorithm to determine a z-axis translation; and providing the XY shifted ground points and z-axis translation to a pose estimation module for generating a 6-degrees-of-freedom estimate of the pose of the vehicle.
+19. A system as in claim 18, further comprising combining initial estimates from the Zero-Mean Normalized Cross Correlation and an output of the robust least squares algorithm for a scale axis and providing the combination to the pose estimation module.
+20. A system as in claim 18, further comprising constructing multiple map-build priors from the ground intensity LIDAR data on the fly and co-registering the multiple map-build priors by combining respective map-build priors, determining the initial estimate of uv pixel shifts of the combined respective map-build priors by maximizing the Zero-Mean Normalized Cross Correlation, converting the initial estimate of the uv pixel shift into the XY shift in meters, applying the XY shift to the ground points, using the robust least squares algorithm to determine the z-axis translation, and providing the XY shifted ground points and z-axis translation to the pose estimation module for generating the 6-degrees-of-freedom estimate of the pose of the vehicle.
+</claims>
+</document>

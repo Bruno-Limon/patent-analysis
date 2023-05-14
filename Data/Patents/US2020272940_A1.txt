@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2019-04-30
+</filing_date>
+
+<publication_date>
+2020-08-27
+</publication_date>
+
+<priority_date>
+2019-02-25
+</priority_date>
+
+<ipc_classes>
+G06F21/62,G06K9/62,G06N20/00,G06N3/08
+</ipc_classes>
+
+<assignee>
+SALESFORCE.COM
+</assignee>
+
+<inventors>
+LI, JIA
+SOCHER, RICHARD
+SUN, LICHAO
+XIONG, CAIMING
+</inventors>
+
+<docdb_family_id>
+72140357
+</docdb_family_id>
+
+<title>
+DATA PRIVACY PROTECTED MACHINE LEARNING SYSTEMS
+</title>
+
+<abstract>
+Approaches for private and interpretable machine learning systems include a system for processing a query. The system includes one or more teacher modules for receiving a query and generating a respective output, one or more privacy sanitization modules for privacy sanitizing the respective output of each of the one or more teacher modules, and a student module for receiving a query and the privacy sanitized respective output of each of the one or more teacher modules and generating a result. Each of the one or more teacher modules is trained using a respective private data set. The student module is trained using a public data set. In some embodiments, human understandable interpretations of an output from the student module is provided to a model user.
+</abstract>
+
+<claims>
+1. A method of training a student module with knowledge from one or more teacher modules, the method comprising: generating, via the student module with a first set of parameters, a set of student outputs in response to a batch of queries; computing, by a processor, a loss metric based on the set of student outputs and a set of teacher outputs that is generated via at least one teacher module using the batch of queries; perturbing the loss metric with noise; and generating a second set of parameters for an updated student module based on the perturbed loss metric.
+2. The method of claim 1, wherein the at least one teacher module is trained with a set of private data samples inaccessible to the student module.
+3. The method of claim 1, further comprising: causing the batch of queries to be sent to the at least one teacher module; and obtaining the set of teacher outputs from a last hidden layer of the at least one teacher module in response to an input of the batch of queries.
+4. The method of claim 1, wherein computing the loss metric based on the set of student outputs and the set of teacher outputs comprises: computing a set of student classification outputs based on the set of student outputs; computing a set of teacher classification outputs based on the set of teacher outputs; and computing a cross-entropy loss between the set of student classification outputs and the set of teacher classification outputs.
+5. The method of claim 1, wherein perturbing the loss metric with noise comprises: bounding each loss metric computed corresponding to each teacher module with a pre-defined threshold; computing an average of the bounded loss metrics for all teacher modules; and adding a perturbation noise to the computed average of the bounded loss metrics.
+6. The method of claim 5, wherein adding the perturbation noise to the computed average of the bounded loss metrics comprises: generating a Gaussian noise having a zero mean and a variance based on a private budget parameter and the pre-defined threshold.
+7. The method of claim 1, wherein generating the second set of parameters for an updated student module based on the perturbed loss metric comprises: using backpropagation on the student module by the perturbed loss metric to obtain the second set of parameters.
+8. The method of claim 1, further comprising using hint learning with the at least one teacher module to update at least the subset of the first set of parameters for the student module by: generating a set of intermediate student outputs via a student guided layer configured with a set of student guided layer parameters in response to an input of the batch of queries; and generating a set of adapted intermediate student outputs via an adaptation layer configured with a set of adaptation layer parameters, wherein the at least the subset of the first set of parameters for the student module includes the set of student guided layer parameters and the set of adaptation layer parameters.
+9. The method of claim 8, further comprising: computing a hint loss metric based on the set of adapted intermediate student outputs and the set of teacher outputs that is generated via at least one teacher module using the batch of queries; perturbing the hint loss metric with the noise; and using backpropagation by the perturbed hint loss metric to update the set of student guided layer parameters and the set of adaptation layer parameters.
+10. The method of claim 1, further comprising: incorporating a interpretation module that provides a human understandable interpretation of outputs with the student module.
+11. A system for data privacy protected training, the system comprising: one or more teacher modules for generating at least one set of teacher outputs in response to a batch of queries from a data set; a student module for generating a set of student outputs in response to the batch of queries; wherein each of the one or more teacher modules has been trained with a respective dataset not accessible to the student module; one or more privacy sanitization modules for perturbing, a loss metric computed based on the set of teacher outputs and the set of student outputs, with noise and providing the perturbed loss metric to the student module; and wherein the student module is updated using the perturbed loss metric.
+12. The system of claim 11, further comprising: a loss module for obtaining the set of teacher outputs from a last hidden layer of the at least one teacher module in response to an input of the batch of queries.
+13. The system of claim 12, wherein the loss module is further configured for: computing a set of student classification outputs based on the set of student outputs; computing a set of teacher classification outputs based on the set of teacher outputs; and computing the loss metric as a cross-entropy loss between the set of student classification outputs and the set of teacher classification outputs.
+14. The system of claim 11, wherein the one or more privacy sanitization modules are further configured for: bounding each loss metric computed corresponding to each teacher module with a pre-defined threshold; computing an average of the bounded loss metrics for all teacher modules; and adding a perturbation noise to the computed average of the bounded loss metrics.
+15. The system of claim 14, wherein the one or more privacy sanitization modules are further configured for: generating a Gaussian noise having a zero mean and a variance based on a private budget parameter and the pre-defined threshold.
+16. The system of claim 11, wherein the student module is updated using backpropagation by the perturbed loss metric to obtain an updated set of parameters for the student module.
+17. The system of claim 16, further comprising: a hint loss module for using hint learning with the at least one teacher module to update at least a subset of the set of parameters for the student module before using the perturbed loss metric to update the student module.
+18. The system of claim 17, wherein the student module is further configured for: generating a set of intermediate student outputs via a student guided layer configured with a set of student guided layer parameters in response to an input of the batch of queries; and generating a set of adapted intermediate student outputs via an adaptation layer configured with a set of adaptation layer parameters; wherein the at least the subset of the set of parameters for the student module includes the set of student guided layer parameters and the set of adaptation layer parameters.
+19. The system of claim 18, wherein the hint loss module is further configured for: computing a hint loss metric based on the set of adapted intermediate student outputs and the set of teacher outputs that is generated via at least one teacher module using the batch of queries; perturbing the hint loss metric with the noise; and using backpropagation by the perturbed hint loss metric to update the set of student guided layer parameters and the set of adaptation layer parameters.
+20. A processor-readable non-transitory storage medium storing processor-executable instructions of training a student module with perturbed knowledge from one or more teacher modules, the instructions executable by a processor to: generate, via the student module with a first set of parameters, a set of student outputs in response to a batch of queries; compute a loss metric based on the set of student outputs and a set of teacher outputs that is generated via at least one teacher module using the batch of queries; perturb the loss metric with noise; and generate a second set of parameters for an updated student module based on the perturbed loss metric.
+</claims>
+</document>

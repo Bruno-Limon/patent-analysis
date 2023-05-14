@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2020-05-27
+</filing_date>
+
+<publication_date>
+2020-09-10
+</publication_date>
+
+<priority_date>
+2017-08-23
+</priority_date>
+
+<ipc_classes>
+G06K9/62,G06N3/04,G06N3/063
+</ipc_classes>
+
+<assignee>
+KAIST (KOREA ADVANCED INSTITUTE OF SCIENCE AND TECHNOLOGY)
+SAMSUNG ELECTRONICS COMPANY
+</assignee>
+
+<inventors>
+CHOI, YEONGJAE
+KIM, HYEONUK
+KIM, LEESUP
+LEE, SEHWAN
+SIM, JAEHYEONG
+</inventors>
+
+<docdb_family_id>
+65437464
+</docdb_family_id>
+
+<title>
+NEURAL NETWORK METHOD AND APPARATUS
+</title>
+
+<abstract>
+A processor-implemented neural network method includes: obtaining, from a memory, data of an input feature map and kernels having a binary-weight, wherein the kernels are to be processed in a layer of a neural network; decomposing each of the kernels into a first type sub-kernel reconstructed with weights of a same sign, and a second type sub-kernel for correcting a difference between a respective kernel, among the kernels, and the first type sub-kernel; performing a convolution operation by using the input feature map and the first type sub-kernels and the second type sub-kernels decomposed from each of the kernels; and obtaining an output feature map by combining results of the convolution operation.
+</abstract>
+
+<claims>
+1. A processor-implemented neural network method, comprising: obtaining, from a memory, data of an input feature map and kernels having a first kernel size, wherein the kernels are to be processed in a layer of a neural network; decomposing each of the kernels into a plurality of sub-kernels having the first kernel size, wherein the sub-kernels comprises a base sub-kernel and at least one of a filtered sub-kernel; performing a convolution operation by using the input feature map and the base sub-kernels and the filtered sub-kernels decomposed from each of the kernels; and obtaining an output feature map by combining results of the convolution operation, wherein the filtered sub-kernel is a sub-kernel for correcting differences between a respective kernel, among the kernels, and the base sub-kernel.
+2. The method of claim 1, wherein the base sub-kernel is reconstructed by replacing weights of all elements of each of the kernels with a same value.
+3. The method of claim 2, wherein, when the input feature map has an index of an odd channel, the base sub-kernel is a sub-kernel reconstructed by setting weights of all elements of the base sub-kernel with a same value of a first sign, and when the input feature map has an index of an even channel, the base sub-kernel is a sub-kernel reconstructed by replacing the weights of all elements of the base sub-kernel with a same value of a second sign.
+4. The method of claim 1, wherein the base sub-kernels respectively decomposed from the kernels for performing the convolution operation with the input feature map are identical.
+5. The method of claim 1, wherein the filtered sub-kernel is a sub-kernel reconstructed by defining selected elements of the filtered sub-kernel with corresponding original weights of the respective kernel that are different from corresponding weights among the weights of the base sub-kernels, and not defining remaining elements of the filtered sub-kernel with any weights.
+6. The method of claim 1, wherein the performing of the convolution operation comprises performing a first convolution operation between a current window of the input feature map and the base sub-kernel decomposed from an initial kernel among the kernels, and performing a second convolution operation between the current window and each of the filtered sub-kernels decomposed from the kernels.
+7. The method of claim 6, wherein, in the performing of the convolution operation, the first convolution operation between the current window and each of the base sub-kernels decomposed from remaining kernels among the kernels, excluding the initial kernel, is clock-gated to be skipped, and a result of the first convolution operation performed with respect to the initial kernel is reused as results of the first convolution operation with respect to the remaining kernels.
+8. The method of claim 6, wherein the second convolution operation is performed between matrix elements for which a weight is defined in each of the filtered sub-kernels and a corresponding pixel of the input feature map, and is skipped with respect to matrix elements in each of the filtered sub-kernels for which a weight is not defined.
+9. The method of claim 1, wherein the obtaining of the output feature map comprises obtaining the output feature map by determining each pixel value among pixel values of the output feature map, based on a value obtained by adding double a result value of a second convolution operation between the filtered sub-kernel and a window of the input feature map to a result value of a first convolution operation between the base sub-kernel and the window.
+10. The method of claim 1, wherein the kernels have a binary weight or a ternary weight.
+11. A non-transitory computer-readable recording medium storing instructions that, when executed by a processor, cause the processor to perform the method of claim 1.
+12. A neural network apparatus, comprising: a processor configured to: obtain data of an input feature map and kernels having a first kernel size, wherein the kernels are to be processed in a layer of the neural network; decompose each of the kernels into a plurality of sub-kernels having the first kernel size, wherein the sub-kernels comprise a base sub-kernel and at least one of a filtered sub-kernel; perform a convolution operation by using the input feature map and the base sub-kernels and the filtered sub-kernels decomposed from each of the kernels; and obtain an output feature map by combining results of the convolution operation, wherein the filtered sub-kernel is a sub-kernel for correcting differences between a respective kernel, among the kernels, and the base sub-kernel.
+13. The neural network apparatus of claim 12, wherein the base sub-kernel is reconstructed by replacing weights of all elements of each of the kernels with a same value.
+14. The neural network apparatus of claim 13, wherein, when the input feature map has an index of an odd channel, the base sub-kernel is a sub-kernel reconstructed by replacing weights of all elements of the base sub-kernel with a same value of a first sign, and when the input feature map has an index of an even channel, the base sub-kernel is a sub-kernel reconstructed by replacing the weights of all elements of the base sub-kernel with a same value of a second sign.
+15. The neural network apparatus of claim 12, wherein the base sub-kernels respectively decomposed from the kernels for performing the convolution operation with the input feature map are identical.
+16. The neural network apparatus of claim 12, wherein the filtered sub-kernel is a sub-kernel reconstructed by defining selected elements of the filtered sub-kernel with corresponding original weights of the respective kernel that are different from corresponding weights among the weights of the base sub-kernel, and not defining remaining elements of the filtered sub-kernel with any weights.
+17. The neural network apparatus of claim 12, wherein, for the performing of the convolution, the processor is configured to execute the at least one program to perform a first convolution operation between a current window of the input feature map and the base sub-kernel decomposed from an initial kernel among the kernels, and perform a second convolution operation between the current window and each of the filtered sub-kernels decomposed from the kernels.
+18. The neural network apparatus of claim 17, wherein the processor is further configured to clock-gate a first convolution operation between the current window and each of the base sub-kernels decomposed from remaining kernels among the kernels, excluding the initial kernel, to be skipped, and reuse a result of the first convolution operation performed with respect to the initial kernel as results of the first convolution operation with respect to the remaining kernels.
+19. The neural network apparatus of claim 17, wherein the second convolution operation is performed between matrix elements for which a weight is defined in each of the filtered sub-kernels and a corresponding pixel of the input feature map, and is skipped with respect to matrix elements in each of the filtered sub-kernels for which a weight is not defined.
+20. The neural network apparatus of claim 12, wherein the processor is further configured to obtain the output feature map by determining each pixel value among pixel values of the output feature map, based on a value obtained by adding double a result value of a second convolution operation between the filtered sub-kernel and a window of the input feature map to a result value of a first convolution operation between the base sub-kernel and the window.
+</claims>
+</document>

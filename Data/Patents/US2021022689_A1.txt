@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2020-07-02
+</filing_date>
+
+<publication_date>
+2021-01-28
+</publication_date>
+
+<priority_date>
+2019-07-26
+</priority_date>
+
+<ipc_classes>
+A61B6/00,A61B6/02
+</ipc_classes>
+
+<assignee>
+FUJIFILM
+</assignee>
+
+<inventors>
+KODAIRA, SHUNSUKE
+MAKINO, KAZUHIRO
+KOBAYASHI, TAKEYASU
+</inventors>
+
+<docdb_family_id>
+74187553
+</docdb_family_id>
+
+<title>
+TOMOSYNTHESIS IMAGING CONTROL DEVICE, METHOD FOR OPERATING TOMOSYNTHESIS IMAGING CONTROL DEVICE, AND PROGRAM FOR OPERATING TOMOSYNTHESIS IMAGING CONTROL DEVICE
+</title>
+
+<abstract>
+A control device includes a control unit and a determination unit. The control unit controls an operation of radiation tubes such that radiation is emitted at irradiation positions whose number is smaller than the total number of irradiatable positions preset so as to correspond to irradiation angles. The determination unit determines whether or not the radiation needs to be additionally emitted at the irradiatable positions different from the irradiation positions in order to obtain the tomographic image with an image quality level required for diagnosis, on the basis of a determination image obtained by the emission of the radiation at the irradiation positions.
+</abstract>
+
+<claims>
+1. A tomosynthesis imaging control device comprising: a control unit that, in a case in which tomosynthesis imaging that irradiates an object with radiation at a plurality of different irradiation angles to generate a tomographic image in any tomographic plane of the object is performed using a plurality of radiation tubes, controls an operation of the radiation tubes such that the radiation is emitted at irradiation positions whose number is smaller than a total number of irradiatable positions preset so as to correspond to the irradiation angles; and a determination unit that determines whether or not the radiation needs to be additionally emitted at the irradiatable positions different from the irradiation positions to obtain the tomographic image with an image quality level required for diagnosis, on the basis of a determination image obtained by the emission of the radiation at the irradiation positions.
+2. The tomosynthesis imaging control device according to claim 1, wherein the tomographic image is generated from all of the projection images obtained by the emission of the radiation at the irradiation positions.
+3. The tomosynthesis imaging control device according to claim 1, wherein, in a case in which the determination unit determines that the radiation needs to be additionally emitted at the irradiatable positions different from the irradiation positions, the control unit performs control to additionally emit the radiation at an additional irradiation position among the different irradiatable positions, and in a case in which the determination unit determines that the radiation does not need to be additionally emitted at the irradiatable positions different from the irradiation positions, the control unit ends the tomosynthesis imaging
+4. The tomosynthesis imaging control device according to claim 3, wherein the determination unit performs the determination using a determination tomographic image generated from at least two projection images obtained by the emission of the radiation at at least two irradiation positions as the determination image.
+5. The tomosynthesis imaging control device according to claim 4, wherein the determination unit performs the determination by comparing an image quality evaluation value of the determination tomographic image with a preset image quality evaluation threshold value.
+6. The tomosynthesis imaging control device according to claim 5, wherein the image quality evaluation value is a value of a lesion of the object.
+7. The tomosynthesis imaging control device according to claim 4, wherein the determination unit performs the determination using a first machine learning model to which the determination tomographic image is input as the determination image and which outputs data indicating whether or not a quality of the input determination tomographic image is at the level required for diagnosis.
+8. The tomosynthesis imaging control device according to claim 4, wherein the determination unit performs the determination using a second machine learning model to which a cut-out image obtained by cutting out a region of a lesion of the object from the determination tomographic image is input as the determination image and which outputs data indicating whether or not a quality of the input cut-out image is at a level required for diagnosis.
+9. The tomosynthesis imaging control device according to claim 4, further comprising: a display control unit that performs control to display the determination tomographic image; and a receiving unit that receives a command to select whether or not a quality of the determination tomographic image is at the level required for diagnosis, wherein the determination unit performs the determination on the basis of the selection command received by the receiving unit.
+10. The tomosynthesis imaging control device according to claim 4, wherein the image quality includes granularity and depth resolution, the determination unit individually determines whether or not the granularity of the determination tomographic image is at a level required for diagnosis and whether or not the depth resolution of the determination tomographic image is at a level required for diagnosis, and the additional irradiation position is changed in a case in which the depth resolution is at the level required for diagnosis and the granularity is not at the level required for diagnosis, in a case in which the granularity is at the level required for diagnosis and the depth resolution is not at the level required for diagnosis, and in a case in which the granularity and the depth resolution are not at the levels required for diagnosis.
+11. The tomosynthesis imaging control device according to claim 4, further comprising: a storage control unit that performs control to store an irradiation position related information table in which information related to the irradiation position where the radiation has been emitted by the control unit is registered for each subject, wherein an initial irradiation position is set on the basis of the irradiation position related information table.
+12. The tomosynthesis imaging control device according to claim 1, wherein the determination unit performs the determination using a third machine learning model to which a determination tomographic image generated from at least two projection images obtained by the emission of the radiation at at least two initial irradiation positions is input as the determination image and which outputs the irradiation position where the emission of the radiation is essential to generate the tomographic image with the image quality level required for diagnosis.
+13. The tomosynthesis imaging control device according to claim 1, wherein the determination unit performs the determination using a fourth machine learning model to which a projection image obtained by the emission of the radiation at an initial irradiation position is input as the determination image and which outputs the irradiation position where the emission of the radiation is essential to generate the tomographic image with the image quality level required for diagnosis.
+14. The tomosynthesis imaging control device according to claim 1, wherein the determination image is an image in which pixels have been thinned out as compared to an image output from a radiation detector.
+15. The tomosynthesis imaging control device according to claim 1, wherein the irradiatable positions that are symmetric with respect to a line and/or the irradiatable positions that are arranged at equal intervals are set as the irradiation positions at a time.
+16. The tomosynthesis imaging control device according to claim 1, wherein the irradiatable positions corresponding to a maximum irradiation angle are set as the initial irradiation positions.
+17. The tomosynthesis imaging control device according to claim 4, wherein the irradiatable positions having a smaller irradiation angle than previous irradiation positions are set as the additional irradiation positions.
+18. The tomosynthesis imaging control device according to claim 1, wherein the radiation tube is fixed at the irradiatable position.
+19. The tomosynthesis imaging control device according to claim 1, wherein the radiation tube is moved between at least two irradiatable positions.
+20. A method for operating a tomosynthesis imaging control device, the method comprising: a control step of, in a case in which tomosynthesis imaging that irradiates an object with radiation at a plurality of different irradiation angles to generate a tomographic image in any tomographic plane of the object is performed using a plurality of radiation tubes, controlling an operation of the radiation tubes such that the radiation is emitted at irradiation positions whose number is smaller than a total number of irradiatable positions preset so as to correspond to the irradiation angles; and a determination step of determining whether or not the radiation needs to be additionally emitted at the irradiatable positions different from the irradiation positions to obtain the tomographic image with an image quality level required for diagnosis, on the basis of a determination image obtained by the emission of the radiation at the irradiation positions.
+21. A non-transitory computer-readable storage medium storing a program for operating a tomosynthesis imaging control device, the program causing a computer to function as: a control unit that, in a case in which tomosynthesis imaging that irradiates an object with radiation at a plurality of different irradiation angles to generate a tomographic image in any tomographic plane of the object is performed using a plurality of radiation tubes, controls an operation of the radiation tubes such that the radiation is emitted at irradiation positions whose number is smaller than a total number of irradiatable positions preset so as to correspond to the irradiation angles; and a determination unit that determines whether or not the radiation needs to be additionally emitted at the irradiatable positions different from the irradiation positions to obtain the tomographic image with an image quality level required for diagnosis, on the basis of a determination image obtained by the emission of the radiation at the irradiation positions.
+</claims>
+</document>

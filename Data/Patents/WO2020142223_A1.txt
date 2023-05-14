@@ -1,0 +1,100 @@
+<document>
+
+<filing_date>
+2019-12-19
+</filing_date>
+
+<publication_date>
+2020-07-09
+</publication_date>
+
+<priority_date>
+2019-01-04
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/063,G06N3/08,G06N3/10
+</ipc_classes>
+
+<assignee>
+MICROSOFT TECHNOLOGY LICENSING
+</assignee>
+
+<inventors>
+ANNAU, THOMAS
+CHUNG, ERIC
+LO, DANIEL
+ZHU, HAISHAN
+</inventors>
+
+<docdb_family_id>
+69177209
+</docdb_family_id>
+
+<title>
+DITHERED QUANTIZATION OF PARAMETERS DURING TRAINING WITH A MACHINE LEARNING TOOL
+</title>
+
+<abstract>
+A machine learning tool uses dithered quantization of parameters during training of a machine learning model such as a neural network. The machine learning tool receives training data and initializes certain parameters of the machine learning model (e.g, weights for connections between nodes of a neural network, biases for nodes). The machine learning tool trains the parameters in one or more iterations based on the training data. In particular, in a given iteration, the machine learning tool applies the machine learning model to at least some of the training data and, based at least in part on the results, determines parameter updates to the parameters. The machine learning tool updates the parameters using the parameter updates and a dithered quantizer function, which can add random values before a rounding or truncation operation.
+</abstract>
+
+<claims>
+1. In a computer system, a method of training a machine learning model using a machine learning tool, the method comprising:
+receiving training data;
+initializing parameters of a machine learning model;
+training at least some of the parameters in one or more iterations based on the training data, including, in a given iteration of the one or more iterations:
+applying the machine learning model to at least some of the training data; based at least in part on results of the applying the machine learning model, determining parameter updates to the at least some of the parameters; and
+updating the at least some of the parameters, wherein the updating uses the parameter updates and a dithered quantizer function; and
+outputting the parameters.
+2. The method of claim 1, wherein the machine learning model is a neural network having multiple layers, each of the multiple layers including one or more nodes, and wherein the parameters include:
+weights for connections between the nodes;
+biases for at least some of the nodes;
+a count of the multiple layers;
+for each of the multiple layers, a count of nodes in the layer; and/or
+a control parameter for batch normalization.
+3. The method of claim 1, wherein the updating the at least some of the parameters includes, for the given iteration t:
+calculating final parameters wt+1 for the given iteration t based upon starting parameters wt for the given iteration t and parameter updates Dwt in the given iteration t, as wt+1 = dither(wt + Dwt), wherein dither() is the dithered quantizer function.
+4. The method of claim 3, wherein the updating the at least some of the parameters further includes determining dithering values d associated with the parameters wt, respectively, and wherein the dithered quantizer function dither() is implemented as:
+round(wt + Dwt + d), wherein round() is a rounding function;
+round( (wt + Dwt + d) / p ) × p, where p is a level of precision;
+floor(wt + Dwt + d), wherein floor() is a floor function;
+floor( (wt + Dwt + d) / p) × p, where p is a level of precision; or
+quant(wt + Dwt + d), wherein quant() is a quantizer function.
+5. The method of claim 3, wherein:
+the parameters wt are in a floating-point format having a given level of precision for mantissa values, and wherein the dithered quantizer function applies dithering values d associated with the parameters wt, respectively, by adding mantissa values at a higher, intermediate level of precision before rounding or truncating to a nearest mantissa value for the given level of precision; or
+the parameters wt are in an integer format or fixed-point format, and wherein the dithered quantizer function applies dithering values d associated with the parameters wt, respectively, by adding values at a higher, intermediate level of precision before rounding or truncating to a nearest integer value.
+6. The method of claim 3, wherein:
+the dithered quantizer function dither() is implemented using a rounding function, wherein the parameters wt are in format having a given level of precision after
+quantization is applied, and wherein the dithering values d are selected in a range of -0.5 to 0.5 of an increment of a value at the given level of precision; or
+the dithered quantizer function dither() is implemented using a floor function, wherein the parameters wt are in format having a given level of precision after
+quantization is applied, and wherein the dithering values d are selected in a range of 0.0 to 1.0 of an increment of a value at the given level of precision.
+7. The method of claim 3, wherein the determining the parameter updates Dwt includes multiplying unscaled parameter updates Dw't by a learning rate h, as Dwt = h × Dw't.
+8. The method of claim 1, wherein the machine learning model is a neural network, wherein the applying the machine learning model to at least some of the training data includes forward propagating input values for the given iteration through multiple layers of the neural network, and wherein the determining the parameter updates to the at least some of the parameters includes:
+calculating a measure of loss based on output of the neural network after the forward propagation and expected output for the at least some of the training data; and backward propagating the measure of loss through the multiple layers of the neural network.
+9. The method of claim 1, wherein the training the at least some of the parameters further includes:
+converting values, including the at least some of the parameters, from a first format to a second format, the second format having a lower precision than the first format, wherein the first format is a first floating-point format having m1 bits of precision for mantissa values and e1 bits of precision for exponent values, wherein the second format is a second floating-point format:
+having m2 bits of precision for mantissa values and e2 bits of precision for exponent values, wherein m1 > m2, and wherein e1 > e2; or
+having a shared exponent value.
+10. The method of claim 1, wherein the machine learning model is a deep neural network, a support vector machine, a Bayesian network, a decision tree, or a linear classifier.
+11. The method of claim 1, wherein the dithered quantizer function uses dithering values d based at least in part on output of a random number generator, and wherein the dithering values d are random values having a power spectrum of white noise or blue noise.
+12. The method of claim 1, wherein the dithered quantizer function is the same in each of the one or more iterations, and wherein the dithered quantizer function is applied in all of the one or more iterations.
+13. The method of claim 1, wherein the training data includes multiple examples, each of the multiple examples having one or more attributes and a label, wherein each of the one or more iterations uses a single example or mini-batch of examples randomly selected from among any remaining examples, for an epoch, of the multiple examples, and wherein the initializing the parameters includes, for an initial iteration of an initial epoch, setting the parameters to random values.
+14. A computer system comprising:
+a buffer, in memory of the computer system, configured to receive training data; and
+a machine learning tool, implemented with one or more processors of the computer system, configured to perform operations comprising:
+initializing parameters of a machine learning model;
+training at least some of the parameters in one or more iterations based on the training data, including, in a given iteration of the one or more iterations:
+applying the machine learning model to at least some of the training data;
+based at least in part on results of the applying the machine learning model, determining parameter updates to the at least some of the parameters; and
+updating the at least some of the parameters, wherein the updating uses the parameter updates and a dithered quantizer function; and
+outputting the parameters; and
+a buffer, in memory of the computer system, configured to store the parameters. 15. One or more computer-readable media having stored thereon computerexecutable instructions for causing one or more processing units, when programmed thereby, to perform operations comprising:
+receiving training data;
+initializing parameters of a machine learning model;
+training at least some of the parameters in one or more iterations based on the training data, including, in a given iteration of the one or more iterations:
+applying the machine learning model to at least some of the training data; based at least in part on results of the applying the machine learning model, determining parameter updates to the at least some of the parameters; and
+updating the at least some of the parameters, wherein the updating uses the parameter updates and a dithered quantizer function; and
+outputting the parameters.
+</claims>
+</document>

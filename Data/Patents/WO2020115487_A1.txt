@@ -1,0 +1,100 @@
+<document>
+
+<filing_date>
+2019-12-05
+</filing_date>
+
+<publication_date>
+2020-06-11
+</publication_date>
+
+<priority_date>
+2018-12-07
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G16H50/20,G16H50/70
+</ipc_classes>
+
+<assignee>
+OXFORD UNIVERSITY INNOVATION
+</assignee>
+
+<inventors>
+CLIFTON, DAVID
+SHAMOUT, FARAH
+WATKINSON, PETER
+ZHU, TINGTING
+</inventors>
+
+<docdb_family_id>
+65030132
+</docdb_family_id>
+
+<title>
+METHOD AND DATA PROCESSING APPARATUS FOR GENERATING REAL-TIME ALERTS ABOUT A PATIENT
+</title>
+
+<abstract>
+This disclosure relates to methods and apparatus for generating real-time alerts about a patient. In one arrangement, vital sign data representing vital sign information obtained from the patient at one or more input times within an assessment time window is received. A Gaussian process model of at least a portion of the vital sign information is used to generate a time series of synthetic vital sign data based on the received vital sign data, the synthetic vital sign data comprising at least a posterior mean for each of one or more components of the vital sign information at each of a plurality of regularly spaced time points in the assessment time window. The generated synthetic vital sign data is used as input to a trained recurrent neural network to generate an early warning score, the early warning score representing a probability of an adverse event occurring during a prediction time window of predetermined length after the assessment time window. An alert is generating about the patient dependent on the generated early warning score.
+</abstract>
+
+<claims>
+1. A computer-implemented method of generating real-time alerts about a patient, comprising: receiving vital sign data representing vital sign information obtained from the patient at one or more input times within an assessment time window,
+using a Gaussian process model of at least a portion of the vital sign information to generate a time series of synthetic vital sign data based on the received vital sign data, the synthetic vital sign data comprising at least a posterior mean for each of one or more components of the vital sign information at each of a plurality of regularly spaced time points in the assessment time window; using the generated synthetic vital sign data as input to a trained recurrent neural network to generate an early warning score, the early warning score representing a probability of an adverse event occurring during a prediction time window of predetermined length after the assessment time window; and
+generating an alert about the patient dependent on the generated early warning score.
+2. The method of claim 1, wherein the recurrent neural network comprises a Long Short Term Memory network.
+3. The method of 2, wherein the Long Short Term Memory network is a bidirectional Long Short Term Memory network.
+4. The method of any preceding claim, wherein the recurrent neural network comprises an attention mechanism.
+5. The method of claim 4, wherein:
+the attention mechanism computes a respective attention weight to apply to a hidden state of the recurrent neural network corresponding to each time point in the assessment time window; and the early warning score is generated via processing of a weighted sum of the hidden states weighted by the calculated attention weights.
+6. The method of claim 5, further comprising outputting an indication of a variation with time of a relevance to the generated early warning score of each of one or more components of the vital sign information based on the computed attention weights.
+7. The method of claim 5 or 6, wherein the attention weights are learned, for each component of the vital sign information, based on the posterior mean of the component, at each of the time points in the assessment time window.
+8. The method of any preceding claim, wherein:
+the synthetic vital sign data comprises a posterior variance corresponding to each posterior mean;
+each posterior mean corresponding to each time point is used as input to a first recurrent neural network;
+each posterior variance corresponding to each time point is used as input to a second recurrent neural network; and
+the early warning score is generated via processing of outputs from both the first recurrent neural network and the second recurrent neural network.
+9. The method of claim 8, wherein the first recurrent neural network is a Long Short Term Memory network and the second recurrent neural network is a Long Short Term Memory network.
+10. The method of claim 8 or 9, wherein:
+the first recurrent neural network interacts with an attention mechanism;
+the attention mechanism computes a respective attention weight to apply to a hidden state of the first recurrent neural network corresponding to each time point in the assessment time window; and
+the early warning score is generated via processing of a combination of a weighted sum of the hidden states of the first recurrent neural network weighted by the computed attention weights and an output from the second recurrent neural network.
+11. The method of claim 8 or 9, wherein:
+the first recurrent neural network interacts with a first attention mechanism; the second recurrent neural network interacts with a second attention mechanism;
+the first attention mechanism computes a respective attention weight to apply to a hidden state of the first recurrent neural network corresponding to each time point in the assessment time window;
+the second attention mechanism computes a respective attention weight to apply to a hidden state of the second recurrent neural network corresponding to each time point in the assessment time window; and
+the early warning score is generated via processing of a combination of a weighted sum of the hidden states of the first recurrent neural network weighted by the computed attention weights of the first attention mechanism and a weighted sum of the hidden states of the second recurrent neural network weighted by the computed attention weights of the second attention mechanism.
+12. The method of any preceding claim, wherein prior knowledge of either or both of the age and sex of the patient is incorporated into the mean function of the Gaussian process model.
+13. The method of any preceding claim, wherein a radial basis function with added white noise is used as the covariance function of the Gaussian process model.
+14. The method of any preceding claim, wherein lognormal distributions are applied as priors for the hyperparameters of the covariance function of the Gaussian process model to model a heterogeneous population of patients.
+15. The method of any preceding claim, wherein the vital sign information comprises one or more of the following components: heart rate; respiratory rate; systolic blood pressure; diastolic blood pressure; temperature; peripheral capillary oxygen saturation; consciousness level; and whether supplemental oxygen was provided to the patient at the time of observation.
+16. The method of any preceding claim, wherein the recurrent neural network forms part of an autoencoder and the early warning score is generated using a latent representation from the autoencoder.
+17. The method of claim 16, wherein the autoencoder comprises multiple encoder channels, each encoder channel receiving vital sign data representing a different component of vital sign information.
+18. The method of claim 17, wherein:
+each encoder channel comprises an attention mechanism configured to compute a context vector; and
+the latent representation is obtained by combining the context vectors from the multiple encoder channels and associated attention mechanisms.
+19. The method of claim 18, wherein the autoencoder comprises a single decoder channel.
+20. The method of any of claims 17-19, wherein parameters of the autoencoder are optimised by minimising a binary cross-entropy loss for all of the encoder channels
+21. The method of any preceding claim, further comprising:
+receiving a diagnosis code representing a diagnosis of the patient made at a time of admission of the patient to a medical facility;
+using a trained model of a relationship between diagnosis codes and probabilities of an adverse event occurring during the prediction time window to generate an early warning score based on the diagnosis code; and
+obtaining a composite early warning score using a combination of at least the early warning score generated using the trained recurrent neural network and the early warning score based on the diagnosis code,
+wherein the alert is generated using the composite early warning score.
+22. The method of any of claims 1-20, further comprising:
+receiving laboratory test data representing information obtained from one or more laboratory tests performed on the patient;
+using a trained model of a relationship between laboratory test data and probabilities of an adverse event occurring during the prediction time window to generate an early warning score based on the laboratory test data; and obtaining a composite early warning score using a combination of at least the early warning score generated using the trained recurrent neural network and the early warning score based on the laboratory test data,
+wherein the alert is generated using the composite early warning score.
+23. The method of any of claims 1-20, further comprising:
+receiving laboratory test data representing information obtained from one or more laboratory tests performed on the patient;
+receiving a diagnosis code representing a diagnosis of the patient made at a time of admission of the patient to a medical facility;
+using a trained model of a relationship between laboratory test data and probabilities of an adverse event occurring during the prediction time window to generate an early warning score based on the laboratory test data;
+using a trained model of a relationship between diagnosis codes and probabilities of an adverse event occurring during the prediction time window to generate an early warning score based on the diagnosis code; and
+obtaining a composite early warning score using a combination of at least the early warning score generated using the trained recurrent neural network, the early warning score based on the laboratory test data, and the early warning score based on the diagnosis code,
+wherein the alert is generated using the composite early warning score.
+24. The method of claim 22 or 23, wherein the model of the relationship between laboratory test data and probabilities of an adverse event includes a decay term to model an effect of delay between obtaining of the laboratory test data and a time at which the composite early warning score is to be obtained.
+25. A data processing apparatus comprising a processor configured to perform the method of any preceding claim.
+26 A computer program comprising instructions which, when the program is executed by a computer, cause the computer to carry out the method of any of claims 1-24.
+27. A computer-readable data carrier having stored thereon the computer program of claim 26.
+</claims>
+</document>

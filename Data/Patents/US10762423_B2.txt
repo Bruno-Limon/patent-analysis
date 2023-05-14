@@ -1,0 +1,59 @@
+<document>
+
+<filing_date>
+2018-08-07
+</filing_date>
+
+<publication_date>
+2020-09-01
+</publication_date>
+
+<priority_date>
+2017-06-27
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/08,G06Q10/06,G06Q30/00
+</ipc_classes>
+
+<assignee>
+ASAPP
+</assignee>
+
+<inventors>
+HENRY, SHAWN
+</inventors>
+
+<docdb_family_id>
+65434310
+</docdb_family_id>
+
+<title>
+Using a neural network to optimize processing of user requests
+</title>
+
+<abstract>
+Users may request assistance or information from a limited number of resources, such as submitting a user request by speaking or entering text. A user request from among the pending user requests may be selected using a selection model. A selection model may process features relating to each of the pending user requests and generate a probability distribution for the pending user requests. A user request may then be selected using the probability distribution, such as by making a random selection. The selection model may be updated over multiple time periods by computing reward scores for the selection decisions made by the selection model and using the reward scores to update the parameters of the selection model.
+</abstract>
+
+<claims>
+1. A computer-implemented method for using a neural network to select customer requests for assignment, the method comprising: obtaining a first selection model, wherein the first selection model comprises the neural network and processes feature vectors corresponding to customer requests and generates scores for selection of customer requests for assignment; using the first selection model during a first time period to select customer requests, wherein, during the first time period, a plurality of selection decisions are made, and wherein a first selection decision of the plurality of selection decisions comprises: determining that a first customer service representative is available for assignment, obtaining information about a plurality of customer requests awaiting assignment, computing a probability distribution for the plurality of customer requests using the first selection model, wherein computing the probability distribution comprises computing a selection score for a first customer request by (i) creating a first feature vector using information about the first customer request and (ii) processing the first feature vector using the first selection model, sampling the probability distribution to select the first customer request from the plurality of customer requests for assignment to the first customer service representative, and assigning the first customer service representative the selected first customer request; computing a reward score wherein the reward score indicates a performance of the first selection model during the first time period and is computed using at least two of the plurality of selection decisions, wherein the reward score is computed by comparing the performance of the first selection model during the first time period to the performance of a third selection model during a third time period, wherein the third time period is prior to the first time period; computing a second selection model by modifying parameters of the first selection model using the reward score and the plurality of selection decisions; and using the second selection model during a second time period to select a second customer request for assignment to a second customer service representative.
+2. The method of claim 1, wherein the first time period comprises an hour, a day, or a week.
+3. The method of claim 1, wherein the reward score is: positive if the performance of the first selection model during the first time period is better than the performance of the third selection model during the third time period; and negative if the performance of the first selection model during the first time period is worse than the performance of the third selection model during the third time period.
+4. The method of claim 1, wherein the third selection model assigned customer requests by order of receipt.
+5. The method of claim 1, wherein the first feature vector comprises features relating to a wait time of the first customer request, a category of the first customer request, a sentiment of the first customer request, an urgency of the first customer request, information obtained from a customer account of a customer of the first customer request, or previous customer requests of the customer of the first customer request.
+6. The method of claim 1, wherein the first feature vector comprises features relating to the customer service representative.
+7. The method of claim 1, comprising computing a second reward score wherein the second reward score indicates a second performance of the first selection model during the first time period and is computed using at least two of the plurality of selection decisions.
+8. The method of claim 7, wherein computing the second selection model comprises weighting the reward score and the second reward score.
+9. The method of claim 1, wherein the first selection model comprises a linear model or a multi-layer perceptron neural network.
+10. The method of claim 1, wherein computing the second selection model comprises using a policy gradient method.
+11. The method of claim 1, wherein computing the probability distribution comprises computing a softmax function of selection scores.
+12. A system for using a neural network to select customer requests for assignment, the system comprising: at least one server computer comprising at least one processor and at least one memory, the at least one server computer configured to: obtain a first selection model, wherein the first selection model comprises the neural network and processes feature vectors corresponding to customer requests and generates scores for selection of customer requests for assignment; use the first selection model during a first time period to select customer requests, wherein, during the first time period, a plurality of selection decisions are made, and wherein a first selection decision of the plurality of selection decisions comprises: determining that a first customer service representative is available for assignment, obtaining information about a plurality of customer requests awaiting assignment, computing a probability distribution for the plurality of customer requests using the first selection model, wherein computing the probability distribution comprises computing a selection score for a first customer request by (i) creating a first feature vector using information about the first customer request and (ii) processing the first feature vector using the first selection model, sampling the probability distribution to select the first customer request from the plurality of customer requests for assignment to the first customer service representative, and assigning the first customer service representative the selected first customer request; compute a reward score wherein the reward score corresponds to a performance of the first selection model during the first time period, wherein the reward score is computed by comparing the performance of the first selection model during the first time period to the performance of a third selection model during a third time period, wherein the third time period is prior to the first time period; compute a second selection model by modifying parameters of the first selection model using the reward score and the plurality of selection decisions; and use the second selection model during a second time period to select a second customer request for assignment to a second customer service representative.
+13. The system of claim 12, wherein the reward score is computed using (i) an average of customer satisfaction ratings corresponding to the plurality of selection decisions or (ii) a rate of processing customer requests during the first time period.
+14. The system of claim 12, comprising computing a second reward score wherein the second reward score indicates a second performance of the first selection model during the first time period and is computed using at least two of the plurality of selection decisions.
+15. The system of claim 12, wherein the reward score is: positive if the performance of the first selection model during the first time period is better than the performance of the third selection model during the third time period; and negative if the performance of the first selection model during the first time period is worse than the performance of the third selection model during the third time period.
+16. One or more non-transitory, computer-readable media comprising computer executable instructions that, when executed, cause at least one processor to perform actions comprising: obtaining a first selection model, wherein the first selection model processes feature vectors corresponding to customer requests and generates scores for selection of customer requests for assignment; using the first selection model during a first time period to select customer requests, wherein, during the first time period, a plurality of selection decisions are made, and wherein a first selection decision of the plurality of selection decisions comprises: determining that a first customer service representative is available for assignment, obtaining information about a plurality of customer requests awaiting assignment, computing a probability distribution for the plurality of customer requests using the first selection model, wherein computing the probability distribution comprises computing a selection score for a first customer request by (i) creating a first feature vector using information about the first customer request and (ii) processing the first feature vector using the first selection model, sampling the probability distribution to select the first customer request from the plurality of customer requests for assignment to the first customer service representative, and assigning the first customer service representative to the selected first customer request; computing a reward score wherein the reward score indicates a performance of the first selection model during the first time period, wherein the reward score is computed by comparing the performance of the first selection model during the first time period to the performance of a third selection model during a third time period, wherein the third time period is prior to the first time period; computing a second selection model by modifying parameters of the first selection model using the reward score and the plurality of selection decisions; and using the second selection model during a second time period to select a second customer request for assignment to a second customer service representative.
+17. The one or more non-transitory, computer-readable media of claim 16, wherein the first feature vector comprises features relating to a wait time of the first customer request, a category of the first customer request, a sentiment of the first customer request, or an urgency of the first customer request.
+18. The one or more non-transitory, computer-readable media of claim 16, wherein the first selection model comprises a linear model or a multi-layer perceptron neural network.
+</claims>
+</document>

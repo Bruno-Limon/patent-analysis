@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2019-01-02
+</filing_date>
+
+<publication_date>
+2020-07-02
+</publication_date>
+
+<priority_date>
+2019-01-02
+</priority_date>
+
+<ipc_classes>
+H04L12/24
+</ipc_classes>
+
+<assignee>
+HPE (HEWLETT PACKARD ENTERPRISE)
+</assignee>
+
+<inventors>
+SETHI, ASEEM
+DENNY, MARK ANDREW
+</inventors>
+
+<docdb_family_id>
+71123461
+</docdb_family_id>
+
+<title>
+IMPROVED GENERATION OF NETWORK CONFIGURATION AND CONFIGURATION COMMANDS FOR IMPACTED NODES OF A SOFTWARE DEFINED WIDE AREA NETWORK
+</title>
+
+<abstract>
+A system and method for a self-adapting SDWAN to ensure compliance with client requirements. A SDWAN performance analyzer continuously monitors all of the nodes within an SDWAN, receiving a plurality of operational data regarding operational parameters of each node. Based on the operational data, a machine learning algorithm is applied to develop a tree-structure representative of a desired network configuration, based on the real-time state of the network, to ensure compliance with client requirements. The SDWAN performance analyzer can generate configuration commands to send to one or more of the nodes in the SDWAN to reconfigure the operational parameters of the nodes in line with the desired network configuration.
+</abstract>
+
+<claims>
+1. A method, comprising: receiving a plurality of operational data from one or more nodes within a software-defined wide area network (SDWAN); applying a machine learning algorithm to the plurality of operational data to generate a tree-structure representing a desired network configuration; comparing the tree-structure representing the desired network configuration to a current network configuration; identifying one or more impacted nodes, wherein an impacted node is a node within the SDWAN for which one or more changes to operational parameters of the node are determined based on the comparison; generating one or more configuration commands for each of the one or more impacted nodes; and sending the one or more configuration commands to each respective one of the one or more impacted nodes to configure the one or more impacted nodes in accordance with the desired network configuration determined by the machine learning algorithm.
+2. The method of claim 1, wherein receiving the plurality of operational data comprises polling the one or more nodes within the SDWAN for updated operational data.
+3. The method of claim 1, wherein receiving the plurality of operational data comprises receiving a continuous stream of operational data from the one or more nodes of the SDWAN.
+4. The method of claim 1, wherein the tree-structure representing a desired network configuration comprises a representation of all of the nodes within the SDWAN and a plurality of edges within the SDWAN.
+5. The method of claim 1, wherein the machine learning algorithm comprises one or more of: a linear regression algorithm; a logistic regression algorithm; a linear discriminant analysis algorithm; a decision tree; a naïve Bayes algorithm; a learning vector quantization algorithm; a support vector machines algorithm.
+6. The method of claim 1, wherein the desired network configuration comprises a network configuration included a minimum number of changes from the current network configuration.
+7. The method of claim 1, wherein the one or more configuration commands control a configuration of a node concerning one or more of the following operational parameters: an amount of bandwidth allocated to one or more traffic classes; a routing table or access control list identifying routing rules for one or more traffic classes; an amount of virtual memory allocated to a virtual application executed at the node; an amount of virtual CPU allocated to a virtual application executed at the node; a rule to route one or more traffic classes to an intermediate device to perform one or more virtual network functions.
+8. The method of claim 1, further comprising storing the plurality of received operational data, the generated tree-structure representing a desired network configuration, or a combination of both in a data repository.
+9. The method of claim 1, wherein sending the one or more configuration commands occurs over a control channel.
+10. A system, comprising: a node device communicatively coupled within a software-defined wide area network (SDWAN); a SDWAN performance analyzer communicatively coupled to the node device; wherein the SDWAN performance analyzer is configured to monitor the node device to obtain operational data indicative of a health of the SDWAN and determine one or more operational parameters of one or more node devices to modify to adapt the SDWAN to one or more changes in the SDWAN.
+11. The system of claim 10, the node device comprising at least one of the following: a remote location; an intermediate SDWAN node device; a data center.
+12. The system of claim 10, the SDWAN performance analyzer comprising: an operational data input component configured to receive a plurality of operational data from at least one node device within the SDWAN; a network tree generator configured to apply a machine learning algorithm to the plurality of operational data to generate a tree-structure representing a desired network configuration of the SDWAN; a command generator configured to compare the desired network configuration represented by the tree-structure with a current network configuration and generate one or more configuration commands to update one or more operational parameters of one or more node devices within the SDWAN.
+13. The system of claim 10, wherein the operational data comprises one or more of: bandwidth available at each of one or more node devices in the SDWAN; number of sessions flowing through each of the one or more node devices; average packet drops at each of the one or more node devices; average latency at each of the one or more node devices; traffic classes flowing through each of the one or more node devices; current traffic policies applied to traffic classes flowing through each of the one or more node devices; current routing table at each of the one or more node devices.
+14. The system of claim 10, wherein the node device and the SDWAN performance analyzer is communicatively coupled through a control channel.
+15. The system of claim 10, wherein the SDWAN performance analyzer is a virtual application running on the node device.
+16. The system of claim 10, wherein the one or more configuration commands control a configuration of a node device concerning one or more of the following operational parameters: an amount of bandwidth allocated to one or more traffic classes; a routing table or access control list identifying routing rules for one or more traffic classes; an amount of virtual memory allocated to a virtual application executed at the node device; an amount of virtual CPU allocated to a virtual application executed at the node device; a rule to route one or more traffic classes to an intermediate device to perform one or more virtual network functions.
+17. The system of claim 10, wherein the SDWAN performance analyzer is located separately from the node device within the SDWAN.
+18. The system of claim 10, wherein the one or more operational parameters determined for modification are one or more operational parameters of the node device, and the determination being made based on operational data associated with a different SDWAN node device.
+19. The system of claim 12, wherein the node device comprises the command generator, the SDWAN performance analyzer is configured to send the desired network configuration to the node, and the node is configured to compare the desired network configuration to a current configuration of the node to determine if one or more changes to the current configuration of the node are required.
+20. A software-defined wide area network (SDWAN) performance analyzer, comprising: an operational data input communicatively coupled to at least one node device within a SDWAN, the operational data input configured to receive a plurality of operational data from the at least one node device; a network tree generator communicatively coupled to the operational data input, the network tree generator configured to apply one or more machine learning algorithms to at least the operational data received by the operational data input to generate a tree-structure representing a desired network configuration; a command generator communicatively coupled to the network tree generator, the command generator configured to compare the tree-structure from the network tree generator to a current network configuration represented by the operational data received by the operational data input, and generate one or more configuration commands to effectuate one or more changes to one or more node devices in the SDWAN based on the tree-structure; and a data repository communicatively coupled to the operational data input, network tree generator, and command generator, the data repository configured to store the plurality of operational data received by the operational data input, the tree-structure generated by the network tree generator, the one or more machine learning algorithms, and the current network configuration; wherein the one or more changes to the one or more node devices may comprise one or more of: an amount of bandwidth allocated to one or more traffic classes; a routing table or access control list identifying routing rules for one or more traffic classes; an amount of virtual memory allocated to a virtual application executed at a node device of the one or more node devices; an amount of virtual CPU allocated to a virtual application executed at a node device of the one or more node devices; a rule to route one or more traffic classes to an intermediate device to perform one or more virtual network functions.
+</claims>
+</document>

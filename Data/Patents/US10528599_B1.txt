@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2016-12-16
+</filing_date>
+
+<publication_date>
+2020-01-07
+</publication_date>
+
+<priority_date>
+2016-12-16
+</priority_date>
+
+<ipc_classes>
+G06F16/22,G06F16/2455,G06F16/248,G06F16/28,H04L29/08
+</ipc_classes>
+
+<assignee>
+AMAZON TECHNOLOGIES
+</assignee>
+
+<inventors>
+CAI, MENGCHU
+GUPTA, ANURAG WINDLASS
+PANDIS, IPPOKRATIS
+GRUND, MARTIN
+</inventors>
+
+<docdb_family_id>
+69058596
+</docdb_family_id>
+
+<title>
+Tiered data processing for distributed data
+</title>
+
+<abstract>
+Data processing engines implement tiered data processing for distributed data in local and remote data stores. Requests to access distributed data including a data object in a remote data store are received at a data processing engine. A query plan is generated to service the access request. Different operations in the query plan are identified and assigned to one or more remote query processing engines that may access the remote data object. Requests to perform the different operations are sent to the one or more remote query processing engines. A final result is generated for the request based on the results received for the different operations from the remote query processing engine and results from operations performed with respect to locally stored data.
+</abstract>
+
+<claims>
+1. A system, comprising: a local data store, that stores one or more data objects of a distributed data set; one or more compute nodes, respectively comprising at least one processor and a memory, storing program instructions that when executed cause the one or more compute nodes to perform a method, comprising: receiving, from a client a query directed to the distributed data set, wherein at least one data object of the distributed data set is stored in a data store that is remote to a data processing engine; generating a query plan to execute the query, wherein the query plan comprises a plurality of different query operations; modifying the query plan to include a command directed to an interface for a remote data processing engine, wherein the command corresponds to a query operation of the plurality of different query operations and wherein the command causes performance of the query operation at the remote data processing engine as part of reassigning the query operation from local execution at the one or more computing devices to the remote data processing engine, wherein the remote data processing engine can access the data object in the remote data store to execute the query operation; directing execution of the different query operations, comprising sending a request to the remote data processing engine to execute the command to perform the reassigned query operation; generating a final result for the query based, at least in part, on one or more results of the reassigned query operation received from the remote data processing engine with a result for another one of the different operations determined by the one or more compute nodes with respect to the one or more data objects in the local data store; and sending the final result for the query to the client.
+2. The system of claim 1, wherein the at least one data object stored in the remote data store is stored in a data format that is not supported by the data processing engine, and wherein the remote data processing engine supports the data format of the at least one data object stored in the remote data store.
+3. The system of claim 1, wherein the reassigned operation comprises a scan operation that scans the at least one data object in the remote data store and sends filtered results to the data processing engine according to a predicate included in the query.
+4. The system of claim 1, wherein the one or more compute nodes are a processing cluster implemented as part of a data warehouse service in a provider network, wherein the remote data processing engine is implemented as part of a format independent data processing service in the provider network, and wherein the client is a client of the provider network configured to send the query to the processing cluster via a network-based interface for the data warehouse service.
+5. A method, comprising: performing, by one or more computing devices: receiving, from a client, a query directed to a distributed data set, wherein a data object of the distributed data set is stored in a data store that is remote to the one or more computing devices, wherein at least another one of the data objects is stored in a data store that is local to the one or more computing devices; generating a query plan to execute the query, wherein the query plan comprises a plurality of different query operations; modifying the query plan to include a command directed to an interface for a remote data processing engine, wherein the command corresponds to a query operation of the plurality of different operations and wherein the command causes performance of the query operation at the remote data processing engine as part of reassigning the query operation from local execution at the one or more computing devices to the remote data processing engine, wherein the remote data processing engine can access the data object in the remote data store to execute the query operation; sending a request to the remote data processing engine to execute the command to perform the reassigned query operation; and generating a final result for the query based, at least in part, on one or more results of the reassigned query operation received from the remote data processing engine and a result for another one of the different operations determined by the one or more computing devices with respect to the at least one other data object; and sending the final result for the query to the client.
+6. The method of claim 5, further comprising obtaining metadata describing the data object stored in the remote data store and wherein generating the query plan or modifying the query plan is based, at least in part, on the metadata.
+7. The method of claim 5, wherein the data object stored in the remote data store is stored in a data format that is not supported by the data processing engine and wherein the remote data processing engine supports the data format of the data object in the remote data store.
+8. The method of claim 5, wherein the plurality of different operations comprise a plurality of join operations; wherein the method further comprises reordering one or more of the join operations in the query plan; and wherein the query operation is identified based, at least in part, on the reordered one or more join operations.
+9. The method of claim 5, wherein the reassigned query operation comprises a scan operation that scans the data object stored in the remote data store and sends filtered results according to a predicate included in the query.
+10. The method of claim 5, wherein the reassigned query operation comprises an aggregation operation that applies an aggregation function to one or more data values in the remote data object.
+11. The method of claim 5, wherein one or more other data objects in the distributed data set are stored in the remote data store or another remote data store, wherein other query operations of the different query operations are reassigned from local execution to execution at one or more other remote data processing engines that can access the one or more other remote data objects; wherein the method further comprises sending respective requests to the one or more other remote data processing engines to execute respective commands to perform the other reassigned query operations; and wherein the final result is further based on one or more other results for the other reassigned query operations received from the one or more other remote data processing engines.
+12. The method of claim 5, further comprising: prior to the generating: determining that a time period for receiving a result for at the reassigned query operation exceeds a retry threshold; and resending the request to the remote data processing engine or a different remote data processing engine that can access the data object in the remote data store to perform the query operation.
+13. The method of claim 5, wherein the remote data processing engine is a network-based service, and wherein sending the request to execute the command to perform the reassigned operation comprises generating the request according to a programmatic interface for the network-based service.
+14. A non-transitory, computer-readable storage medium, storing program instructions that when executed by one or more computing devices cause the one or more computing devices to implement: receiving a query from a client, wherein the query is directed to a distributed data set, wherein at least one data object in the distributed data set is stored in a data store that is remote to the one or more computing devices; generating a query plan that comprises a plurality of different query operations to execute the query; modifying the query plan to include a command directed to an interface for a remote data processing engine, wherein the command corresponds to a query operation of the plurality of different operations and wherein the command causes performance of the query operation at a remote data processing engine as part of reassigning of the query operation from local execution at the one or more computing devices to the remote data processing engine that can access the data object in the remote data store; sending a request to execute the command to perform the reassigned query operation to the remote data processing engine; generating a final result for the query based, at least in part, on one or more results of the reassigned query operation received from the remote data processing engine and a result for another one of the different operations determined by the one or more computing devices with respect to another data object in the distributed data set stored in a data store that is local to the one or more computing devices; and sending the final result for the query to the client.
+15. The non-transitory, computer-readable storage medium of claim 14, further comprising obtaining metadata describing the data object stored at the remote data store, wherein generating the query plan or modifying the query plan is based, at least in part, on the metadata.
+16. The non-transitory, computer-readable storage medium of claim 14, wherein the remote data object is stored in a data format that is not supported by the data processing engine, wherein the remote data processing engine supports the data format.
+17. The non-transitory, computer-readable storage medium of claim 14, wherein the reassigned query operation comprises a scan operation that scans the remote data object, projects results from the remote data object, and sends the projected results to the data processing engine according to a projection included in the query.
+18. The non-transitory, computer-readable storage medium of claim 14, wherein the one or more different operations comprise an aggregation operation that applies an aggregation function to one or more data values in the remote data object, and wherein the program instructions cause the one or more computing devices to implement: receiving from the remote data processing engine a plurality of partial results for the aggregation; and combining the plurality of partial results into a single aggregation result for the aggregation operation, wherein the single aggregation result is one of the one or more results of the reassigned query operation.
+19. The non-transitory, computer-readable storage medium of claim 14, wherein, in modifying the query plan to reassign execution of the query operation, the program instructions cause the one or more computing devices to implement: identifying one or more partitions of the remote data object as excluded from the assigned query operation according to a predicate included in the query.
+20. The non-transitory, computer-readable storage medium of claim 14, wherein the one or more computing devices are implemented as a processing cluster of a relational data warehouse service in a provider network, wherein the remote data processing engine is implemented as part of a format independent data processing service in the provider network, and wherein, in sending the request to execute the command to perform the query operation, the programming instructions cause the one or more computing devices to implement, generating the request according to a programmatic interface for the format independent data processing service.
+</claims>
+</document>

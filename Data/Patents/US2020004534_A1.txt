@@ -1,0 +1,69 @@
+<document>
+
+<filing_date>
+2018-06-29
+</filing_date>
+
+<publication_date>
+2020-01-02
+</publication_date>
+
+<priority_date>
+2018-06-29
+</priority_date>
+
+<ipc_classes>
+G06F9/30,G06F9/38,G06T1/20,G06T15/00
+</ipc_classes>
+
+<assignee>
+INTEL CORPORATION
+</assignee>
+
+<inventors>
+LUEH, GUEI-YUAN
+MAIYURAN, SUBRAMANIAM
+CHEN, WEI-YU
+GARG, ASHUTOSH
+CHENG, BUQI
+GURRAM, CHANDRA
+</inventors>
+
+<docdb_family_id>
+68886336
+</docdb_family_id>
+
+<title>
+Register bank conflict reduction for multi-threaded processor
+</title>
+
+<abstract>
+Embodiments are generally directed to register bank conflict reduction for multi-threaded processor execution units. An embodiment of an apparatus includes a processor including one or more execution units (EUs), at least a first execution unit (EU) to process a plurality of threads, the first EU including a register file including multiple register banks with each register bank including multiple registers, and one or more read multiplexers to read registers from the register file, wherein attempting to read more than one register from a single register bank of the register file in a same clock cycle generates a register bank conflict. Registers for each thread for the first EU are distributed across the registers banks within the register file such that a first register for a first thread of the plurality of threads and a following second register for the first thread are located in different register banks within the register file.
+</abstract>
+
+<claims>
+1. An apparatus comprising: a processor including one or more execution units (EUs), the one or more EUs including at least a first execution unit (EU) to process a plurality of threads, wherein the first EU includes: a register file including a plurality of register banks with each register bank including a plurality of registers, and one or more read multiplexers to read registers from the register file, wherein attempting to read more than one register from a single register bank of the register file in a same clock cycle generates a register bank conflict; wherein registers for each thread for the first EU are distributed across the register banks within the register file such that a first register for a first thread of the plurality of threads and a following second register for the first thread are located in different register banks within the register file.
+2. The apparatus of claim 1, wherein the register file includes a plurality of arrays of register banks, the plurality of arrays including a first array of register banks and a second array of register banks, and wherein the registers for each thread are distributed such that all even registers are located in the first array of register banks and all odd registers are located in the second array of register banks.
+3. The apparatus of claim 2, wherein a first read multiplexer is coupled with the register banks of the first array of register banks and a second read multiplexer is coupled with the register banks of the second array of register banks.
+4. The apparatus of claim 2, wherein the apparatus is to split each of one or more logical SIMD (Single Instruction Multiple Data) instructions into a plurality of physical SIMD instructions for the first EU.
+5. The apparatus of claim 2, wherein the first EU further includes one or more processing pipelines for SIMD (Single Instruction Multiple Data) instructions, a first processing pipeline of the one or more processing pipelines including a plurality of stages for reading registers, the plurality of stages including a first reading stage to read one or more registers in a first clock cycle and a second reading stage to read one or more registers in a second clock cycle.
+6. The apparatus of claim 5, wherein the apparatus is to determine whether source operands of a first instruction will generate a register bank conflict if the source operands of the first instruction are read in a same clock cycle, and, upon determining that a register bank conflict will occur, the apparatus is to swap positions of two source operands of the first instruction to avoid the register bank conflict.
+7. The apparatus of claim 6, wherein the apparatus is to determine whether one or more source operands of the first instruction and one or more source operands of a second instruction immediately following the first instruction will generate a register bank conflict if the source operands of the first instruction and the source operands of the second instruction are read in a same clock cycle, and, upon determining that a register bank conflict will occur, the apparatus is to swap positions of two source operands of the second instruction to avoid the register bank conflict.
+8. The apparatus of claim 1, wherein the one or more EUs are included in a graphical processing unit (GPU).
+9. A non-transitory computer-readable storage medium having stored thereon data representing sequences of instructions that, when executed by one or more processors, cause the one or more processors to perform operations comprising: receiving a plurality of SIMD (Single Instruction Multiple Data) instructions for processing for an execution unit (EU) in a processing system, the EU including a register file with a plurality of arrays of register banks, the plurality of arrays of register banks including a first array of register banks for even registers and a second array of register banks for odd registers, and including a processing pipeline, the processing pipeline including a plurality of stages for reading registers; analyzing source operands of the plurality of SIMD instructions to identify whether one or more register bank conflicts will occur if source operands of one or more instructions are read in a same clock cycle; and upon determining that one or more register bank conflicts will occur, swapping positions of source operands within one or more of the plurality of SIMD instructions to avoid the one or more register bank conflicts.
+10. The medium of claim 9, wherein analyzing operands of the plurality of SIMD instructions includes analyzing source operands of a first instruction to determine whether reading a plurality of source operands of the first instruction together in a same clock cycle will generate a register bank conflict, the first instruction including three source operands.
+11. The medium of claim 10, wherein swapping positions of source operands includes swapping positions of a first source operand and a second source operand of the first instruction.
+12. The medium of claim 9, wherein analyzing operands of the plurality of SIMD instructions includes analyzing source operands of a first instruction and source operands of a second instruction immediately following the first instruction to determine whether reading one or more source operands of the first instruction in a same clock cycle with one or more source operands of the second instruction will generate a register bank conflict, the second instruction including a plurality of source operands.
+13. The medium of claim 12, wherein swapping positions of source operands includes swapping positions of a first source operand and a second source operand of the second instruction.
+14. The medium of claim 9, wherein the registers for each of a plurality of threads for the EU being distributed across the plurality of arrays of register banks such that all even registers are located in the first array of register banks and all odd registers are located in the second array of register banks.
+15. The medium of claim 9, wherein a first read multiplexer is coupled with the register banks of the first array of register banks and a second read multiplexer is coupled with the register banks of the second array of register banks.
+16. The medium of claim 9, wherein the plurality of stages includes a first reading stage to read one or more registers in a first clock cycle and a second reading stage to read one or more registers in a second clock cycle.
+17. The medium of claim 9, further comprising instructions that, when executed by the one or more processors, cause the one or more processors to perform operations comprising: splitting each of one or more logical SIMD instructions into a plurality of physical SIMD instructions.
+18. The medium of claim 9, wherein the EU is included in a graphical processing unit (GPU).
+19. A processing system comprising: one or more graphical processing units (GPUs), at least one of the one or more GPUs including a plurality of execution units (EUs), the plurality of EUs including at least a first EU to process a plurality of threads, wherein processing a thread includes processing SIMD (Single Instruction Multiple Data) instructions, wherein the first EU includes: a register file with a plurality of arrays of register banks, each of the plurality of arrays including a plurality of register banks with each register bank including a plurality of registers, the plurality of arrays of register banks including first array of register banks for even registers and a second array of register banks for odd registers, and a first read multiplexer to read registers from the first array of register banks and a second read multiplexer to read registers from the second array of register banks, wherein attempting to read more than one register from a single register bank of the register file in a same clock cycle generates a register bank conflict; and memory to store data for graphics processing; wherein registers for each thread for the first EU are distributed across the register banks of the register file such that a first register for a thread and a following second register for the thread within an array of register banks are located in different register banks and wherein the registers for each thread are distributed such that all even registers are located in the first array of register banks and all odd registers are located in the second array of register banks.
+20. The processing system of claim 19, wherein the processing system is to split each of one or more logical SIMD instructions into a plurality of physical SIMD instructions for the first EU.
+21. The processing system of claim 19, wherein the first EU further includes one or more processing pipelines for SIMD instructions, a first processing pipeline of the one or more processing pipelines including a plurality of stages for reading registers, the plurality of stages including a first reading stage to read one or more registers in a first clock cycle and a second reading stage to read one or more registers in a second clock cycle.
+22. The processing system of claim 21, wherein the processing system is to determine whether source operands of a first instruction will generate a register bank conflict if the source operands of the first instruction are read in a same clock cycle, and, upon determining that a register bank conflict will occur, the processing system is to swap positions of two source operands of the first instruction to avoid the register bank conflict.
+23. The processing system of claim 22, wherein the processing system is to determine whether one or more source operands of the first instruction and one or more source operands of a second instruction immediately following the first instruction will generate a register bank conflict if the source operands of the first instruction and the source operands of the second instruction are read in a same clock cycle, and, upon determining that a register bank conflict will occur, the processing system is to swap positions of two source operands of the second instruction to avoid the register bank conflict.
+</claims>
+</document>

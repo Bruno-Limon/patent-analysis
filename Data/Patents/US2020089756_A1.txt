@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-11-25
+</filing_date>
+
+<publication_date>
+2020-03-19
+</publication_date>
+
+<priority_date>
+2017-11-13
+</priority_date>
+
+<ipc_classes>
+G06N10/00,G06N20/00
+</ipc_classes>
+
+<assignee>
+ACCENTURE GLOBAL SOLUTIONS
+</assignee>
+
+<inventors>
+ALVARADO SOLANO, ESTEBAN ALBERTO
+NELSON, PAUL EDWARD
+DAVID, MARK RICHARD
+</inventors>
+
+<docdb_family_id>
+64308600
+</docdb_family_id>
+
+<title>
+PRESERVING AND PROCESSING AMBIGUITY IN NATURAL LANGUAGE
+</title>
+
+<abstract>
+Examples for efficiently representing, processing and deciding amongst multiple ambiguous interpretations of human natural language text are described. Processing includes creating and augmenting an "interpretation graph" which represents all known ambiguous interpretations of some natural language text. The interpretation graph is made of vertices (junction points which lead to alternative interpretations) and 'lexical items' (natural language objects representing data blocks, tokens, word parts, phrases, clauses, parts of speech, entities, or semantic interpretations) that represent alternative ambiguous interpretations of portions of the text. The examples show a set of simple operations for augmenting the interpretation graph to create alternative interpretations. Finally, the method includes a notion of "confidence", which is computed as the graph is being constructed and can be used by a selector once the graph is complete to choose the most likely interpretation followed by any number of increasingly less likely interpretations. By saving all known ambiguous or alternative interpretations in an interpretation graph, the example system can provide better accuracy, reliability and coverage since possible alternatives are not pruned until the final end-to-end interpretation is selected.
+</abstract>
+
+<claims>
+1. A system comprising: a processor; a data reader coupled to the processor to: receive an input indicative of a data stream; and convert the data stream into one or more data blocks, each data block representing a logical division of content from the data stream; a tokenizer coupled to the processor to split the one or more data blocks into a plurality of tokens using tokenization techniques; an interpretation graph creator coupled to the processor to: create an interpretation graph providing alternative interpretations of at least one of each token and a sequence of tokens of the one or more data blocks, an alternative interpretation being represented as a path through the interpretation graph, wherein the interpretation graph includes lexical items connected by vertices to define the path, a vertex representing a junction point between two lexical items; and augment the interpretation graph by performing at least one of: determining a confidence score for each of the lexical items based on at least one of a tag associated with a lexical item, external data, and a predetermined rule; and modifying the confidence score associated with each of the lexical items; and a selector coupled to the processor to select the alternative interpretation from the interpretation graph, based on an overall confidence score for the path corresponding to each of the alternative interpretations in the interpretation graph.
+2. The system of claim 1, wherein the data reader is to create an initial interpretation graph comprising the one or more data blocks joined by the vertices, and the interpretation graph is created based on the initial interpretation graph.
+3. The system of claim 1, wherein the interpretation graph creator is to further augment the interpretation graph by performing at least one of: creating a new lexical item and adding the new lexical item to the interpretation graph from one existing vertex from the vertices to another vertex in the vertices; and creating a sequence of new lexical items, each lexical item in the sequence being joined in an order by the vertex, wherein the sequence is added to the interpretation graph from one existing vertex from the vertices to another vertex in the vertices.
+4. The system of claim 1, wherein the lexical item includes a Boolean flag, the Boolean flag corresponding to values of "set" and "unset".
+5. The system of claim 1, wherein the lexical items include at least one of tokens derived from one or more other tokens, syntactic elements derived from other lexical items, and semantic elements derived from the other lexical items.
+6. The system of claim 5, wherein the tokens, the syntactic elements, and the semantic elements are derived based on an external resource, the external source including at least one of: a database of patterns indicating sequences of lexical items combined together to derive other lexical items; and a neural network indicating sequences of lexical items combined together to derive the other lexical items.
+7. The system of claim 1, wherein the selector is to: compute the overall confidence score for the path in the interpretation graph from one vertex to another; and search through the interpretation graph to identify the path from a first vertex to a last vertex with a highest overall confidence score to select the alternative interpretation.
+8. The system of claim 7, wherein the computation of the overall confidence score is based on at least one of: a predefined rule, the predefined rule being based on the confidence score of other lexical items; an external database including semantic information pertaining to a corresponding lexical item, wherein the confidence factor is determined based on how well the external semantic information matches internal contextual information of an interpretation and other alternative interpretations; an optimization formula computed using a quantum computer; and an output of a predictive algorithm trained using machine learning techniques.
+9. The system of claim 1, wherein the interpretation graph creator to augment the interpretation graph is to: execute one of a pipeline and a sequence of processing functions executed in a sequential order; and execute one of a same function and a set of functions multiple times until no further modifications to the interpretation graph are performed by the functions.
+10. The system of claim 1, wherein the confidence score is one of a floating point number, a multi-dimensional vector, and a complex data structure.
+11. The system of claim 1, wherein the confidence score is determined based on an end user's location.
+12. A method comprising: receiving an input indicative of a data stream; converting the data stream into one or more data blocks, each data block representing a logical division of content from the data stream; splitting the one or more data blocks into a plurality of tokens using tokenization techniques; creating an interpretation graph providing alternative interpretations of at least one of each token and a sequence of tokens of the one or more data blocks, an alternative interpretation being represented as a path through the interpretation graph, wherein the interpretation graph includes lexical items connected by vertices to define the path, a vertex representing a junction point between two lexical items; augmenting the interpretation graph by performing at least one of: determining a confidence score for each of the lexical items based on at least one of a tag associated with a lexical item, external data, and a predetermined rule; and modifying the confidence score associated with each of the lexical items; and selecting the alternative interpretation from the interpretation graph for the input, based on an overall confidence score for the path corresponding to each of the alternative interpretations in the interpretation graph.
+13. The method of claim 12, wherein the lexical item includes a Boolean flag, the Boolean flag corresponding to values of "set" or "unset".
+14. The method of claim 12, wherein the method further comprises creating an initial interpretation graph comprising the one or more data blocks joined by the vertices, and wherein the interpretation graph is based on the initial interpretation graph.
+15. The method of claim 12, wherein augmenting the interpretation graph further comprises performing at least one of: creating a new lexical item and adding the new lexical item to the interpretation graph from one existing vertex from the vertices to another vertex in the vertices; and creating a sequence of new lexical items, each lexical item in the sequence being joined in an order by the vertex, wherein the sequence is added to the interpretation graph from one existing vertex from the vertices to another vertex in the vertices.
+16. The method of claim 12, wherein augmenting further comprises: executing one of a pipeline and a sequence of processing functions executed in a sequential order; and executing one of a same function and a set of functions multiple times until no further modifications to the interpretation graph are performed by the functions.
+17. The method of claim 12, wherein the lexical items include at least one of tokens derived from one or more other tokens, syntactic elements derived from other lexical items, and semantic elements derived from the other lexical items, the tokens, the syntactic elements, and the semantic elements being derived, based on an external resource, the external source including at least one of: a database of patterns indicating sequences of lexical items combined together to derive other lexical items; and a neural network indicating sequences of lexical items which are combined together to derive the other lexical items.
+18. The method of claim 12 wherein selecting further comprises: computing the overall confidence score for the path in the interpretation graph from one vertex to another, based on the confidence score of the lexical items in the path; and searching through the interpretation graph to identify the path from a first vertex to a last vertex with a highest overall confidence score to select the alternative interpretation.
+19. The method of claim 12, wherein the confidence score is determined based on an end user's location.
+20. A non-transitory computer readable medium including machine readable instructions that are executable by a processor to: receive an input indicative of a data stream; convert the data stream into one or more data blocks, each data block representing a logical division of content from the data stream; split the one or more data blocks into a plurality of tokens using tokenization techniques; create an interpretation graph providing alternative interpretations of at least one of each token and a sequence of tokens of the one or more data blocks, an alternative interpretation being represented as a path through the interpretation graph, wherein the interpretation graph includes lexical items connected by vertices to define the path, a vertex representing a junction point between two lexical items; augment the interpretation graph by performing at least one of: determine a confidence score for each of the lexical items based on at least one of a tag associated with a lexical item, external data, and a predetermined rule; and modify the confidence score associated with each of the lexical items; and select the alternative interpretation from the interpretation graph for the input, based on an overall confidence score for the path corresponding to each of the alternative interpretations in the interpretation graph.
+</claims>
+</document>

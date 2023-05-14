@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2020-04-27
+</filing_date>
+
+<publication_date>
+2020-08-13
+</publication_date>
+
+<priority_date>
+2018-07-27
+</priority_date>
+
+<ipc_classes>
+G06N3/08,G06T7/593
+</ipc_classes>
+
+<assignee>
+SHENZHEN SENSETIME TECHNOLOGY COMPANY
+</assignee>
+
+<inventors>
+SUN, WENXIU
+XIAO, RUICHAO
+YANG, CHANGXI
+</inventors>
+
+<docdb_family_id>
+64937763
+</docdb_family_id>
+
+<title>
+METHOD AND APPARATUS FOR ESTIMATING DEPTH OF BINOCULAR IMAGE, DEVICE, PROGRAM, AND MEDIUM
+</title>
+
+<abstract>
+A method and apparatus for estimating the depth of a binocular image, a device, a program, and a medium are provided. The method includes: inputting a to-be-processed binocular image into a predetermined neural network to obtain a parallax image and a confidence score image thereof, where a discrete parameter of each pixel in a preset distribution in the parallax image has a negative correlation with a confidence score of the pixel; and obtaining a depth image of the to-be-processed binocular image according to the parallax image.
+</abstract>
+
+<claims>
+1. A method for estimating the depth of a binocular image, comprising: inputting a to-be-processed binocular image into a predetermined neural network to obtain a parallax image and a confidence score image of the parallax image, wherein a discrete parameter of each pixel in a preset distribution in the parallax image has a negative correlation with a confidence score of the pixel; and obtaining a depth image of the to-be-processed binocular image according to the parallax image.
+2. The method according to claim 1, wherein the inputting a left view and a right view of a to-be-processed binocular image into a predetermined neural network to obtain a confidence score image comprises: processing the to-be-processed binocular image by a binocular stereo matching neural network, and then by two convolution layers and one normalization layer sequentially to obtain the confidence score image.
+3. The method according to claim 1, further comprising: calculating a loss function from the discrete parameter of each pixel in the preset distribution in the parallax image and the confidence score of the pixel; and training the predetermined neural network by using the loss function.
+4. The method according to claim 3, wherein the loss function comprises: regularization terms and a focus loss term that adjusts a weight of each pixel in the parallax image in the loss function.
+5. The method according to claim 4, wherein the regularization terms comprise: a regularization term related to the confidence score and a regularization term related to a predetermined neural network parameter.
+6. The method according to claim 3, wherein calculating the loss function from the discrete parameter of each pixel in the preset distribution in the parallax image and the confidence score of the pixel comprises: obtaining, based on the parallax image and the confidence score image of the parallax image as well as a predetermined neural network parameter and a real parallax image, a likelihood function related to the predetermined neural network parameter; obtaining the negative correlation between the discrete parameter of each pixel in the preset distribution in the parallax image and the confidence score of the pixel based on the preset distribution to which each pixel in the parallax image conforms; and in response to the predetermined neural network parameter conforming to the preset distribution and the confidence score of each pixel in the parallax image conforming to a non-decreasing distribution, taking, based on the negative correlation between the discrete parameter of each pixel in the preset distribution in the parallax image and the confidence score of the pixel, a negative logarithm of the likelihood function to obtain the loss function.
+7. The method according to claim 3, wherein the preset distribution comprises a Laplacian distribution or a Gaussian distribution.
+8. The method according to claim 7, wherein in response to the preset distribution being the Laplacian distribution, the loss function comprises: a focus loss term obtained from an average value of ratios, each being a ratio of an absolute value of a difference between a parallax value of each of pixels in the parallax image and a parallax value of a respective one of pixels in the real parallax image to the confidence score of the pixel, a regularization term obtained from an average value of confidence scores of the pixels in the parallax image, and a regularization term obtained from the predetermined neural network parameter.
+9. The method according to claim 7, wherein in response to the preset distribution being the Gaussian distribution, the loss function comprises: a focus loss term obtained from an average value of ratios, each being a ratio of a square of a difference between a parallax value of each of pixels in the parallax image and a parallax value of a respective one of pixels in the real parallax image to the confidence score of the pixels, a regularization term obtained from an average value of confidence scores of the pixels in the parallax image, and a regularization term obtained from the predetermined neural network parameter.
+10. An electronic device, comprising: a memory, configured to store executable instructions; and a processor, configured to execute the executable instructions, when the executable instructions are executed, the processor is configured to: input a to-be-processed binocular image into a predetermined neural network to obtain a parallax image and a confidence score image of the parallax image, wherein a discrete parameter of each pixel in a preset distribution in the parallax image has a negative correlation with a confidence score of the pixel; and obtain a depth image of the to-be-processed binocular image according to the parallax image.
+11. The electronic device according to claim 10, wherein the processor is further configured to process the to-be-processed binocular image by a binocular stereo matching neural network, and then by two convolution layers and one normalization layer sequentially to obtain the confidence score image.
+12. The electronic device according to claim 10, the processor is further configured to: calculate a loss function from the discrete parameter of each pixel in the preset distribution in the parallax image and the confidence score of the pixel; and train the predetermined neural network by using the loss function.
+13. The electronic device according to claim 12, wherein the loss function comprises: regularization terms and a focus loss term that adjusts a weight of each pixel in the parallax image in the loss function.
+14. The electronic device according to claim 13, wherein the regularization terms comprise: a regularization term related to the confidence score and a regularization term related to a predetermined neural network parameter.
+15. The electronic device according to claim 12, wherein the processor is further configured to: obtain, based on the parallax image and the confidence score image of the parallax image as well as a predetermined neural network parameter and a real parallax image, a likelihood function related to the predetermined neural network parameter; obtain the negative correlation between the discrete parameter of each pixel in the preset distribution in the parallax image and the confidence score of the pixel based on the preset distribution to which each pixel in the parallax image conforms; and in response to the predetermined neural network parameter conforming to the preset distribution and the confidence score of each pixel in the parallax image conforming to a non-decreasing distribution, take, based on the negative correlation between the discrete parameter of each pixel in the preset distribution in the parallax image and the confidence score of the pixel, a negative logarithm of the likelihood function to obtain the loss function.
+16. The electronic device according to claim 12, wherein the preset distribution comprises a Laplacian distribution or a Gaussian distribution.
+17. The electronic device according to claim 16, wherein in response to the preset distribution being the Laplacian distribution, the loss function comprises: a focus loss term obtained from an average value of ratios, each being a ratio of an absolute value of a difference between a parallax value of each of pixels in the parallax image and a parallax value of a respective one of pixels in the real parallax image to the confidence score of the pixels, a regularization term obtained from an average value of confidence scores of the pixels in the parallax image, and a regularization term obtained from the predetermined neural network parameter.
+18. The electronic device according to claim 16, wherein in response to the preset distribution being the Gaussian distribution, the loss function comprises: a focus loss term obtained from an average value of ratios, each being a ratio of a square of a difference between a parallax values of each of pixels in the parallax image and a parallax value of a respective one of pixels in the real parallax image to the confidence score of the pixels, a regularization term obtained from an average value of the confidence scores of the pixels in the parallax image, and a regularization term obtained from the predetermined neural network parameter.
+19. A non-transitory computer storage medium configured to store computer readable instructions, wherein when the instructions are executed, the following operations are performed: inputting a to-be-processed binocular image into a predetermined neural network to obtain a parallax image and a confidence score image of the parallax image, wherein a discrete parameter of each pixel in a preset distribution in the parallax image has a negative correlation with a confidence score of the pixel; and obtaining a depth image of the to-be-processed binocular image according to the parallax image.
+20. The non-transitory computer storage medium of claim 19, wherein the inputting a left view and a right view of a to-be-processed binocular image into a predetermined neural network to obtain a confidence score image comprises: processing the to-be-processed binocular image by a binocular stereo matching neural network, and then by two convolution layers and one normalization layer sequentially to obtain the confidence score image.
+</claims>
+</document>

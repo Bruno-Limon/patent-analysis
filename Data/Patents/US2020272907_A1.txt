@@ -1,0 +1,52 @@
+<document>
+
+<filing_date>
+2020-01-21
+</filing_date>
+
+<publication_date>
+2020-08-27
+</publication_date>
+
+<priority_date>
+2019-02-22
+</priority_date>
+
+<ipc_classes>
+G06F9/50,G06N3/04,G06N3/08,G06N3/10
+</ipc_classes>
+
+<assignee>
+HUAZHONG UNIVERSITY OF SCIENCE AND TECHNOLOGY
+</assignee>
+
+<inventors>
+GE, XI
+JIN, HAI
+LIAO, XIAOFEI
+LIU, HAIKUN
+ZHENG, LONG
+</inventors>
+
+<docdb_family_id>
+67077278
+</docdb_family_id>
+
+<title>
+DEEP LEARNING HETEROGENEOUS COMPUTING METHOD BASED ON LAYER-WIDE MEMORY ALLOCATION AND SYSTEM THEREOF
+</title>
+
+<abstract>
+A deep learning heterogeneous computing method based on layer-wide memory allocation, at least comprises steps of: traversing a neural network model so as to acquire a training operational sequence and a number of layers L thereof; calculating a memory room R1 required by data involved in operation at the ith layer of the neural network model under a double-buffer configuration, where 1≤i≤L; altering a layer structure of the ith layer and updating the training operational sequence; distributing all the data across a memory room of the CPU and the memory room of the GPU according to a data placement method; performing iterative computation at each said layer successively based on the training operational sequence so as to complete neural network training.
+</abstract>
+
+<claims>
+1. A deep learning heterogeneous computing method based on layer-wide memory allocation to be executed by a CPU and a GPU jointly, the deep learning heterogeneous computing method comprising the steps of: traversing a neural network model so as to acquire a training operational sequence and a number of layers L thereof; calculating a memory room R1 required by data involved in operation at an ith layer of the neural network model under a double-buffer configuration, where 1≤i≤L; altering a layer structure of the ith layer and updating the training operational sequence when the memory room R1 required by the operation at the ith layer is greater than a memory room of the GPU, the step of altering further comprising: acquiring an operational type corresponding to each said layer of the neural network model based on the training operational sequence; when the ith layer is a convolution layer and convolution operation is to be performed, segmenting an input feature map required by it to perform the convolution operation according to a height or width dimension before the convolution layer by inserting a segment layer so as to obtain a plurality of locally-input feature maps; performing the convolution operation based on the locally-input feature maps, respectively, so as to acquire a plurality of corresponding locally-output feature maps; merging the plural locally-output feature maps by inserting a merge layer after the convolution layer, so as to form a complete output feature map corresponding to the convolution layer; and updating the training operational sequence distributing all the data across a memory room of the CPU and the memory room of the GPU according to a data placement method when a memory room R2 required by all data involved in all the layers of the neural network model is greater than the memory room of the GPU, wherein the data placement further comprises: traversing the training operational sequence; making data involved in the segment layer and the merge layer as first data; marking data involved in the other layers as second data; and initializing an available memory room M1 of the GPU that is equal to a total capacity of the GPU; traversing the second data so as to identify a layer L1 that requires the largest memory room and a layer L2 that requires the second largest memory room, a memory room RL1 required by all data involved during identification of the layer L1, a memory room RL2 required by all data involved during identification of the layer L2, and a memory room R3 required by the largest data block involved during identification of the layer L1; and updating a marking of the largest data block to third data when both relations of (RL1-R3)*2+R3<M1 and RL2*2+R3<M1 are satisfied; and updating a capacity of the available memory room M1 to M1-R3; and performing iterative computation at each said layer successively based on the training operational sequence so as to complete neural network training.
+2. The deep learning heterogeneous computing method of claim 1, wherein the step of altering the layer structure of the ith layer further comprises the steps of: when the ith layer is a pooling layer, an activation layer or a batchnorm layer, segmenting the input feature map required by it to perform the operation according to a channel dimension by inserting the segment layer before the ith layer, so as to obtain the plurality of locally-input feature maps; performing the corresponding operation based on the locally-input feature maps, respectively, so as to acquire the plurality of corresponding locally-output feature maps; merging the plural locally-output feature map by inserting the merge layer after the ith layer, so as to form the complete output feature map corresponding to the layer; and updating the training operational sequence.
+3. The deep learning heterogeneous computing method of claim 2, wherein the data placement method further comprises the steps of: where either a relation of (RL1-R3)*2+R3≥M1 or a relation of RL2*2+R3>M1 is satisfied, updating the capacity of the available room M1 to M1-RL1*2, and traversing all the second data and calculating a memory room R4 it requires, in which: where a relation of R4<M1 is satisfied, updating a marking of the second data to the third data; and updating the capacity of the available room M1 to M1-R4.
+4. The deep learning heterogeneous computing method of claim 3, wherein the data placement method further comprises the steps of: traversing the second data so as to identify the layer Li that requires the largest memory room and the layer L2 that requires the second largest memory room, a memory room RL1 required by all data involved during identification of the layer L1, the memory room RL2 required by all data involved during identification of the layer L2, and the memory room R3 required by the largest data block involved during identification of the layer L1; where both the relations of (RL1-R3)*2+R3 <M1 and RL2*2+R3>M1 are satisfied, updating the marking of the largest data block to the third data; updating the capacity of the available memory room M1 to M1- R3; repeating the preceding steps until either the relation of (RL1-R3)*2+R3≥M1 or the relation of RL2*2+R3≥M1 is satisfied; where either the relation of (RL1-R3)*2+R3≥M1 or the relation of RL2*2+R3≥M1 is satisfied, traversing all the second data and calculating the memory room R4 it requires, in which, where the relation of R4<M1 is satisfied, updating the marking of the second data to the third data; and updating the capacity of the available room M1 to M1-R4.
+5. The deep learning heterogeneous computing method of claim 4, wherein the data placement method further comprises a step of: storing the first data into the memory room of the CPU, storing the remaining second data into the memory room of the CPU, and storing the third data into the memory room of the GPU.
+6. The deep learning heterogeneous computing method of claim 5, wherein the step of calculating the memory room RI further comprises a step of: counting tensor shapes of input data and output data required by operation at every layer in the neural network model so as to verify the memory room R1.
+7. A deep learning heterogeneous computing system based on layer-wide memory allocation, comprising a CPU and a GPU, wherein the system further comprises a neural network adjustment module, a data placement module, a scheduling module, an execution engine and a host memory, wherein: the neural network adjustment module is configured such that when the memory room R1 required by the operation at the ith layer is greater than the memory of the GPU, it enters a working mode where it dynamically adjusts the layer structure of the neural network model based on the manner the layer structure of the th layer is changed; the data placement module is configured such that when the memory room R2 required by all the data involved in the neural network model is greater than the memory of the GPU, it enters the working mode where it dynamically adjusts the data required by the training of the neural network model based on the data placement method; the scheduling module is configured such that it assigns computation tasks at the segment layer and the merge layer to the CPU; the execution engine is configured such that it controls computation at every layer to be performed according to the training operational sequence during the training of the neural network; the CPU is configured such that: when performing computation tasks at the segment layer or the merge layer, the CPU pre-stores the locally-input feature maps obtained through computing to the memory of the GPU; the GPU is configured such that when working on the present locally-input feature map, the GPU pre-stores the previous locally-input feature map to the host memory; and when the GPU continuously performs computation based on the locally-input feature maps so as to obtain the locally-output feature maps, the CPU merges the locally-output feature maps so as to obtain the complete output feature map
+</claims>
+</document>

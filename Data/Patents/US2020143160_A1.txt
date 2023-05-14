@@ -1,0 +1,52 @@
+<document>
+
+<filing_date>
+2019-10-31
+</filing_date>
+
+<publication_date>
+2020-05-07
+</publication_date>
+
+<priority_date>
+2018-11-06
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/20,G06K9/62
+</ipc_classes>
+
+<assignee>
+FUJITSU
+</assignee>
+
+<inventors>
+LIU WEI
+SUN JUN
+</inventors>
+
+<docdb_family_id>
+70459968
+</docdb_family_id>
+
+<title>
+DEVICE AND METHOD FOR PROCESSING IMAGE
+</title>
+
+<abstract>
+The disclosure relates to a method and a device for processing an image. The device includes a selecting unit configured to, by recognizing character blocks in the image using a convolutional network classifier or a fully convolutional network classifier, select in the image a seed character block satisfying a condition that a result of recognizing the seed character block is one of elements of a character set composed of characters "", "", "", "", "", "−", "0", "1", "2", "3", "4", "5", "6", "7", "8" and "9"; and a determining unit configured to determine an area of a middle address of a Japanese recipient address in the image, starting from the seed character block. At least one of the following effects can be achieved by the device and the method: improving efficiency and accuracy of recognizing the middle address of the Japanese recipient address.
+</abstract>
+
+<claims>
+1. A device for processing an image, comprising: a selecting unit configured to, by recognizing character blocks in the image using a convolutional network classifier or a fully convolutional network classifier, select in the image a seed character block satisfying a condition that a result of recognizing the seed character block is one of elements of a character set composed of characters "", "", "", "", "", "−", "0", "1", "2", "3", "4", "5", "6", "7", "8" and "9"; and a determining unit configured to determine an area of a middle address of a Japanese recipient address in the image, starting from the seed character block.
+2. The device according to claim 1, wherein the fully convolutional network classifier is configured for determining a confidence that a character block to be classified in the image is a character in the character set, regardless of whether the character block to be classified is a character other than characters in the character set.
+3. The device according to claim 1, wherein recognizing character blocks in the image using the convolutional network classifier comprises performing over-segmentation on an area in the image where characters locate.
+4. The device according to claim 3, wherein the selecting unit is configured to: if a first CNN seed character block is obtained when classifying the character blocks in the image by using the convolutional network classifier, select the first CNN seed character block as the seed character block; wherein the first CNN seed character block satisfies the following condition: a largest CNN classification confidence of a CNN classification of the first CNN seed character block with respect to a first character subset is larger than a first CNN threshold, and the first CNN seed character block has a digit character block directly adjacent to the first CNN seed character block; if the first CNN seed character block is not obtained when classifying the character blocks in the image by using the convolutional network classifier, in a case that a first FCN seed character block is obtained when classifying the character blocks in the image by using the fully convolutional network classifier, select the first FCN seed character block as the seed character block; wherein the first FCN seed character block satisfies the following condition: a largest FCN classification confidence of an FCN classification of the first FCN seed character block with respect to the first character subset is larger than a first FCN threshold, and the first FCN seed character block has the digit character block directly adjacent to the first FCN seed character block; wherein the first character subset is composed of characters "", "", "", "" and ""; and the digit character block is a character block satisfying the following condition: a confidence that the character block is recognized as one of characters "0", "1", "2", "3", "4", "5", "6", "7", "8" and "9" is larger than a predetermined threshold.
+5. The device according to claim 4, wherein the selecting unit is configured to: if the first FCN seed character block is not obtained when classifying the character blocks in the image by using the fully convolutional network classifier, in a case that a second FCN seed character block is obtained when classifying the character blocks in the image by using the fully convolutional network classifier, select the second FCN seed character block as the seed character block; wherein the second FCN seed character block satisfies the following condition: an FCN classification confidence of an FCN classification of the second FCN seed character block with respect to the character "−" is larger than a second FCN threshold, and the second FCN seed character block has the digit character block directly adjacent to the second FCN seed character block.
+6. The device according to claim 5, wherein the selecting unit is configured to: if the second FCN seed character block is not obtained when classifying the character blocks in the image by using the fully convolutional network classifier, then if a second CNN seed character block is obtained when classifying the character blocks in the image by using the convolutional network classifier, select the second CNN seed character block as the seed character block; wherein the second CNN seed character block satisfies the following condition: a largest CNN classification confidence of a CNN classification of the second CNN seed character block with respect to a digit set is larger than a second CNN threshold, and the second CNN seed character block has the digit character block directly adjacent to the second CNN seed character block; if the second CNN seed character block is not obtained when classifying the character blocks in the image by using the convolutional network classifier, in a case that a third FCN seed character block is obtained when classifying the character blocks in the image by using the fully convolutional network classifier, select the third FCN seed character block as the seed character block; wherein the third FCN seed character block satisfies the following condition: a largest FCN classification confidence of an FCN classification of the third FCN seed character block with respect to the digit set is larger than a third FCN threshold, and the third FCN seed character block has the digit character block directly adjacent to the third FCN seed character block; wherein the digit set is composed of characters "0", "1", "2", "3", "4", "5", "6", "7", "8" and "9".
+7. The device according to claim 1, wherein the selecting unit is configured to: perform classifications on the respective character blocks with respect to the character set by using the convolutional network classifier, to determine CNN classifications and CNN classification confidences of the respective character blocks; perform classifications on the respective character blocks with respect to the character set by using the fully convolutional network classifier, to determine FCN classifications and FCN classification confidences of the respective character blocks.
+8. The device according to claim 7, wherein the selecting unit is configured to: select a character block corresponding to a first CNN classification as a seed character block, if a CNN classification set composed of the respective CNN classifications includes the first CNN classification satisfying the following conditions: the first CNN classification belongs to a first character subset, a first CNN classification confidence corresponding to the first CNN classification is larger than a first CNN threshold, and the character block corresponding to the first CNN classification has a digit character block directly adjacent to the character block; wherein the first character subset is composed of characters "", "", "", "" and ""; and the digit character block is a character block satisfying the following condition: a confidence that the character block is recognized as one of characters "0", "1", "2", "3", "4", "5", "6", "7", "8" and "9" is larger than a predetermined threshold.
+9. The device according to claim 7, wherein the selecting unit is configured to: if a confidence of a first most credible CNN classification having a largest confidence in a first CNN classification set is larger than the first CNN threshold, select a character block corresponding to the first most credible CNN classification as the seed character block; wherein the first CNN classification set is composed of classifications satisfying the following conditions among the respective CNN classifications: the classifications belong to a first character subset, and character blocks corresponding to the classifications have digit character blocks directly adjacent to the character block; wherein the first character subset is composed of characters "", "", "", "" and ""; and the digit character block is a character block satisfying the following condition: a confidence that the character block is recognized as one of characters "0", "1", "2", "3", "4", "5", "6", "7", "8" and "9" is larger than a predetermined threshold.
+10. A method of processing an image, comprising steps of: recognizing character blocks in the image by using a convolutional network (CNN) classifier or a fully convolutional network (FCN) classifier, to select in the image a seed character block satisfying a condition that a result of recognizing the seed character block is one of elements of a character set composed of characters "", "", "", "", "", "−", "0", "1", "2", "3", "4", "5", "6", "7", "8" and "9"; and determining an area of a middle address of a Japanese recipient address in the image, starting from the seed character block.
+</claims>
+</document>

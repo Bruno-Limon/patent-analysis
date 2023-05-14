@@ -1,0 +1,61 @@
+<document>
+
+<filing_date>
+2019-04-25
+</filing_date>
+
+<publication_date>
+2020-09-24
+</publication_date>
+
+<priority_date>
+2019-03-22
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/62
+</ipc_classes>
+
+<assignee>
+SALESFORCE.COM
+</assignee>
+
+<inventors>
+SOCHER, RICHARD
+XIONG, CAIMING
+GAO, Mingfei
+</inventors>
+
+<docdb_family_id>
+72514498
+</docdb_family_id>
+
+<title>
+Two-stage online detection of action start in untrimmed videos
+</title>
+
+<abstract>
+Embodiments described herein provide a two-stage online detection of action start system including a classification module and a localization module. The classification module generates a set of action scores corresponding to a first video frame from the video, based on the first video frame and video frames before the first video frames in the video. Each action score indicating a respective probability that the first video frame contains a respective action class. The localization module is coupled to the classification module for receiving the set of action scores from the classification module and generating an action-agnostic start probability that the first video frame contains an action start. A fusion component is coupled to the localization module and the localization module for generating, based on the set of action scores and the action-agnostic start probability, a set of action-specific start probabilities, each action-specific start probability corresponding to a start of an action belonging to the respective action class.
+</abstract>
+
+<claims>
+1. A method of training a start detection network for detecting an action start in a video, the method comprising: initializing the start detection network with a first set of parameters; generating a set of action scores for a first video frame from a training video sample, each action score indicating a respective probability that the first video frame contains an action from a set of action classes; generating from at least the set of action scores, via the start detection network initialized with the first set of parameters, a first baseline parameter and a first action-agnostic start probability that the first video frame contains an action start; computing a reward metric based on the first action-agnostic start probability and the first baseline parameter; computing a loss metric based on the reward metric and the first baseline parameter; and generating a second set of parameters for an updated start detection network based on the loss metric.
+2. The method of claim 1, further comprising: at each time instance within the training video sample: sampling a decision value from a Gaussian distribution defined by the first action-agnostic start probability; and computing a weighted reward metric based on the sampled decision value and a ground truth label of action start corresponding to the video frame.
+3. The method of claim 2, further comprising: computing the weighted reward metric for a number of time instances within the training video sample; and computing a long term expectation of the computed weighted reward metric over the number of time instances.
+4. The method of claim 3, further comprising: computing a training objective from the long term expectation of the computed weighted reward metric over the number of time instances; and computing an expected policy gradient of the training objective based on the long term expectation and the first baseline parameter.
+5. The method of claim 4, further comprising: using the computed expected policy gradient to obtain the second set of parameters that minimize the loss metric by backpropagation.
+6. The method of claim 1, further comprising: configuring the updated start detection network with the second set of parameters; and processing a next training sample having a second video frame to iteratively update the second set parameters.
+7. A system for training a start detection network for detecting an action start in a video, the system comprising: a classification module for generating a set of action scores for a first video frame from a training video sample, each action score indicating a respective probability that the first video frame contains an action from a set of action classes; a localization module initialized with a first set of parameters for generating from at least the set of action scores a first baseline parameter and a first action-agnostic start probability that the first video frame contains an action start; computing a reward metric based on the first action-agnostic start probability and the first baseline parameter; computing a loss metric based on the reward metric and the first baseline parameter; and generating a second set of parameters for an updated start detection network based on the loss metric.
+8. The system of claim 7, wherein the localization module further: at each time instance within the training video sample: samples a decision value from a Gaussian distribution defined by the first action-agnostic start probability; and computes a weighted reward metric based on the sampled decision value and a ground truth label of action start corresponding to the video frame.
+9. The system of claim 8, wherein the localization module further: computes the weighted reward metric for a number of time instances within the training video sample; and computes a long term expectation of the computed weighted reward metric over the number of time instances.
+10. The system of claim 9, wherein the localization module further: computes a training objective from the long term expectation of the computed weighted reward metric over the number of time instances; and computes an expected policy gradient of the training objective based on the long term expectation and the first baseline parameter.
+11. The system of claim 10, wherein the localization module further: uses the computed expected policy gradient to obtain the second set of parameters that minimize the loss metric by backpropagation.
+12. The system of claim 8, wherein the localization module further: configures the updated start detection network with the second set of parameters; and processing a next training sample having a second video frame to iteratively update the second set parameters.
+13. A processor-readable non-transitory storage medium storing processor-executable instructions for training a start detection network for detecting an action start in a video, the instructions executable by a processor to: initialize the start detection network with a first set of parameters; generate a set of action scores for a first video frame from a training video sample, each action score indicating a respective probability that the first video frame contains an action from a set of action classes; generate from at least the set of action scores, via the start detection network initialized with the first set of parameters, a first baseline parameter and a first action-agnostic start probability that the first video frame contains an action start; compute a reward metric based on the first action-agnostic start probability and the first baseline parameter; compute a loss metric based on the reward metric and the first baseline parameter; and generate a second set of parameters for an updated start detection network based on the loss metric.
+14. The medium of claim 13, wherein the instructions are executable by the processor further to: at each time instance within the training video sample: sample a decision value from a Gaussian distribution defined by the first action-agnostic start probability; and compute a weighted reward metric based on the sampled decision value and a ground truth label of action start corresponding to the video frame.
+15. The medium of claim 14, wherein the instructions are executable by the processor further to: compute the weighted reward metric for a number of time instances within the training video sample; and compute a long term expectation of the computed weighted reward metric over the number of time instances.
+16. The medium of claim 15, wherein the instructions are executable by the processor further to: compute a training objective from the long term expectation of the computed weighted reward metric over the number of time instances; and compute an expected policy gradient of the training objective based on the long term expectation and the first baseline parameter.
+17. The medium of claim 16, wherein the instructions are executable by the processor further to: use the computed expected policy gradient to obtain the second set of parameters that minimize the loss metric by backpropagation.
+18. The medium of claim 13, wherein the instructions are executable by the processor further to: configure the updated start detection network with the second set of parameters; and process a next training sample having a second video frame to iteratively update the second set parameters.
+</claims>
+</document>

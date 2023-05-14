@@ -1,0 +1,58 @@
+<document>
+
+<filing_date>
+2020-05-18
+</filing_date>
+
+<publication_date>
+2020-11-26
+</publication_date>
+
+<priority_date>
+2019-05-23
+</priority_date>
+
+<ipc_classes>
+G06K9/46,G06N3/04,G06N3/063
+</ipc_classes>
+
+<assignee>
+CANON
+</assignee>
+
+<inventors>
+KIMURA MAKOTO
+CHEN, TSEWEI
+</inventors>
+
+<docdb_family_id>
+73454027
+</docdb_family_id>
+
+<title>
+IMAGE PROCESSING APPARATUS, IMAGING APPARATUS, IMAGE PROCESSING METHOD, NON-TRANSITORY COMPUTER-READABLE STORAGE MEDIUM
+</title>
+
+<abstract>
+An apparatus comprises a storage control unit that divides, into two-dimensional blocks, a feature image of a layer and stores the respective blocks in any one of a predetermined number of memories; an unit that determines a pattern for reading blocks from the memories based on information relating to an operation on the feature image; and an unit that reads blocks from the memories in accordance with the pattern. The storage control unit assigns repeatedly, for the two-dimensional blocks, the memories in a predetermined order from a head row/column along a row/column. In a second or subsequent row/column, a memory that the assignment is started is shifted by a constant number from a previous row/column in the predetermined order.
+</abstract>
+
+<claims>
+1. An image processing apparatus having a plurality of calculation units for performing operations for each hierarchical layer of a hierarchical neural network, the apparatus comprising: a storage control unit configured to divide, into two-dimensional blocks, a feature image of a hierarchical layer that is made to be a processing target by the calculation units and store the respective blocks in any one of a predetermined number of memories; a determination unit configured to determine a memory access pattern, which is a pattern for reading blocks from the memories, based on information relating to an operation on the feature image; and a readout unit configured to read blocks from the memories in accordance with the memory access pattern, wherein the storage control unit assigns repeatedly, for the two-dimensional blocks, the predetermined number of memories in a predetermined order from a head row/column along a row/column, in a second or subsequent row/column, a memory that the assignment is started is shifted by a constant number from a previous row/column in the predetermined order.
+2. The image processing apparatus according to claim 1, wherein in a case where a pixel sequence of interest arranged in a first direction in the feature image is divided into units of groups of a predetermined number of blocks, in a case where for each group, the predetermined number of blocks belonging to the group are stored in the predetermined number of memories, stores a block that is immediately below a block stored in a memory of a first position of the predetermined number in the block sequence of interest in a memory of a second position defined by the first position and the predetermined number, and the readout unit reads a block from the predetermined number of memories in one cycle according to the memory access pattern.
+3. The image processing apparatus according to claim 1, wherein the predetermined number is represented by N2 where N is an integer.
+4. The image processing apparatus according to claim 3, wherein the predetermined number of memories consists of memory 0 to memory N2−1, and the storage control unit, in a case where a block sequence of interest arranged in a first direction in the feature image is divided into units of groups of N2 blocks, in a case where for each group, the blocks 0 to N2−1 belonging to the group are stored in memories 0 to N2−1, stores a block that is immediately below a block stored in a memory p (p=0 to N2−1) in the block sequence of interest in a memory q (q=mod(p+N, N2)).
+5. The image processing apparatus according to claim 3, wherein the readout unit reads blocks from the memories 0 to N2−1 in one cycle in accordance with the memory access pattern.
+6. The image processing apparatus according to claim 3, wherein the constant number is N.
+7. The image processing apparatus according to claim 1, wherein the determination unit determines the memory access pattern based on information defining the operations for each hierarchical layer of the hierarchical neural network.
+8. The image processing apparatus according to claim 7, wherein the information defining operations for each hierarchical layer of the hierarchical neural network includes at least one of a presence or absence of pooling, a pooling window size, and a kernel size.
+9. The image processing apparatus according to claim 7, wherein the information defining operations for each hierarchical layer of the hierarchical neural network includes a combination of a presence or absence of sampling and a sampling rate.
+10. The image processing apparatus according to claim 7, wherein the hierarchical layer includes a side output hierarchical layer in the hierarchical neural network.
+11. The image processing apparatus according to claim 3, wherein a value of N is determined based on any one of a maximum kernel size, a maximum pooling window size, a sampling rate, and a stride interval used in all hierarchical layers of the hierarchical neural network.
+12. The image processing apparatus according to claim 3, wherein a value of N is determined in accordance with a throughput or a resource of the calculation units.
+13. An imaging apparatus, comprising: an image input unit configured to acquire an image by imaging; and an output unit configured to output a calculation result on the image by an image processing apparatus, wherein the image processing apparatus has a plurality of calculation units for performing operations for each hierarchical layer of a hierarchical neural network, the image processing apparatus comprising: a storage control unit configured to store each block obtained by dividing a feature image of a hierarchical layer that is made to be a processing target by the calculation units in any of a predetermined number of memories; a determination unit configured to determine a memory access pattern, which is a pattern for reading blocks from the memories, based on information relating to an operation on the feature image; and a readout unit configured to read a block from the memories in accordance with the memory access pattern, wherein the storage control unit, in a case where a block sequence of interest arranged in a first direction in the feature image is divided into units of groups of a predetermined number of blocks, in a case where for each group, the predetermined number of blocks belonging to the group are stored in the predetermined number of memories, stores a block, which is immediately below a block stored in a memory of a first position among the predetermined number in the block sequence of interest, in a memory of a second position that is determined by the first position and the predetermined number, and the readout unit reads a block from the predetermined number of memories in one cycle according to the memory access pattern.
+14. The imaging apparatus according to claim 13, wherein the output unit outputs a result of detecting an object from an image, input to the hierarchical neural network, based on a result output from the hierarchical neural network by inputting the image to the hierarchical neural network.
+15. An image processing method to be performed by an image processing apparatus having a plurality of calculation units for performing operations for each hierarchical layer of a hierarchical neural network, the method comprising: dividing, into two-dimensional blocks, a feature image of a hierarchical layer that is made to be a processing target by the calculation units and storing the respective blocks in any one of a predetermined number of memories; determining a memory access pattern, which is a pattern for reading blocks from the memories, based on information relating to an operation on the feature image; and reading blocks from the memories in accordance with the memory access pattern, wherein in the storing, for the two-dimensional blocks, the predetermined number of memories are assigned repeatedly in a predetermined order from a head row/column along a row/column, in a second or subsequent row/column, a memory that the assignment is started is shifted by a constant number from a previous row/column in the predetermined order.
+16. A non-transitory computer-readable storage medium storing a computer program for causing a computer of an image processing apparatus having a plurality of calculation units for performing operations for each hierarchical layer of a hierarchical neural network to function as a storage control unit configured to divide, into two-dimensional blocks, a feature image of a hierarchical layer that is made to be a processing target by the calculation units and store the respective blocks in any one of a predetermined number of memories; a determination unit configured to determine a memory access pattern, which is a pattern for reading blocks from the memories, based on information relating to an operation on the feature image; and a readout unit configured to read blocks from the memories in accordance with the memory access pattern, wherein the storage control unit assigns repeatedly, for the two-dimensional blocks, the predetermined number of memories in a predetermined order from a head row/column along a row/column, in a second or subsequent row/column, a memory that the assignment is started is shifted by a constant number from a previous row/column in the predetermined order.
+</claims>
+</document>

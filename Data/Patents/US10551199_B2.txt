@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2017-12-29
+</filing_date>
+
+<publication_date>
+2020-02-04
+</publication_date>
+
+<priority_date>
+2017-12-29
+</priority_date>
+
+<ipc_classes>
+G01C21/00,G01C21/30,G06N3/02,G06N5/02
+</ipc_classes>
+
+<assignee>
+LYFT
+</assignee>
+
+<inventors>
+MALEK, YUANYUAN
+HAQUE, ASIF
+MURPHY, JAMES KEVIN
+</inventors>
+
+<docdb_family_id>
+67058130
+</docdb_family_id>
+
+<title>
+Utilizing artificial neural networks to evaluate routes based on generated route tiles
+</title>
+
+<abstract>
+This disclosure covers methods, non-transitory computer readable media, and systems that generate route tiles reflecting both GPS locations and map-matched locations for regions along a route traveled by a client device associated with a transportation vehicle. For example, in some implementations, the disclosed systems use an artificial neural network to analyze the route tiles and determine route-accuracy metrics indicating GPS locations or map-matched locations for particular regions along the route. The disclosed systems can then use the route-accuracy metrics to facilitate transport of requestors by, for example, determining a distance of the route or a location of a client device associated with a transportation vehicle.
+</abstract>
+
+<claims>
+We claim:
+1. A system comprising: at least one processor; and at least one non-transitory computer readable storage medium storing instructions that, when executed by the at least one processor, cause the system to: identify a set of GPS locations and a corresponding set of map-matched locations for a route traveled by a client device; segment the set of GPS locations and the corresponding set of map-matched locations into a set of regions along the route, wherein each region from the set of regions comprises a subset of GPS locations and a subset of map-matched locations; analyze a region from the set of regions utilizing a trained artificial neural network to select between a particular subset of GPS locations and a particular subset of map-matched locations for the region; and update the route to include the particular subset of GPS locations or the particular subset of map-matched locations selected for the region.
+2. The system of claim 1, further comprising instructions that, when executed by the at least one processor, cause the system to generate a route tile for each region from the set of regions based on the subset of GPS locations for each region and the subset of map-matched locations for each region.
+3. The system of claim 2, further comprising instructions that, when executed by the at least one processor, cause the system to utilize the trained artificial neural network to analyze the route tile for the region to generate a route-accuracy metric indicating the particular subset of GPS locations or the particular subset of map-matched locations for the region.
+4. The system of claim 3, further comprising instructions that, when executed by the at least one processor, cause the system to generate the route tile for the region by: generating a first image matrix for the region comprising a representation of the particular subset of GPS locations for the region; and generating a second image matrix for the region comprising a representation of the particular subset of map-matched locations for the region.
+5. The system of claim 4, further comprising instructions that, when executed by the at least one processor, cause the system to generate the route tile for the region by determining a first estimated path of the client device within the region based on the particular subset of GPS locations for the region and a second estimated path of the client device within the region based on the particular subset of map-matched locations for the region, wherein: the first image matrix comprises a first set of pixels that represent the first estimated path of the client device within the region and a second set of pixels that represent positions outside of the first estimated path within the region; and the second image matrix comprises a third set of pixels that represent the second estimated path of the client device within the region and a fourth set of pixels that represent positions outside of the second estimated path within the region.
+6. The system of claim 1, further comprising instructions that, when executed by the at least one processor, cause the system to update the route by determining a distance of the route based on the particular subset of GPS locations or the particular subset of map-matched locations selected for the region.
+7. The system of claim 1, further comprising instructions that, when executed by the at least one processor, cause the system to update the route by adjusting a digital map for the region to correspond to the particular subset of GPS locations or the particular subset of map-matched locations selected for the region.
+8. The system of claim 1, further comprising instructions that, when executed by the at least one processor, cause the system to generate the trained artificial neural network by: generating a training route tile for a training region along a training route based on training GPS locations and corresponding training map-matched locations; utilizing an artificial neural network to predict a route-accuracy metric for the training region based on the training route tile; and generating the trained artificial neural network by comparing the route-accuracy metric to a ground-truth-route-accuracy metric for the training region.
+9. The system of claim 8, wherein the training GPS locations comprise simulated training GPS locations, the system further comprising instructions that, when executed by the at least one processor, cause the system to generate the simulated training GPS locations by: creating simulated route locations for the training route within a road network based on standard-traveling patterns of transportation vehicles; and generating the simulated training GPS locations by transforming the simulated route locations based on a GPS-noise model.
+10. The system of claim 9, further comprising instructions that, when executed by the at least one processor, cause the system to generate the ground-truth-route-accuracy metric for the training region by: determining an error value between the simulated training GPS locations and the simulated route locations; and comparing the determined error value to a noise threshold.
+11. A method comprising: identifying a set of GPS locations and a corresponding set of map-matched locations for a route traveled by a client device; segmenting the set of GPS locations and the corresponding set of map-matched locations into a set of regions along the route, wherein each region from the set of regions comprises a subset of GPS locations and a subset of map-matched locations; analyzing a region from the set of regions utilizing a trained artificial neural network to select between a particular subset of GPS locations or a particular subset of map-matched locations for the region; and updating the route to include the particular subset of GPS locations or the particular subset of map-matched locations selected for the region.
+12. The method of claim 11, further comprising generating a route tile for each region from the set of regions based on the subset of GPS locations for each region and the subset of map-matched locations for each region.
+13. The method of claim 12, further comprising utilizing the trained artificial neural network to analyze the route tile for the region to generate a route-accuracy metric indicating the particular subset of GPS locations or the particular subset of map-matched locations for the region.
+14. The method of claim 12, wherein generating the route tile for the region comprises: generating a first image matrix for the region comprising a representation of the particular subset of GPS locations for the region; and generating a second image matrix for the region comprising a representation of the particular subset of map-matched locations for the region.
+15. The method of claim 14, wherein: generating the route tile for the region comprises determining a first estimated path of the client device within the region based on the particular subset of GPS locations for the region and a second estimated path of the client device within the region based on the particular subset of map-matched locations for the region; the first image matrix comprises a first set of pixels that represent the first estimated path of the client device within the region and a second set of pixels that represent positions outside of the first estimated path within the region; and the second image matrix comprises a third set of pixels that represent the second estimated path of the client device within the region and a fourth set of pixels that represent positions outside of the second estimated path within the region.
+16. A non-transitory computer readable medium storing instructions thereon that, when executed by at least one processor, cause a system to: identify a set of GPS locations and a corresponding set of map-matched locations for a route traveled by a client device; segment the set of GPS locations and the corresponding set of map-matched locations into a set of regions along the route, wherein each region from the set of regions comprises a subset of GPS locations and a subset of map-matched locations; analyze a region from the set of regions utilizing a trained artificial neural network to select between a particular subset of GPS locations and a particular subset of map-matched locations for the region; and update the route to include the particular subset of GPS locations or the particular subset of map-matched locations selected for the region.
+17. The non-transitory computer readable medium of claim 16, further comprising instructions that, when executed by the at least one processor, cause the system to generate a route tile for each region from the set of regions based on the subset of GPS locations for each region and the subset of map-matched locations for each region.
+18. The non-transitory computer readable medium of claim 17, further comprising instructions that, when executed by the at least one processor, cause the system to utilize the trained artificial neural network to analyze the route tile for the region to generate a route-accuracy metric indicating the particular subset of GPS locations or the particular subset of map-matched locations for the region.
+19. The non-transitory computer readable medium of claim 17, further comprising instructions that, when executed by the at least one processor, cause the system to generate the route tile for the region by: generating a first image matrix for the region comprising a representation of the particular subset of GPS locations for the region; and generating a second image matrix for the region comprising a representation of the particular subset of map-matched locations for the region.
+20. The non-transitory computer readable medium of claim 19, further comprising instructions that, when executed by the at least one processor, cause the system to generate the route tile for the region by determining a first estimated path of the client device within the region based on the particular subset of GPS locations for the region and a second estimated path of the client device within the region based on the particular subset of map-matched locations for the region, wherein: the first image matrix comprises a first set of pixels that represent the first estimated path of the client device within the region and a second set of pixels that represent positions outside of the first estimated path within the region; and the second image matrix comprises a third set of pixels that represent the second estimated path of the client device within the region and a fourth set of pixels that represent positions outside of the second estimated path within the region.
+</claims>
+</document>

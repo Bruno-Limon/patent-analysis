@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2019-04-18
+</filing_date>
+
+<publication_date>
+2020-10-22
+</publication_date>
+
+<priority_date>
+2019-04-18
+</priority_date>
+
+<ipc_classes>
+G06K9/34,G06K9/62,G06N3/08
+</ipc_classes>
+
+<assignee>
+ADOBE INC
+</assignee>
+
+<inventors>
+FAIETA, BALDO
+LIN ZHE
+ZHANG, JIANMING
+BUTTERFIELD, BRETT
+LING, MINGYANG
+KUEN, JASON
+PERAZZI, FEDERICO
+</inventors>
+
+<docdb_family_id>
+72832569
+</docdb_family_id>
+
+<title>
+ROBUST TRAINING OF LARGE-SCALE OBJECT DETECTORS WITH A NOISY DATASET
+</title>
+
+<abstract>
+Systems and methods are described for object detection within a digital image using a hierarchical softmax function. The method may include applying a first softmax function of a softmax hierarchy on a digital image based on a first set of object classes that are children of a root node of a class hierarchy, then apply a second (and subsequent) softmax functions to the digital image based on a second (and subsequent) set of object classes, where the second (and subsequent) object classes are children nodes of an object class from the first (or parent) object classes. The methods may then include generating an object recognition output using a convolutional neural network (CNN) based at least in part on applying the first and second (and subsequent) softmax functions. In some cases, the hierarchical softmax function is the loss function for the CNN.
+</abstract>
+
+<claims>
+1. A method for object detection, comprising: applying a first softmax function of a softmax hierarchy on a digital image based on a first plurality of object classes, wherein the first plurality of object classes are children of a root node of a class hierarchy; applying a second softmax function of the softmax hierarchy to the digital image based on a second plurality of object classes, wherein the second plurality of object classes comprise children nodes of an object class from the first plurality of object classes; and generating an object recognition output using a convolutional neural network (CNN) based at least in part on applying the first softmax function and the second softmax function.
+2. The method of claim 1, further comprising: applying one or more third softmax functions of the softmax hierarchy, wherein the one or more third softmax functions correspond to one or more third plurality of object classes below the second plurality of object classes in the class hierarchy.
+3. The method of claim 1, further comprising: performing an averaging on a result of the first softmax function and a result of the second softmax function, wherein the result of the first softmax function has a higher weight in the averaging function than the result of the second softmax function.
+4. The method of claim 1, wherein: the CNN comprises a loss function based on the softmax hierarchy.
+5. The method of claim 1 further comprising: identifying a training set for the CNN; selecting the digital image from the training set, wherein the first softmax function and the second softmax function are applied based on the selection; and training the CNN based at least in part on the object recognition output.
+6. The method of claim 5, further comprising: identifying one or more class-specific image sets from the training set; performing a class level balancing operation on the one or more class-specific image sets to generate one or more class-balanced image sets; sampling a first plurality of images from the one or more class-balanced image sets to perform a first training epoch; modifying one or more sampling weights of the one or more class-balanced image sets to produce one or more modified class-balanced image sets; and sampling a second plurality of images from the one or more modified class-balanced image sets to perform a second training epoch, wherein the digital image is selected based on sampling the first plurality of images or the second plurality of images.
+7. The method of claim 5, further comprising: identifying one or more object boxes in the digital image; and performing a random cropping of the digital image based at least in part on the one or more identified object boxes, wherein the CNN is trained based at least in part on the random cropping.
+8. The method of claim 5, further comprising: identifying one or more missing object boxes based at least in part on the object recognition output, wherein training the CNN is based at least in part on the one or more missing object boxes.
+9. The method of claim 5, further comprising: determining that the training set comprises a complex training set based on one or more complexity factors from a set of complexity factors comprising: a label hierarchy factor, a label imbalance factor, a training set size factor, and a missing label factor, wherein the softmax hierarchy is applied based at least in part on the one or more complexity factors.
+10. The method of claim 1, further comprising: identifying an object in the digital image based on the object recognition output, wherein the object corresponds to at least one class from the class hierarchy.
+11. The method of claim 1, further comprising: displaying the digital image along with one or more object overlays based at least in part on the object recognition output.
+12. An apparatus for object detection within a digital image using a hierarchical softmax function, comprising: a processor and a memory storing instructions and in electronic communication with the processor, the processor being configured to execute the instructions to: receive an output vector from a layer of a convolutional neural network (CNN); apply a first softmax function of a softmax hierarchy to a first subset of the values from the output vector, wherein the first subset of values corresponds to a first plurality of object classes that are children of a root node of a class hierarchy; apply a second softmax function of the softmax hierarchy to a second subset of the values from the output vector, wherein the second subset of values corresponds to a second plurality of object classes that are children nodes of an object class from the first plurality of object classes; apply one or more third softmax functions of the softmax hierarchy to one or more third subsets of the values from the output vector, wherein the one or more third subsets of values correspond to one or more third plurality of object classes that are below the second plurality of object classes in the class hierarchy; produce a loss value for the CNN based at least in part on applying the first softmax function, the second softmax function, and the one or more third softmax functions; and train the CNN based at least in part on the loss value.
+13. The apparatus of claim 12, the processor being further configured to execute the instructions to: perform an averaging on a result of the first softmax function, a result of the second softmax function and a result of the one or more third softmax functions, wherein the result of the first softmax function has a higher weight in the averaging function than the result of the second softmax function or a result of the one or more third softmax functions.
+14. The apparatus of claim 12, wherein: the CNN comprises a loss function based on the softmax hierarchy.
+15. The apparatus of claim 12, the processor being further configured to execute the instructions to: identify a training set for the CNN; and select the digital image from the training set, wherein the first softmax function, the second softmax function, and the one or more third softmax functions are applied based on the selection.
+16. The apparatus of claim 15, the processor being further configured to execute the instructions to: identify one or more object boxes in the digital image; and perform a random cropping of the digital image based at least in part on the one or more identified object boxes, wherein the CNN is trained based at least in part on the random cropping.
+17. The apparatus of claim 15, the processor being further configured to execute the instructions to: identify one or more missing object boxes based at least in part on the object recognition output, wherein training the CNN is based at least in part on the one or more missing object boxes.
+18. A non-transitory computer readable medium storing code for object detection within a digital image using a hierarchical softmax function, the code comprising instructions executable by a processor to: perform a class level balancing operation on one or more class-specific image sets to generate one or more class-balanced image sets; sample a first plurality of images from the one or more class-balanced image sets to perform a first training epoch; modify one or more sampling weights of the one or more class-balanced image sets to produce one or more modified class-balanced image sets; sample a second plurality of images from the one or more modified class-balanced image sets to perform a second training epoch; apply a hierarchy of softmax functions within a convolutional neural network (CNN), wherein each softmax function within the hierarchy of softmax functions corresponds to a group of labels in a class hierarchy; and train the CNN based at least in part on the hierarchy of softmax functions, wherein the hierarchy of softmax functions comprises a loss function of the CNN.
+19. The non-transitory computer readable medium of claim 18, the code further comprising instructions executable by the processor to: identify one or more object boxes in the digital image; and perform a random cropping of the digital image based at least in part on the one or more identified object boxes, wherein the CNN is trained based at least in part on the random cropping.
+20. The non-transitory computer readable medium of claim 18, the code further comprising instructions executable by the processor to: identify one or more missing object boxes based at least in part on the object recognition output, wherein training the CNN is based at least in part on the one or more missing object boxes.
+</claims>
+</document>

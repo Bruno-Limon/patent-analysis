@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2020-02-04
+</filing_date>
+
+<publication_date>
+2020-08-06
+</publication_date>
+
+<priority_date>
+2019-02-06
+</priority_date>
+
+<ipc_classes>
+G06F16/906,G06F17/16,G06F5/01,G06N20/00,G06N20/10,G06N20/20,G06N3/04,G06N3/08,G06N3/12,H04L12/24
+</ipc_classes>
+
+<assignee>
+TENSORDRO
+TensorX, Inc.
+</assignee>
+
+<inventors>
+Clerici, John M
+Lane, Mark T
+White, N Edward
+Powell, G Edward
+Bedard, Stephen C
+</inventors>
+
+<docdb_family_id>
+69528445
+</docdb_family_id>
+
+<title>
+System and methods for data evaluation through network sensitivity analysis
+</title>
+
+<abstract>
+A method for evaluating a relative contribution of a first group of J data sets in a collection of N data sets, wherein N>J, includes first applying the collection of N data sets and second applying the first group of J data sets to a model and generating one or more observations O on the collection of N data sets and the first group of J data sets, including generating a N NSA curve comprising computing, using the model, an observation ON on the collection of N data sets; and generating a N−J NSA curve for the first group of J data sets by removing the first group of J data sets from the collection of N data sets, and generating, using the model, an observation ON−J with the first group of J data sets removed. The method then includes generating a measure MJ of contributions of the group of J data sets based on the N NSA curve and the N−J NSA curves.
+</abstract>
+
+<claims>
+We claim:
+1. A computer-implemented data evaluation method, comprising: a processor receiving a plurality of N data sets, each of the N data sets comprising one or more parameters; the processor identifying a relative contribution of one or more of the plurality of N data sets, comprising: executing a Network Sensitivity Analysis (NSA) by applying the plurality of Ni data sets, where i=1 . . . j . . . n, to a neural network and generating one or more observations O on the plurality of N data sets, comprising: generating a N NSA curve comprising computing an observation ON with all the N data sets; and generating a N−j+ NSA curve for multiple data sets j+, wherein j+ comprises more than one data set but less than n data sets, the generating, comprising: removing the multiple data sets j+ from the N data sets, and generating, using the neural network, an observation ON−j+ with the multiple data sets j+ removed; and generating a measure Mj+ of a contribution of the multiple data sets j+ based on the N NSA curve and the N−j+ NSA curve; the processor generating a relative strength Sj+ of the multiple data sets j+ as a function of the measure Mj+; and the processor providing the relative strength Si+ of the multiple data sets j+.
+2. The data evaluation method of claim 1, wherein generating the measure Mj+ comprises determining an absolute value of a difference between the N NSA curve and the N−j+ curve as an indication of the contribution of the removed j+ data sets.
+3. The data evaluation method of claim 2, wherein the difference is computed as a difference in areas under the N NSA curve and the N−j+ curve.
+4. The data evaluation method of claim 1, wherein the j+ data sets comprise g unique data sets, the method further comprising determining a relative contribution Mg relative to the contribution Mj+ of data j+ data sets.
+5. The data evaluation method of claim 1, wherein the relative strength Sj+ of the N−j+ curves is determined as the measure relative to a sum of measures Mi+ of all removed multiple data sets i+, wherein i is one or more data sets.
+6. The data evaluation method of claim 1, wherein generating the N NSA curve and the N−j+ NSA curve, comprises: establishing a relative importance of an input parameter px in a plurality of input parameters Pk in each data set Ni input to the neural network, the data set Ni represented by a x row by y column matrix Ii, an intersection of each row x with each column y defining an element x,y, the method, comprising: for parameter pj in the plurality of parameters Pk in the input data set Ni, the processor sorts columns ky of the matrix Ii. to produce a re-ordered matrix Ii,x by reordering the columns ky such that the elements x,y in the xth row are arranged in order of parameter values of the parameter px, the processor determines a hyper-parameter N* of sub-matrices Gi into which may be sorted the re-ordered columns ky according to the elements x,y in an xth row of the re-ordered matrix Ii,x, the processor generates a plurality of group sub-matrices Gi, each of the group sub-matrices Gi comprising a subset of the re-ordered columns kx and the xth row of the group sub-matrices Gi, and the processor inputs the re-ordered matrix Ii,x into the neural network to produce outputs Oi comprising sequentially imputing data input vectors, defined as the reordered columns kx, according to positions of the re-ordered columns kx in the group sub-matrices Gi; and the processor produces normalized mean values of the outputs Oi.
+7. The data evaluation method of claim 6, wherein the normalized mean values of the outputs Oi comprise the observation ON.
+8. The data evaluation method of claim 7, further comprising predicting and displaying one or more most significant parameters of the Pk distinct input parameters in the Ni data sets.
+9. The data evaluation method of claim 1, comprising: receiving additional data sets N+1, N+2, . . . N+k; and re-executing the NSA using the data sets N and the additional data sets N+1, N+2, . . . N+k.
+10. A non-transitory, computer-readable storage medium having encoded thereon, machine instructions executed by a processor to: receive a plurality of N data sets, each of the N data sets comprising one or more parameters; identify a relative contribution of one or more of the plurality of N data sets, wherein the processor: applies the plurality of Ni data sets, where i =1 . . . j . . . n, to a neural network and generating one or more observations O on the plurality of N data sets, wherein the processor: generates a N Network Sensitivity Analysis (NSA) curve comprising computing an observation ON with all the N data sets; and generates a N−j+ NSA curve for multiple data sets j+, wherein j+ comprises more than one data set but less than n data sets, wherein the processor: removes the multiple data sets j+ from the N data sets, and generates, using the neural network, an observation ON−j+ with the multiple data sets j+ removed; and generates a measure Mj+ of a contribution of the multiple data sets j+ based on the N NSA curve and the N−j+ NSA curve; generate a relative strength Sj+ of the multiple data sets j+ as a function of the measure Mj+; and provide the relative strength Si+ of the multiple data sets j+.
+11. The non-transitory, computer-readable storage medium of claim 10, wherein generating the measure Mj+ comprises determining an absolute value of a difference between the N NSA curve and the N−j+ curve as an indication of the contribution of the removed j+ data sets.
+12. The non-transitory, computer-readable storage medium of claim 10, wherein the difference is computed as a difference in areas under the N NSA curve and the N−j+ curve.
+13. The non-transitory, computer-readable storage medium of claim 10, wherein the j+ data sets comprise g unique data sets, wherein the processor determines a relative contribution Mg relative to the contribution Mj+ of data j+ data sets.
+14. The non-transitory, computer-readable storage medium of claim 10, wherein the relative strength Sj+ of the N−j+ curves is determined as the measure relative to a sum of measures Mi+ of all removed multiple data sets i+, wherein i is one or more data sets.
+15. The non-transitory, computer-readable storage medium of claim 10, wherein to generate the N NSA curve and the N−j+ NSA curve, the processor: establishes a relative importance of an input parameter px in a plurality of input parameters Pk in each data set Ni input to the neural network, the data set Ni represented by a x row by y column matrix Ii, an intersection of each row x with each column y defining an element x,y, the method, comprising: for parameter pj in the plurality of parameters Pk in the input data set Ni, the processor sorts columns ky of the matrix Ii. to produce a re-ordered matrix Ii,x by reordering the columns ky such that the elements x,y in the xth row are arranged in order of parameter values of the parameter px, the processor determines a hyper-parameter N* of sub-matrices Gi into which may be sorted the re-ordered columns ky according to the elements x,y in an xth row of the re-ordered matrix Ii,x, the processor generates a plurality of group sub-matrices Gi, each of the group sub-matrices Gi comprising a subset of the re-ordered columns kx and the xth row of the group sub-matrices Gi, and the processor inputs the re-ordered matrix Ii,x into the neural network to produce outputs Oi, comprising sequentially imputing data input vectors, defined as the reordered columns kx, according to positions of the re-ordered columns kx in the group sub-matrices Gi; and the processor produces normalized mean values of the outputs Oi.
+16. A method for evaluating a relative contribution of a first group of J data sets in a collection of N data sets, wherein N>J, comprising: a processor first applying the collection of N data sets and second applying the first group of J data sets to a model and generating one or more observations O on the collection of N data sets and the first group of J data sets, comprising: generating a N Network Sensitivity Analysis (NSA) curve comprising computing, using the model, an observation ON on the collection of N data sets; and generating a N−J NSA curve for the first group of J data sets, comprising: removing the first group of J data sets from the collection of N data sets, generating, using the model, an observation ON−J with the first group of J data sets removed, and selecting additional groups of K data sets and repeating a process of generating N−K NSA curves and computing observations ON−K with one or more of the additional groups of K data sets removed from the collection of N data sets; and generating measures MJ, MK of contributions of one or more of the groups of J, K data sets based on the N NSA curve and the N−J, N−K NSA curves.
+17. The method of claim 16, wherein the measures MJ, MK are generated by taking an absolute value of a difference of areas under the N NSA curves and each of the N−J, N−K NSA curves.
+18. The method of claim 16, further comprising the processor receiving an additional data set Q, wherein the processor re-executes an NSA using the combined data sets N and Q.
+19. The method of claim 16, wherein each data set group J, K comprises an equal number of individual data sets.
+</claims>
+</document>

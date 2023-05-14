@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2019-06-21
+</filing_date>
+
+<publication_date>
+2020-10-13
+</publication_date>
+
+<priority_date>
+2018-06-22
+</priority_date>
+
+<ipc_classes>
+G06T9/00,H04N19/176,H04N19/91,H04N19/96
+</ipc_classes>
+
+<assignee>
+APPLE
+</assignee>
+
+<inventors>
+KIM, JUNG SUN
+MAMMOU, KHALED
+ROBINET, FABRICE A.
+SU, YEPING
+TOURAPIS, ALEXANDROS
+VALENTIN, VALERY G.
+</inventors>
+
+<docdb_family_id>
+68980783
+</docdb_family_id>
+
+<title>
+Point cloud geometry compression using octrees and binary arithmetic encoding with adaptive look-up tables
+</title>
+
+<abstract>
+An encoder is configured to compress point cloud geometry information using an octree geometric compression technique that utilizes a binary arithmetic encoder, a look-ahead table, a cache, and a context selection process, wherein encoding contexts are selected based, at least in part, on neighborhood configurations. In a similar manner, a decoder is configured to decode compressed point cloud geometry information utilizing a binary arithmetic encoder, a look-ahead table, a cache, and a context selection process.
+</abstract>
+
+<claims>
+1. A system comprising: one or more sensors configured to capture a plurality of points that make up a point cloud, wherein respective ones of the points comprise spatial information for the point; and an encoder configured to: partition the plurality of points of the point cloud into an octree comprising a plurality of cubes and sub-cubes at different levels of the octree, wherein respective ones of the cubes comprises eight sub-cubes; and for a set of cubes at a given octree level: determine occupancy symbols indicating occupancy states of the sub-cubes of the cubes at the given octree level, wherein the occupancy symbols indicate occupied and unoccupied ones of the eight sub-cubes of the cubes at the given octree level; and encode the occupancy symbols, wherein: a first binary information is encoded if a given occupancy symbol being encoded is included in an look-up table for the occupancy symbols, wherein the binary information includes an index value into the look-up table for the given occupancy symbol, and wherein the look-up table includes a sub-set of frequently encoded occupancy symbols of a set of possible occupancy symbols for the set of cubes at the given octree level; another binary information is encoded if the given occupancy symbol is not included in the look-up table, but is included in a cache, wherein the other binary information includes an index value into the cache for the given occupancy symbol, wherein the cache includes another sub-set of recently encoded occupancy symbols of the set of possible occupancy symbols for the set of cubes at the given octree level; and a binary representation of the given occupancy symbol is encoded if the given occupancy symbol is not included in the look-up table or the cache.
+2. The system of claim 1, wherein: the binary representation of the given occupancy symbol comprises an 8-bit binary value, and the first binary information for the index value in the look-up table comprises fewer bits than the 8-bit binary value encoded for the binary representation.
+3. The system of claim 2, wherein: the other binary information for the index value in the cache comprises fewer bits than are used to encode the first binary information for the index value in the look-up table.
+4. The system of claim 1, wherein the encoder is configured to: encode the first binary information using an adaptive arithmetic encoder for index values in the look-up table below a threshold index value and encode the first binary information using a static arithmetic encoder for index values above the threshold index value, wherein the occupancy symbols and corresponding index values are ordered in the look-up table based on a frequency at which the respective occupancy symbols are encoded.
+5. The system of claim 4, wherein for each given octree level of the different octree levels, respective frequencies of the occupancy symbols in the look-up table are calculated based on frequency values re-initialized for the given octree level.
+6. The system of claim 1, wherein the encoder is configured to: generate a neighborhood look-up table for a look-ahead cube that includes a given cube as a sub-cube of the look-ahead cube, wherein the neighborhood look-up table is populated with values indicating whether sub-cubes of the look-ahead cube are populated with points or are un-populated, and wherein the neighborhood look-up table is populated without referencing sub-cubes of other cubes at a same level of the octree as the look-ahead cube; and select a particular neighborhood encoding context for encoding an occupancy symbol for the given cube included in the look-ahead cube based on neighborhood occupancy configurations of neighboring cubes of the given cube at the given octree level as indicated in the neighborhood look-up table, wherein for respective ones of the neighborhood encoding contexts the encoder supports a separate look-up table and a separate cache.
+7. The system of claim 6, wherein the neighborhood encoding contexts used by the encoder to encode the occupancy symbols comprises at least one neighborhood encoding context that corresponds to more than one neighborhood occupancy configuration, wherein more frequently occurring neighborhood occupancy configurations are assigned separate neighborhood encoding contexts and two or more less frequently occurring neighborhood occupancy configurations share a common neighborhood encoding context.
+8. A method, comprising, for an octree of a point cloud comprising a plurality of divisions and subdivisions at different levels of the octree: determining occupancy symbols indicating occupancy states of the subdivisions of the divisions at a given octree level, wherein the occupancy symbols indicate subdivisions of a division occupied with points of the point cloud and subdivisions of the division unoccupied with points of the point cloud; and encoding the occupancy symbols, wherein: a first binary information is encoded if a given occupancy symbol is included in a look-up table, wherein the binary information includes an index value into the look-up table for the given occupancy symbol, and wherein the look-up table includes a sub-set of frequently encoded occupancy symbols of a set of possible occupancy symbols for the divisions of the point cloud at the given octree level; another binary information is encoded if the given occupancy symbol is not included in the look-up table, but is included in a cache, wherein the other binary information includes an index value in the cache for the given occupancy symbol, wherein the cache includes another sub-set of recently encoded occupancy symbols of the set of possible occupancy symbols for the divisions of the point cloud at the given octree level; and a binary representation of the given occupancy symbol is encoded if the given occupancy symbol is not included in the look-up table or the cache.
+9. The method of claim 8, comprising: initializing the look-up table for the given octree level with a given sub-set of occupancy symbols of the set of possible occupancy symbols for the divisions of the point cloud at the given octree level and initializing the look-up table with corresponding index values for the given sub-set of occupancy symbols; initializing, for the given octree level, counters for respective ones of the occupancy symbols of the set of possible occupancy symbols; and incrementing a respective one of the counters for each respective occupancy symbol of the set of possible occupancy symbols when encoding a given occupancy symbol matching the respective occupancy symbol of the set of possible occupancy symbols.
+10. The method of claim 9, wherein the look-up table comprises a user-defined number of occupancy symbols, and wherein occupancy symbols are added to the look-up table or removed from the look-up table based on relative frequencies at which the occupancy symbols are encoded.
+11. The method of claim 8, comprising: initializing the cache for the given octree level with a sub-set of occupancy symbols of the set of possible occupancy symbols for the divisions of the point cloud at the given octree level; and initializing the cache with corresponding index values for the sub-set of occupancy symbols; wherein, when an occupancy symbol is encoded, the occupancy symbol is added to a front of the cache and another occupancy symbol in the cache is removed from a back of the cache.
+12. The method of claim 8, wherein: the first binary information for the index value in the look-up table comprises a five-bit value; the other binary information for the index value in the cache comprises a four-bit value; and the binary representation for an occupancy symbol not included in the look-up table and not included in the cache comprises an eight-bit value.
+13. The method of claim 8, further comprising: encoding the index value in the look-up table for the given occupancy symbol using an adaptive binary encoder if the index value is greater than a threshold index value.
+14. The method of claim 8, further comprising: encoding the index value in the look-up table for the given occupancy symbol using a static binary encoder if the index value is less than a threshold index value.
+15. The method of claim 8, further comprising: generating a neighborhood look-up table for a look-ahead division that includes a given division as a subdivision of the look-ahead division, wherein the neighborhood look-up table is populated based on occupancy states of subdivisions of the look-ahead division without referencing subdivision of other divisions of the point cloud at a same level of the octree as the look-ahead division; and selecting, based on the neighborhood look-up table, a particular neighborhood encoding context for encoding an occupancy symbol for points of a sub-set of points of the point cloud included in the given division of the point cloud at the given octree level based on neighborhood occupancy configurations of neighboring divisions of the point cloud included in the look-ahead division that neighbor the given division, wherein a separate look-ahead table and cache are used to encode occupancy symbols for sub-sets of the points of the point cloud with different selected neighborhood encoding contexts.
+16. The method of claim 15, wherein the neighborhood encoding contexts used to encode the occupancy symbols comprise at least one neighborhood encoding context corresponding to more than one neighborhood occupancy configuration.
+17. A method comprising: receiving an encoded point cloud encoded via an octree geometrical compression technique; and decoding occupancy symbols for divisions of the encoded point cloud, wherein decoding an occupancy symbol comprises: determining whether a first bit is set indicating that the given occupancy symbol is included in a look-up table, wherein if the first bit indicates the given occupancy symbol is included in the look-up table, the given occupancy symbol is read from the look-up table based on an index value included in the received encoded point cloud, wherein the index value corresponds to the given occupancy symbol in the look-up table; determining, if the first bit is not set, whether another bit is set indicating that the given occupancy symbol is included in a cache of a decoder, wherein if the other bit indicates the given occupancy symbol is included in the cache, the given occupancy symbol is read from the cache based on an index value included in the received encoded point cloud, wherein the index value corresponds to the given occupancy symbol in the cache; and otherwise decoding a binary representation of the given occupancy symbol included in the received encoded point cloud.
+18. The method of claim 17, wherein: the index value corresponding to the index of the look-up table comprises a five-bit value; the index value corresponding to the index of the cache comprises a four-bit value; and the binary representation comprises an eight-bit value.
+19. The method of claim 17, wherein said decoding the occupancy symbols for the divisions of the encoded point cloud comprises: decoding a first occupancy symbol for a first division of the encoded point cloud and one or more additional occupancy symbols for one or more additional divisions of the encoded point cloud in parallel, via a plurality of arithmetic decoders.
+20. The method of claim 17, further comprising: receiving, in the encoded point cloud, an indication of a selected encoding context used to encode the given occupancy symbol.
+</claims>
+</document>

@@ -1,0 +1,70 @@
+<document>
+
+<filing_date>
+2019-12-18
+</filing_date>
+
+<publication_date>
+2020-04-23
+</publication_date>
+
+<priority_date>
+2017-07-28
+</priority_date>
+
+<ipc_classes>
+G06T5/00,G06T7/13,G06T7/90
+</ipc_classes>
+
+<assignee>
+ZHEJIANG DAHUA TECHNOLOGY COMPANY
+</assignee>
+
+<inventors>
+FU, JIANHAI
+YANG, CHANGJIU
+</inventors>
+
+<docdb_family_id>
+65039395
+</docdb_family_id>
+
+<title>
+SYSTEMS AND METHODS FOR IMAGE PROCESSING
+</title>
+
+<abstract>
+A method for identifying a color of an object may include obtaining a target image including the object and identifying in the target image a region of interest (ROI) including the object. The method may also include identifying at least one sub-region of the object from the ROI of the object and determining at least one first characteristic vector respectively corresponding to the at least one sub-region. The method may further include determining a second characteristic vector of the ROI of the object and identifying, based on the at least one first characteristic vector and the second characteristic vector, the color of the object using a color identification model. The method may further include correcting the color of the target image.
+</abstract>
+
+<claims>
+1. A system for image processing, comprising: at least one storage medium storing a set of instructions; and at least one processor configured to communicate with the at least one storage medium, wherein when executing the set of instructions, the at least one processor is directed to cause the system to: obtain a target image having RGB channels including a red channel, a green channel, and a blue channel; estimate a noise value for each of the RGB channels; obtain a predetermined noise value for each of the RGB channels; determine, based on the predetermined noise values, a channel correlation coefficient of the RGB channels; and correct a color of the target image based on the noise values and the channel correlation coefficient of the RGB channels.
+2. The system of claim 1, wherein to estimate the noise value for each of the RGB channels, the at least one processor is further directed to cause the system to: obtain a width of the target image, and a height of the target image; and for each of the RGB channels: perform an edge detection process for the target image; determine a number count of edge pixels of the target image based on a result of the edge detection process; perform a convolution process on the target image to obtain a processed image; and estimate the noise value for the each of the RGB channels based on the width of the target image, the height of the target image, the number count of edge pixels of the target image, and the processed image.
+3. The system of claim 2, wherein to estimate the noise value for the each of the RGB channels based on the width of the target image, the height of the target image, the number count of edge pixels of the target image, and the processed image, the at least one processor is further directed to cause the system to: obtain internal pixels of the processed image, the internal pixels including pixels of the processed image excluding edge pixels of the processed image; determine an absolute value of luminance for each of the internal pixels; determine a sum value of the absolute values; and estimate the noise value for the each of the RGB channels based on the width of the target image, the height of the target image, the number count of edge pixels of the target image, and the sum value of the absolute values.
+4. The system of claim 1, wherein to determine, based on the predetermined noise values, a channel correlation coefficient of the RGB channels, the at least one processor is further directed to cause the system to: divide the target image into a plurality of sub-images; and for each of the plurality of sub-images: determine an RGB value for each pixel in the sub-image; and determine the channel correlation coefficient of the RGB channels for the sub-image based on the RGB values of the pixels in the sub-image, and the predetermined noise values.
+5. (canceled)
+6. The system of claim 4, wherein to correct the color of the target image based on the noise values and the channel correlation coefficient of the RGB channels, the at least one processor is further directed to cause the system to: for each of the plurality of sub-images: obtain a first correction matrix; determine a modification matrix based on the noise values and the channel correlation coefficient of the RGB channels of the sub-image; determine a second correction matrix based on the first correction matrix and the modification matrix; and correct the color of the target image based on the second correction matrixes.
+7. The system of claim 6, wherein to determine the modification matrix based on the noise values and the channel correlation coefficient of the RGB channels of the each of the plurality of sub-images, the at least one processor is further directed to cause the system to, for each of the plurality of sub-images: determine a noise related parameter of the target image based on the noise values of the RGB channels; and determine the modification matrix based on the noise related parameter of the target image and the channel correlation coefficient of the RGB channels of the sub-image.
+8. The system of claim 7, wherein to determine the modification matrix based on the noise related parameter of the target image and the channel correlation coefficient of the RGB channels of the each of the plurality of sub-images, the at least one processor is further directed to cause the system to: adjust the modification matrix by adjusting the noise related parameter of the target image based on the noise values of the RGB channels, until all values on principal diagonals of the modification matrix are greater than or equal to zero.
+9. The system of claim 6, wherein to correct the color of the target image based on the second correction matrixes, the at least one processor is further directed to cause the system to: for each pixel of the target image: determine at least one related second correction matrix from the second correction matrixes, wherein the at least one related second correction matrix corresponding to at least one sub-images that the pixel locates in; determine a weighted second correction matrix based on a position of the pixel and at least one position of the at least one sub-images that the pixel locates in; and correct a color of the pixel based on the weighted second correction matrix.
+10. A method for image processing, comprising: obtaining a target image having RGB channels including a red channel, a green channel, and a blue channel; estimating a noise value for each of the RGB channels; obtaining a predetermined noise value for each of the RGB channels; determining, based on the predetermined noise values, a channel correlation coefficient of the RGB channels; and correcting a color of the target image based on the noise values and the channel correlation coefficient of the RGB channels.
+11. The method of claim 10, wherein the estimating the noise value for each of the RGB channels includes: performing an edge detection process for the target image; determining a number count of edge pixels of the target image based on a result of the edge detection process; performing a convolution process on the target image to obtain a processed image; and estimating the noise value for the each of the RGB channels based on the width of the target image, the height of the target image, the number count of edge pixels of the target image, and the processed image.
+12. The method of claim 11, wherein the estimating the noise value for the each of the RGB channels based on the width of the target image, the height of the target image, the number count of edge pixels of the target image, and the processed image includes: obtaining internal pixels of the processed image, the internal pixels including pixels of the processed image excluding edge pixels of the processed image; determining an absolute value of luminance for each of the internal pixels; determining a sum value of the absolute values; and estimating the noise value for the each of the RGB channels based on the width of the target image, the height of the target image, the number count of edge pixels of the target image, and the sum value of the absolute values.
+13. The method of claim 10, wherein the determining, based on the predetermined noise values, the channel correlation coefficient of the RGB channels includes dividing the target image into a plurality of sub-images; and for each of the plurality of sub-images: determining an RGB value for each pixel in the sub-image; and determining the channel correlation coefficient of the RGB channels for the sub-image based on the RGB values of the pixels in the sub-image, and the predetermined noise values.
+14. (canceled)
+15. The method of claim 13, wherein the correcting the color of the target image based on the noise values and the channel correlation coefficient of the RGB channels includes: for each of the plurality of sub-images: obtaining a first correction matrix; determining a modification matrix based on the noise values and the channel correlation coefficient of the RGB channels of the sub-image; determining a second correction matrix based on the first correction matrix and the modification matrix; and correcting the color of the target image based on the second correction matrixes.
+16. The method of claim 15, wherein the determining the modification matrix based on the noise values and the channel correlation coefficient of the RGB channels of the each of the plurality of sub-images includes: for each of the plurality of sub-images: determining a noise related parameter of the target image based on the noise values of the RGB channels; and determining the modification matrix based on the noise related parameter of the target image and the channel correlation coefficient of the RGB channels of the sub-image.
+17. (canceled)
+18. The method of claim 15, wherein the correcting the color of the target image based on the second correction matrixes includes: for each pixel of the target image: determining at least one related second correction matrix from the second correction matrixes, wherein the at least one related second correction matrix corresponding to at least one sub-images that the pixel locates in; determining a weighted second correction matrix based on a position of the pixel and at least one position of the at least one sub-images that the pixel locates in; and correcting a color of the pixel based on the weighted second correction matrix.
+19. A system for identifying a color of an object, comprising: at least one storage medium storing a set of instructions; and at least one processor configured to communicate with the at least one storage medium, wherein when executing the set of instructions, the at least one processor is directed to cause the system to: obtain a target image including the object; identify in the target image a region of interest (ROI) including the object; identify at least one sub-region of the object from the ROI of the object; determine at least one first characteristic vector respectively corresponding to the at least one sub-region; determine a second characteristic vector of the ROI of the object; and identify, based on the at least one first characteristic vector and the second characteristic vector, the color of the object using a color identification model.
+20. (canceled)
+21. The system of claim 19, wherein the target image includes RGB channels including a red channel, a green channel, and a blue channel, and the at least one processor is further directed to cause the system to: estimate a noise value for each of the RGB channels; obtain a predetermined noise value for each of the RGB channels; determine, based on the predetermined noise values, a channel correlation coefficient of the RGB channels; and correct a color of the target image based on the noise values and the channel correlation coefficient of the RGB channels.
+22. 22-25. (canceled)
+26. The system of claim 19, wherein to determine the at least one first characteristic vector, the at least one processor is further directed to cause the system to: for each of the at least one sub-region: determine, based on a first convolution operation, a first pooling matrix for the sub-region; determine a first row vector for the sub-region by performing a first full connection operation to the first pooling matrix; and designate the first row vector as the first characteristic vector.
+27. (canceled)
+28. The system of claim 19, wherein to determine a second characteristic vector of the ROI of the object, the at least one processor is further directed to cause the system to: determine, based on a second convolution operation, a second pooling matrix for the ROI of the object; determine a second row vector for the ROI of the object by performing a second full connection operation to the second pooling matrix; and designate the second row vector as the second characteristic vector.
+29. (canceled)
+30. The system of claim 26, wherein to identify the color of the object using the color identification model, the at least one processor is further directed to cause the system to: determine a characteristic vector of the object by combining a plurality of first characteristic vectors and the second characteristic vector; determine, based on the characteristic vector of the object, a plurality of confidence coefficients corresponding to a plurality of color classifications included in the color identification model; designate the color of the object based on the plurality of confidence coefficients and the plurality of color classifications.
+31. 31-46. (canceled)
+</claims>
+</document>

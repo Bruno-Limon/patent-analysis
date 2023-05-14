@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2020-05-27
+</filing_date>
+
+<publication_date>
+2020-09-17
+</publication_date>
+
+<priority_date>
+2017-03-17
+</priority_date>
+
+<ipc_classes>
+G06F16/23,G06F16/27
+</ipc_classes>
+
+<assignee>
+IBM (INTERNATIONAL BUSINESS MACHINES CORPORATION)
+</assignee>
+
+<inventors>
+PARIKH, VIREN D.
+PATHAK, RAMESH C.
+RAO, SURYANARAYANA K.
+</inventors>
+
+<docdb_family_id>
+63520130
+</docdb_family_id>
+
+<title>
+DATA COMPARTMENTS FOR READ/WRITE ACTIVITY IN A STANDBY DATABASE
+</title>
+
+<abstract>
+A method for creating a standby database with read/write access capability while also maintaining a data consistency with a primary database, is provided. The method includes syncing the primary database with a physical standby mirror existing on the standby database, creating a first data compartment and a second data compartment on the standby database, separate from the physical standby mirror, applying a change made to the first data object on the primary database to the corresponding first data object on the physical standby mirror; and determining whether the change should be applied to the corresponding first data object stored on the first data compartment in accordance with data merge rules associated with the first data compartment and the second data compartment.
+</abstract>
+
+<claims>
+1. A method for creating a standby database with read/write access capability while also maintaining a data consistency with a primary database, the method comprising: syncing, by a processor of a computing system, the primary database with a physical standby mirror existing on the standby database, wherein a first data object and a second data object written to the primary database from a live application is synced in a read only access on the physical standby mirror; creating, by the processor, a first data compartment and a second data compartment on the standby database, separate from the physical standby mirror; applying, by the processor, a change made to the first data object on the primary database to the corresponding first data object on the physical standby mirror; and determining, by the processor, that the change should be applied to the corresponding first data object stored on the first data compartment in accordance with data merge rules associated with the first data compartment to keep the data stored on the first data compartment updated in real-time and in sync with the physical standby mirror.
+2. The method of claim 1, wherein the data merge rules associated with the first data compartment and the second data compartment specify which objects, tablespaces, and schemas stored on the first data compartment and the second data compartment, respectively, should be filtered or excluded from being synchronized with the physical standby mirror to create a redo stream associated with each data compartment.
+3. The method of claim 2, wherein the first data compartment and the second data compartment internally dequeues the redo stream in a sequential order and remaps object identifiers of the redo stream.
+4. The method of claim 1, wherein the processor communicates with a transaction log stream that captures changes to data objects in the primary database to receive the change to the first data object on the primary database.
+5. The method of claim 1, further comprising: receiving, by the processor, the change from a transaction log stream that captures changes to data objects in the primary database to receive the change to the first data object on the primary database, and cloning, by the processor, a plurality of data objects to a third data compartment, in response to a request by a testing application to perform a cloning process, wherein the testing application reads a target data object from the third data compartment if the target data object has been successfully cloned on the third data compartment, and reads the target data object from the physical standby mirror if the target data object has yet to be successfully cloned to the third data compartment.
+6. The method of claim 1, wherein the first data compartment and the second data compartment are a read/write data compartment, further wherein the first data compartment is a static data compartment synchronized with the physical standby mirror, and the second data compartment is a divergent compartment that includes data that has diverged from the data on the physical standby mirror over a period of time.
+7. The method of claim 1, wherein a reporting application accesses the first data compartment and the second data compartment which contains updated and real-time data objects, and creates a new temporary reporting data object on the first data compartment using the updated and real-time data.
+8. The method of claim 1, further comprising determining that the change should not be applied to the corresponding first data object stored on the second data compartment in accordance with data merge rules associated with the second data compartment
+9. A computer system, comprising: a processor; a memory device coupled to the processor; and a computer readable storage device coupled to the processor, wherein the storage device contains program code executable by the processor via the memory device to implement a method for creating a standby database with read/write access capability while also maintaining a data consistency with a primary database, the method comprising: syncing, by a processor of a computing system, the primary database with a physical standby mirror existing on the standby database, wherein a first data object and a second data object written to the primary database from a live application is synced in a read only access on the physical standby mirror; creating, by the processor, a first data compartment and a second data compartment on the standby database, separate from the physical standby mirror; applying, by the processor, a change made to the first data object on the primary database to the corresponding first data object on the physical standby mirror; and determining, by the processor, that the change should be applied to the corresponding first data object stored on the first data compartment in accordance with data merge rules associated with the first data compartment to keep the data stored on the first data compartment updated in real-time and in sync with the physical standby mirror.
+10. The computer system of claim 9, wherein the data merge rules associated with the first data compartment and the second data compartment specify which objects, tablespaces, and schemas stored on the first data compartment and the second data compartment, respectively, should be filtered or excluded from being synchronized with the physical standby mirror to create a redo stream associated with each data compartment.
+11. The computer system of claim 10, wherein the first data compartment and the second data compartment internally dequeues the redo stream in a sequential order and remaps object identifiers of the redo stream.
+12. The computer system of claim 9, wherein the first data compartment and the second data compartment are a read/write data compartment, further wherein the first data compartment is a static data compartment synchronized with the physical standby mirror, and the second data compartment is a divergent compartment that includes data that has diverged from the data on the physical standby mirror over a period of time.
+13. The computer system of claim 9, wherein a reporting application accesses the first data compartment and the second data compartment which contains updated and real-time data objects, and creates a new temporary reporting data object on the first data compartment using the updated and real-time data.
+14. The computer system of claim 9, further comprising: receiving, by the processor, the change from a transaction log stream that captures changes to data objects in the primary database to receive the change to the first data object on the primary database, and cloning, by the processor, a plurality of data objects to a third data compartment, in response to a request by a testing application to perform a cloning process, wherein the testing application reads a target data object from the third data compartment if the target data object has been successfully cloned on the third data compartment, and reads the target data object from the physical standby mirror if the target data object has yet to be successfully cloned to the third data compartment.
+15. A computer program product, comprising a computer readable hardware storage device storing a computer readable program code, the computer readable program code comprising an algorithm that when executed by a computer processor of a computing system implements a method for creating a standby database with read/write access capability while also maintaining a data consistency with a primary database, comprising: syncing, by a processor of a computing system, the primary database with a physical standby mirror existing on the standby database, wherein a first data object and a second data object written to the primary database from a live application is synced in a read only access on the physical standby mirror; creating, by the processor, a first data compartment and a second data compartment on the standby database, separate from the physical standby mirror; applying, by the processor, a change made to the first data object on the primary database to the corresponding first data object on the physical standby mirror; and determining, by the processor, that the change should be applied to the corresponding first data object stored on the first data compartment in accordance with data merge rules associated with the first data compartment to keep the data stored on the first data compartment updated in real-time and in sync with the physical standby mirror.
+16. The computer program product of claim 15, wherein the data merge rules associated with the first data compartment and the second data compartment specify which objects, tablespaces, and schemas stored on the first data compartment and the second data compartment, respectively, should be filtered or excluded from being synchronized with the physical standby mirror to create a redo stream associated with each data compartment.
+17. The computer program product of claim 16, wherein the first data compartment and the second data compartment internally dequeues the redo stream in a sequential order and remaps object identifiers of the redo stream.
+18. The computer program product of claim 15, wherein the first data compartment and the second data compartment are a read/write data compartment, further wherein the first data compartment is a static data compartment synchronized with the physical standby mirror, and the second data compartment is a divergent compartment that includes data that has diverged from the data on the physical standby mirror over a period of time.
+19. The computer program product of claim 15, wherein a reporting application accesses the first data compartment and the second data compartment which contains updated and real-time data objects, and creates a new temporary reporting data object on the first data compartment using the updated and real-time data.
+20. The computer program product of claim 15, further comprising: receiving, by the processor, the change from a transaction log stream that captures changes to data objects in the primary database to receive the change to the first data object on the primary database; and cloning, by the processor, a plurality of data objects to a third data compartment, in response to a request by a testing application to perform a cloning process, wherein the testing application reads a target data object from the third data compartment if the target data object has been successfully cloned on the third data compartment, and reads the target data object from the physical standby mirror if the target data object has yet to be successfully cloned to the third data compartment.
+</claims>
+</document>

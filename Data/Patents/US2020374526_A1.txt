@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2020-02-21
+</filing_date>
+
+<publication_date>
+2020-11-26
+</publication_date>
+
+<priority_date>
+2019-05-23
+</priority_date>
+
+<ipc_classes>
+G06N3/08,H04N19/12,H04N19/14,H04N19/625
+</ipc_classes>
+
+<assignee>
+BEIJING BAIDU NETCOM SCIENCE AND TECHNOLOGY COMPANY
+</assignee>
+
+<inventors>
+LI XIN
+LI FU
+SUN HAO
+ZHAO, XIANG
+LONG, XIANG
+CHI, ZHIZHEN
+HE, DONGLIANG
+Zhou, Zhichao
+</inventors>
+
+<docdb_family_id>
+67572678
+</docdb_family_id>
+
+<title>
+METHOD, DEVICE, APPARATUS FOR PREDICTING VIDEO CODING COMPLEXITY AND STORAGE MEDIUM
+</title>
+
+<abstract>
+A method, device, apparatus for predicting a video coding complexity and a computer-readable storage medium are provided. The method includes: acquiring an attribute feature of a target video; extracting a plurality of first target image frames from the target video; performing a frame difference calculation on the plurality of the first target image frames, to acquire a plurality of first frame difference images; determining a histogram feature for frame difference images of the target video according to a statistical histogram of each first frame difference image; and inputting a plurality of features of the target video into a coding complexity prediction model to acquire a coding complexity prediction value of the target video. Through the above method, the BPP prediction value can be acquired intelligently.
+</abstract>
+
+<claims>
+1. A method for predicting a video coding complexity, comprising: acquiring an attribute feature of a target video; extracting a plurality of first target image frames from the target video; performing a frame difference calculation on the plurality of the first target image frames, to acquire a plurality of first frame difference images; determining a histogram feature for frame difference images of the target video according to a statistical histogram of each first frame difference image; and inputting a plurality of features of the target video into a coding complexity prediction model to acquire a coding complexity prediction value of the target video, wherein the plurality of features of the target video comprise the attribute feature of the target video and the histogram feature for frame difference images of the target video.
+2. The method according to claim 1, wherein the extracting a plurality of first target image frames from the target video comprises: extracting V image frames from the target video according to a preset frames per second; dividing the V image frames into N segments of image stream according to a playing sequence the V image frames in the target video; and extracting K image frames from each segment of image stream to acquire the plurality of first target image frames; wherein V, N, and K are positive integers, and K is less than V.
+3. The method according to claim 2, wherein the performing a frame difference calculation on the plurality of first target image frames, to acquire a plurality of first frame difference images comprises: performing the frame difference calculation on two adjacent image frames of the K image frames in each segment of image stream, to acquire a first frame difference image.
+4. The method according to claim 1, wherein the determining a histogram feature for frame difference images of the target video according to a statistical histogram of each first frame difference image comprises: drawing a statistical histogram for each first frame difference image to acquire a plurality of histogram vectors for respective frame difference images; and averaging the plurality of histogram vectors to acquire the histogram feature of the frame difference images.
+5. The method according to claim 1, wherein the plurality of features of the target video further comprise a transforming histogram feature, and the method further comprises: performing a discrete cosine transform for each of the first frame difference images to acquire a plurality of spectrograms for respective first frame difference images; drawing a statistical histogram for each spectrogram to acquire a plurality of histogram vectors for respective spectrograms; and averaging the plurality of histogram vectors for the respective spectrograms to acquire the transforming histogram feature.
+6. The method according to claim 1, wherein the plurality of features of the target video further comprise an image depth feature and a frame difference depth feature, and the method further comprises: inputting a plurality of second target image frames extracted from the target video into an image deep learning model; acquiring an intermediate layer result of the image deep learning model in response to an input of the plurality of frames of second target image, to acquire the image depth feature; performing a frame difference calculation on the plurality of third target image frames extracted from the target video, to acquire a plurality of second frame difference images; inputting the plurality of second frame difference images into a frame difference deep learning model; and acquiring an intermediate layer result of the frame difference deep learning model in response to an input of the plurality of second frame difference images, to acquire the frame difference depth feature.
+7. The method according to claim 6, further comprising: extracting a plurality of sample image frames from a first sample video; and training a temporal segment network by using the plurality of sample image frames as inputs and using a true value of the coding complexity of the first sample video as a target, to acquire the image deep learning model.
+8. The method according to claim 6, further comprising: extracting a plurality of sample image frames from a first sample video; performing a frame difference calculation on the plurality of sample image frames, to acquire a plurality of sample frame difference images; and training a temporal segment network by using the plurality of sample frame difference images as inputs and using a true value of the coding complexity of the first sample video as a target, to acquire the frame difference deep learning model.
+9. The method according to claim 6, wherein the inputting a plurality of second target image frames extracted from the target video into an image deep learning model comprises: extracting V image frames from the target video according to a preset frames per second, wherein V is a positive integer; dividing the V image frames into N segments of image stream according to a playing sequence of the V image frames in the target video; extracting one image frame from each segment of image stream, to acquire N second target image frames; and inputting the N second target image frames into the image deep learning model.
+10. The prediction method according to claim 6, wherein the performing a frame difference calculation on the plurality of third target image frames extracted from the target video, to acquire a plurality of second frame difference images comprises: extracting V image frames from the target video according to a preset frames per second, wherein V is a positive integer; dividing the V image frames into N segments of image stream according to a playing sequence of the V image frames in the target video; and extracting two image frames from each segment of image stream and calculating a frame difference between the two image frames of each segment of image stream, to acquire N second frame difference images.
+11. The method according to claim 1, wherein the target video comprises a second sample video; and during training the coding complexity prediction model, inputting a plurality of features of the target video into a coding complexity prediction model to acquire a coding complexity prediction value of the target video comprises: inputting features of a plurality of second sample videos into a multi-layer perception model to acquire a plurality of coding complexity prediction values of the respective second sample videos; and according to a plurality of coding complexity true values and the plurality of coding complexity prediction values, adjusting the multi-layer perception model to acquire the coding complexity prediction model.
+12. The method according to claim 11, further comprising: transcoding the second sample video according to a preset coding parameter; and calculating a coding complexity value of the transcoded second sample video to acquire the coding complexity true value.
+13. A device for predicting a video coding complexity, comprising: one or more processors; and a storage device configured for storing one or more programs, wherein the one or more programs are executed by the one or more processors to enable the one or more processors to: acquire an attribute feature of a target video; extract a plurality of first target image frames from the target video; perform a frame difference calculation on the plurality of the first target image frames, to acquire a plurality of first frame difference images; determine a histogram feature for frame difference images of the target video according to a statistical histogram of each first frame difference image; and input a plurality of features of the target video into a coding complexity prediction model to acquire a coding complexity prediction value of the target video, wherein the plurality of features of the target video comprise the attribute feature of the target video and the histogram feature for frame difference images of the target video.
+14. The device according to claim 13, wherein the plurality of features of the target video further comprise a transforming histogram feature, and the one or more programs are executed by the one or more processors to enable the one or more processors further to: perform a discrete cosine transform for each of the first frame difference images to acquire a plurality of spectrograms for respective first frame difference images; draw a statistical histogram for each spectrogram to acquire a plurality of histogram vectors for respective spectrograms; and average the plurality of histogram vectors for the respective spectrograms to acquire the transforming histogram feature.
+15. The device according to claim 13, wherein the plurality of features of the target video further comprise an image depth feature and a frame difference depth feature, and the one or more programs are executed by the one or more processors to enable the one or more processors further to: input a plurality of second target image frames extracted from the target video into an image deep learning model; acquire an intermediate layer result of the image deep learning model in response to an input of the plurality of frames of second target image, to acquire the image depth feature; perform a frame difference calculation on the plurality of third target image frames extracted from the target video, to acquire a plurality of second frame difference images; input the plurality of second frame difference images into a frame difference deep learning model; and acquire an intermediate layer result of the frame difference deep learning model in response to an input of the plurality of second frame difference images, to acquire the frame difference depth feature.
+16. The device according to claim of 13, wherein the target video comprises a second sample video, and during training the coding complexity prediction model, the one or more programs are executed by the one or more processors to enable the one or more processors further to: input features of a plurality of second sample videos into a multi-layer perception model to acquire a plurality of coding complexity prediction values of the respective second sample videos; and according to a plurality of coding complexity true values and the plurality of coding complexity prediction values, adjust the multi-layer perception model to acquire the coding complexity prediction model.
+17. The device according to claim 16, wherein the one or more programs are executed by the one or more processors to enable the one or more processors further to: transcode the second sample video according to a preset coding parameter; and calculate a coding complexity value of the transcoded second sample video to acquire the coding complexity true value.
+18. A non-volatile computer-readable storage medium, in which a computer program is stored, wherein the computer program, when executed by a processor, implements the method of claim 1.
+</claims>
+</document>

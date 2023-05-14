@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2018-10-19
+</filing_date>
+
+<publication_date>
+2020-10-21
+</publication_date>
+
+<priority_date>
+2017-12-29
+</priority_date>
+
+<ipc_classes>
+G06F17/16
+</ipc_classes>
+
+<assignee>
+HUAWEI TECHNOLOGIES COMPANY
+</assignee>
+
+<inventors>
+LIN, Haoxun
+LIAO, Heng
+LIU, Hu
+TU, Jiajin
+YUAN, Honghui
+ZHU, Fan
+</inventors>
+
+<docdb_family_id>
+67065034
+</docdb_family_id>
+
+<title>
+MATRIX MULTIPLIER
+</title>
+
+<abstract>
+Embodiments of the present invention disclose a matrix multiplier, and relate to the field of data computing technologies, so as to divide two matrices into blocks for computation. The matrix multiplier includes: a first memory, a second memory, an operation circuit, and a controller, where the operation circuit, the first memory, and the second memory may perform data communication by using a bus; and the controller is configured to control, according to a preset program or instruction, a first matrix and a second matrix to be divided into blocks, and control the operation circuit to perform a multiplication operation on corresponding blocks in the first memory and the second memory based on block division results of the controller. The matrix multiplier may be configured to perform a multiplication operation on two matrices.
+</abstract>
+
+<claims>
+1. A matrix multiplier, comprising: a first memory, configured to store a first matrix, wherein the first matrix is an M * K matrix; a second memory, configured to store a second matrix, wherein the second matrix is a K * N matrix; an operation circuit connected to the first memory and the second memory, wherein the operation circuit comprises operation units of X rows and Y columns, and each operation unit comprises a vector multiplication circuit and an addition circuit, wherein the matrix multiplication circuit is configured to receive row vector data sent by the first memory and column vector data sent by the second memory, and multiply the two vectors; and the addition circuit is configured to add results obtained by multiplying the two vectors, and accumulate computation results of a same operation unit, to obtain an operation result of each operation unit; and a controller connected to the operation circuit, wherein the controller is configured to perform the following actions: dividing the first matrix into blocks in a unit of a sub-block whose size is X * L, to obtain S x R sub-blocks of a same size, wherein a sub-block in a row s and a column r of the S x R sub-blocks is denoted as Asr, s = (1, 2, 3, ..., and S), and r = (1, 2, 3, ..., and R); and dividing the second matrix into blocks in a unit of a sub-block whose size is L * Y, to obtain R x T sub-blocks of a same size, wherein a sub-block in a row r and a column t in the R x T sub-blocks is denoted as Brt, r = (1, 2, 3, ..., and R), and t = (1, 2, 3, ..., and T); wherein the controller is further configured to perform the following action:
+inputting a row x in X row vectors of any sub-block Asr and a column y in Y column vectors of a corresponding sub-block Brt into an operation unit in a row x and a column y in the operation units of X rows and Y columns, so as to perform an operation, wherein x = (1, 2, 3, ..., and X), y = (1, 2, 3, ..., and Y), and r in the any sub-block Asr and r in the corresponding sub-block Brt have an equal value.
+2. The matrix multiplier according to claim 1, wherein the controller is specifically configured to perform the following action:
+inputting the row x in the X row vectors of the any sub-block Asr and the column y in the Y column vectors of the corresponding sub-block Brt into the operation unit in a row x and a column y in the operation units of X rows and Y columns in parallel in a same clock cycle, so as to perform the operation.
+3. The matrix multiplier according to claim 1 or 2, wherein
+the controller is further configured to control row vectors of the any sub-block Asr to successively enter, in ascending order of x row numbers, a row x corresponding to the operation units of X rows and Y columns, wherein a difference between moments at which adjacent row vectors enter operation units in a same column and different rows is one clock cycle; and the controller is further configured to simultaneously control column vectors of the corresponding sub-block Brt to successively enter, in ascending order of y column numbers, a row y corresponding to the operation units of X rows and Y columns, wherein a difference between moments at which adjacent column vectors enter operation units in a same row and different columns is one clock cycle.
+4. The matrix multiplier according to any one of claims 1 to 3, wherein the controller is further configured to control:
+values of s and r to remain unchanged and a value of t to be changed in at least two consecutive sub-block multiplication computation cycles, so that the first memory reuses a same sub-block Asr within the at least two consecutive sub-block multiplication computation cycles, wherein the sub-block multiplication computation cycle is a time used by the operation units of X rows and Y columns to complete a matrix multiplication operation on one sub-block Asr and a corresponding sub-block Brt.
+5. The matrix multiplier according to any one of claims 1 to 4, wherein the matrix multiplier further comprises a third memory connected to the operation circuit; and
+the controller is configured to control the operation units of X rows and Y columns to store operation results of the vector multiplication circuit and the addition circuit into the third memory.
+6. The matrix multiplier according to claim 5, wherein the matrix multiplier further comprises: a fourth memory connected to the first memory and the second memory, and a fifth memory connected to the third memory; and
+the controller is further configured to control: before performing a multiplication operation on the first matrix and the second matrix,
+data sources of the first matrix and the second matrix to be moved from the fourth memory to the first memory and the second memory respectively, and the computation results to be moved from the third memory to the fifth memory.
+7. The matrix multiplier according to any one of claims 1 to 6, wherein the vector multiplication circuit comprises L multipliers, and the addition circuit comprises an adder tree with an input quantity being L + 1.
+8. The matrix multiplier according to any one of claims 1 to 7, wherein
+the first memory, the second memory, the operation circuit, and the controller are connected by using a bus interface unit.
+9. The matrix multiplier according to any one of claims 1 to 8, wherein and when M%X ≠ 0, computation is not performed on a row (M + 1) to a row (S * X - M) of the first matrix, and a value of a result is assigned 0; and when K%Y ≠ 0, computation is not performed on a row (K + 1) to a row (R * Y - K) of the first matrix, and a value of a result is assigned 0.
+10. The matrix multiplier according to any one of claims 1 to 8, wherein and when K%Y ≠ 0, computation is not performed on a column (K + 1) to a column (R * Y - K) of the first matrix, and a value of a result is assigned 0; and when N%X ≠ 0, computation is not performed on a row (N + 1) to a row (T * X - N) of the first matrix, and a value of a result is assigned 0.
+</claims>
+</document>

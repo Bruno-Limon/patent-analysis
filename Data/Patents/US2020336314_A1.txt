@@ -1,0 +1,60 @@
+<document>
+
+<filing_date>
+2019-04-17
+</filing_date>
+
+<publication_date>
+2020-10-22
+</publication_date>
+
+<priority_date>
+2019-04-17
+</priority_date>
+
+<ipc_classes>
+H04L29/06,H04L9/32
+</ipc_classes>
+
+<assignee>
+VERIZON PATENT AND LICENSING
+</assignee>
+
+<inventors>
+ASVEREN, TOLGA
+HALTOM JEFFREY
+BARAKAT, LULIA ANN
+ARCHER, DUNCAN
+STOVENOUR, Michael
+</inventors>
+
+<docdb_family_id>
+72832033
+</docdb_family_id>
+
+<title>
+VALIDATING AND SECURING CALLER IDENTIFICATION TO PREVENT IDENTITY SPOOFING
+</title>
+
+<abstract>
+A device receives call information associated with a call from a first user device to a second user device, where the first user device is associated with a first network, and the second user device is associated with a second network separate from the first network. The call information includes a caller identification and is received via an originating network device of the first network. The device determines whether the caller identification is verified, and adds authentication information to the call information when the caller identification is verified. The device receives the call information and the authentication information from a terminating network device of the first network, and removes the authentication information from the call information. The device adds a cryptographic signature to the call information, and causes the call information and the cryptographic signature to be provided to the second network for routing to the second user device.
+</abstract>
+
+<claims>
+1. A device, comprising: one or more memories; and one or more processors, communicatively coupled to the one or more memories, to: receive call information associated with a call from a first user device to a second user device, the first user device being associated with a first network, the second user device being associated with a second network that is separate from the first network, and the call information including a caller identification and being received via an originating network device of the first network; determine whether the caller identification is verified; add authentication information to the call information when the caller identification is determined to be verified; receive a request including the call information and the authentication information from a terminating network device of the first network, the request indicating a priority level of the request; determine whether a first overload condition exists; send, when the first overload condition exists, a response to the terminating network device indicating an error condition when the request indicates a low priority level; determine whether a second overload condition exists, send a response to the terminating network device indicating an error condition when the request indicates a high priority level; when no overload condition exists— remove the authentication information from the call information, add a cryptographic signature to the call information, send a response to the terminating network device indicating that the request has been successfully processed, and cause the call information and the cryptographic signature to be provided to the second network for routing to the second user device.
+2. The device of claim 1, wherein the one or more processors, when adding the authentication information to the call information, are to: add, to the call information, a verification status indicating that the caller identification is verified; add, to the call information, an attestation header indicating that the caller identification is valid; and add, to the call information, an origination identifier indicating origination information associated with the call.
+3. The device of claim 1, wherein the one or more processors are further to: receive a private key from a data structure that stores a plurality of private keys; utilize the private key and an originating telephone number associated with the call to generate the cryptographic signature.
+4. The device of claim 1, wherein the device communicates with the first network and the second network via a hypertext transfer protocol (HTTP) interface that includes an application programming interface (API).
+5. The device of claim 1, wherein, when the call information includes a profile identifier, the one or more processors are further to: retrieve, from a profile data structure, one or more parameters associated with the profile identifier; wherein the one or more processors, when determining whether the caller identification is verified, are to: determine whether the caller identification is verified based on the one or more parameters; and wherein the one or more processors, when adding the cryptographic signature to the call information, are to: add the cryptographic signature to the call information based on the one or more parameters.
+6. The device of claim 1, wherein the one or more processors are further to: retrieve, from an override parameters data structure, one or more verification override parameters and one or more signing override parameters; utilize the one or more verification override parameters to override a result of determining whether the caller identification is verified; utilize the one or more signing override parameters to prevent generation of the cryptographic signature; and add the one or more signing override parameters to the call information.
+7. The device of claim 1, wherein the first network includes an originating voice-over-Internet protocol (VoIP) network, and the second network includes a terminating VoIP network.
+8. A non-transitory computer-readable medium storing instructions, the instructions comprising: one or more instructions that, when executed by one or more processors of a device, cause the one or more processors to: receive a request including call information associated with a call from a first user device to a second user device, the first user device being associated with a first network, the second user device being associated with a second network that is separate from the first network, the call information including a cryptographic signature associated with a caller identification, and the request indicating a priority level of the request; determine whether a first overload condition exists; send, when the first overload condition exists, a response to the request indicating an error condition when the request indicates a low priority level; determine whether a second overload condition exists, send, when the second overload condition exists, a response to the request indicating an error condition when the request indicates a high priority level; when no overload condition exists: utilize a public key to determine whether the cryptographic signature and the caller identification are verified; remove the cryptographic signature from the call information when the cryptographic signature and the caller identification are determined to be verified; add authentication information to the call information when the cryptographic signature and the caller identification are determined to be verified; and cause the call information and the authentication information to be provided to the second network for routing to the second user device.
+9. The non-transitory computer-readable medium of claim 8, wherein the instructions further comprise: one or more instructions that, when executed by the one or more processors, cause the one or more processors to: receive other call information associated with another call from the first user device to the second user device, the other call information not including the cryptographic signature; and cause the other call information to be provided to the second network, for routing to the second user device, without altering the other call information.
+10. The non-transitory computer-readable medium of claim 8, wherein the authentication information includes a verification status indicating that the caller identification is verified.
+11. The non-transitory computer-readable medium of claim 8, wherein the instructions further comprise: one or more instructions that, when executed by the one or more processors, cause the one or more processors to: identify, in the call information, a repository of public keys that are validated to owners of the public keys; and request the public key from the repository of public keys.
+12. The non-transitory computer-readable medium of claim 8, wherein the device communicates with the first network and the second network via a hypertext transfer protocol (HTTP) interface that includes an application programming interface (API).
+13. The non-transitory computer-readable medium of claim 8, wherein, when the call information includes a profile identifier, the instructions further comprise: one or more instructions that, when executed by the one or more processors, cause the one or more processors to: retrieve, from a profile data structure, one or more parameters associated with the profile identifier; and determine whether the cryptographic signature and the caller identification are verified based on the one or more parameters.
+14. The non-transitory computer-readable medium of claim 8, wherein the instructions further comprise: one or more instructions that, when executed by the one or more processors, cause the one or more processors to: retrieve, from an override parameters data structure, one or more verification override parameters; and utilize the one or more verification override parameters to override a result of determining whether the cryptographic signature and the caller identification are verified.
+15. A method, comprising: receiving, by a device, a request including call information associated with a call from a first user device to a second user device, the first user device being associated with a first network, the second user device being associated with a second network that is separate from the first network, the call information including a cryptographic signature associated with a caller identification, and the request indicating a priority level of the request; determining, by the device, whether a first overload condition exists; sending, by the device and when the first overload condition exists, a response to the request indicating an error condition when the request indicates a low priority level; determining, by the device, whether a second overload condition exists; sending, by the device and when the second overload condition exists, a response to the request indicating an error condition when the request indicates a high priority level; and when no overload condition exists: utilizing, by the device, a public key to determine whether the cryptographic signature and the caller identification are verified, removing, by the device, the cryptographic signature from the call information when the cryptographic signature and the caller identification are determined to be verified, adding, by the device, authentication information to the call information when the cryptographic signature and the caller identification are determined to be verified, and causing, by the device, the call information and the authentication information to be provided to the second network for routing to the second user device.
+</claims>
+</document>

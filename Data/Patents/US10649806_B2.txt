@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2018-04-11
+</filing_date>
+
+<publication_date>
+2020-05-12
+</publication_date>
+
+<priority_date>
+2017-04-12
+</priority_date>
+
+<ipc_classes>
+G06F15/18,G06F9/28,G06F9/48,G06F9/50,G06N20/00
+</ipc_classes>
+
+<assignee>
+PETUUM
+PETUUM
+</assignee>
+
+<inventors>
+XING, ERIC
+QIAO, AURICK
+HO, QIRONG
+</inventors>
+
+<docdb_family_id>
+63790606
+</docdb_family_id>
+
+<title>
+Elastic management of machine learning computing
+</title>
+
+<abstract>
+A computer system implemented a method for elastic resource management for executing a machine learning (ML) program. The system is configured to create a set of logical executors, assign them across a set of networked physical computation units of a distributed computing system, partition and distribute input data and Work Tasks across the set of logical executors, assign them across the set of networked physical computation units, where the Work Tasks are partitioned into short units of computation (micro-tasks), each calculates a partial update to the ML program's model parameters and each last for less than one second; create a set of logical servers (LSes); partition and distribute globally shared model parameters of the ML program across the set of logical servers; execute partitioned Work Tasks according to a bounded asynchronous parallel standard, where a current Work Task is allowed to execute with stale model parameters without having all the current calculation updates from Work Tasks it depend on, provided the staleness of the model parameters is within a predefined limit.
+</abstract>
+
+<claims>
+1. A computer implemented method for elastic resource management for executing a machine learning (ML) program, comprising: creating a set of logical executors, assigning them across a set of networked physical computation units of a distributed computing system, receiving, partitioning and distributing input data and Work Tasks across the set of logical executors; creating a set of logical servers (LSes), assigning them across the set of networked physical computation units, partitioning and distributing globally shared model parameters of the ML program across the set of logical servers; executing partitioned Work Tasks according to a bounded asynchronous parallel standard, where a current Work Task is allowed to execute with stale model parameters without having one or more current calculation updates from Work Tasks it depend on, provided the stale model parameters is within a predefined limit, wherein the Work Tasks are partitioned into short units of computation (micro-tasks), each of the micro-tasks calculates a partial update to the ML program's model parameters and each of the micro-tasks last for less than one second; and periodically creating a recovery checkpoint by suspending execution of the ML program by waiting for all the LEs to finish their current micro-tasks, pausing all queued micro-tasks on each LE, then taking (1) a copy of a driver that controls micro-task scheduling, (2) copies of the task queue for each LE, (3) serialized copies of each LE's internal state, (4) serialized copies of the model parameter key-value pairs on each LS.
+2. The method of claim 1, further comprising: providing ready-made codes for programming or modifying the ML program to allow the ML program to define and keep track of individual LE's state, define dependencies for its micro-tasks, modify each calculation update with a staleness factor that one or more calculation update experiences, and dynamically dispatch micro-tasks according to self-specified dependencies at run-time.
+3. The method of claim 1, further comprising: executing micro-tasks according to a bulk synchronous parallel standard, where computation updates made by all micro-tasks a current micro-task depend on are required to be made visible to the current micro-task before it can be executed.
+4. The method of claim 1, wherein at least 20% of the time for executing the ML program, at least 20% of the micro-tasks are executed according to the bounded asynchronous parallel standard.
+5. The method of claim 1, further comprising: migrating an LE from one physical computing unit to another physical computing unit, where during the migration, prevent the LE from taking on further micro-tasks until the migration is completed, wait until the LE has finished processing its current micro-task, moving an input data and an internal state of the LE to the physical computing unit the LE is migrating to, allowing LEs that depend from the migrating LE to execute without waiting for the micro-tasks on the migrating LE to finish.
+6. The method of claim 1, further comprising: adding a new physical computing unit to the execution by creating new LEs on the new physical computing unit, migrating a set of existing LEs to the new physical computing unit.
+7. The method of claim 6, further comprising: creating a set of LSes on the new physical computing unit, migrating a set of existing LSes comprising a set of model parameters to the new physical computing unit, setting up request forwarding for the migrated model parameters.
+8. The method of claim 1, further comprising: removing a physical computing unit from the execution by suspending the execution of micro-tasks on a leaving physical computing unit, moving the micro-tasks and the internal state of each LE on the leaving physical computing unit to one or more remaining computing units, re-loading the input data of the micro-tasks at a destination physical computing unit rather than transferring them from the leaving physical computing unit.
+9. The method of claim 1, further comprising: maintaining a work queue of micro-tasks from the ML program at each LE, employing co-operative multitasking for performing the queue of micro-tasks, and coalescing its calculation updates from its micro-tasks into a local update cache for some time before flushing them to a globally shared parameter server.
+10. A system for elastic resource management for executing a machine learning (ML) program, comprising: a set of physical computing units, each comprising a set of logical executors and a set of logical servers; an input data partitioning module; a parameter server module; an application programming interface; and a driver module; wherein the system is configured to perform the steps of: creating a set of logical executors, assigning them across a set of networked physical computation units of a distributed computing system, receiving, partitioning and distributing input data and Work Tasks across the set of logical executors; creating a set of logical servers (LSes), assigning them across the set of networked physical computation units, partitioning and distributing globally shared model parameters of the ML program across the set of logical servers; executing partitioned Work Tasks according to a bounded asynchronous parallel standard, where a current Work Task is allowed to execute with stale model parameters without having one or more current calculation updates from Work Tasks it depend on, provided the stale model parameters is within a predefined limit, wherein the Work Tasks are partitioned into short units of computation (micro-tasks), each of the micro-tasks calculates a partial update to the ML program's model parameters and each of the micro-tasks last for less than one second; and periodically creating a recovery checkpoint by suspending execution of the ML program by waiting for all the LEs to finish their current micro-tasks, pausing all queued micro-tasks on each LE, then taking (1) a copy of a driver that controls micro-task scheduling, (2) copies of the task queue for each LE, (3) serialized copies of each LE's internal state, (4) serialized copies of the model parameter key-value pairs on each LS.
+11. The system of claim 10, wherein the system is further configured to perform the steps of: providing ready-made codes for programming or modifying the ML program to allow the ML program to define and keep track of individual LE's state, define dependencies for its micro-tasks, modify each calculation update with a staleness factor that one or more calculation update experiences, and dynamically dispatch micro-tasks according to self-specified dependencies at run-time.
+12. The system of claim 10, wherein the system is further configured to perform the steps of: executing micro-tasks according to a bulk synchronous parallel standard, where computation updates made by all micro-tasks a current micro-task depend on are required to be made visible to the current micro-task before it can be executed.
+13. The system of claim 10, wherein the system is further configured so that at least 20% of the time for executing the ML program, at least 20% of the micro-tasks are executed according to the bounded asynchronous parallel standard.
+14. The system of claim 10, wherein the system is further configured to perform the steps of migrating an LE from one physical computing unit to another physical computing unit, where during the migration, prevent the LE from taking on further micro-tasks until the migration is completed, wait until the LE has finished processing its current micro-task, moving an input data and an internal state of the LE to the physical computing unit the LE is migrating to, allowing LEs that depend from the migrating LE to execute without waiting for the micro-tasks on the migrating LE to finish.
+15. The system of claim 10, wherein the system is further configured to perform the steps of: adding a new physical computing unit to the execution by creating new LEs on the new physical computing unit, migrating a set of existing LEs to the new physical computing unit.
+16. The system of claim 15, wherein the system is further configured to perform the steps of: creating a set of LSes on the new physical computing unit, migrating a set of existing LSes comprising a set of model parameters to the new physical computing unit, setting up request forwarding for the migrated model parameters.
+17. The system of claim 10, wherein the system is further configured to perform the steps of: removing a physical computing unit from the execution by suspending the execution of micro-tasks on a leaving physical computing unit, moving the micro-tasks and the internal state of each LE on the leaving physical computing unit to one or more remaining computing units, re-loading the input data of the micro-tasks at a destination physical computing unit rather than transferring them from the leaving physical computing unit.
+18. The system of claim 10, wherein the system is further configured to perform the steps of: maintaining a work queue of micro-tasks from the ML program at each LE, employing co-operative multitasking for performing the queue of micro-tasks, and coalescing its calculation updates from its micro-tasks into a local update cache for some time before flushing them to a globally shared parameter server.
+</claims>
+</document>

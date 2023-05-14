@@ -1,0 +1,102 @@
+<document>
+
+<filing_date>
+2019-11-26
+</filing_date>
+
+<publication_date>
+2020-06-04
+</publication_date>
+
+<priority_date>
+2018-11-26
+</priority_date>
+
+<ipc_classes>
+H03M7/30,H03M7/40
+</ipc_classes>
+
+<assignee>
+ATOMBEAM TECHNOLOGIES
+</assignee>
+
+<inventors>
+HADDAD, MOJGAN
+RIAHI, RYAN
+YEOMANS, CHARLES
+RIAHI, RAZMIN
+RIAHI, ALIASGHAR
+COOPER, JOSHUA
+</inventors>
+
+<docdb_family_id>
+70853081
+</docdb_family_id>
+
+<title>
+HIGHT-SPEED TRANSFER OF SMALL DATA SETS
+</title>
+
+<abstract>
+A system and method for high-speed transfer of small data sets, that provides near-instantaneous bit- level lossless compression, that is ideal for communications environments that cannot tolerate even small amounts of data corruption, have very low latency tolerance, where data has a low entropy rate, and where every bit costs the user bandwidth, power, or time so that deflation is worthwhile. Where some loss of data can be tolerated, the system and method can be configured for use as lossy compression.
+</abstract>
+
+<claims>
+1. A system for high-speed transfer of small data sets, comprising:
+a customized library generator comprising at least a plurality of programming instructions stored in the memory of, and operating on at least one processor of, a computing device, wherein the plurality of programming instructions, when operating on the at least one processor, cause the computing device to:
+receive a first dataset comprising a plurality of words, each word comprising a string of bits, wherein the first dataset is believed to be representative of subsequent datasets;
+count the plurality of words to produce an occurrence frequency for each word;
+create a first Huffman binary tree based on the frequency of occurrences of each word in the first dataset;
+assign a Huffman codeword to each observed word in the first dataset according to the first Huffman binary tree;
+construct a word library, wherein the word library stores the codewords and their corresponding words as key-value pairs in the library of key-value pairs;
+create a second Huffman binary tree with a maximum codeword length shorter than the maximum codeword length in the first Huffman binary tree, and containing all combinations of such codewords to that shorter maximum length;
+assign a word to each Huffman codeword in the second Huffman binary tree; and add each word and its corresponding codeword, to the word library as key-value pairs in the library of key-value pairs;
+a transmission encoder comprising at least a plurality of programming instructions stored in the memory of, and operating on at least one processor of, a computing device, wherein the plurality of programming instructions, when operating on the at least one processor, cause the computing device to:
+receive one or more subsequent datasets, each comprising a plurality of words, each word comprising a string of bits;
+compare each word in the subsequent dataset or datasets against the word library; if a word is not a mismatch, append the word's codeword to a transmission data stream; if a word is a mismatch, append a mismatch code to the transmission data stream followed by the unencoded word; and
+transmit or store the transmission data stream;
+a transmission decoder, comprising at least a plurality of programming instructions stored in the memory of, and operating on at least one processor of, a computing device, wherein the plurality of programming instructions, when operating on the at least one processor, cause the computing device to:
+receive one or more datasets, each comprising a plurality of codewords, each codeword comprising a string of bits;
+compare each codeword in the dataset or datasets against the word library;
+if a codeword is not a mismatch, append the codeword's word to a transmission data stream; if a codeword is a mismatch codeword, discard the mismatch code and append the following word to the transmission data stream; and
+transmit or store the transmission data stream;
+a hybrid encoder comprising at least a plurality of programming instructions stored in the memory of, and operating on at least one processor of, a computing device, wherein the plurality of programming instructions, when operating on the at least one processor, cause the computing device to:
+receive mismatched words from the transmission encoder;
+parse the mismatched words into partial words that correspond to a codeword in the second Huffman tree; and
+return the codeword for each partial word to the transmission encoder; and
+a hybrid decoder comprising at least a plurality of programming instructions stored in the memory of, and operating on at least one processor of, a computing device, wherein the plurality of programming instructions, when operating on the at least one processor, cause the computing device to:
+receive mismatched codewords from the transmission decoder; compare each codeword against the word library; and
+return the word associated with the mismatched codeword to the transmission encoder.
+2. The system of claim 1, wherein the library size is reduced by sorting the word library based on the occurrence probability of each key-value pair and removing low-probability key-value pairs.
+3. The system of claim 1, wherein delta encoding is applied to a plurality of words to store an approximate codeword as a value in the word library, for which each of the plurality of source words is a valid corresponding key.
+4. The system of claim 3, wherein the exclusive or (XOR) correction resulting from the delta encoding is discarded, resulting in a faster, but lossy compression algorithm.
+5. The system of claim 1, wherein parameters of the system are optimized according to the datasets being used.
+6. A method for high-speed transmission of small data sets using a word library, comprising the steps of:
+receiving a first dataset comprising a plurality of words, each word comprising a string of bits, wherein the first dataset is believed to be representative of subsequent datasets;
+counting the plurality of words to produce an occurrence frequency for each word;
+creating a first Huffman binary tree based on the frequency of occurrences of each word in the first dataset;
+assigning a Huffman codeword to each observed word in the first dataset according to the first Huffman binary tree;
+constructing a word library, wherein the word library stores the codewords and their
+corresponding words as key-value pairs in the library of key-value pairs; creating a second Huffman binary tree with a maximum codeword length shorter than the maximum codeword length in the first Huffman binary tree, and containing all combinations of such codewords to that shorter maximum length;
+assigning a word to each Huffman codeword in the second Huffman binary tree;
+adding each word and its corresponding codeword, to the word library as key-value pairs in the library of key-value pairs;
+receiving, at a transmission encoder one or more subsequent datasets, each comprising a plurality of words, each word comprising a string of bits;
+comparing each word in the subsequent dataset or datasets against the word library;
+if a word is not a mismatch, appending the word's codeword to a transmission data stream; if a word is a mismatch, appending a mismatch code to the transmission data stream followed by the unencoded word;
+transmitting or storing the transmission data stream;
+receiving, at a transmission decoder, one or more datasets, each comprising a plurality of codewords, each codeword comprising a string of bits;
+comparing each codeword in the dataset or datasets against the word library;
+if a codeword is not a mismatch, append the codeword's word to a transmission data stream; if a codeword is a mismatch codeword, discard the mismatch code and append the following word to the transmission data stream;
+transmitting or storing the transmission data stream;
+receiving, at a hybrid encoder, mismatched words from the transmission encoder;
+parsing the mismatched words into partial words that correspond to a codeword in the second Huffman tree;
+returning the codeword for each partial word to the transmission encoder;
+receiving, at a hybrid decoder, mismatched codewords from the transmission decoder;
+comparing each codeword against the word library; and
+returning the word associated with the mismatched codeword to the transmission encoder.
+7. The method of claim 6, wherein the library size is reduced by sorting the word library based on the occurrence probability of each key-value pair and removing low-probability key-value pairs.
+8. The method of claim 6, wherein delta encoding is applied to a plurality of words to store an approximate codeword as a value in the word library, for which each of the plurality of source words is a valid corresponding key.
+9. The system of claim 8, wherein the exclusive or (XOR) correction resulting from the delta encoding is discarded, resulting in a faster, but lossy compression algorithm.
+10. The method of claim 6, wherein parameters of the system are optimized according to the datasets being used.
+</claims>
+</document>

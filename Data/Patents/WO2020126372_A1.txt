@@ -1,0 +1,85 @@
+<document>
+
+<filing_date>
+2019-11-27
+</filing_date>
+
+<publication_date>
+2020-06-25
+</publication_date>
+
+<priority_date>
+2018-12-19
+</priority_date>
+
+<ipc_classes>
+G06K9/62,G06N3/08
+</ipc_classes>
+
+<assignee>
+ROBERT BOSCH
+CARNEGIE MELLON UNIVERSITY
+</assignee>
+
+<inventors>
+SCHMIDT, FRANK
+WONG, ERIC
+KOLTER, JEREMY ZIEG
+</inventors>
+
+<docdb_family_id>
+64746095
+</docdb_family_id>
+
+<title>
+DEVICE AND METHOD TO IMPROVE THE ROBUSTNESS AGAINST 'ADVERSARIAL EXAMPLES'
+</title>
+
+<abstract>
+A computer-implemented method for obtaining an adversarial input signal (xadv) to a classifier (60) for classifying input signals (x) obtained from a sensor (30), wherein said adversarial input signal (xadv) is obtained from an original input signal (xorg) and wherein said adversarial input signal (x adv ) and said original input signal (xorg) cause the classifier (60) to classify said original input signal (xorg) as belonging to a first class (ℓ0) and said adversarial input signal (xadv) as belonging to a second class (ℓ) different from said first class (ℓ0), wherein the method comprises the steps of: - modifying said original input signal (xorg) to yield a modified input signal (xmod); - projecting said modified input signal (xmod) onto a metric ball around said original input signal (xorg) to yield a projected input signal (xproj); and - obtaining said adversarial input signal (xadv) depending on said projected input signal (xproj), characterized in that said metric is an at least approximate Wasserstein distance.
+</abstract>
+
+<claims>
+1. A computer-implemented method for obtaining an adversarial input signal (xadv) to a classifier (60) for classifying input signals (x) obtained from a sensor (30),
+wherein said adversarial input signal (xadv) is obtained from an original input signal (xors), and
+wherein said adversarial input signal (xadv) and said original input signal (xorg) cause the classifier (60) to classify said original input signal (xorg) as belonging to a first class (£0) and said adversarial input signal (xadv) as belonging to a second class (£) different from said first class (£0), wherein the method comprises the steps of:
+modifying said original input signal (xorg) to yield a modified input signal (xmod);
+projecting said modified input signal (xmod) onto a metric ball around said original input signal (xorg) to yield a projected input signal (xproj); and obtaining said adversarial input signal (xadv) depending on said projected input signal (xproj),
+characterized in that said metric is an at least approximate Wasserstein distance (WD, Wp).
+2. The method according to claim 1, wherein said projected input signal (xproj) is determined by minimizing a distance to said modified input signal (xmod) under a constraint that a distance, according to said at least approximate Wasserstein distance (WD, Wp) is not larger than a predefined radius ( e ) of said metric ball.
+3. The method according to claim 1 or 2, wherein said at least approximate Wasserstein distance is a Wasserstein distance (WD).
+4. The method according to claim 2 and 3, wherein said minimization is obtained by maximizing a dual problem corresponding to a primal problem that is given by said minimization under said constraints.
+5. The method according to claim 1 or 2, where said at least approximate Wasserstein distance is aSinkhorn distance (VK^ ) which differs from said Wasserstein distance ( WD by an entropic term ( ET ), wherein for any pair of first distribution (P) and second distribution (Q), said entropic term ( ET ) characterizes an entropy of a distribution P that satisfies P1" =P, Pt 1" =Q.
+6. The method according to claim 2 and 5, wherein said projected input signal (xproj) is determined by solving a convex optimization corresponding to said minimization.
+7. The method according to any one of the above claims, wherein said
+classifier (60), when provided with an input signal (x), is configured to output a first classification value (/io) corresponding to said first class (£0) and a second classification value (/j) corresponding to said a predefined second class (£), and wherein said modified input signal (xmod) causes a difference (g ) between said first classification value (/io) and said second classification value (/j) to be smaller than the difference (g) caused by said original input signal (xorg).
+8. The method according to any one of claims 1 to 7, wherein said classifier (60), when provided with an input signal (x), is configured to output a first classification value (/io) corresponding to said first class (£0), and wherein said modified input signal (xmod) causes said first classification value (/io) to be smaller than said first classification value (/io) caused by said original input signal (xorg).
+9. The method according to any one of the above claims, wherein the steps of modifying said original input signal (xorg) to yield said modified input signal (xmod) and projecting said modified input signal (xmod) onto said predefined subset to yield said projected input signal (xproj) are carried out iteratively by using said projected input signal (xproj) of a preceding iteration as original input signal (xorg) a subsequent iteration, wherein said step projecting said modified input signal (xmod) onto said predefined subset is carried out after each step of modifying said original input signal (xorg).
+10. A computer-implemented method for training a classifier (60) having
+improved accuracy for classifying input signals (x) obtained from a sensor (30), comprising the steps of:
+- accessing, from a memory (146), the classifier (60), the classifier (60) having been trained using a plurality of training input signals, the training images being labeled for a plurality of classes;
+generating an adversarial input signal (xadv) with the method according to any one of claims 1 to 9; and
+further training the classifier (60) to have improved accuracy using at least the adversarial input signal (xadv).
+11. A computer-implemented method for using a classifier (60) trained with the method according to claim 10 for classifying sensor signals, comprising the steps of:
+- receiving a sensor signal (S) comprising data from a sensor (30), determining an input signal (x) which depends on said sensor signal (S), and
+feeding said input signal (x) into said classifier (60) to obtain an output signal (y) that characterizes a classification of said input signal (x).
+12. A computer-implemented method for using a classifier (60) trained with the method according to claim 10 for providing an actuator control signal (A) for controlling an actuator (10), comprising all the steps of the method according to claim 8 and further comprising the step of:
+- determining said actuator control signal (A) depending on said output signal (y).
+13. A computer-implemented method for assessing a robustness of a classifier for classifying for classifying sensor signals, comprising the steps of:
+receiving a sensor signal (S) comprising data from a sensor (30), determining an original input signal (xorg) which depends on said sensor signal (S),
+determining, by the classifier (60), a first output signal (yl) that
+characterizes a classification of said original input signal (xorg);
+determining an adversarial input signal (xadv) with the method according to any one of claims 1 to 9,
+determining, by the classifier (60), a second output signal (y2) that characterizes a classification of said adversarial input signal (xadv), and determining a robustness value depending on said first output signal (yl) and on said second output signal (y2).
+14. A computer-implemented method for providing an actuator control signal (A) for controlling an actuator (10) depending on an output signal (y) of a classifier (60), comprising the steps of:
+assessing whether said classifier (60) is robust or not using the method according to claim 10, and determining said actuator control signal (A) in accordance with a result of said assessment, in particular by determining said actuator control signal (A) to cause said actuator (10) to operate in a safe mode if said classifier (60) is deemed not robust as a result of said assessment.
+15. The method according to any one of claims 12 or 14, in which said actuator (10) controls an at least partially autonomous robot (100) and/or a manufacturing machine (200)) and/or an access control system (300).
+16. Computer program that is configured to cause a computer to carry out the method according to any one of claims 1 to 15 with all of its steps if the computer program is carried out by a processor (45, 145).
+17. Machine-readable storage medium (46, 146) on which the computer program according to claim 16 is stored.
+18. Classifier (60) for classifying sensor signals, characterized in that said classifier (60) is obtainable by training with the method according to claim 10.
+19. Control system (40) for operating an actuator (10), said control system (40) comprising the classifier (60) according to claim 18 and being configured to operate said actuator (10) in accordance with an output of said classifier
+(60).
+20. Control system (40) that is configured to carry out the method according to any one of claims 12 to 15.
+21. Training system (140) that is configured to carry out the method according to claim 10.
+</claims>
+</document>

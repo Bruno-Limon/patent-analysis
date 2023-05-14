@@ -1,0 +1,82 @@
+<document>
+
+<filing_date>
+2020-06-26
+</filing_date>
+
+<publication_date>
+2020-12-30
+</publication_date>
+
+<priority_date>
+2019-06-28
+</priority_date>
+
+<ipc_classes>
+G06F17/15,G06N3/04,G06N3/063
+</ipc_classes>
+
+<assignee>
+AMAZON TECHNOLOGIES
+</assignee>
+
+<inventors>
+DIAMANT, RON
+HUYNH, JEFFREY T.
+</inventors>
+
+<docdb_family_id>
+71662350
+</docdb_family_id>
+
+<title>
+DILATED CONVOLUTION USING SYSTOLIC ARRAY
+</title>
+
+<abstract>
+In one example, a non-transitory computer readable medium stores instructions that, when executed by one or more hardware processors, cause the one or more hardware processors to: load a first weight data element of an array of weight data elements from a memory into a systolic array; select a subset of input data elements from the memory into the systolic array to perform first computations of a dilated convolution operation, the subset being selected based on a rate of the dilated convolution operation and coordinates of the weight data element within the array of weight data elements; and control the systolic array to perform the first computations based on the first weight data element and the subset to generate first output data elements of an output data array. An example of a compiler that generates the instructions is also provided.
+</abstract>
+
+<claims>
+WHAT IS CLAIMED IS:
+1. A non-transitory computer readable medium storing instructions that, when executed by one or more hardware processors, cause the one or more hardware processors to:
+load a first weight data element of an array of weight data elements from a memory into a systolic array;
+select a subset of input data elements, the subset being selected based on information indicating a rate of the dilated convolution operation and coordinates of the first weight data element within the array of weight data elements;
+load the subset of input data elements from the memory into the systolic array to perform first computations of a dilated convolution operation; and
+control the systolic array to perform the first computations based on the first weight data element and the subset to generate first output data elements of an output data array.
+2. The non-transitory computer readable medium of claim 1, wherein the subset is selected based on a stride of the dilated convolution operation.
+3. The non-transitory computer readable medium of claim 2, wherein the input data elements is stored in a contiguous address space within the memory.
+4. The non-transitoiy computer readable medium of claim 3, wherein the subset of the input data elements is selected based on skipping a number of input data elements between each selected input data element, the number of input data elements skipped being based on the stride.
+5. The non-transitory computer readable medium of claims 3 or 4, wherein the instructions include a plurality of parameters comprising:
+a starting source address of the subset of input data elements in the memory; a skip parameter that indicates the number of input data elements skipped; and a number of the subset of the input data elements.
+6. The non-transitory computer readable medium of claim 5. wherein the starting source address is based on the rate of the dilated convolution operation.
+7. The non-transitory computer readable medium of any of claims 1-6, wherein the subset is the first subset;
+wherein the instructions, when executed by one or more hardware processors, cause the one or more hardware processors to:
+control the systolic array to perform the first computations based on the first weight data element and the subset to generate first partial sums;
+control a summation buffer to accumulate the first partial sums; load a second weight data element of the array of weight data elements from a memory into the systolic array;
+select a second subset of the input data elements from the memory into the systolic array;
+control the systolic array to perform second computations based on the second weight data element and the second subset to generate second partial sums; and
+control the summation buffer to accumulate the second partial sums to generate the first output data elements.
+8. The non-transitory computer readable medium of claim 7, wherein a first size of the first subset of the first input data elements and a second size of the second subset of the first input data elements are selected based on a size of the summation buffer.
+9. The non-transitory computer readable medium of claim 8, wherein the instructions, when executed by one or more hardware processors, cause the one or more hardware processors to store the first partial sums at an address of the buffer based on a number of zero output data elements included in the first output data elements.
+10. The non-transitory computer readable medium of claim 9. wherein the instructions include a set of parameters including:
+a first starting source address of the first subset of the input data elements in the memory; and
+a second starting source address of the second subset of the input data elements in the memory; and
+wherein the first starting source address and the second starting source address are offset from each other based on the rate of the dilated convolution.
+11. The non-transitory computer readable medium of claim 10, wherein the set of parameters includes a first starting destination address of the summation buffer to receive the first partial sums and a second starting destination address of the summation buffer to receive the second partial sums.
+12. An apparatus comprising: a memory that stores a set of instructions;
+one or more hardware processors configured to execute the set of instructions to:
+receive first information indicative of a rate and a stride of a dilated convolution operation to be performed by a systolic array based on a weight data array and an input data array to generate an output data array;
+receive second information indicative of a dimension of a summation buffer;
+determine, for each weight data element of the weight data array, a subset of input data elements of the input data array to multiply with the each weight data element to compute partial sums, the subset of input data elements being determined based on a projection operation from the summation buffer and based on the rate of the dilated convolution, the stride of the dilated convolution, the dimension of the summation buffer, and coordinates of the each weight data element in the weight data array;
+determine, for the each weight data element of the weight data array, destination addresses of the summation buffer to receive the partial sums based on the subset of input data elements; and generate a computation instruction for each weight data element of the weight data array to include third information indicative of the destination addresses and the subset of input data elements.
+13. The apparatus of claim 12, wherein the one or more hardware processors are configured to execute the set of instructions to, for the each weight data element: determine, based on the dimension information of the summation buffer and the stride of the dilation convolution operation, a projected region that aligns a first input data element of the input data array;
+shift the projected region with respect to the first input data element of the input data array by an offset based on coordinates of the each weight data element in the weight data array and the rate of the dilated convolution;
+align a stride pattern with the shifted projected region, the stride pattern being based on a stride of the dilated convolution operation;
+determine, based on the dimension information, coordinates of input data elements of the input data array that overlap with the stride pattern; and
+determine the subset of input data elements for the each weight data element based on the coordinates.
+14. The apparatus of claim 13, wherein the one or more hardware processors are configured to execute the set of instructions to determine the offset based on scaling the coordinates of the first weight data element in the weight data element by the rate of the dilated convolution.
+15. The apparatus of claim 14, wherein the one or more hardware processors are configured to execute the set of instructions to, for the each weight data element:
+determine a source address of a first of the subset of the input data elements in the memory; and include information indicating the address, a number of input data elements included in the subset of the input data array, and a step size in the computation instruction to enable the systolic array to load the subset of input data elements from the memory.
+</claims>
+</document>

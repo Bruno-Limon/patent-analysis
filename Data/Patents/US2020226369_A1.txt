@@ -1,0 +1,60 @@
+<document>
+
+<filing_date>
+2019-12-31
+</filing_date>
+
+<publication_date>
+2020-07-16
+</publication_date>
+
+<priority_date>
+2019-01-04
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/62
+</ipc_classes>
+
+<assignee>
+SHENZHEN UNIVERSITY
+</assignee>
+
+<inventors>
+WU, KAISHUN
+</inventors>
+
+<docdb_family_id>
+71407141
+</docdb_family_id>
+
+<title>
+INTERACTIVE METHOD AND INTERACTIVE SYSTEM FOR SMART WATCH
+</title>
+
+<abstract>
+An interactive method of a smart watch includes the following steps: S1. acquiring a vibration signal of an accelerometer and a gyroscope of a smart watch based on a vibration signal transmitted by a human body; S2. identifying the vibration signal by using an anomaly detection algorithm; S3. pre-processing the vibration signal, and further classifying and identifying the vibration signal by using an improved algorithm of a k-nearest neighbor algorithm; S4. analyzing the user's feedback on the results and correcting them in time to maintain a stable identification accuracy. The present disclosure also discloses an interactive system, including a signal detection module, an identification and classification module, and a real-time feedback module. In the present disclosure, the human body part is regarded as a virtual screen based on the vibration signal transmitted by the human body.
+</abstract>
+
+<claims>
+1. An interactive method of a smart watch, comprising: S1. acquiring a vibration signal of an accelerometer and a gyroscope of a smart watch based on a vibration signal transmitted by a human body; S2. identifying the vibration signal by using an anomaly detection algorithm; S3. pre-processing the vibration signal, and further classifying and identifying the vibration signal by using an improved algorithm of a k-nearest neighbor algorithm; S4. analyzing a feedback of a user on classification and identification results and correcting the classification and identification results in time to keep an identification accuracy stable.
+2. The interactive method of a smart watch of claim 1, wherein the vibration signals of X, Y, and Z axes of the accelerometer and the gyroscope are separately collected.
+3. The interactive method of a smart watch of claim 2, wherein the step S2 of identifying the signal by using an anomaly detection algorithm comprises the following steps: S21. collecting data of a Z axis of the accelerometer; S22. filtering the data of the Z axis of the accelerometer by using a high-pass filter; S23. setting a threshold of an effective tapping signal and a threshold of a noise signal; S24. reading a signal having a smaller amplitude than the threshold of the noise signal as a first state; S25. continue monitoring, waiting to read a signal having a larger amplitude r than the threshold of the effective tapping signal, setting a position of the signal having the larger amplitude than the threshold of the effective tapping signal to be X, and setting a starting position of the signal to be X-L, namely, a position at a length L before the position X; S26. continue monitoring, waiting to read a continuous signal having a smaller amplitude than the threshold of the noise signal, and setting an end position of the signal as a current position when a continuous amplitude is smaller than the threshold of the noise signal; S27. obtaining the signal through the starting position and the end position of the signal, judging whether a length of the signal is within a length range, and if the length of the signal is not within a length range, returning to the step S25, otherwise proceeding to the step S28; S28. performing a high-pass filtering on the signal, calculating energy of first m points and energy of points after a mth point of the signal after filtering respectively, judging whether an amplitude of the signal is greater than a threshold of a signal-to-noise ratio, if the amplitude of the signal is greater than the threshold of the signal-to-noise ratio, determining the signal as an valid signal, otherwise determining the signal as a noise signal, and returning to S25.
+4. The interactive method of a smart watch of claim 1, wherein the step S3 comprises the following steps: S31. pre-processing the signal by normalization, subtracting a mean value from the signal and dividing the signal by a variance; S32. in the initialization training model phase, storing the signal processed in the step S31 as a training sample in a database; in the actual use phase, classifying and identifying the signal by using the improved algorithm based on the k-nearest neighbor algorithm.
+5. The interactive method of a smart watch of claim 1, wherein the improved algorithm of the k-nearest neighbor algorithm comprises: based on a dynamic time warping algorithm, matching an actual signal and a training signal in units of frame, and calculating a shortest distance between the actual signal and the training signal, and using the shortest distance as a basis for the k-nearest neighbor algorithm for classification and identification.
+6. The interactive method of a smart watch of claim 5, wherein the shortest distance is a Manhattan distance or an Euler distance.
+7. The interactive method of a smart watch of claim 1, wherein the step S4 includes the following steps: S41. after collecting the classification result obtained in the step S32, correcting an input result of the user; S42. after correction, correcting the training sample to keep the identification accuracy stable.
+8. The interactive method of a smart watch of claim 7, wherein in the step S41, a classification and identification result in the step 32 is corrected by providing a candidate key or by a correlation result in the input method.
+9. The interactive method of a smart watch of claim 8, wherein the step S42 specifically includes the following steps: S421. when a correction result is identical to a classification result, performing no operation; S422. when the correction result is not identical to the classification result, for a sample having the same category as the classification result in the training sample, deleting a sample having a largest distance calculated by the improved algorithm of the k-nearest neighbor algorithm, and replacing a deleted sample with a corrected training sample.
+10. An interactive system of a smart watch, comprising: a signal detection module, configured to acquire a vibration signal of an accelerometer and a gyroscope of a smart watch based on a vibration signal transmitted by a human body; an identification and classification module, configured to identify the vibration signal by using an anomaly detection algorithm, to pre-processing the vibration signal, and to further classify and identify the vibration signal by using an improved k-nearest neighbor algorithm; a real-time feedback module, configured to analyze a feedback of a user on results and correct the results in time to keep an identification accuracy stable.
+11. A program, performing the interactive method of a smart watch according to claim 1.
+12. The program according to claim 11, wherein the vibration signals of X, Y, and Z axes of the accelerometer and the gyroscope are separately collected.
+13. The program according to claim 12, wherein the step S2 of identifying the signal by using an anomaly detection algorithm comprises the following steps: S21. collecting data of a Z axis of the accelerometer; S22. filtering the data of the Z axis of the accelerometer by using a high-pass filter; S23. setting a threshold of an effective tapping signal and a threshold of a noise signal; S24. reading a signal having a smaller amplitude than the threshold of the noise signal as a first state; S25. continue monitoring, waiting to read a signal having a larger amplitude r than the threshold of the effective tapping signal, setting a position of the signal having the larger amplitude than the threshold of the effective tapping signal to be X, and setting a starting position of the signal to be X-L, namely a position at a length L before the position of X; S26. continue monitoring, waiting to read a continuous signal having a smaller amplitude than the threshold of the noise signal, and setting an end position of the signal as a current position when a continuous amplitude is smaller than the threshold of the noise signal; S27. obtaining signal data through the starting position and the end position of the signal, judging whether a length of the signal is within a length range, and if the length of the signal is not within a length range, returning to the step S25, otherwise proceeding to the step S28; S28. performing a high-pass filtering on the signal data, calculating energy of first m points and energy of points after a mth point of the signal after filtering respectively, judging whether an amplitude of the signal is greater than a threshold of a signal-to-noise ratio, if the amplitude of the signal is greater than the threshold of the signal-to-noise ratio, determining the signal as an valid signal, otherwise determining the signal as a noise signal, and returning to the step S25.
+14. The program according to claim 11, wherein the step S3 comprises the following steps: S31. pre-processing the signal by normalization, subtracting a mean value from the signal and dividing the signal by a variance; S32. in the initialization training model phase, storing the signal processed in the step S31 as a training sample in a database; in the actual use phase, classifying and identifying the signal by using the improved algorithm based on the k-nearest neighbor algorithm.
+15. The program according to claim 11, wherein the improved algorithm of the k-nearest neighbor algorithm comprises: based on a dynamic time warping algorithm, matching an actual signal and a training signal in units of frame, and calculating a shortest distance between the actual signal and the training signal, and using the shortest distance as a basis for the k-nearest neighbor algorithm for classification and identification.
+16. The program according to claim 15, wherein the shortest distance is a Manhattan distance or an Euler distance.
+17. The program according to claim 11, wherein the step S4 includes the following steps: S41. after collecting the classification result obtained in the step S32, correcting an input result of the user; S42. after correction, correcting the training sample to keep the identification accuracy stable.
+18. The program according to claim 17, wherein in the step S41, a classification and identification result in the step 32 is corrected by providing a candidate key or by a correlation result in the input method.
+19. The program according to claim 18, wherein the step S42 specifically includes the following steps: S421. when a correction result is identical to a classification result, performing no operation; S422. when the correction result is not identical to the classification result, for a sample having the same category as the classification result in the training sample, deleting a sample having a largest distance calculated by the improved algorithm of the k-nearest neighbor algorithm, and replacing a deleted sample with a corrected training sample.
+</claims>
+</document>

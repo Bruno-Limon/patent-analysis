@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2019-09-24
+</filing_date>
+
+<publication_date>
+2020-03-26
+</publication_date>
+
+<priority_date>
+2018-09-24
+</priority_date>
+
+<ipc_classes>
+A61B5/00,A61B5/02,A61B6/00,A61B6/03,G06T7/00,G06T7/62,G16H30/20,G16H50/20
+</ipc_classes>
+
+<assignee>
+BEIJING CURACLOUD TECHNOLOGY COMPANY
+</assignee>
+
+<inventors>
+LU YI
+BAI, JUNJIE
+YIN, YOUBING
+CAO, KUNLIN
+LI, YUWEI
+SONG, QI
+WANG, XIN
+</inventors>
+
+<docdb_family_id>
+67082458
+</docdb_family_id>
+
+<title>
+PREDICTION METHOD FOR HEALTHY RADIUS OF BLOOD VESSEL PATH, PREDICTION METHOD FOR CANDIDATE STENOSIS OF BLOOD VESSEL PATH, AND BLOOD VESSEL STENOSIS DEGREE PREDICTION DEVICE
+</title>
+
+<abstract>
+The present disclosure provides a prediction method for a healthy radius of a blood vessel path, a prediction method for candidate stenosis of a blood vessel path, and a blood vessel stenosis degree prediction device. The prediction method for a healthy radius includes: obtaining a blood vessel radius of the blood vessel path; by a processor, detecting a radius peak of the blood vessel radius of the blood vessel path; and by the processor, predicting the healthy radius of the blood vessel path by performing a regression on the radius peak of the blood vessel radius. The blood vessel stenosis degree prediction device can, in certain embodiments, automatically determine the candidate stenosis and detect the degree of stenosis for the candidate stenosis range, significantly reduce the computation load, improve the detection efficiency and effectively avoid missed detection.
+</abstract>
+
+<claims>
+1. A computer-implemented prediction method for a healthy radius of a blood vessel path, the method comprising: obtaining a blood vessel radius of the blood vessel path; detecting, by a processor, a radius peak of the blood vessel radius of the blood vessel path; and predicting, by the processor, the healthy radius of the blood vessel path by performing a regression on the radius peak of the blood vessel radius.
+2. The computer-implemented prediction method according to claim 1, wherein predicting the healthy radius of the blood vessel path by performing regression on the radius peak of the blood vessel radius comprises: predicting a reference healthy radius of the blood vessel path by performing a linear regression on the radius peak of the blood vessel radius; processing the radius peak in the blood vessel radius based on the reference healthy radius of the blood vessel path; and predicting the healthy radius of the blood vessel path by performing a quadratic regression on the processed radius peak in the vessel radius.
+3. The computer-implemented prediction method according to claim 2, wherein processing the radius peak in the blood vessel radius based on predicted reference healthy radius of the blood vessel path comprises: replacing the radius peak among the radius peaks of the blood vessel radius that is lower than a corresponding reference healthy radius with the corresponding reference healthy radius.
+4. The computer-implemented prediction method according to claim 1, wherein the regression comprises a Gaussian process regression.
+5. A computer-implemented prediction method for a candidate stenosis of a blood vessel path, the prediction method comprising: performing the prediction method for a healthy radius of a blood vessel path according to claim 2; detecting, by the processor, a radius valley of a blood vessel radius on the blood vessel path; and determining, by the processor, the candidate stenosis based on the radius valley and the healthy radius of the blood vessel path.
+6. The computer-implemented prediction method according to claim 5, wherein processing the radius peak in the blood vessel radius based on predicted reference healthy radius of the blood vessel path comprises: replacing the radius peak among the radius peaks of the blood vessel radius that is lower than a corresponding reference healthy radius with the corresponding reference healthy radius.
+7. The computer-implemented prediction method according to claim 5, wherein determining the candidate stenosis based on the radius valley and the healthy radius of the blood vessel path comprises: determining a ratio of the radius valley to the healthy radius throughout the blood vessel path, and determining a first segment of the blood vessel path as the candidate stenosis where the ratio is less than a first predetermined threshold; or determining a ratio of a difference between the healthy radius and the radius valley to the healthy radius throughout the blood vessel path, and determining a second segment of the blood vessel path as the candidate stenosis where the ratio is greater than a second predetermined threshold.
+8. The computer-implemented prediction method according to claim 5, wherein the regression comprises a Gaussian process regression.
+9. A blood vessel stenosis degree prediction device, comprising: an interface configured to receive an image of a blood vessel; a memory that stores executable instructions; a processor configured to implement a process by executing the executable instructions, the process comprising: extracting a blood vessel path and its centerline based on the image of the blood vessel; determining a candidate stenosis for each blood vessel path; setting a range of the candidate stenosis for each blood vessel path based on the determined candidate stenosis; obtaining image blocks along the centerline within the range of candidate stenosis for each of the blood vessel path; and based on the obtained image blocks, determining the degree of stenosis for each blood vessel path by using a trained learning network comprising a convolutional neural network and a recurrent neural network.
+10. The blood vessel stenosis degree prediction device according to claim 9, wherein the range of candidate stenosis for each blood vessel path is expressed as a length having the determined candidate stenosis at a center of the length.
+11. The blood vessel stenosis degree prediction device according to claim 9, wherein the candidate stenosis of each blood vessel path is determined by: obtaining a blood vessel radius of the blood vessel path; detecting a radius peak and a radius valley in the blood vessel radius of the blood vessel path; predicting a reference healthy radius of the blood vessel path by performing a linear regression on the radius peak in the blood vessel radius; replacing the radius peak among the radius peaks in the blood vessel radius that is lower than the corresponding reference healthy radius with the corresponding reference healthy radius; predicting the healthy radius of the blood vessel path by performing a quadratic regression on the replaced radius peak in the blood vessel radius; and determining the candidate stenosis based on the radius valley and the healthy radius of the blood vessel path.
+12. The blood vessel stenosis degree prediction device according to claim 11 wherein determining the candidate stenosis based on the radius valley and the healthy radius of the blood vessel path comprises: determining a ratio of the radius valley to the healthy radius throughout the blood vessel path, and determining a first segment of the blood vessel path as the candidate stenosis where the ratio is less than a first predetermined threshold; or determining a ratio of a difference between the healthy radius and the radius valley to the healthy radius throughout the blood vessel path, and determining a second segment of the blood vessel path as the candidate stenosis where the ratio is greater than a second predetermined threshold.
+13. The blood vessel stenosis degree prediction device according to claim 9, wherein the recurrent neural network comprises a bidirectional recurrent neural network.
+14. The blood vessel stenosis degree prediction device according to claim 9, further comprising an output unit that is configured to output at least one of the candidate stenosis, the range of the candidate stenosis, and the degree of stenosis of each blood vessel path.
+15. A non-transitory storage medium having stored thereon computer executable instructions that, when executed by a processor, implement a process, the process comprising: extracting a blood vessel path and its centerline based on an image of a blood vessel; determining a candidate stenosis for each blood vessel path; setting a range of the candidate stenosis for each blood vessel path based on the determined candidate stenosis; obtaining image blocks along the centerline within the range of the candidate stenosis for each blood vessel path; and based on the obtained image blocks, determining the degree of stenosis for each blood vessel path by using a trained learning network comprising a convolutional neural network and a recurrent neural network.
+16. The non-transitory storage medium according to claim 16, wherein the range of candidate stenosis for each blood vessel path is expressed as a length having the determined candidate stenosis at a center of the length.
+17. The non-transitory storage medium according to claim 16, wherein the candidate stenosis of each blood vessel path is determined by: obtaining a blood vessel radius of the blood vessel path; detecting a radius peak and a radius valley in a blood vessel radius of the blood vessel path; predicting a reference healthy radius of the blood vessel path by performing a linear regression on the radius peak in the blood vessel radius; replacing the radius peak among the radius peaks in the blood vessel radius that is lower than the corresponding reference healthy radius with the corresponding reference healthy radius; predicting the healthy radius of the blood vessel path by performing a quadratic regression on the replaced radius peak in the blood vessel radius; and determining the candidate stenosis based on the radius valley and the healthy radius of the blood vessel path.
+18. The non-transitory storage medium according to claim 17, wherein determining the candidate stenosis based on the radius valley and the healthy radius of the blood vessel path comprises: determining a ratio of the radius valley to the healthy radius throughout the blood vessel path, and determining a first segment of the blood vessel path as the candidate stenosis where the ratio is less than a first predetermined threshold.
+19. The non-transitory storage medium according to claim 17, wherein determining the candidate stenosis based on the radius valley and the healthy radius of the blood vessel path comprises: determining a ratio of a difference between the healthy radius and the radius valley to the healthy radius throughout the blood vessel path, and determining a second segment of the blood vessel path as the candidate stenosis where the ratio is greater than a second predetermined threshold.
+20. The non-transitory storage medium according to claim 16, the process further comprising: outputting at least one of the stenosis, the range of stenosis, and the degree of stenosis of each blood vessel path.
+</claims>
+</document>

@@ -1,0 +1,72 @@
+<document>
+
+<filing_date>
+2019-08-21
+</filing_date>
+
+<publication_date>
+2020-02-27
+</publication_date>
+
+<priority_date>
+2018-08-21
+</priority_date>
+
+<ipc_classes>
+G10L21/0208,G10L21/0364,G10L25/51
+</ipc_classes>
+
+<assignee>
+2HZ
+</assignee>
+
+<inventors>
+MINASYAN, ARTAVAZD
+SARGSYAN, STEPAN
+</inventors>
+
+<docdb_family_id>
+69583767
+</docdb_family_id>
+
+<title>
+SPEECH ENHANCEMENT AND NOISE SUPPRESSION SYSTEMS AND METHODS
+</title>
+
+<abstract>
+Example speech enhancement and noise suppression systems and methods are described. In one implementation, a method receives an audio file comprising a combination of voice data and noise data, and divides the audio file into multiple frames. The method performs a discrete Fourier transform on each frame of a first subset of the multiple frames to provide a plurality of frequency-domain outputs, which are input to a neural network. A ratio mask is obtained as an output from the neural network and clean voice coefficients are computed using the ratio mask. The method outputs an audio file having enhanced speech based on the computed clean voice coefficients.
+</abstract>
+
+<claims>
+1. A method of speech enhancement comprising: receiving an audio file comprising a combination of voice data and noise data; dividing said audio file into a plurality of frames; performing a discrete Fourier transform on each frame of a first subset of said plurality of frames to provide a plurality of frequency-domain outputs;
+inputting said plurality of frequency-domain outputs of said discrete Fourier transform and a noise model approximation to a neural network;
+obtaining a ratio mask as an output from said neural network; computing clean voice coefficients using said ratio mask; and outputting an audio file having enhanced speech and suppressed noise based on said computed clean voice coefficients.
+2. The method of claim 1, further comprising: prior to said outputting said audio file having enhanced speech, revising said noise model approximation using said ratio mask to provide a revised noise model approximation for input to said neural network;
+performing a discrete Fourier transform on each frame of a second subset of said plurality of frames to provide a second plurality of frequency-domain outputs;
+inputting said second plurality of frequency-domain outputs of said discrete Fourier transform and said revised noise model approximation to said neural network; obtaining a revised ratio mask as an output from said neural network; and computing clean voice coefficients using said revised ratio mask.
+3. The method of claim 2, further comprising: prior to said outputting said audio file having enhanced speech, revising said revised noise model approximation using said revised ratio mask to provide a second revised noise model approximation for input to said neural network;
+performing a discrete Fourier transform on each frame of a third subset of said plurality of frames to provide a third plurality of frequency-domain outputs;
+inputting said third plurality of frequency-domain outputs of said discrete Fourier transform and said second revised noise model approximation to said neural network; obtaining a second revised ratio mask as an output from said neural network; and computing clean voice coefficients using said second revised ratio mask.
+4. The method of claim 1, wherein the neural network is a deep neural network that: includes more than two hidden layers; employs rectified linear units in combination with linear units; and
+uses linear and non-linear weights.
+5. The method of claim 1, further comprising: training the neural network, comprising: constructing mixed data by mixing the predefined noise data and clean speech data; dividing the mixed data into a plurality of frames; dividing the clean speech data into a corresponding plurality of frames; identifying a first subset of the plurality of frames of the mixed data, the first subset including a randomly chosen frame and a first plurality of frames immediately preceding the randomly chosen frame; identifying a corresponding first subset of the plurality of frames of the clean speech data; performing a discrete Fourier transform for the first subset of the plurality of frames of the mixed data and the corresponding first subset of the plurality of frames of the clean speech data to obtain mixed data frequency-domain outputs and clean speech data frequencydomain outputs for each frame; calculating the known ratio mask for one frame of the plurality of frames of the mixed data based on the mixed data frequency-domain outputs and the clean speech data frequency-domain outputs and using the known ratio mask as an output for the neural network during training.
+6. The method of claim 5, wherein training the neural network further comprises: identifying a second subset of the plurality of frames of the mixed data, the second subset including a second plurality of frames; performing a discrete Fourier transform for the second plurality of frames to obtain frequency-domain outputs for each frame of the second subset; calculating a noise model approximation based on the frequency-domain outputs for each frame of the second subset; combining the mixed data frequency-domain outputs for the first subset with the noise model approximation to create an input matrix; and using the input matrix as an input for the neural network during training.
+7. The method of claim 1, further comprising training the neural network using a gradient descent algorithm and mean square error as a loss function.
+8 The method of claim 1, further comprising: determining, for each of the plurality of temporally overlapping frames of clean speech data, whether the frame includes voice activity; and only using frames of clean speech data that do not include voice activity to calculate the noise model approximation during training of the neural network.
+9. The method of claim 1, further comprising: obtaining a voice activity detection parameter as an output from the neural network; and revising said noise model based on said voice activity detection parameter.
+10. The method of claim 5, wherein training the neural network comprises constructing mixed data by mixing noise data and clean speech data having a plurality of sampling rates.
+11. The method of claim 10, further comprising: detecting a sample rate from the clean speech data; extracting features of the clean speech data based on the detected sampling rate; and calculating the known ratio mask based on the extracted features.
+12. The method of claim 11, wherein the noise model approximation process further comprises: detecting a sample rate of the combination of voice data and noise data; and after performing a discrete Fourier transform on each frame of said plurality of frames to provide said plurality of frequency-domain outputs, selecting a subset of said plurality of frequency-domain outputs based on said detected sample rate; and inputting said subset of frequency-domain outputs and said noise model approximation to said neural network.
+13. The method of claim 1, wherein said neural network contains a structure and parameters based on a previous training using predefined noise data and clean speech data to result in a known ratio mask.
+14. A method of bandwidth expansion, comprising: receiving an audio file comprising a combination of voice data and noise data having a first bandwidth; dividing said audio file into a plurality of frames; for a first frame of said plurality of frames, performing a bandwidth expansion process comprising: performing a fast Fourier transform to obtain audio features corresponding to the combination of voice data and noise data; obtaining a power spectrum of the audio features; inputting the power spectrum to a neural network; determining a phase of the audio features; constructing a frequency spectrum having a second bandwidth based on an output of the neural network and the determined phase, the second bandwidth being greater than the first bandwidth; and taking an inverse fast Fourier transform of the frequency spectrum to provide an audio signal; repeating said bandwidth expansion process for a subsequent frame of said plurality of frames; and outputting an audio file having the second bandwidth based on the audio signals for the plurality of frames.
+15. The method of claim 14, further comprising: training the neural network, comprising: obtaining a first sample of an audio file and a second sample of the audio file, the first sample having a first frequency bandwidth and the second sample having a second frequency bandwidth, the second frequency bandwidth being larger than the first frequency bandwidth; dividing the first sample and the second sample into a plurality of frames; performing a fast Fourier transform for the plurality of frames of the first sample to obtain first audio features; performing a fast Fourier transform for the plurality of frames of the second sample to obtain second audio features; using a high pass filter to remove audio features within the first frequency bandwidth from the second audio features, resulting in filtered second audio features; and using the first audio features as an input and the filtered second audio features as an output for the neural network during training.
+16. A speech enhancement system comprising:
+a processor; and
+a memory device coupled to the processor, the memory device configured to store instructions for execution on the processor, the instructions causing the processor to: receive an audio file comprising a combination of voice data and noise data; divide said audio file into a plurality of frames; perform a discrete Fourier transform on each frame of a first subset of said plurality of frames to provide a plurality of frequency-domain outputs; input said plurality of frequency-domain outputs of said discrete Fourier transform and a noise model approximation to a neural network; obtain a ratio mask as an output from said neural network; compute clean voice coefficients using said ratio mask; and output an audio file having enhanced speech and suppressed noise based on said computed clean voice coefficients.
+17. The speech enhancement system of claim 16, wherein the instructions further cause the processor to: prior to said outputting said audio file having enhanced speech, revise said noise model approximation using said ratio mask to provide a revised noise model approximation for input to said neural network; perform a discrete Fourier transform on each frame of a second subset of said plurality of frames to provide a second plurality of frequency-domain outputs; input said second plurality of frequency-domain outputs of said discrete Fourier transform and said revised noise model approximation to said neural network; obtain a revised ratio mask as an output from said neural network; and compute clean voice coefficients using said revised ratio mask.
+18. The speech enhancement system of claim 16, wherein the instructions further cause the processor to: prior to said outputting said audio file having enhanced speech, revise said revised noise model approximation using said revised ratio mask to provide a second revised noise model approximation for input to said neural network; perform a discrete Fourier transform on each frame of a third subset of said plurality of frames to provide a third plurality of frequency-domain outputs; input said third plurality of frequency-domain outputs of said discrete Fourier transform and said second revised noise model approximation to said neural network; obtain a second revised ratio mask as an output from said neural network; and compute clean voice coefficients using said second revised ratio mask.
+19. The speech enhancement system of claim 16, wherein the instructions further cause the processor to:
+train the neural network using a gradient descent algorithm and mean square error as a loss function.
+20. The speech enhancement system of claim 16, wherein said neural network contains a structure and parameters based on a previous training using predefined noise data and clean speech data to result in a known ratio mask.
+</claims>
+</document>

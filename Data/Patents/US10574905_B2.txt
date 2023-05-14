@@ -1,0 +1,61 @@
+<document>
+
+<filing_date>
+2018-10-01
+</filing_date>
+
+<publication_date>
+2020-02-25
+</publication_date>
+
+<priority_date>
+2014-03-07
+</priority_date>
+
+<ipc_classes>
+G06T7/11,G06T7/194,H04N13/00,H04N13/15,H04N13/271,H04N5/232,H04N5/262,H04N5/272
+</ipc_classes>
+
+<assignee>
+FOTONATION
+</assignee>
+
+<inventors>
+VENKATARAMAN, KARTIK
+CHATTERJEE, PRIYAM
+SRIKANTH, MANOHAR
+RAMAMOORTHI, RAVI
+</inventors>
+
+<docdb_family_id>
+54017866
+</docdb_family_id>
+
+<title>
+System and methods for depth regularization and semiautomatic interactive matting using RGB-D images
+</title>
+
+<abstract>
+Systems and methods in accordance with embodiments of this invention perform depth regularization and semiautomatic interactive matting using images. In an embodiment of the invention, the image processing pipeline application directs a processor to receive (i) an image (ii) an initial depth map corresponding to the depths of pixels within the image, regularize the initial depth map into a dense depth map using depth values of known pixels to compute depth values of unknown pixels, determine an object of interest to be extracted from the image, generate an initial trimap using the dense depth map and the object of interest to be extracted from the image, and apply color image matting to unknown regions of the initial trimap to generate a matte for image matting.
+</abstract>
+
+<claims>
+1. An array camera, comprising: a plurality of cameras that capture images of a scene from different viewpoints; memory containing an image processing pipeline application; wherein the image processing pipeline application direct the processor to: capture a set of images using a group of cameras from the plurality of cameras; receive (i) an image comprising a plurality of pixel color values for pixels in the image and (ii) an initial depth map corresponding to the depths of the pixels within the image, wherein the initial depth map is generated using the set of images; and regularize the initial depth map into a dense depth map using pixels for which depth is known to estimate depths of pixels for which depth is unknown, wherein regularizing the initial depth map into the dense depth map further comprises: performing Laplacian matting to compute a Laplacian L; obtain a binary confidence map C that indicates whether a depth at a given pixel is confident, where the confidence map C is obtained by a thresholded gradient of the image; wherein the Laplacian matting is optimized by solving a reduced linear system for depth values of pixels that are marked as non-confident based on the confidence map C; and using the dense depth map to perform image-based rendering.
+2. The array camera of claim 1, wherein the image processing application further directs the processor to prune the Laplacian L, wherein pruning the Laplacian L comprises: for each pair i,j of pixels in affinity matrix A, determine if i and j have depth differences beyond a threshold; and if the difference is beyond the threshold, purge the pair i,j within the affinity matrix A.
+3. The array camera of claim 2, wherein the image processing application further directs the processor to: detect and correct depth bleeding across edges by computing a Laplacian residual R and removing incorrect depth values based on the Laplacian residual R.
+4. The array camera of claim 3, wherein the computing the Laplacian residual R comprises computing R=Lz* where z* is the regularized depth map, wherein removing incorrect depth values comprises identifying regions where R>0.
+5. The array camera of claim 1, wherein a pixel for which depth is unknown is a pixel that has a confidence value below a particular threshold regarding the accuracy of the depth.
+6. The array camera of claim 1, wherein the confidence map C is defined at texture and object edges within the image.
+7. The array camera of claim 1, wherein the confidence map C is a sparse mn x mn diagonal matrix whose diagonal entries are binary confidence values.
+8. The array camera of claim 3, wherein the image processing application further directs the processor to compute a new confidence map whenever the residual R is greater than a threshold.
+9. The array camera of claim 1, wherein the image processing application further directs the processor to utilize the regularized dense depth map to perform depth-based segmentation that can be dilated to create a trimap.
+10. The array camera of claim 1, wherein an unknown pixel's depth is estimated as a weighted average of depths of the k-nearest super-pixels.
+11. The array camera of claim 10, where the weights are derived as a function of distance of the RGBxy feature of the pixel from the super-pixel centroids.
+12. The array camera of claim 1, wherein regularizing the initial depth map into the dense depth map comprises solving for depths in only unknown regions of the image.
+13. The array camera of claim 1, wherein the Laplacian matting is optimized by solving a reduced linear system for alpha values only in unknown regions.
+14. The array camera of claim 1, wherein the image processing application further directs the processor: determine an object of interest to be extracted from the image; generate an initial trimap using the dense depth map and the object of interest to be extracted from the image; and apply color image matting to unknown regions of the initial trimap to generate a matte for image matting.
+15. The array camera of claim 1, wherein the image processing pipeline application directs the processor to generate a trimap based on the regularized depth map.
+16. The array camera of claim 1, wherein the Laplacian matting is a convention kNN-based (K nearest-neighbor) Laplacian that pairs similar pixels without regards to their depth when constructing the affinity matrix A and Laplacian L.
+17. The array camera of claim 1, wherein the image processing application further directs the processor to detect and correct depth bleeding across edges.
+</claims>
+</document>

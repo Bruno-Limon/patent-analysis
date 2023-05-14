@@ -1,0 +1,148 @@
+<document>
+
+<filing_date>
+2018-07-26
+</filing_date>
+
+<publication_date>
+2020-03-19
+</publication_date>
+
+<priority_date>
+2017-08-07
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/40,G06K9/62,G06N3/08,G06Q20/20,G06Q30/06
+</ipc_classes>
+
+<assignee>
+STANDARD COGNITION CORPORATION
+</assignee>
+
+<inventors>
+NOVAK, JOHN F.
+LASHERAS, JUAN C.
+FISHER, JORDAN E.
+OGLE, BRANDON L.
+DORMAN, KYLE E.
+FISCHETTI, DANIEL L.
+KIHARA, KENNETH S.
+</inventors>
+
+<docdb_family_id>
+65271305
+</docdb_family_id>
+
+<title>
+PREDICTING INVENTORY EVENTS USING SEMANTIC DIFFING
+</title>
+
+<abstract>
+Systems and techniques are provided for tracking puts and takes of inventory items by subjects in an area of real space. A plurality of cameras with overlapping fields of view produce respective sequences of images of corresponding fields of view in the real space. In one embodiment, the system includes first image processors, including subject image recognition engines, receiving corresponding sequences of images from the plurality of cameras. The first image processors process images to identify subjects represented in the images in the corresponding sequences of images. The system includes second image processors, including background image recognition engines, receiving corresponding sequences of images from the plurality of cameras. The second image processors mask the identified subjects to generate masked images. Following this, the second image processors process the masked images to identify and classify background changes represented in the images in the corresponding sequences of images.
+</abstract>
+
+<claims>
+1. A system for tracking changes in an area of real space, comprising:
+a plurality of cameras, cameras in the plurality of cameras producing respective sequences of images of corresponding fields of view in the real space, the field of view of each camera overlapping with the field of view of at least one other camera in the plurality of cameras;
+a processing system coupled to the plurality of cameras, the processing system including: first image processors, including subject image recognition engines, receiving corresponding sequences of images from the plurality of cameras, which process images to identify subjects represented in the images in the corresponding sequences of images; second image processors, including background image recognition engines, receiving corresponding sequences of images from the plurality of cameras, which mask the identified subjects to generate masked images, process the masked images to identify and classify background changes represented in the images in the corresponding sequences of images.
+2. The system of claim 1, wherein the background image recognition engines comprise convolutional neural networks.
+3. The system of claim 1, including logic to associate identified background changes with identified subjects.
+4. The system of claim 1, wherein the second image processors include
+a background image store to store background images for corresponding sequences of images;
+mask logic to process images in the sequences of images to replace foreground image data representing the identified subjects with background image data from the background images for the corresponding sequences of images to provide the masked images.
+5. The system of claim 4, wherein the mask logic combines sets of N masked images in the sequences of images to generate sequences of factored images for each camera, and the second image processors identify and classify background changes by processing the sequence of factored images.
+6. The system of claim 1, wherein the second image processors include logic to produce change data structures for the corresponding sequences of images, the change data structures including coordinates in the masked images of identified background changes, identifiers of an inventory item subject of the identified background changes and classifications of the identified background changes; and
+coordination logic to process change data structures from sets of cameras having overlapping fields of view to locate the identified background changes in real space.
+7. The system of claim 6, wherein the classifications of identified background changes in the change data structures indicate whether the identified inventory item has been added or removed relative to the background image.
+8. The system of claim 6, wherein the classifications of identified background changes in the change data structures indicate whether the identified inventory item has been added or removed relative to the background image, and including logic to associate background changes with identified subjects, and to make detections of takes of inventory items by the identified subjects and of puts of inventory items on shelves by the identified subjects.
+9. The system of claim 1, including
+logic to associate background changes with identified subjects, and to make detections of takes of inventory items by the identified subjects and of puts of inventory items on shelves by the identified subjects.
+10. The system of claim 1, wherein the first image processors identify locations of hands of identified subjects; and including
+logic to associate background changes with identified subjects by comparing the locations of the changes with the locations of hands of identified subjects, and to make detections of takes of inventory items by the identified subjects and of puts of inventory items on shelves by the identified subjects.
+11. The system of claim 1 , including
+third image processors, including foreground image recognition engines, receiving corresponding sequences of images from the plurality of cameras, which process images to identify and classify foreground changes represented in the images in the corresponding sequences of images.
+12. The system of claim 11, including
+logic to associate background changes with identified subjects, and to make a first set of detections of takes of inventory items by the identified subjects and of puts of inventory items on shelves by the identified subjects;
+logic to associate foreground changes with identified subjects, and to make a second set of detections of takes of inventory items by the identified subjects and of puts of inventory items on shelves by the identified subjects; and
+selection logic to process the first and second sets of detections to generate log data structures including lists of inventory items for identified subjects.
+13. The system of claim 1, wherein the sequences of images from cameras in the plurality of cameras are synchronized.
+14. A system for tracking put and takes of inventory items by subjects in an area of real space, comprising:
+a plurality of cameras, cameras in the plurality of cameras producing respective sequences of images of corresponding fields of view in the real space, the field of view of each camera overlapping with the field of view of at least one other camera in the plurality of cameras;
+a processing system coupled to the plurality of cameras, the processing system including: first image processors, including subject image recognition engines, receiving corresponding sequences of images from the plurality of cameras, which process images to identify subjects represented in the images in the corresponding sequences of images; second image processors, including background image recognition engines, receiving corresponding sequences of images from the plurality of cameras, which mask the identified subjects to generate masked images, process the masked images to identify and classify background changes represented in the images in the corresponding sequences of images, and process identified background changes to make a first set of detections of takes of inventory items by identified subjects and of puts of inventory items on shelves by identified subjects; third image processors, including foreground image recognition engines, receiving corresponding sequences of images from the plurality of cameras, which process images to identify and classify foreground changes represented in the images in the corresponding sequences of images, and process identified foreground changes to make a second set of detections of takes of inventory items by identified subjects and of puts of inventory items on shelves by identified subjects; and
+selection logic to process the first and second sets of detections to generate log data structures including lists of inventory items for identified subjects.
+15. A system for tracking put and takes of inventory items by subjects in an area of real space, comprising:
+a plurality of cameras, cameras in the plurality of cameras producing respective sequences of images of corresponding fields of view in the real space, the field of view of each camera overlapping with the field of view of at least one other camera in the plurality of cameras; and
+a processing system coupled to the plurality of cameras, the processing system including logic to detect puts and takes of inventory items by identifying semantically significant changes in inventory items on inventory display structures and associating the semantically significant changes with subjects represented in the sequences of images.
+16. The system of claim 15, wherein the processing system includes logic to detect puts and takes of inventory items by identifying gestures of subjects and inventory items associated with the gestures represented in the sequences of images.
+17. A system for tracking put and takes of inventory items by subjects in an area of real space, comprising:
+a plurality of cameras, cameras in the plurality of cameras producing respective sequences of images of corresponding fields of view in the real space, the field of view of each camera overlapping with the field of view of at least one other camera in the plurality of cameras; and
+a processing system coupled to the plurality of cameras, the processing system including logic to detect puts and takes of inventory items by identifying gestures of subjects and inventory items associated with the gestures represented in the sequences of images.
+18. A method tracking changes in an area of real space, comprising:
+using a plurality of cameras to produce respective sequences of images of corresponding fields of view in the real space, the field of view of each camera overlapping with the field of view of at least one other camera in the plurality of cameras;
+using first image processors, including subject image recognition engines, to process images to identify subjects represented in the images in the corresponding sequences of images; using second image processors, including background image recognition engines, to mask identified subjects in images in the sequences of images, to generate masked images, to process the masked images to identify and to classify background changes represented in the images in the corresponding sequences of images.
+19. The method of claim 18, wherein the background image recognition engines comprise convolutional neural networks.
+20. The method of claim 18, including associating identified background changes with identified subjects.
+21. The method of claim 18, wherein using the second image processors includes
+storing background images for corresponding sequences of images;
+processing images in the sequences of images to replace foreground image data representing the identified subjects with background image data from the background images for the corresponding sequences of images to provide the masked images.
+22. The method of claim 21, wherein processing images in the sequences of images includes combining sets of N masked images in the sequences of images to generate sequences of factored images for each camera, and the second image processors identify and classify background changes by processing the sequence of factored images.
+23. The method of claim 18, wherein using the second image processors includes
+producing change data structures for the corresponding sequences of images, the change data structures including coordinates in the masked images of identified background changes, identifiers of an inventory item subject of the identified background changes and classifications of the identified background changes; and processing change data structures from sets of cameras having overlapping fields of view to locate the identified background changes in real space.
+24. The method of claim 23, wherein the classifications of identified background changes in the change data structures indicate whether the identified inventory item has been added or removed relative to the background image.
+25. The method of claim 23, wherein the classifications of identified background changes in the change data structures indicate whether the identified inventory item has been added or removed relative to the background image, and including associating background changes with identified subjects, and making detections of takes of inventory items by the identified subjects and of puts of inventory items on shelves by the identified subjects.
+26. The method of claim 18, including
+associating background changes with identified subjects, and making detections of takes of inventory items by the identified subjects and of puts of inventory items on shelves by the identified subjects.
+27. The method of claim 18, wherein using the first image processors includes identifying locations of hands of identified subjects; and including
+associating background changes with identified subjects by comparing the locations of the changes with the locations of hands of identified subjects, and making detections of takes of inventory items by the identified subjects and of puts of inventory items on shelves by the identified subjects.
+28. The method of claim 18, including
+using third image processors, including foreground image recognition engines, receiving corresponding sequences of images from the plurality of cameras, to process images to identify and classify foreground changes represented in the images in the corresponding sequences of images.
+29. The method of claim 28, including associating background changes with identified subjects, and making a first set of detections of takes of inventory items by the identified subjects and of puts of inventory items on shelves by the identified subjects;
+associating foreground changes with identified subjects, and making a second set of detections of takes of inventory items by the identified subjects and of puts of inventory items on shelves by the identified subjects; and
+processing the first and second sets of detections to generate log data structures including lists of inventory items for identified subjects.
+30. The method of claim 18, including synchronizing the sequences of images from cameras in the plurality of cameras.
+31. A method for tracking put and takes of inventory items by subjects in an area of real space, comprising:
+using a plurality of cameras to produce respective sequences of images of corresponding fields of view in the real space, the field of view of each camera overlapping with the field of view of at least one other camera in the plurality of cameras; and
+detecting puts and takes of inventory items by identifying semantically significant changes in inventory items on inventory display structures and associating the semantically significant changes with subjects represented in the sequences of images.
+32. The method of claim 31, including detecting puts and takes of inventory items by identifying gestures of subjects and inventory items associated with the gestures represented in the sequences of images.
+33. A method for tracking put and takes of inventory items by subjects in an area of real space, comprising:
+using a plurality of cameras to produce respective sequences of images of corresponding fields of view in the real space, the field of view of each camera overlapping with the field of view of at least one other camera in the plurality of cameras; and
+detecting puts and takes of inventory items by identifying gestures of subjects and inventory items associated with the gestures represented in the sequences of images.
+34. A computer program product, comprising: a computer readable memory comprising a non-transitory data storage medium;
+computer instructions stored in the memory executable by a computer to track multi -joint subjects in an area of real space by a process including:
+using a plurality of cameras to produce respective sequences of images of corresponding fields of view in the real space, the field of view of each camera overlapping with the field of view of at least one other camera in the plurality of cameras;
+using first image processors, including subject image recognition engines, to process images to identify subjects represented in the images in the corresponding sequences of images; using second image processors, including background image recognition engines, to mask identified subjects in images in the sequences of images, to generate masked images, to process the masked images to identify and to classify background changes represented in the images in the corresponding sequences of images.
+35. The computer program product of claim 34, wherein the background image recognition engines comprise convolutional neural networks.
+36. The computer program product of claim 34, including associating identified background changes with identified subjects.
+37. The computer program product of claim 34, wherein using the second image processors includes
+storing background images for corresponding sequences of images;
+processing images in the sequences of images to replace foreground image data representing the identified subjects with background image data from the background images for the corresponding sequences of images to provide the masked images.
+38. The computer program product of claim 34, wherein processing images in the sequences of images includes combining sets of N masked images in the sequences of images to generate sequences of factored images for each camera, and the second image processors identify and classify background changes by processing the sequence of factored images.
+39. The computer program product of claim 34, wherein using the second image processors includes producing change data structures for the corresponding sequences of images, the change data structures including coordinates in the masked images of identified background changes, identifiers of an inventory item subject of the identified background changes and classifications of the identified background changes; and
+processing change data structures from sets of cameras having overlapping fields of view to locate the identified background changes in real space.
+40. The computer program product of claim 39, wherein the classifications of identified background changes in the change data structures indicate whether the identified inventory item has been added or removed relative to the background image.
+41. The computer program product of claim 39, wherein the classifications of identified background changes in the change data structures indicate whether the identified inventory item has been added or removed relative to the background image, and including associating background changes with identified subjects, and making detections of takes of inventory items by the identified subjects and of puts of inventory items on shelves by the identified subjects.
+42. The computer program product of claim 34, including
+associating background changes with identified subjects, and making detections of takes of inventory items by the identified subjects and of puts of inventory items on shelves by the identified subjects.
+43. The computer program product of claim 34, wherein using the first image processors includes identifying locations of hands of identified subjects; and including
+associating background changes with identified subjects by comparing the locations of the changes with the locations of hands of identified subjects, and making detections of takes of inventory items by the identified subjects and of puts of inventory items on shelves by the identified subjects.
+44. The computer program product of claim 34, including
+using third image processors, including foreground image recognition engines, receiving corresponding sequences of images from the plurality of cameras, to process images to identify and classify foreground changes represented in the images in the corresponding sequences of images.
+45. The computer program product of claim 44, including
+associating background changes with identified subjects, and making a first set of detections of takes of inventory items by the identified subjects and of puts of inventory items on shelves by the identified subjects;
+associating foreground changes with identified subjects, and making a second set of detections of takes of inventory items by the identified subjects and of puts of inventory items on shelves by the identified subjects; and
+processing the first and second sets of detections to generate log data structures including lists of inventory items for identified subjects.
+46. The computer program product of claim 34, including synchronizing the sequences of images from cameras in the plurality of cameras.
+47. A computer program product, comprising:
+a computer readable memory comprising a non-transitory data storage medium;
+computer instructions stored in the memory executable by a computer for tracking put and takes of inventory items by subjects in an area of real space by a process including:
+using a plurality of cameras to produce respective sequences of images of corresponding fields of view in the real space, the field of view of each camera overlapping with the field of view of at least one other camera in the plurality of cameras; and
+detecting puts and takes of inventory items by identifying semantically significant changes in inventory items on inventory display structures and associating the semantically significant changes with subjects represented in the sequences of images.
+48. The computer program product of claim 47, including detecting puts and takes of inventory items by identifying gestures of subjects and inventory items associated with the gestures represented in the sequences of images.
+49. A computer program product, comprising:
+a computer readable memory comprising a non-transitory data storage medium;
+computer instructions stored in the memory executable by a computer for tracking put and takes of inventory items by subjects in an area of real space by a process including:
+using a plurality of cameras to produce respective sequences of images of corresponding fields of view in the real space, the field of view of each camera overlapping with the field of view of at least one other camera in the plurality of cameras; and
+detecting puts and takes of inventory items by identifying gestures of subjects and inventory items associated with the gestures represented in the sequences of images.
+</claims>
+</document>

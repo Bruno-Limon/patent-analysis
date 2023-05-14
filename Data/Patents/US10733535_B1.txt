@@ -1,0 +1,68 @@
+<document>
+
+<filing_date>
+2017-07-31
+</filing_date>
+
+<publication_date>
+2020-08-04
+</publication_date>
+
+<priority_date>
+2012-05-22
+</priority_date>
+
+<ipc_classes>
+G06K9/62,G06N20/00,G06N5/02,G06N7/00,G06N7/08
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+BENGIO, SAMY
+CHEN, KAI
+CORRADO GREGORY S
+DEAN JEFFREY A.
+DEVIN, MATTHIEU
+MONGA, RAJAT
+</inventors>
+
+<docdb_family_id>
+50982211
+</docdb_family_id>
+
+<title>
+Training a model using parameter server shards
+</title>
+
+<abstract>
+Methods, systems, and apparatus, including computer programs encoded on computer storage media, for training a model using parameter server shards. One of the methods includes receiving, at a parameter server shard configured to maintain values of a disjoint partition of the parameters of the model, a succession of respective requests for parameter values from each of a plurality of replicas of the model; in response to each request, downloading a current value of each requested parameter to the replica from which the request was received; receiving a succession of uploads, each upload including respective delta values for each of the parameters in the partition maintained by the shard; and updating values of the parameters in the partition maintained by the parameter server shard repeatedly based on the uploads of delta values to generate current parameter values.
+</abstract>
+
+<claims>
+1. A system for training a machine learning model having parameters by determining a respective trained parameter value for each of the parameters of the machine learning model, the system comprising: a plurality of server computing units; and a plurality of parameter server shards, wherein each shard executes on a respective server computing unit, and wherein each shard is configured to maintain and asynchronously update values of a respective disjoint partition of the parameters of the machine learning model based on delta values received from a plurality of model replicas; a plurality of replica computing units; and the plurality of model replicas, wherein each model replica executes on a respective replica computing unit, wherein each of the plurality of model replicas is configured to maintain an identical instance of the machine learning model with possibly different parameter values for the parameters of the machine learning model and to operate independently of each other model replica, and wherein each model replica is further configured to asynchronously request parameter values from the parameter server shards, determine delta values for the parameters, and provide the delta values to the parameter server shards.
+2. The system of claim 1, wherein each replica is configured to perform repeatedly the following operations: receive, from the plurality of parameter server shards, values of one or more of the plurality of parameters; compute respective delta values for each of the plurality of parameters by performing one or more iterations of the machine learning training process; and provide, for each of the plurality of parameters, the delta value for the parameter to the parameter server shard that is configured to maintain the respective partition that includes the parameter.
+3. The system of claim 2, wherein the machine learning training process is a stochastic gradient descent process.
+4. The system of claim 3, wherein: performing one or more iterations of the stochastic gradient descent process comprises obtaining a respective batch of training data; and computing the respective delta values for each of the plurality of parameters comprises computing a gradient of an objective function for training the machine learning model based on the received values and the batch of training data.
+5. The system of claim 4, wherein each model replica obtains a different sequence of training data.
+6. The system of claim 4, wherein each model replica obtains different training data.
+7. The system of claim 2, wherein: performing one or more iterations of the training process comprises obtaining a respective batch of training data; and computing the respective delta values for each of the plurality of parameters comprises computing a gradient of an objective function for the training of the machine learning model based on the received values and the batch of training data.
+8. The system of claim 1, wherein each shard is configured to perform repeatedly the following operations asynchronously with respect to every other shard: receive a succession of respective requests for parameter values from each of the plurality of replicas of the model; in response to each request, download a current value of each requested parameter to the replica from which the request was received; receive, from each of the plurality of replicas, a succession of uploads, each upload including respective delta values for each of the parameters in the partition maintained by the shard; and update values of the parameters in the partition maintained by the parameter server shard repeatedly based on the uploads of delta values to generate current parameter values.
+9. The system of claim 8, wherein the updated value of a parameter (pu) satisfies:
+description="In-line Formulae" end="lead"?pu=pc−α×Δpr,description="In-line Formulae" end="tail"? wherein pc is a current value of the parameter, α is a learning rate, and Δpr is a received delta value for the parameter.
+10. The system of claim 9, wherein the learning rate is an adaptive learning rate that varies between parameters.
+11. The system of claim 9, wherein the learning rate is an adaptive learning rate that varies between iterations of the training process.
+12. One or more non-transitory computer-readable storage media storing instruction that when executed by one or more computers cause the one or more computers to implement a system for training a machine learning model having parameters by determining a respective trained parameter value for each of the parameters of the machine learning model, the system comprising: a plurality of server computing units; and a plurality of parameter server shards, wherein each shard executes on a respective server computing unit, and wherein each shard is configured to maintain and asynchronously update values of a respective disjoint partition of the parameters of the machine learning model based on delta values received from a plurality of model replicas; a plurality of replica computing units; and the plurality of model replicas, wherein each model replica executes on a respective replica computing unit, wherein each of the plurality of model replicas is configured to maintain an identical instance of the machine learning model with possibly different parameter values for the parameters of the machine learning model and to operate independently of each other model replica, and wherein each model replica is further configured to asynchronously request parameter values from the parameter server shards, determine delta values for the parameters, and provide the delta values to the parameter server shards.
+13. The computer-readable storage media of claim 12, wherein each replica is configured to perform repeatedly the following operations: receive, from the plurality of parameter server shards, values of one or more of the plurality of parameters; compute respective delta values for each of the plurality of parameters by performing one or more iterations of the machine learning training process; and provide, for each of the plurality of parameters, the delta value for the parameter to the parameter server shard that is configured to maintain the respective partition that includes the parameter.
+14. The computer-readable storage media of claim 13, wherein the machine learning training process is a stochastic gradient descent process.
+15. The computer-readable storage media of claim 14, wherein: performing one or more iterations of the stochastic gradient descent process comprises obtaining a respective batch of training data; and computing the respective delta values for each of the plurality of parameters comprises computing a gradient of an objective function for training the machine learning model based on the received values and the batch of training data.
+16. The computer-readable storage media of claim 15, wherein each model replica obtains a different sequence of training data.
+17. The computer-readable storage media of claim 15, wherein each model replica obtains different training data.
+18. The computer-readable storage media of claim 13, wherein: performing one or more iterations of the training process comprises obtaining a respective batch of training data; and computing the respective delta values for each of the plurality of parameters comprises computing a gradient of an objective function for the training of the machine learning model based on the received values and the batch of training data.
+19. The computer-readable storage media of claim 12, wherein each shard is configured to perform repeatedly the following operations asynchronously with respect to every other shard: receive a succession of respective requests for parameter values from each of the plurality of replicas of the model; in response to each request, download a current value of each requested parameter to the replica from which the request was received; receive, from each of the plurality of replicas, a succession of uploads, each upload including respective delta values for each of the parameters in the partition maintained by the shard; and update values of the parameters in the partition maintained by the parameter server shard repeatedly based on the uploads of delta values to generate current parameter values.
+20. The computer-readable storage media of claim 19, wherein the updated value of a parameter (pu) satisfies:
+description="In-line Formulae" end="lead"?pu=pc−α×Δpr,description="In-line Formulae" end="tail"? wherein pc is a current value of the parameter, α is a learning rate, and Δpr is a received delta value for the parameter.
+</claims>
+</document>

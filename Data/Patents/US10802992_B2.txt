@@ -1,0 +1,60 @@
+<document>
+
+<filing_date>
+2016-08-26
+</filing_date>
+
+<publication_date>
+2020-10-13
+</publication_date>
+
+<priority_date>
+2016-08-12
+</priority_date>
+
+<ipc_classes>
+G06F13/10,G06F13/28,G06N3/04,G06N3/06,G06N3/063,G06N3/08
+</ipc_classes>
+
+<assignee>
+DEEPHI TECHNOLOGY COMPANY
+XILINX TECHNOLOGY BEIJING LIMITED
+</assignee>
+
+<inventors>
+YAO, SONG
+YU, JINCHENG
+</inventors>
+
+<docdb_family_id>
+61159173
+</docdb_family_id>
+
+<title>
+Combining CPU and special accelerator for implementing an artificial neural network
+</title>
+
+<abstract>
+The present invention relates to artificial neural network (ANN), for example, convolutional neural network (CNN). In particular, the present invention relates to how to implement and optimize a convolutional neural network based on an embedded FPGA. Specifically, it proposes a CPU+FPGA heterogeneous architecture to accelerate ANNs.
+</abstract>
+
+<claims>
+1. A deep processing unit (DPU) for implementing an Artificial Neural Network (ANN), comprising: a central processing unit (CPU), configured for scheduling a programmable logic module and a direct memory access (DMA), the direct memory access (DMA), connected to the CPU, an external memory and the programmable logic module, used for communication between the external memory and the programmable logic module; the external memory, coupled to the CPU and the DMA, configured for storing instructions of the ANN and data to be processed by said ANN; the programmable logic module (PL), comprising: a controller, configured for getting instructions and scheduling operations of a computing complex on the basis of the instructions; a computing complex, including a plurality of processing elements (PEs), configured for performing operations on the basis of the instructions and data; a buffer, configured for preparing the data and instructions for the computing complex, wherein the CPU comprises a status monitoring module configured for monitoring a status of a Finite State Machine (FSM) of the controller in the programmable logic module and the CPU is configured to be notified of running errors in the PL through the status monitoring module and the status of the FSM; an instruction first-in-first-out (FIFO) coupled between the controller of the PL and the DMA, wherein the CPU is configured to control the DMA to transmit instructions between the external memory and the programmable logic module, and the DMA is configured to transmit instructions between the external memory and the programmable logic module via the instruction FIFO, wherein the PL is configured to handle data transfer between the external memory and the PL, and the CPU is relieved from handling the data transfer between the external memory and the PL.
+2. The DPU of claim 1, the PE further comprises: a convolver complex, coupled to the buffer to receive weights of ANN and said data, configured for performing convolutional operations of the ANN; adder tree, coupled to the convolver complex, configured for summing results of convolution operation; non-linear (NL) module, coupled to the adder tree, configured for applying a non-linear function to the output of adder tree.
+3. The DPU of claim 1, the PE further comprises: pooling module, coupled to the NL module, configured for performing max-pooling operation on the output of NL module.
+4. The DPU of claim 1, the buffer further comprises: input buffer, configured for preparing the data, instructions for said convolver complex; output buffer, for storing and outputting data results.
+5. The DPU of claim 4, the buffer further comprises: bias shift, coupled to the input buffer, configured for shifting weights of ANN between different numerical ranges and providing said shifted weights to the adder tree, wherein the weights are quantized fixed-point numbers.
+6. The DPU of claim 1, wherein the CPU, the programmable logic module and the DMA are implemented in one single System-On-a-Chip (SOC).
+7. The DPU of claim 6, wherein the external memory is implemented by a separate memory chip.
+8. A deep processing unit (DPU) for implementing an Artificial Neural Network (ANN), comprising: a central processing unit (CPU), configured for scheduling a programmable logic module and a direct memory access (DMA), the direct memory access (DMA), connected to the CPU, an external memory and the programmable logic module, used for communication between the external memory and the programmable logic module; the external memory, coupled to the CPU, the DMA and a programmable logic module, configured for storing instructions of the ANN and data to be processed by said ANN; the programmable logic module (PL), comprising: a controller, configured for getting instructions and scheduling operations of a computing complex on the basis of the instructions; a computing complex, including a plurality of processing elements (PEs), configured for performing operations on the basis of the instructions and data; a buffer, configured for preparing the data and instructions for the computing complex, wherein the CPU comprises a status monitoring module configured for monitoring a status of a Finite State Machine (FSM) of the controller in the programmable logic module and the CPU is configured to be notified of running errors in the PL through the status monitoring module and the status of the FSM; an instruction first-in-first-out (FIFO) coupled between the controller of the PL and the DMA, wherein the CPU is configured to control the DMA to transmit instructions between the external memory and the programmable logic module via the instruction FIFO; and wherein the external memory and the programmable logic module transmit data to each other directly and the CPU is relieved from handling data transfer between the external memory and the PL.
+9. The DPU of claim 8, wherein the DMA is configured to transmit instructions between the external memory and the programmable logic module via FIFO.
+10. The DPU of claim 8, the PE further comprises: a convolver complex, coupled to the buffer to receive weights of ANN and said data, configured for performing convolutional operations of the ANN; adder tree, coupled to the convolver complex, configured for summing results of convolution operation; non-linear (NL) module, coupled to the adder tree, configured for applying a non-linear function to the output of adder tree.
+11. The DPU of claim 8, the PE further comprises: pooling module, coupled to the NL module, configured for performing max-pooling operation on the output of NL module.
+12. The DPU of claim 8, the buffer further comprises: input buffer, configured for preparing the data, instructions for said convolver complex; output buffer, configured for storing and outputting data results.
+13. The DPU of claim 12, the buffer further comprises: bias shift, coupled to the input buffer, configured for shifting weights of ANN between different numerical ranges and providing said shifted weights to the adder tree, wherein the weights are quantized fixed-point numbers.
+14. The DPU of claim 8, wherein the CPU, the programmable logic module and the DMA are implemented in one single System-On-a-Chip (SOC).
+15. The DPU of claim 14, wherein the external memory is implemented by a separate memory chip.
+16. A method for implementing an Artificial Neural Network (ANN), comprising: providing a central processing unit (CPU) for scheduling a programmable logic module and a direct memory access (DMA), providing the direct memory access (DMA) connected to the CPU, an external memory and the programmable logic module, for communication between the external memory and the programmable logic module; providing the external memory coupled to the CPU and the DMA, for storing instructions of the ANN and data to be processed by said ANN; providing a programmable logic module (PL), comprising: a controller, configured for getting instructions and scheduling operations of a computing complex on the basis of the instructions; a computing complex, including a plurality of processing elements (PEs), configured for performing operations on the basis of the instructions and data; a buffer, configured for preparing the data and instructions for the computing complex, wherein the PL is configured to handle data transfer between the external memory and the PL, and the CPU is relieved from handling the data transfer between the external memory and the PL; transmitting instructions between the external memory and the programmable logic module via DMA under the control of CPU, wherein the instructions are transmitted between the external memory and the programmable logic module via an instruction first-in-first-out (FIFO) coupled between the controller of the PL and the DMA; monitoring a status of a Finite State Machine (FSM) of the controller in the programmable logic module by a status monitoring module in the CPU; and notifying the CPU of running errors in the PL through the status monitoring module and the status of the FSM.
+17. A method for implementing an Artificial Neural Network (ANN), comprising: providing a central processing unit (CPU) for scheduling a programmable logic module and a direct memory access (DMA), providing the direct memory access (DMA) coupled to the CPU, an external memory and the programmable logic module, for communication between the external memory and the programmable logic module; providing an external memory coupled to the CPU, the DMA and a programmable logic module, for storing instructions of the ANN and data to be processed by said ANN; providing a programmable logic module (PL), comprising: a controller, configured for getting instructions and scheduling operations of a computing complex on the basis of the instructions; a computing complex, including a plurality of processing elements (PEs), configured for performing operations on the basis of the instructions and data; a buffer, configured for preparing the data and instructions for the computing complex; transmitting instructions between the external memory and the programmable logic module via DMA under the control of CPU and through an instruction first-in-first-out (FIFO) coupled between the controller of the PL and the DMA; transmitting data between the external memory and the programmable logic module directly, wherein the CPU is relieved from handling data transfer between the external memory and the PL; monitoring a status of a Finite State Machine (FSM) of the controller in the programmable logic module by a status monitoring module in the CPU; and notifying the CPU of running errors in the PL through the status monitoring module and the status of the FSM.
+</claims>
+</document>

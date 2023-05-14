@@ -1,0 +1,57 @@
+<document>
+
+<filing_date>
+2018-05-14
+</filing_date>
+
+<publication_date>
+2020-03-10
+</publication_date>
+
+<priority_date>
+2017-05-16
+</priority_date>
+
+<ipc_classes>
+G06F15/167,G06F15/18,G06F9/52,G06F9/54,G06N20/00,H04L7/04
+</ipc_classes>
+
+<assignee>
+ETRI (ELECTRONICS AND TELECOMMUNICATIONS RESEARCH INSTITUTE)
+</assignee>
+
+<inventors>
+LIM, EUN JI
+CHOI, WAN
+CHOI, YONG SEOK
+AHN, SHIN-YOUNG
+WOO, YOUNG-CHOON
+</inventors>
+
+<docdb_family_id>
+64269802
+</docdb_family_id>
+
+<title>
+Parameter-sharing apparatus and method
+</title>
+
+<abstract>
+A parameter-sharing apparatus includes a memory allocation unit for managing allocation of a memory area, in which a parameter is to be stored, to a memory box, and updating a mapping table stored in the memory box based on allocation management of the memory area, and an operation processing unit for providing the memory allocation unit with parameter information required for the allocation management of the memory area in which the parameter is to be stored and sharing the parameter stored in the memory box.
+</abstract>
+
+<claims>
+1. A parameter-sharing method comprising: receiving parameter information for allocating a memory area for a parameter to be stored in a memory box; locking a mapping table of the memory box and reading the mapping table; determining, based on the parameter information, whether a memory area for the parameter has been allocated in the memory box through the mapping table; writing the mapping table, in which mapping information is modified depending on whether the memory area has been allocated, to the memory box and unlocking the mapping table; and sharing the parameter in consideration of a memory address at which the memory area is allocated, wherein sharing the parameter comprises, reading a value of the parameter in the memory box with reference to the memory address, calculating a parameter difference value corresponding to a parameter value read from the memory box using a model algorithm; and modifying the parameter value of the memory box using a parameter difference value, wherein modifying the parameter value is configured to, when the memory box is incapable of performing an assign_add function, re-read the parameter value from the memory box and write a parameter modification value, calculated using the parameter difference value and the re-read parameter value, to the memory box.
+2. The parameter-sharing method of claim 1, wherein receiving the parameter information is configured to receive parameter information including at least one of an identifier and a size of the parameter.
+3. The parameter-sharing method of claim 2, wherein the mapping table is configured such that pieces of mapping information including the identifiers of parameters, memory addresses of memory areas, and reference counts are recorded in respective entries.
+4. The parameter-sharing method of claim 3, wherein determining whether the memory area for the parameter has been allocated is configured to: check the entries of the mapping table, and when the memory area for the corresponding parameter has been allocated in the memory box, increase a reference count in an entry of the mapping table corresponding to the parameter, thus updating the mapping table.
+5. The parameter-sharing method of claim 4, wherein determining whether the memory area for the parameter has been allocated is configured to: check the entries of the mapping table, and when the memory area for the corresponding parameter has not been allocated in the memory box, allocate a memory area corresponding to a size of the parameter in the memory box, and add mapping information about the parameter for which the memory area is allocated to a new entry of the mapping table, thus updating the mapping table.
+6. The parameter-sharing method of claim 5, wherein unlocking the mapping table is configured to record a memory address of the parameter for which the memory area is allocated in the memory box, in the parameter-sharing apparatus.
+7. The parameter-sharing method of claim 1, wherein modifying the parameter value is configured to, when the memory box is capable of performing an assign_add function, modify the parameter value of the memory box using the parameter difference value through the assign_add function of the memory box.
+8. A parameter-sharing method comprising: receiving parameter information for releasing a memory area, in which a parameter is stored, from a memory box; locking a mapping table of the memory box and reading the mapping table; determining, based on the mapping table, whether to release the memory area to which the parameter is stored from the memory box; writing the mapping table, in which mapping information is modified depending on whether to release the memory area, to the memory box, and unlocking the mapping table; and sharing the parameter in consideration of a memory address at which the memory area is released, wherein sharing the parameter comprises, reading a value of the parameter stored in the memory box with reference to the memory address, calculating a parameter difference value corresponding to a parameter value read from the memory box using a model algorithm; and modifying the parameter value of the memory box using a parameter difference value, wherein modifying the parameter value is configured to, when the memory box is incapable of performing an assign_add function, re-read the parameter value from the memory box and write a parameter modification value, calculated using the parameter difference value and the re-read parameter value, to the memory box.
+9. The parameter-sharing method of claim 8, wherein receiving the parameter information is configured to receive parameter information including at least one of an identifier of the parameter and a memory address of the memory area in which the parameter is stored.
+10. The parameter-sharing method of claim 9, wherein reading the mapping table comprises: decreasing a reference count in an entry of the mapping table corresponding to the parameter, thus updating the mapping table; and deleting the memory address that corresponds to the parameter, recorded in the parameter-sharing apparatus.
+11. The parameter-sharing method of claim 10, wherein determining whether to release the memory area to which the parameter is stored is configured to, when the reference count in the mapping table is a minimum value, release the memory area allocated in the memory box and delete the entry of the mapping table corresponding to the memory area.
+12. The parameter-sharing method of claim 8, wherein modifying the parameter value is configured to, when the memory box is capable of performing an assign_add function, modify the parameter value of the memory box using the parameter difference value through the assign_add function of the memory box.
+</claims>
+</document>

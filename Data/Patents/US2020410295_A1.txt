@@ -1,0 +1,89 @@
+<document>
+
+<filing_date>
+2019-06-27
+</filing_date>
+
+<publication_date>
+2020-12-31
+</publication_date>
+
+<priority_date>
+2018-07-03
+</priority_date>
+
+<ipc_classes>
+G06K9/62,G06N20/00,G06N3/04,G06N3/08
+</ipc_classes>
+
+<assignee>
+D5AI
+</assignee>
+
+<inventors>
+BAKER, JAMES, K.
+</inventors>
+
+<docdb_family_id>
+69060277
+</docdb_family_id>
+
+<title>
+ANALYZING AND CORRECTING VULNERABILITIES IN NEURAL NETWORKS
+</title>
+
+<abstract>
+Systems and methods analyze and correct the vulnerability of individual nodes in a neural network to changes in the input data. The analysis comprises first changing the activation function of one or more nodes to make them more vulnerable. The vulnerability is then measured based on a norm on the vector of partial derivatives of the network objective evaluated on each training data item. The system is made less vulnerable by splitting the data based on the sign of the partial derivative of the network objective with respect to a vulnerable and training new ensemble members on selected subsets from the data split.
+</abstract>
+
+<claims>
+1. A method for analyzing vulnerability of a machine learning system, the method comprising: (a) selecting, by a computer system, a first set of nodes of the machine learning system, wherein the first set of nodes comprises N nodes where N≥1; (b) selecting, by the computer system, a second set of nodes of the machine learning system, wherein the second set of nodes comprises n nodes where n≥1; (c) modifying, by the computer system, an activation function of one or more nodes of the second set of nodes to make the machine learning system more vulnerable to a disturbance in input data; (d) generating, by the computer system, for each node of the first set of nodes, a vector comprising a partial derivative of an objective with respect to an activation value for each data item from the input data; (e) calculating, by the computer system, a norm of each vector for each node of the first set of nodes; and (f) determining, by the computer system, which of the first set of nodes are vulnerable nodes according to the norms of the vectors.
+2. The method of claim 1, wherein modifying the activation function of one or more nodes of the second set of nodes comprises: adding, by the computer system, a linear slope to the activation function of one or more nodes of the second set of nodes.
+3. The method of claim 1, wherein modifying the activation function of one or more nodes of the second set of nodes comprises: smoothing, by the computer system, the activation function of one or more nodes of the second set of nodes.
+4. The method of claim 3, wherein smoothing the activation function of one or more nodes of the second set of nodes comprises: generalizing, by the computer system, the activation function of one or more nodes of the second set of nodes.
+5. The method of claim 3, wherein smoothing the activation function of one or more nodes of the second set of nodes comprises: applying, by the computer system, a low-pass filter to the activation function of one or more nodes of the second set of nodes.
+6. The method of claim 1, wherein the norm comprises an L1 norm of the vector.
+7. The method of claim 1, wherein the norm comprises an L2 norm of the vector.
+8. The method of claim 1, wherein the norm comprises a Max norm.
+9. The method of claim 1, wherein determining which of the first set of nodes are vulnerable nodes comprises: determining, by the computer system, whether the norm of the vector for each node of the first set of nodes exceeds a threshold.
+10. The method of claim 1, wherein determining which of the first set of nodes are vulnerable nodes comprises: selecting, by the computer system, a threshold number of nodes from the first set of nodes according to the norms of their vectors.
+11. The method of claim 1, wherein determining which of the first set of nodes are vulnerable nodes comprises: selecting, by the computer system, a threshold ratio of nodes from the first set of nodes according to the norms of their vectors.
+12. The method of claim 1, further comprising: changing, by the computer system, a hyperparameter associated with at least one of steps (a)-(f) from a first value to a second value; and repeating, by the computer system, steps (a)-(f) with the hyperparameter at the second value.
+13. The method of claim 12, wherein the hyperparameter comprises a temperature of the activation function of one or more nodes of the second set of nodes.
+14. The method of claim 1, further comprising: removing, by the computer system, the nodes of the first set of nodes that were determined not to be vulnerable; and repeating, by the computer system, steps (a)-(f).
+15. The method of claim 1, further comprising: adding, by the computer system, one or more additional nodes of the machine learning system to the first set of nodes; and repeating, by the computer system, steps (a)-(f).
+16. The method of claim 1, further comprising: replacing, by the computer system, the activation function for each of the vulnerable nodes with a parametric activation function; and reducing, by the computer system, a parameter of the parametric activation function.
+17. The method of claim 1, further comprising: modifying, by a learning coach implemented by the computer system, an architecture of the machine learning system.
+18. The method of claim 17, wherein changing the architecture of the machine learning system comprises: adding, by the learning coach implemented by the computer system, one or more additional nodes to the machine learning system.
+19. The method of claim 1, further comprising: splitting, by the computer system, the input data into a first dataset and a second dataset based on a sign of a derivative of the partial derivative of the objective with respect to a selected vulnerable node from the vulnerable nodes; creating, by the computer system, a first machine learning system and a second machine learning system from the machine learning system; training, by the computer system, the first machine learning system on the first dataset; and training, by the computer system, the second machine learning system on the second dataset.
+20. The method of claim 19, further comprising: selecting, by the computer system, the selected vulnerable node from the vulnerable nodes according to which of the vulnerable nodes causes the first dataset and the second dataset to be most even in size.
+21. The method of claim 19, wherein the first machine learning system and the second machine learning system are each initialized with architecture, connection weights, and biases identical to the machine learning system.
+22. The method of claim 19, wherein the first machine learning system and the second machine learning system are trained as an ensemble.
+23. The method of claim 1, wherein: the machine learning system comprises one or more input nodes and one or more output nodes; and the first set of nodes comprises the one or more input nodes.
+24. The method of claim 1, wherein the machine learning system comprises a neural network.
+25. A computer system comprising: a processor; and a memory coupled to the processor, the memory storing a machine learning system and instructions that, when executed by the processor, cause the computer system to: (a) select a first set of nodes of the machine learning system, wherein the first set of nodes comprises N nodes where N≥1; (b) select a second set of nodes of the machine learning system, wherein the second set of nodes comprises n nodes where n≥1; (c) modify an activation function of one or more nodes of the second set of nodes to make the machine learning system more vulnerable to a disturbance in input data; (d) generate, for each node of the first set of nodes, a vector comprising a partial derivative of an objective with respect to an activation value for each data item from the input data; (e) calculate a norm of each vector for each node of the first set of nodes; and (f) determine which of the first set of nodes are vulnerable nodes according to the norms of the vectors.
+26. The computer system of claim 25, wherein the instructions cause the computer system to modify the activation function of one or more nodes of the second set of nodes by: adding a linear slope to the activation function of one or more nodes of the second set of nodes.
+27. The computer system of claim 25, wherein the instructions cause the computer system to modify the activation function of one or more nodes of the second set of nodes by: smoothing the activation function of one or more nodes of the second set of nodes.
+28. The computer system of claim 27, wherein the instructions cause the computer system to smooth the activation function of one or more nodes of the second set of nodes by: generalizing the activation function of one or more nodes of the second set of nodes.
+29. The computer system of claim 27, wherein the instructions cause the computer system to smooth the activation function of one or more nodes of the second set of nodes by: applying a low-pass filter to the activation function of one or more nodes of the second set of nodes.
+30. The computer system of claim 25, wherein the norm comprises an L1 norm of the vector.
+31. The computer system of claim 25, wherein the norm comprises an L2 norm of the vector.
+32. The computer system of claim 25, wherein the norm comprises a Max norm.
+33. The computer system of claim 25, wherein the instructions cause the computer system to determine which of the first set of nodes are vulnerable nodes by: determining whether the norm of the vector for each node of the first set of nodes exceeds a threshold.
+34. The computer system of claim 25, wherein the instructions cause the computer system to determine which of the first set of nodes are vulnerable nodes by: selecting a threshold number of nodes from the first set of nodes according to the norms of their vectors.
+35. The computer system of claim 25, wherein the instructions cause the computer system to determine which of the first set of nodes are vulnerable nodes by: selecting a threshold ratio of nodes from the first set of nodes according to the norms of their vectors.
+36. The computer system of claim 25, wherein the instructions further cause the computer system to: change a hyperparameter associated with at least one of steps (a)-(f) from a first value to a second value; and repeat steps (a)-(f) with the hyperparameter at the second value.
+37. The computer system of claim 36, wherein the hyperparameter comprises a temperature of the activation function of one or more nodes of the second set of nodes.
+38. The computer system of claim 25, wherein the instructions further cause the computer system to: remove the nodes of the first set of nodes that were determined not to be vulnerable; and repeat steps (a)-(f).
+39. The computer system of claim 25, wherein the instructions further cause the computer system to: add one or more additional nodes of the machine learning system to the first set of nodes; and repeat steps (a)-(f).
+40. The computer system of claim 25, wherein the instructions further cause the computer system to: replace the activation function for each of the vulnerable nodes with a parametric activation function; and reduce a parameter of the parametric activation function.
+41. The computer system of claim 25, wherein: the memory further stores a learning coach programmed to control the machine learning system; and the instructions further cause the computer system to: modify, by the learning coach, an architecture of the machine learning system.
+42. The computer system of claim 41, wherein the instructions cause the computer system to change the architecture of the machine learning system by: adding, by the learning coach, one or more additional nodes to the machine learning system.
+43. The computer system of claim 25, wherein the instructions further cause the computer system to: split the input data into a first dataset and a second dataset based on a sign of a derivative of the partial derivative of the objective with respect to a selected vulnerable node from the vulnerable nodes; create a first machine learning system and a second machine learning system from the machine learning system; train the first machine learning system on the first dataset; and train the second machine learning system on the second dataset.
+44. The computer system of claim 43, wherein the instructions further cause the computer system to: select the selected vulnerable node from the vulnerable nodes according to which of the vulnerable nodes causes the first dataset and the second dataset to be most even in size.
+45. The computer system of claim 43, wherein the first machine learning system and the second machine learning system are each initialized with architecture, connection weights, and biases identical to the machine learning system.
+46. The computer system of claim 43, wherein the first machine learning system and the second machine learning system are trained as an ensemble.
+47. The computer system of claim 25, wherein: the machine learning system comprises one or more input nodes and one or more output nodes; and the first set of nodes comprises the one or more input nodes.
+48. The computer system of claim 25, wherein the machine learning system comprises a neural network.
+</claims>
+</document>

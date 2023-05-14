@@ -1,0 +1,80 @@
+<document>
+
+<filing_date>
+2020-02-22
+</filing_date>
+
+<publication_date>
+2020-09-17
+</publication_date>
+
+<priority_date>
+2019-02-22
+</priority_date>
+
+<ipc_classes>
+H04N13/128,H04N13/271,H04N13/351,H04N19/17,H04N19/182,H04N19/597
+</ipc_classes>
+
+<assignee>
+AVALON HOLOGRAPHICS
+</assignee>
+
+<inventors>
+TROKE, MATTHEW
+RUMBOLT, CHUCK
+LOCKYER, ROBERT
+HAMILTON, MATTHEW
+BENOIT, DONOVAN
+BUTYN, Thomas
+</inventors>
+
+<docdb_family_id>
+72140181
+</docdb_family_id>
+
+<title>
+LAYERED SCENE DECOMPOSITION CODEC SYSTEM AND METHODS
+</title>
+
+<abstract>
+A system and methods for a CODEC driving a real-time light field display for multi-dimensional video streaming, interactive gaming and other light field display applications is provided applying a layered scene decomposition strategy. Multi-dimensional scene data is divided into a plurality of data layers of increasing depths as the distance between a given layer and the display surface increases. Data layers are sampled using a plenoptic sampling scheme and rendered using hybrid rendering, such as perspective and oblique rendering, to encode light fields corresponding to each data layer. The resulting compressed, (layered) core representation of the multi-dimensional scene data is produced at predictable rates, reconstructed and merged at the light field display in real-time by applying view synthesis protocols, including edge adaptive interpolation, to reconstruct pixel arrays in stages (e.g. columns then rows) from reference elemental images.
+</abstract>
+
+<claims>
+LISTING OF CLAIMS:
+1. A computer-implemented method comprising: receiving a first data set comprising a three-dimensional description of a scene; partitioning the first data set into a plurality of layers each representing a different portion of the scene at a different location with respect to a reference location; partitioning data corresponding to at least one of the layers into a plurality of subsections, wherein a location of a particular subsection is determined in accordance with geometry of at least a portion of an object represented within the scene; and encoding multiple layers and multiple subsections to generate a second data set, wherein a size of the second data set is smaller than a size of the first data set.
+2. The method of claim 1, further comprising transmitting the second data set to a remote device for the scene to be presented at a display device associated with the remote device.
+3. The method of claim 1 or 2, wherein encoding a layer or subsection comprises performing a sampling operation on a corresponding portion of the first data set.
+4. The method of claim 3, wherein the sampling operation is based on a target compression rate associated with the second data set.
+5. The method of any one of claims 1-4, wherein encoding multiple layers and multiple subsections comprises: rendering using ray tracing, a set of pixels to be encoded; selecting multiple elemental images from a plurality of elemental images such that the set of pixels are rendered using the selected multiple elemental images; and sampling the set of pixels using a sampling operation.
+6. The method of claim 3, wherein the sampling operation comprises selecting multiple elemental images, from a corresponding portion of the plurality of elemental images, in accordance with a plenoptic sampling scheme.
+7. The method of claim 3, wherein performing the sampling operation comprises: determining an effective spatial resolution associated with the layer or subsection; and selecting multiple elemental images, from a corresponding portion of the plurality of elemental images, in accordance with a determined angular resolution. 8. The method of claim 7, wherein the angular resolution is determined as a function of a directional resolution associated with the portion of the scene associated with the layer or subsection.
+9. The method of claim 7, wherein the angular resolution is determined as a field of view associated with a display device. 10. The method of any one of claims 1-9, wherein the three-dimensional description comprises light field data representing a plurality of elemental images.
+11. The method of claim 10, wherein each of the plurality of elemental images is captured by one or more image acquisition devices.
+12. The method of any one of claims 1-11, wherein the light field data includes a depth map corresponding to the elemental images.
+13. The method of any one of claims 1-12, wherein the first data set comprises information on directions of normals on surfaces included in the scene, the directions of the normals being represented with respect to a reference direction.
+14. The method of claim 13, wherein reflection properties of at least some of the surfaces are non-Lambertian.
+15. The method of any one of claims 1-14, wherein encoding a layer or a subsection further comprises: obtaining, for the layer or subsection, one or more polygons representative of corresponding portions of objects in the scene; determining, based on the one or more polygons, a view-independent representation; and encoding the view-independent representation in the second data set.
+16. The method of any one of claims 1-15, further comprising: receiving the second data set; decoding portions of the second data set corresponding to each of the layers and each of the subsections; combining the decoded portions into a representation of a light field image; and presenting the light field image on a display device.
+17. The method of claim 16, further comprising: receiving user-input indicative of a location of a user with respect to the light field image; and updating the light field image in accordance with the user-input prior to presentation on the display device.
+18. The method of any one of claims 1-17, wherein layers located closer to the display surface achieve a lower compression ratio than layers of the same width located further away from the display surface.
+19. The method of any one of claims 1-18, wherein the multiple layers of the second data set comprise light fields.
+20. The method of claim 19 wherein the light fields are merged to create a final light field.
+21. The method of any one of claims 1-20, wherein partitioning the layers comprises restricting the depth range of each layer. 22. The method of any one of claims 1-21, wherein layers located closer to the display surface are narrower in width than layers located farther away from the display surface.
+23. The method of any one of claims 1-22, wherein partitioning the first data set into a plurality of layers maintains a uniform compression rate across the scene. 24. The method of any one of claims 1-23, wherein partitioning the first data set into a plurality of layers comprises partitioning the light field display into inner and outer frustum volume layer sets.
+25. The method of any one of claims 1-24, wherein the method is used to generate a synthetic light field for multi-dimensional video streaming, multi-dimensional interactive gaming, real-time interactive content, or other light field display scenarios.
+26. The method of claim 25 wherein the synthetic light field is generated only in a valid viewing zone.
+27. A light field image rendering method comprising of the steps of: partitioning a three-dimensional surface description of a scene into layers, each layer having an associated light field and sampling scheme; further partitioning at least one layer into a plurality of subsections, each subsection having an associated light field and sampling, wherein a location of a particular subsection is determined in accordance with geometry of at least a portion of an object represented within the scene; rendering a first set of pixels, comprising extra-pixel information, for each layer and each subsection in accordance with the sampling scheme and corresponds to a sampled light field; reconstructing the sampled light field for each layer and subsection using the first set of pixels; and merging the reconstructed light fields into a single output light field image.
+28. The method of claim 27, wherein the first set of pixels and associated extra pixel information is partitioned into subsets, whereby reconstructing sampled light fields for each layer and subsection and merging are performed using pixels from a single subset in a cache to create some subset of the output light field image.
+29. The method of claim 28, wherein reconstructing the sampled light field for each layer and subsection is performed by re-projecting pixels in the first set from a cache to create some subset of the output light field image.
+30. The method of claim 29, wherein re-projecting pixels is performed using a warping process along a single dimension in the first set of pixels followed by a second warping process in a second dimension in the first set of pixels.
+31. A computer-implemented method comprising: receiving a first data set comprising a three-dimensional description of a scene, the first data set comprising information on directions of normals on surfaces in the scene, the directions of the normals represented with respect to a reference direction, wherein at least some of the surfaces have non-Lambertian reflection properties; partitioning the first data set into a plurality of layers, each layer representing a portion of the scene at a location with respect to a reference location; and encoding multiple layers to generate a second data set, wherein a size of the second data set is smaller than a size of the first data set.
+32. A light field image rendering method comprising of the steps of: partitioning a three-dimensional surface description of a scene into layers, each layer having an associated light field and sampling scheme; further partitioning at least one layer into a plurality of subsections, each subsection having an associated light field and sampling, wherein a location of a particular subsection is determined in accordance with geometry of at least a portion of an object represented within the scene; rendering a first set of pixels, comprising extra-pixel information, for each layer and each subsection in accordance with the sampling scheme and corresponds to a sampled light field; reconstructing the sampled light field for each layer and subsection using the first set of pixels; and merging the reconstructed light fields into a single output light field image.
+33. A computer-implemented method comprising: receiving a first data set comprising a three-dimensional description of a scene; partitioning the first data set into a plurality of layers each representing a portion of the scene at a location with respect to a reference location; obtaining, for each of the plurality of layers, one or more polygons representative of corresponding portions of objects in the scene; determining, based on the one or more polygons, a view-independent representation; and encoding the view-independent representation as a portion of a second data set, wherein a size of the second data set is smaller than a size of the first data set.
+34. A computer-implemented method comprising: receiving a first data set comprising a three-dimensional description of a scene; partitioning the first data set into a plurality of layers each representing a portion of the scene at a location with respect to a reference location; and encoding multiple layers to generate a second data set by performing a sampling operation on the layers comprising: using an effective resolution function to determine a suitable sampling rate; and downsampling elemental images associated with a layer using the suitable sampling
+wherein a size of the second data set is smaller than a size of the first data set.
+35. A computer-implemented method comprising: receiving a first data set comprising a three-dimensional description of a scene, the first data set comprising information on transparency of surfaces in the scene; partitioning the first data set into a plurality of layers each representing a portion of the scene at a location with respect to a reference location; and encoding multiple layers to generate a second data set, wherein a size of the second data set is smaller than a size of the first data set.
+36. A light field image rendering method comprising of the steps of: partitioning a three-dimensional surface description of a scene into layers, each layer having an associated light field and sampling scheme; further partitioning at least one layer into a plurality of subsections, each subsection having an associated light field and sampling, wherein a location of a particular subsection is determined in accordance with geometry of at least a portion of an object represented within the scene; rendering a first set of pixels, comprising extra-pixel information, for each layer and each subsection in accordance with the sampling scheme and corresponds to a sampled light field; reconstructing the sampled light field for each layer and subsection using the first set of pixels; and merging the reconstructed light fields into a single output light field image.
+</claims>
+</document>

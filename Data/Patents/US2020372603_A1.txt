@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2019-05-24
+</filing_date>
+
+<publication_date>
+2020-11-26
+</publication_date>
+
+<priority_date>
+2019-05-24
+</priority_date>
+
+<ipc_classes>
+G06T1/60,G06T15/00,G06T9/00
+</ipc_classes>
+
+<assignee>
+NVIDIA CORPORATION
+</assignee>
+
+<inventors>
+RANGAN, Ram
+</inventors>
+
+<docdb_family_id>
+73052377
+</docdb_family_id>
+
+<title>
+TECHNIQUES FOR EFFICIENTLY ACCESSING MEMORY AND AVOIDING UNNECESSARY COMPUTATIONS
+</title>
+
+<abstract>
+A technique selectively avoids memory fetches for partially uniform textures in real time graphics shader programs and instead uses program paths specialized for one or more frequently occurring values. One aspect avoids memory lookups and dependent computations for partially uniform textures through use of pre-constructed coarse-grained representations called value locality maps or dirty tilemaps (DTMs). The decision to use a specialized fast path or not is made dynamically by consulting such coarse-grained dirty tilemap representations. Thread-sharing value reuse can be implemented with or instead of the DTM mechanism.
+</abstract>
+
+<claims>
+1. A method performed by a processor coupled to a memory, comprising: (a) without accessing a data array stored in memory, inferring value locality characteristics of the stored data array; and (b) selectively executing a specialized execution path that avoids accessing at least portions of the stored data array in response to inferred value locality characteristics.
+2. The method of claim 1 wherein the specialized execution path selectively shares information between threads to enable value reuse.
+3. The method of claim 1 wherein the specialized execution path avoids accesses to the data array when advanced information indicates the data array contains a known value.
+4. The method of claim 3 wherein the advanced information is derived at least in part from metadata describing compression of the data array.
+5. The method of claim 3 wherein the advanced information comprises a coarse-grained tile map indicating value locality.
+6. The method of claim 1 wherein the data array comprises at least one of a surface, a texture and neural network coefficients.
+7. A system comprising; a processor that reads surface memory compression information to construct a value locality map representation of a surface; and a shader that uses the value locality map representation and specialized execution to reduce dynamic computational redundancy in processing said surface.
+8. The system of claim 7 wherein the shader includes a specialized execution path responsive to value locality indicated by the value locality map.
+9. The system of claim 7 wherein the value locality map provides at least one bit per tile of said surface, the at least one bit indicating whether a given surface tile has value locality or not.
+10. The system of claim 7 wherein the value locality map provides plural bits per region of said surface, the plural bits indicating whether a given surface tile has locality of one of a plurality of possible values and if so, at least one bit-pattern value associated with said each type of value locality and one bit-pattern to convey lack of locality of any of those values.
+11. The system of claim 10 wherein their value locality maps can be further summarized into a more coarse-grained value locality map to convey whether the coarse-grained region contains value locality with respect to one or a plurality of values, or none at all, or if it contains a mix of tiles with and without value locality.
+12. The system of claim 7 wherein the shader embodies expression refactoring based on value locality indicated by the value locality map.
+13. The system of claim 7 wherein the surface memory compression information is stored in L2 cache of the processor.
+14. The system of claim 7 wherein the surface memory compression information comprises zero bandwidth clears data.
+15. The system of claim 7 wherein the surface memory compression information comprises reduction compression data.
+16. The system of claim 7 wherein the surface memory compression information comprises differential compression.
+17. The system of claim 7 wherein the processor uses a driver to read surface memory compression information and construct the value locality map representation of a surface.
+18. The system of claim 7 wherein the shader is compiled to use the value locality map representation to selectively trigger the specialized execution.
+19. The system of claim 7 wherein the processor allows reading of memory compression information by user-mode driver software through the use of memory load operations, to facilitate construction of the value locality map representation of the surface.
+20. The system of claim 7 wherein the process performs a query tile process to combine value locality from surface arrays of different sizes and/or resolutions into a common value locality map representation.
+21. The system of claim 7 wherein the shader is multi-threaded, and based on the value locality map representation, plural threads share and reuse calculations.
+22. A method comprising; reading surface memory compression information to construct a value locality map representation of a surface; and using the value locality map representation to reduce shader dynamic computational redundancy.
+</claims>
+</document>

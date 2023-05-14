@@ -1,0 +1,63 @@
+<document>
+
+<filing_date>
+2017-04-19
+</filing_date>
+
+<publication_date>
+2020-07-15
+</publication_date>
+
+<priority_date>
+2016-05-13
+</priority_date>
+
+<ipc_classes>
+G06K9/00
+</ipc_classes>
+
+<assignee>
+BASF (BADISCHE ANILIN & SODA FABRIK)
+</assignee>
+
+<inventors>
+ALEXANDER, JOHANNES
+ALVAREZ-GILA, AITOR
+DÍEZ-NAVAJAS, ANA MARÍA
+EGGERS, TILL
+ORTIZ BARREDO, AMAYA MARIA
+PICON, ARTZAI
+</inventors>
+
+<docdb_family_id>
+56068688
+</docdb_family_id>
+
+<title>
+SYSTEM AND METHOD FOR DETECTING PLANT DISEASES
+</title>
+
+<abstract>
+A system (100), method and computer program product for determining plant diseases. The system includes an interface module (110) configured to receive an image (10) of a plant, the image (10) including a visual representation (11)of at least one plant element (1). A color normalization module (120) is configured to apply a color constancy method to the received image (10) to generate a color-normalized image. An extractor module (130) is configured to extract one or more image portions (11e) from the color-normalized image wherein the extracted image portions (11e) correspond to the at least one plant element (1). A filtering module (140) configured: to identify one or more clusters (C1 to Cn) by one or more visual features within the extracted image portions (11e) wherein each cluster is associated with a plant element portion showing characteristics of a plant disease; and to filter one or more candidate regions from the identified one or more clusters (C1 to Cn) according to a predefined threshold, by using a Bayes classifier that models visual feature statistics which are always present on a diseased plant image. A plant disease diagnosis module (150) configured to extract, by using a statistical inference method, from each candidate region (C4, C5, C6, Cn) one or more visual features to determine for each candidate region one or more probabilities indicating a particular disease; and to compute a confidence score (CS1) for the particular disease by evaluating all determined probabilities of the candidate regions (C4, C5, C6, Cn).
+</abstract>
+
+<claims>
+1. A system (100) for plant disease detection, comprising: an interface module (110) configured to receive an image (10) of a plant, the image (10) including a visual representation (11) of at least one plant element (1); a color normalization module (120) configured to apply a color constancy method to the received image (10) to generate a color-normalized image; an extractor module (130) configured to extract one or more image portions (11e) from the color-normalized image wherein the extracted image portions (11e) relate to the at least one plant element (1); a filtering module (140) configured: to identify one or more clusters (C1 to Cn) by one or more visual features in a plurality of color channels within the extracted image portions (11e) wherein each cluster is associated with a plant element portion showing characteristics of a plant disease and different diseases are associated with different color channels; and to filter one or more candidate regions from the identified one or more clusters (C1 to Cn) according to a predefined threshold, by using a naive Bayes classifier being trained by using multi-color channels as features wherein the naive Bayes classifier models visual feature statistics which are always present on a diseased plant image indicating a particular disease, and, in case no candidate region is determined, to iteratively repeat the filtering with at least a further predefined threshold, the further predefined threshold (504) being less restrictive than the predefined threshold (503), and, in case still no candidate region is determined when using the predefined thresholds, to determine the cluster with the highest probability as candidate region; and a plant disease diagnosis module (150) configured: to extract, by using a statistical inference, from each candidate region (C4, C5, C6, Cn) one or more visual features to determine for each candidate region one or more probabilities indicating a particular disease; and to compute a confidence score (CS1) for the particular disease by evaluating all the determined probabilities of the candidate regions (C4, C5, C6, Cn) to make a classification decision for one or more diseases.
+2. The system (100) of any of the previous claims, wherein the statistical inference method performs extraction of descriptors and classifiers from each candidate region and uses machine learning techniques to determine the one or more probabilities.
+3. The system (100) of any of the previous claims, wherein the statistical inference method performs visual feature extraction from each candidate region by means of a convolutional neural network architecture and uses deep learning techniques to determine the one or more probabilities.
+4. The system (100) of any of the previous claims, wherein the visual feature statistics is an image color statistics taken from one selected color channel or a combination of color channels selected from the group of: Lab, Mean_ab, RGB, HSI, Norm rgb, CMYK and XYZ.
+5. The system (100) of any of the previous claims, wherein characteristics of a plant disease for clustering by the filtering module (140) are identified using a selected segmentation parameter or a combination or segmentation parameters selected from the groups of visual features including one or more color channels and visual textural features, and configuration features including the number of clusters, the selected recall percentage for the diseased clusters, the necessity of a hierarchical clustering or the reduction of the leaf area to cluster.
+6. The system (100) of any of claim 2 to 5, wherein for feature extraction from the candidate regions a descriptor or a combination of descriptors is selected from the group of: - mean and variance of color coordinate channels where channels can be L, a, b, H, S , L , R, G, B, and specifically designed color channels or opposite color channels; - Histogram descriptor of color coordinate channels where channels can be L, a, b, H, S , L , R, G, B and specifically designed color channels such or opposite color channels; and - LBP texture descriptor of color coordinate channels where channels can be L, a, b, H, S , L , R, G, B and specifically designed color channels such or opposite color channels.
+7. The system (100) of claim 2 to 6, wherein for feature extraction from the candidate regions a selected classifier or a combination of classifiers is selected from the groups of: selected classifiers including Support Vector Machine, Ada boost, and Neural network, and classifier ensembles including Random Forest and Bagging , .
+8. The system (100) of any of the previous claims, wherein one or more visual features for clustering are color descriptors or texture descriptors selected from the group of: - Local L,a,b,H,S,R,G or B color channel mean and variance; - Local L,a,b,H,S,R,G or B color channel color histogram; - "Local Opponent Color mapping" histogram; - Local Binary Pattern (LBP) descriptor over L,a,b,H,S,R,G or B channels; - Uniform LBP descriptor over L,a,b,H,S,R,G or B channels; - Uniform LBP descriptor over LOC mapping; - DSIFT like descriptor over L,a,b,H,S,R,G or B channels; - Advanced color filter bank LINC and SLINC; and
+any of the previous descriptors quantified and encoded in visual words.
+9. A computer-implemented method (1000) for detecting plant diseases, comprising: receiving (1100) an image (10) of a plant, the image including visual representation (11) of at least one plant element (1); applying (1200) a color constancy method to the received image (10) to generate a color-normalized image (10cn); extracting (1300) one or more image portions from the color-normalized image (10vn) wherein the extracted image portions relate to the at least one plant element (1); identifying (1500) clusters (C1 to Cn) by color channels within the extracted image portions wherein each cluster is associated with a plant element portion showing characteristics of a plant disease and different diseases are associated with different color channels; filtering (1600) the identified clusters (C1 to Cn) according to a predefined threshold, by using a naive Bayes classifier being trained by using multi-color channels as features wherein the naive Bayes classifier models color statistics which are always present on an image of a diseased plant indicating a particular disease, the predefined threshold configured for determining one or more candidate regions (C4, C5, C6, Cn) wherein the predefined threshold defines the percentage of detected plant element portions to qualify as candidate regions showing characteristics of a plant disease; in case no candidate region is determined, iteratively repeating the filtering step (1600) with at least a further predefined threshold, the further predefined threshold (504) being less restrictive than the predefined threshold (503); in case still no candidate region is determined, determining the cluster with the highest probability as candidate region; extracting (1700) from each candidate region (C4, C5, C6, Cn) one or more visual features via respective descriptors and classifiers to determine, by using machine learning techniques, for each candidate region one or more probabilities indicating a particular disease; and computing (1800) a confidence score for the particular disease by evaluating all determined probabilities of the candidate regions to make a classification decision for one or more diseases.
+10. The method of claim 9, further comprising:
+prior to identifying (1500), applying (1400) a color constancy method to the extracted one or more image portions to color-normalize the extracted one or more image portions.
+11. The method of any of the claims 9 to 10, wherein different plant diseases are associated with different image disease characteristics and wherein identifying (1500) further comprises:
+clustering (1510) the extracted image portions by plant disease in accordance with the identified image-disease-characteristics.
+12. The method of any of the claims 9 to 11, further comprising:
+determining (1660) whether the identified candidate regions include at least one candidate region which exceeds the average size of the identified candidate regions by more than a predefined threshold size, and, if the at least one candidate region is included, repeating the identifying (1500) and filtering (1600) steps for the at least one candidate region.
+13. A computer program product for plant disease detection, comprising instructions that when loaded into a memory of a control system and being executed by at least one processor of the control system cause the control system to perform the method steps according to any one of the claims 9 to 12.
+</claims>
+</document>

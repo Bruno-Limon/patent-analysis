@@ -1,0 +1,58 @@
+<document>
+
+<filing_date>
+2020-03-04
+</filing_date>
+
+<publication_date>
+2020-09-10
+</publication_date>
+
+<priority_date>
+2019-03-08
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06K9/20,G06K9/32,G06K9/46,G06K9/62
+</ipc_classes>
+
+<assignee>
+HYUNDAI MOBIS COMPANY
+</assignee>
+
+<inventors>
+LEE, DONG YUL
+KIM, BYUNG MIN
+PARK, SANG WOO
+GIL, HO PYONG
+LEE, JIN AEON
+</inventors>
+
+<docdb_family_id>
+72336489
+</docdb_family_id>
+
+<title>
+CLASS LABELING SYSTEM FOR AUTONOMOUS DRIVING
+</title>
+
+<abstract>
+A class labeling system for autonomous driving includes a detection module, a segmentation module, and a lane road boundary detection module. The detection module is configured to detect objects for autonomous driving from an image captured by a camera to generate a bounding box for each of the objects and detect property information about the object. The segmentation module is configured to determine classes for each pixel of the bounding box detected by the detection module and process at least one of the classes as don't care. The lane road boundary detection module is configured to detect at least one of lane and road boundaries using the bounding box detected by the detection module.
+</abstract>
+
+<claims>
+1. A class labeling system for autonomous driving, comprising: a detection module configured to detect objects for autonomous driving from an image captured by a camera to generate a bounding box for each of the objects and detect property information about the object; a segmentation module configured to determine classes for each pixel of the bounding box detected by the detection module and process at least one of the classes as don't care; and a lane road boundary detection module configured to detect at least one of lane and road boundaries using the bounding box detected by the detection module.
+2. The class labeling system of claim 1, wherein the detection module comprises: a detection unit configured to detect the objects by analyzing the image captured by the camera and detect the bounding box for each of the objects; a classification task unit configured to detect a sub-property of each object detected with the bounding box by the detection unit; an instance segmentation task unit configured to crop the bounding box detected by the detection unit to detect a pixel related to the object in the bounding box; a distance value regression task unit configured to use a distance value input from a light detection and ranging (LiDAR) to detect a distance to the object in the bounding box detected by the detection unit; and a tracking task unit configured to predict a location of at least one of a vehicle and a pedestrian detected with the bounding box by the detection unit.
+3. The class labeling system of claim 2, wherein the detection unit is configured to detect in-image coordinates for locations of objects to receive the bounding box.
+4. The class labeling system of claim 3, wherein the in-image coordinates are expressed by a vertex of the bounding box, a width of the bounding box, and a height of the bounding box.
+5. The class labeling system of claim 2, wherein the classification task unit is configured to detect a sub-property of a sign from among the objects.
+6. The class labeling system of claim 3, wherein the distance value regression task unit is configured to: extract point cloud coordinate values related to the in-image coordinate values of the bounding box; and determine, among the in-image coordinate values, a value having a minimum distance from an object to a vehicle as the distance value of the object.
+7. The class labeling system of claim 2, wherein at least one of the classification task unit, the instance segmentation task unit, the distance value regression task unit, and the tracking task unit is configured to perform shift data augmentation in multiple directions and regions to learn each network.
+8. The class labeling system of claim 2, wherein at least one of the classification task unit, the instance segmentation task unit, the distance value regression task unit, and the tracking task unit is configured to learn a network using at least one of zero shot learning, one shot learning, and low shot learning techniques.
+9. The class labeling system of claim 2, wherein at least one of the classification task unit, the instance segmentation task unit, the distance value regression task unit, and the tracking task unit is configured to learn a network by an ensemble technique using at least one of left rotation, right rotation, and flip rotation.
+10. The class labeling system of claim 1, wherein the segmentation module comprises: a segmentation unit configured to determine the classes of each pixel of the image captured by the camera; and a don't care processing unit configured to process at least one of the classes determined by the segmentation unit as don't care.
+11. The class labeling system of claim 10, wherein the don't care processing unit is configured to: detect a bounding box determined as don't care from an original image to generate a segmentation image; learn a dataset of the segmentation image and a dataset labeled by a human labeler to compare performance evaluation results; and perform repetitive learning until the dataset of the segmentation image is improved more than the dataset labeled by the human labeler in recognition performance according to the performance evaluation results.
+12. The class labeling system of claim 1, wherein the lane road boundary detection module comprises: a free instance segmentation unit configured to output a pixel-wise class and an instance output from the image captured by the camera using an instance deep learning network; and a B-spline detection unit configured to detect a B-spline for lane or road shapes through the pixel-wise class and the instance output that are output from the free instance segmentation unit.
+13. The class labeling system of claim 4, wherein the vertex is a left upper end of the bounding box.
+</claims>
+</document>

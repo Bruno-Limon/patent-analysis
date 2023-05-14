@@ -1,0 +1,54 @@
+<document>
+
+<filing_date>
+2018-10-01
+</filing_date>
+
+<publication_date>
+2020-08-06
+</publication_date>
+
+<priority_date>
+2017-10-03
+</priority_date>
+
+<ipc_classes>
+G06N20/10,G06N7/00
+</ipc_classes>
+
+<assignee>
+NEC CORPORATION
+AIST (NATIONAL INSTITUTE OF ADVANCED INDUSTRIAL SCIENCE AND TECHNOLOGY) METI
+</assignee>
+
+<inventors>
+KAJIHARA, TAKAFUMI
+YAMAZAKI, KEISUKE
+</inventors>
+
+<docdb_family_id>
+65994734
+</docdb_family_id>
+
+<title>
+PARAMETER ESTIMATION SYSTEM, PARAMETER ESTIMATION METHOD, AND PARAMETER ESTIMATION PROGRAM RECORDING MEDIUM
+</title>
+
+<abstract>
+A first sample acquisition unit acquires a parameter sample from a prior distribution. A function execution unit acquires data from a distribution by supplying the sample to a function. A degree-of-similarity calculation unit calculates the degree of similarity between the data and correct data using a kernel function. A kernel mean construction unit constructs a kernel mean of a posterior distribution from the degree of similarity, the sample, and the kernel function. A second sample acquisition unit acquires a new parameter sample from the kernel mean and the kernel function. A sample evaluation unit determines whether the difference between new data obtained by supplying one sample selected from the new samples to the function and the correct data is less than a prescribed threshold value. When it is determined that the difference is less than the prescribed threshold value, the sample evaluation unit estimates the selected sample as a parameter. The present invention enables estimation of a high-dimensional parameter of the function, thus making it possible to reduce calculation time.
+</abstract>
+
+<claims>
+1. A parameter estimation system for estimating a parameter θ of a function for producing data y, comprising a machine learning device for determining, by repetitive learning, the parameter θ to be set to the function, wherein the machine learning device comprising: a first sample acquisition unit configured to acquire N (where N represents an integer which is not less than two) samples θi (1≤i≤N) of the parameter θ from a prior distribution P; a function execution unit configured to acquire N data yi from the function by successively supplying the N samples θi to the function, respectively; a degree-of-similarity calculation unit configured to calculate N degrees of similarity wi between the N data yi and correct data y* using a kernel function k; a kernel mean construction unit configured to construct a kernel mean μ of a posterior distribution based on the N degrees of similarity wi, the N samples θi, and the kernel function k; a second sample acquisition unit configured to acquire T (where T represents an integer which is not less than two) new samples θt (1≤t≤T) of the parameter θ based on the kernel mean μ and the kernel function k; and a sample evaluation unit configured to determine whether a difference ∥yk−y*∥ between new data yk and the correct data y* is less than a predetermined threshold value ε, the new data yk being obtained from the function by supplying the function with one sample θk selected from the T new samples θt; wherein the sample evaluation unit estimates and produces the selected sample θk as the parameter θ when it is determined that the difference ∥yk−y*∥ is less than the predetermined threshold value ε.
+2. The parameter estimation system as claimed in claim 1, wherein the first sample acquisition unit is configured to acquire the N samples θi while adjusting a hyper parameter η of the prior distribution P.
+3. The parameter estimation system as claimed in claim 1, wherein the degree-of-similarity calculation unit comprises a Kernel ABC execution unit configured to calculate the N degrees of similarity wi by means of a Kernel ABC algorithm.
+4. The parameter estimation system as claimed in claim 3, wherein the Kernel ABC execution unit is configured to calculate the N degrees of similarity wi between the N data yi and the correct data y* using the kernel function k, a Gram matrix G, and a regularization term δ.
+5. The parameter estimation system as claimed in claim 1, wherein the kernel mean construction unit is configured to readjust a weight based on the N samples θi using the N degrees of similarity wi and the kernel function k and to construct the kernel mean μ representing a probability distribution on a reproducing kernel Hilbert space.
+6. The parameter estimation system as claimed in claim 1, wherein the second sample acquisition unit configured to perform calculation so as to minimize an error calculated between the kernel mean μ and the kernel function k, the new samples θt, and the number T of fetched samples to acquire the new samples θt.
+7. The parameter estimation system as claimed in claim 1, wherein, in a case where the sample evaluation unit determines that the difference ∥yk−y*∥ is larger than the predetermined threshold value ε, the parameter estimation system repeats operations of the function execution unit, the degree-of-similarity calculation unit, the kernel mean construction unit, the second sample acquisition unit, and the sample evaluation unit.
+8. The parameter estimation system as claimed in claim 2, wherein, in a case where the sample evaluation unit determines that the difference ∥yk−y*∥ is larger than the predetermined threshold value ε, the parameter estimation system repeats operations of the first sample acquisition unit, the function execution unit, the degree-of-similarity calculation unit, the kernel mean construction unit, the second sample acquisition unit, and the sample evaluation unit.
+9. The parameter estimation system as claimed in claim 8, wherein, in a case where redundancy of the parameter θ is desired to be controlled prior to repeating the operations, the first sample acquisition unit is configured to adjust the hyper parameter η of the prior distribution P.
+10. A parameter estimation method in a parameter estimation system for estimating a parameter θ of a function, the parameter estimation method being for determining, by repetitive learning, the parameter θ to be set to the function, from samples of the parameter θ, using the function for producing data y, the method comprising: acquiring N (where N represents an integer which is not less than two) samples θi (1≤i≤N) of the parameter θ from a prior distribution P; acquiring N data yi from the function by successively supplying the N samples θi to the function, respectively; calculating N degrees of similarity wi between the N data yi and correct data y* using a kernel function k; constructing a kernel mean μ of a posterior distribution based on the N degrees of similarity wi, the N samples θi, and the kernel function k; acquiring T (where T represents an integer which is not less than two) new samples θt (1≤t≤T) of the parameter θ based on the kernel mean μ and the kernel function k; and determining whether a difference ∥yk−y*∥ between new data yk and the correct data y* is less than a predetermined threshold value ε, the new data yk being obtained from the function by supplying the function with one sample θk selected from the T new samples θt; wherein the selected sample θk is estimated and produced as the parameter θ when it is determined that the difference ∥yk−y*∥ is less than the predetermined threshold value ε.
+11. A non-transitory recoding medium recording a parameter estimation program causing, in a parameter estimation system for estimating a parameter θ of a function, a computer to determine, by repetitive learning, the parameter θ to be set to the function, from samples of the parameter θ, using the function for producing data y, wherein the parameter estimation program causes the computer to execute: a first sample acquisition step of acquiring N (where N represents an integer which is not less than two) samples θi (1≤i≤N) of the parameter θ from a prior distribution P; a function execution step of acquiring N data yi from the function by successively supplying the N samples θi to the function, respectively; a degree-of-similarity calculation step of calculating N degrees of similarity wi between the N data yi and correct data y* using a kernel function k; a kernel mean construction step of constructing a kernel mean μ of a posterior distribution based on the N degrees of similarity wi, the N samples θi, and the kernel function k; a second sample acquisition step of acquiring T (where T represents an integer which is not less than two) new samples θt (1≤t≤T) of the parameter θ based on the kernel mean μ and the kernel function k; and a sample evaluation step of determining whether a difference ∥yk−y*∥ between new data yk and the correct data y* is less than a predetermined threshold value ε, the new data yk being obtained from the function by supplying the function with one sample θk selected from the T new samples θt; wherein the sample evaluation step causes the computer to estimate and produce the selected sample θk as the parameter θ when it is determined that the difference ∥yk−y*∥ is less than the predetermined threshold value ε.
+</claims>
+</document>

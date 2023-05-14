@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2020-04-24
+</filing_date>
+
+<publication_date>
+2020-10-29
+</publication_date>
+
+<priority_date>
+2019-04-25
+</priority_date>
+
+<ipc_classes>
+G06F16/35,G06F40/30,G06Q20/40
+</ipc_classes>
+
+<assignee>
+FAIR ISAAC CORPORATION
+</assignee>
+
+<inventors>
+ZOLDI, SCOTT
+LIU QING
+</inventors>
+
+<docdb_family_id>
+70614695
+</docdb_family_id>
+
+<title>
+SOFT SEGMENTATION BASED RULES OPTIMIZATION FOR ZERO DETECTION LOSS FALSE POSITIVE REDUCTION
+</title>
+
+<abstract>
+Systems and methods for mitigating the false positives while maintaining true positive detection are provided. A soft clustering scheme allows real-time re-assignment of an account to a dominate archetype behavior, as well as rule optimization based on a logical order with more relaxation on thresholds for the most inefficient rules is performed within each archetype. The rule optimization provides false positive reduction compared to a baseline rule system. The method can be used to reduce false positives for any rule-based detection system in which the same true positive detection is required.
+</abstract>
+
+<claims>
+What is claimed is:
+1. A computer-implemented method comprising:
+receiving, by a computer processor, transaction data representing one or more transactions associated with each of one or more accounts, the data comprising categorical field data and continuous field data;
+processing, by the computer processor, the transaction data using a topic model to determine semantic structures underlying the one or more transactions, and to determine entity behavior archetypes associated with the one or more accounts based on the determined semantic structures according to the topic model, the entity behavior archetypes representing transactional behavior patterns across all of the one or more accounts based on the transaction data, the topic model being trained using only non-fmancial crime accounts of the one or more accounts; and
+storing, by the computer processor, the entity behavior archetypes in a data store accessible by the computer processor, the storing including associating the entity behavior archetypes with each associated one or more accounts and associated transaction data;
+such that, upon receiving new transaction data associated with one of the one or more accounts, the computer processor executing a Bayesian inference algorithm is configured to derive the updated latent archetypes from the new transaction data and the previous latent archetypes according to the entity behavior archetypes stored in the data store, the updated the entity behavior archetypes being associated with the one of the one or more accounts being available to the system and stored in the data store. 2 The method in accordance with claim 1, wherein the behavior determined from the new transaction data based on the latent archetypes according to the entity behavior has a different distribution of false positives and true positives of financial crime detection based on the one or more accounts transaction behavior and the assigned entity behavior archetypes.
+3. The method in accordance with claim 2, wherein a subpopulation of the one or more accounts are associated with a dominant archetype.
+4. The method in accordance with claim 3, wherein rule parameters of the financial crime detection system are adjusted based on the subpopulation of the one or more accounts that are assigned to each dominant archetype, and wherein the rule parameters are tuned to identify and remove false positives while maintaining full detection of true positives of the financial crime system.
+5. The method in accordance with claim 4, wherein the tuning of the rule parameters comprises optimizing a first rule parameter that flags largest number of unique false positives while maintaining any true positives uniquely identified only by that rule.
+6. The method in accordance with claim 5, wherein the tuning of the first rule parameter removes unique false positives identified to cause a redistribution of unique false positives and unique true positives across other rules.
+7. The method in accordance with claim 6, further comprising iterating, by the computer processor, through remaining rules until all rules uniquely identify at least one true positive, and where further rule parameters are sequentially adjusted in order of rules with the largest number of unique false positives while maintaining true positive detection.
+8. The method in accordance with claim 1, wherein the topic model is specified as a Latent Dirchlet Allocation (LDA) model.
+9. The method in accordance with claim 8, wherein the training of the LDA model further comprises forming, by the computer processor, a dictionary on which words are associated with a distribution archetypes of the entity behavior archetypes based on Bayesian probabilities.
+10. The method in accordance with claim 1, wherein the categorical field data comprises a Merchant Category Code (MCC) and/or a Point of Sale (POS) Entry Mode associated with one of the one or more transactions.
+11. The method in accordance with claim 1, wherein the continuous field data comprises a dollar amount of one of the one or more transactions, with the continuous value being mapped to one or more categorical bins.
+12. The method in accordance with claim 1, wherein updating the entity behavior archetypes using the latent archetypes associated with the one of the one or more accounts occurs in real-time.
+13. A computer-implemented system for reducing false positives in financial crime detection while maintaining the same true positive detected in an existing financial crime detection system, the system comprising
+a programmable processor; and
+a non-transitory, machine-readable medium storing instructions that, when executed by the processor, cause the at least one programmable processor to perform operations comprising:
+receiving transaction data representing one or more transactions associated with each of one or more accounts, the data comprising categorical field data and continuous field data;
+processing the transaction data using a topic model to determine semantic structures underlying the one or more transactions, and to determine entity behavior archetypes associated with the one or more accounts based on the determined semantic structures according to the topic model, the entity behavior archetypes representing transactional behavior patterns across all of the one or more accounts based on the transaction data, the topic model being trained using only nonfmancial crime accounts of the one or more accounts; and
+storing the entity behavior archetypes in a data store accessible by the computer processor, the storing including associating the entity behavior archetypes with each associated one or more accounts and associated transaction data;
+such that, upon receiving new transaction data associated with one of the one or more accounts, the computer processor executing a Bayesian inference algorithm is configured to derive the updated latent archetypes from the new transaction data and the previous latent archetypes according to the entity behavior archetypes stored in the data store, the updated the entity behavior archetypes being associated with the one of the one or more accounts being available to the system and stored in the data store.
+14. The system in accordance with claim 13, wherein the behavior determined from the new transaction data based on the latent archetypes according to the entity behavior has a different distribution of false positives and true positives of financial crime detection based on the one or more accounts transaction behavior and the assigned entity behavior archetypes.
+15. The system in accordance with claim 14, wherein a subpopulation of the one or more accounts are associated with a dominant archetype and rule parameters of the financial crime detection system are adjusted based on the subpopulation of the one or more accounts that are assigned to each dominant archetype, and wherein the rule parameters are tuned to identify and remove false positives while maintaining full detection of true positives of the financial crime system.
+</claims>
+</document>

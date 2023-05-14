@@ -1,0 +1,61 @@
+<document>
+
+<filing_date>
+2018-10-25
+</filing_date>
+
+<publication_date>
+2020-09-10
+</publication_date>
+
+<priority_date>
+2018-06-29
+</priority_date>
+
+<ipc_classes>
+G06K9/00,G06N3/08,G06T11/60,G06T5/50
+</ipc_classes>
+
+<assignee>
+BOE TECHNOLOGY GROUP COMPANY
+</assignee>
+
+<inventors>
+CHEN, GUANNAN
+</inventors>
+
+<docdb_family_id>
+68985976
+</docdb_family_id>
+
+<title>
+COMPUTER-IMPLEMENTED METHOD FOR GENERATING COMPOSITE IMAGE, APPARATUS FOR GENERATING COMPOSITE IMAGE, AND COMPUTER-PROGRAM PRODUCT
+</title>
+
+<abstract>
+A computer-implemented method far generating a composite image, The method includes iteratively optimizing an intermediate style transfer image using an initial style transfer image as a starting point based on a predefined loss function, original content features of a first input image, and original style features of a second input image; generating an optimized style transfer image after iteratively optimizing is performed for N times, N>1; and mouthing the optimized style transfer image with the second input image to generate the composite image.
+</abstract>
+
+<claims>
+1. A computer-implemented method for generating a composite image, comprising: iteratively optimizing an intermediate style transfer image using an initial style transfer image as a starting point based on a predefined loss function, original content features of a first input image, and original style features of a second input image; generating an optimized style transfer image after iteratively optimizing is performed for N times, N>1; and morphing the optimized style transfer image with the second input image to generate the composite image.
+2. The computer-implemented method of claim 1, further comprising: extracting a content feature map from the first input image by a computer system; extracting a style feature map from the second input image by the computer system; generating the original style features from the style feature map; and generating the original content features from the content feature map.
+3. The computer-implemented method of claim 2, wherein the original style features are generated from the style feature map using a deep convolutional neural network; and the original content features are generated from the content feature map using the deep convolutional neural network.
+4. The computer-implemented method of claim 3, wherein the original content features are generated from a higher convolutional layer of the deep convolutional neural network than that for the original style features.
+5. The computer-implemented method of claim 1, wherein the predefined loss function comprises a content loss function for calculating content loss and a style loss function for calculating style loss; and each of the content loss function and the style loss function is used in iteratively optimizing the intermediate style transfer image.
+6. The computer-implemented method of claim 5, further comprising: calculating a weighted sum of a content loss and a style loss as a total loss; and generating the optimized style transfer image when the total loss is lower than a threshold value.
+7. The computer-implemented method of claim 5, wherein iteratively optimizing the intermediate style transfer image comprises: generating content features and style features from an n-th intermediate style transfer image using a deep convolutional neural network, N−1≥n≥1; calculating an n-th content loss of the n-th intermediate style transfer image relative to the original content features and an n-th style loss of the n-th intermediate style transfer image relative to the original style features based on the predefined loss function; calculating a weighted sum of the n-th content loss and the n-th style loss as an n-th total loss; and optimizing the n-th intermediate style transfer image to generate an (n+1) intermediate style transfer image based on the n-th total loss.
+8. The computer-implemented method of claim 5, wherein the content loss function is defined as and wherein C1 is a standardizing constant, Fijl stands for a value of a j-th pixel of a feature map of an n-th intermediate style transfer image outputted from an i-th convolutional kernel of a l-th convolutional layer of a deep convolutional neural network; pijl is a value of a j-th pixel of a feature map of the first input image outputted from the i-th convolutional kernel of the l-th convolutional layer of the deep convolutional neural network.
+9. The computer-implemented method of claim 5, wherein the style loss function is defined as and wherein C2 is a standardizing constant, Gijl is a Gram matrix of an n-th intermediate style transfer image outputted from a l-th convolutional layer of a deep convolutional neural network, Aijl stands for a Gram matrix of the second input image outputted from the l-th convolutional layer of the deep convolutional neural network, Nl stands for a total number of convolutional kernels in the l-th convolutional layer of the deep convolutional neural network respectively outputting a total number of Nl feature maps, and Ml stands for an area of each of the Nl feature maps, and wl stands for a weight of a style loss of the l-th convolutional layer of the deep convolutional neural network with respect to a total style loss.
+10. The computer-implemented method of claim 1, prior to morphing the optimized style transfer image with the second input image, further comprising performing an image alignment between the optimized style transfer image and the second input image.
+11. The computer-implemented method of claim 1, wherein morphing the optimized style transfer image with the second input image comprises morphing a target region in a calibrated optimized style transfer image with a corresponding region in the second input image using a morphed mask as a guide.
+12. The computer-implemented method of claim 11, further comprising: performing Gaussian blur on the optimized style transfer image to obtain a blurred optimized style transfer image; performing Gaussian blur on the second input image to obtain a blurred second input image; calculating a luminance scale coefficient for each pixel by calculating a ratio of luminance values between the blurred optimized style transfer image and the blurred second input image for each pixel; and performing a luminance value calibration on the optimized style transfer image based on the luminance scale coefficient of each pixel to obtain the calibrated optimized style transfer image.
+13. The computer-implemented method of claim 11, further comprising: calculating a first two-dimensional convex hull boundary based on feature point vector of the optimized style transfer image; calculating a second two-dimensional convex hull boundary based on feature point vector of the second input image; assigning a region in the first two-dimensional convex hull boundary as a first mask; assigning a region in the second two-dimensional convex hull boundary as a second mask; and assigning a union of the first mask and the second mask as the morphed mask.
+14. The computer-implemented method of claim 3, wherein a total number of convolutional layers of the deep convolutional neural network is 8.
+15. The computer-implemented method of claim 14, wherein the original content features is generated from a seventh convolutional layer of the deep convolutional neural network; and the original style features is generated from a first convolutional layer, a third convolutional layer, and a fifth convolutional layer of the deep convolutional neural network.
+16. The computer-implemented method of claim 3, wherein the deep convolutional neural network uses pre-training parameters of a VGG19 model as initial pre-training parameters.
+17. The computer-implemented method of claim 1, wherein the first input image comprises a first facial image; the second input image comprises a second facial image; the original content features of the first input image comprise original facial content features of the first facial image; the original style features of the second input image comprise original facial style features of the second facial image; the optimized style transfer image comprises an optimized facial style transfer image; and morphing the optimized style transfer image with the second input image comprises morphing the optimized facial style transfer image with the second facial image.
+18. The computer-implemented method of claim 1, wherein a white noise image is selected as the initial style transfer image.
+19. An apparatus for generating a composite image, comprising: a memory; one or more processors; wherein the memory and the one or more processors are connected with each other; and the memory stores computer-executable instructions for controlling the one or more processors to: iteratively optimize an intermediate style transfer image using an initial style transfer image as a starting point based on a predefined loss function, original content features of a first input image, and original style features of a second input image; generate an optimized style transfer image after iteratively optimizing is performed for N times, N>1; and morph the optimized style transfer image with the second input image to generate the composite image.
+20. A computer-program product comprising a non-transitory tangible computer-readable medium having computer-readable instructions thereon, the computer-readable instructions being executable by a processor to cause the processor to perform: iteratively optimizing an intermediate style transfer image using an initial style transfer image as a starting point based on a predefined loss function, original content features of a first input image, and original style features of a second input image; generating an optimized style transfer image after iteratively optimizing is performed for N times, N>1; and morphing the optimized style transfer image with the second input image to generate a composite image.
+</claims>
+</document>

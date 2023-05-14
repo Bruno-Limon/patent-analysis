@@ -1,0 +1,53 @@
+<document>
+
+<filing_date>
+2020-07-06
+</filing_date>
+
+<publication_date>
+2020-10-22
+</publication_date>
+
+<priority_date>
+2018-03-28
+</priority_date>
+
+<ipc_classes>
+G06F17/16,G06F7/544,G06F9/30,G06F9/38,G06N3/00
+</ipc_classes>
+
+<assignee>
+INTEL CORPORATION
+</assignee>
+
+<inventors>
+JANIK, KENNETH J.
+SATISH, NADATHUR RAJAGOPALAN
+NARAYANAMOORTHY, SRINIVASAN
+SUPRUN, ALEXEY
+</inventors>
+
+<docdb_family_id>
+65231633
+</docdb_family_id>
+
+<title>
+Accelerator for sparse-dense matrix multiplication
+</title>
+
+<abstract>
+Disclosed embodiments relate to an accelerator for sparse-dense matrix instructions. In one example, a processor to execute a sparse-dense matrix multiplication instruction, includes fetch circuitry to fetch the sparse-dense matrix multiplication instruction having fields to specify an opcode, a dense output matrix, a dense source matrix, and a sparse source matrix having a sparsity of non-zero elements, the sparsity being less than one, decode circuitry to decode the fetched sparse-dense matrix multiplication instruction, execution circuitry to execute the decoded sparse-dense matrix multiplication instruction to, for each non-zero element at row M and column K of the specified sparse source matrix generate a product of the non-zero element and each corresponding dense element at row K and column N of the specified dense source matrix, and generate an accumulated sum of each generated product and a previous value of a corresponding output element at row M and column N of the specified dense output matrix.
+</abstract>
+
+<claims>
+1. A processor comprising: a cache to store data; a plurality of cores coupled to the cache, a core of the plurality of cores comprising: execution circuitry to perform multiply-accumulate operations with a first source matrix and a second source matrix to generate a result matrix responsive to an instruction, wherein the first source matrix is a sparse matrix having non-zero data elements located at certain positions, wherein the first source matrix is stored in a compressed format that identifies the positions of the non-zero data elements in the first source matrix, the execution circuitry further comprising: a plurality of multiply-accumulate circuits to perform a plurality of fused multiply-add operations to multiply the non-zero data elements of the first source matrix by corresponding data elements of the second source matrix identified based on the positions in the compressed format to generate a plurality of products, and to add the plurality of products to accumulated values to generate data elements of the result matrix.
+2. The processor of claim 1 wherein each position of a non-zero data element in the first source matrix is to be used to identify a row and/or column in the second source matrix, wherein the plurality of multiply-accumulate circuits are to multiply the non-zero data element in the first matrix by each data element in a row and/or column, respectively.
+3. The processor of claim 1 wherein the second source matrix comprises a dense matrix.
+4. The processor of claim 1 wherein the compressed sparse matrix format comprises a compressed sparse row (CSR) format or a compressed sparse column (CSC) format.
+5. The processor of claim 3 further comprising an instruction fetch circuit to fetch the instruction and a decoder to decode the instruction.
+6. The processor of claim 5 wherein the instruction comprises a plurality of fields including a first field to specify an opcode, a second field to identify the result matrix, a third field to identify the first source matrix, and a fourth field to identify the second source matrix.
+7. The processor of claim 1 wherein the first source matrix and the second source matrix comprise a machine learning activation matrix and/or a weight vector.
+8. A processor to execute a sparse-dense matrix multiplication (SDMM) instruction, comprising: fetch circuitry to fetch, from memory, the SDMM instruction having fields to specify an opcode, a dense output matrix, a dense source matrix, and a sparse source matrix having a sparsity of non-zero elements below a sparsity threshold; decode circuitry to decode the fetched SDMM instruction; and execution circuitry, responsive to the decoded SDMM instruction to, for each non-zero element at row M and column K of the specified sparse source matrix: generate a product of the non-zero element and each corresponding dense element at row K and column N of the specified dense source matrix; and generate an accumulated sum of each generated product and a previous value of a corresponding output element at row M and column N of the specified dense output matrix wherein the SDMM instruction further specifies a format of data elements of the specified sparse source matrix, the specified dense source matrix, and the specified dense output matrix, the format being one of fixed-point, single-precision floating point, double-precision floating point, extended precision floating point, and double-extended precision floating point; a memory read circuit to read the specified sparse source matrix and the specified dense source matrix, and write results to a memory, wherein the specified sparse source matrix is stored in the memory in a compressed format, the compressed format including only the non-zero elements of the specified sparse source matrix, each non-zero element being represented by a data value and a matrix location, and wherein the memory read circuit reads the specified sparse source matrix in the compressed format.
+9. The processor of claim 1, wherein the SDMM instruction further specifies a size of data elements of the specified sparse source matrix, the specified dense source matrix, and the specified dense output matrix, the size being one of 8 bits, 16 bits, 32 bits, 64 bits, and 128 bits, the size being specified either as an operand of the instruction or as part of the opcode.
+</claims>
+</document>

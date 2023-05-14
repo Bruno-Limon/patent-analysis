@@ -1,0 +1,73 @@
+<document>
+
+<filing_date>
+2018-12-27
+</filing_date>
+
+<publication_date>
+2020-07-02
+</publication_date>
+
+<priority_date>
+2018-12-27
+</priority_date>
+
+<ipc_classes>
+G06F17/16,G06F9/30,G06F9/38
+</ipc_classes>
+
+<assignee>
+INTEL CORPORATION
+</assignee>
+
+<inventors>
+VALENTINE, ROBERT
+CHARNEY, MARK J.
+BAUM, DAN
+ESPIG, MICHAEL
+HUGHES CHRISTOPHER J.
+OULD-AHMED-VALL, ELMOUSTAPHA
+SADE, RAANAN
+HEINECKE, ALEXANDER F.
+KOREN, CHEN
+</inventors>
+
+<docdb_family_id>
+71124356
+</docdb_family_id>
+
+<title>
+SYSTEMS AND METHODS TO ACCELERATE MULTIPLICATION OF SPARSE MATRICES
+</title>
+
+<abstract>
+Disclosed embodiments relate to accelerating multiplication of sparse matrices. In one example, a processor is to fetch and decode an instruction having fields to specify locations of first, second, and third matrices, and an opcode indicating the processor is to multiply and accumulate matching non-zero (NZ) elements of the first and second matrices with corresponding elements of the third matrix, and executing the decoded instruction as per the opcode to generate NZ bitmasks for the first and second matrices, broadcast up to two NZ elements at a time from each row of the first matrix and each column of the second matrix to a processing engine (PE) grid, each PE to multiply and accumulate matching NZ elements of the first and second matrices with corresponding elements of the third matrix. Each PE further to store an NZ element for use in a subsequent multiplications.
+</abstract>
+
+<claims>
+1. A processor comprising: fetch circuitry to fetch an instruction; decode circuitry to decode the fetched instruction having fields to specify locations of a first matrix, a second matrix, a third matrix, and an opcode indicating the processor is to multiply and accumulate matching non-zero (NZ) elements of the first matrix and the second matrix with corresponding elements of the third matrix; and execution circuitry to execute the decoded instruction as per the opcode to generate NZ bitmasks for the first matrix and the second matrix, broadcast up to two NZ elements at a time from each row of the first matrix and each column of the second matrix to a processing engine (PE) grid, each PE to multiply and accumulate matching NZ elements of the first matrix and the second matrix with corresponding elements of the third matrix; and each PE is further to store an NZ element for use in a subsequent cycle when the NZ bitmasks indicate a matching NZ element will arrive in the subsequent cycle.
+2. The processor of claim 1, wherein each of the first matrix, second matrix, and third matrix is located in one of memory, a collection of registers in a register file of the processor, and a collection of tile registers in the processor, the tile registers comprising an overlay over physical registers.
+3. The processor of claim 1, wherein each PE has a buffer to store the NZ element for use in the subsequent cycle.
+4. The processor of claim 1, wherein the first matrix has M rows by K columns, the second matrix has K rows by N columns, the third matrix has M rows by N columns, and the PE grid has M rows by N columns, and wherein the instruction is further to specify K, M, and N.
+5. The processor of claim 1, wherein the first matrix has M rows by K columns, the second matrix has K rows by N columns, the third matrix has M rows by N columns, and the PE grid has M rows by N columns, and wherein K, M, and N are configured in a configuration register in the processor before the instruction is fetched.
+6. The processor of claim 1, wherein the instruction is further to specify a writemask to indicate, for each element of the third matrix, whether the element is to be updated or is to be masked, the instruction further to specify whether masked elements are to be zeroed, setting their values to zero, or merged, leaving their values unchanged.
+7. The processor of claim 1, wherein at least one of the first matrix and the second matrix is a sparse matrix containing a plurality of zero-valued elements.
+8. The processor of claim 7, wherein the sparse matrix has been stored in memory in compressed format before fetching the instruction, the compressed format to pack NZ elements together and indicate a logical matrix position of each NZ element in a header.
+9. A method performed by a processor, the method comprising: fetching, using fetch circuitry, an instruction; decoding, using decode circuitry, the fetched instruction having fields to specify locations of a first matrix, a second matrix, a third matrix, and an opcode indicating the processor is to multiply and accumulate matching non-zero (NZ) elements of the first matrix and the second matrix with corresponding elements of the third matrix; and executing, using execution circuitry, the decoded instruction as per the opcode to generate NZ bitmasks for the first matrix and the second matrix, broadcast up to two NZ elements at a time from each row of the first matrix and each column of the second matrix to a processing engine (PE) grid, each PE to multiply and accumulate matching NZ elements of the first matrix and the second matrix with corresponding elements of the third matrix; and each PE is further to store an NZ element for use in a subsequent cycle when the NZ bitmasks indicate a matching NZ element will arrive in the subsequent cycle.
+10. The method of claim 9, wherein each of the first matrix, second matrix, and third matrix is located in one of memory, a collection of registers in a register file of the processor, and a collection of tile registers in the processor, the tile registers comprising an overlay over physical registers.
+11. The method of claim 9, wherein each PE has a buffer to store the NZ element for use in the subsequent cycle.
+12. The method of claim 9, wherein the first matrix has M rows by K columns, the second matrix has K rows by N columns, the third matrix has M rows by N columns, and the PE grid has M rows by N columns, and wherein the instruction is further to specify K, M, and N.
+13. The method of claim 9, wherein the first matrix has M rows by K columns, the second matrix has K rows by N columns, the third matrix has M rows by N columns, and the PE grid has M rows by N columns, and wherein K, M, and N are configured in a configuration register in the processor before the instruction is fetched.
+14. The method of claim 9, wherein the instruction is further to specify a writemask to indicate, for each element of the third matrix, whether the element is to be updated or is to be masked, the instruction further to specify whether masked elements are to be zeroed, setting their values to zero, or merged, leaving their values unchanged.
+15. The method of claim 9, wherein at least one of the first matrix and the second matrix is a sparse matrix containing a plurality of zero-valued elements.
+16. The method of claim 15, wherein the sparse matrix has been stored in memory in compressed format before fetching the instruction, the compressed format to pack NZ elements together and indicate a logical matrix position of each NZ element in a header.
+17. A non-transitory machine-readable medium containing instructions to which a processor is to respond by: fetching, using fetch circuitry, an instruction; decoding, using decode circuitry, the fetched instruction having fields to specify locations of a first matrix, a second matrix, a third matrix, and an opcode indicating the processor is to multiply and accumulate matching non-zero (NZ) elements of the first matrix and the second matrix with corresponding elements of the third matrix; and executing, using execution circuitry, the decoded instruction as per the opcode to generate NZ bitmasks for the first matrix and the second matrix, broadcast up to two NZ elements at a time from each row of the first matrix and each column of the second matrix to a processing engine (PE) grid, each PE to multiply and accumulate matching NZ elements of the first matrix and the second matrix with corresponding elements of the third matrix; and each PE is further to store an NZ element for use in a subsequent cycle when the NZ bitmasks indicate a matching NZ element will arrive in the subsequent cycle.
+18. The non-transitory machine-readable medium of claim 17, wherein each of the first matrix, second matrix, and third matrix is located in one of memory, a collection of registers in a register file of the processor, and a collection of tile registers in the processor, the tile registers comprising an overlay over physical registers.
+19. The non-transitory machine-readable medium of claim 17, wherein each PE has a buffer to store the NZ element for use in the subsequent cycle.
+20. The non-transitory machine-readable medium of claim 17, wherein the first matrix has M rows by K columns, the second matrix has K rows by N columns, the third matrix has M rows by N columns, and the PE grid has M rows by N columns, and wherein the instruction is further to specify K, M, and N.
+21. The non-transitory machine-readable medium of claim 17, wherein the first matrix has M rows by K columns, the second matrix has K rows by N columns, the third matrix has M rows by N columns, and the PE grid has M rows by N columns, and wherein K, M, and N are configured in a configuration register in the processor before the instruction is fetched.
+22. The non-transitory machine-readable medium of claim 17, wherein the instruction is further to specify a writemask to indicate, for each element of the third matrix, whether the element is to be updated or is to be masked, the instruction further to specify whether masked elements are to be zeroed, setting their values to zero, or merged, leaving their values unchanged.
+23. The non-transitory machine-readable medium of claim 17, wherein at least one of the first matrix and the second matrix is a sparse matrix containing a plurality of zero-valued elements.
+24. The non-transitory machine-readable medium of claim 23, wherein the sparse matrix has been stored in memory in compressed format before fetching the instruction, the compressed format to pack NZ elements together and indicate a logical matrix position of each NZ element in a header.
+</claims>
+</document>

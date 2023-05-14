@@ -1,0 +1,62 @@
+<document>
+
+<filing_date>
+2019-01-04
+</filing_date>
+
+<publication_date>
+2020-07-09
+</publication_date>
+
+<priority_date>
+2019-01-04
+</priority_date>
+
+<ipc_classes>
+B60W30/095,B60W30/12,B60W50/12,G06K9/00
+</ipc_classes>
+
+<assignee>
+TOYOTA RESEARCH INSTITUTE
+</assignee>
+
+<inventors>
+BOBIER-TIU, CARRIE
+ZASECK, KEVIN M.
+</inventors>
+
+<docdb_family_id>
+71404137
+</docdb_family_id>
+
+<title>
+SYSTEMS AND METHODS FOR SHARED CONTROL OF A VEHICLE
+</title>
+
+<abstract>
+System, methods, and other embodiments described herein relate to selectively intervening in manual control of a vehicle by a driver. In one embodiment, a method includes predicting a future state of the vehicle according to at least a current state and a control input. The current state defines at least one attribute of a current trajectory of the vehicle, and the control input defines at least one driver input for controlling the vehicle. The method includes comparing the future state with a state constraint indicating a range within which a target path of the vehicle is acceptable. The target path defines a subsequent trajectory for the vehicle. The method includes selectively modifying the target path according to whether the future state violates the state constraint. The method includes controlling the vehicle according to the target path.
+</abstract>
+
+<claims>
+1. A control system for selectively intervening in manual control of a vehicle by a driver, comprising: one or more processors; a memory communicably coupled to the one or more processors and storing: a state module including instructions that when executed by the one or more processors cause the one or more processors to predict a future state of the vehicle according to at least a current state and a control input, the current state defining at least one attribute of a current trajectory of the vehicle and the control input defining at least one driver input for controlling the vehicle; and a constraint module including instructions that when executed by the one or more processors cause the one or more processors to: compare the future state with a state constraint indicating a range within which a target path of the vehicle is acceptable, the target path defining a subsequent trajectory for the vehicle, and selectively modify the target path according to whether the future state violates the state constraint, and control the vehicle according to the target path.
+2. The control system of claim 1, wherein the constraint module includes instructions to compare the future state with the state constraint including instructions to identify whether the future state violates the state constraint by indicating when the future state exceeds one or more boundaries defining the range, and wherein the constraint module includes instructions to selectively modify the target path including instructions to align the target path with a target boundary of the boundaries which the future state violates.
+3. The control system of claim 2, wherein the constraint module includes instructions to control the vehicle according to the target path including controlling the vehicle to follow along the target boundary when the future state violates the constraint and until a subsequently predicted future state resulting from subsequent control inputs no longer violates the state constraint.
+4. The control system of claim 1, wherein the constraint module includes instructions to selectively modify the target path including instructions to pass the control input without modification by defining the target path according to the control input when the future state does not violate the state constraint, and wherein the constraint module includes instructions to pass the control input to cause the vehicle to follow an intent of the driver embodied by the control input.
+5. The control system of claim 1, wherein the state module includes instructions to predict the future state including instructions to estimate a future path of the vehicle over a defined horizon as a function of at least the current trajectory and the control input, and wherein the state constraint is defined according to characteristics of one or more of the vehicle and an environment around the vehicle to define safe operating conditions for the vehicle.
+6. The control system of claim 5, wherein the state constraint includes operational constraints that define at least limits on the control input, and wherein the state module predicts the future state according to the control input as extrapolated over the defined horizon according to the operational constraints.
+7. The control system of claim 1, wherein the state module includes instructions to predict the future state of the vehicle including instructions to predict future inputs from the driver that account for driver intent from which the state module derives the future state of the vehicle.
+8. The control system of claim 1, wherein the constraint module includes instructions to selectively modify the target path including instructions to generate the target path as an optimal path for the vehicle according to a constrained optimization that includes defining the optimal path as a function of the state constraint when the future state violates the state constraint and according to the future state when the future state does not violate the state constraint, wherein the constraint module includes instructions to perform the constrained optimization including instructions to apply a model predictive control (MPC) routine that implements a cost function to minimize deviations from the control input while accounting for the state constraint such that the target path tracks the control input.
+9. A non-transitory computer-readable medium for selectively intervening in manual control of a vehicle by a driver and including instructions that when executed by one or more processors cause the one or more processors to: predict a future state of the vehicle according to at least a current state and a control input, the current state defining at least one attribute of a current trajectory of the vehicle and the control input defining at least one driver input for controlling the vehicle; compare the future state with a state constraint indicating a range within which a target path of the vehicle is acceptable, the target path defining a subsequent trajectory for the vehicle; selectively modify the target path according to whether the future state violates the state constraint; and control the vehicle according to the target path.
+10. The non-transitory computer-readable medium of claim 9, wherein the instructions to compare the future state with the state constraint including instructions to identify whether the future state violates the state constraint by indicating when the future state exceeds one or more boundaries defining the range, and wherein the instructions to selectively modify the target path includes aligning the target path with a target boundary of the boundaries which the future state violates.
+11. The non-transitory computer-readable medium of claim 10, wherein the instructions to control the vehicle according to the target path including controlling the vehicle to follow along the target boundary when the future state violates the constraint and until a subsequently predicted future state resulting from subsequent control inputs no longer violates the state constraint.
+12. The non-transitory computer-readable medium of claim 9, wherein the instructions to selectively modify the target path include instructions to pass the control input without modification by defining the target path according to the control input when the future state does not violate the state constraint, and wherein the instructions to pass the control input to cause the vehicle to follow an intent of the driver embodied by the control input.
+13. The non-transitory computer-readable medium of claim 9, wherein the instructions to predict the future state include instructions to estimate a future path of the vehicle over a defined horizon as a function of at least the current trajectory and the control input, and wherein the state constraint is defined according to characteristics of one or more of the vehicle and an environment around the vehicle to define safe operating conditions for the vehicle.
+14. A method of selectively intervening in manual control of a vehicle by a driver, comprising: predicting a future state of the vehicle according to at least a current state and a control input, the current state defining at least one attribute of a current trajectory of the vehicle and the control input defining at least one driver input for controlling the vehicle; comparing the future state with a state constraint indicating a range within which a target path of the vehicle is acceptable, the target path defining a subsequent trajectory for the vehicle; selectively modifying the target path according to whether the future state violates the state constraint; and controlling the vehicle according to the target path.
+15. The method of claim 14, wherein comparing the future state with the state constraint includes identifying whether the future state violates the state constraint by indicating when the future state exceeds one or more boundaries defining the range, and wherein selectively modifying the target path includes aligning the target path with a target boundary of the boundaries which the future state violates.
+16. The method of claim 15, wherein controlling the vehicle according to the target path includes causing the vehicle to follow along the target boundary when the future state violates the constraint and until a subsequently predicted future state resulting from subsequent control inputs no longer violate the state constraint.
+17. The method of claim 14, wherein selectively modifying the target path includes passing the control input without modification when the future state does not violate the state constraint, wherein passing the control input causes the vehicle to follow an intent of the driver embodied by the control inputs.
+18. The method of claim 14, wherein predicting includes estimating a future path of the vehicle over a defined horizon as a function of at least the current trajectory and the control input, and wherein the state constraint is defined according to characteristics of one or more of the vehicle and an environment around the vehicle to define safe operating conditions for the vehicle.
+19. The method of claim 14, wherein predicting the future state of the vehicle includes predicting future inputs from the driver that account for driver intent from which the future state of the vehicle is derived, wherein the state constraint includes operational constraints that define at least limits on the control input, and wherein predicting the inputs includes adjusting the control input over the defined horizon according to the operational constraints.
+20. The method of claim 14, wherein selectively modifying the target path includes generating the target path as an optimal path for the vehicle according to a constrained optimization that includes defining the optimal path as a function of the state constraint when the future state violates the state constraint and according to the future state when the future state does not violate the state constraint, wherein the constrained optimization includes applying a model predictive control (MPC) routine that implements a cost function to minimize deviations from the control input while accounting for the state constraint such that the target path tracks the control input.
+</claims>
+</document>

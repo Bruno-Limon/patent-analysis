@@ -1,0 +1,67 @@
+<document>
+
+<filing_date>
+2015-06-05
+</filing_date>
+
+<publication_date>
+2020-05-05
+</publication_date>
+
+<priority_date>
+2015-06-05
+</priority_date>
+
+<ipc_classes>
+G06F40/205,G06N20/00,G06N99/00
+</ipc_classes>
+
+<assignee>
+FACEBOOK
+</assignee>
+
+<inventors>
+DUNN, JEFFREY SCOTT
+BOWERS, STUART MICHAEL
+MEHANNA, HUSSEIN MOHAMED HASSAN
+XIE, XIAOWEN
+SIDOROV, ALEKSANDR
+PATON, JAMES ROBERT
+VAGATA, PAMELA SHEN
+FARNHAM, RODRIGO BOUCHARDET
+GUSATTI AZZOLINI, ALISSON
+</inventors>
+
+<docdb_family_id>
+57452057
+</docdb_family_id>
+
+<title>
+Machine learning system flow authoring tool
+</title>
+
+<abstract>
+Some embodiments include a workflow authoring tool that accesses a text string representation of a workflow and a text string representation of at least a data processing operator type. The workflow authoring tool enables definition of one or more data processing operator types that can be referenced in defining the machine learning workflow. When scheduling a workflow, the text string representation of the workflow can be parsed and traversed to generate an interdependency graph of one or more data processing operators. The text string representation of the data processing operator type can identify operator attributes associated with the data processing operator type.
+</abstract>
+
+<claims>
+1. A computer-implemented method, comprising: accessing a workflow text string that is a textual representation of a machine learning workflow, the machine learning workflow comprising an execution pipeline in a machine learning system for creating, modifying, evaluating, validating, or utilizing one or more machine learning models, and an operator text string associated with at least a data processing operator type, the textual representation of the machine learning workflow generated using a workflow definition language; parsing the workflow text string to generate an interdependency graph of one or more data processing operators, the parsing generating an interdependency graph that is a cyclic directed graph of the one or more data processing operators, wherein at least one of the data processing operators is an instance of the data processing operator type, where parsing the workflow text string comprises: traversing the workflow text string to match an output of a first data processing operator as an input of a second data processing operator, and updating the interdependency graph to indicate that the second data processing operator depends on the output of the first data processing operator; parsing the operator text string to identify operator attributes associated with the data processing operator type, wherein the operator attributes comprise an input schema and an output schema, wherein the input schema or the output schema includes a summary generation schema; and wherein the operator text string identifies computational logic that is executable on a single host operating environment as a single unit; scheduling the machine learning workflow for execution based on the interdependency graph; and generating a summary of a resulting output or an input parameter to the machine learning workflow based the summary generation schema.
+2. The computer-implemented method of claim 1, wherein the input schema or the output schema identifies a data structure definition of one or more independent data elements that is able to be referenced as one or more inputs or one or more outputs to the computational logics of the data processing operator type.
+3. The computer-implemented method of claim 1, wherein parsing the workflow text string includes identifying a data processing operator of the data processing operator type as a receiver of the input parameter to the machine learning workflow.
+4. The computer-implemented method of claim 1, wherein parsing the workflow text string associated with the machine learning workflow includes identifying a data processing operator of the data processing operator type as a source of the resulting output upon the execution of the machine learning workflow.
+5. The computer-implemented method of claim 1, wherein the summary generation schema defines how to convert a data structure of the input schema or the output schema into a summary format.
+6. The computer-implemented method of claim 5, wherein the summary generation schema identifies a sampling process to reduce number of individual data units in an input dataset matching the input schema or in an output dataset matching the output schema.
+7. The computer-implemented method of claim 5, wherein the summary generation schema identifies a statistical analysis to produce a statistical summary of an input dataset matching the input schema or of an output dataset matching the output schema.
+8. The computer-implemented method of claim 7, wherein the statistical summary includes range, mean, median, mode, standard deviation, spread, or any combination thereof, of the input dataset or the output dataset.
+9. The computer-implemented method of claim 1, wherein the summary generation schema identifies a visualization rendering process to produce a visual summary of an input dataset matching the input schema or of an output dataset matching the output schema.
+10. The computer-implemented method of claim 1, further comprising: determining whether the output of the first data processing operator has the same schema type as the input of the second data processing operator; and generating warning alert in response to determining that the output of the first data processing operator is not of the same schema type as the input of the second data processing operator.
+11. The computer-implemented method of claim 1, further comprising: determining an implicit type conversion operator corresponding to a first schema type of the output of the first data processing operator and a second schema type of the input of the second data processing operator; and inserting the implicit type conversion operator between the first data processing operator and the second data processing operator in the interdependency graph.
+12. The computer-implemented method of claim 1, wherein the operator attributes includes a resource constraint for running the data processing operator type.
+13. The computer-implemented method of claim 12, wherein the resource constraint includes an absolute geographical location of where to run an instance of the data processing operator type.
+14. The computer-implemented method of claim 12, wherein the resource constraint includes a relative location requirement of where to run a first instance of the data processing operator type, wherein the relative location requirement is relative to where to run a second instance of another data processing operator type that is connected to the first instance in the interdependency graph.
+15. The computer-implemented method of claim 14, wherein the relative location requirement enforces a proximity threshold for where to run the first instance of the data processing operator type relative to a location of a computing device storing an input dataset for the first instance of the data processing operator type.
+16. The computer-implemented method of claim 12, wherein the resource constraint includes memory capacity requirement, processing power requirement, network bandwidth requirement, operating environment requirement, software library requirement, or any combination thereof.
+17. A non-transitory computer readable data memory storing computer-executable instructions that, when executed by a computer system, cause the computer system to perform a computer-implemented method, the instructions comprising: instructions for receiving an operator definition of an operator type associated with operator attributes that identify computational logics that is executable on a single host operating environment as a single unit, an input schema, and an output schema, wherein the input schema or the output schema includes a summary generation schema; instructions for receiving a text string representation that is a textual representation of a machine learning workflow including one or more references to one or more data processing operators of one or more operator types including the operator type, the textual representation of the machine learning workflow generated using a workflow definition language, the machine learning workflow comprising an execution pipeline in a machine learning system for creating, modifying, evaluating, validating, or utilizing one or more machine learning models; instructions for parsing the text string representation to generate an interdependency graph of one or more data processing operators, the parsing generating an interdependency graph that is an acyclic directed graph of the one or more data processing operators, the parsing comprising traversing through the text string representation of the workflow to determine a set of expected promises made between the operator types, wherein the expected promises indicate interdependencies between the operator types, the instructions for traversing comprising instructions for identifying a first data processing operator as being dependent on a second data processing operator by matching an output schema of the second data processing operator to an input schema of the first data processing operator; instructions for parsing the text string representation to generate an interdependency graph of one or more data processing operators, the parsing generating an interdependency graph that is a cyclic directed graph of the one or more data processing operators, the parsing comprising traversing through the text string representation of the workflow to determine a set of expected promises made between the operator types, wherein the expected promises indicate interdependencies between the operator types, the instructions for traversing comprising instructions for identifying a first data processing operator as being dependent on a second data processing operator by matching an output schema of the second data processing operator to an input schema of the first data processing operator; and instructions for scheduling execution of the workflow by at least assigning executing instances of the operator types to one or more computing environments and passing data between the computing environments based on the interdependencies.
+18. A computer program product comprising a non-transitory computer readable storage medium having instructions encoded therein that, when executed by a processor cause the processor to: receive an operator definition of a data processing operator type associated with operator attributes that identify computational logics that is executable on a single host operating environment as a single unit, an input schema, and an output schema, wherein the input schema or the output schema includes a summary generation schema; access a workflow text string that is a textual representation of a machine learning workflow, the textual representation of the machine learning workflow generated using a workflow definition language, the machine learning workflow comprising an execution pipeline in a machine learning system for creating, modifying, evaluating, validating, or utilizing one or more machine learning models, and an operator text string associated with at least a data processing operator type; parse the workflow text string to generate an interdependency graph of one or more data processing operators, the parse generating an interdependency graph that is an acyclic directed graph of the one or more data processing operators, wherein at least one of the data processing operators is an instance of the data processing operator type, where parsing the workflow text string comprises: traversing the workflow text string to match an output of a first data processing operator as an input of a second data processing operator, and updating the interdependency graph to indicate that the second data processing operator depends on the output of the first data processing operator; parse the workflow text string to generate an interdependency graph of one or more data processing operators, the parse generating an interdependency graph that is a cyclic directed graph of the one or more data processing operators, wherein at least one of the data processing operators is an instance of the data processing operator type, where parsing the workflow text string comprises: traversing the workflow text string to match an output of a first data processing operator as an input of a second data processing operator, and updating the interdependency graph to indicate that the second data processing operator depends on the output of the first data processing operator; parse the operator text string to identify operator attributes associated with the data processing operator type, wherein the operator attributes comprise an input schema and an output schema, wherein the input schema or the output schema includes a summary generation schema; and wherein the operator text string identifies computational logic that is executable on a single host operating environment as a single unit; schedule the machine learning workflow for execution based on the interdependency graph; and generate a summary of a resulting output or an input parameter to the machine learning workflow based the summary generation schema.
+</claims>
+</document>

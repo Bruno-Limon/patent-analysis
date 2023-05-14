@@ -1,0 +1,134 @@
+<document>
+
+<filing_date>
+2020-04-15
+</filing_date>
+
+<publication_date>
+2020-10-22
+</publication_date>
+
+<priority_date>
+2019-04-16
+</priority_date>
+
+<ipc_classes>
+G06F16/22,G06F16/23,G06F16/2453
+</ipc_classes>
+
+<assignee>
+SNOWFLAKE
+</assignee>
+
+<inventors>
+MURALIDHAR, SUBRAMANIAN
+SHAH SAURIN
+CSERI, ISTVAN
+DAGEVILLE, BENOIT
+CRUANES, THIERRY
+GRABS, TORSTEN
+SHINGTE, Nileema
+</inventors>
+
+<docdb_family_id>
+72829439
+</docdb_family_id>
+
+<title>
+QUERYING OVER EXTERNAL TABLES IN DATABASE SYSTEMS
+</title>
+
+<abstract>
+Systems, methods, and devices for querying over an external table are disclosed. A method includes connecting a database platform to an external table such that the database platform has read access for the external table and does not have write access for the external table. The method includes receiving a query comprising a predicate, the query directed at least to data in the external table. The method includes determining, based on metadata, one or more partitions in the external table comprising data satisfying the predicate. The method includes pruning, based on the metadata, all partitions in the external table that do not comprise any data satisfying the predicate. The method includes generating a query plan comprising a plurality of discrete subtasks. The method includes assigning, based on the metadata, the plurality of discrete subtasks to one or more nodes in an execution platform.
+</abstract>
+
+<claims>
+What is claimed is:
+1. A method comprising:
+connecting a database platform to an external table, the database platform not having write access to the external table;
+generating one or more materialized views over the external table;
+storing the one or more materialized views in a data storage platform to which the database platform has write access;
+refreshing the one or more materialized views to reflect any changes made to the external table;
+receiving a query comprising one or more predicates; and
+responding to the query at least in part by referencing one or more of the one or more materialized views.
+2. The method of claim 1, wherein the external table is based on a source directory in an external data storage platform that is separate from the database platform.
+3. The method of claim 1, further comprising:
+identifying, based on metadata, one or more partitions in the external table comprising data satisfying the query;
+generating a query plan for processing the query, the query plan comprising a plurality of discrete subtasks, the plurality of discrete subtasks comprising one or more tasks for scanning one or more of the one or more materialized views for data satisfying the query, the plurality of discrete subtasks further comprising one or more tasks for scanning the identified one or more partitions in the external table for data satisfying the query; and
+assigning, based on the metadata, the plurality of discrete subtasks to one or more nodes in an execution platform for executing the query plan.
+4. The method of claim 3, further comprising:
+identifying, based on the metadata, one or more partitions in internal database data comprising data satisfying the one or more predicates, the internal database data being stored in the data storage platform to which the database platform has write access,
+wherein the plurality of discrete subtasks further comprises one or more tasks for scanning the identified one or more partitions in the internal database data for data satisfying the query.
+5. The method of claim 4, further comprising pruning, based on the metadata, all partitions in the internal database data that do not comprise data satisfying the query.
+6. The method of any of claims 3-5, wherein assigning, based on the metadata, the plurality of discrete subtasks further comprises:
+reading the metadata to determine whether a first partition is stored in a cache of any of a plurality of nodes of the execution platform; and
+in response to the first partition being stored in the cache of a certain node of the execution platform, assigning, to the certain node, a task for scanning the first partition.
+7. The method of any of claims 3-5, further comprising generating the metadata, wherein the metadata comprises information about data stored in the external table, the information comprising one or more of:
+cumulative table metadata for the external table;
+partition statistics for a partition of the external table; and
+a column expression property for a column of a partition of the external table.
+8. The method of any of claims 3-5, further comprising:
+receiving a notification that a modification has been made to the external table; and refreshing the metadata in response to the modification being made to the external table.
+9. The method of claim 8, the modification comprising one or more of an addition of a file, a deletion of a file, and an update to a file in a source location of the external table.
+10. The method of any of claims 3-5, further comprising refreshing the metadata in response to a threshold number of modifications being made to the external table.
+11. The method of any of claims 3-5, further comprising storing the metadata in a partition storage object on the data storage platform to which the database platform has write access.
+12. The method of any of claims 3-5, further comprising pruning, based on the metadata, all partitions in the external table that do not comprise data satisfying the one or more predicates.
+13. A system comprising:
+at least one processor; and
+one or more computer readable storage media containing instructions executable by the at least one processor for causing the at least one processor to perform operations comprising:
+connecting a database platform to an external table, the database platform not having write access to the external table;
+generating one or more materialized views over the external table;
+storing the one or more materialized views in a data storage platform to which the database platform has write access;
+refreshing the one or more materialized views to reflect any changes made to the external table;
+receiving a query comprising one or more predicates; and
+responding to the query at least in part by referencing one or more of the one or more materialized views.
+14. The system of claim 13, wherein the external table is based on a source directory in an external data storage platform that is separate from the database platform.
+15. The system of claim 13, the operations further comprising:
+identifying, based on metadata, one or more partitions in the external table comprising data satisfying the query;
+generating a query plan for processing the query, the query plan comprising a plurality of di screte subtasks, the plurality of discrete subtasks comprising one or more tasks for scanning one or more of the one or more materialized views for data satisfying the query, the plurality of discrete subtasks further comprising one or more tasks for scanning the identified one or more partitions in the external table for data satisfying the query; and
+assigning, based on the metadata, the plurality of discrete subtasks to one or more nodes in an execution platform for executing the query plan.
+16. The system of claim 15, the operations further comprising:
+identifying, based on the metadata, one or more partitions in internal database data comprising data satisfying the one or more predicates, the internal database data being stored in the data storage platform to which the database platform has write access,
+wherein the plurality of discrete subtasks further comprises one or more tasks for scanning the identified one or more partitions in the internal database data for data satisfying the query.
+17. The system of claim 16, the operations further comprising pruning, based on the metadata, all partitions in the internal database data that do not comprise data satisfying the query.
+18. The system of any of claims 15-17, wherein assigning, based on the metadata, the plurality of discrete subtasks further comprises:
+reading the metadata to determine whether a first partition is stored in a cache of any of a plurality of nodes of the execution platform; and
+in response to the first partition being stored in the cache of a certain node of the execution platform, assigning, to the certain node, a task for scanning the first partition.
+19. The system of any of claims 15-17, the operations further comprising generating the metadata, wherein the metadata comprises information about data stored in the external table, the information comprising one or more of:
+cumulative table metadata for the external table;
+partition statistics for a partition of the external table; and
+a column expression property for a column of a partition of the external table.
+20. The system of any of claims 15-17, the operations further comprising:
+receiving a notification that a modification has been made to the external table; and refreshing the metadata in response to the modification being made to the external table.
+21. The system of claim 20, the modification comprising one or more of an addition of a file, a deletion of a file, and an update to a file in a source location of the external table.
+22. The system of any of claims 15-17, the operations further comprising refreshing the metadata in response to a threshold number of modifications being made to the external table.
+23. The system of any of claims 15-17, the operations further comprising storing the metadata in a partition storage object on the data storage platform to which the database platform has write access.
+24. The system of any of claims 15-17, the operations further comprising pruning, based on the metadata, all partitions in the external table that do not comprise data satisfying the one or more predicates.
+25. One or more computer readable storage media storing instructions that, when executed by one or more processors, cause the one or more processors to perform operations comprising:
+connecting a database platform to an external table, the database platform not having write access to the external table;
+generating one or more materialized views over the external table; storing the one or more materialized views in a data storage platform to which the database platform has write access;
+refreshing the one or more materialized views to reflect any changes made to the external table;
+receiving a query compri sing one or more predicates; and
+responding to the query at least in part by referencing one or more of the one or more materialized views.
+26. The computer readable storage media of claim 25, wherein the external table is based on a source directory in an external data storage platform that is separate from the database platform.
+27. The computer readable storage media of claim 25, the operations further comprising: identifying, based on metadata, one or more partitions in the external table comprising data satisfying the query;
+generating a query plan for processing the query, the query plan comprising a plurality of discrete subtasks, the plurality of discrete subtasks comprising one or more tasks for scanning one or more of the one or more materialized views for data satisfying the query, the plurality of discrete subtasks further comprising one or more tasks for scanning the identified one or more partitions in the external table for data satisfying the query; and
+assigning, based on the metadata, the plurality of discrete subtasks to one or more nodes in an execution platform for executing the query plan.
+28. The computer readable storage media of claim 27, the operations further comprising: identifying, based on the metadata, one or more partitions in internal database data comprising data satisfying the one or more predicates, the internal database data being stored in the data storage platform to which the database platform has write access,
+wherein the plurality of discrete subtasks further comprises one or more tasks for scanning the identified one or more partitions in the internal database data for data satisfying the query.
+29. The computer readable storage media of claim 28, the operations further comprising pruning, based on the metadata, all partitions in the internal database data that do not comprise data satisfying the query.
+30. The computer readable storage media of any of claims 27-29, wherein assigning, based on the metadata, the plurality of discrete subtasks further comprises:
+reading the metadata to determine whether a first partition is stored in a cache of any of a plurali ty of nodes of the execution platform; and
+in response to the first partition being stored in the cache of a certain node of the execution platform, assigning, to the certain node, a task for scanning the first partition.
+31. The computer readable storage media of any of claims 27-29, the operations further comprising generating the metadata, wherein the metadata comprises information about data stored in the external table, the information comprising one or more of:
+cumulative table metadata for the external table;
+partition statistics for a partition of the external table; and
+a column expression property for a column of a partition of the external table.
+32. The computer readable storage media of any of claims 27-29, the operations further comprising:
+receiving a notification that a modification has been made to the external table; and refreshing the metadata in response to the modification being made to the external table.
+33. The computer readable storage media of claim 32, the modification comprising one or more of an addition of a file, a deletion of a file, and an update to a file in a source location of the external table.
+34. The computer readable storage media of any of claims 27-29, the operations further comprising refreshing the metadata in response to a threshold number of modifications being made to the external table.
+35. The computer readable storage media of any of claims 27-29, the operations further comprising storing the metadata in a partition storage object on the data storage platform to which the database platform has write access.
+36. The computer readable storage media of any of claims 27-29, the operations further comprising pruning, based on the metadata, all partitions in the external table that do not comprise data satisfying the one or more predicates.
+</claims>
+</document>

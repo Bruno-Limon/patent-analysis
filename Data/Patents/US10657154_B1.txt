@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2017-08-01
+</filing_date>
+
+<publication_date>
+2020-05-19
+</publication_date>
+
+<priority_date>
+2017-08-01
+</priority_date>
+
+<ipc_classes>
+G06F16/21,G06F16/27,G06F17/00,G06F9/50
+</ipc_classes>
+
+<assignee>
+AMAZON TECHNOLOGIES
+</assignee>
+
+<inventors>
+CHEEMA, ASEEM
+DUGAR, RAJIB
+CHEN, QU
+MCGEHEE, KEVIN ROBERT
+NARKHEDE, SURAJ
+</inventors>
+
+<docdb_family_id>
+70736420
+</docdb_family_id>
+
+<title>
+Providing access to data within a migrating data partition
+</title>
+
+<abstract>
+Data within a database partition that is being migrated may be made available for access. Data within a database partition may be selected for migration. Writes to the selected data may be prevented while the data is being migrated. Writes to other data, or read access any of the partition, may be allowed during the migration of the selected data. Rollback events may be detected for a database partition that is being migrated, halting the further selection of data for migration and deleting the successfully migrated data at the copy of the database partition being created.
+</abstract>
+
+<claims>
+1. A system, comprising: a memory to store program instructions which, if performed by at least one processor, cause the at least one processor to perform a method to at least: during the migration of a database partition comprising a plurality of items from a first node to a second node: iteratively select items within the database partition to migrate from the first node to the second node; prevent writes to the selected items while the selected items are being migrated from the first node to the second node; and enable writes to other items within the database partition not being migrated while the selected items are being migrated from the first node to the second node.
+2. The system of claim 1, wherein the method further causes the at least one processor to receive a write request for one of the selected items; wherein to prevent writes to the selected items while the selected items are being migrated from the first node to the second node, the method causes the at least one processor to delay performance of the write request until the migration of the one selected items is completed at the second node; and wherein the method further causes the at least one processor to replicate the write request to the second node with respect to the one selected item.
+3. The system of claim 1, wherein the method further causes the at least one processor to: detect a rollback event for the migration of the database partition; and in response to the detection of the rollback event for the migration of the database partition: halt further selection of the items in the database partition at the first node for migration; and delete, at the second node, copies of those items of the database partition successfully migrated to the second node.
+4. The system of claim 1, wherein the at least one processor is implemented as part of a database service offered by a provider network, wherein the database service implements an in-memory database for storing the database partition, and wherein the migration of the database partition is triggered in response to a request received at the database service from a client of the database service.
+5. A method, comprising: preventing writes to data within a first portion of a database partition while the first portion of the partition is being migrated from a first node to a second node; and enabling writes to a second portion of the database partition while the first portion of the partition is being migrated from the first node to the second node.
+6. The method of claim 5, further comprising: selecting one or more items of the database partition as the first portion to migrate; updating migration state information for the migration to identify the one or more items as being migrated; updating the migration state information to remove the one or more selected items as the one or more selected items are migrated; and wherein preventing writes to data within the first portion of the database partition while the first portion of the partition is being migrated comprises evaluating the migration state information to determine whether a received write request is directed to an item identified in the migration state information.
+7. The method of claim 6, wherein the migration state information is an item queue, and wherein the method further comprises: identifying an item to migrate from the item queue; and generating a serialized version of the item to send to the second node, wherein the second node generates a deserialized version of the item to stores as part of a copy of the database partition.
+8. The method of claim 7, wherein the serialized version of the item is written directly to a socket at the first node for transmission to the second node.
+9. The method of claim 8, wherein the serialized version includes a size indicator for the item, and wherein the method further comprises: comparing, at the second node, the size indicator to available storage for generation of the deserialized version of the item; and delaying the generation of the deserialized version of the item upon a determination that a size of the item exceeds the available storage for generation of the deserialized version of the item.
+10. The method of claim 5, further comprising: receiving a request to read the data within the first portion of the database partition while the first portion of the database partition is being migrated; and performing the request to read the data within the first portion of the database partition.
+11. The method of claim 5, further comprising: prior to completing migration of the database partition: receiving a request to write the data within the second portion of the database partition while the first portion of the database partition is being migrated, wherein the second portion of the database partition was previously migrated to the second node; performing the write request to the data within the second portion of the database partition; and replicating the write request to a copy of the data at the second node.
+12. The method of claim 5, detecting a rollback event for the migration of the database partition; and in response to detecting the rollback event for the migration of the database partition: halting further migration of other data in the database partition at the first node; and deleting, at the second node, data of the database partition successfully migrated to the second node.
+13. The method of claim 5, wherein the method further comprises receiving a write request for the data within the first portion; wherein preventing writes to data within the first portion of the database partition while the first portion of the partition is being migrated comprises delaying performance of the write request until the migration of the data is completed at the second node; and wherein the method further comprises replicating the write request to the second node with respect to the one selected item.
+14. A non-transitory, computer-readable storage medium, storing program instructions that when executed by one or more computing devices cause the one or more computing devices to implement: selecting a first portion of a database partition to migrate from a first node to a second node; preventing writes to data within the first portion of the database partition while the first portion of the partition is being migrated from the first node to the second node; and enabling writes to a second portion of the database partition while the first portion of the partition is being migrated from the first node to the second node.
+15. The non-transitory, computer-readable storage medium of claim 14, wherein the program instructions cause the one or more computing devices to further implement receiving a write request for the data within the first portion; wherein, in preventing writes to data within the first portion of the database partition while the first portion of the partition is being migrated, the program instructions cause the one or more computing devices to implement delaying performance of the write request until the migration of the data is completed at the second node; and wherein the program instructions cause the one or more computing devices to further implement replicating the write request to the second node with respect to the one selected item.
+16. The non-transitory, computer-readable storage medium of claim 14, wherein the program instructions cause the one or more computing devices to further implement: updating migration state information for the migration to identify the one or more items as being migrated; updating the migration state information to remove the one or more selected items as the one or more selected items are migrated; and wherein, in preventing writes to data within the first portion of the database partition while the first portion of the partition is being migrated, the program instructions cause the one or more computing devices to implement evaluating the migration state information to determine whether a received write request is directed to an item identified in the migration state information.
+17. The non-transitory, computer-readable storage medium of claim 14, wherein the program instructions cause the one or more computing devices to further implement performing the selecting, the preventing, and the enabling as part of a migration operation triggered in response to the detection of a migration event for the database partition.
+18. The non-transitory, computer-readable storage medium of claim 14, wherein the program instructions cause the one or more computing devices to further implement: prior to selecting the first portion of the database partition for migration, determining that throttling threshold for performing the migration of the database partition is not exceeded.
+19. The non-transitory, computer-readable storage medium of claim 14, wherein the program instructions cause the one or more computing devices to further implement: prior to completing migration of the database partition: receiving a request to write the data within the second portion of the database partition while the first portion of the database partition is being migrated, wherein the second portion of the database partition was previously migrated to the second node; evaluating a throttling threshold for performing writes to migrated data; and based on the evaluation of the throttling threshold, preventing performance of the request to write to the data within the second portion of the database partition.
+20. The non-transitory, computer-readable storage medium of claim 14, wherein the program instructions cause the one or more computing devices to further implement: detecting a rollback event for the migration of the database partition; and in response to detecting the rollback event for the migration of the database partition: halting further selection of data in the database partition at the first node for migration; and deleting, at the second node, data of the database partition successfully migrated to the second node.
+</claims>
+</document>

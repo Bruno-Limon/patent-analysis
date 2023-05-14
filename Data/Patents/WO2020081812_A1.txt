@@ -1,0 +1,116 @@
+<document>
+
+<filing_date>
+2019-10-17
+</filing_date>
+
+<publication_date>
+2020-04-23
+</publication_date>
+
+<priority_date>
+2018-10-17
+</priority_date>
+
+<ipc_classes>
+G01N15/02,G01N15/12,G06N3/02
+</ipc_classes>
+
+<assignee>
+GEORGIA INSTITUTE OF TECHNOLOGY
+</assignee>
+
+<inventors>
+SARIOGLU, ALI FATIH
+WANG, NINGQUAN
+</inventors>
+
+<docdb_family_id>
+70284370
+</docdb_family_id>
+
+<title>
+SYSTEMS AND METHODS FOR DECODING CODE-MULTIPLEXED COULTER SIGNALS USING MACHINE LEARNING
+</title>
+
+<abstract>
+Systems and methods for decoding code-multiplexed Coulter signals are described herein. An example method can include receiving a code-multiplexed signal detected by a network of Coulter sensors, where the code-multiplexed signal includes a plurality of distinct Coulter signals, and inputting the code-multiplexed signal into a deep-learning network. The method can also include determining information indicative of at least one of a size, a speed, or a location of a particle detected by the network of Coulter sensors by using the deep-learning network to process the code-multiplexed signal. The method can further include storing the information indicative of at least one of the size, the speed, or the location of the particle detected by the network of Coulter sensors.
+</abstract>
+
+<claims>
+1. A computer-implemented method for decoding code-multiplexed Coulter signals, comprising:
+receiving a code-multiplexed signal detected by a network of Coulter sensors, the code multiplexed signal comprising a plurality of distinct Coulter signals;
+inputting the code-multiplexed signal into a deep-learning network;
+determining information indicative of at least one of a size, a speed, or a location of a particle detected by the network of Coulter sensors by using the deep-learning network to process the code-multiplexed signal; and
+storing the information indicative of at least one of the size, the speed, or the location of the particle detected by the network of Coulter sensors.
+2. The computer-implemented method of claim 1, wherein the code-multiplexed signal is a one-dimensional signal.
+3. The computer-implemented method of any one of claim 1 or 2, wherein the distinct Coulter signals include two or more non-orthogonal signals.
+4. The computer-implemented method of any one of claims 1-3, wherein the distinct Coulter signals include two or more mutually orthogonal signals.
+5. The computer-implemented method of any one of claims 1-4, wherein the code multiplexed signal includes interfering Coulter signals.
+6. The computer-implemented method of any one of claims 1-5, wherein the deep learning network is a convolutional neural network.
+7. The computer-implemented method of claim 6, wherein the convolutional neural network is a multi-stage convolutional neural network.
+8. The computer-implemented method of claim 7, wherein the step of determining information indicative of at least one of a size, a speed, or a location of a particle detected by the network of Coulter sensors by using the deep-learning network to process the code-multiplexed signal comprises: identifying, using a first convolutional neural network, a signature waveform in the code multiplexed signal;
+predicting, using the first convolutional neural network, the size of the particle or the speed of the particle based, at least in part, on an amplitude of the signature waveform or a duration of the signature waveform, respectively; and
+predicting, using a second convolutional neural network, the location of the particle based, at least in part, on the signature waveform.
+9. The computer-implemented method of claim 8, wherein the step of predicting, using a second convolutional neural network, the location of the particle based, at least in part, on the signature waveform comprises predicting which particular Coulter sensor in the network of Coulter sensors detected the signature waveform.
+10. The computer-implemented method of any one of claim 8 or 9, wherein the step of predicting, using a second convolutional neural network, the location of the particle based, at least in part, on the signature waveform comprises predicting a respective probability that each Coulter sensor in the network of Coulter sensors detected the signature waveform.
+11. The computer-implemented method of any one of claims 1-10, further comprising providing display data comprising the information indicative of at least one of the size, the speed, or the location of the particle detected by the network of Coulter sensors.
+12. A sensing platform for use with a network Coulter sensors, comprising:
+a processor and a memory operably coupled to the processor, the memory having computer-executable instructions stored thereon that, when executed by the processor, cause the processor to receive a code-multiplexed signal comprising a plurality of distinct Coulter signals; and a deep-learning network configured to:
+input the code-multiplexed signal received by the processor, and
+determine information indicative of at least one of a size, a speed, or a location of a particle detected by the network of Coulter sensors by using the deep-learning network to process the code-multiplexed signal, wherein the memory has further computer-executable instructions stored thereon that, when executed by the processor, cause the processor to store the information indicative of at least one of the size, the speed, or the location of the particle detected by the network of Coulter sensors.
+13. The sensing platform of claim 12, wherein the deep-learning network is a convolutional neural network.
+14. The sensing platform of claim 13, wherein the convolutional neural network is a multi-stage convolutional neural network.
+15. The sensing platform of claim 14, wherein the multi-stage convolutional neural network comprises:
+a first convolutional neural network configured to:
+identify a signature waveform in the code-multiplexed signal, and predict the size of the particle or the speed of the particle based, at least in part, on an amplitude of the signature waveform or a duration of the signature waveform, respectively; and
+a second convolutional neural network configured to predict the location of the particle based, at least in part, on the signature waveform.
+16. The sensing platform of claim 15, wherein the second convolutional neural network is configured to predict which particular Coulter sensor in the network of Coulter sensors detected the signature waveform.
+17. The sensing platform of claim 16, wherein the second convolutional neural network is configured to predict a respective probability that each Coulter sensor in the network of Coulter sensors detected the signature waveform.
+18. A system, comprising:
+a microfluidic device comprising the network of Coulter sensors, wherein the microfluidic device is configured to detect the code-multiplexed signal; and
+the sensing platform of any one of claims 12-17, wherein the sensing platform is operably coupled to the microfluidic device.
+19. The system of claim 18, wherein each of the Coulter sensors comprises a plurality of electrodes arranged in proximity to a respective aperture of the microfluidic device.
+20. The system of any one of claim 18 or 19, wherein each of the Coulter sensors has a unique electrode pattern.
+21. The system of any one of claims 18-20, wherein each of the Coulter sensors is encoded.
+22. The system of claim 21, wherein each of the Coulter sensors is encoded by a respective digital code.
+23. The system of claim 22, wherein the respective digital codes are randomly generated.
+24. The system of any one of claims 20-23, wherein each of the Coulter sensors is configured to produce a respective distinct Coulter signal.
+25. The system of claim 24, wherein the distinct Coulter signals include two or more non-orthogonal signals.
+26. The system of any one of claim 24 or 25, wherein the distinct Coulter signals include two or more mutually orthogonal signals.
+27. A method for training a convolutional neural network, comprising:
+receiving a non-interfering Coulter signal;
+creating a non-interfering signal data set by:
+scaling an amplitude of the non-interfering Coulter signal to create a plurality of scaled-amplitude signals,
+scaling a duration of the non-interfering Coulter signal to create a plurality of scaledduration signals, and
+offsetting in time the non-interfering Coulter signal to create a plurality of timeshifted signals, wherein the non-interfering data set includes the scaled-amplitude signals, the scaled-duration signals, and the time-shifted signals;
+generating an augmented training data set comprising a plurality of interfering signals, wherein each of the interfering signals is created by combining signals selected from the non interfering signal data set; and
+training the convolutional neural network using the augmented training data set.
+28. The method of claim 27, further comprising: selecting a plurality of signals from the non-interfering signal data set; and
+combining the selected signals to create an interfering signal.
+29. The method of any one of claim 27 or 28, wherein the step of selecting a plurality of signals from the non-interfering data set comprises randomly selecting signals from the non interfering data set.
+30. A computer-implemented method for decoding a one-dimensional signal code multiplexed Coulter signals, comprising:
+receiving the one-dimensional signal, wherein the one-dimensional signal comprising a plurality of source signals;
+inputting the one-dimensional signal into a machine learning algorithm;
+determining information indicative of at least one the source signals by using the machine learning algorithm to process the one-dimensional signal; and
+storing the information indicative of the at least one of the source signal.
+31. The computer-implemented method of claim 30, wherein the one-dimensional signal includes interfering source signals.
+32. The computer-implemented method of any one of claim 30 or 31, wherein the machine learning algorithm is a neural network, a support vector machine (SVM), or a Naive Bayes classifier.
+33. A computer-implemented method for decoding code-multiplexed Coulter signals, comprising:
+receiving a code-multiplexed signal detected by a network of Coulter sensors, the code multiplexed signal comprising a plurality of distinct Coulter signals;
+inputting the code-multiplexed signal into a machine learning algorithm;
+determining information indicative of at least one of a size, a speed, or a location of a particle detected by the network of Coulter sensors by using the machine learning algorithm to process the code-multiplexed signal; and
+storing the information indicative of at least one of the size, the speed, or the location of the particle detected by the network of Coulter sensors.
+34. The computer-implemented method of claim 33, wherein the machine learning algorithm is a neural network, a support vector machine (SVM), or a Naive Bayes classifier.
+35. A computer-implemented method for decoding code-multiplexed Coulter signals, comprising:
+receiving a code-multiplexed signal detected by a network of Coulter sensors, the code multiplexed signal comprising a plurality of distinct Coulter signals;
+determining information indicative of at least one of a size, a speed, or a location of a particle detected by the network of Coulter sensors by using a statistical method to process the code-multiplexed signal; and
+storing the information indicative of at least one of the size, the speed, or the location of the particle detected by the network of Coulter sensors.
+36. The computer-implemented method of claim 35, wherein the statistical method is an independent component analysis (ICA), a principle component analysis (PCA), or a logistic regression.
+37. A computer-implemented method for decoding a one-dimensional signal code multiplexed Coulter signals, comprising:
+receiving the one-dimensional signal, wherein the one-dimensional signal comprising a plurality of source signals;
+determining information indicative of at least one the source signals by using a statistical method to process the one-dimensional signal; and
+storing the information indicative of the at least one of the source signal.
+38. The computer-implemented method of claim 37, wherein the statistical method is an independent component analysis (ICA), a principle component analysis (PCA), or a logistic regression.
+</claims>
+</document>

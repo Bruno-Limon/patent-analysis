@@ -1,0 +1,72 @@
+<document>
+
+<filing_date>
+2018-03-01
+</filing_date>
+
+<publication_date>
+2021-01-07
+</publication_date>
+
+<priority_date>
+2018-03-01
+</priority_date>
+
+<ipc_classes>
+G06F11/34,G06F9/455,G06F9/50
+</ipc_classes>
+
+<assignee>
+GOOGLE
+</assignee>
+
+<inventors>
+AVAGYAN, GRIGOR
+Hildebrand, Dean
+</inventors>
+
+<docdb_family_id>
+61683910
+</docdb_family_id>
+
+<title>
+High Availability Multi-Single-Tenant Services
+</title>
+
+<abstract>
+A method (400) of maintaining availability of service instances (362) on a distributed system (200) includes executing a pool of primary virtual machine (VM) instances (350P), each primary VM instance executing a corresponding individual service instance and including a rate of unavailability. The method also includes determining a number of secondary VM instances (350S) required to maintain availability of the individual service instances when one or more of the primary VM instances are unavailable based on the number of primary VM instances in the pool of primary VM instances and the rate of unavailability. The method also includes instantiating a pool of secondary VM instances based on the number of secondary VM instances required to maintain availability of the individual service instances.
+</abstract>
+
+<claims>
+1. A method of maintaining availability of on a distributed system, the method comprising: executing, by data processing hardware of the distributed system, a pool of primary virtual machine (VM) instances, each primary VM instance executing a corresponding individual service instance and comprising a rate of unavailability; determining, by the data processing hardware, a number of secondary VM instances required to maintain availability of the individual service instances when one or more of the primary VM instances are unavailable based on the number of primary VM instances in the pool of primary VM instances and the respective rate of unavailability; and instantiating, by the data processing hardware, a pool of secondary VM instances based on the number of secondary VM instances required to maintain availability of the individual service instances.
+2. The method of claim 1, wherein a number of secondary VM instances in the pool of secondary VM instances is less than the number of primary VM instances in the pool of primary VM instances.
+3. The method of claim 1, further comprising: identifying, by the data processing hardware, unavailability of one of the primary VM instances in the pool of primary VM instances; and causing, by the data processing hardware, the unavailable primary VM instance to failover to one of the secondary VM instances in the pool of secondary VM instances to commence executing the individual service instance associated with the unavailable primary VM instance.
+4. The method of claim 3, further comprising, after the failover to the secondary VM instances: determining, by the data processing hardware, that the secondary VM instances comprises a corresponding resource level that is less than a target resource level associated with the corresponding individual service instance; and during execution of the individual service instance by the secondary VM instances, growing, by the data processing hardware, the corresponding resource level of the secondary VM instances until the target resource level associated with the individual service instance is satisfied.
+5. The method of claim 1, further comprising updating, by the data processing hardware, the number of secondary VM instances required to maintain availability of the individual service instances when the number of primary VM instances executing in the pool changes.
+6. The method of claim 1, wherein unavailability of a primary VM instance is based on at least one of a failure of the primary VM instance, a delay in re-creating the primary VM instance, or a planned maintenance time period for the primary VM instance.
+7. The method of claim 1, wherein the rate of unavailability comprises at least one of a frequency of unavailability or a period of unavailability.
+8. The method of claim 1, further comprising determining, by the data processing hardware, the rate of unavailability for each primary VM instance in the pool of primary VM instances based on a mean-time-to-failure and an expected length of time to re-create the corresponding primary VM instance.
+9. The method of claim 1, wherein each secondary VM instances in the pool of secondary VM instances is passive and idle unless a failover causes the corresponding secondary VM instances to commence executing an individual service instance associated with an unavailable primary VM instance in the pool of primary VM instances.
+10. The method of claim 1, wherein instantiating the pool of secondary VM instances comprises: determining a corresponding VM type for each primary VM instance in the pool of primary VM instances; and for each different VM type in the pool of primary VM instances, instantiating at least one secondary VM instances having the same VM type.
+11. The method of claim 10, wherein the corresponding VM type for each primary VM instance indicates at least one of memory resource requirements, computing resource requirements, network specification requirements, or storage resource requirements for the corresponding primary VM instance.
+12. The method of claim 1, wherein the pool of secondary VM instances are instantiated for use by a single customer of the distributed system.
+13. The method of claim 1, wherein the pool of secondary VM instances are shared among multiple customers of the distributed system.
+14. The method of claim 1, further comprising: receiving, at the data processing hardware, a planned failover message indicating a number of primary VM instances in the pool of primary VM instances that will be unavailable during a planned maintenance time period, wherein instantiating the pool of secondary VM instances is further based on the number of primary VM instances that will be unavailable during the planned maintenance time period.
+15. The method of claim 14, wherein instantiating the pool of secondary VM instances comprises instantiating a number of secondary VM instances equal to the greater one of: the number of secondary VM instances required to maintain availability of the individual service instances; or the number of primary VM instances that will be unavailable during the planned maintenance time period.
+16. A system for maintaining availability of service instances on a distributed system, the system comprising: data processing hardware; memory hardware in communication with the data processing hardware, the memory hardware storing instructions that when executed on the data processing hardware cause the data processing hardware to perform operations comprising: executing a pool of primary virtual machine (VM) instances, each primary VM instance executing a corresponding individual service instance and comprising a rate of unavailability; determining a number of secondary VM instances required to maintain availability of the individual service instances when one or more of the primary VM instances are unavailable based on the number of primary VM instances in the pool of primary VM instances and the respective rate of unavailability; and instantiating a pool of secondary VM instances based on the number of secondary VM instances required to maintain availability of the individual service instances.
+17. The system of claim 16, wherein a number of secondary VM instances in the pool of secondary VM instances is less than the number of primary VM instances in the pool of primary VM instances.
+18. The system of claim 16, wherein the operations further comprise: identifying unavailability of one of the primary VM instances in the pool of primary VM instances; and causing the unavailable primary VM instance to failover to one of the secondary VM instances in the pool of secondary VM instances to commence executing the individual service instance associated with the unavailable primary VM instance.
+19. The system of claim 18, wherein the operations further comprise, after the failover to the secondary VM instances: determining that the secondary VM instances comprises a corresponding resource level that is less than a target resource level associated with the corresponding individual service instance; and during execution of the individual service instance by the secondary VM instances, growing the corresponding resource level of the secondary VM instances until the target resource level associated with the individual service instance is satisfied.
+20. The system of claim 16, wherein the operations further comprise updating the number of secondary VM instances required to maintain availability of the individual service instances when the number of primary VM instances executing in the pool changes.
+21. The system of claim 16, wherein unavailability of a primary VM instance is based on at least one of a failure of the primary VM instance, a delay in re-creating the primary VM instance, or a planned maintenance time period for the primary VM instance.
+22. The system of claim 16, wherein the rate of unavailability comprises at least one of a frequency of unavailability or a period of unavailability.
+23. The system of claim 16, wherein the operations further comprise determining the rate of unavailability for each primary VM instance in the pool of primary VM instances based on a mean-time-to-failure (MTTF) and an expected length of time to re-create the corresponding primary VM instance.
+24. The system of claim 16, wherein each secondary VM instances in the pool of secondary VM instances is passive and idle unless a failover causes the corresponding secondary VM instances to commence executing an individual service instance associated with an unavailable primary VM instance in the pool of primary VM instances.
+25. The system of claim 16, wherein instantiating the pool of secondary VM instances comprises: determining a corresponding VM type for each primary VM instance in the pool of primary VM instances; and for each different VM type in the pool of primary VM instances, instantiating at least one secondary VM instances having the same VM type.
+26. The system of claim 25, wherein the corresponding VM type for each primary VM instance indicates at least one of memory resource requirements, computing resource requirements, network specification requirements, or local storage requirements for the corresponding primary VM instance.
+27. The system of claim 16, wherein the pool of secondary VM instances are instantiated for use by a single customer of the distributed system.
+28. The system of claim 16, wherein the pool of secondary VM instances are shared among multiple customers of the distributed system.
+29. The system of claim 16, wherein the operations further comprise: receiving a planned failover message indicating a number of primary VM instances in the pool of primary VM instances that will be unavailable during a planned maintenance time period, wherein instantiating the pool of secondary VM instances is further based on the number of primary VM instances that will be unavailable during the planned maintenance time period.
+30. The system of claim 29, wherein instantiating the pool of secondary VM instances comprises instantiating a number of secondary VM instances equal to the greater one of: the number of secondary VM instances required to maintain availability of the individual service instances; or the number of primary VM instances that will be unavailable during the planned maintenance time period.
+</claims>
+</document>

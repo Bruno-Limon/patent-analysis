@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2018-06-28
+</filing_date>
+
+<publication_date>
+2020-05-19
+</publication_date>
+
+<priority_date>
+2018-06-28
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06T9/00,H04L12/58,H04N19/00
+</ipc_classes>
+
+<assignee>
+SNAP
+</assignee>
+
+<inventors>
+SHETH, RAHUL BHUPENDRA
+ZHANG, NING
+REHFELD, DRAKE AUSTIN
+</inventors>
+
+<docdb_family_id>
+70736535
+</docdb_family_id>
+
+<title>
+Encoding and decoding a stylized custom graphic
+</title>
+
+<abstract>
+Disclosed are methods for encoding information in a graphic image. The information may be encoded so as to have a visual appearance that adopts a particular style, so that the encoded information is visually pleasing in the environment in which it is displayed. An encoder and decoder are trained during an integrated training process, where the encoder is tuned to minimize a loss when its encoded images are decoded. Similarly, the decoder is also trained to minimize loss when decoding the encoded images. Both the encoder and decoder may utilize a convolutional neural network in some aspects to analyze data and/or images. Once data is encoded, a style from a sample image is transferred to the encoded data. When decoding, the decoder may largely ignore the style aspects of the encoded data and decode based on a content portion of the data.
+</abstract>
+
+<claims>
+We claim:
+1. A method of encoding a bit string via a custom graphic having a defined style, comprising: receiving, via hardware processing circuitry, the bit string; generating, via the hardware processing circuitry, using an encoder, image data encoding the bit string, the encoder trained using a plurality of training bit strings to minimize a loss when the plurality of encoded training bit strings are decoded by a decoder, the decoder also trained to minimize the loss when decoding the encoded training bit strings; transferring, via the hardware processing circuitry, the defined style from a sample image having the defined style to the image data; generating, via the hardware processing circuitry, a graphic image; filling, via the hardware processing circuitry, the graphic image with thee image data encoding the bit string and having the defined style; and writing, via the hardware processing circuitry, the filled graphic image to an output device.
+2. The method of claim 1, wherein the transferring of the defined style from the sample image to the image data comprises minimizing a loss function of the defined style and a second style of the image data by modifying the image data, and minimizing a second loss function of a content of the image data and a second content of the modified image data.
+3. The method of claim 1, wherein the defined style of the sample mage and the second style of the image data are based on feature correlations between multiple layers of a convolutional neural network applied to each of the sample image and the image data respectively.
+4. The method of claim 2, wherein the second loss function is a perceptual loss function that measures feature reconstruction loss.
+5. The method of claim 1, wherein encoder includes the following convolutional layers: a) dense layer at (32*32) units b) reshape to 1, 32, 32, 1 c) convolution of 64 units, 3×3 d) max pooling at 2×2, stride 2 e) deconvolution at 64, 3×3, stride 2 f) convolution of 64 units, 3×3 g) max pooling at 2×2 stride 2 h) deconvolution at 64, 3×3, stride 2 i) convolution of 64 units, 3×3 j) max pooling at 2×2 stride 2 k) deconvolution at 3, 3×3, stride 2.
+6. The method of claim 5, wherein the encoder is configured to return an image tensor of (1, 32, 32, 3) based on a hyperbolic tangent.
+7. The method of claim 1, wherein the decoder includes the following layers: a) convolution of 64 filters at 3×3 b) convolution of 64 filters at 3×3 c) pooling filter stride 2, 2×2 d) convolution of 64 filters at 3×3 e) convolution of 64 filters at 3×3 f) pooling filter stride 2, 2×2 g) convolution of 64 filters at 3×3 h) convolution of 64 filters, 3×3 i) pooling filter stride 2, 2×2 j) dense layer at 128 units k) dense layer at 9 units.
+8. The method of claim 7, wherein the decoder is configured to return a bit string tensor of shape (1, 1, 1, 9).
+9. The method of claim 1, wherein the loss is minimized via a stochastic gradient descent algorithm.
+10. The method of claim 1, wherein minimizing the loss comprises updating a first set of weights defining convolution and deconvolution layers of the encoder based on the loss and updating a second set of weights defining convolution and deconvolution layers of the decoder based on the loss.
+11. The method of claim 1, further comprising associating the hit string with an operation to be performed upon decoding of the bit string by a social network.
+12. The method of claim 11, further comprising e ding instructions for the social networking system into the bit string.
+13. The method of claim 11, wherein the instructions are represented in an intermediate language or a scripting language, and wherein the intermediate language is one of Java byte code, common intermediate language (CIL) or Swift intermediate language (SIL) and the scripting language is one of perl, python, ruby, java script, or ajax.
+14. A system of encoding a bit string, comprising: hardware processing circuitry; a hardware memory storing instructions that when executed configure the hardware processing circuitry to perform operations comprising: receiving a bit string; generating, using an encoder, image data encoding the bit string, the encoder trained using a plurality of training bit strings to minimize a loss when the plurality of encoded training bit strings are decoded by a decoder, the decoder also trained to minimize the loss when decoding the encoded training bit strings; transferring a style from a sample image to the image data; generating a graphic image; filling the graphic image with the image data encoding the bit string; and writing the filled graphic image to an output device.
+15. The system of claim 14, wherein minimizing the loss comprises updating a first set of weights defining convolution and deconvolution layers of the encoder based on the loss and updating a second set of weights defining convolution and deconvolution layers of the decoder based on the loss.
+16. A system for decoding information, comprising hardware processing circuitry; a hardware memory storing instructions that when executed configure the hardware processing circuitry to perform operations comprising: receiving an image; detecting a defined graphic in the image; in response to the detection of the defined graphic, identifying image data within the defined graphic; decoding, using a decoder, the identified image data to determine a bit string, the decoder trained, using a plurality of training encoded bit strings, to minimize a loss when the plurality of training encoded bit strings are encoded by an encoder, the encoder also trained to minimize the loss when encoding the training encoded bit strings; and invoking one or more functions based on the decoded bit string.
+17. The system of claim 16, wherein the loss is minimized via a stochastic gradient descent algorithm.
+18. The system of claim 16, wherein minimizing the loss comprises updating a first set of weights defining convolution and deconvolution layers of the encoder based on the loss and updating a second set of weights defining convolution and deconvolution layers of the decoder based on the loss.
+19. The system of claim 16, further comprising interpreting instructions for a social network from the hit string, and executing the interpreted instructions.
+20. The system of claim 19, wherein the instructions comprise and intermediate language or a scripting language.
+</claims>
+</document>

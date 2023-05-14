@@ -1,0 +1,65 @@
+<document>
+
+<filing_date>
+2019-12-12
+</filing_date>
+
+<publication_date>
+2020-07-01
+</publication_date>
+
+<priority_date>
+2018-12-27
+</priority_date>
+
+<ipc_classes>
+G06N3/04,G06N3/063
+</ipc_classes>
+
+<assignee>
+SAMSUNG ELECTRONICS COMPANY
+</assignee>
+
+<inventors>
+LEE, SEHWAN
+</inventors>
+
+<docdb_family_id>
+68887279
+</docdb_family_id>
+
+<title>
+METHOD AND APPARATUS FOR PROCESSING CONVOLUTION OPERATION IN NEURAL NETWORK
+</title>
+
+<abstract>
+Provided are a method of performing a convolution operation between a kernel and an input feature map based on reuse of the input feature map, and a neural network apparatus using the method. The neural network apparatus generates output values of an operation between each of weights of a kernel and an input feature map, and generates an output feature map by accumulating the output values at positions in the output feature map that are set based on positions of the weights in the kernel.
+</abstract>
+
+<claims>
+1. A neural network apparatus comprising: a processor configured to generate output values of an operation between each of weights of a kernel and an input feature map; and generate an output feature map by accumulating the output values at positions in the output feature map that are set based on positions of the weights in the kernel.
+2. The neural network apparatus of claim 1, wherein the processor is further configured to: generate a first output value by performing an operation between the input feature map and a first weight of the kernel; accumulate the first output value at a first position in the output feature map that is based on a position of the first weight in the kernel; generate a second output value by performing an operation between the input feature map and a second weight of the kernel; and accumulate the second output value at a second position in the output feature map that is based on a position of the second weight in the kernel.
+3. The neural network apparatus of claim 1 or 2, wherein the processor is further configured to: generate first output values by performing an operation between a first region of the input feature map and each of the weights of the kernel; generate a first partial output feature map by accumulating the first output values at positions in the first partial output feature map that is based on the positions of the respective weights in the kernel; and accumulate the first partial output feature map on the output feature map.
+4. The neural network apparatus of claim 3, wherein the processor is further configured to generate second output values by performing an operation between a second region of the input feature map and each of the weights of the kernel, the second region being different from the first region; generate a second partial output feature map by accumulating the second output values at positions in the second partial output feature map that is based on the positions of the respective weights in the kernel; and accumulate the second partial output feature map on the output feature map, or
+wherein the first region comprises at least one of n pixels, nxm pixels, or nxmxl pixels in the input feature map, wherein n, m, and I are natural numbers greater than or equal to 1.
+5. The neural network apparatus of one of claims 1 to 4, wherein the processor is further configured to skip an operation between the input feature map and a first weight of the weights, in response to the first weight of the kernel being zero, or
+wherein the processor is further configured to perform an operation between the each of the weights of the kernel and a compressed input feature map by continuously stream-reading the compressed input feature map from a memory, or
+wherein the processor further comprises operation units configured to generate partial output feature maps by performing an operation between a different region from among regions of the input feature map and the kernel; and output units configured to generate each of the regions of the output feature map by accumulating one or more partial output feature map from among the partial output feature maps.
+6. The neural network apparatus of claim 5, wherein one or more of the operation units are further configured to perform the operation between the kernel and the different region independently of and in parallel with each other, or
+further comprising a bus, wherein the output units are further configured to receive the one or more partial output feature map from the operation units through the bus, or
+wherein each of the operation units comprises a plurality of processing units configured to generate the partial output feature maps by performing an operation between a region from among the regions of the input feature map and each of a plurality of kernels.
+7. The neural network apparatus of claim 6, wherein the processing units comprise a first processing unit configured to perform an operation between the region and a first kernel and a second processing unit configured to perform an operation between the region and a second kernel, and
+the first processing unit is further configured to perform a part of the operation between the region and the second kernel, after completing the operation between the region and the first kernel.
+8. The apparatus of one of claims 1 to 7, further comprising a memory storing instructions that, when executed, configures the processor to generate the output values and to generate the output feature map.
+9. A method of processing a convolution operation in a neural network, the method comprising: generating output values of an operation between each of weights of a kernel and an input feature map; and generating an output feature map by accumulating the output values at positions in the output feature map that are set based on positions of the weights in the kernel.
+10. The method of claim 9, wherein the generating of the output values comprises: generating a first output value by performing an operation between the input feature map and a first weight of the kernel; and generating a second output value by performing an operation between the input feature map and a second weight of the kernel, and the generating of the output feature map comprises: accumulating the first output value at a first position in the output feature map that is based on a position of the first weight in the kernel; and accumulating the second output value at a second position in the output feature map that is based on a position of the second weight in the kernel.
+11. The method of claim 9 or 10, wherein the generating of the output values further comprises: generating first output values by performing an operation between a first region of the input feature map and each of the weights of the kernel; and generating second output values by performing an operation between a second region of the input feature map and each of the weights of the kernel, the second region being different from the first region, and the generating of the output feature map further comprises: generating a first partial output feature map by accumulating the first output values at the positions in the first partial output feature map that is based on the positions of the respective weights in the kernel and accumulating the first partial output feature map on the output feature map; and generating a second partial output feature map by accumulating the second output values at the positions in the second partial output feature map that is based on the positions of the respective weights in the kernel and accumulating the second partial output feature map on the output feature map.
+12. The method of one of claims 9 to 11, wherein the generating of the output values further comprises skipping an operation between the input feature map and the first weight, in response to the first weight of the kernel being zero, or
+wherein the generating of the output values further comprises performing an operation between the each of the weights of the kernel and a compressed input feature map by continuously stream-reading the compressed input feature map, or
+further comprising generating partial output feature maps by performing an operation between a different region from among regions of the input feature map and the kernel; and generating each of the regions of the output feature map by accumulating one or more partial output feature map from among the partial output feature maps.
+13. The method of claim 12, wherein the generating of the partial output feature maps comprises generating the partial output feature maps by performing an operation between a region from among the regions of the input feature map and each of a plurality of kernels.
+14. A non-transitory computer-readable storage medium storing instructions that, when executed by a processor of a neural network apparatus comprising a memory configured to store weights of a kernel and instructions, cause the processor to execute the instructions to: generate first output values by performing an operation between a first region of an input feature map and the weights, locate the first output values at positions in a first partial output feature map that are based on respective positions of the weights in the kernel, generate second output values by performing an operation between a second region of the input feature map and the weights, and locate the second output values at positions in a second partial output feature map that are based on respective positions of the weights in the kemel.
+15. The storage medium of claim 14, wherein the processor is further configured to generate the second output values by performing an operation between the weights and a portion of the second region different than the first region, or
+wherein the processor is further configured to skip an operation between the first region or the second region of the input feature map and the weights, in response to a weight of the weights being zero.
+</claims>
+</document>

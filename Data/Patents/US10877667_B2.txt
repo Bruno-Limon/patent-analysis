@@ -1,0 +1,66 @@
+<document>
+
+<filing_date>
+2018-04-06
+</filing_date>
+
+<publication_date>
+2020-12-29
+</publication_date>
+
+<priority_date>
+2017-05-12
+</priority_date>
+
+<ipc_classes>
+G06F11/34,G06F15/18,G06F15/76,G06F3/00,G06F3/06,G06N20/00
+</ipc_classes>
+
+<assignee>
+WESTERN DIGITAL TECHNOLOGIES
+</assignee>
+
+<inventors>
+WONGSO, MERVYN
+SCHMIER, JACOB
+KARIA, RUSHANG
+CHINTADA, LAKSHMANA RAO
+CORBIN, KEVIN
+</inventors>
+
+<docdb_family_id>
+64096113
+</docdb_family_id>
+
+<title>
+Supervised learning with closed loop feedback to improve ioconsistency of solid state drives
+</title>
+
+<abstract>
+A method and apparatus is disclosed for using supervised learning with closed loop feedback to improvement of output consistency for memory arrangements, such as a solid state drive.
+</abstract>
+
+<claims>
+1. A method for improving an input and an output consistency of a solid state drive, comprising: detecting, by a workload detection engine, a number of incoming commands from a host; generating, by the workload detection engine, a current workload indication, wherein generating the current workload indication comprises: calculating a minimum system imposed read and write latency for the solid state drive; calculating an expected read latency for the solid state drive based on the minimum system imposed read latency; calculating an expected write latency for the solid state drive based on the minimum system imposed write latency; calculating an amplification coefficient for write operations and an amplification coefficient for read operations based upon a model; calculating a final read latency for the solid state drive based upon the calculated expected read latency and the amplification coefficient for read operations; and calculating a final write latency for the solid state drive based upon the calculated expected write latency and the amplification coefficient for write operations; delivering the current workload indication to a throttling engine; generating, by the throttling engine, one or more throttling latencies based on the calculated final read latency and the calculated final write latency; delivering the one or more generated throttling latencies to a host responder; and throttling, by the host responder, one or more completed commands, wherein throttling comprises accelerating sending the one or more completed commands to the host or queueing the one or more completed commands based on the one or more generated throttling latencies.
+2. The method according to claim 1, wherein the model for the calculating the amplification coefficient for write operations and the amplification coefficient for read operations is a linear regression model.
+3. The method according to 2, wherein the linear regression model is a second order linear regression model.
+4. The method according to claim 1, wherein the minimum system imposed read latency is calculated as: wherein Rmax′ is a maximum possible input output read operations per second value for the solid state drive.
+5. The method according to claim 1, wherein the minimum system imposed write latency is calculated as: wherein Wmax′ is a maximum possible input output read operations per second value for the solid state drive.
+6. The method according to claim 1, wherein the calculating the expected read latency and the expected write latency for the solid state drive is based on a workload.
+7. The method according to claim 3, wherein the second order linear regression model for read operations is of a form of:
+description="In-line Formulae" end="lead"?ϕr[X]=θ0Pr2+θ1Pr2+θ2 description="In-line Formulae" end="tail"? wherein ϕr [x] is a read amplification factor, Pr is a read percentage and en values are supervised learning coefficients.
+8. The method according to claim 3, wherein the second order linear regression model for write operations is of a form of:
+description="In-line Formulae" end="lead"?ϕw[x]=θ0Pw2+θ1Pw2+θ2 description="In-line Formulae" end="tail"? wherein ϕw[x] is a write amplification factor, Pw is a write percentage and θn values are supervised learning coefficients.
+9. The method according to claim 7, wherein the θn values are calculated from training data.
+10. The method according to claim 8, wherein the θn values are calculated from training data.
+11. An apparatus for calculating a final write latency and a final read latency for a solid state drive, comprising: means for detecting a number of incoming commands from a host; means for generating a current workload indication, wherein generating the current workload indication comprises: means for calculating a minimum system imposed read and write latency for the solid state drive; means for calculating an expected read latency for the solid state drive based on the calculated minimum system imposed read latency; means for calculating an expected write latency for the solid state drive based on the calculated minimum system imposed read and write latency; means for calculating an amplification coefficient for write operations and an amplification coefficient for read operations; means for calculating the final read latency for the solid state drive based upon the calculated expected read latency and the amplification coefficient for write operations; and means for calculating the final write latency for the solid state drive based upon the calculated expected write latency and the amplification coefficient for write operations; means for delivering the current workload indication to a throttling engine; means for generating one or more throttling latencies based on the calculated final read latency and the final write latency; means for delivering the one or more generated throttling latencies to a host responder; and means for throttling one or more completed commands, wherein throttling comprises accelerating sending the one or more completed commands to the host or queueing the one or more completed commands based on the one or more generated throttling latencies.
+12. The apparatus according to claim 11, wherein the means for calculating the amplification coefficient for write operations and the amplification coefficient for read operations uses a regression model.
+13. The apparatus according to claim 12, wherein the regression model is a linear regression model.
+14. The apparatus according to claim 13, wherein the linear regression model is a second order linear regression model.
+15. A method for operating a solid state drive, comprising: detecting, by a workload detection engine, a number of incoming commands from a host; generating, by the workload detection engine, a current workload indication, wherein generating the current workload indication comprises: calculating at least one of a minimum system imposed read and write latency for the solid state drive; calculating at least one of an expected read latency based upon the minimum system imposed read latency for the solid state drive and an expected write latency for the solid state drive based upon the minimum system imposed write latency for the solid state drive; calculating at least one of an amplification coefficient for write operations and an amplification coefficient for read operations; and calculating at least one of a final read latency for the solid state drive based upon the calculated expected read latency and the amplification coefficient for read operations and a final write latency for the solid state drive based upon the calculated expected write latency and the amplification coefficient for write operations; delivering the current workload indication to a throttling engine; generating, by the throttling engine, one or more throttling latencies based on the calculated final read latency and the calculated final write latency; delivering the one or more generated throttling latencies to a host responder; and throttling, by the host responder, operations of sending one or more completed commands, wherein throttling is based upon not exceedirg the at least one final read latency and final write latency for the solid state drive.
+16. The method according to claim 15, wherein the amplification coefficient for write operations and the amplification coefficient for read operations is calculated from a linear regression model.
+17. The method according to 16, wherein the linear regression model is a second order linear regression model.
+18. A method of operating a solid state drive, comprising: detecting, by a workload detection engine, a number of incoming commands from a host; generating, by the workload detection engine, a current workload indication, wherein generating the current workload indication comprises: calculating one of a minimum system imposed read and write latency for the solid state drive; calculating one of an expected read latency for the solid state drive based upon the minimum system imposed read latency and an expected write latency for the solid state drive based upon the minimum system imposed write latency for the solid state drive; calculating one of an amplification coefficient for write operations and an amplification coefficient for read operations; and calculating one of a final read latency for the solid state drive based upon the calculated expected read latency and the calculated amplification coefficient for read operations and a final write latency for the solid state drive based upon the calculated expected write latency and the calculated amplification coefficient for write operations; delivering the current workload indication to a throttling engine; generating, by the throttling engine, one or more throttling latencies based on the calculated final read latency and the calculated final write latency; delivering the one or more generated throttling latencies to a host responder; and throttling, by the host responder, one or more completed commands, wherein throttling comprises accelerating sending the one or more completed commands to the host or queueing the one or more completed commands based on the one or more generated throttling latencies.
+19. The method according to claim 18, wherein the amplification coefficient for write operations and the amplification coefficient for read operations is based upon a linear regression model.
+</claims>
+</document>

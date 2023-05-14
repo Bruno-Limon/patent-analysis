@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2019-10-15
+</filing_date>
+
+<publication_date>
+2020-04-16
+</publication_date>
+
+<priority_date>
+2018-10-16
+</priority_date>
+
+<ipc_classes>
+G06F16/901,G06N20/00,G06Q20/40
+</ipc_classes>
+
+<assignee>
+MASTERCARD WORLDWIDE
+</assignee>
+
+<inventors>
+ZHANG, XIAOYING
+ARVAPALLY, RAVI SANTOSH
+ZHOU, XIANZHE
+LO FARO, WALTER F.
+</inventors>
+
+<docdb_family_id>
+70162028
+</docdb_family_id>
+
+<title>
+SYSTEMS AND METHODS FOR MONITORING MACHINE LEARNING SYSTEMS
+</title>
+
+<abstract>
+Systems and methods are provided for use in performing data quality checks on input variables to machine learning systems. One exemplary method includes calculating a first moment associated with a long term variable (LTV), based on the value of the LTV and historical values of the LTV over a defined interval; and calculating a second moment associated with the LTV, based on the value of the LTV and the historical values of the LTV over the defined interval. The first moment and the second moment provide a moment pair. An isolation forest analysis is performed based on the moment pairs. And, a flag is generated for the LTV, when a check value of the LTV is different than the value of the LTV, and/or when the isolation forest analysis indicates the calculated moment pair is an anomaly.
+</abstract>
+
+<claims>
+1. A computer-implemented method for use in performing data quality checks on input variables to machine learning systems, the method comprising: accessing for multiple payment accounts, by a computing device, from a data structure, a value of a long term variable (LTV), transaction data underlying the value of the LTV, and multiple historical values of the LTV, wherein the value of the LTV and the historical values of the LTV are specific to the multiple payment accounts; calculating, by the computing device, a check value of the LTV, based on the transaction data underlying the value of the LTV; calculating, by the computing device, a first moment associated with the LTV, for each of the multiple payment accounts, based on the value of the LTV and the historical values of the LTV over a defined interval; calculating, by the computing device, a second moment associated with the LTV, for each of the multiple payment accounts, based on the value of the LTV and the historical values of the LTV over the defined interval, wherein the first moment and the second moment provide a moment pair for the payment account; performing, by the computing device, an isolation forest analysis based on the moment pair for each of the multiple payment accounts; and generating, by the computing device, a flag for the LTV, when the check value is different than the value of the LTV and/or when the isolation forest analysis indicates the calculated moment pair, for at least one of the multiple payment accounts, is an anomaly, thereby directing a manual review of the value of the LTV.
+2. The computer-implemented method of claim 1, wherein calculating the first moment includes calculating a mean of the value of the LTV and the historical values of the LTV.
+3. The computer-implemented method of claim 2, wherein calculating the second moment of the LTV includes calculating the mean of a squared value of the LTV and squared historical values of the LTV.
+4. The computer-implemented method of claim 1, further comprising: calculating an interval-over-interval (MI) percentage change of the LTV, for each of the multiple payment accounts, based on the calculated first moment and historical first moments for the LTV, over the defined interval; calculating an IOI percentage change of the LTV, for each of the multiple payment accounts, based on the calculated second moment and historical second moments for the LTV, over the defined interval, the IOI percentage change of the first moment and the IOI percentage change of the second moment defining an IOI percentage change pair; and wherein performing the isolation forest analysis based on the moment pair for each of the multiple payment accounts includes applying the isolation forest analysis to the IOI percentage change pair for the corresponding payment account.
+5. The computer-implemented method of claim 4, wherein the IOI percentage change includes a week-over-week (WOW) percentage change.
+6. The computer-implemented method of claim 5, wherein the WOW percentage change is calculated based on the following:
+7. The computer-implemented method of claim 1, wherein the LTV includes a transaction count within a geographic region.
+8. The computer-implemented method of claim 1, further comprising counting a number of payment accounts included in the data underlying the value of the LTV; and generating a flag for the LTV when the count of the number of payment accounts is different than an expected count.
+9. The computer-implemented method of claim 8, wherein the LTV is associated with a type of payment account; and wherein counting the number of payment accounts includes counting the number of payment accounts consistent with the type of payment account.
+10. A system for use in performing data quality checks, the system comprising: a memory including a data structure, the data structure including a long term variable (LTV), transaction data underlying the value of the LTV, and multiple historical values of the LTV; and at least one processor in communication with the memory, the at least one processor configured to: access, from the data structure, a value of the LTV, the transaction data underlying the value of the LTV, and the multiple historical values of the LTV; calculate a check value of the LTV, based on the transaction data underlying the value of the LTV; calculate a first moment associated with the LTV based on the value of the LTV and the historical values of the LTV over a defined interval; calculate a second moment associated with the LTV, based on the value of the LTV and the historical values of the LTV over the defined interval, wherein the first moment and the second moment provide a moment pair; perform an isolation forest analysis based on the moment pair; and generate a flag for the LTV when the isolation forest analysis indicates the calculated moment pair is an anomaly.
+11. The system of claim 10, wherein the at least one processor is configured to, in connection with calculating the first moment, calculate a mean of the value of the LTV and the historical values of the LTV; and wherein the at least one processor is configured to, in connection with calculating the second moment, calculate the mean of a squared value of the LTV and squared historical values of the LTV.
+12. The system of claim 10, wherein the at least one processor is further configured to: calculate an interval-over-interval (IOI) percentage change of the LTV, based on the calculated first moment and historical first moments for the LTV, over the defined interval; calculate an IOI percentage change of the LTV based on the calculated second moment and historical second moments for the LTV, over the defined interval, the IOI percentage change of the first moment and the IOI percentage change of the second moment defining an IOI percentage change pair; and in connection with performing the isolation forest, apply the isolation forest to the IOI percentage change pair.
+13. The system of claim 10, wherein the LTV includes a transaction count within a geographic region for a particular type of payment account.
+14. The system of claim 13, wherein the IOI percentage change includes a week-over-week (WOW) percentage change of the transaction count.
+15. The system of claim 14, wherein the at least one processor is configured to calculate the WOW percentage change based on the following: where Mt,p is the p-th moment at time t.
+16. The system of claim 10, wherein the at least one processor is further configured to: count a number of payment accounts included in the transaction data underlying the value of the LTV; and generate a flag for the LTV when the count of the number of payment accounts is different than an expected count.
+17. A non-transitory computer readable storage medium including executable instructions for use in performing data quality checks on transaction data stored in data structures, which when executed by at least one processor, cause the at least one processor to: access, from a data structure, a value of a long term variable (LTV), transaction data underlying the value of the LTV, and multiple historical values of the LTV; calculate a check value of the LTV, based on the transaction data underlying the value of the LTV; calculate a first moment associated with the LTV, based on the value of the LTV and the historical values of the LTV over a defined interval; calculate a second moment associated with the LTV, based on the value of the LTV and the historical values of the LTV over the defined interval, wherein the first moment and the second moment provide a moment pair; perform an isolation forest analysis based on the moment pair; and generate a flag for the LTV, when the check value is different than the value of the LTV, and/or when the isolation forest analysis indicates the calculated moment pair is an anomaly.
+18. The non-transitory computer readable storage medium of claim 17, wherein the instructions, when executed by the at least one processor, cause the at least one processor to: in connection with calculating the first moment, calculate a mean of the value of the LTV and the historical values of the LTV; and in connection with calculating the second moment, calculate a mean of a squared value of the LTV and squared historical values of the LTV.
+19. The non-transitory computer readable storage medium of claim 18, wherein the instructions, when executed by the at least one processor, further cause the at least one processor to: calculate an interval-over-interval (IOI) percentage change of the LTV, based on the calculated first moment and the historical first moments for the LTV, over the defined interval; calculate an IOI percentage change of the LTV based on the calculated second moment and the historical second moments for the LTV, over the defined interval, wherein the IOI percentage change of the first moment and the IOI percentage change of the second moment define an IOI percentage change pair; and in connection with performing the isolation forest analysis, apply the isolation forest to the IOI percentage change pair.
+20. The non-transitory computer readable storage medium of claim 19, wherein the IOI percentage change includes a week-over-week (WOW) percentage change; and wherein the WOW percentage change is calculated based on the following: where Mt,p is the p-th moment at time t.
+</claims>
+</document>

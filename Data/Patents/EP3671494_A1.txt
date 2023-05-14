@@ -1,0 +1,55 @@
+<document>
+
+<filing_date>
+2018-12-21
+</filing_date>
+
+<publication_date>
+2020-06-24
+</publication_date>
+
+<priority_date>
+2018-12-21
+</priority_date>
+
+<assignee>
+DASSAULT SYSTEMES
+</assignee>
+
+<inventors>
+CUNHA, GUILHERME
+HERMANN, EVERTON
+NGO NGOC, CYRIL
+</inventors>
+
+<docdb_family_id>
+66101781
+</docdb_family_id>
+
+<title>
+MULTI-INSTANCED SIMULATIONS FOR LARGE ENVIRONMENTS
+</title>
+
+<abstract>
+The invention notably relates to a computer-implemented method for simulating together a plurality of physics simulation instances included in a global physics simulation. The method comprises creating a database of local simulation instances. The creating (S0) comprises providing a set of local simulations. The set of local simulations comprises at least two local simulations. A local simulation is a physics simulation that is part of the global physics simulation and that can be computed alone and independently of the multi-physics simulation. Each local simulation of the set of local simulations is already computed. The creating further comprises, for each local simulation of the set of local simulations, computing a respective reduced model of the local simulation. The creating further comprises, for each local simulation of the set of local simulations, storing in the database a respective local simulation instance. The respective local simulation instance comprises the respective computed reduced model. The method further comprises selecting at least two local simulation instances in the database of local simulation instances. The method further comprises computing the global physics simulation. The computing of the global physics simulation comprises reusing each respective computed reduced model comprised in each local simulation instance of the selected at least two local simulation instances. This constitutes an improved method for simulating together a plurality of physics simulation instances included in a physics simulation.
+</abstract>
+
+<claims>
+1. Computer-implemented method for simulating together a plurality of physics simulation instances included in a global physics simulation, the method comprising: - creating (S0) a database of local simulation instances, the creating (S0) comprising: • providing (S10) a set of local simulations, wherein: ▪ the set of local simulations comprises at least two local simulations; ▪ a local simulation is a physics simulation that is part of the global physics simulation and that can be computed alone and independently of the multi-physics simulation; and ▪ each local simulation of the set of local simulations is already computed; • for each local simulation of the set of local simulations, computing (S30) a respective reduced model of the local simulation; and • for each local simulation of the set of local simulations, storing (S50) in the database a respective local simulation instance, the respective local simulation instance comprising the respective computed reduced model; - selecting (S1) at least two local simulation instances in the database of local simulation instances; and - computing (S2) the global physics simulation, the computing (S2) of the global physics simulation comprising reusing (S220) each respective computed reduced model comprised in each local simulation instance of the selected at least two local simulation instances.
+2. The method of claim 1, wherein: - the global physics simulation is associated with a global domain; and - each local simulation is associated with a respective local domain; the method further comprising: - before the computing (S30) of each respective reduced model of each local simulation: - selecting (S20) a respective zone of interest of the local simulation, the respective zone of interest being a non-empty sub-domain of the respective local domain; - at the computing (S30) of each respective reduced model of each local simulation: - each respective reduced model is computed at the border of the respective zone of interest; - at the computing (S2) of the global physics simulation: - placing (S210) the respective zone of interest of each local simulation of the selected at least two simulation instances in the global domain; and - only the remaining part of the global domain is computed, the remaining part being the part of the global domain that is occupied by no zone of interest, the global domain comprising regions that are respectively occupied by each respective zone of interest of each local simulation of the selected at least two local simulation instances.
+3. The method of claim 2, further comprising, at the placing (S210) of the respective zone of interest of each local simulation of the selected at least two local simulation instances, interfacing the border of the respective zone of interest with the border of the region of the global domain occupied by the respective zone of interest.
+4. The method of any one of claims 2 or 3, further comprising, for each local simulation of the set of local simulations, after the computing (S30) of the respective reduced model: - defining (S40) probes, the probes being points of the respective local domain of the local simulation which are contiguous to the respective zone of interest, each probe comprising simulation data of the local simulation; wherein the stored local simulation instance comprising the respective computed reduced model further comprises the probes and the respective zone of interest.
+5. The method of claim 4, wherein: - during the computing (S2) of the global physics simulation, at least two simulations local instances of the at least two selected local simulation instances interact, the interaction resulting in that probes of at least one local simulation instance of the at least two simulation instances are enriched (S221); and - as a result of enriching (S221) probes, the respective computed reduced model comprised in a local simulation instance of which probes are enriched is corrected (S225).
+6. The method of claim 5, further comprising, for each local simulation instance of which probes are enriched: - before the correcting (S225) of the respective computed reduced model, computing (S222) a difference between the set of all enriched probes and the set of corresponding probes before their enrichment; - determining (S223) if the difference exceeds a predetermined threshold; and - correcting (S225) the respective computed reduced model if it is determined that the difference exceeds the predetermined threshold.
+7. The method of claim 6, wherein the method further comprises: - at the creating (S0) of the database of local simulation instances, learning (S60) a machine-learning algorithm on the local simulation instances stored in the database, the machine-learning algorithm providing, for each local simulation instance of the database, a respective relation between the probes stored in the local simulation instance and the respective computed reduced model stored in the local simulation instance; and - for each local simulation instance of which probes are enriched, correcting (S225) the respective computed reduced model comprised in the local simulation instance comprises applying (S224) the machine-learning algorithm, the correcting (S225) being performed based on the respective relation.
+8. The method of any one of claims 5 to 7, wherein at each correcting (S225) of a respective reduced model as a result of the enriching (S221) of probes, a simulation instance is stored in the database, the simulation instance comprising the corrected reduced model and the enriched probes.
+9. The method of any one of claims 7 or 8 in combination with claim 7, further comprising, after the computing (S2) of the global physics simulation: - adding (S3) a new local simulation instance to the database of local simulation instances, the adding (S3) of the new local simulation instance comprising: • providing a new local simulation, the new local simulation being already computed, the new local simulation being associated with a respective local domain; • selecting a respective zone of interest of the new local simulation, the respective zone of interest being a non-empty sub-domain of the respective local domain; • computing a respective reduced model of the new local simulation at the border of the respective zone of interest; • defining probes, the probes being points of the respective local domain which are contiguous to the respective zone of interest, each probe comprising simulation data of the new local simulation; and • storing in the database a new local simulation instance comprising the respective reduced model of the new local simulation, the probes of the new local simulation and the respective zone of interest of the new local simulation; the adding (S3) resulting in that the new simulation instance is one of the local simulation instances of the database of local simulation instances,
+the method further comprising: - after the adding (S3) of the new local simulation instance, re-learning (S4) the machine-learning algorithm on the database of simulation instance; - re-selecting (S5) at least two local simulation instances in the database of local simulation instances, the re-selected at least two local simulation instances comprising the new local simulation instance; and - re-computing (S7) of the global physics simulation with the re-selected at least two local simulation instances.
+10. The method of claim 9, further comprising, after the relearning (S4) and before the re-computing (S7), modifying (S6) the global physics simulation.
+11. The method of any of claims 9 to 10, wherein the adding (S3) and the re-computing (S7) are iterated (S8).
+12. The method of any of claims 2 to 11, wherein: - each respective local domain of each local simulation comprises a respective physical object, the local simulation simulating a respective physical behavior associated with the respective physical object; - the global physics simulation simulates a physical behavior of the set of all respective physical objects.
+13. The method of any of claims 1 to 12, wherein all local simulations are perturbations of a given local simulation, the given local simulation being part of the set of local simulations.
+14. Computer program comprising instructions for performing the method of any of claims 1 to 13.
+15. A system comprising a processor coupled to a memory and a display, the memory having recorded thereon the computer program of claim 14.
+</claims>
+</document>

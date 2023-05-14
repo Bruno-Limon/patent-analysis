@@ -1,0 +1,71 @@
+<document>
+
+<filing_date>
+2018-09-28
+</filing_date>
+
+<publication_date>
+2020-04-02
+</publication_date>
+
+<priority_date>
+2018-09-28
+</priority_date>
+
+<ipc_classes>
+G06F5/06,G06F7/544,G06N3/063
+</ipc_classes>
+
+<assignee>
+QUALCOMM
+</assignee>
+
+<inventors>
+ANSARI, AMIN
+GOLDFARB, MICHAEL
+HILL, REXFORD
+LAMB, AARON
+LOTT, CHRISTOPHER
+</inventors>
+
+<docdb_family_id>
+68165894
+</docdb_family_id>
+
+<title>
+EXPLOITING ACTIVATION SPARSITY IN DEEP NEURAL NETWORKS
+</title>
+
+<abstract>
+A method of exploiting activation sparsity in deep neural networks is described. The method includes retrieving an activation tensor and a weight tensor where the activation tensor is a sparse activation tensor. The method also includes generating a compressed activation tensor comprising non-zero activations of the activation tensor, where the compressed activation tensor has fewer columns than the activation tensor. The method further includes processing the compressed activation tensor and the weight tensor to generate an output tensor.
+</abstract>
+
+<claims>
+1. A method of exploiting activation sparsity in deep neural networks, comprising: retrieving an activation tensor and a weight tensor where the activation tensor is a sparse activation tensor; generating a compressed activation tensor comprising non-zero activations of the activation tensor, where the compressed activation tensor has fewer columns than the activation tensor; and processing the compressed activation tensor and the weight tensor to generate an output tensor.
+2. The method of claim 1, in which generating the compressed activation tensor comprises: painting the non-zero activations of the activation tensor into a memory buffer; and redistributing the non-zero activations within the memory buffer to a location in the memory buffer mapped to an empty vector lane of a multiply-accumulate (MAC) hardware during a clock cycle.
+3. The method of claim 2, further comprising inserting an artificial zero activation in a location of the memory buffer mapped to a vector lane when a constraint on a number of unique computations per vector operation is exceeded.
+4. The method of claim 1, further comprising detecting an empty vector lane when a number of vector lanes having one of the non-zero activations during a clock cycle is less than a processing vector width of the MAC hardware.
+5. The method of claim 1, in which generating the compressed activation tensor comprises packing non-zero activations onto vector lanes of multiple-accumulate (MAC) hardware according to a constraint on a number of unique computations per vector operation.
+6. The method of claim 1, further comprising: determining original channel lanes of the non-zero activations of the compressed activation tensor; and computing a dot product of the non-zero activations of the compressed activation tensor and weights of the weight tensor corresponding to the original channel lanes of the non-zero activations of the compressed activation tensor.
+7. The method of claim 6, in which metadata indicating the original channel lanes of the non-zero activations of the compressed activation tensor is stored in on-chip memory.
+8. The method of claim 1, in which processing the compressed activation tensor comprising multiplexing weights of the weight tensor corresponding to the non-zero activations multiple-accumulate (MAC) hardware to compute the output tensor.
+9. The method of claim 1, in which processing the compressed activation tensor comprises distributing dot products of a non-zero activation and a weights from the weight tensor to an accumulator tree of a multiply-accumulate (MAC) hardware during a clock cycle, in which a channel number associated with the weights is the channel number of the non-zero activation.
+10. The method of claim 1, further comprising: distributing a variable number of channels of multilane segments of the activation tensor into a number of activation groups that is smaller than a channel depth of a first multilane segments when a number of channels of the activation tensor is less than a machine's processing vector width; packing non-zero activations from each of the activation groups onto vector lanes of a multiple-accumulate (MAC) hardware; and inserting an artificial zero activation in at least one of the vector lanes when a constraint on a number of unique computations for each vector operation is exceeded.
+11. A deep neural network for exploiting activation sparsity, the deep neural network comprising: multiply-accumulate (MAC) hardware; and at least one processor coupled to the MAC hardware, the processor configured: to retrieve an activation tensor and a weight tensor where the activation tensor is a sparse activation tensor; to generate a compressed activation tensor comprising non-zero activations of the activation tensor, where the compressed activation tensor has fewer columns than the activation tensor; and to process the compressed activation tensor and the weight tensor to generate an output tensor.
+12. The deep neural network of claim 11, further comprising: first-in-first-out (FIFO) buffers configured to store packed ones of the non-zero activations; and an on-chip memory configured to store metadata regarding the non-zero activations.
+13. The deep neural network of claim 11, further comprising multiplexers configured: to paint the non-zero activations of the activation tensor into a memory buffer; and to redistribute the non-zero activations within the memory buffer to a location in the memory buffer mapped to an empty vector lane of the MAC hardware during an upcoming clock cycle.
+14. The deep neural network of claim 13, in which to generate the compressed activation tensor, the processor is further configured to pack non-zero activations onto vector lanes of the MAC hardware according to a constraint on a number of unique computations per vector operation.
+15. The deep neural network of claim 14, in which the processor is further configured to insert an artificial zero activation in a location of the memory buffer mapped to a vector lane when the constraint is exceeded.
+16. The deep neural network of claim 11, in which the processor is further configured: to distribute a variable number of channels of multilane segments of the activation tensor into a number of activation groups that is smaller than a channel depth of a first multilane segment when a number of channels of the activation tensor is less than a machine's processing vector width; to pack the non-zero activations from each of the activation groups into vector lanes; and to insert an artificial zero activation in at least one of the vector lanes when a constraint on a number of unique computations for vector operation is exceeded.
+17. A deep neural network for exploiting activation sparsity, the deep neural network comprising: means for retrieving an activation tensor and a weight tensor where the activation tensor is a sparse activation tensor; means for generating a compressed activation tensor comprising non-zero activations of the activation tensor, where the compressed activation tensor has fewer columns than the activation tensor; and means for processing the compressed activation tensor and the weight tensor to generate an output tensor.
+18. The deep neural network of claim 17, in which the means for generating the compressed activation tensor comprises: means for painting the non-zero activations of the activation tensor into a memory buffer; and means for redistributing the non-zero activations within the memory buffer to a location in the memory buffer mapped to an empty vector lane of a multiply-accumulate (MAC) hardware during an upcoming clock cycle.
+19. The deep neural network of claim 18, further comprising means for inserting an artificial zero activation in a location of the memory buffer mapped to a vector lane when a constraint on a number of unique computations per vector operation is exceeded.
+20. The deep neural network of claim 17, further comprising means for detecting an empty vector lane when a number of the vector lanes having one of the non-zero activations during a clock cycle is less than a processing vector width of the MAC hardware.
+21. The deep neural network of claim 17, in which the means for generating the compressed activation tensor comprises means for packing non-zero activations onto vector lanes of multiple-accumulate (MAC) hardware according to a constraint on a number of unique computations per vector operation.
+22. The deep neural network of claim 21, further comprising: means for determining original channel lanes of the non-zero activations of the compressed activation tensor; and means for computing a dot product of the non-zero activations of the compressed activation tensor and weights of the weight tensor corresponding to original channel lanes of the non-zero activations of the compressed activation tensor.
+23. The deep neural network of claim 22, in which metadata indicating the original channel lanes of the non-zero activations of the compressed activation tensor is stored in on-chip memory.
+24. The deep neural network of claim 17, in which the means for processing the compressed activation tensor comprises means for distributing dot products of a non-zero activation and weights from the weight tensor to an accumulator tree of a multiply-accumulate (MAC) hardware during a clock cycle, in which a channel number of the weights is the channel number of the non-zero activation.
+25. The deep neural network of claim 17, in which the means for processing the compressed activation tensor comprises means for multiplexing weights of the weight tensor corresponding to the non-zero activations to multiple-accumulate (MAC) hardware to compute the output tensor.
+26. The deep neural network of claim 17, further comprising: means for distributing a variable number of channels of multilane segments of the activation tensor into a number of activation groups that is smaller than a channel depth of a first multilane segment when a number of channels of the activation tensor is less than a machine's processing vector width; means for packing non-zero activations from each of the activation groups into vector lanes; and means for inserting an artificial zero activation in at least one of the vector lanes when a constraint on a number of unique computations for each vector operation is exceeded.
+</claims>
+</document>

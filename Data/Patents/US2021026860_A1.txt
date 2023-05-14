@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2018-09-07
+</filing_date>
+
+<publication_date>
+2021-01-28
+</publication_date>
+
+<priority_date>
+2018-09-07
+</priority_date>
+
+<ipc_classes>
+G06F16/2457,G06F16/248,G06F17/18,G06N5/00
+</ipc_classes>
+
+<assignee>
+BEIJING BYTEDANCE NETWORK TECHNOLOGY COMPANY
+</assignee>
+
+<inventors>
+LI HANG
+WANG, YANG
+Hu, Ziniu
+Peng, Qu
+</inventors>
+
+<docdb_family_id>
+69722088
+</docdb_family_id>
+
+<title>
+METHOD AND DEVICE FOR GENERATING RANKING MODEL
+</title>
+
+<abstract>
+The embodiment of the present application discloses a method and a device for generating a ranking model. A specific embodiment of the method includes: acquiring a sample set, executing following training steps: for the samples in the sample set, inputting the query information, the first position document and the second position document in the sample into an initial model, respectively obtaining scores of the input documents, and determining a target value of the sample based on the obtained scores, a clicked bias of a first position and an unclicked bias of a second position, updating the initial model based on the target value of each sample; determining whether the initial model is completely trained; and in response to determining that the initial model is completely trained, determining the updated initial model as the ranking model.
+</abstract>
+
+<claims>
+1. A method for generating a ranking model, comprising: acquiring a sample set, wherein samples in the sample set comprise a query information and a clicked first position document and an unclicked second position document in a query result; executing following training steps: for the samples in the sample set, inputting the query information, the first position document and the second position document in the sample into an initial model, respectively obtaining scores of the input documents, and determining a target value of the sample based on the obtained scores, a clicked bias of a first position and an unclicked bias of a second position, wherein the clicked bias and the unclicked bias are respectively used for representing an influence degree of a position of a document in the query result on a clicked probability and an unclicked probability of the document; updating the initial model based on the target value of each sample; determining whether the initial model is completely trained; and in response to determining that the initial model is completely trained, determining the updated initial model as the ranking model.
+2. The method for generating a ranking model according to claim 1, wherein after the updating the initial model based on the target value of each sample, the training steps further comprises: re-estimating the clicked bias and the unclicked bias of each position based on the updated initial model and the sample set so as to update the clicked bias and the unclicked bias of each position.
+3. The method for generating a ranking model according to claim 2, wherein the method further comprises: in response to determining that the initial model is not completely trained, continuously executing the training step by using the updated initial model and the updated clicked bias and the updated unclicked bias of each position.
+4. The method for generating a ranking model according to claim 1, wherein the determining a target value of the sample based on the obtained scores, a clicked bias of a first position and an unclicked bias of a second position comprises: inputting the obtained scores, the clicked bias of the first position and the unclicked bias of the second position into a pre-established gradient calculation formula, and determining a gradient calculation result as the target value of the sample.
+5. The method for generating a ranking model according to claim 4, wherein the initial model is a decision tree; and the updating the initial model based on the target value of each sample comprises: establishing the decision tree, and fitting the target value of each sample; and updating the initial model based on the established decision tree.
+6. The method for generating a ranking model according to claim 5, wherein the determining whether the initial model is completely trained comprises: determining a number of the established decision tree, and comparing the number with a preset number; and determining whether the initial model is completely trained according to a comparison result.
+7. The method for generating a ranking model according to claim 1, wherein the determining a target value of the sample based on obtained scores, a clicked bias of a first position and an unclicked bias of a second position comprises: inputting the obtained scores, the clicked bias of the first position and the unclicked bias of the second position into a pre-established loss function to obtain a loss value, and determining the loss value as the target value of the sample.
+8. The method for generating a ranking model according to claim 7, wherein the determining whether the initial model is completely trained comprises: determining an average value of the target value of each sample, and comparing the average value with a preset value; and determining whether the initial model is completely trained according to a comparison result.
+9. A device for generating a ranking model, comprising: at least one processor; and at least one memory communicatively coupled to the at least one processor and storing instructions that upon execution by the at least one processor cause the device to: acquire a sample set, wherein samples in the sample set comprises a query information and a clicked first position document and an unclicked second position document in a query result; execute following training steps: for the sample in the sample set, input the query information, the first position document and the second position document in the sample into an initial model, respectively obtain scores of the input documents, and determine a target value of the sample based on the obtained scores, a clicked bias of a first position and an unclicked bias of a second position, wherein the clicked bias and the unclicked bias are respectively used for representing an influence degree of a position of a document in the query result on a clicked probability and an unclicked probability of the document; update the initial model based on the target value of each sample; determine whether the initial model is completely trained; and in response to determining that the initial model is completely trained, determine the updated initial model as the ranking model.
+10. The device for generating a ranking model according to claim 9, wherein the at least one memory further stores instructions that upon execution by the at least one processor cause the device to: after updating the initial model based on the target value of each sample, re-estimate the clicked bias and the unclicked bias of each position based on the updated initial model and the sample set so as to update the clicked bias and the unclicked bias of each position.
+11. The device for generating a ranking model according to claim 10, wherein the at least one memory further stores instructions that upon execution by the at least one processor cause the device to: in response to determining that the initial model is not completely trained, continuously execute the training step by using the updated initial model and the updated clicked bias and the updated unclicked bias of each position.
+12. The device for generating a ranking model according to claim 9, wherein the at least one memory further stores instructions that upon execution by the at least one processor cause the device to: input the obtained scores, the clicked bias of the first position and the unclicked bias of the second position into a pre-established gradient calculation formula, and determine a gradient calculation result as the target value of the sample.
+13. The device for generating a ranking model according to claim 12, wherein the initial model is a decision tree; and the at least one memory further stores instructions that upon execution by the at least one processor cause the device to: establish the decision tree, and fit the target value of each sample; and update the initial model based on the established decision tree.
+14. The device for generating a ranking model according to claim 13, wherein the at least one memory further stores instructions that upon execution by the at least one processor cause the device to: determine a number of the established decision tree, and compare the number with a preset number; and determine whether the initial model is completely trained according to a comparison result.
+15. The device for generating a ranking model according to claim 9, wherein the at least one memory further stores instructions that upon execution by the at least one processor cause the device to: input the obtained scores, the clicked bias of the first position and the unclicked bias of the second position into a pre-established loss function to obtain a loss value, and determine the loss value as the target value of the sample.
+16. The device for generating a ranking model according to claim 15, wherein the at least one memory further stores instructions that upon execution by the at least one processor cause the device to: determine an average value of the target value of each sample, and compare the average value with a preset value; and determine whether the initial model is completely trained according to a comparison result.
+17. A method for generating information, comprising: in response to receiving a query request containing a target query information, retrieving candidate documents matched with the target query information and summarizing the candidate documents into a candidate document set; inputting the candidate documents in the candidate document set into a ranking model to obtain scores of the candidate documents; and ranking the candidate documents in the candidate document set according to an order from a large score to a small score, and returning a ranking result; wherein the ranking model is generated by: acquiring a sample set, wherein samples in the sample set comprise a query information and a clicked first position document and an unclicked second position document in a query result; executing following training steps: for the samples in the sample set, inputting the query information, the first position document and the second position document in the sample into an initial model, respectively obtaining scores of the input documents, and determining a target value of the sample based on the obtained scores, a clicked bias of a first position and an unclicked bias of a secon position, wherein the clicked bias and the unclicked bias are respectively used for representing an influence degree of a position of a document in the query result on a clicked probability and an unclicked probability of the document; updating the initial model based on the target value of each sample; determining whether the initial model is completely trained; and in response to determining that the initial model is completely trained, determining the updated initial model as the ranking model.
+18. (canceled)
+19. (canceled)
+20. (canceled)
+</claims>
+</document>

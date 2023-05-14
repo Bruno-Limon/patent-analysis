@@ -1,0 +1,73 @@
+<document>
+
+<filing_date>
+2020-08-24
+</filing_date>
+
+<publication_date>
+2020-12-10
+</publication_date>
+
+<priority_date>
+2018-11-08
+</priority_date>
+
+<ipc_classes>
+G06F17/16,G06F7/523,G06F7/544
+</ipc_classes>
+
+<assignee>
+MOVIDIUS
+</assignee>
+
+<inventors>
+BERNARD, DAVID
+CONNOR, FERGAL
+HANRAHAN, NIALL
+</inventors>
+
+<docdb_family_id>
+68461801
+</docdb_family_id>
+
+<title>
+DOT PRODUCT CALCULATORS AND METHODS OF OPERATING THE SAME
+</title>
+
+<abstract>
+Methods, apparatus, systems and articles of manufacture to perform dot product calculations using sparse vectors are disclosed. An example dot product calculator includes a first logic AND gate to perform a first logic AND operation with a first input vector and a second input vector, the first logic AND gate to output a control vector; a second logic AND gate to perform a second logic AND operation with a difference vector and an inverse of the control vector, the second logic AND gate to output a mask vector; a third logic AND gate to output a first vector; a first counter to generate a first ones count based on a first total number of ones of the first vector; a fourth logic AND gate to output a second vector; a second counter to generate a second ones count; and a multiplier to generate a product.
+</abstract>
+
+<claims>
+1. Circuitry to calculate a dot product, the circuitry comprising: a first logic AND gate to perform a first logic AND operation with a first input vector and a second input vector, the first logic AND gate to output a control vector; a second logic AND gate to perform a second logic AND operation with a difference vector and an inverse of the control vector, the difference vector corresponding to a value representative of the control vector minus one, the second logic AND gate to output a mask vector; a third logic AND gate to perform a third logic AND operation with the mask vector and the first input vector, the third logic AND gate to output a first vector; a first counter to generate a first ones count based on a first total number of ones of the first vector; a fourth logic AND gate to perform a fourth logic AND operation with the mask vector and the second input vector, the fourth logic AND gate to output a second vector; a second counter to generate a second ones count based on a second total number of ones of the second vector; and a multiplier to multiply a first value based on the first ones count and a second value based on the second ones count to generate a product.
+2. The circuitry of claim 1, further including: a NOT gate to generate the inverse of the control vector; and a subtractor to generate the difference vector.
+3. The circuitry of claim 1, wherein the first input vector is a first sparsity map, the second input vector is a second sparsity map, and further including: a fifth logic AND gate to identify a first address of the first value in memory by performing a fifth logic AND operation with the first ones count and a first base address corresponding to a first location of a first sparse vector in the memory, the first sparse vector corresponding to the first sparsity map; and a sixth logic AND gate to identify a second address of the second value in the memory by performing a sixth logic AND operation with the second ones count and a second base address corresponding to a second location of a second sparse vector in the memory, the second sparse vector corresponding to the second sparsity map.
+4. The circuitry of claim 1, further including a summer to sum the product with a value corresponding to a previous iteration, the value corresponding to at least one of a previous product from the previous iteration or a sum of previous products from the previous iteration.
+5. The circuitry of claim 4, further including a storage device to store the sum of the previous products from the previous iteration.
+6. The circuitry of claim 4, wherein the previous product is zero if there is no previous iteration.
+7. The circuitry of claim 1, further including: a fifth logic AND gate to generate an updated control vector corresponding to a third logic AND operation on the control vector and the difference vector; and a comparator to determine if elements of the update control vector correspond to a same binary value.
+8. The circuitry of claim 7, wherein the comparator is to: output a first signal to indicate a dot product calculation is complete when the update control vector corresponds to the same binary value; and output a second signal to indicate a subsequent iteration is needed when the update control vector does not correspond to the same binary value.
+9. The circuitry of claim 1, further including a memory interface to obtain the first value from memory based on the first ones count and obtain the second value from the memory based on the second ones count.
+10. A dot product calculator comprising: memory; and processor circuitry to: generate a mask vector based on a first logic AND operation of a difference vector and an inverse of a control vector, the control vector corresponding to a second logic AND operation from a first bitmap and a first sparse vector and a second bitmap of a second sparse vector, the difference vector corresponding to a value representative of a difference between the control vector and one; generate a first product of a first value from the first sparse vector and a second value from the second sparse vector; and add the first product to a second product of a previous iteration.
+11. The dot product calculator of claim 10, wherein: the first value of the first sparse vector is based on a second result of a third logic AND operation on (a) the first bitmap and (b) the mask vector, and the second value of the second sparse vector is based on a third result of a fourth logic AND operation on (a) the second bitmap and (b) the mask vector.
+12. The dot product calculator of claim 11, wherein the processor circuitry is to: determine a first number of binary values in the second result, the first value based on a first address corresponding to the first number of binary values; and determine a second number of binary values in the third result, the second value based on a second address corresponding to the second number of binary values.
+13. The dot product calculator of claim 10, wherein: the first bitmap is to identify whether a first element of a first vector corresponds to a zero value or a non-zero value, and, the second bitmap is to identify whether a second element of a second vector corresponds to a zero value or a non-zero value; and the first sparse vector corresponds to non-zero values of a first dense vector, and, the second sparse vector corresponds to non-zero values of a second dense vector.
+14. The dot product calculator of claim 13, wherein the processor circuitry is to: generate the mask vector to include a number of first binary values in the least significant bits of the first vector, the number of the first binary values represented by a trailing binary count corresponding to the mask vector; and generate the mask vector to have the same dimensions as the first vector.
+15. The dot product calculator of claim 10, wherein the processor circuitry is to generate the control vector based on the first logic AND operation with the first bitmap and the second bitmap as inputs.
+16. The dot product calculator of claim 10, wherein the memory is to store the first product.
+17. The dot product calculator of claim 10, wherein the processor circuitry is to: generate the difference vector by subtracting one from the value representative of the control vector; generate an updated control vector corresponding to a third logic AND operation on the control vector and the difference vector; and determine if elements of the update control vector correspond to a same value as the value representative of the control vector.
+18. The dot product calculator of claim 17, wherein the processor circuitry is to output a sum of the first product and the second product as a dot product result when the elements of the updated control vector correspond to the same value as the value representative of the control vector.
+19. The dot product calculator of claim 17, wherein the difference vector is a first difference vector, the mask vector is a first mask vector, and, the processor circuitry is to, when the elements of the updated control vector do not correspond to the same value as the value representative of the control vector: generate a second mask vector based on a second difference vector and the updated control vector; multiply a third value of the first sparse vector and a fourth value of the second sparse vector to generate a third product; and sum (i) the third product and (ii) the sum of (a) the first product and (b) the second product.
+20. The dot product calculator of claim 19, wherein the difference vector is a first difference vector, the updated control vector is a first updated control vector, and the elements are first elements, and the processor circuitry is to: generate a second difference vector by subtracting one from the value representative of the updated control vector; and generate a second updated control vector corresponding to a fourth logic AND operation on the updated control vector and the second difference vector.
+21. The dot product calculator of claim 20, wherein the processor circuitry is to, when second elements of the second updated control vector correspond to the same value as the value representative of the control vector, output the sum of (i) the third product and (ii) the sum of (a) the first product and (b) the second product as a dot product result.
+22. A non-transitory computer readable storage medium comprising instructions which, when executed, cause a machine to at least: generate a mask vector based on a first logic AND operation of a difference vector and an inverse of a control vector, the control vector corresponding to a second logic AND operation of (a) a first bitmap of a first sparse vector and (b) a second bitmap of a second sparse vector, the difference vector corresponding to a value representative of a difference between the control vector and one; generate a first product of a first value from the first sparse vector and a second value from the second sparse vector; and add the first product to a second product of a previous iteration.
+23. The computer readable storage medium of claim 22, wherein: the first value of the first sparse vector is based on a second result of a third logic AND operation on (a) the first bitmap and (b) the mask vector, and the second value of the second sparse vector is based on a third result of a fourth logic AND operation on (a) the second bitmap and (b) the mask vector.
+24. The computer readable storage medium of claim 23, wherein the instructions cause the machine to: determine a first number of binary values in the second result, the first value based on a first address corresponding to the first number of binary values; and determine a second number of binary values in the third result, the second value based on a second address corresponding to the second number of binary values.
+25. The computer readable storage medium of claim 22, wherein: the first bitmap is to identify whether a first element of a first vector corresponds to a zero value or a non-zero value, and, the second bitmap is to identify whether a second element of a second vector corresponds to a zero value or a non-zero value; and the first sparse vector corresponds to non-zero values of a first dense vector, and, the second sparse vector corresponds to non-zero values of a second dense vector, the instructions to cause the machine to generate the mask vector to (a) include a number of first binary values in the least significant bits of the first vector and (b) generate the mask vector to have the same dimensions as the first vector, the number of the first binary values represented by a trailing binary count corresponding to the mask vector.
+26. The computer readable storage medium of claim 22, wherein the instructions cause the machine to generate the control vector based on the first logic AND operation with the first bitmap and the second bitmap as inputs.
+27. The computer readable storage medium of claim 22, wherein the instructions cause the machine to: generate the difference vector by subtracting one from the value representative of the control vector; generate an updated control vector corresponding to a third logic AND operation on the control vector and the difference vector; and determine if elements of the update control vector correspond to a same value as the value representative of the control vector.
+28. The computer readable storage medium of claim 27, wherein the instructions cause the machine to output a sum of the first product and the second product as a dot product result when the elements of the updated control vector correspond to the same value as the value representative of the control vector.
+29. The computer readable storage medium of claim 27, wherein the difference vector is a first difference vector, the mask vector is a first mask vector, and, the instructions to cause the machine to, when the elements of the updated control vector do not correspond to the same value as the value representative of the control vector: generate a second mask vector based on a second difference vector and the updated control vector; multiply a third value of the first sparse vector and a fourth value of the second sparse vector to generate a third product; and sum (i) the third product and (ii) the sum of (a) the first product and (b) the second product.
+30. The computer readable storage medium of claim 29, wherein the difference vector is a first difference vector, the updated control vector is a first updated control vector, and the elements are first elements, and the instructions to cause the machine to: generate a second difference vector by subtracting one from the value representative of the updated control vector; and generate a second updated control vector corresponding to a fourth logic AND operation on the updated control vector and the second difference vector; and when second elements of the second updated control vector correspond to the same value as the value representative of the control vector, output the sum of (i) the third product and (ii) the sum of (a) the first product and (b) the second product as a dot product result.
+</claims>
+</document>

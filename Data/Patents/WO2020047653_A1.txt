@@ -1,0 +1,77 @@
+<document>
+
+<filing_date>
+2019-08-30
+</filing_date>
+
+<publication_date>
+2020-03-12
+</publication_date>
+
+<priority_date>
+2018-09-05
+</priority_date>
+
+<ipc_classes>
+A62D3/02,B09B3/00,C02F11/04,C02F3/28,C05F5/00,C05F7/00,C05F9/02,C12M1/00,C12M1/36,C12P5/02,C12Q3/00,G05B17/02
+</ipc_classes>
+
+<assignee>
+WENTECH SOLUTIONS
+</assignee>
+
+<inventors>
+ALLAF-AKBARI, AMIR
+KENT, KENNETH BLAIR
+MOTASEMI, FAROUGH
+NASARTSCHUK, KONSTANTIN
+SHIELL, KEVIN JOHN
+</inventors>
+
+<docdb_family_id>
+69641301
+</docdb_family_id>
+
+<title>
+SYSTEM AND METHOD FOR ANAEROBIC DIGESTION PROCESS ASSESSMENT, OPTIMIZATION AND/OR CONTROL
+</title>
+
+<abstract>
+Systems and methods are described for performing at least one of assessing, optimizing and/or controlling the performance of an Anaerobic Digestion (AD) plant. The system comprises a server that provides a user interface for allowing a user to enter user inputs to define various aspects of the AD plant operation and to view results of the simulation; a database for storing the inputs used for the simulation of the anaerobic digestion plant, the inputs including feedstock inputs, AD operational inputs, and simulation criteria; and a simulation engine that can be operated in an at least one of an off-line simulation mode for generating off-line simulator predictions, a near-line simulation mode for optimizing the performance of the system and an online mode for using machine learning to tune the performance of various models used in simulating the operation of the AD plant.
+</abstract>
+
+<claims>
+1. A system for performing at least one of assessing, optimizing and/or controlling the performance of an Anaerobic Digestion (AD) plant, wherein the system comprises:
+a user interface for allowing a user to enter user inputs to define various aspects of the AD plant operation and to view results of the simulation;
+a database for storing inputs used for the simulation of the anaerobic digestion plant, the inputs including feedstock inputs, AD operational inputs, and simulation criteria; and
+a server that controls the operation of the system and generates the user interface, the server being configured to operate a simulation engine in an off-line simulation mode for generating off-line simulator predictions of the AD plant for assessing the performance of the AD plant, the simulation engine being configured to:
+generate a biochemical methane potential (BMP) for the AD plant by using a feedstock model and the feedstock inputs; and generate estimates of biomethane, electricity, and thermal production of the AD plant for a simulated time interval by using an AD operational model and the AD operational inputs, the feedstock inputs and the overall BMP ,
+where the off-line simulator predictions indicate the operational performance of the AD plant and include the overall BMP, and the estimates of biomethane, electrical and thermal production of the AD plant.
+2. The system of claim 1 , wherein the feedstock model includes at least one steady state equation for determining an overall BMP or the feedstock model includes at least one transient sub-model for determining a cumulative methane yield.
+3. The system of claim 2, wherein the at least one steady state equation determines at least one of a first BMP value due to chemical oxygen demand, a second BMP value due to elemental composition (EC) and a third BMP value due to organic fraction composition, wherein the BMP values are averaged when more than one BMP value is determined.
+4. The system of claim 2, wherein the at least one transient sub-model for determining a cumulative methane yield include at least one of a first order kinetic model, a Chen and Hashimoto model, a Modified Gompertz model, and a dual pooled first order kinetic model, wherein outputs of the sub-models are averaged when at least two sub-models are used to determine the cumulative methane yield.
+5. The system of any one of claims 1 to 4, wherein the AD operational model is used to generate estimates of biomethane, electricity, bio-fertilizer and thermal production of the AD plant by using BMP models, a digester equation, a biofertilizer equation and a digestate equation based on volume of inflows and outflows of a digester of the AD plant and mass balance equations.
+6. The system of any one of claims 1 to 5, wherein the database further comprises optimization criteria and the simulation engine is further configured to operate the simulation engine in a near-line simulation mode for determining an optimal operating point to optimize the performance of the AD plant with respect to at least one optimization goal, the optimal operating point, one or more recipes and AD plant operational settings.
+7. The system of claim 6, wherein the simulation engine uses a sensitivity analysis and optimization model for performing optimization where the sensitivity analysis and optimization model includes a set of N input variables that have an influence for achieving the at least one optimization goal, an operating value for each input variable determined from the off-line simulation and a range over which the input variables are varied to define an Ndimensional mesh where the actual optimal operating point is a global maximum or a global minimum of the N-dimensional mesh corresponding to the at least one optimization goal.
+8. The system of claim 7, wherein the at least optimization goal comprises maximizing biogas production, maximizing electricity production, minimizing greenhouse gas emissions, and minimizing feedstock leftover or a weighted combination of those options. 9. The system of claim 7 or claim 8, wherein the simulation engine is configured to iteratively generate a set of operating points along the mesh until the optimal operating point is found, which is one of the operating points that is closest to the actual optimal operating point or an operating point that is closest to the at least one optimization goal when an optimization time limit is reached. 10. The system of claim 9, wherein the simulation engine is configured to use a genetic algorithm to randomly generate a first set of operating points, apply a fitness function to the set of operating points to obtain a set of results, determine a probability score for each result to indicate how likely each corresponding operating point is to being nearest to the actual optimal operating point; select a subset of the operating points that have a higher probability score, cross-mutate the selected operating points to generate a new set of operating points and repeat the applying, determining, selecting and crossmutating steps until one of the optimal operating point is found that is closest to the actual optimal operating point or the operating point with the best result is found when optimization time limit is reached.
+1 1. The system of claim 9 or claim 10, wherein the optimal operating point is sent to a plant controller that controls the operation of the AD plant, where the optimal operating point includes a recipe and operational plant settings for a given time interval of the simulation. 12. The system of any one of claims 6 to 11 , wherein the simulation engine is further configured to operate in an online simulation mode where a machine learning model is used to simulate the operation of the AD plant to generate online simulator predictions, compare the online simulator predictions to actual results from the AD plant to determine a simulation error and adjust the machine learning model, the models used for near-line simulation and the values of some of the input variables to improve simulation performance when the simulation error is larger than an error threshold.
+13. The system of claim 12, wherein the simulation engine is configured to perform the off-line and near-line simulations before the next online simulation in order to provide the online simulator with an updated optimal operating point for online simulation.
+14. The system of claim 1 1 , wherein the simulation engine is further configured to operate in an online simulation mode where a machine learning model is used to simulate the operation of the AD plant to generate online simulator predictions, to compare the online simulator predictions to actual results from the AD plant and to send the plant controller subsequent recipes for the optimal operation of the AD plant for subsequent time intervals.
+15. A method for performing at least one of assessing, optimizing and/or controlling the performance of an Anaerobic Digestion (AD) plant, wherein the method comprises:
+using a server to provide a user interface for allowing a user to enter user inputs to define various aspects of the AD plant operation and to view results of the simulation;
+storing inputs in a database where the inputs are used for the simulation of the anaerobic digestion plant, the inputs including feedstock inputs, AD operational inputs, and simulation criteria; and
+using the server to generate the user interface and operate a simulation engine in an off-line simulation mode for generating off-line simulator predictions of the AD plant for assessing the performance of the AD plant by:
+using a feedstock model for receiving the feedstock inputs and generating an overall biochemical methane potential (BMP) for the AD plant; and
+using an AD operational model for receiving the AD operational inputs, the feedstock inputs and the overall
+BMP and generating estimates of biomethane, electricity, and thermal production of the AD plant for a simulated time interval,
+where the off-line simulator predictions indicate the operational performance of the AD plant and include the overall BMP, and the estimates of biomethane, electrical and thermal production of the AD plant.
+16. The method of claim 15, wherein the method comprises using at least one steady state equation for determining an overall BMP or using at least one transient sub-model for determining a cumulative methane yield. 17. The method of claim 15, wherein the method further comprises determining at least one of a first BMP value due to chemical oxygen demand, a second BMP value due to elemental composition (EC) and a third BMP value due to organic fraction composition, wherein the BMP values are averaged when more than one BMP value is determined. 18. The method of claim 15, wherein the method comprises determining a the cumulative methane yield by using at least one of a first order kinetic model, a Chen and Hashimoto model, a Modified Gompertz model, and a dual pooled first order kinetic model, wherein outputs of the sub-models are averaged when at least two sub-models are used to determine the cumulative methane yield. 19. The method of any one of claims 15 to 18, wherein the method further comprises using the AD operational model to generate the estimates of biomethane, electricity, bio-fertilizer and thermal production of the AD plant by using BMP models, a digester equation, a biofertilizer equation and a digestate equation based on volume of inflows and outflows of a digester of the AD plant and mass balance equations.
+20. The method of any one of claims 15 to 19, wherein the database further comprises optimization criteria and the method comprises operating the simulation engine in a near-line simulation mode for determining an optimal operating point to optimize the performance of the AD plant with respect to at least one optimization goal, the optimal operating point, one or more recipes and AD plant operational settings.
+21. The method of claim 20, wherein the method further comprises using a sensitivity analysis and optimization model during optimization where the sensitivity analysis and optimization model includes a set of N input variables that have an influence for achieving the at least one optimization goal, an operating value for each input variable determined from the off-line simulation and a range over which the input variables are varied to define an Ndimensional mesh where the actual optimal operating point is a global maximum or a global minimum of the N-dimensional mesh corresponding to the at least one optimization goal.
+22. The method of claim 21 , wherein the method comprises operating the simulation engine for iteratively generating a set of operating points along the mesh until the optimal operating point is found which is one of the operating points that is closest to the actual optimal operating point or an operating point that is closest to the at least one optimization goal when an optimization time limit is reached.
+23. The method of claim 22, wherein the method comprises operating the simulation engine for using a genetic algorithm to randomly generate a first set of operating points, applying a fitness function to the set of operating points to obtain a set of results, determining a probability score for each result to indicate how likely each corresponding operating point is to being nearest to the actual optimal operating point; selecting a subset of the operating points that have a higher probability score, cross-mutating the selected operating points to generate a new set of operating points and repeating the applying, determining, selecting and cross-mutating until one of the optimal operating point is found that is closest to the actual optimal operating point or is the operating point with the best result is found when optimization time limit is reached.
+24. The method of claim 21 or claim 22, wherein the method comprises sending the optimal operating point to a plant controller that controls the operation of the AD plant, where the optimal operating point includes a recipe and operational plant settings for a given time interval of the simulation. 25. The method of any one of claims 20 to 24, wherein the method comprises operating the simulation engine in an online simulation mode where a machine learning model is used for simulating the operation of the AD plant to generate online simulator predictions, the online simulator predictions are compared to actual results from the AD plant to determine a simulation error and adjusting the machine learning model, the models used for near-line simulation and the values of some of the input variables to improve simulation performance when the simulation error is larger than an error threshold.
+26. The method of claim 25, wherein the method comprises operating the simulation engine for performing the off-line and near-line simulations before the next online simulation in order to provide the online simulator with an updated optimal operating point for online simulation.
+27. The method of claim 24, wherein the method comprises operating the simulation engine in an online simulation mode where a machine learning model is used for simulating the operation of the AD plant to generate online simulator predictions, comparing the online simulator predictions to actual results from the AD plant and sending the plant controller subsequent recipes for the optimal operation of the AD plant for subsequent time intervals.
+</claims>
+</document>

@@ -1,0 +1,64 @@
+<document>
+
+<filing_date>
+2017-03-03
+</filing_date>
+
+<publication_date>
+2020-12-15
+</publication_date>
+
+<priority_date>
+2017-03-03
+</priority_date>
+
+<ipc_classes>
+G06F16/23,G06F16/2455,G06F16/2457,G06F16/28,G06F17/30,G06N20/00,G06N20/10,G06N3/02,G06N99/00
+</ipc_classes>
+
+<assignee>
+HONG KONG APPLIED SCIENCE AND TECHNOLOGY RESEARCH INSTITUTE COMPANY
+</assignee>
+
+<inventors>
+FENG, CHAO
+GAN, ZHENGMAIRUO
+LEI, ZHI BIN
+LIU, YANG
+XIANG, YI
+</inventors>
+
+<docdb_family_id>
+63355164
+</docdb_family_id>
+
+<title>
+Efficient annotation of large sample group
+</title>
+
+<abstract>
+A method for annotating a batch of original samples is provided. A first subset of original samples, selected from the batch and determined by minimizing an entropy-mean difference between the first subset and the batch, is used for human annotation to yield human-annotated samples. The human-annotated samples are used as training data to configure an annotation process for annotating an input sample to yield an annotated output sample, and a check process for verifying annotation accuracy of the annotated output sample. Remaining original samples in the hatch are processed by the annotation process to yield machine-annotated samples, whose accuracy is verified by the check process. In one embodiment, part of the original samples corresponding to erroneous machine-annotated samples are selected for human annotation. Resultant additional human-annotated samples are used to update the two processes. The remaining original samples not yet annotated are then processed by the two processes.
+</abstract>
+
+<claims>
+1. A computer-implemented method for annotating a batch of original samples, comprising: selecting a first subset of original samples from the batch for human annotation to yield human-annotated samples, wherein the first subset is determined by optimizing the first subset in a sense of minimizing a difference between an entropy mean of the first subset and an entropy mean of the batch, and wherein an entropy mean of a set of original samples is computed by averaging entropy values of respective original samples belonging to said set; after the human-annotated samples are obtained, removing the original samples belonging to the selected first subset from the batch; using the human-annotated samples as training data to configure an annotation process for annotating an input sample to yield an annotated output sample, whereby the annotation process after configuration is used for annotating any original sample remaining in the batch; using the human-annotated samples as training data to configure a check process for verifying annotation accuracy of the annotated output sample; performing an annotate-and-check process on an individual original sample remaining in the batch, wherein the annotate-and-check process comprises: annotating the individual original sample remaining in the batch by the annotation process to yield an individual machine-annotated sample; verifying annotation accuracy of the individual machine-annotated sample by the check process; and if the individual machine-annotated sample is verified to be accurate in annotation, then removing the individual original sample from the batch, else discarding the individual machine-annotated sample; if the batch is not empty after the annotate-and-check process is performed, performing an update process, wherein the update process comprises: selecting a second subset of original samples from the batch for human annotation to yield additional human-annotated samples; using the additional human-annotated samples as additional training data to update the annotation process and the check process; and after the additional human-annotated samples are obtained, removing the original samples belonging to the selected second subset from the batch; and if the batch is not empty after the update process is performed, repeating the annotate-and-check process.
+2. The method of claim 1, wherein each of the first and second subsets is a third subset of original samples selected from the batch, the third subset being determined by a selection process comprising: selecting a candidate subset of original samples from the batch; computing the entropy mean of the candidate subset; and iteratively improving the candidate subset in a direction of minimizing a difference between the entropy mean of the candidate subset and the entropy mean of the batch, whereby the third subset is given by the candidate subset after a number of iterations.
+3. The method of claim 1, wherein each of the first and second subsets is a third subset of original samples selected from the batch, the third subset being determined by a selection process comprising: selecting plural candidate subsets of original samples from the batch; computing the entropy mean of each candidate subset; and selecting, among all the candidate subsets, the candidate subset having the entropy mean closest to the entropy mean of the batch to be the third subset.
+4. The method of claim 1, wherein the annotation process uses a machine-learning algorithm selected from a named-entity recognition (NER) classifier, a support vector machine (SVM) classifier and a neural network.
+5. The method of claim 1, wherein the check process uses a machine-learning algorithm selected from a named-entity recognition (NER) classifier, a support vector machine (SVM) classifier and a neural network.
+6. The method of claim 1, wherein the check process uses an algorithm based on regular expressions.
+7. The method of claim 1, wherein the annotation process and the check process use a same threshold-based machine-learning algorithm but employ different thresholds.
+8. A computer-implemented method for annotating a group of original samples, comprising: clustering the original samples in the group so as to partition the group into one or more clusters of original samples; and annotating each cluster of original samples according to the method of claim 1.
+9. The method of claim 8, wherein K-mean clustering is used in the clustering of the original samples in the group.
+10. The method of claim 8, wherein: each original sample in the group is provided with pre-annotation data; the method further comprises forming a data structure for an individual original sample in the group by including the individual original sample and the pre-annotation data thereof, whereby a plurality of data structures for all the original samples in the group is obtained; and K-mean clustering of the plurality of data structures is performed in the clustering of the original samples in the group.
+11. The method of claim 8, wherein: in the annotating of an individual cluster of original samples, a number of the original samples in the first subset is a pre-determined fraction of a number of the original samples in the individual cluster; and the pre-determined fraction is unique for all the clusters.
+12. A computer-implemented method for annotating a batch of original samples, comprising: selecting a first subset of original samples from the batch for human annotation to yield human-annotated samples, wherein the first subset is determined by optimizing the first subset in a sense of minimizing a difference between an entropy mean of the first subset and an entropy mean of the batch, and wherein an entropy mean of a set of original samples is computed by averaging entropy values of respective original samples belonging to said set; after the human-annotated samples are obtained, removing the original samples belonging to the selected first subset from the batch; using the human-annotated samples as training data to configure an annotation process for annotating an input sample to yield an annotated output sample, whereby the annotation process after configuration is used for annotating any original sample remaining in the batch; using the human-annotated samples as training data to configure a check process for verifying annotation accuracy of the annotated output sample; performing an annotate-and-check process on an individual original sample remaining in the batch, wherein the annotate-and-check process comprises the steps of: (a) annotating the individual original sample remaining in the batch by the annotation process to yield an individual machine-annotated sample; (b) verifying annotation accuracy of the individual machine-annotated sample by the check process, whereby a verification result for the individual original sample is generated, the verification result including the individual original sample, the individual machine-annotated sample, and an indication of whether the individual machine-annotated sample is accurate; (c) if the individual machine-annotated sample is verified to be accurate in annotation, then removing the individual original sample from the batch, else discarding the individual machine-annotated sample; and (d) repeating the steps (a)-(c) for each original sample in the batch, whereby one or more verification results are obtained; and if the batch is not empty after the annotate-and-check process is performed, performing an update process and then repeating the annotate-and-check process, wherein the update process comprises: selecting all or part of the one or more of the verification results as additional training data to update the annotation process and the check process.
+13. The method of claim 12, wherein the first subset of original samples is determined by a selection process comprising: selecting a candidate subset of original samples from the batch; computing the entropy mean of the candidate subset; and iteratively improving the candidate subset in a direction of minimizing a difference between the entropy mean of the candidate subset and the entropy mean of the batch, whereby the first subset is given by the candidate subset after a number of iterations.
+14. The method of claim 12, wherein the first subset of original samples is determined by a selection process comprising: selecting plural candidate subsets of original samples from the batch; computing the entropy mean of each candidate subset; and selecting, among all the candidate subsets, the candidate subset having the entropy mean closest to the entropy mean of the batch to be the first subset.
+15. A computer-implemented method for annotating a group of original samples, comprising: clustering the original samples in the group so as to partition the group into one or more clusters of original samples; and annotating each cluster of original samples according to the method of claim 12.
+16. The method of claim 15, wherein K-mean clustering is used in the clustering of the original samples in the group.
+17. The method of claim 15, wherein: each original sample in the group is provided with pre-annotation data; the method further comprises forming a data structure for an individual original sample in the group by including the individual original sample and the pre-annotation data thereof, whereby a plurality of data structures for all the original samples in the group is obtained; and K-mean clustering of the plurality of data structures is performed in the clustering of the original samples in the group.
+18. The method of claim 15, wherein: in the annotating of an individual cluster of original samples, the number of the original samples in the first subset is a pre-determined fraction of the number of the original samples in the individual cluster; and the pre-determined fraction is unique for all the clusters.
+19. The method of claim 12, further comprising: benchmarking quality of annotating the batch of original samples by processing the original samples belonging to the selected first subset with the annotate-and-check process and then checking the one or more verification results with the human-annotated samples.
+</claims>
+</document>
