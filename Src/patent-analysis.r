@@ -2,13 +2,31 @@ library(udpipe)
 library(tidyverse)
 library(ggplot2)
 
-udmodel <- udpipe_download_model(language = "english")
+list_patents <- list.files(path = "C:/Users/Pavilion/Desktop/Github/patent-analysis/Data/Patents",
+                           pattern = "\\.txt$",
+                           full.names = TRUE)
 
-list_of_files <- list.files(path = "C:/Users/Pavilion/Desktop/Github/patent-analysis/Patents",
-                            pattern = "\\.txt$",
-                            full.names = TRUE)
+#set how many patents we want to read (for time purposes)
+n_patents <- 10
+# Create an empty tibble, that will store all the information
+patents <- tibble(id = rep("", n_patents),
+                  title = rep("", n_patents),
+                  abstract = rep("", n_patents))
 
-x <- 12
-y <- 10
-z <- x + y
-print(z)
+for (i in 1:n_patents){
+    raw_text <- read_file(list_patents[[i]])
+    # id
+    patents[[i, 1]] <- str_remove_all(string = list_patents[[i]],
+                                      pattern = "C:/Users/Pavilion/Desktop/Github/patent-analysis/Data/Patents/|.txt")
+    # title
+    patents[[i, 2]] <- str_extract(string = raw_text,
+                                   pattern = "<title>\n(.*?)\n</title>") %>%
+    str_remove_all("<title>\n|\n</title>")
+
+    # abstract
+    patents[[i, 3]] <- str_extract(string = raw_text,
+                                   pattern = "<abstract>\n(.*?)\n</abstract>") %>%
+    str_remove_all("<abstract>\n|\n</abstract>")
+    }
+
+head(patents)
