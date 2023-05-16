@@ -30,23 +30,15 @@ for (i in 1:n_patents){
     }
 }
 
-# ud_model <- udpipe_download_model(language = "english")
-# ud_model <- udpipe_load_model(ud_model$file_model)
-# patents_tagged <- udpipe_annotate(ud_model,
-#                                   x = patents$abstract,
-#                                   doc_id = patents$id) %>%
-# as_tibble()
+ud_model <- udpipe_download_model(language = "english")
+ud_model <- udpipe_load_model(ud_model$file_model)
+patents_tagged <- udpipe_annotate(ud_model,
+                                  x = patents$abstract,
+                                  doc_id = patents$id) %>%
+as.data.frame()
 
-# patents_tagged %>%
-# count(upos) %>%
-# ggplot(aes(x = reorder(upos, n), y = n)) +
-# geom_bar(stat = "identity") +
-# coord_flip()
-
-# patents_tagged %>%
-# filter(upos == "NOUN") %>%
-# count(token) %>%
-# filter(n > 25) %>%
-# ggplot(aes(x = reorder(token, n), y = n)) +
-# geom_bar(stat = "identity") +
-# coord_flip()
+patents_tagged %>%
+count(upos) %>%
+ggplot(aes(x = reorder(upos, n), y = n)) +
+geom_bar(stat = "identity") +
+coord_flip()
