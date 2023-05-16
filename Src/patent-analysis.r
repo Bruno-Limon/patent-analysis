@@ -11,7 +11,7 @@ n_patents <- 10
 col_names <- c("id", "filing_date", "publication_date", "ipc_classes",
                "assignee", "inventors", "title", "abstract", "claims")
 
-# Create an empty tibble, that will store all the information
+# Create an empty dataframe, that will store all the information
 patents <- data.frame(matrix(nrow = n_patents, ncol = length(col_names)))
 colnames(patents) <- col_names
 
@@ -37,6 +37,7 @@ patents_tagged <- udpipe_annotate(ud_model,
                                   doc_id = patents$id) %>%
 as.data.frame()
 
+# asdasdasd
 patents_tagged %>%
 count(upos) %>%
 ggplot(aes(x = reorder(upos, n), y = n)) +
