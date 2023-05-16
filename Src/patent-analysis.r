@@ -31,6 +31,20 @@ for (i in 1:n_patents){
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ud_model <- udpipe_download_model(language = "english")
 ud_model <- udpipe_load_model(ud_model$file_model)
 patents_tagged <- udpipe_annotate(ud_model,
