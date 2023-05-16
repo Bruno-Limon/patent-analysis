@@ -7,13 +7,14 @@ list_patents <- list.files(path = "C:/Users/Pavilion/Desktop/Github/patent-analy
                            full.names = TRUE)
 
 #set how many patents we want to read (for time purposes)
-n_patents <- 10
+n_patents <- 5
 col_names <- c("id", "filing_date", "publication_date", "ipc_classes",
                "assignee", "inventors", "title", "abstract", "claims")
 
 # Create an empty dataframe, that will store all the information
 patents <- data.frame(matrix(nrow = n_patents, ncol = length(col_names)))
 colnames(patents) <- col_names
+
 
 for (i in 1:n_patents){
     raw_text <- read_file(list_patents[[i]])
@@ -22,10 +23,10 @@ for (i in 1:n_patents){
                                       pattern = "C:/Users/Pavilion/Desktop/Github/patent-analysis/Data/Patents/|.txt")
 
     for (j in 2:length(col_names)){
-        patents[[i, j]] <- str_extract(string = raw_text,
-                                       pattern = paste0("<", col_names[j],
-                                                        ">\n(.*?)\n</",
-                                                        col_names[j], ">")) %>%
+        patents[[i, j]] <- str_extract_all(string = raw_text,
+                                           pattern = paste0("<", col_names[j],
+                                                            ">([^*]+)</",
+                                                            col_names[j], ">")) %>%
         str_remove_all(paste0("<", col_names[j], ">\n|\n</", col_names[j], ">"))
     }
 }
